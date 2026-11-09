@@ -219,6 +219,10 @@ Son güncelleme: 2026-11-09. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
   - Önceden buluta yalnız Ayarlar düğmesiyle yazılıyordu, buluttan okuma hiç çağrılmıyordu. Şimdi girişten sonra bulut okunur, ilerideyse geri yüklenir (haritada); sonra her kazanımda ve arka plana geçişte yüklenir. Okumadan önce yazılmaz.
   - Dosyalar: `Save/CloudSync.cs` (yeni), `SaveService.Replace`, `GameController.Account.cs`, `CreateDaily` (geri yüklemeden sonra günlük hizmet yeniden bağlanır), metin `acct.restored` (9 dil).
   - Testler: EditMode 197/197, PlayMode 56/57 (+1 atlanan; 50 bölümlük örneklem), yeni `CloudSyncTests` (3) ve GameFlow bulut testleri (2) geçti; loc-check temiz. Gerçek Game Center/Firestore ile telefonda denenmedi; TestFlight'taki yapı 9 bu değişikliği içermiyor.
+- Mağaza ekran görüntüleri ve iPad yerleşimi (2026-11-09 akşam; kararlar KARARLAR.md, yükleme adımları v13/MAGAZA_METINLERI.md):
+  - iPad'de arayüz taşıyordu (genişliğe eşleme). Geniş ekranda artık yüksekliğe eşlenir, ortada telefon genişliğinde sütun (`UI/UiAspect.cs`; SafeAreaFitter, HudView tahta alanı, kamera, CanvasScaler'lar, yakalama aracı). Telefonda değişiklik yok.
+  - 72 görsel üretildi: 2 cihaz × 6 dil × 6 ekran, `docs/magaza/` (git dışında, ~160 MB; ham çekimler `docs/magaza/ham/`). Görsel olarak kontrol edildi; App Store Connect'e yüklenmedi.
+  - Testler: EditMode 197/197, PlayMode 56/57 (+1 atlanan; 50 bölümlük örneklem). Gerçek iPad'de denenmedi.
   - Yakalamalar: `docs/ui3_uygulama` 01, 15, 42–45 (tr) ve ar/de/ja.
   - Tam test (2026-11-09 sabah): CoreTests 197/197, EditMode 197/197, PlayMode 51/52 (+1 atlanan; 1000 bölümün hepsi gerçek kontrolcüyle, 56 dk), LevelLab report 1000/1000, stress 60 1000/1000 (60.000 oyun), loc-check ve bölüm doğrulama temiz. Cihazda denenmedi.
   - App Store Connect girişleri: `docs/v13/MAGAZA_METINLERI.md` sonu.

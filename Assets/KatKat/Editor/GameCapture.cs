@@ -674,6 +674,7 @@ namespace KatKat.EditorTools
         private static void Shot(string file, int w, int h, Rect? safe, Action<GameController> act)
         {
             SafeAreaFitter.NormalizedOverride = safe ?? new Rect(0f, 0f, 1f, 1f);
+            UiAspect.Override = (float)w / h; // iPad: tuval yüksekliğe eşlenir, güvenli alan ortada sütun
             var camGo = new GameObject("CaptureCam");
             var cam = camGo.AddComponent<Camera>();
             cam.clearFlags = CameraClearFlags.SolidColor;
@@ -690,8 +691,9 @@ namespace KatKat.EditorTools
             // Örnek ilerleme: menü ekranlarında kilitli/tamamlanmış durumlar görünsün.
             for (int i = 0; i < 6; i++) gc.SaveService.MarkCompleted(gc.Catalog.Levels[i].Id, i, gc.Catalog.Count);
             // Oynatma dışında CanvasScaler çalışmaz; aynı ölçeği elle ver (genişliğe eşleme).
-            gc.Hud.Canvas.scaleFactor = w / HudView.RefWidth;
-            gc.Menu.Canvas.scaleFactor = w / HudView.RefWidth;
+            gc.Hud.Canvas.scaleFactor = UiAspect.ScaleFactor(w, h);
+            gc.Menu.Canvas.scaleFactor = UiAspect.ScaleFactor(w, h);
+            foreach (var sc in root.GetComponentsInChildren<Canvas>(true)) if (sc.isRootCanvas && sc != gc.Hud.Canvas && sc != gc.Menu.Canvas) sc.scaleFactor = UiAspect.ScaleFactor(w, h);
             gc.Hud.ApplySafeArea();
             gc.Menu.ApplySafeArea();
             act(gc);
@@ -714,6 +716,7 @@ namespace KatKat.EditorTools
             UnityEngine.Object.DestroyImmediate(rt);
             UnityEngine.Object.DestroyImmediate(root);
             UnityEngine.Object.DestroyImmediate(camGo);
+            UiAspect.Override = null;
             foreach (var es in UnityEngine.Object.FindObjectsByType<UnityEngine.EventSystems.EventSystem>()) UnityEngine.Object.DestroyImmediate(es.gameObject);
         }
     }

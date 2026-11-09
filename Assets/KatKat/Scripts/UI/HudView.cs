@@ -312,7 +312,7 @@ namespace KatKat.UI
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(RefWidth, RefHeight);
             scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-            scaler.matchWidthOrHeight = 0f;
+            scaler.matchWidthOrHeight = KatKat.UI.UiAspect.Match; // iPad: yüksekliğe eşleme (UiAspect)
             gameObject.AddComponent<GraphicRaycaster>();
 
             if (EventSystem.current == null)
@@ -1090,16 +1090,18 @@ namespace KatKat.UI
 
         public Rect BoardWorldRect(Camera cam)
         {
-            float refH = RefWidth / (cam.aspect > 0f ? cam.aspect : 9f / 16f);
-            var n = SafeAreaFitter.CurrentNormalized();
-            float left = n.xMin * RefWidth + 16f, right = n.xMax * RefWidth - 16f;
+            // Geniş ekranda (iPad) tuval yüksekliğe eşlenir; referans boyut UiAspect'ten.
+            var canvasRef = UiAspect.CanvasRef(cam.aspect);
+            float refH = canvasRef.y, refW = canvasRef.x;
+            var n = UiAspect.Column(SafeAreaFitter.CurrentNormalizedRaw(), cam.aspect);
+            float left = n.xMin * refW + 16f, right = n.xMax * refW - 16f;
             // Hedef kartı ile tahta arasında bilgi şeridine yer (kullanıcı 2026-11-09: "tahtanın üst kısmında çıkartalım").
             float bottom = n.yMin * refH + _boardBottom, top = n.yMax * refH - (GoalsBottom + _headShift + ToastGap + ToastH + 6f);
             float k = cam.orthographicSize * 2f / refH;
             WorldPerRef = k;
             var c = cam.transform.position;
-            return Rect.MinMaxRect((left - RefWidth * 0.5f) * k + c.x, (bottom - refH * 0.5f) * k + c.y,
-                (right - RefWidth * 0.5f) * k + c.x, (top - refH * 0.5f) * k + c.y);
+            return Rect.MinMaxRect((left - refW * 0.5f) * k + c.x, (bottom - refH * 0.5f) * k + c.y,
+                (right - refW * 0.5f) * k + c.x, (top - refH * 0.5f) * k + c.y);
         }
 
         // ---- Kartlar ------------------------------------------------------------------------------

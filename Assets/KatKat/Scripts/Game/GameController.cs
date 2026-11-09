@@ -228,7 +228,8 @@ namespace KatKat.Game
         private void FitCamera()
         {
             float aspect = _cam.aspect > 0f ? _cam.aspect : 9f / 16f;
-            float refHeight = HudView.RefWidth / aspect;
+            // Telefonda genişlik 1080 birim; geniş ekranda (iPad) yükseklik 1920 birim (UiAspect).
+            float refHeight = UiAspect.CanvasRef(aspect).y;
             _cam.orthographicSize = refHeight / 200f;
             _screen = new Vector2Int(Screen.width, Screen.height);
             _backdrop.Fit(_cam);

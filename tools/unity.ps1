@@ -66,6 +66,7 @@ switch ($Command) {
     'capture-ui1'     { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureV13Pages.RunUi1') 'capture-ui1' }
     'capture-ui2'     { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureV13Pages.RunUi2') 'capture-ui2' }
     'capture-ui3'     { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureV13Pages.RunUi3') 'capture-ui3' }
+    'capture-store'   { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureStore.Run') 'capture-store' }
     'usage-ui3'       { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureV13Pages.UsageUi3') 'usage-ui3' }
     'trailer-frames'  { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.TrailerCapture.Run') 'trailer-frames' }
     'capture-v7'      { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureV7.Run') 'capture-v7' }

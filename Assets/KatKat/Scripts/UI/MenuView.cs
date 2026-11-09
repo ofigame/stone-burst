@@ -54,7 +54,7 @@ namespace KatKat.UI
             var scaler = go.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(HudView.RefWidth, HudView.RefHeight);
-            scaler.matchWidthOrHeight = 0f;
+            scaler.matchWidthOrHeight = KatKat.UI.UiAspect.Match; // iPad: yüksekliğe eşleme (UiAspect)
             go.AddComponent<GraphicRaycaster>();
             var under = UiFactory.Image("Ground", go.transform, null, UiArt.Ivory);
             under.raycastTarget = true;
@@ -904,7 +904,7 @@ namespace KatKat.UI
             // Açılış konumu: mevcut bölüm (ya da istenen bölgenin başı) görünüm alanının ortasında.
             Canvas.ForceUpdateCanvases();
             m.ViewH = viewport.rect.height > 1f ? viewport.rect.height
-                : (HudView.RefWidth / Mathf.Max(0.3f, Screen.width > 0 ? (float)Screen.width / Screen.height : 9f / 16f)) - 500f;
+                : UiAspect.CanvasRef(UiAspect.Current).y - 500f;
             float focusY = ThemeDefinition.RegionOf(current) == focusRegion ? NodePos(current).y : NodePos(focusRegion * ThemeDefinition.RegionSize).y;
             SetScroll(focusY - m.ViewH * 0.5f);
             scroll.onValueChanged.AddListener(_ => UpdateMap());

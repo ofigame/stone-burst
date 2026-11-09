@@ -79,7 +79,7 @@ namespace KatKat.Game
             var scaler = go.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1080f, 1920f);
-            scaler.matchWidthOrHeight = 0f;
+            scaler.matchWidthOrHeight = KatKat.UI.UiAspect.Match; // iPad: yüksekliğe eşleme (UiAspect)
             var bg = new GameObject("Bg", typeof(RectTransform)).AddComponent<Image>();
             bg.transform.SetParent(go.transform, false);
             bg.color = Color.white;

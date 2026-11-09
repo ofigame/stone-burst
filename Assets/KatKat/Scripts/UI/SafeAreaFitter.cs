@@ -16,7 +16,12 @@ namespace KatKat.UI
         private void Update() => Apply(false);
 
         /// <summary>Geçerli güvenli alan, ekranın 0..1 oranı olarak.</summary>
-        public static Rect CurrentNormalized()
+        public static Rect CurrentNormalized() => UiAspect.Column(RawNormalized(), UiAspect.Current);
+
+        /// <summary>Cihaz güvenli alanı (sütun kesimi olmadan).</summary>
+        public static Rect CurrentNormalizedRaw() => RawNormalized();
+
+        private static Rect RawNormalized()
         {
             if (NormalizedOverride.HasValue) return NormalizedOverride.Value;
             if (Screen.width <= 0 || Screen.height <= 0) return new Rect(0f, 0f, 1f, 1f);

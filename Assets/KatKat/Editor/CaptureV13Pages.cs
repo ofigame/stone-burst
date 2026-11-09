@@ -155,7 +155,7 @@ namespace KatKat.EditorTools
         private static void CallMenu(GameController gc, string method, int arg) =>
             typeof(MenuView).GetMethod(method, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public, null, new[] { typeof(int) }, null)?.Invoke(gc.Menu, new object[] { arg });
 
-        private static void PlayToWin(GameController gc)
+        internal static void PlayToWin(GameController gc)
         {
             gc.Board.Director.TimeScale = 50f;
             foreach (var step in gc.CurrentLevel.Solution) { gc.PlayStep(step); Drain(gc); }
@@ -235,7 +235,7 @@ namespace KatKat.EditorTools
         }
 
         /// <summary>Bölüm 218'de tepsiye <paramref name="kind"/> koyup ortadaki seçilebilir taşta ateşler; efekti <paramref name="ms"/> ilerletir.</summary>
-        private static void FireSpecial(GameController gc, SpecialKind kind, float ms, int fx = -1, int fy = -1)
+        internal static void FireSpecial(GameController gc, SpecialKind kind, float ms, int fx = -1, int fy = -1)
         {
             gc.StartLevel(218);
             gc.Hud.HideRuleCard(false);
@@ -272,16 +272,16 @@ namespace KatKat.EditorTools
             gc.SaveService.Data.meta.heartsStamp = now - (Hearts.RegenSeconds - left);
         }
 
-        private static void Call(GameController gc, string method) =>
+        internal static void Call(GameController gc, string method) =>
             typeof(GameController).GetMethod(method, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public, null, Type.EmptyTypes, null)?.Invoke(gc, null);
 
         /// <summary>Sonuç kartlarının giriş animasyonunu sona ilerletir (editörde Update çalışmaz).</summary>
-        private static void Panels(GameController gc)
+        internal static void Panels(GameController gc)
         {
             foreach (var p in gc.Hud.GetComponentsInChildren<ResultPanel>(true)) p.Advance(5000f);
         }
 
-        private static void Progress(GameController gc, int n)
+        internal static void Progress(GameController gc, int n)
         {
             var d = gc.SaveService.Data;
             d.completed.Clear(); d.starIds.Clear(); d.starCounts.Clear(); d.highestUnlocked = 0;
@@ -296,10 +296,10 @@ namespace KatKat.EditorTools
                 Zpe.Add(d.meta, new ZpeRecord { levelId = gc.Catalog.IdAt(i), success = true, firstAttempt = i % 3 != 0, movesUsed = 5 + i % 4, moveLimit = 10, seconds = 30 });
         }
 
-        private static void Own(GameController gc) =>
+        internal static void Own(GameController gc) =>
             CollectionRules.GrantUnlocked(gc.SaveService.Data.meta, gc.Stones, gc.SaveService.Data.IsCompleted);
 
-        private static void Drain(GameController gc)
+        internal static void Drain(GameController gc)
         {
             for (int k = 0; k < 600 && (gc.CurrentPhase == GameController.Phase.Animating || gc.IsCelebrating); k++)
             { gc.Board.Advance(16f); gc.Board.Director.Advance(16f); }
@@ -316,7 +316,7 @@ namespace KatKat.EditorTools
             Drain(gc);
         }
 
-        private static void WinLevel(GameController gc, int index)
+        internal static void WinLevel(GameController gc, int index)
         {
             gc.StartLevel(index);
             gc.Board.Director.TimeScale = 50f;

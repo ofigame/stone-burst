@@ -63,7 +63,7 @@ namespace KatKat.UI
             var scaler = gameObject.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(HudView.RefWidth, HudView.RefHeight);
-            scaler.matchWidthOrHeight = 0f;
+            scaler.matchWidthOrHeight = KatKat.UI.UiAspect.Match; // iPad: yüksekliğe eşleme (UiAspect)
             gameObject.AddComponent<GraphicRaycaster>();
             _root = UiFactory.Stretch(UiFactory.Rect("Root", transform));
             _root.gameObject.SetActive(false);
