@@ -230,3 +230,8 @@ Son güncelleme: 2026-11-09. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
   - Yakalamalar: `docs/ui3_uygulama` 01, 15, 42–45 (tr) ve ar/de/ja.
   - Tam test (2026-11-09 sabah): CoreTests 197/197, EditMode 197/197, PlayMode 51/52 (+1 atlanan; 1000 bölümün hepsi gerçek kontrolcüyle, 56 dk), LevelLab report 1000/1000, stress 60 1000/1000 (60.000 oyun), loc-check ve bölüm doğrulama temiz. Cihazda denenmedi.
   - App Store Connect girişleri: `docs/v13/MAGAZA_METINLERI.md` sonu.
+- App Store gönderimi (2026-11-09 gece; kullanıcı: "TestFlight'a gidince yayınla ve incelemeye gönder", sonra "sabah hallederiz"):
+  - Yapıldı: Notes (`docs/v13/APP_REVIEW_NOTES.md`) ve "onaydan sonra otomatik yayınla" kaydedildi, sayfa yenilenince doğrulandı; iletişim bilgilerini kullanıcı girdi.
+  - Kalan (kullanıcı beyanı; Claude'un tıklaması güvenlik denetimince engellendi): Content Rights (Yes + rights), Age Ratings (yalnız Advertising = Yes), App Privacy (Game Center kimliği/adı ve oyun içeriği kimliğe bağlı; Analytics ürün etkileşimi, AdMob reklam verisi/cihaz kimliği kimliğe bağlı değil; gizlilik URL'si), en sonda Add for Review → Submit.
+  - Risk: oyunda ATT penceresi yok; Info.plist'te NSUserTrackingUsageDescription varsa Apple sorabilir.
+  - Run 11 (599198e, Analytics + puan isteği + yapı no düzeltmesi) derleniyor; bitince yapı 1.0'a bağlanacak.
