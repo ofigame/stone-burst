@@ -38,11 +38,11 @@ namespace KatKat.Game.Ads
                 ConsentForm.LoadAndShowConsentFormIfRequired(formError =>
                 {
                     if (formError != null) Debug.LogWarning("[KatKat] Rıza formu: " + formError.Message);
-                    if (ConsentInformation.CanRequestAds()) Start();
+                    if (ConsentInformation.CanRequestAds()) TrackingThenStart();
                 });
             });
             // Önceki oturumdan rıza varsa formu beklemeden başla.
-            if (ConsentInformation.CanRequestAds()) Start();
+            if (ConsentInformation.CanRequestAds()) TrackingThenStart();
         }
 
         private void Start()
@@ -51,6 +51,66 @@ namespace KatKat.Game.Ads
             _started = true;
             MobileAds.Initialize(_ => { LoadRewarded(); LoadInterstitial(); });
         }
+
+        // ---- App Tracking Transparency (iOS; 2026-11-09) ----------------------------------------------------------
+        // Info.plist'te NSUserTrackingUsageDescription var (AdMob eklentisi ekler); Apple bu durumda izin penceresinin
+        // gösterilmesini ister (App Store Connect gizlilik sayfası uyarısı). Pencere reklam SDK'sı başlamadan önce
+        // istenir; cevap ne olursa olsun reklamlar başlar (reddedilirse kişiselleştirilmemiş reklam).
+        private static AdMobNetwork _trackingOwner;
+        private bool _trackingAsked;
+        private int _trackingTries;
+
+        private void TrackingThenStart()
+        {
+#if UNITY_IOS
+            if (_started || _trackingAsked) return;
+            _trackingAsked = true;
+            _trackingOwner = this;
+            KatKat_RequestTracking(OnTracking);
+#else
+            Start();
+#endif
+        }
+
+#if UNITY_IOS
+        [System.Runtime.InteropServices.DllImport("__Internal")]
+        private static extern void KatKat_RequestTracking(TrackingCallback cb);
+
+        private delegate void TrackingCallback(int status);
+
+        [AOT.MonoPInvokeCallback(typeof(TrackingCallback))]
+        private static void OnTracking(int status)
+        {
+            var net = _trackingOwner;
+            if (net == null) return;
+            // 0 = belirlenmedi: uygulama henüz etkin değilken istenirse sistem pencere göstermeden döner; bir kez daha dene.
+            if (status == 0 && net._trackingTries++ < 1)
+            {
+                Delay.Run(1.0f, () => KatKat_RequestTracking(OnTracking));
+                return;
+            }
+            Debug.Log("[KatKat] ATT durumu: " + status);
+            net.Start();
+        }
+
+        /// <summary>Kısa gecikme (MonoBehaviour gerektirmeyen yardımcı).</summary>
+        private sealed class Delay : MonoBehaviour
+        {
+            public static void Run(float seconds, Action act)
+            {
+                var go = new GameObject("KatKatDelay");
+                DontDestroyOnLoad(go);
+                go.AddComponent<Delay>().StartCoroutine(Wait(go, seconds, act));
+            }
+
+            private static System.Collections.IEnumerator Wait(GameObject go, float s, Action act)
+            {
+                yield return new WaitForSecondsRealtime(s);
+                act?.Invoke();
+                Destroy(go);
+            }
+        }
+#endif
 
         /// <summary>Ayarlar → "Gizlilik seçenekleri" (AB'de zorunlu düğme). Gerekmiyorsa false.</summary>
         public static bool PrivacyOptionsRequired =>

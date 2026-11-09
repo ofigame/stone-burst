@@ -39,6 +39,9 @@ namespace KatKat.EditorTools
             var proj = new PBXProject();
             proj.ReadFromFile(projPath);
             string main = proj.GetUnityMainTargetGuid();
+            // ATT (2026-11-09): KatKatNative.mm izin penceresini ister; çerçeve UnityFramework hedefine zayıf bağlanır.
+            proj.AddFrameworkToProject(proj.GetUnityFrameworkTargetGuid(), "AppTrackingTransparency.framework", true);
+            proj.WriteToFile(projPath);
             var caps = new ProjectCapabilityManager(projPath, "StoneBurst.entitlements", null, main);
             caps.AddGameCenter();
             caps.WriteToFile();
