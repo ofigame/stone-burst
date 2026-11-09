@@ -80,7 +80,12 @@ jobs:
           done
       - name: CocoaPods (AdMob ve Firebase bağımlılıkları)
         run: |
-          if [ -f xcode/Podfile ]; then cd xcode && pod install --repo-update; fi
+          # Run 6: UnityAds.zip indirmesi geçici 504 verdi; 3 deneme.
+          if [ -f xcode/Podfile ]; then
+            cd xcode
+            for i in 1 2 3; do pod install --repo-update && exit 0; echo "pod install başarısız ($i), yeniden deneniyor"; sleep 30; done
+            exit 1
+          fi
       - name: İmza sertifikası
         uses: apple-actions/import-codesign-certs@v3
         with:
