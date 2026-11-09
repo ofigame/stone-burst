@@ -31,6 +31,9 @@ namespace KatKat.EditorTools
         // iPad 13" üstte 24 pt durum çubuğu, altta 20 pt ev çubuğu (×2).
         private static readonly Device IPhone = new Device { Name = "iphone", W = 1206, H = 2622, Safe = Safe(2622, 186, 102) };
         private static readonly Device IPad = new Device { Name = "ipad", W = 2064, H = 2752, Safe = Safe(2752, 48, 40), Pad = true };
+        // Google Play telefon (2026-11-10): en/boy en çok 2:1 olmalı (iPhone 1206×2622 kabul edilmez); 1080×1920, üstte
+        // 24 dp durum çubuğu (×3), altta hareket çubuğu 16 dp (×3).
+        private static readonly Device Android = new Device { Name = "android", W = 1080, H = 1920, Safe = Safe(1920, 72, 48) };
 
         private static Rect Safe(int h, int top, int bottom) => new Rect(0f, bottom / (float)h, 1f, (h - top - bottom) / (float)h);
 
@@ -63,7 +66,7 @@ namespace KatKat.EditorTools
             {
                 foreach (var dn in devices)
                 {
-                    var dev = dn.Trim() == "ipad" ? IPad : IPhone;
+                    var dev = dn.Trim() == "ipad" ? IPad : dn.Trim() == "android" ? Android : IPhone;
                     foreach (var l in langs)
                     {
                         string lang = l.Trim();

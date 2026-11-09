@@ -43,3 +43,8 @@ Tarih: 2026-11-10. Kullanıcı: "play store hazırlığımızı da yapalım". Ka
   - **Kapalı test şartı VAR:** üretime başvurmadan önce en az 12 test kullanıcısıyla en az 14 gün kapalı test. "Doğrudan üretim" kararı bu yüzden: kurulum → kapalı test (12+ kişi, 14 gün) → üretim başvurusu.
   - Hesap uyarısı: satıcı statüsü Şubat 2027'ye kadar beyan edilmeli (kullanıcı).
   - Kurulum görevleri: gizlilik politikası, oturum açma bilgileri (uygulama erişimi), reklam, içerik derecelendirme, hedef kitle, veri güvenliği, resmi kurum / finans / sağlık beyanları, kategori ve iletişim, mağaza girişi. Ardından kapalı test kanalı, ülkeler, test kullanıcıları, sürüm.
+- 2026-11-10 Play Console (Claude girdi, taslak kaydedildi):
+  - Gizlilik politikası URL'si; Oturum açma bilgileri: kısıtlı bölüm yok; Kategori: Oyun → Bulmaca; İletişim: info@ofigame.com, https://ofigame.com (foi ile aynı).
+  - Mağaza girişi 6 dil (en-US varsayılan, de-DE, tr-TR, es-ES, ar, ja-JP): ad (iOS'takiyle aynı), kısa açıklama (yeni, ≤80), uzun açıklama (iOS metinleri).
+  - Görseller: ikon 512 (`docs/magaza/play/icon-512.png`), tanıtım görseli 1024×500 (`feature-1024x500.png`), en-US telefon ekran görüntüleri 1080×1920 (`docs/magaza/android/en`, sıra 03,02,01,05,04,06). Diğer diller şimdilik İngilizce görselleri miras alıyor; yerelleştirilmiş Android görselleri `docs/magaza/android/(dil)` hazır.
+  - Kullanıcının beyanları (Claude'un tıklaması engellendi): Reklam (Evet), İçerik derecelendirme (IARC), Hedef kitle, Veri güvenliği, Resmi kurum / Finans / Sağlık.
