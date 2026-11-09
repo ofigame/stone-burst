@@ -235,3 +235,7 @@ Son güncelleme: 2026-11-09. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
   - Kalan (kullanıcı beyanı; Claude'un tıklaması güvenlik denetimince engellendi): Content Rights (Yes + rights), Age Ratings (yalnız Advertising = Yes), App Privacy (Game Center kimliği/adı ve oyun içeriği kimliğe bağlı; Analytics ürün etkileşimi, AdMob reklam verisi/cihaz kimliği kimliğe bağlı değil; gizlilik URL'si), en sonda Add for Review → Submit.
   - Risk: oyunda ATT penceresi yok; Info.plist'te NSUserTrackingUsageDescription varsa Apple sorabilir.
   - Run 11 (599198e, Analytics + puan isteği + yapı no düzeltmesi) derleniyor; bitince yapı 1.0'a bağlanacak.
+- Gece sonu (2026-11-10 00:30 civarı):
+  - Run 11 (599198e) ve run 12 (bf77ffb, ATT penceresi) TestFlight'a yüklendi; yapı numaraları 11 ve 12 doğru. İkisi de iç test grubunda ("sb"), telefonda TestFlight'tan kurulabilir. Cihazda denenmedi.
+  - Sürüm 1.0'a yapı 12 bağlandı (yenileme sonrası doğrulandı). Gizlilik politikası adresi girildi. İçerik hakları ve yaş derecelendirmesi kullanıcı tarafından doldurulmuş.
+  - Kalan (kullanıcı): App Privacy formu (reklam verisi/cihaz kimliği izleme amaçlı; Game Center kimliği/adı ve oyun içeriği kimliğe bağlı; Analytics ürün etkileşimi kimliğe bağlı değil) → Publish; sonra Add for Review → Submit. Onaydan sonra otomatik yayın seçili.
