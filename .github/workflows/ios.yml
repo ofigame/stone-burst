@@ -1,7 +1,7 @@
 # Stone Burst iOS derlemesi (kullanıcı, 2026-11-09: "githuba bağlayacağız orada derlenecek").
 # 1) Linux: Unity Xcode projesini çıkarır (GameCI).  2) macOS: Xcode derler, imzalar, TestFlight'a yükler.
 # Gizli anahtarlar (Settings → Secrets and variables → Actions) docs/v13/IOS_PLANI.md §4'te.
-# ÇALIŞTIRILMADI: depo henüz GitHub'da değil.
+# Run 1: yol hatası; run 2: Unity aşaması geçti, Xcode 16.4 Firebase SPM paketlerini çözemedi → macos-26 + Xcode 26.
 name: iOS
 
 on:
@@ -60,9 +60,15 @@ jobs:
   ipa:
     name: Xcode → IPA (TestFlight)
     needs: xcode
-    runs-on: macos-15
+    # Firebase iOS SDK 13 Swift araç sürümü 6.2 istiyor (Xcode 26+); macos-15'teki Xcode 16.4 paketleri çözemedi (run 2).
+    runs-on: macos-26
     timeout-minutes: 90
     steps:
+      - name: Xcode 26 seç
+        run: |
+          x=$(ls -d /Applications/Xcode_26*.app | grep -v -i beta | sort -V | tail -1)
+          if [ -z "$x" ]; then x=$(ls -d /Applications/Xcode_26*.app | sort -V | tail -1); fi
+          echo "Xcode: $x"; sudo xcode-select -s "$x"; xcodebuild -version
       - uses: actions/checkout@v4
         with:
           sparse-checkout: tools/ios
