@@ -39,3 +39,7 @@ Tarih: 2026-11-10. Kullanıcı: "play store hazırlığımızı da yapalım". Ka
 - `BuildScripts.BuildAndroidStore` (menü: Kat Kat/Build/Android Play Store (AAB)): imzalı AAB, `KATKAT_ANDROID_VERSION_CODE`; komut `tools/unity.ps1 build-android-store`.
 - Hedef API 36 (`ProjectSetup`).
 - İmzalı AAB denendi (sürüm kodu 1, yüklenmedi): `Builds/Android/StoneBurst-1.0.0-1.aab` 302 MB; içinde veri paketi 3 doku biçimiyle (varsayılan/ETC2/ASTC, her biri ~78 MB) — Play cihaza birini gönderir, cihaz başına indirme ≈110 MB. İmza SHA-1 yükleme anahtarıyla eşleşiyor. Derleme sonrası imza ayarları ProjectSettings'ten temizleniyor (toplu modda çıkış temizlikten sonra).
+- 2026-11-10: **Play Console'da uygulama oluşturuldu** (kullanıcı onayı; beyanları kullanıcı işaretledi): "Stone Burst: Puzzle Game", `com.ofigame.stoneburst`, oyun, ücretsiz, varsayılan dil en-US. Uygulama kimliği 4972081418673444833, geliştirici hesabı "ofigame" (kişisel, 8462007382825876941).
+  - **Kapalı test şartı VAR:** üretime başvurmadan önce en az 12 test kullanıcısıyla en az 14 gün kapalı test. "Doğrudan üretim" kararı bu yüzden: kurulum → kapalı test (12+ kişi, 14 gün) → üretim başvurusu.
+  - Hesap uyarısı: satıcı statüsü Şubat 2027'ye kadar beyan edilmeli (kullanıcı).
+  - Kurulum görevleri: gizlilik politikası, oturum açma bilgileri (uygulama erişimi), reklam, içerik derecelendirme, hedef kitle, veri güvenliği, resmi kurum / finans / sağlık beyanları, kategori ve iletişim, mağaza girişi. Ardından kapalı test kanalı, ülkeler, test kullanıcıları, sürüm.
