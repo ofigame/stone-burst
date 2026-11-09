@@ -75,9 +75,17 @@ namespace KatKat.UI
                     start = false;
                 }
                 else if (words && c[i] == ' ') start = true;
+                else if (c[i] == '-' && Loc.Current != null && Loc.Current.Code == "de") start = true; // "Gratis-Versuch"
             }
-            return new string(c);
+            var r = new string(c);
+            // Almanca adlar büyük harfle yazılır (2026-11-09 dil incelemesi: "Keine züge mehr" hatalıydı).
+            if (Loc.Current != null && Loc.Current.Code == "de")
+                foreach (var n in GermanNouns)
+                    r = System.Text.RegularExpressions.Regex.Replace(r, "\\b" + n.ToLower(Loc.Culture) + "\\b", n);
+            return r;
         }
+
+        private static readonly string[] GermanNouns = { "Züge", "Versuch", "Level", "Neustart", "Pause", "Testwerbung", "Rang", "Ladefehler", "Start" };
 
         /// <summary>Hap biçimli (düğme, kapsül, satır): uçlar yüksekliğe oturur.</summary>
         public static Image Pill(string name, Transform parent, string key, float height)

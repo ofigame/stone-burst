@@ -1,6 +1,6 @@
-# TriKat — Durum
+# Stone Burst (eski adı TriKat) — Durum
 
-Son güncelleme: 2026-11-06. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
+Son güncelleme: 2026-11-09. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
 
 ## Şu an
 
@@ -201,3 +201,11 @@ Son güncelleme: 2026-11-06. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
 - Reklam (2026-11-09): AdMob iOS uygulaması, ödüllü + geçiş birimleri, GDPR ve IDFA mesajları yayında; Unity Ads uygulaması ve placement'ları; AdMob uyumlulaştırma grupları (teklif sistemi: AdMob + Unity Ads). Oyunda iOS gerçek kimlikler, Unity Ads adaptörü 3.22.0. Ayrıntı `docs/v13/YAYIN_EKSIKLERI.md`. Cihazda denenmedi; cihaz kodu henüz derlenmedi.
 - Firebase (2026-11-09): proje `stone-burst` (eur3), Game Center girişi, Firestore kuralları ve ülke dizini yayında. Oyunda Firebase 14.1.0 paketleri (`Packages/firebase`), `KATKAT_ONLINE` yalnız iOS. iOS Xcode dışa aktarımı derleniyor (Firebase SPM, AdMob/Unity Ads CocoaPods). Cihazda denenmedi.
 - GitHub (2026-11-09): depo https://github.com/ofigame/stone-burst (public, ofigame hesabı), ilk commit `39e422e`. 11 Actions gizli anahtarı girildi (kullanıcı). İlk iOS iş akışı çalıştırıldı (TestFlight yüklemesi kapalı): https://github.com/ofigame/stone-burst/actions/runs/42548932970 — sonucu henüz bilinmiyor.
+- Oyun içi düzeltmeler ve dil denetimi (2026-11-09 sabah, kullanıcı isteği):
+  - Geri al / durdur düğmelerinin simgesi basınca kaybolmuyor (`PressFeedback` yalnız basılı görsel varsa değiştiriyor). PlayMode testi `HudRoundButtons_KeepIconSpriteAfterPress` geçti.
+  - İpucu göstergesi belirgin: altın çift çerçeve, nabız halkası, parıltı ve zıplayan ok (`TapHint` güçlü kip).
+  - Bilgi şeridi hedef taşlarla tahta arasında; yazı sarılıp küçülüyor, tahta şeride yer ayırıyor.
+  - Dil yakalamaları 9 dilde (`docs/ui3_uygulama/diller/<dil>/`, `KATKAT_CAPTURE_LANG`). Arapça: şekillendirilmemiş metinler, bozulan renk etiketleri, Ellipsis yüzünden boş görünen etiketler ve ayarlar dil etiketi düzeltildi. Almanca: ad büyük harfi ("Keine Züge mehr", "Gratis-Versuch"). Günlük kart satırları panel kenarına dayanıyordu (de, es); daraltıldı.
+  - 90. bölüm: kayıtlı 13 adımlık çözüm kazanıyor; bot 200 oyunda 10 kazandı (%5). Geçilebilir ama çok zor; kolaylaştırma kararı kullanıcıda.
+  - Testler: EditMode 194/194, PlayMode 50/51 (+1 atlanan). Cihazda denenmedi.
+  - CI: `-customBuildPath` düzeltmesiyle iOS iş akışının Unity aşaması geçti (run 2).

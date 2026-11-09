@@ -129,8 +129,8 @@ namespace KatKat.UI
                 tick.preserveAspect = true;
                 UiFactory.Place(tick.rectTransform, new Vector2(0.5f, 1f), new Vector2(-30f, ly), new Vector2(46f, 46f));
                 var lt = Ui1.Label("Line", c, line, 42, Ui1.Navy, true, TextAnchor.MiddleLeft);
-                UiFactory.Place(lt.rectTransform, new Vector2(0.5f, 1f), new Vector2(205f, ly), new Vector2(410f, 110f));
-                lt.enableAutoSizing = true; lt.fontSizeMax = 42; lt.fontSizeMin = 28;
+                UiFactory.Place(lt.rectTransform, new Vector2(0.5f, 1f), new Vector2(182f, ly), new Vector2(364f, 110f)); // panel iç kenarında 40 px pay (de: satırlar kenara dayanıyordu)
+                lt.enableAutoSizing = true; lt.fontSizeMax = 42; lt.fontSizeMin = 24;
                 ly -= 116f;
             }
             if (lines.Count > 0 && lines[0] == status) c.Find("Line").name = "Status"; // test/okunurluk adı

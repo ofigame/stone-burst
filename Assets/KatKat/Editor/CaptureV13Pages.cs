@@ -99,7 +99,7 @@ namespace KatKat.EditorTools
         }
         private static string[] _only;
 
-        /// <summary>Yakalama dili (2026-11-09 dil denetimi): KATKAT_CAPTURE_LANG (ör. "ar"); yoksa tr. Dilli çıktı docs/ui3_uygulama/diller/        private static string[] _only;lt;dil        private static string[] _only;gt;/.</summary>
+        /// <summary>Yakalama dili (2026-11-09 dil denetimi): KATKAT_CAPTURE_LANG (ör. "ar"); yoksa tr. Dilli çıktı docs/ui3_uygulama/diller/(dil)/.</summary>
         private static string CapLang => string.IsNullOrEmpty(Environment.GetEnvironmentVariable("KATKAT_CAPTURE_LANG")) ? "tr" : Environment.GetEnvironmentVariable("KATKAT_CAPTURE_LANG");
 
         private static void Extras()
