@@ -225,7 +225,7 @@ Son güncelleme: 2026-11-09. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
   - Testler: EditMode 197/197, PlayMode 56/57 (+1 atlanan; 50 bölümlük örneklem). Gerçek iPad'de denenmedi.
 - Firebase Analytics ve puan isteği (2026-11-09 gece; kararlar KARARLAR.md):
   - Paket `com.google.firebase.analytics` 14.1.0 (Packages/firebase), GoogleService-Info.plist IS_ANALYTICS_ENABLED true. Olaylar ve puan isteği kodlandı; testler EditMode 199/199, PlayMode 57/58 (+1 atlanan; 50 bölümlük örneklem). Cihazda denenmedi.
-  - Firebase konsolunda Google Analytics henüz bağlanmadı (kullanıcı onayı bekleniyor); bağlanmadan olaylar konsola düşmez.
+  - Firebase konsolunda Google Analytics bağlandı (2026-11-09, kullanıcı onayı "Evet, bağla"): "Default Account for Firebase" hesabında yeni mülk, entegrasyonlar sayfasında Enabled. AdMob/Google Ads bağlantısı yapılmadı. Olaylar Firebase → Analytics → Events altında görünür (ilk veriler birkaç saat gecikir; anlık için DebugView).
   - iOS run 10 (a796c2c): IPA derlendi, TestFlight yüklemesi "bundle version 1 zaten var" diye reddedildi; iş akışına derleme numarası düzeltmesi eklendi.
   - Yakalamalar: `docs/ui3_uygulama` 01, 15, 42–45 (tr) ve ar/de/ja.
   - Tam test (2026-11-09 sabah): CoreTests 197/197, EditMode 197/197, PlayMode 51/52 (+1 atlanan; 1000 bölümün hepsi gerçek kontrolcüyle, 56 dk), LevelLab report 1000/1000, stress 60 1000/1000 (60.000 oyun), loc-check ve bölüm doğrulama temiz. Cihazda denenmedi.
