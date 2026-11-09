@@ -49,8 +49,8 @@ namespace KatKat.EditorTools
 
         public const string IconPath = "Assets/KatKat/Art/app-icon.png";
 
-        /// <summary>Uygulama ikonu (2026-11-08): docs/gorseller/arayuz/uygulama-ikonu-yeni.png (taş yığını, mavi ışın zemin, 1024).
-        /// Android uyarlanabilir: app-icon-bg = ışınlar + güvenli bölgede %68 ikon, app-icon-fg = saydam.</summary>
+        /// <summary>Uygulama ikonu (2026-11-10, 1.0.1 için): docs/gorseller/arayuz/uygulama-ikonu-yeni_v2.png (patlayan kırmızı katmanlı taş yığını, mavi ışın zemin; 1024). Önceki ikon arşivde: KatKat_Arsiv_2026-11-06/ikon_1.0_2026-11-10.
+        /// Android uyarlanabilir: app-icon-bg = yeni görselin renkleriyle çizilmiş ışınlar + güvenli bölgede %68 ikon (kenarı yumuşak), app-icon-fg = saydam.</summary>
         private static Texture2D IconTex(string path)
         {
             var imp = AssetImporter.GetAtPath(path) as TextureImporter;
