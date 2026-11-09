@@ -13,7 +13,7 @@ namespace KatKat.EditorTools
 {
     /// <summary>
     /// App Store ekran görüntüleri (kullanıcı, 2026-11-09: "mağaza için ekran görüntüleri", "iPad de olsun").
-    /// 1) Ham çekim: iPhone 6,9" 1320×2868 ve iPad 13" 2064×2752, gerçek oyun ekranı, cihaz güvenli alanıyla
+    /// 1) Ham çekim: iPhone 6,3" 1206×2622 ve iPad 13" 2064×2752, gerçek oyun ekranı, cihaz güvenli alanıyla
     ///    → docs/magaza/ham/(cihaz)/(dil)/NN_ad.png.
     /// 2) Mağaza görseli: degrade zemin, üstte o dilde başlık (oyunun fontu, Arapça şekillendirme), altta yuvarlak
     ///    köşeli ekran → docs/magaza/(cihaz)/(dil)/NN_ad.png (aynı boyut, RGB).
@@ -26,9 +26,10 @@ namespace KatKat.EditorTools
             public string Name; public int W, H; public Rect Safe; public bool Pad;
         }
 
-        // Güvenli alan (normalize, alttan): iPhone 6,9" üstte 62 pt ada, altta 34 pt ev çubuğu (×3);
+        // App Store Connect (2026) zorunlu iPhone alanı "Dynamic Island, orta ekran" 6,1"/6,3": 1206×2622.
+        // Güvenli alan (normalize, alttan): iPhone 6,3" üstte 62 pt ada, altta 34 pt ev çubuğu (×3);
         // iPad 13" üstte 24 pt durum çubuğu, altta 20 pt ev çubuğu (×2).
-        private static readonly Device IPhone = new Device { Name = "iphone", W = 1320, H = 2868, Safe = Safe(2868, 186, 102) };
+        private static readonly Device IPhone = new Device { Name = "iphone", W = 1206, H = 2622, Safe = Safe(2622, 186, 102) };
         private static readonly Device IPad = new Device { Name = "ipad", W = 2064, H = 2752, Safe = Safe(2752, 48, 40), Pad = true };
 
         private static Rect Safe(int h, int top, int bottom) => new Rect(0f, bottom / (float)h, 1f, (h - top - bottom) / (float)h);

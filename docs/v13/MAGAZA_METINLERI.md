@@ -71,7 +71,7 @@ Kalan işler:
 
 ## Ekran görüntüleri (2026-11-09)
 
-- Klasör: `docs/magaza/iphone/(dil)/` (1320×2868) ve `docs/magaza/ipad/(dil)/` (2064×2752); diller `en`, `tr`, `de`, `es`, `ar`, `ja`. Her dilde 6 görsel, sıra dosya adındaki numara: 01 oyun, 02 Altın Rulo, 03 harita, 04 zafer, 05 günlük bulmaca, 06 taş vitrini.
-- App Store Connect → sürüm 1.0 → dil seç → "Previews and Screenshots": iPhone 6.9" Display alanına `iphone/(dil)`, iPad 13" Display alanına `ipad/(dil)` görselleri sürüklenir. Spanish (Spain) için `es`.
+- Klasör: `docs/magaza/iphone/(dil)/` (1206×2622) ve `docs/magaza/ipad/(dil)/` (2064×2752); diller `en`, `tr`, `de`, `es`, `ar`, `ja`. Her dilde 6 görsel, sıra dosya adındaki numara: 01 oyun, 02 Altın Rulo, 03 harita, 04 zafer, 05 günlük bulmaca, 06 taş vitrini.
+- App Store Connect → sürüm 1.0 → dil seç → "Previews and Screenshots": "iPhone with Dynamic Island (medium display)" sekmesine `iphone/(dil)` (2026 arayüzünde zorunlu iPhone alanı 6,1"/6,3"; diğer iPhone boyutlarına otomatik ölçeklenir), "iPad 13\" display" sekmesine `ipad/(dil)` görselleri sürüklenir. Spanish (Spain) için `es`.
 - Yeniden üretmek: `tools/unity.ps1 capture-store` (ortam: `KATKAT_STORE_LANGS`, `KATKAT_STORE_DEVICES`, `KATKAT_STORE_ONLY`). Başlık metinleri `Editor/CaptureStore.cs` içinde.
 - Henüz yüklenmedi. Görseller iPad yerleşim düzeltmesini içeriyor; bu düzeltme TestFlight'taki yapı 9'da yok, yeni derlemeyle gelir.
