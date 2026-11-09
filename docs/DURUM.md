@@ -223,6 +223,10 @@ Son güncelleme: 2026-11-09. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
   - iPad'de arayüz taşıyordu (genişliğe eşleme). Geniş ekranda artık yüksekliğe eşlenir, ortada telefon genişliğinde sütun (`UI/UiAspect.cs`; SafeAreaFitter, HudView tahta alanı, kamera, CanvasScaler'lar, yakalama aracı). Telefonda değişiklik yok.
   - 72 görsel üretildi: 2 cihaz × 6 dil × 6 ekran, `docs/magaza/` (git dışında, ~160 MB; ham çekimler `docs/magaza/ham/`). Görsel olarak kontrol edildi. iPhone seti 1206×2622 olarak yeniden üretildi (App Store Connect zorunlu alanı). App Store Connect'e Chrome uzantısıyla yüklendi (72 görsel, her dil ve cihazda 6/6 doğrulandı).
   - Testler: EditMode 197/197, PlayMode 56/57 (+1 atlanan; 50 bölümlük örneklem). Gerçek iPad'de denenmedi.
+- Firebase Analytics ve puan isteği (2026-11-09 gece; kararlar KARARLAR.md):
+  - Paket `com.google.firebase.analytics` 14.1.0 (Packages/firebase), GoogleService-Info.plist IS_ANALYTICS_ENABLED true. Olaylar ve puan isteği kodlandı; testler EditMode 199/199, PlayMode 57/58 (+1 atlanan; 50 bölümlük örneklem). Cihazda denenmedi.
+  - Firebase konsolunda Google Analytics henüz bağlanmadı (kullanıcı onayı bekleniyor); bağlanmadan olaylar konsola düşmez.
+  - iOS run 10 (a796c2c): IPA derlendi, TestFlight yüklemesi "bundle version 1 zaten var" diye reddedildi; iş akışına derleme numarası düzeltmesi eklendi.
   - Yakalamalar: `docs/ui3_uygulama` 01, 15, 42–45 (tr) ve ar/de/ja.
   - Tam test (2026-11-09 sabah): CoreTests 197/197, EditMode 197/197, PlayMode 51/52 (+1 atlanan; 1000 bölümün hepsi gerçek kontrolcüyle, 56 dk), LevelLab report 1000/1000, stress 60 1000/1000 (60.000 oyun), loc-check ve bölüm doğrulama temiz. Cihazda denenmedi.
   - App Store Connect girişleri: `docs/v13/MAGAZA_METINLERI.md` sonu.

@@ -424,6 +424,59 @@ namespace KatKat.Tests
             finally { GameController.HeartClock = null; }
         }
 
+        [UnityTest]
+        public IEnumerator Analytics_LevelEvents_And_ReviewOnlyAfterHappyWin()
+        {
+            // 2026-11-09: oyun olayları (Firebase Analytics) ve uygulama içi puan isteği kuralları.
+            var sink = new RecordingAnalytics();
+            GameAnalytics.Sink = sink;
+            GameController.ReviewRequester = () => { };
+            GameController.ReviewRequestsForTest = 0;
+            const long now = 2_000_000_000L;
+            GameController.ReviewClock = () => now;
+            try
+            {
+                // Kayıp: level_end success=0.
+                _gc.StartLevel(3);
+                Assert.AreEqual(1, sink.Count("level_start"));
+                Assert.AreEqual(4, sink.Last("level_start")["level_number"]);
+                _gc.OnCellPressed(0, 0);
+                yield return WaitStable();
+                var next = LevelSolver.Moves(_gc.Session.State);
+                _gc.OnCellPressed(next[0].X, next[0].Y);
+                yield return WaitStable();
+                Assert.AreEqual(GameStatus.LostOutOfMoves, _gc.Session.State.Status);
+                Assert.AreEqual(0, sink.Last("level_end")["success"]);
+                Assert.AreEqual(4, sink.Last("level_end")["level_number"]);
+
+                // Kazanım: oyunu tanımış oyuncu (20 bölüm bitmiş), öğreticisiz bölüm 3.
+                for (int i = 0; i < 20; i++) _gc.SaveService.MarkCompleted(_gc.Catalog.IdAt(i), i, _gc.Catalog.Count);
+                _gc.StartLevel(2);
+                _gc.Board.Director.TimeScale = Speed;
+                foreach (var step in _gc.Catalog.Levels[2].Solution) { _gc.PlayStep(step); yield return WaitStable(); }
+                yield return WaitCelebration();
+                var end = sink.Last("level_end");
+                Assert.AreEqual(1, end["success"]);
+                Assert.AreEqual(3, end["level_number"]);
+                Assert.AreEqual("normal", end["kind"]);
+                bool happy = (int)end["stars"] >= 3 && (int)end["assists"] == 0;
+                Assert.AreEqual(0, GameController.ReviewRequestsForTest, "zafer kartı açıkken istenmez");
+                _gc.Hud.Panel.Skip();
+                _gc.Hud.Panel.Press(0);
+                yield return null;
+                Assert.AreEqual(happy ? 1 : 0, GameController.ReviewRequestsForTest, "yalnız yardımsız 3 yıldızda");
+                Assert.AreEqual(happy ? 1 : 0, sink.Count("review_prompt"));
+                Assert.AreEqual(happy ? 1 : 0, _gc.SaveService.Data.meta.reviewAsks);
+                Assert.IsTrue(sink.Properties.ContainsKey("highest_level"));
+            }
+            finally
+            {
+                GameAnalytics.Sink = null;
+                GameController.ReviewRequester = null;
+                GameController.ReviewClock = null;
+            }
+        }
+
         /// <summary>Bellekte bulut: giriş her zaman başarılı, kayıtlar sayılır.</summary>
         private sealed class FakeCloudAccount : IAccountService
         {

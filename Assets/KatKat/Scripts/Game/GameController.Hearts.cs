@@ -56,6 +56,7 @@ namespace KatKat.Game
         private bool HeartGate(int index, Action retry)
         {
             if (!Hearts.LevelUses(index) || HeartCount > 0) return true;
+            GameAnalytics.Log("hearts_empty", ("level_number", index + 1));
             ShowLevels();
             ShowHeartsCard(retry);
             return false;

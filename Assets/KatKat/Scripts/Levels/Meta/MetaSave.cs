@@ -39,6 +39,9 @@ namespace KatKat.Meta
         /// <summary>Kalp sistemi (2026-11-09): eksik kalp sayısı (0 = dolu) ve dolum sayacının başladığı an (Unix sn). Bkz. <see cref="Hearts"/>.</summary>
         public int heartsMissing;
         public long heartsStamp;
+        /// <summary>Uygulama içi puan isteği (2026-11-09): kaç kez istendi, son istek (Unix sn).</summary>
+        public int reviewAsks;
+        public long reviewLast;
 
         public void Sanitize()
         {
@@ -57,6 +60,8 @@ namespace KatKat.Meta
             if (dailyStars < 0) dailyStars = 0;
             if (heartsMissing < 0 || heartsMissing > Hearts.Max) heartsMissing = 0;
             if (heartsStamp < 0) heartsStamp = 0;
+            if (reviewAsks < 0) reviewAsks = 0;
+            if (reviewLast < 0) reviewLast = 0;
         }
     }
 

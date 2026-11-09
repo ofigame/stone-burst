@@ -44,6 +44,7 @@ namespace KatKat.Game
                 DailyKey = kind == SessionKind.Daily ? _daily?.State.Key : null,
                 Assists = bonus > 0 ? AssistFlags.DailyMoveBonus : AssistFlags.None,
             };
+            AnalyticsLevelStart();
         }
 
         private void OutcomeAssist(AssistFlags f)
@@ -62,6 +63,7 @@ namespace KatKat.Game
                 MoveBonus = o.MoveBonus, FirstAttempt = false, AttemptNumber = o.AttemptNumber + 1, DailyKey = o.DailyKey,
                 Assists = o.Assists & (AssistFlags.DailyMoveBonus | AssistFlags.Guidance),
             };
+            AnalyticsLevelStart();
         }
 
         /// <summary>Bu oturumun son ZPE kaydı (oturum yeniden açılırsa geri çekilir; çift sayım yok).</summary>
@@ -95,6 +97,7 @@ namespace KatKat.Game
             _outcome.Success = success;
             if (!Application.isBatchMode) Debug.Log("[KatKat] Oturum sonucu: " + _outcome);
             OutcomeRecorded?.Invoke(_outcome);
+            AnalyticsLevelEnd(success);
             ZpeRecordOutcome(_outcome);
         }
 

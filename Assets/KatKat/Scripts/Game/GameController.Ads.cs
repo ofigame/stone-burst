@@ -49,6 +49,7 @@ namespace KatKat.Game
                 Action<AdOutcome, string> wrapped = (o, t) =>
                 {
                     if (o == AdOutcome.Rewarded) _gc._interstitial?.RewardedShown(Time.realtimeSinceStartup);
+                    GameAnalytics.Log("ad_rewarded", ("placement", placement), ("outcome", o.ToString().ToLowerInvariant()));
                     done?.Invoke(o, t);
                 };
                 if (AdNetwork != null) AdNetwork.Show(placement, wrapped);
@@ -56,8 +57,9 @@ namespace KatKat.Game
                 else FakeAds.Show(placement, wrapped);
             }
 
-            public void ShowInterstitial(string placement, Action<bool> done)
+            public void ShowInterstitial(string placement, Action<bool> done0)
             {
+                Action<bool> done = shown => { GameAnalytics.Log("ad_interstitial", ("placement", placement), ("shown", shown ? 1 : 0)); done0?.Invoke(shown); };
                 if (AdNetwork != null) { AdNetwork.ShowInterstitial(placement, done); return; }
                 if (_gc.UseAdScreen) { _gc._adScreen.ShowInterstitial(placement, done); return; }
                 FakeInterstitialShown++;
@@ -196,6 +198,7 @@ namespace KatKat.Game
 
         private void AfterWinContinue(Action next)
         {
+            // Puan isteği geçiş reklamıyla aynı anda olmaz: reklam gösterilecekse o geçişte istenmez.
             int number = _levelIndex + 1;
             double now = Time.realtimeSinceStartup;
             if (_sessionKind == SessionKind.Normal && _interstitial != null && _interstitial.ShouldShow(number, now))
@@ -207,6 +210,7 @@ namespace KatKat.Game
                 });
                 return;
             }
+            MaybeRequestReview();
             next();
         }
     }

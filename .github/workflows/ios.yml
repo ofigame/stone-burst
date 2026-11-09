@@ -112,6 +112,10 @@ jobs:
               c.build_settings["PROVISIONING_PROFILE"] = ""
             end
             p.save'
+          # Run 10: GameCI ortam değişkenlerini Unity'ye aktarmadığı için Info.plist'te CFBundleVersion hep "1" kalıyordu;
+          # App Store Connect ikinci yüklemeyi "bundle version must be higher" diye reddetti. Numara burada yazılır.
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${{ github.run_number }}" xcode/Info.plist
+          /usr/libexec/PlistBuddy -c "Print :CFBundleVersion" xcode/Info.plist
           if [ -d xcode/Unity-iPhone.xcworkspace ]; then SRC="-workspace xcode/Unity-iPhone.xcworkspace"; else SRC="-project xcode/Unity-iPhone.xcodeproj"; fi
           xcodebuild $SRC -scheme Unity-iPhone -configuration Release \
             -archivePath "$RUNNER_TEMP/StoneBurst.xcarchive" -destination 'generic/platform=iOS' \
