@@ -197,6 +197,7 @@ namespace KatKat.Game
         public void ShowLevels()
         {
             HeartForfeit();
+            ApplyCloudRestore(); // bölüm sırasında gelen bulut kaydı haritaya dönünce uygulanır
             _bgPick = -1; // menüye dönüş: sonraki girişte zemin yeniden seçilir
             AbandonDailyIfOpen();
             _hud.HidePanel();
@@ -207,6 +208,7 @@ namespace KatKat.Game
             _menu.ShowLevels(_catalog.Count, ContinueIndex, i => _save.Data.IsCompleted(_catalog.IdAt(i)), ShowHome, -1, ShowSettings);
             _music.Enter();
             FlushStoneToasts(false);
+            CloudRetry();
         }
 
         private void ShowSettings()
@@ -884,6 +886,7 @@ namespace KatKat.Game
             TourOnWon();
             HeartOnWon();
             EndPlaceOffer();
+            CloudOnWon();
             // v10: normal bölüm ödül kartı ilk gösterilirken bir kez (yıldızlar ve kart yeniden çizimi tekrar çalmaz).
             _sound.PlayReward();
             Haptics.Medium();
@@ -991,6 +994,7 @@ namespace KatKat.Game
         {
             // Yarım soyulmuş katmanda kalmamak için animasyonu bitirip mantıksal son durumdan çiz.
             if (paused && CurrentPhase == Phase.Animating) _board.CompleteImmediately();
+            if (paused && _save != null) { _cloudDirty = true; CloudAutoSave(true); }
         }
     }
 }

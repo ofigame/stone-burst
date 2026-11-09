@@ -424,6 +424,76 @@ namespace KatKat.Tests
             finally { GameController.HeartClock = null; }
         }
 
+        /// <summary>Bellekte bulut: giriş her zaman başarılı, kayıtlar sayılır.</summary>
+        private sealed class FakeCloudAccount : IAccountService
+        {
+            public string Cloud;
+            public int Saves;
+            public AccountState State { get; private set; }
+            public string PlayerName => "Test";
+            public string PlayerId => "test";
+            public bool IsTest => true;
+            public void SignIn(bool silent, System.Action<bool> done) { State = AccountState.SignedIn; done?.Invoke(true); }
+            public void SaveProgress(string json, System.Action<bool> done) { Cloud = json; Saves++; done?.Invoke(true); }
+            public void LoadProgress(System.Action<bool, string> done) => done?.Invoke(true, Cloud);
+        }
+
+        [UnityTest]
+        public IEnumerator Cloud_AheadRestoresOnMap_NotMidLevel_NeverOverwritesBeforeCheck()
+        {
+            // 2026-11-09: yeni kurulumda buluttaki ilerleme geri gelir; boş yerel kayıt buluttakini ezmez.
+            var ahead = new KatKat.Save.SaveData { highestUnlocked = 30, sound = false };
+            for (int i = 0; i < 30; i++) { ahead.completed.Add(_gc.Catalog.IdAt(i)); ahead.starIds.Add(_gc.Catalog.IdAt(i)); ahead.starCounts.Add(3); }
+            var fake = new FakeCloudAccount { Cloud = JsonUtility.ToJson(ahead) };
+            _gc.SetAccountForTest(fake);
+            var local = _gc.SaveService.Data;
+            Assert.AreEqual(0, local.completed.Count);
+            Assert.IsTrue(local.sound);
+
+            // Bölüm oynanırken gelen bulut kaydı bekler; o sırada buluta yazılmaz.
+            _gc.StartLevel(0);
+            yield return null;
+            Assert.AreNotEqual(GameController.Phase.Loading, _gc.CurrentPhase);
+            _gc.CloudSignInForTest(null);
+            Assert.IsTrue(_gc.CloudChecked);
+            Assert.IsTrue(_gc.CloudRestorePending, "bölüm sırasında geri yükleme bekler");
+            Assert.AreEqual(0, _gc.SaveService.Data.completed.Count);
+            _gc.PauseForTest();
+            Assert.AreEqual(0, fake.Saves, "geride kalan yerel kayıt buluta yazılmadı");
+
+            // Haritaya dönünce uygulanır; ses ayarı cihazda kalır.
+            _gc.ShowLevels();
+            Assert.IsFalse(_gc.CloudRestorePending);
+            Assert.AreEqual(30, _gc.SaveService.Data.completed.Count);
+            Assert.AreEqual(30, _gc.SaveService.Data.highestUnlocked);
+            Assert.AreEqual(90, _gc.SaveService.Data.LevelStars);
+            Assert.IsTrue(_gc.SaveService.Data.sound, "ses ayarı yerelden");
+            Assert.AreEqual(0, fake.Saves);
+
+            // Arka plana geçince güncel kayıt buluta gider.
+            _gc.PauseForTest();
+            Assert.AreEqual(1, fake.Saves);
+            Assert.AreEqual(30, KatKat.Save.CloudSync.Parse(fake.Cloud).completed.Count);
+        }
+
+        [UnityTest]
+        public IEnumerator Cloud_BehindOrEmpty_LocalKept_UploadedAfterCheck()
+        {
+            var fake = new FakeCloudAccount();
+            _gc.SetAccountForTest(fake);
+            _gc.SaveService.Data.completed.Add(_gc.Catalog.IdAt(0));
+            _gc.SaveService.Data.highestUnlocked = 1;
+            _gc.PauseForTest();
+            Assert.AreEqual(0, fake.Saves, "giriş ve kontrol yokken yazılmaz");
+            _gc.ShowLevels();
+            yield return null;
+            _gc.CloudSignInForTest(null);
+            Assert.IsFalse(_gc.CloudRestorePending);
+            Assert.AreEqual(1, _gc.SaveService.Data.completed.Count);
+            Assert.AreEqual(1, fake.Saves, "kontrolden sonra yerel kayıt buluta gitti");
+            Assert.AreEqual(1, KatKat.Save.CloudSync.Parse(fake.Cloud).completed.Count);
+        }
+
         [UnityTest]
         public IEnumerator WrongChoice_LosesOutOfMoves_ThenUndoFromLossScreen()
         {

@@ -59,6 +59,12 @@ Veri kimlikleri (`Coral/Blue/Yellow/Purple`, `Rainbow`) eski adlarıyla kalır; 
 - Hamle bitince kayıp kartında, bölüm başına bir kez: reklam izlenirse +1 hamle ve tahtanın üstünde 4 taş (önce hedef renkleri). Oyuncu birini seçip bir yığının üstüne koyar; diğerleri kaybolur. Konan taş yeni üst katmandır, soyma tetiklemez; hamle harcamaz, geri alınmaz.
 - Geçiş reklamı yalnız zafer kartında Devam'da: ilk 10 bölümde yok, 4 bölümde bir, en az 4 dakika arayla, oturumda en çok 8.
 
+### İlerleme kaydı ve bulut (2026-11-09)
+
+- Cihazda: her önemli anda (bölüm kazanma, yıldız, kalp, ayar) kayıt dosyasına yazılır; iPhone yedeği bu dosyayı da alır.
+- Bulut (Game Center / Play Games girişiyle, Firestore `saves/{uid}`): açılıştaki girişten sonra önce buluttaki kayıt okunur. Bulut daha ilerideyse (daha çok tamamlanmış bölüm; eşitse daha çok yıldız, sonra açılan bölüm) cihazdaki kaydın yerine geçer ve "İlerlemen buluttan geri yüklendi" bildirimi çıkar. Bölüm oynanırken gelirse haritaya dönünce uygulanır. Ses ve titreşim ayarı cihazda kalır; eski dosya `.precloud` kopyası olarak saklanır.
+- Okuma bitmeden buluta hiç yazılmaz (yeni kurulumdaki boş kayıt buluttakini ezmez). Sonra her kazanılan bölümde (en çok 30 sn'de bir) ve uygulama arka plana geçince kayıt sessizce buluta gider. Ayarlar'daki "İlerlemeyi kaydet" düğmesi de aynı kurala uyar.
+
 ## 4. Mekanikler ve bölüm takvimi
 
 | Bölüm | Mekanik | Kısa kural |

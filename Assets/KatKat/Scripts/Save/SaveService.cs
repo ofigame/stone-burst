@@ -118,6 +118,21 @@ namespace KatKat.Save
             }
         }
 
+        /// <summary>
+        /// Buluttan geri yükleme: kayıt verilenle değiştirilir ve yazılır. Ses ve titreşim cihaz ayarıdır, yerelde kalır.
+        /// Önceki dosya .bak olarak kalır (Save her yazışta yedeği döndürür) ve ayrıca bir kez .precloud kopyası alınır.
+        /// </summary>
+        public void Replace(SaveData d)
+        {
+            if (d == null) return;
+            Upgrade(d);
+            d.sound = Data.sound;
+            d.vibration = Data.vibration;
+            if (File.Exists(_path)) KeepCopy(_path, _path + ".precloud", overwrite: true);
+            Data = d;
+            Save();
+        }
+
         /// <summary>Bölüm tamamlandı. Tekrar çağrılması ek etki üretmez.</summary>
         public bool MarkCompleted(string levelId, int index, int levelCount)
         {

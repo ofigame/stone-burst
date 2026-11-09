@@ -214,6 +214,11 @@ Son güncelleme: 2026-11-09. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
   - Kayıpta reklam: +1 hamle ve taş yerleştirme (`GameSession.PlaceLayer`, `HudView.Place.cs`, `GameController.Ads.cs`).
   - Öğretici sadeleştirildi; geçiş reklamı seyreltildi (`ad_config.json`); reklam düğmelerine oynat simgesi.
   - iOS: Oyun Modu için Info.plist oyun kategorisi; App Store Connect'te Game Center açıldı. Telefonda denenmedi.
+  - TestFlight (2026-11-09 14:42): run 9 (https://github.com/ofigame/stone-burst/actions/runs/42607190257, commit `5c72dd2`, yapı no 9) "UPLOAD SUCCEEDED" ile yüklendi. Run 8 derlendi ama yükleme kutusu işaretsiz gittiği için yüklenmedi. Apple işlemesi, sürüm 1.0'a bağlama ve telefonda deneme henüz yapılmadı.
+- Otomatik bulut kaydı ve geri yükleme (2026-11-09 akşam; kural OYUN.md "İlerleme kaydı ve bulut", karar KARARLAR.md):
+  - Önceden buluta yalnız Ayarlar düğmesiyle yazılıyordu, buluttan okuma hiç çağrılmıyordu. Şimdi girişten sonra bulut okunur, ilerideyse geri yüklenir (haritada); sonra her kazanımda ve arka plana geçişte yüklenir. Okumadan önce yazılmaz.
+  - Dosyalar: `Save/CloudSync.cs` (yeni), `SaveService.Replace`, `GameController.Account.cs`, `CreateDaily` (geri yüklemeden sonra günlük hizmet yeniden bağlanır), metin `acct.restored` (9 dil).
+  - Testler: EditMode 197/197, PlayMode 56/57 (+1 atlanan; 50 bölümlük örneklem), yeni `CloudSyncTests` (3) ve GameFlow bulut testleri (2) geçti; loc-check temiz. Gerçek Game Center/Firestore ile telefonda denenmedi; TestFlight'taki yapı 9 bu değişikliği içermiyor.
   - Yakalamalar: `docs/ui3_uygulama` 01, 15, 42–45 (tr) ve ar/de/ja.
   - Tam test (2026-11-09 sabah): CoreTests 197/197, EditMode 197/197, PlayMode 51/52 (+1 atlanan; 1000 bölümün hepsi gerçek kontrolcüyle, 56 dk), LevelLab report 1000/1000, stress 60 1000/1000 (60.000 oyun), loc-check ve bölüm doğrulama temiz. Cihazda denenmedi.
   - App Store Connect girişleri: `docs/v13/MAGAZA_METINLERI.md` sonu.

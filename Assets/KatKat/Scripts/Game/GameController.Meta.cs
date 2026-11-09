@@ -202,6 +202,15 @@ namespace KatKat.Game
         /// <summary>v10 P1.5: dünya gruplaması (yalnız veri; harita görünümü değişmez).</summary>
         public WorldCatalog Worlds => _worlds;
 
+        /// <summary>Günlük hizmeti kayıttaki meta nesnesine bağlar (açılışta ve buluttan geri yüklemeden sonra).</summary>
+        private void CreateDaily()
+        {
+            // v10 P3.4: grup oyuncunun ulaştığı en yüksek bölüme göre (highestUnlocked 0 tabanlı → bölüm numarası +1).
+            _daily = new DailyService(_save.Data.meta, ClockOverride ?? new LocalDayClock(), (d, t) => _dailyIndex.PickFor(d, t),
+                () => _dailyIndex.TierFor(_save.Data.highestUnlocked + 1), _save.Save, Ads, FakeAdFree);
+            _daily.Refresh();
+        }
+
         private void SetupMeta()
         {
             SetupZpe();
@@ -211,10 +220,7 @@ namespace KatKat.Game
             catch (FormatException e) { Debug.LogError("[KatKat] " + e.Message); _worlds = WorldCatalog.Parse(null); }
             try { _dailyIndex = DailyIndex.Parse(Resources.Load<TextAsset>("Daily/daily_index")?.text); }
             catch (FormatException e) { Debug.LogError("[KatKat] " + e.Message); _dailyIndex = new DailyIndex(); }
-            // v10 P3.4: grup oyuncunun ulaştığı en yüksek bölüme göre (highestUnlocked 0 tabanlı → bölüm numarası +1).
-            _daily = new DailyService(_save.Data.meta, ClockOverride ?? new LocalDayClock(), (d, t) => _dailyIndex.PickFor(d, t),
-                () => _dailyIndex.TierFor(_save.Data.highestUnlocked + 1), _save.Save, Ads, FakeAdFree);
-            _daily.Refresh();
+            CreateDaily();
             // Eski kayıtla açılış: koşulu daha önce sağlanmış taş ilk açılışta verilir (tek seferlik).
             // v12: sıralama yıldızı alanı yeni; eski ilerlemede reklam yoktu, mevcut yıldızlar reklamsız sayılır (tek seferlik).
             if (_save.Data.meta.rankStars.Count == 0 && _save.Data.completed.Count > 0)
