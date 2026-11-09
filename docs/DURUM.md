@@ -208,4 +208,4 @@ Son güncelleme: 2026-11-09. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
   - Dil yakalamaları 9 dilde (`docs/ui3_uygulama/diller/<dil>/`, `KATKAT_CAPTURE_LANG`). Arapça: şekillendirilmemiş metinler, bozulan renk etiketleri, Ellipsis yüzünden boş görünen etiketler ve ayarlar dil etiketi düzeltildi. Almanca: ad büyük harfi ("Keine Züge mehr", "Gratis-Versuch"). Günlük kart satırları panel kenarına dayanıyordu (de, es); daraltıldı.
   - 90. bölüm: kayıtlı 13 adımlık çözüm kazanıyor; bot 200 oyunda 10 kazandı (%5). Geçilebilir ama çok zor; kolaylaştırma kararı kullanıcıda.
   - Testler: EditMode 194/194, PlayMode 50/51 (+1 atlanan). Cihazda denenmedi.
-  - CI: `-customBuildPath` düzeltmesiyle iOS iş akışının Unity aşaması geçti (run 2).
+  - CI: iOS iş akışı run 5 (https://github.com/ofigame/stone-burst/actions/runs/42555311028) başarılı; imzalı IPA (~161 MB) artifact olarak üretildi, TestFlight yüklemesi kapalıydı. Düzeltmeler: `-customBuildPath`, macos-26 + Xcode 26.6 (Firebase SDK 13), Library önbelleği kaldırıldı (137), dağıtım profili yalnız Unity-iPhone hedefinde.
