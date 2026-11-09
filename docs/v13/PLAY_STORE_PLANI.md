@@ -46,5 +46,5 @@ Tarih: 2026-11-10. Kullanıcı: "play store hazırlığımızı da yapalım". Ka
 - 2026-11-10 Play Console (Claude girdi, taslak kaydedildi):
   - Gizlilik politikası URL'si; Oturum açma bilgileri: kısıtlı bölüm yok; Kategori: Oyun → Bulmaca; İletişim: info@ofigame.com, https://ofigame.com (foi ile aynı).
   - Mağaza girişi 6 dil (en-US varsayılan, de-DE, tr-TR, es-ES, ar, ja-JP): ad (iOS'takiyle aynı), kısa açıklama (yeni, ≤80), uzun açıklama (iOS metinleri).
-  - Görseller: ikon 512 (`docs/magaza/play/icon-512.png`), tanıtım görseli 1024×500 (`feature-1024x500.png`), en-US telefon ekran görüntüleri 1080×1920 (`docs/magaza/android/en`, sıra 03,02,01,05,04,06). Diğer diller şimdilik İngilizce görselleri miras alıyor; yerelleştirilmiş Android görselleri `docs/magaza/android/(dil)` hazır.
+  - Görseller: ikon 512 (`docs/magaza/play/icon-512.png`), tanıtım görseli 1024×500 (`feature-1024x500.png`), en-US telefon ekran görüntüleri 1080×1920 (`docs/magaza/android/en`, sıra 03,02,01,05,04,06). Diğer 5 dile de kendi telefon ekran görüntüleri yüklendi (2026-11-10, aynı sıra; `docs/magaza/android/(dil)`).
   - Kullanıcının beyanları (Claude'un tıklaması engellendi): Reklam (Evet), İçerik derecelendirme (IARC), Hedef kitle, Veri güvenliği, Resmi kurum / Finans / Sağlık.
