@@ -54,6 +54,8 @@ namespace KatKat.EditorTools
             // "CPU_ABI uyumsuz" diye reddediyor. Google Play 64-bit şartını ARM64 kopya karşılar.
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64;
             PlayerSettings.Android.bundleVersionCode = 1;
+            // Google Play: yeni uygulamalar ve güncellemeler 31 Ağustos 2026 itibarıyla API 36 hedeflemeli (2026-11-10).
+            PlayerSettings.Android.targetSdkVersion = (AndroidSdkVersions)36;
             // Masaüstü önizleme için dikey 9:16 pencere.
             PlayerSettings.fullScreenMode = FullScreenMode.Windowed;
             PlayerSettings.defaultScreenWidth = 540;

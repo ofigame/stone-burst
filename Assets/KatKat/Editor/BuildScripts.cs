@@ -19,6 +19,61 @@ namespace KatKat.EditorTools
             Build(BuildTarget.Android, "Builds/Android/StoneBurst.apk");
         }
 
+        /// <summary>
+        /// Play Store paketi (kullanıcı, 2026-11-10: "play store hazırlığımızı da yapalım"): imzalı AAB.
+        /// Yükleme anahtarı depoda değil: KATKAT_ANDROID_KEYSTORE (varsayılan E:\OFIGAME\OYUNLAR\keys\stoneburst-upload.jks),
+        /// şifre dosyası KATKAT_ANDROID_KEYPASS_FILE (varsayılan aynı klasörde stoneburst-upload-sifre.txt), takma ad
+        /// "stoneburst". Sürüm kodu KATKAT_ANDROID_VERSION_CODE (her yüklemede artmalı; varsayılan 1).
+        /// Derlemeden sonra imza ve AAB ayarları geri alınır (ProjectSettings'e yerel yol yazılmasın).
+        /// </summary>
+        [MenuItem("Kat Kat/Build/Android Play Store (AAB)")]
+        public static void BuildAndroidStore()
+        {
+            string ks = Environment.GetEnvironmentVariable("KATKAT_ANDROID_KEYSTORE");
+            if (string.IsNullOrEmpty(ks)) ks = @"E:\OFIGAME\OYUNLAR\keys\stoneburst-upload.jks";
+            string pf = Environment.GetEnvironmentVariable("KATKAT_ANDROID_KEYPASS_FILE");
+            if (string.IsNullOrEmpty(pf)) pf = Path.Combine(Path.GetDirectoryName(ks), "stoneburst-upload-sifre.txt");
+            if (!File.Exists(ks) || !File.Exists(pf))
+            {
+                Debug.LogError("[KatKat] Play derlemesi: yükleme anahtarı ya da şifre dosyası yok (" + ks + ")");
+                if (Application.isBatchMode) EditorApplication.Exit(1);
+                return;
+            }
+            int code = int.TryParse(Environment.GetEnvironmentVariable("KATKAT_ANDROID_VERSION_CODE"), out var c) && c > 0 ? c : 1;
+            string pass = File.ReadAllText(pf).Trim();
+            _beforeBuild = () =>
+            {
+                PlayerSettings.Android.bundleVersionCode = code;
+                PlayerSettings.Android.useCustomKeystore = true;
+                PlayerSettings.Android.keystoreName = ks;
+                PlayerSettings.Android.keystorePass = pass;
+                PlayerSettings.Android.keyaliasName = "stoneburst";
+                PlayerSettings.Android.keyaliasPass = pass;
+                EditorUserBuildSettings.buildAppBundle = true;
+            };
+            // AAB veri paketi LZ4HC ile (2026-11-10 ilk denemede sıkıştırmasız veri 236 MB tutuyordu; APK 130 MB).
+            _deferExit = true;
+            _extraOptions = BuildOptions.CompressWithLz4HC;
+            try { Build(BuildTarget.Android, "Builds/Android/StoneBurst-" + PlayerSettings.bundleVersion + "-" + code + ".aab"); }
+            finally
+            {
+                _beforeBuild = null;
+                _deferExit = false;
+                _extraOptions = BuildOptions.None;
+                PlayerSettings.Android.useCustomKeystore = false;
+                PlayerSettings.Android.keystoreName = "";
+                PlayerSettings.Android.keystorePass = "";
+                PlayerSettings.Android.keyaliasName = "";
+                PlayerSettings.Android.keyaliasPass = "";
+                EditorUserBuildSettings.buildAppBundle = false;
+                PlayerSettings.Android.bundleVersionCode = 1;
+                AssetDatabase.SaveAssets();
+            }
+            if (Application.isBatchMode) EditorApplication.Exit(_lastOk ? 0 : 1);
+        }
+
+        private static Action _beforeBuild;
+
         [MenuItem("Kat Kat/Build/Windows (önizleme)")]
         public static void BuildWindows()
         {
@@ -172,6 +227,11 @@ namespace KatKat.EditorTools
             Debug.Log("[KatKat] iOS doku bütçesi: " + changed + " doku güncellendi");
         }
 
+        /// <summary>Mağaza derlemesi: toplu modda çıkışı çağıran yapar (önce imza ayarlarını geri alır).</summary>
+        private static bool _deferExit;
+        private static BuildOptions _extraOptions = BuildOptions.None;
+        private static bool _lastOk;
+
         private static void Build(BuildTarget target, string output)
         {
             ProjectSetup.ApplyPlayerSettings();
@@ -183,6 +243,7 @@ namespace KatKat.EditorTools
             ApplyIcon();
             ApplyTextureBudget();
             if (target == BuildTarget.iOS) ApplyIosTextureBudget();
+            _beforeBuild?.Invoke(); // Play mağaza derlemesi: sürüm kodu, imza, AAB
             Directory.CreateDirectory(target == BuildTarget.iOS ? output : Path.GetDirectoryName(output));
             var scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
             if (scenes.Length == 0) throw new InvalidOperationException("Build sahnesi yok; önce ProjectSetup.RunAll çalıştır.");
@@ -192,11 +253,12 @@ namespace KatKat.EditorTools
                 scenes = scenes,
                 locationPathName = output,
                 target = target,
-                options = BuildOptions.None,
+                options = BuildOptions.None | _extraOptions,
             });
             var s = report.summary;
             Debug.Log($"[KatKat] Build {target}: {s.result}, {s.totalSize} bayt, {s.totalTime}, hata={s.totalErrors} → {output}");
-            if (Application.isBatchMode) EditorApplication.Exit(s.result == BuildResult.Succeeded ? 0 : 1);
+            _lastOk = s.result == BuildResult.Succeeded;
+            if (Application.isBatchMode && !_deferExit) EditorApplication.Exit(_lastOk ? 0 : 1);
         }
     }
 }
