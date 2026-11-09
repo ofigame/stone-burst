@@ -27,6 +27,8 @@ namespace KatKat.View
         private readonly List<Fx> _fx = new List<Fx>();
         private PeelDirector _director;
         private int _width, _height, _maxLayers;
+        /// <summary>Kurulumdaki en yüksek yığın (reklam ödülü taş yerleştirme bu yüksekliği aşmaz).</summary>
+        public int MaxLayers => _maxLayers;
         private float _pitch;
         private Vector2 _origin;
         private float _clock;

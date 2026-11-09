@@ -9,21 +9,22 @@ namespace KatKat.Tests
     public class AdsTests
     {
         [Test]
-        public void Interstitial_NotInFirstFiveLevels_EveryThreeLevels_180s_NotAfterRewarded()
+        public void Interstitial_NotInFirstTenLevels_EveryFourLevels_240s_NotAfterRewarded()
         {
+            // 2026-11-09 (kullanıcı: "kullanıcıyı çok bunaltmasın"): ilk 10 bölüm yok, 4 bölümde bir, 240 sn, ödüllüden sonra 120 sn.
             var p = new InterstitialPolicy(new AdConfig());
-            for (int lv = 1; lv <= 5; lv++) { p.LevelCompleted(lv); Assert.IsFalse(p.ShouldShow(lv, 1000), $"bölüm {lv}"); }
-            p.LevelCompleted(6); p.LevelCompleted(7);
-            Assert.IsFalse(p.ShouldShow(7, 1000), "6. bölümden beri yalnız 2 bölüm");
-            p.LevelCompleted(8);
-            Assert.IsTrue(p.ShouldShow(8, 1000));
+            for (int lv = 1; lv <= 10; lv++) { p.LevelCompleted(lv); Assert.IsFalse(p.ShouldShow(lv, 1000), $"bölüm {lv}"); }
+            p.LevelCompleted(11); p.LevelCompleted(12); p.LevelCompleted(13);
+            Assert.IsFalse(p.ShouldShow(13, 1000), "11. bölümden beri yalnız 3 bölüm");
+            p.LevelCompleted(14);
+            Assert.IsTrue(p.ShouldShow(14, 1000));
             p.Shown(1000);
-            for (int lv = 9; lv <= 11; lv++) p.LevelCompleted(lv);
-            Assert.IsFalse(p.ShouldShow(11, 1100), "180 sn dolmadı");
-            Assert.IsTrue(p.ShouldShow(11, 1181));
-            p.RewardedShown(1170);
-            Assert.IsFalse(p.ShouldShow(11, 1181), "ödüllüden hemen sonra yok");
-            Assert.IsTrue(p.ShouldShow(11, 1231));
+            for (int lv = 15; lv <= 18; lv++) p.LevelCompleted(lv);
+            Assert.IsFalse(p.ShouldShow(18, 1200), "240 sn dolmadı");
+            Assert.IsTrue(p.ShouldShow(18, 1241));
+            p.RewardedShown(1200);
+            Assert.IsFalse(p.ShouldShow(18, 1241), "ödüllüden 120 sn geçmedi");
+            Assert.IsTrue(p.ShouldShow(18, 1321));
         }
 
         [Test]
@@ -31,9 +32,9 @@ namespace KatKat.Tests
         {
             var p = new InterstitialPolicy(new AdConfig { InterstitialSessionCap = 2, InterstitialMinSeconds = 0, InterstitialEveryLevels = 1 });
             double t = 0;
-            for (int i = 0; i < 2; i++) { p.LevelCompleted(10); Assert.IsTrue(p.ShouldShow(10, t)); p.Shown(t); t += 1; }
-            p.LevelCompleted(10);
-            Assert.IsFalse(p.ShouldShow(10, t));
+            for (int i = 0; i < 2; i++) { p.LevelCompleted(20); Assert.IsTrue(p.ShouldShow(20, t)); p.Shown(t); t += 1; }
+            p.LevelCompleted(20);
+            Assert.IsFalse(p.ShouldShow(20, t));
         }
 
         [Test]
@@ -42,9 +43,11 @@ namespace KatKat.Tests
             var res = Path.GetDirectoryName(ProductionLevelTests.LevelsDir());
             var c = AdConfig.Parse(File.ReadAllText(Path.Combine(res, "Ads", "ad_config.json")));
             Assert.AreEqual(5f, c.SearchSeconds);
-            Assert.AreEqual(3, c.ExtraMoves);
+            Assert.AreEqual(1, c.ExtraMoves);
             Assert.AreEqual(1, c.ExtraMovesPerLevel);
-            Assert.AreEqual(6, c.InterstitialFirstLevel);
+            Assert.AreEqual(11, c.InterstitialFirstLevel);
+            Assert.AreEqual(4, c.InterstitialEveryLevels);
+            Assert.AreEqual(8, c.InterstitialSessionCap);
         }
 
         [Test]

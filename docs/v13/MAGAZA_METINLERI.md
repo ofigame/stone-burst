@@ -59,3 +59,12 @@ Kalan işler:
   - Korean: "Stone Burst: 돌 퍼즐" / "Stone Burst: 스톤 퍼즐"
   - Spanish (Mexico): "Stone Burst: Rompecabezas" / "Stone Burst: Juego de Lógica"
 - Kullanıcı kararı (2026-11-09, "olmayanları sonra ekleriz"): kabul edilmeyen diller şimdilik eklenmeyecek, o ülkelerde İngilizce ad görünecek. Japonca için sonraki deneme katakana: "ストーンバースト：石のパズル"; Korece "스톤 버스트: 돌 퍼즐".
+
+## App Store Connect girişleri (2026-11-09, kullanıcı: "gerekli girişleri yap", Claude girdi)
+
+- Sürüm 1.0, 6 dil (English (U.S.), Turkish, German, Spanish (Spain), Arabic, Japanese): Promotional Text, Description, Keywords, Support URL `https://ofigame.com`. Copyright "2026 OFIGAME". Kaydedildi, sayfa yenilenince doğrulandı.
+- Game Center kutusu işaretli; "Sign-in required" kaldırıldı.
+- App Information: kategori Games → Puzzle, Casual.
+- Fiyat: ücretsiz ($0, taban ABD). Bulunabilirlik: 174 ülke; Çin anakarası hariç (oyun lisans numarası gerekiyor).
+- Kullanıcıya kalanlar (beyan/onay niteliğinde, Claude'a izin verilmedi): Content Rights, Age Ratings, App Privacy (gizlilik URL'si dahil), App Review iletişim bilgileri (telefon). Ayrıca ekran görüntüleri ve derleme yüklemesi.
+- Sürüm yayını: "Manually release this version" (kullanıcı onayı, 2026-11-09); onaydan sonra yayın günü kullanıcıda.

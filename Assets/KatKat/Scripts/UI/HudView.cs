@@ -1110,7 +1110,10 @@ namespace KatKat.UI
             public readonly UiIcon? Icon;
             public readonly bool Primary;
             public readonly Action Action;
-            public PanelButton(string label, UiIcon? icon, bool primary, Action action) { Label = label; Icon = icon; Primary = primary; Action = action; }
+            /// <summary>Reklam izleten düğme (2026-11-09: oynat simgesi ve biraz daha yüksek).</summary>
+            public readonly bool Ad;
+            public PanelButton(string label, UiIcon? icon, bool primary, Action action, bool ad = false) { Label = label; Icon = icon; Primary = primary; Action = action; Ad = ad; }
+            public bool ShowsAdIcon => Ad || (Label != null && Label.IndexOf('+') >= 0);
         }
 
         /// <summary>Sade kart: duraklatma, kayıp, hata.</summary>

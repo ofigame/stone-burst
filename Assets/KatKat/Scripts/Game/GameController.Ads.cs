@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using KatKat.Core;
 using KatKat.Meta;
 using KatKat.UI;
@@ -108,8 +109,84 @@ namespace KatKat.Game
             OutcomeReopen();
             _hud.HidePanel();
             ResyncAll();
-            _hud.ShowToast(Loc.F("ad.extra.got", n), 2f);
             SetPhase(Phase.Idle);
+            BeginPlaceOffer();
+        }
+
+        // ---- Reklam ödülü: bir taş yerleştirme (2026-11-09) ------------------------------------------------
+
+        private List<LayerColor> _placeColors;
+        private int _placeSel = -1;
+
+        public bool PlaceOfferActive => _placeColors != null;
+        public IReadOnlyList<LayerColor> PlaceColors => _placeColors;
+
+        /// <summary>Dört renk: önce hedef renkleri, sonra tahtada en çok görünen üst renkler (bölümde olan renkler).</summary>
+        private void BeginPlaceOffer()
+        {
+            var s = _session.State;
+            var count = new Dictionary<LayerColor, int>();
+            for (int i = 0; i < s.Board.Count; i++)
+            {
+                var c = s.Board[i];
+                if (!c.Active) continue;
+                foreach (var l in c.Layers) count[l] = (count.TryGetValue(l, out var v) ? v : 0) + 1;
+            }
+            var colors = new List<LayerColor>();
+            foreach (var g in s.Goals)
+                if (g.Type == GoalType.CollectColor && !colors.Contains(g.Color)) colors.Add(g.Color);
+            var rest = new List<LayerColor>(count.Keys);
+            rest.Sort((a, b) => count[b].CompareTo(count[a]));
+            foreach (var c in rest) if (!colors.Contains(c)) colors.Add(c);
+            foreach (LayerColor c in Enum.GetValues(typeof(LayerColor))) if (colors.Count < 4 && !colors.Contains(c)) colors.Add(c);
+            if (colors.Count > 4) colors.RemoveRange(4, colors.Count - 4);
+            _placeColors = colors;
+            _placeSel = -1;
+            _hud.ShowPlaceRow(_placeColors, _placeSel);
+        }
+
+        private void OnPlaceStoneChosen(int i)
+        {
+            if (_placeColors == null || CurrentPhase != Phase.Idle) return;
+            _placeSel = _placeSel == i ? -1 : i;
+            if (_traySlot >= 0) { _traySlot = -1; _hud.SetTray(_session.State.Tray, -1); }
+            _sound.Play(Sfx.Tap);
+            _hud.SetPlaceSelected(_placeSel);
+        }
+
+        /// <summary>Seçili taş varken tahta dokunuşu: o yığının üstüne koyar. true: dokunuş tüketildi.</summary>
+        private bool TryPlaceAt(int x, int y)
+        {
+            if (_placeColors == null || _placeSel < 0) return false;
+            var b = _session.State.Board;
+            bool fits = b.InBounds(x, y) && b[x, y].Layers.Count < Mathf.Max(1, _board.MaxLayers);
+            if (!fits || !_session.PlaceLayer(x, y, _placeColors[_placeSel]))
+            {
+                _sound.Play(Sfx.Invalid);
+                Haptics.Light();
+                _hud.FlashPlaceLabel(Loc.T("place.bad"));
+                return true;
+            }
+            EndPlaceOffer();
+            _board.Sync(_session.State);
+            _sound.Play(Sfx.Tap);
+            Haptics.Medium();
+            SetPhase(Phase.Idle);
+            return true;
+        }
+
+        private void EndPlaceOffer()
+        {
+            _placeColors = null;
+            _placeSel = -1;
+            _hud.HidePlaceRow();
+        }
+
+        /// <summary>Test: yerleştirme (renk sırası, hücre).</summary>
+        public bool PlaceForTest(int colorIndex, int x, int y)
+        {
+            OnPlaceStoneChosen(colorIndex);
+            return TryPlaceAt(x, y) && _placeColors == null;
         }
 
         /// <summary>Test: reklam ödülünü doğrudan uygula (kayıp kartında).</summary>

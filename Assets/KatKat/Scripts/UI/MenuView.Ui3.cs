@@ -113,7 +113,7 @@ namespace KatKat.UI
             {
                 var logo = Decor("Logo", shell, logoSprite);
                 logo.preserveAspect = true;
-                U3Place(logo.rectTransform, 150f, 24f, 360f, 140f);
+                U3Place(logo.rectTransform, 64f, 24f, 360f, 140f); // 2026-11-09: kalp göstergesine yer için sola (kullanıcı)
             }
 
             // 3) Bölge plakası (48, 176, 984, 120): fildişi, pirinç kenar, üstte baklava; içerik HeaderCardV11.
@@ -132,6 +132,7 @@ namespace KatKat.UI
 
             // 5) Yıldız kapsülü (700, 56, 208, 88) ve ayarlar (936, 52, 96, 96).
             U3StarCapsule(shell, 700f, 56f, stars);
+            BuildHeartsWidget(shell); // 2026-11-09: logo ile yıldız arasında kalp
             if (settings != null) U3Gear(page, settings);
         }
 

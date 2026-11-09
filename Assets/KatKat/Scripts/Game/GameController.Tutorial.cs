@@ -77,6 +77,9 @@ namespace KatKat.Game
             bool enabled = ToursOverride ?? !Application.isBatchMode;
             _tourOn = enabled && _level != null && (TourIgnoreSaved || PlayerPrefs.GetInt(TourPrefPrefix + _level.Id, 0) == 0) && Configure(index);
             if (!_tourOn) { HideTour(); return; }
+            // Yalnız bilgi adımı olan tanıtımlar (mekanik, biriktirme) bir kez gösterilir: kaybedip yeniden
+            // başlayınca tekrar çıkmaz. Yönlendirmeli bölümler (1, 2, 6, 9) kazanılınca kapanır.
+            if (_guideUntil == 0 && !TourIgnoreSaved) { PlayerPrefs.SetInt(TourPrefPrefix + _level.Id, 1); PlayerPrefs.Save(); }
             _hintActive = false;
             RefreshHint();
         }
@@ -87,13 +90,14 @@ namespace KatKat.Game
             int all = int.MaxValue;
             switch (index)
             {
+                // 2026-11-09 (kullanıcı: "aynı şeyler için tekrar tekrar çıkmasın; ilk 2 bölümde tamamen öğretici
+                // oynatsın, sonra yeni birşey geldiğinde onu tanıtmak için çıksın"): 3. bölüm (plan) ve 7. bölüm
+                // (6. bölümün özel taş kullanımının tekrarı) yönlendirmesi kaldırıldı.
                 case 0: _guideUntil = all; _guideText[0] = "tut.l1.tap"; return true;
                 case 1: _guideUntil = all; _guideText[0] = "tut.l2.domino"; return true;
-                case 2: _guideUntil = all; _guideText[0] = "tut.l3.plan"; return true;
-                case 5: _guideUntil = all; _guideText[0] = "tut.l6.big"; return true;
-                case 6: _guideUntil = all; return true;
-                case 8: _guideUntil = all; _guideText[0] = "tut.l9.big"; return true;
-                case 11: _tourQueue.Add(new TourInfo { Key = "tut.save", Hole = () => _hud.TrayRect() }); return true;
+                case 5: _guideUntil = all; _guideText[0] = "tut.l6.big"; return true;   // yeni: özel taş (roket) ve tepsi
+                case 8: _guideUntil = all; _guideText[0] = "tut.l9.big"; return true;   // yeni: Altın Rulo
+                case 11: _tourQueue.Add(new TourInfo { Key = "tut.save", Hole = () => _hud.TrayRect() }); return true; // yeni: biriktirme
             }
             // Yeni mekanik: katalogdaki ilk bölümü bu mu?
             string cap = NewCapability(index);

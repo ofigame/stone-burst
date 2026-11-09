@@ -37,7 +37,12 @@ namespace KatKat.Game
             string type = _level.TrialType ?? "";
             bool first = type.Length > 0 && type != "boss" && !seen.Contains(type);
             if (first) { seen.Add(type); _save.Save(); }
-            if (first || type == "boss" || _mainHint)
+            // Patron kartı her patron bölümünde yalnız ilk girişte (2026-11-09, kullanıcı: "tekrar tekrar çıkmasın");
+            // yeniden denemede kurallar sağdaki simgelerde durur.
+            string bossKey = "boss@" + _level.Id;
+            bool bossFirst = type == "boss" && !seen.Contains(bossKey);
+            if (bossFirst) { seen.Add(bossKey); _save.Save(); }
+            if (first || bossFirst || _mainHint)
                 _hud.ShowRuleCard(MainTypeTitle(_level), Loc.T("trial.intro." + type), rules, () => { if (_mainHint) ShowMainHint(); });
         }
 

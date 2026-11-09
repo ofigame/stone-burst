@@ -116,6 +116,8 @@ namespace KatKat.EditorTools
                 Shot("23_kural_karti_tur_tanitimi", gc => { Progress(gc, 26); gc.StartLevel(26); });
                 Shot("24_kural_karti_patron", gc => { Progress(gc, 29); gc.StartLevel(29); });
                 Shot("25_kayip_karti_ipucu", gc => { gc.StartLevel(11); gc.ShowLostForCapture(GameStatus.LostOutOfMoves); gc.Hud.HidePanel(); gc.ShowLostForCapture(GameStatus.LostOutOfMoves); Panels(gc); });
+                // 2026-11-09: kayıpta reklamla +1 hamle ve taş yerleştirme (dört taş tahtanın üstünde; ikincisi seçili).
+                Shot("45_tas_yerlestirme", gc => { gc.StartLevel(11); gc.ShowLostForCapture(GameStatus.LostOutOfMoves); Invoke(gc, "GrantExtraMoves", 1); Invoke(gc, "OnPlaceStoneChosen", 1); });
                 Shot("26_ipucu_gosterimi", gc => { gc.StartLevel(11); Call(gc, "ShowMainHint"); });
                 Shot("27_kristal_kaybi_karti", gc => { Progress(gc, 67); gc.StartLevel(67); gc.Hud.HideRuleCard(false); gc.ShowLostForCapture(GameStatus.LostProtected); Panels(gc); });
                 Shot("28_gunluk_kural_karti", gc => { Progress(gc, 12); Own(gc); gc.ShowDaily(); gc.PressDailyEnterForTest(); gc.StartDaily(); });
@@ -191,6 +193,10 @@ namespace KatKat.EditorTools
                 Shot("05_ayarlar", gc => { Progress(gc, 12); Call(gc, "ShowSettings"); });
                 // 2026-11-09: AB görünümü (UMP "Gizlilik seçenekleri" satırı zorunlu bölge).
                 Shot("41_ayarlar_gizlilik", gc => { Progress(gc, 12); KatKat.Game.Ads.PrivacyOptions.ForceVisible = true; try { Call(gc, "ShowSettings"); } finally { KatKat.Game.Ads.PrivacyOptions.ForceVisible = false; } });
+                // 2026-11-09 kalp sistemi: haritada eksik kalp + geri sayım, kalp kartı, kalp bitti kartı.
+                Shot("42_harita_kalp_sayac", gc => { Progress(gc, 30); HeartsAt(gc, 2, 7 * 60); gc.ShowLevels(); });
+                Shot("43_kalp_karti", gc => { Progress(gc, 30); HeartsAt(gc, 2, 7 * 60); gc.ShowLevels(); Invoke(gc, "ShowHeartsCard", (Action)null); });
+                Shot("44_kalp_bitti", gc => { Progress(gc, 30); HeartsAt(gc, 5, 12 * 60); gc.StartLevel(25); });
                 Shot("06_zpe_istatistik", gc => { Progress(gc, 12); gc.ShowLevels(); gc.ShowZpeStats(); });
                 GameController.DevLeaderboardSample = true;
                 Shot("07_siralama", gc => { Progress(gc, 25); gc.ShowRanking(); });
@@ -248,6 +254,22 @@ namespace KatKat.EditorTools
             if (fx >= 0) { bx = fx; by = fy; }
             gc.PlayStep(new KatKat.Levels.StepData { Type = "use", Row = 0, X = bx, Y = by });
             for (float t = 0f; t < ms; t += 20f) gc.Board.Advance(20f); // etkiler adım adım ilerlesin
+        }
+
+        private static void Invoke(GameController gc, string method, params object[] args)
+        {
+            foreach (var m in typeof(GameController).GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
+                if (m.Name == method && m.GetParameters().Length == args.Length) { m.Invoke(gc, args); return; }
+            throw new MissingMethodException(method);
+        }
+
+        /// <summary>Kalp durumu: <paramref name="missing"/> eksik, sonraki kalbe <paramref name="left"/> sn (saat sabit).</summary>
+        private static void HeartsAt(GameController gc, int missing, int left)
+        {
+            const long now = 1_800_000_000;
+            GameController.HeartClock = () => now;
+            gc.SaveService.Data.meta.heartsMissing = missing;
+            gc.SaveService.Data.meta.heartsStamp = now - (Hearts.RegenSeconds - left);
         }
 
         private static void Call(GameController gc, string method) =>
@@ -309,6 +331,10 @@ namespace KatKat.EditorTools
             GameCapture.ShotPublic(Out + name + ".png", S.w, S.h, S.safe, gc =>
             {
                 if (gc.AdScreen != null) gc.AdScreen.Canvas.scaleFactor = S.w / HudView.RefWidth;
+                // Kalp durumu yakalamalar arasında taşınmasın (dolu kalp, gerçek saat).
+                GameController.HeartClock = null;
+                gc.SaveService.Data.meta.heartsMissing = 0;
+                gc.SaveService.Data.meta.heartsStamp = 0;
                 act(gc);
             });
         }

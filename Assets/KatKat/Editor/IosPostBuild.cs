@@ -29,6 +29,10 @@ namespace KatKat.EditorTools
             var langs = root.CreateArray("CFBundleLocalizations");
             foreach (var l in Languages) langs.AddString(l);
             root.SetString("CFBundleDisplayName", "Stone Burst");
+            // Oyun kategorisi: iOS "Oyun Modu"nu bu bilgiyle açar (kullanıcı, 2026-11-09: "candy crush'a giriyorum
+            // oyun modu açık diyor ama bizimkinde demiyor").
+            root.SetString("LSApplicationCategoryType", "public.app-category.puzzle-games");
+            root.SetBoolean("GCSupportsGameMode", true);
             plist.WriteToFile(plistPath);
 
             string projPath = PBXProject.GetPBXProjectPath(path);

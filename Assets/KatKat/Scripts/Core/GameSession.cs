@@ -55,6 +55,23 @@ namespace KatKat.Core
             return true;
         }
 
+        /// <summary>
+        /// Reklam ödülü (2026-11-09, kullanıcı: "1 hamle + bir tane istediği taştan istediği yere yerleştirme hakkı"): seçilen
+        /// renkte bir katman, etkin, örtüsüz, özel taşsız ve kristal olmayan yığının en üstüne konur. Soyma tetiklemez;
+        /// geri alma noktası silinir (yerleştirme geri alınmaz). Yalnız oyun sürerken.
+        /// </summary>
+        public bool PlaceLayer(int x, int y, LayerColor color)
+        {
+            if (State.Status != GameStatus.Idle || _victoryRecorded) return false;
+            var b = State.Board;
+            if (!b.InBounds(x, y)) return false;
+            var cell = b[x, y];
+            if (!cell.Active || cell.HasCover || cell.HasSpecial || cell.Protected) return false;
+            cell.Layers.Add(color);
+            _undo = null;
+            return true;
+        }
+
         public void Restart()
         {
             State = _initial.Clone();

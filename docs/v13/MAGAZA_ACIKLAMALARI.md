@@ -152,3 +152,16 @@ Stone Burst لعبة ألغاز مريحة وذكية تدور حول الطبق
 - **Privacy Policy URL:** (zorunlu; `docs/v13/GIZLILIK_POLITIKASI.md` metni bir web sayfasında yayınlanmalı)
 - **Category:** Games → Puzzle (ikincil: Casual)
 - **Copyright:** © 2026 OFIGAME
+
+---
+
+## Japanese (2026-11-09, App Store Connect'te Japonca da yerelleştirilmiş çıktı; metni Claude yazdı, ana dili Japonca biri kontrol etmedi)
+
+**Promotional Text**
+カラフルな石のレイヤーをはがして連鎖を起こし、1,000ステージに挑戦しよう。毎日新しいデイリーパズルも登場！
+
+**Description**
+Stone Burst は「レイヤー」がテーマの、リラックスできて頭も使えるパズルゲームです。（App Store Connect'teki tam metin İngilizce açıklamanın çevirisidir.)
+
+**Keywords**
+パズル,石,ストーン,レイヤー,連鎖,脳トレ,ロジック,カラー,マッチ,オフライン,デイリー,暇つぶし

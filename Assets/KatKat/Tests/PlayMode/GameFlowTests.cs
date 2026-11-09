@@ -330,13 +330,34 @@ namespace KatKat.Tests
             _gc.OnCellPressed(next[0].X, next[0].Y);
             yield return WaitStable();
             Assert.AreEqual(GameStatus.LostOutOfMoves, _gc.Session.State.Status);
-            Assert.IsTrue(_gc.ExtraMovesOffered, "kayıp kartında +3 hamle teklifi");
+            Assert.IsTrue(_gc.ExtraMovesOffered, "kayıp kartında reklam teklifi (+1 hamle ve 1 taş)");
             Assert.AreEqual(zpeGamesBefore + 1, _gc.SaveService.Data.meta.zpeGames, "kayıp ZPE'ye yazıldı");
             KatKat.Meta.FakeRewardedAds fake = GameController.FakeAds;
             fake.Next = KatKat.Meta.AdOutcome.Rewarded;
             _gc.PressExtraMovesForTest();
             Assert.AreEqual(GameStatus.Idle, _gc.Session.State.Status, "oturum sürüyor");
-            Assert.AreEqual(3, _gc.Session.State.MovesLeft);
+            Assert.AreEqual(1, _gc.Session.State.MovesLeft, "2026-11-09: +1 hamle");
+            Assert.IsTrue(_gc.PlaceOfferActive, "dört taşlık yerleştirme şeridi açık");
+            Assert.IsTrue(_gc.Hud.PlaceRowVisible);
+            Assert.LessOrEqual(_gc.PlaceColors.Count, 4);
+            Assert.Greater(_gc.PlaceColors.Count, 0);
+            // Uygun bir yığına (etkin, örtüsüz, en yüksek yığından alçak) ilk taşı koy.
+            var board = _gc.Session.State.Board;
+            int px = -1, py = -1;
+            for (int y = 0; y < board.Height && px < 0; y++)
+            for (int x = 0; x < board.Width && px < 0; x++)
+            {
+                var c = board[x, y];
+                if (c.Active && !c.HasCover && !c.HasSpecial && !c.Protected && c.Layers.Count < _gc.Board.MaxLayers) { px = x; py = y; }
+            }
+            Assert.GreaterOrEqual(px, 0, "yerleştirilecek yığın var");
+            int layersBefore = board[px, py].Layers.Count;
+            var color = _gc.PlaceColors[0];
+            Assert.IsTrue(_gc.PlaceForTest(0, px, py), "taş kondu, şerit kapandı");
+            Assert.AreEqual(layersBefore + 1, _gc.Session.State.Board[px, py].Layers.Count);
+            Assert.AreEqual(color, _gc.Session.State.Board[px, py].Top);
+            Assert.IsFalse(_gc.Hud.PlaceRowVisible, "diğer taşlar kayboldu");
+            Assert.AreEqual(1, _gc.Session.State.MovesLeft, "yerleştirme hamle harcamaz");
             Assert.IsTrue(_gc.LastOutcome.Has(KatKat.Meta.AssistFlags.RewardedAd));
             Assert.AreEqual(zpeGamesBefore, _gc.SaveService.Data.meta.zpeGames, "kayıp geri çekildi; reklamlı oturum ZPE'ye girmez");
             Assert.IsFalse(_gc.Hud.PanelOpen);
@@ -352,6 +373,55 @@ namespace KatKat.Tests
             }
             if (_gc.Session.State.Status == GameStatus.LostOutOfMoves) Assert.IsFalse(_gc.ExtraMovesOffered, "ikinci teklif yok");
             Assert.AreEqual(zpeGamesBefore, _gc.SaveService.Data.meta.zpeGames, "reklamlı oturumun sonucu da ZPE'ye girmez");
+        }
+
+        [UnityTest]
+        public IEnumerator Hearts_RestartAfterMoveCostsHeart_EmptyBlocksLevel_AdRefills()
+        {
+            // 2026-11-09 kalp sistemi: 21+ bölümde hamleden sonra yeniden başlatma 1 kalp; kalp yoksa bölüm açılmaz.
+            const long now = 1_800_000_000;
+            GameController.HeartClock = () => now;
+            try
+            {
+                var meta = _gc.SaveService.Data.meta;
+                meta.heartsMissing = 0; meta.heartsStamp = 0;
+                _gc.StartLevel(25);
+                _gc.Hud.HideRuleCard(false);
+                Assert.AreEqual(5, _gc.HeartCount);
+                _gc.Restart();
+                Assert.AreEqual(5, _gc.HeartCount, "hamlesiz yeniden başlatma kalp götürmez");
+                var m = LevelSolver.Moves(_gc.Session.State);
+                Assert.IsNotEmpty(m);
+                _gc.OnCellPressed(m[0].X, m[0].Y);
+                yield return WaitStable();
+                yield return WaitCelebration();
+                Assert.IsTrue(_gc.HeartAtStake);
+                _gc.Restart();
+                Assert.AreEqual(4, _gc.HeartCount, "bırakılan deneme 1 kalp");
+                Assert.IsFalse(_gc.HeartAtStake);
+                // İlk 20 bölüm kalpsiz.
+                _gc.StartLevel(5);
+                var m5 = LevelSolver.Moves(_gc.Session.State);
+                _gc.OnCellPressed(m5[0].X, m5[0].Y);
+                yield return WaitStable();
+                yield return WaitCelebration();
+                _gc.ShowLevels();
+                Assert.AreEqual(4, _gc.HeartCount, "ilk 20 bölüm kalp harcamaz");
+                // Kalp yok: bölüm açılmaz, haritada kalp kartı.
+                meta.heartsMissing = 5; meta.heartsStamp = now;
+                _gc.StartLevel(25);
+                Assert.IsTrue(_gc.Menu.IsOpen, "harita açık kaldı");
+                Assert.IsTrue(_gc.Menu.IsHeartsCardShown, "kalp kartı açık");
+                // 30 dakika sonra 1 kalp.
+                GameController.HeartClock = () => now + KatKat.Meta.Hearts.RegenSeconds;
+                Assert.AreEqual(1, _gc.HeartCount);
+                // Reklamla dolum.
+                GameController.FakeAds.Next = KatKat.Meta.AdOutcome.Rewarded;
+                _gc.RefillHeartsForTest();
+                Assert.AreEqual(5, _gc.HeartCount);
+                _gc.Menu.CloseHeartsCard();
+            }
+            finally { GameController.HeartClock = null; }
         }
 
         [UnityTest]

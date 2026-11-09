@@ -36,6 +36,9 @@ namespace KatKat.Meta
         /// <summary>Günlük bulmacadan kazanılan yıldızların toplamı (kullanıcı, 2026-11-08: performansa göre 1–3, günde bir kez,
         /// ilk galibiyette). Toplam yıldıza ve taş eşiklerine sayılır; sıralamada sayılmaz.</summary>
         public int dailyStars;
+        /// <summary>Kalp sistemi (2026-11-09): eksik kalp sayısı (0 = dolu) ve dolum sayacının başladığı an (Unix sn). Bkz. <see cref="Hearts"/>.</summary>
+        public int heartsMissing;
+        public long heartsStamp;
 
         public void Sanitize()
         {
@@ -52,6 +55,8 @@ namespace KatKat.Meta
             seenTypes ??= new List<string>();
             if (zpeGames < 0 || double.IsNaN(zpeSum) || zpeSum < 0) { zpeGames = 0; zpeSum = 0; }
             if (dailyStars < 0) dailyStars = 0;
+            if (heartsMissing < 0 || heartsMissing > Hearts.Max) heartsMissing = 0;
+            if (heartsStamp < 0) heartsStamp = 0;
         }
     }
 

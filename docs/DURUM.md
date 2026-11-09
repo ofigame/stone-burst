@@ -209,3 +209,11 @@ Son güncelleme: 2026-11-09. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
   - 90. bölüm: kayıtlı 13 adımlık çözüm kazanıyor; bot 200 oyunda 10 kazandı (%5). Geçilebilir ama çok zor; kolaylaştırma kararı kullanıcıda.
   - Testler: EditMode 194/194, PlayMode 50/51 (+1 atlanan). Cihazda denenmedi.
   - CI: iOS iş akışı run 5 (https://github.com/ofigame/stone-burst/actions/runs/42555311028) başarılı; imzalı IPA (~161 MB) artifact olarak üretildi, TestFlight yüklemesi kapalıydı. Düzeltmeler: `-customBuildPath`, macos-26 + Xcode 26.6 (Firebase SDK 13), Library önbelleği kaldırıldı (137), dağıtım profili yalnız Unity-iPhone hedefinde.
+- Kalp, reklam ve öğretici turu (2026-11-09 öğle, kullanıcı isteği; kararlar KARARLAR.md):
+  - Kalp sistemi: `Levels/Meta/Hearts.cs` (saf mantık), `Game/GameController.Hearts.cs`, `UI/MenuView.Hearts.cs` (kalp göstergesi, kalp kartı, koddan kalp görseli).
+  - Kayıpta reklam: +1 hamle ve taş yerleştirme (`GameSession.PlaceLayer`, `HudView.Place.cs`, `GameController.Ads.cs`).
+  - Öğretici sadeleştirildi; geçiş reklamı seyreltildi (`ad_config.json`); reklam düğmelerine oynat simgesi.
+  - iOS: Oyun Modu için Info.plist oyun kategorisi; App Store Connect'te Game Center açıldı. Telefonda denenmedi.
+  - Yakalamalar: `docs/ui3_uygulama` 01, 15, 42–45 (tr) ve ar/de/ja.
+  - Tam test (2026-11-09 sabah): CoreTests 197/197, EditMode 197/197, PlayMode 51/52 (+1 atlanan; 1000 bölümün hepsi gerçek kontrolcüyle, 56 dk), LevelLab report 1000/1000, stress 60 1000/1000 (60.000 oyun), loc-check ve bölüm doğrulama temiz. Cihazda denenmedi.
+  - App Store Connect girişleri: `docs/v13/MAGAZA_METINLERI.md` sonu.

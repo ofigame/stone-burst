@@ -122,6 +122,7 @@ namespace KatKat.Game
             _hud.PaintPressed += TogglePaint;
             _hud.PaintColorChosen += OnPaintColor;
             _hud.TraySlotPressed += OnTraySlot;
+            _hud.PlaceStoneChosen += OnPlaceStoneChosen;
             _board.TrayTarget = () => _hud.TraySlotPosition(Mathf.Max(0, _session.State.Tray.Count - 1));
             _board.SpongeTarget = () => _hud.TokenTarget(GoalType.CollectSponges);
             _board.EnvelopeTarget = _hud.EnvelopeTarget;
@@ -152,6 +153,7 @@ namespace KatKat.Game
             _showcase = KatKat.UI.StoneShowcase.Create(cam, transform);
             // v12: reklam yapılandırması, geçiş kuralları ve test reklam ekranı.
             SetupAds(cam);
+            SetupHearts();
             SetupAccount();
             _menu.NeedsSignIn = () => Account.State != AccountState.SignedIn;
             _menu.StonePreviewRequested = id => ShowStone(id, false);
@@ -194,6 +196,7 @@ namespace KatKat.Game
 
         public void ShowLevels()
         {
+            HeartForfeit();
             _bgPick = -1; // menüye dönüş: sonraki girişte zemin yeniden seçilir
             AbandonDailyIfOpen();
             _hud.HidePanel();
@@ -234,6 +237,9 @@ namespace KatKat.Game
 
         public void StartLevel(int index)
         {
+            // Kalp (2026-11-09): bırakılan deneme kalp götürür; kalp yoksa bölüm açılmaz, kalp kartı çıkar.
+            HeartForfeit();
+            if (!HeartGate(index, () => StartLevel(index))) return;
             _menu.Hide();
             _music.Leave();
             _hud.HidePanel();
@@ -279,6 +285,8 @@ namespace KatKat.Game
             startState.MovesLeft += moveBonus;
             _session = new GameSession(startState);
             _extraMovesUsed = 0;
+            _heartAtStake = false;
+            EndPlaceOffer();
             ResetPaidHint();
             OutcomeBegin(_level, _sessionKind, moveBonus);
             _previewRow = -1;
@@ -433,6 +441,7 @@ namespace KatKat.Game
             }
             if (CurrentPhase != Phase.Idle) return;
             if (!TourAllowsCell(x, y)) return;
+            if (TryPlaceAt(x, y)) return; // reklam ödülü: seçili taşı koy
             if (_paintMode) { PickPaintCell(x, y); return; }
             if (_traySlot >= 0) { UseTraySlot(x, y); return; }
             var r = _session.Submit(Command.Tap(x, y));
@@ -470,6 +479,7 @@ namespace KatKat.Game
             _hint.Hide(); // ücretli ipucu tahta durunca (SetPhase Idle) yeniden görünür
             _sound.Play(Sfx.Tap);
             Haptics.Light();
+            HeartOnMove();
             TourOnAccepted(r);
             Play(r);
         }
@@ -495,6 +505,7 @@ namespace KatKat.Game
             _hint.Hide(); // ücretli ipucu tahta durunca (SetPhase Idle) yeniden görünür
             _sound.Play(Sfx.Tap);
             Haptics.Light();
+            HeartOnMove();
             TourOnAccepted(r);
             Play(r);
         }
@@ -689,6 +700,7 @@ namespace KatKat.Game
             PaidHintAfterMove(null);
             _hint.Hide(); // ücretli ipucu tahta durunca (SetPhase Idle) yeniden görünür
             Haptics.Medium();
+            HeartOnMove();
             TourOnAccepted(r);
             Play(r);
         }
@@ -870,6 +882,8 @@ namespace KatKat.Game
             }
             if (_sessionKind == KatKat.Meta.SessionKind.Normal) CheckStoneUnlocks();
             TourOnWon();
+            HeartOnWon();
+            EndPlaceOffer();
             // v10: normal bölüm ödül kartı ilk gösterilirken bir kez (yıldızlar ve kart yeniden çizimi tekrar çalmaz).
             _sound.PlayReward();
             Haptics.Medium();
@@ -897,13 +911,14 @@ namespace KatKat.Game
         {
             _sound.Play(Sfx.Lose);
             OutcomeFinish(false);
+            EndPlaceOffer();
             if (_sessionKind == KatKat.Meta.SessionKind.Daily) { ShowDailyLost(status); return; }
             if (_sessionKind == KatKat.Meta.SessionKind.Trial) { ShowTrialLost(status); return; }
             bool moves = status == GameStatus.LostOutOfMoves, crystal = status == GameStatus.LostProtected;
             // v12 (kullanıcı, 2026-11-08): hamle bitince "Reklam izle, +3 hamle", bölüm başına 1 kez.
             ExtraMovesOffered = CanOfferExtraMoves(status);
             var buttons = new System.Collections.Generic.List<HudView.PanelButton>();
-            if (ExtraMovesOffered) buttons.Add(new HudView.PanelButton(Loc.F("ad.extra.offer", _adConfig.ExtraMoves), UiIcon.Play, true, OnExtraMovesPressed));
+            if (ExtraMovesOffered) buttons.Add(new HudView.PanelButton(Loc.F("ad.place.offer", _adConfig.ExtraMoves), UiIcon.Play, true, OnExtraMovesPressed, true));
             buttons.Add(new HudView.PanelButton(Loc.T("btn.undo"), UiIcon.Undo, !ExtraMovesOffered, Undo));
             buttons.Add(new HudView.PanelButton(Loc.T("btn.retry"), UiIcon.Restart, false, Restart));
             if (MainHintButton() is HudView.PanelButton hint) buttons.Add(hint); // v8: 2 kayıptan sonra ipucu
@@ -932,6 +947,9 @@ namespace KatKat.Game
             if (CurrentPhase != Phase.Idle && CurrentPhase != Phase.Ended && CurrentPhase != Phase.Targeting) return;
             // v9 B: günlükte yeniden başlatma yeni deneme hakkı ister (ücretsiz tekrar); hak yoksa başlatılmaz.
             if (_sessionKind == KatKat.Meta.SessionKind.Daily) { DailyRestart(); return; }
+            HeartForfeit();
+            if (_sessionKind == KatKat.Meta.SessionKind.Normal && !HeartGate(_levelIndex, () => StartLevel(_levelIndex))) return;
+            EndPlaceOffer();
             _hud.HidePanel();
             _session.Restart();
             TourOnRestart();

@@ -33,20 +33,20 @@ namespace KatKat.Meta
 
     /// <summary>
     /// Reklam yapılandırması (Resources/Ads/ad_config.json; ileride uzaktan ayar). Değerler ana plan §9 ve kullanıcı
-    /// kararları: ilk 5 bölüm geçiş yok, 3 bölümde bir, en az 180 sn ara, ödüllüden sonra 60 sn geçiş yok,
-    /// reklam arama 5 sn, ek hamle +3 (bölüm başına 1).
+    /// kararları: 2026-11-09 seyreltildi (kullanıcı: "kullanıcıyı çok bunaltmasın"): ilk 10 bölüm geçiş yok, 4 bölümde bir, en az 240 sn ara, ödüllüden sonra 120 sn geçiş yok, oturumda en çok 8,
+    /// reklam arama 5 sn, kayıpta reklamla +1 hamle ve 1 taş yerleştirme (bölüm başına 1).
     /// </summary>
     public sealed class AdConfig
     {
         public int Version = 1;
         public float SearchSeconds = 5f;
-        public int ExtraMoves = 3;
+        public int ExtraMoves = 1; // 2026-11-09: +1 hamle ve 1 taş yerleştirme (kullanıcı)
         public int ExtraMovesPerLevel = 1;
-        public int InterstitialFirstLevel = 6;
-        public int InterstitialEveryLevels = 3;
-        public float InterstitialMinSeconds = 180f;
-        public float InterstitialAfterRewardedSeconds = 60f;
-        public int InterstitialSessionCap = 12;
+        public int InterstitialFirstLevel = 11;
+        public int InterstitialEveryLevels = 4;
+        public float InterstitialMinSeconds = 240f;
+        public float InterstitialAfterRewardedSeconds = 120f;
+        public int InterstitialSessionCap = 8;
 
         public static AdConfig Parse(string json)
         {

@@ -49,6 +49,16 @@ Veri kimlikleri (`Coral/Blue/Yellow/Purple`, `Rainbow`) eski adlarıyla kalır; 
 - Ödüllü reklam izlenince sıradaki önerilen dokunuş halkayla gösterilir. Hamle önerisini önce kısa bütçeli çözücü bulur; bulamazsa hedefe en çok katkı yapan dokunuş seçilir. Halka, oyuncu bir hamle yapınca söner.
 - Deneme başına 1 ipucu. Bedel: o bölümden kazanılan yıldız 1 azalır (en az 1). Reklam yardımlı oturum sayıldığı için sıralama yıldızına yazılmaz (reklam kuralı).
 
+### Kalpler (2026-11-09)
+
+- En çok 5 kalp; eksik kalp her 30 dakikada 1 dolar. Ana sayfada logo ile yıldız arasında kalp (içinde sayı) ve "Dolu" ya da geri sayım. Dokununca kalp kartı; ödüllü reklam 5 kalbi doldurur.
+- 21. bölümden itibaren, ilk hamleden sonra deneme bırakılınca (yeniden başlat, başka bölüm, menü) 1 kalp gider. Kazanınca, geri alıp sürdürünce ya da reklamla devam edince gitmez. Kalp yoksa bölüm açılmaz.
+
+### Kayıpta reklam: +1 hamle ve taş (2026-11-09)
+
+- Hamle bitince kayıp kartında, bölüm başına bir kez: reklam izlenirse +1 hamle ve tahtanın üstünde 4 taş (önce hedef renkleri). Oyuncu birini seçip bir yığının üstüne koyar; diğerleri kaybolur. Konan taş yeni üst katmandır, soyma tetiklemez; hamle harcamaz, geri alınmaz.
+- Geçiş reklamı yalnız zafer kartında Devam'da: ilk 10 bölümde yok, 4 bölümde bir, en az 4 dakika arayla, oturumda en çok 8.
+
 ## 4. Mekanikler ve bölüm takvimi
 
 | Bölüm | Mekanik | Kısa kural |

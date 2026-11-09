@@ -215,7 +215,7 @@ namespace KatKat.UI
                 {
                     size = b.Primary ? new Vector2(700f, 148f) : new Vector2(640f, 128f);
                     btn = Ui1.Button(b.Label, btnRoot, Ui1.Case(b.Label, true), b.Primary, new Vector2(0.5f, 1f), new Vector2(0f, y - 30f - size.y * 0.5f), size, guarded,
-                        b.Label.IndexOf('+') >= 0 ? UiArt.Icon(UiIcon.Play) : null, b.Primary ? 50 : 42);
+                        b.ShowsAdIcon ? UiArt.Icon(UiIcon.Play) : null, b.Primary ? 50 : 42);
                 }
                 else
                 {
@@ -334,7 +334,7 @@ namespace KatKat.UI
                 string text = victory && i == 0 && hasPreview && !preview.Value.IsEnd
                     ? Loc.T("ui.next").Replace("\\n", " ").Replace("\n", " ") : Ui1.Case(b.Label, true);
                 var btn = Ui1.Button(b.Label, btnRoot, text, b.Primary, new Vector2(0.5f, 1f), new Vector2(0f, y - size.y * 0.5f), size, guarded,
-                    b.Label.IndexOf('+') >= 0 ? UiArt.Icon(UiIcon.Play) : null, b.Primary ? 58 : 50);
+                    b.ShowsAdIcon ? UiArt.Icon(UiIcon.Play) : null, b.Primary ? 58 : 50);
                 y -= size.y;
                 _buttons.Add(btn);
             }
@@ -451,9 +451,10 @@ namespace KatKat.UI
                 if (i > 0) y += 24f;
                 string text = victory && i == 0 && hasPreview && !preview.Value.IsEnd
                     ? Loc.T("ui.next").Replace("\\n", " ").Replace("\n", " ") : Ui1.Case(b.Label, true);
-                var btn = Ui1.Button(b.Label, btnRoot, text, b.Primary, new Vector2(0.5f, 1f), new Vector2(0f, Y(y, 116f)), new Vector2(748f, 116f), guarded,
-                    b.Label.IndexOf('+') >= 0 ? UiArt.Icon(UiIcon.Play) : null, 44);
-                y += 116f;
+                float bh = b.ShowsAdIcon ? 136f : 116f; // reklam düğmesi biraz daha yüksek (2026-11-09)
+                var btn = Ui1.Button(b.Label, btnRoot, text, b.Primary, new Vector2(0.5f, 1f), new Vector2(0f, Y(y, bh)), new Vector2(748f, bh), guarded,
+                    b.ShowsAdIcon ? UiArt.Icon(UiIcon.Play) : null, 44);
+                y += bh;
                 _buttons.Add(btn);
             }
             float h = y + 56f;
