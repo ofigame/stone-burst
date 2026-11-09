@@ -24,11 +24,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           lfs: true
-      - uses: actions/cache@v4
-        with:
-          path: Library
-          key: Library-iOS-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: Library-iOS-
+      # Library önbelleği kaldırıldı (run 3): geri yüklenen önbellekle Unity betik yüklemesinde bellek dolup
+      # öldürüldü (çıkış 137); önbelleksiz run 2 bu aşamayı ~4 dakikada geçmişti.
       - name: Unity derlemesi
         uses: game-ci/unity-builder@v4
         env:
