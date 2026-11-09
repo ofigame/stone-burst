@@ -451,5 +451,36 @@ namespace KatKat.Tests
                 Assert.IsFalse(_gc.HintRingVisible);
             }
         }
+
+        /// <summary>
+        /// Kullanıcı (2026-11-09): "geri al ve durdur butonları tıklandığında iç iconları yok oluyor". HUD düğme yüzü
+        /// sonradan simgeli görselle değişir; basıp bırakınca görsel aynı kalmalı.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator HudRoundButtons_KeepIconSpriteAfterPress()
+        {
+            _gc.StartLevel(5);
+            yield return null;
+            foreach (var name in new[] { "Pause", "Undo" })
+            {
+                var t = FindDeep(_gc.Hud.transform, name);
+                Assert.IsNotNull(t, name);
+                var img = t.GetComponent<UnityEngine.UI.Image>();
+                var before = img.sprite;
+                var ev = new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current);
+                UnityEngine.EventSystems.ExecuteEvents.Execute(t.gameObject, ev, UnityEngine.EventSystems.ExecuteEvents.pointerDownHandler);
+                yield return null;
+                UnityEngine.EventSystems.ExecuteEvents.Execute(t.gameObject, ev, UnityEngine.EventSystems.ExecuteEvents.pointerUpHandler);
+                yield return null;
+                Assert.AreSame(before, img.sprite, name + ": bırakınca düğme yüzü değişmemeli");
+            }
+        }
+
+        private static Transform FindDeep(Transform root, string name)
+        {
+            if (root.name == name) return root;
+            foreach (Transform c in root) { var f = FindDeep(c, name); if (f != null) return f; }
+            return null;
+        }
     }
 }

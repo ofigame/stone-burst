@@ -42,10 +42,19 @@ jobs:
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: iOS
           buildMethod: KatKat.EditorTools.BuildScripts.BuildIOS
+      # Xcode projesinin nereye yazıldığı derleme aracına bağlı (build/iOS/iOS ya da Builds/iOS): bulunup tek klasöre alınır.
+      - name: Xcode projesini bul
+        run: |
+          proj=$(find . -name "Unity-iPhone.xcodeproj" -type d -not -path "./Library/*" | head -1)
+          if [ -z "$proj" ]; then echo "Xcode projesi bulunamadı"; exit 1; fi
+          dir=$(dirname "$proj")
+          echo "Xcode projesi: $dir"
+          sudo mv "$dir" xcode-out
       - uses: actions/upload-artifact@v4
         with:
           name: xcode-project
-          path: build/iOS/iOS
+          path: xcode-out
+          if-no-files-found: error
           retention-days: 3
 
   ipa:
@@ -88,7 +97,7 @@ jobs:
           xcodebuild $SRC -scheme Unity-iPhone -configuration Release \
             -archivePath "$RUNNER_TEMP/StoneBurst.xcarchive" -destination 'generic/platform=iOS' \
             DEVELOPMENT_TEAM="$TEAM" CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY="Apple Distribution" \
-            PROVISIONING_PROFILE_SPECIFIER="$PROFILE" archive
+            PROVISIONING_PROFILE_SPECIFIER="$PROFILE" CURRENT_PROJECT_VERSION="${{ github.run_number }}" archive
           xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/StoneBurst.xcarchive" \
             -exportOptionsPlist /tmp/ExportOptions.plist -exportPath "$RUNNER_TEMP/ipa"
       - name: IPA yolu

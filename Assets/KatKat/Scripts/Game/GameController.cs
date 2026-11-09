@@ -109,7 +109,7 @@ namespace KatKat.Game
             _board = new GameObject("Board").AddComponent<BoardView>();
             _board.transform.SetParent(transform, false);
             _board.Init(_director);
-            _hint = TapHint.Create(_board.transform, UiArt.Icon(UiIcon.Ring));
+            _hint = TapHint.Create(_board.transform, UiArt.Icon(UiIcon.Ring), UiArt.Icon(UiIcon.Back), UiArt.Circle);
             _hud = HudView.Create(cam);
             _hud.transform.SetParent(transform, false);
             _hud.BackPressed += BackToLevels;

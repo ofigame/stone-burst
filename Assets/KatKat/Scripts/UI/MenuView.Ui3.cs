@@ -372,7 +372,8 @@ namespace KatKat.UI
             var lic = Ui1.Decor("Icon", lrow.transform, "icon-language");
             UiFactory.Place(lic.rectTransform, new Vector2(0f, 0.5f), new Vector2(36f, 0f), new Vector2(72f, 72f));
             var lt = U3Text("Label", lrow.transform, Loc.T("ui.language"), 38, true, Ui3.Ink, TextAnchor.MiddleLeft);
-            UiFactory.Place(lt.rectTransform, new Vector2(0f, 0.5f), new Vector2(104f + 198f, 0f), new Vector2(396f, 72f));
+            // Etiket düğmenin (sağda, 280) altına girmesin: [104, 454] aralığı (Arapçada sağa hizalanınca çakışıyordu).
+            UiFactory.Place(lt.rectTransform, new Vector2(0f, 0.5f), new Vector2(104f + 175f, 0f), new Vector2(350f, 72f));
             FitText(lt, 28);
             Ui1.Button("Pick", lrow.transform, ArabicShaper.ShapeLines(Loc.Current.NativeName) + "  ›", true, new Vector2(1f, 0.5f), new Vector2(-140f, 0f), new Vector2(280f, 88f), ShowLanguagePicker, null, 38);
             U3Divider(c, RowY(2) - RowStep * 0.5f);

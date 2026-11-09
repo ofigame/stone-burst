@@ -165,6 +165,9 @@ namespace KatKat.UI
                 return;
             }
             var lt = t.GetComponent<LocText>() ?? t.gameObject.AddComponent<LocText>();
+            // Zengin metin etiketleri (<color=…>, <b>) sağdan sola çevirmede ters çevrilip bozuluyordu ("colo>" kalıntısı,
+            // 2026-11-09 dil denetimi). Arapçada etiketler atılır; yazı aynı, yalnız vurgu rengi kalkar.
+            if (text.IndexOf('<') >= 0) text = System.Text.RegularExpressions.Regex.Replace(text, "<[^<>]+>", "");
             lt.Logical = text;
             lt.Apply();
         }
@@ -180,11 +183,60 @@ namespace KatKat.UI
         private TextWrappingModes _origWrap;
         private TextMeshProUGUI _t;
 
+        private TextWrappingModes _appliedWrap;
+        private TextOverflowModes _appliedOverflow;
+
+        /// <summary>
+        /// Çağıran Loc.Set'ten SONRA satır kaydırma/taşma ayarını değiştirirse (ör. NoWrap + Ellipsis) yeniden dizer.
+        /// 2026-11-09 dil denetimi: deneme listesi başlıkları ve sıralama sekmeleri Arapçada bu yüzden boş görünüyordu.
+        /// </summary>
+        public void Refresh()
+        {
+            if (Logical == null) return;
+            if (_t == null) _t = GetComponent<TextMeshProUGUI>();
+            if (_t == null) return;
+            if (_t.textWrappingMode != _appliedWrap || _t.overflowMode != _appliedOverflow)
+            {
+                _origWrap = _t.textWrappingMode;
+                _wrapKnown = true;
+                Apply();
+            }
+        }
+
+        // Çizimden hemen önce bütün etkin Arapça etiketler denetlenir (kare güncellemesi beklenmez; yakalama aracı da kapsanır).
+        private static readonly HashSet<LocText> Active = new HashSet<LocText>();
+        private static bool _hooked;
+
+        private static void BeforeRender()
+        {
+            if (Active.Count == 0) return;
+            foreach (var lt in new List<LocText>(Active)) if (lt != null) lt.Refresh();
+        }
+
+        private void OnEnable()
+        {
+            Active.Add(this);
+            if (!_hooked) { Canvas.willRenderCanvases += BeforeRender; _hooked = true; }
+            Refresh();
+        }
+
+        private void OnDisable() => Active.Remove(this);
+
         public void Apply()
         {
             if (Logical == null) return;
             if (_t == null) _t = GetComponent<TextMeshProUGUI>();
             if (!_wrapKnown) { _origWrap = _t.textWrappingMode; _wrapKnown = true; }
+            try { ApplyCore(); }
+            finally { _appliedWrap = _t.textWrappingMode; _appliedOverflow = _t.overflowMode; }
+        }
+
+        private void ApplyCore()
+        {
+            // Arapça yedek yazı tipinin satır yüksekliği Nunito'dan büyük: TMP "Ellipsis" satırı kutuya dikey sığmıyor sayıp
+            // tamamen gizliyordu (görünen karakter 0; sıralama sekmeleri ve deneme başlıkları boştu). Arapçada taşma serbest,
+            // genişliği otomatik küçültme karşılar.
+            if (_t.overflowMode == TextOverflowModes.Ellipsis) _t.overflowMode = TextOverflowModes.Overflow;
             _t.textWrappingMode = _origWrap;
             _t.alignment = Mirror(_t.alignment);
             float width = _t.rectTransform.rect.width;

@@ -226,8 +226,8 @@ namespace KatKat.UI
                 if (idx == shown) return;
                 shown = idx;
                 var s = sectionTops[idx];
-                ctitle.text = s.title;
-                ccount.text = Loc.F("collection.count", s.owned, s.total);
+                Loc.Set(ctitle, s.title);
+                Loc.Set(ccount, Loc.F("collection.count", s.owned, s.total));
             }
             scroll.onValueChanged.AddListener(_ => SyncHeader());
             SyncHeader();

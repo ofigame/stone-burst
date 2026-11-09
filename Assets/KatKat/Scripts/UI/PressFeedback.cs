@@ -36,7 +36,14 @@ namespace KatKat.UI
         {
             if (_sel != null && !_sel.IsInteractable()) return;
             Go(Pressed, DownMs);
-            if (_pressedSprite != null && _img != null) _img.sprite = _pressedSprite;
+            if (_pressedSprite != null && _img != null)
+            {
+                // Basış anındaki görüntü saklanır: düğme yüzü sonradan değişmiş olabilir (ör. HUD'da SkinRound simgeli
+                // tek parça görsel koyar). Kullanıcı (2026-11-09): "geri al ve durdur butonları tıklandığında iç iconları
+                // yok oluyor" — bırakınca Attach anındaki eski (simgesiz) disk geri konuyordu.
+                _normal = _img.sprite;
+                _img.sprite = _pressedSprite;
+            }
         }
 
         /// <summary>Basış/bırakış animasyonu yok (ortam nefesi ölçeği devralabilir).</summary>
@@ -49,7 +56,8 @@ namespace KatKat.UI
         {
             if (_to == 1f) return;
             Go(1f, UpMs);
-            if (_img != null && _normal != null) _img.sprite = _normal;
+            // Yalnız basılı sprite takıldıysa geri al; aksi halde düğmenin o anki yüzüne dokunma.
+            if (_pressedSprite != null && _img != null && _normal != null) _img.sprite = _normal;
         }
 
         private void Go(float to, float ms)

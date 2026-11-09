@@ -180,7 +180,7 @@ namespace KatKat.UI
             ShownId = stoneId ?? "";
             _onClose = onClose;
             _glow = glow;
-            _title.text = title ?? "";
+            Loc.Set(_title, title ?? "");
             _title.gameObject.SetActive(!string.IsNullOrEmpty(title));
             Loc.Set(_name, name ?? "");
             Loc.Set(_desc, desc ?? "");
@@ -194,7 +194,7 @@ namespace KatKat.UI
             _view.gameObject.SetActive(_hasModel);
             _png.gameObject.SetActive(!_hasModel);
             _png.sprite = png;
-            _hint.text = _hasModel ? Loc.T("stone.preview.drag") : "";
+            Loc.Set(_hint, _hasModel ? Loc.T("stone.preview.drag") : "");
             if (_hasModel) BuildRig(prefab);
             _root.gameObject.SetActive(true);
             _root.transform.SetAsLastSibling();

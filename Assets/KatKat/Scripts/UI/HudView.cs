@@ -358,12 +358,20 @@ namespace KatKat.UI
 
             var toastSprite = UiFactory.Art("ui/hud-moves-pill", "hud_moves");
             var toastBg = UiFactory.Image("Toast", _safe, toastSprite ?? UiArt.Box, toastSprite != null ? Color.white : new Color(1f, 1f, 1f, 0.92f), true);
-            _toastBox = UiFactory.Band(toastBg.rectTransform, false, ShellH + 190f, 96f);
-            _toastBox.offsetMin = new Vector2(60f, _toastBox.offsetMin.y);
-            _toastBox.offsetMax = new Vector2(-60f, _toastBox.offsetMax.y);
-            UiFactory.FitSliced(toastBg, 96f);
-            _toast = UiFactory.Text("Text", toastBg.transform, "", 36, UiArt.Brown);
-            UiFactory.Stretch(_toast.rectTransform, 50, 50, 0, 6);
+            // Kullanıcı (2026-11-09): "bilgilendirme şeritlerine yazılar sığmıyor. Ve onu tahtanın üst kısmında çıkartalım.
+            // tahta ile görev taşları arasına". Şerit üstten, hedef kartının altına yerleşir (ShowToast konumu tazeler);
+            // yazı sığmazsa iki satıra geçer ve 20 punta kadar küçülür.
+            _toastBox = UiFactory.Band(toastBg.rectTransform, true, GoalsBottom + ToastGap, ToastH);
+            _toastBox.offsetMin = new Vector2(48f, _toastBox.offsetMin.y);
+            _toastBox.offsetMax = new Vector2(-48f, _toastBox.offsetMax.y);
+            UiFactory.FitSliced(toastBg, ToastH);
+            _toast = UiFactory.Text("Text", toastBg.transform, "", 32, UiArt.Brown);
+            UiFactory.Stretch(_toast.rectTransform, 44, 44, 4, 8);
+            _toast.textWrappingMode = TMPro.TextWrappingModes.Normal;
+            _toast.enableAutoSizing = true;
+            _toast.fontSizeMax = 32;
+            _toast.fontSizeMin = 20;
+            _toast.lineSpacing = -18f;
             _toastBox.gameObject.SetActive(false);
         }
 
@@ -572,7 +580,7 @@ namespace KatKat.UI
             _stoneDisc.color = used ? SlotOff : SlotOn;
             _stoneBadge.text = used ? "0" : "1";
             _stoneCaption.gameObject.SetActive(Ui1.Ready && !string.IsNullOrEmpty(caption));
-            if (caption != null) _stoneCaption.text = Loc.F("daily.power.caption", caption, used ? 0 : 1);
+            if (caption != null) Loc.Set(_stoneCaption, Loc.F("daily.power.caption", caption, used ? 0 : 1));
             _stone.interactable = !used;
             _stoneGlow.color = Color.clear; // ışıltı artık taşın kendi renginde (SetSkill)
             SetSkill(_stone, _stoneIcon, glow.a > 0f ? glow : new Color(0.6f, 0.9f, 1f), !used);
@@ -1011,8 +1019,12 @@ namespace KatKat.UI
             _boardBottom = ShellH + 22f + (on ? TutorialH + 18f : 0f);
         }
 
+        /// <summary>Bilgi şeridi: hedef kartının hemen altında, tahtanın üstünde (BoardWorldRect bu kadar yer bırakır).</summary>
+        public const float ToastH = 84f, ToastGap = 8f;
+
         public void ShowToast(string text, float seconds = 1.6f)
         {
+            _toastBox.anchoredPosition = new Vector2(0f, -(GoalsBottom + _headShift + ToastGap));
             Loc.Set(_toast, text);
             _toastBox.gameObject.SetActive(true);
             _toastUntil = Time.unscaledTime + seconds;
@@ -1081,7 +1093,8 @@ namespace KatKat.UI
             float refH = RefWidth / (cam.aspect > 0f ? cam.aspect : 9f / 16f);
             var n = SafeAreaFitter.CurrentNormalized();
             float left = n.xMin * RefWidth + 16f, right = n.xMax * RefWidth - 16f;
-            float bottom = n.yMin * refH + _boardBottom, top = n.yMax * refH - (GoalsBottom + _headShift + 12f);
+            // Hedef kartı ile tahta arasında bilgi şeridine yer (kullanıcı 2026-11-09: "tahtanın üst kısmında çıkartalım").
+            float bottom = n.yMin * refH + _boardBottom, top = n.yMax * refH - (GoalsBottom + _headShift + ToastGap + ToastH + 6f);
             float k = cam.orthographicSize * 2f / refH;
             WorldPerRef = k;
             var c = cam.transform.position;

@@ -42,7 +42,7 @@ namespace KatKat.EditorTools
         /// </summary>
         public static void RunUi3()
         {
-            Out = "../ui3_uygulama/";
+            Out = string.IsNullOrEmpty(Environment.GetEnvironmentVariable("KATKAT_CAPTURE_LANG")) ? "../ui3_uygulama/" : "../ui3_uygulama/diller/" + CapLang + "/";
             var only = Environment.GetEnvironmentVariable("KATKAT_CAPTURE_ONLY");
             _only = string.IsNullOrEmpty(only) ? null : only.Split(',');
             try
@@ -99,10 +99,13 @@ namespace KatKat.EditorTools
         }
         private static string[] _only;
 
+        /// <summary>Yakalama dili (2026-11-09 dil denetimi): KATKAT_CAPTURE_LANG (ör. "ar"); yoksa tr. Dilli çıktı docs/ui3_uygulama/diller/        private static string[] _only;lt;dil        private static string[] _only;gt;/.</summary>
+        private static string CapLang => string.IsNullOrEmpty(Environment.GetEnvironmentVariable("KATKAT_CAPTURE_LANG")) ? "tr" : Environment.GetEnvironmentVariable("KATKAT_CAPTURE_LANG");
+
         private static void Extras()
         {
             var keepLang = Loc.Code;
-            Loc.Set("tr", false);
+            Loc.Set(CapLang, false);
             GameController.ToursOverride = false;
             GameController.ClockOverride = new FixedDayClock { DayId = "2026-11-08" };
             GameController.CountryOverride = "TR";
@@ -175,7 +178,7 @@ namespace KatKat.EditorTools
             Directory.CreateDirectory(Path.Combine(PeelCapture.OutDir, Out));
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var keepLang = Loc.Code;
-            Loc.Set("tr", false);
+            Loc.Set(CapLang, false);
             GameController.ToursOverride = false;
             GameController.ClockOverride = new FixedDayClock { DayId = "2026-11-08" };
             GameController.CountryOverride = "TR";

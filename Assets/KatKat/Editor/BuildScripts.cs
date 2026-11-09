@@ -33,8 +33,18 @@ namespace KatKat.EditorTools
         [MenuItem("Kat Kat/Build/iOS Xcode projesi")]
         public static void BuildIOS()
         {
-            string output = Environment.GetEnvironmentVariable("KATKAT_IOS_OUT");
+            // GameCI (unity-builder) ortam değişkenlerini Unity kapsayıcısına aktarmıyor; çıkış yolunu -customBuildPath ile
+            // veriyor (2026-11-09 ilk CI denemesi: proje Builds/iOS'a yazılmış, Mac adımı bulamamıştı).
+            string output = CommandLineArg("-customBuildPath") ?? Environment.GetEnvironmentVariable("KATKAT_IOS_OUT");
             Build(BuildTarget.iOS, string.IsNullOrEmpty(output) ? "Builds/iOS" : output);
+        }
+
+        private static string CommandLineArg(string name)
+        {
+            var args = Environment.GetCommandLineArgs();
+            for (int i = 0; i < args.Length - 1; i++)
+                if (string.Equals(args[i], name, StringComparison.OrdinalIgnoreCase)) return args[i + 1];
+            return null;
         }
 
         public const string IconPath = "Assets/KatKat/Art/app-icon.png";

@@ -483,7 +483,11 @@ namespace KatKat.UI
                 UiFactory.Stretch(ic.rectTransform, 18f, 18f, 18f, 18f);
                 var nt = Ui1.Label("Name", row.transform, (idx + 1) + ". " + it.Title, 48, ink, true, TextAnchor.MiddleLeft);
                 UiFactory.Place(nt.rectTransform, new Vector2(0f, 0.5f), new Vector2(210f + 300f, 30f), new Vector2(600f, 78f));
-                nt.textWrappingMode = TextWrappingModes.NoWrap; nt.overflowMode = TextOverflowModes.Ellipsis;
+                // Arapçada (sağdan sola) üç nokta kesmesi satırı tamamen siliyordu (2026-11-09 dil denetimi): sığmazsa küçülür.
+                nt.textWrappingMode = TextWrappingModes.NoWrap;
+                nt.overflowMode = Loc.IsRtl ? TextOverflowModes.Overflow : TextOverflowModes.Ellipsis;
+                nt.enableAutoSizing = true; nt.fontSizeMax = 48; nt.fontSizeMin = 28;
+                Loc.Set(nt, (idx + 1) + ". " + it.Title);
                 var it2 = Ui1.Label("Intro", row.transform, it.Intro ?? "", 32, ink2, false, TextAnchor.MiddleLeft);
                 UiFactory.Place(it2.rectTransform, new Vector2(0f, 0.5f), new Vector2(210f + 300f, -32f), new Vector2(600f, 56f));
                 it2.enableAutoSizing = true; it2.fontSizeMax = 32; it2.fontSizeMin = 20;
@@ -599,8 +603,8 @@ namespace KatKat.UI
                 for (int k = 0; k < tops.Count; k++) if (-tops[k].y <= top) idx = k;
                 if (idx == shown) return;
                 shown = idx;
-                ctitle.text = tops[idx].title;
-                ccount.text = Loc.F("collection.count", tops[idx].owned, tops[idx].total);
+                Loc.Set(ctitle, tops[idx].title);
+                Loc.Set(ccount, Loc.F("collection.count", tops[idx].owned, tops[idx].total));
             }
             scroll.onValueChanged.AddListener(_ => SyncHeader());
             SyncHeader();
