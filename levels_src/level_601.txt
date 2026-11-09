@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 12 hamle + 5 tepsi / limit 15 (pay +3, eski 13) hedef×1,14 bot 0,13 (hedef 0,25) plan 2; zincir v13: yeni çözüm 11 (eski 12), sınır 15→18, bot 4/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 7/112
+id: level_601
+title: Gizli Geçit
+tutorial: Düğmenin üstündeki yığını bitir: soluk geçit taşları tahtaya katılır.
+moves: 10
+roll: off
+specials: on
+goals: purple 50, yellow 47
+grid:
+pccy  pccy  G1:pyb G1:pyby G1:ccb cccc  pcc
+pyb   pyb   pyby  ppby  ccb   pbb   bcby
+byb   pyyp  ppb   pcb   ccp   pcy   bcy
+#     cyyp  ypyp  cpy   yyy   pcyp  #
+#     cbc   cbp   cypp  cycp  cpc   #
+#     bbp   ycp   yypp  yypc  cpc   #
+ypc   ybpp  yppp  yppB1 yppc  ypb   ypbc
+ypcy  ybb   ypb   ypb   ycb   ycb   ycb
+bycp  yyc   yybc  pyb   pyb   ppbb  ypb
+solution: 1,2 ; 5,6 ; use 0,0,0 ; 2,3 ; 2,0 ; 3,2 ; use 0,3,1 ; 4,3 ; use 3,5,0 ; 0,6 ; use 0,3,0 ; use 0,3,1 ; use 0,0,6

@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: chain [chainOnly]; zincir coral 6; çözüm 5 / sınır 8 (v7 11); açgözlü kaybeder; bot48 0,10 (taban 0,10); bot 0,00; adillik onarımı: sınır 8→10 (112 oyunda 18 galibiyet); zincir v13: yeni çözüm 5 (eski 5), sınır 10→10, bot 45/112
+id: level_047
+title: Rulo Yıldızı
+moves: 10
+roll: off
+specials: on
+type: chain
+rules: chainOnly
+goals: blue 32, star 3, chain coral 6
+grid:
+pcb   ccb   cpb   cpc   bpp*  bpp   bpc
+pcb   ccc   cpb   cpc   cpc   bpp   ccb
+#     cpc   ypb*  ypc   pbp   bbp   #
+#     cyc   ypb   ybc   pby   cby   #
+#     yyb   ypb   cbb   bcc   bcc   #
+#     ycy   ypb   byb   bcy*  cb    #
+ypb   cyb   cbb   cby   ccy   cpy   cpy
+ypp   ypp   ypp   cpp   ppy   ppc   cpc
+solution: 3,0 ; 4,5 ; 0,0 ; 4,4 ; use 0,4,0 ; use 2,5,0 ; 4,0 ; use 1,6,1

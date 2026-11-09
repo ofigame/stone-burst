@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 9 hamle + 5 tepsi / limit 13 (pay +4, eski 12) hedef×1,31 bot 0,21 (hedef 0,23) plan 1; zincir v13: yeni çözüm 8 (eski 9), sınır 13→16, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 9/112
+id: level_701
+title: Boya Damlası
+tutorial: Boya damlası: bir taşın üst rengini değiştir, yeni grubu sen seç. Bir hamle sayılır.
+moves: 10
+roll: off
+specials: on
+paint: 1
+goals: purple 33, yellow 38
+grid:
+cppy  cppy  ccp   cpp   cypc  cbp   cbp
+cpb   ccb   ycbc  cyb   bcp   ybp   cypy
+pcyp  ccyc  pcbc  ycb   pbp   yyp   yyc
+cybp  cyy   pbbc  ybp   pbp   yybc  yycc
+cpb   cyy   pyy   pbyc  pbyc  yyyc  cyb
+cpb   cyy   pcyy  pcy   pby   pyyc  bpb
+#     #     bccy  bcc   bbc   #     #
+#     #     ccb   ccc   ccc   #     #
+#     #     ccc   ppcy  cbc   #     #
+solution: 5,0 ; 1,3 ; 6,2 ; use 0,0,0 ; use 0,0,0 ; paint 6,3,b ; use 0,0,1 ; 6,1 ; use 0,0,0 ; 2,6 ; use 0,1,0

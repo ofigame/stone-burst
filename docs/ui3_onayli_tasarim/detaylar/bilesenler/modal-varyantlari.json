@@ -1,0 +1,990 @@
+{
+  "daily": {
+    "width": 860,
+    "height": 1120,
+    "position": "center complete visual group inside safe area",
+    "localOrigin": "card-top-left",
+    "frame": {
+      "radius": 48,
+      "rimWidths": [
+        4,
+        3,
+        12,
+        9
+      ],
+      "crestRise": 32,
+      "shadowOffset": [
+        0,
+        14
+      ],
+      "shadowBlur": 22,
+      "shadowAlpha": 0.28
+    },
+    "elements": [
+      {
+        "id": "date",
+        "rect": [
+          236,
+          48,
+          388,
+          80
+        ],
+        "role": "smallButton",
+        "binding": "runtime daily date",
+        "note": ""
+      },
+      {
+        "id": "title",
+        "rect": [
+          56,
+          152,
+          748,
+          80
+        ],
+        "role": "modalTitle",
+        "binding": "daily.title",
+        "note": ""
+      },
+      {
+        "id": "group",
+        "rect": [
+          56,
+          256,
+          748,
+          80
+        ],
+        "role": "caption",
+        "binding": "runtime group + difficulty",
+        "note": ""
+      },
+      {
+        "id": "chest",
+        "rect": [
+          80,
+          390,
+          240,
+          260
+        ],
+        "role": "image",
+        "binding": "existing chest",
+        "note": ""
+      },
+      {
+        "id": "body",
+        "rect": [
+          352,
+          368,
+          452,
+          360
+        ],
+        "role": "body",
+        "binding": "runtime daily body",
+        "note": ""
+      },
+      {
+        "id": "divider",
+        "rect": [
+          56,
+          780,
+          748,
+          2
+        ],
+        "role": "paint",
+        "binding": "divider",
+        "note": ""
+      },
+      {
+        "id": "entry",
+        "rect": [
+          56,
+          836,
+          748,
+          116
+        ],
+        "role": "button",
+        "binding": "runtime entry action",
+        "note": ""
+      },
+      {
+        "id": "note",
+        "rect": [
+          56,
+          980,
+          748,
+          72
+        ],
+        "role": "legal",
+        "binding": "runtime prototype note",
+        "note": ""
+      }
+    ],
+    "close": {
+      "create": false,
+      "onlyIfExisting": true,
+      "visualRect": [
+        792,
+        -28,
+        88,
+        88
+      ],
+      "hitRect": [
+        784,
+        -36,
+        104,
+        104
+      ]
+    },
+    "overflow": "Keep fonts/buttons fixed. Calculate actual TMP preferred heights, grow textual rows then card. If total exceeds safeHeight-96, scroll content area only; keep title and actions fixed. Empty/missing optional sections removed with their exact adjacent gap."
+  },
+  "dailyDone": {
+    "width": 860,
+    "height": 1120,
+    "position": "center complete visual group inside safe area",
+    "localOrigin": "card-top-left",
+    "frame": {
+      "radius": 48,
+      "rimWidths": [
+        4,
+        3,
+        12,
+        9
+      ],
+      "crestRise": 32,
+      "shadowOffset": [
+        0,
+        14
+      ],
+      "shadowBlur": 22,
+      "shadowAlpha": 0.28
+    },
+    "elements": [
+      {
+        "id": "date",
+        "rect": [
+          236,
+          48,
+          388,
+          80
+        ],
+        "role": "smallButton",
+        "binding": "runtime daily date",
+        "note": ""
+      },
+      {
+        "id": "title",
+        "rect": [
+          56,
+          152,
+          748,
+          80
+        ],
+        "role": "modalTitle",
+        "binding": "daily.title",
+        "note": ""
+      },
+      {
+        "id": "group",
+        "rect": [
+          56,
+          256,
+          748,
+          80
+        ],
+        "role": "caption",
+        "binding": "runtime group + difficulty",
+        "note": ""
+      },
+      {
+        "id": "chest",
+        "rect": [
+          80,
+          390,
+          240,
+          260
+        ],
+        "role": "image",
+        "binding": "existing chest",
+        "note": ""
+      },
+      {
+        "id": "body",
+        "rect": [
+          352,
+          368,
+          452,
+          464
+        ],
+        "role": "body",
+        "binding": "runtime daily body",
+        "note": ""
+      },
+      {
+        "id": "divider",
+        "rect": [
+          56,
+          780,
+          748,
+          2
+        ],
+        "role": "paint",
+        "binding": "divider",
+        "note": ""
+      },
+      {
+        "id": "note",
+        "rect": [
+          56,
+          980,
+          748,
+          72
+        ],
+        "role": "legal",
+        "binding": "runtime prototype note",
+        "note": ""
+      }
+    ],
+    "close": {
+      "create": false,
+      "onlyIfExisting": true,
+      "visualRect": [
+        792,
+        -28,
+        88,
+        88
+      ],
+      "hitRect": [
+        784,
+        -36,
+        104,
+        104
+      ]
+    },
+    "overflow": "Keep fonts/buttons fixed. Calculate actual TMP preferred heights, grow textual rows then card. If total exceeds safeHeight-96, scroll content area only; keep title and actions fixed. Empty/missing optional sections removed with their exact adjacent gap."
+  },
+  "zpe": {
+    "width": 860,
+    "height": 1120,
+    "position": "center complete visual group inside safe area",
+    "localOrigin": "card-top-left",
+    "frame": {
+      "radius": 48,
+      "rimWidths": [
+        4,
+        3,
+        12,
+        9
+      ],
+      "crestRise": 32,
+      "shadowOffset": [
+        0,
+        14
+      ],
+      "shadowBlur": 22,
+      "shadowAlpha": 0.28
+    },
+    "elements": [
+      {
+        "id": "title",
+        "rect": [
+          56,
+          56,
+          748,
+          68
+        ],
+        "role": "modalTitle",
+        "binding": "zpe title",
+        "note": ""
+      },
+      {
+        "id": "value",
+        "rect": [
+          180,
+          148,
+          500,
+          112
+        ],
+        "role": "zpeValue",
+        "binding": "runtime ZPE",
+        "note": ""
+      },
+      {
+        "id": "metric0",
+        "rect": [
+          56,
+          308,
+          748,
+          88
+        ],
+        "role": "rowSub",
+        "binding": "runtime ZPE component[0]",
+        "note": ""
+      },
+      {
+        "id": "metric1",
+        "rect": [
+          56,
+          420,
+          748,
+          88
+        ],
+        "role": "rowSub",
+        "binding": "runtime ZPE component[1]",
+        "note": ""
+      },
+      {
+        "id": "metric2",
+        "rect": [
+          56,
+          532,
+          748,
+          88
+        ],
+        "role": "rowSub",
+        "binding": "runtime ZPE component[2]",
+        "note": ""
+      },
+      {
+        "id": "metric3",
+        "rect": [
+          56,
+          644,
+          748,
+          88
+        ],
+        "role": "rowSub",
+        "binding": "runtime ZPE component[3]",
+        "note": ""
+      },
+      {
+        "id": "metric4",
+        "rect": [
+          56,
+          756,
+          748,
+          88
+        ],
+        "role": "rowSub",
+        "binding": "runtime ZPE component[4]",
+        "note": ""
+      },
+      {
+        "id": "notes",
+        "rect": [
+          56,
+          900,
+          748,
+          144
+        ],
+        "role": "legal",
+        "binding": "runtime ZPE note incl IQ disclaimer",
+        "note": ""
+      }
+    ],
+    "close": {
+      "create": false,
+      "onlyIfExisting": true,
+      "visualRect": [
+        792,
+        -28,
+        88,
+        88
+      ],
+      "hitRect": [
+        784,
+        -36,
+        104,
+        104
+      ]
+    },
+    "overflow": "Keep fonts/buttons fixed. Calculate actual TMP preferred heights, grow textual rows then card. If total exceeds safeHeight-96, scroll content area only; keep title and actions fixed. Empty/missing optional sections removed with their exact adjacent gap."
+  },
+  "rankInfo": {
+    "width": 860,
+    "height": 1120,
+    "position": "center complete visual group inside safe area",
+    "localOrigin": "card-top-left",
+    "frame": {
+      "radius": 48,
+      "rimWidths": [
+        4,
+        3,
+        12,
+        9
+      ],
+      "crestRise": 32,
+      "shadowOffset": [
+        0,
+        14
+      ],
+      "shadowBlur": 22,
+      "shadowAlpha": 0.28
+    },
+    "elements": [
+      {
+        "id": "title",
+        "rect": [
+          56,
+          48,
+          748,
+          80
+        ],
+        "role": "modalTitle",
+        "binding": "runtime rank info title",
+        "note": ""
+      },
+      {
+        "id": "trophy",
+        "rect": [
+          320,
+          144,
+          220,
+          200
+        ],
+        "role": "image",
+        "binding": "existing trophy",
+        "note": ""
+      },
+      {
+        "id": "intro",
+        "rect": [
+          56,
+          364,
+          748,
+          112
+        ],
+        "role": "bodyCentered",
+        "binding": "runtime intro",
+        "note": ""
+      },
+      {
+        "id": "component0",
+        "rect": [
+          56,
+          500,
+          748,
+          92
+        ],
+        "role": "rowSub",
+        "binding": "runtime component",
+        "note": ""
+      },
+      {
+        "id": "component1",
+        "rect": [
+          56,
+          616,
+          748,
+          92
+        ],
+        "role": "rowSub",
+        "binding": "runtime component",
+        "note": ""
+      },
+      {
+        "id": "component2",
+        "rect": [
+          56,
+          732,
+          748,
+          92
+        ],
+        "role": "rowSub",
+        "binding": "runtime component",
+        "note": ""
+      },
+      {
+        "id": "note",
+        "rect": [
+          56,
+          856,
+          748,
+          88
+        ],
+        "role": "legal",
+        "binding": "runtime min-level/ads rule",
+        "note": ""
+      },
+      {
+        "id": "ok",
+        "rect": [
+          56,
+          960,
+          748,
+          116
+        ],
+        "role": "button",
+        "binding": "runtime existing OK",
+        "note": ""
+      }
+    ],
+    "close": {
+      "create": false,
+      "onlyIfExisting": true,
+      "visualRect": [
+        792,
+        -28,
+        88,
+        88
+      ],
+      "hitRect": [
+        784,
+        -36,
+        104,
+        104
+      ]
+    },
+    "overflow": "Keep fonts/buttons fixed. Calculate actual TMP preferred heights, grow textual rows then card. If total exceeds safeHeight-96, scroll content area only; keep title and actions fixed. Empty/missing optional sections removed with their exact adjacent gap."
+  },
+  "language": {
+    "width": 860,
+    "height": 1120,
+    "position": "center complete visual group inside safe area",
+    "localOrigin": "card-top-left",
+    "frame": {
+      "radius": 48,
+      "rimWidths": [
+        4,
+        3,
+        12,
+        9
+      ],
+      "crestRise": 32,
+      "shadowOffset": [
+        0,
+        14
+      ],
+      "shadowBlur": 22,
+      "shadowAlpha": 0.28
+    },
+    "elements": [
+      {
+        "id": "title",
+        "rect": [
+          56,
+          56,
+          748,
+          80
+        ],
+        "role": "modalTitle",
+        "binding": "runtime language title",
+        "note": ""
+      },
+      {
+        "id": "language0",
+        "rect": [
+          56,
+          192,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[0].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language1",
+        "rect": [
+          312,
+          192,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[1].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language2",
+        "rect": [
+          568,
+          192,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[2].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language3",
+        "rect": [
+          56,
+          356,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[3].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language4",
+        "rect": [
+          312,
+          356,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[4].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language5",
+        "rect": [
+          568,
+          356,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[5].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language6",
+        "rect": [
+          56,
+          520,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[6].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language7",
+        "rect": [
+          312,
+          520,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[7].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language8",
+        "rect": [
+          568,
+          520,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[8].NativeName",
+        "note": ""
+      },
+      {
+        "id": "closeButton",
+        "rect": [
+          56,
+          824,
+          748,
+          116
+        ],
+        "role": "buttonSecondary",
+        "binding": "runtime close",
+        "note": ""
+      }
+    ],
+    "close": {
+      "create": false,
+      "onlyIfExisting": true,
+      "visualRect": [
+        792,
+        -28,
+        88,
+        88
+      ],
+      "hitRect": [
+        784,
+        -36,
+        104,
+        104
+      ]
+    },
+    "overflow": "Keep fonts/buttons fixed. Calculate actual TMP preferred heights, grow textual rows then card. If total exceeds safeHeight-96, scroll content area only; keep title and actions fixed. Empty/missing optional sections removed with their exact adjacent gap."
+  },
+  "start": {
+    "width": 860,
+    "height": 600,
+    "position": "center complete visual group inside safe area",
+    "localOrigin": "card-top-left",
+    "frame": {
+      "radius": 48,
+      "rimWidths": [
+        4,
+        3,
+        12,
+        9
+      ],
+      "crestRise": 32,
+      "shadowOffset": [
+        0,
+        14
+      ],
+      "shadowBlur": 22,
+      "shadowAlpha": 0.28
+    },
+    "elements": [
+      {
+        "id": "title",
+        "rect": [
+          56,
+          56,
+          748,
+          80
+        ],
+        "role": "modalTitle",
+        "binding": "runtime level number",
+        "note": ""
+      },
+      {
+        "id": "stars",
+        "rect": [
+          176,
+          164,
+          508,
+          104
+        ],
+        "role": "image",
+        "binding": "runtime existing star state",
+        "note": ""
+      },
+      {
+        "id": "summary",
+        "rect": [
+          56,
+          300,
+          748,
+          88
+        ],
+        "role": "bodyCentered",
+        "binding": "runtime mechanics names",
+        "note": ""
+      },
+      {
+        "id": "play",
+        "rect": [
+          56,
+          428,
+          748,
+          116
+        ],
+        "role": "button",
+        "binding": "ui.playbig",
+        "note": ""
+      }
+    ],
+    "close": {
+      "create": false,
+      "onlyIfExisting": true,
+      "visualRect": [
+        792,
+        -28,
+        88,
+        88
+      ],
+      "hitRect": [
+        784,
+        -36,
+        104,
+        104
+      ]
+    },
+    "overflow": "Keep fonts/buttons fixed. Calculate actual TMP preferred heights, grow textual rows then card. If total exceeds safeHeight-96, scroll content area only; keep title and actions fixed. Empty/missing optional sections removed with their exact adjacent gap."
+  },
+  "adLoading": {
+    "width": 760,
+    "height": 460,
+    "position": "center complete visual group inside safe area",
+    "localOrigin": "card-top-left",
+    "frame": {
+      "radius": 48,
+      "rimWidths": [
+        4,
+        3,
+        12,
+        9
+      ],
+      "crestRise": 32,
+      "shadowOffset": [
+        0,
+        14
+      ],
+      "shadowBlur": 22,
+      "shadowAlpha": 0.28
+    },
+    "elements": [
+      {
+        "id": "title",
+        "rect": [
+          48,
+          56,
+          664,
+          80
+        ],
+        "role": "modalTitle",
+        "binding": "runtime ad search",
+        "note": ""
+      },
+      {
+        "id": "count",
+        "rect": [
+          304,
+          160,
+          152,
+          152
+        ],
+        "role": "metric",
+        "binding": "runtime timeout",
+        "note": ""
+      },
+      {
+        "id": "note",
+        "rect": [
+          48,
+          344,
+          664,
+          72
+        ],
+        "role": "caption",
+        "binding": "runtime no-fill note",
+        "note": ""
+      }
+    ],
+    "close": {
+      "create": false,
+      "onlyIfExisting": true,
+      "visualRect": [
+        792,
+        -28,
+        88,
+        88
+      ],
+      "hitRect": [
+        784,
+        -36,
+        104,
+        104
+      ]
+    },
+    "overflow": "Keep fonts/buttons fixed. Calculate actual TMP preferred heights, grow textual rows then card. If total exceeds safeHeight-96, scroll content area only; keep title and actions fixed. Empty/missing optional sections removed with their exact adjacent gap."
+  },
+  "testAd": {
+    "width": 860,
+    "height": 1480,
+    "position": "center complete visual group inside safe area",
+    "localOrigin": "card-top-left",
+    "frame": {
+      "radius": 48,
+      "rimWidths": [
+        4,
+        3,
+        12,
+        9
+      ],
+      "crestRise": 32,
+      "shadowOffset": [
+        0,
+        14
+      ],
+      "shadowBlur": 22,
+      "shadowAlpha": 0.28
+    },
+    "elements": [
+      {
+        "id": "test",
+        "rect": [
+          150,
+          64,
+          560,
+          88
+        ],
+        "role": "smallButton",
+        "binding": "runtime TEST REKLAMI",
+        "note": ""
+      },
+      {
+        "id": "type",
+        "rect": [
+          56,
+          200,
+          748,
+          80
+        ],
+        "role": "modalTitle",
+        "binding": "runtime ad type",
+        "note": ""
+      },
+      {
+        "id": "placement",
+        "rect": [
+          56,
+          300,
+          748,
+          56
+        ],
+        "role": "caption",
+        "binding": "runtime existing placement id",
+        "note": ""
+      },
+      {
+        "id": "indicator",
+        "rect": [
+          300,
+          568,
+          260,
+          260
+        ],
+        "role": "image",
+        "binding": "runtime existing timer/placeholder",
+        "note": ""
+      },
+      {
+        "id": "note",
+        "rect": [
+          56,
+          1100,
+          748,
+          112
+        ],
+        "role": "legal",
+        "binding": "runtime SDK note",
+        "note": ""
+      },
+      {
+        "id": "reward",
+        "rect": [
+          56,
+          1288,
+          748,
+          116
+        ],
+        "role": "button",
+        "binding": "only rewarded test current handler",
+        "note": ""
+      }
+    ],
+    "close": {
+      "create": false,
+      "onlyIfExisting": true,
+      "visualRect": [
+        792,
+        -28,
+        88,
+        88
+      ],
+      "hitRect": [
+        784,
+        -36,
+        104,
+        104
+      ]
+    },
+    "overflow": "Keep fonts/buttons fixed. Calculate actual TMP preferred heights, grow textual rows then card. If total exceeds safeHeight-96, scroll content area only; keep title and actions fixed. Empty/missing optional sections removed with their exact adjacent gap."
+  }
+}

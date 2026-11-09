@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 9 hamle + 5 tepsi / limit 12 (pay +3, eski 14) hedef×1,30 bot 0,25 (hedef 0,24) plan 1; zincir v13: yeni çözüm 9 (eski 9), sınır 12→12, bot 18/112
+id: level_443
+title: Bölüm 443
+moves: 12
+roll: off
+specials: on
+goals: blue 37, coral 42, sponge 2
+grid:
+#     #     ppcb  ppb   pcpc  #     #
+#     ypcb  ppc   ppb   pcb   ypc   #
+ypbb  bpbp  ppbpSby ppb   pcy   pcbc  cpbc
+ycbScb cpb   ppbp  pcyy  pcyy  pcbc  ppc
+bbcy  cbcy  byb   yyc   bpc   pcyy  cpc
+bbby  bbc   bpby  ypc   byy   ccyy  cpy
+bcby  bbb   bpcy  ppc   pyy   cpyy  cpy
+#     ycb   yccy  pccc  bpp   ypp   #
+#     #     ycp   pppc  pppp  #     #
+solution: 2,0 ; use 0,2,0 ; 3,4 ; 4,2 ; use 1,4,0 ; 2,0 ; 1,1 ; use 2,4,0 ; 2,5 ; 0,5 ; use 0,5,1 ; 3,3 ; use 1,3,3 ; 2,0 ; use 2,0,2

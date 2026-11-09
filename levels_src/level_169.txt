@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 10 hamle + 4 tepsi / limit 16 (pay +6, eski 18) hedef×0,77 bot 0,38 (hedef 0,38) plan 2; zincir v13: yeni çözüm 5 (eski 10), sınır 16→11, bot 26/112
+id: level_169
+title: Hazine Ustası
+moves: 11
+roll: off
+specials: on
+goals: purple 47, yellow 24, blue 22, star 5
+grid:
+cpcb  cycb* cybp  #     cpbp  cybp  cybp
+cyc   cycp  cyyp  #     cppp  cpb   cpb
+cbc   cccp  cpc   #     cppp  cpb   cpbbLb7
+ycb   ycbp  ycc   yyp   yycb* yybb  yyp
+by    cyc   bccy  bppb  bycb* ybb   by
+ycp   ybpy  pcby* pbc   ypcb  pppb  ppp
+ypp   bbpy  byby  pbb   ppbc  pppLp8 pppb
+ypcc  yyp   bybb  ppbc  pbcc  ppp   pppb
+pcp   pcpy  pypc* pypc  pppc  cyp   cppb
+solution: 4,6 ; 5,1 ; use 1,2,0 ; 2,4 ; use 1,0,0 ; 0,0 ; 3,3 ; use 0,4,0 ; use 0,0,0

@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [noSpecials+exact]); çözüm 7 / sınır 8 (v7 13); açgözlü kaybeder; bot48 0,15 (taban 0,04); bot 0,00; zincir v13: yeni çözüm 7 (eski 7), sınır 8→10, bot 5/112
+id: level_260
+title: Kule Mektubu
+moves: 10
+roll: off
+specials: on
+type: boss
+rules: exact
+goals: coral 47, purple 42, yellow 38, star 3, envelope 2
+grid:
+bpyb  pbcb  bpbb  ppby  pcbc  pbyc  bbcp  bbcp
+ycyb  bpcb  ppbb  pcbp  pcbc  pcyc  pbyc  bbcp
+ycyb  yccp  ycbp  ycpp  pcbp  ccyy  ybyc  ycppEp
+#     yyb   pcyp  pcyp  ccbp  cbcy  pp    #
+#     cbyc  bbyb  bbyp  pcbc  pcby  pcby  #
+#     cy    bbbb  pbyy  cbbc  ycby  cc    #
+bppb  byby  byby  cpyy  yycp  cybp  cpcp  yppb
+ppyyEb pbyb  byby  cyyy  ccyy  cyby  ycpp* yppp
+cbpb  cbpb* cppy  cppy  cyyy  cycp  cyyy  cpyy*
+solution: 1,7 ; 1,5 ; use 0,6,0 ; 0,0 ; 4,0 ; use 1,0,8 ; 3,5 ; 4,0 ; 1,0 ; use 0,0,0 ; use 0,5,1 ; use 0,3,0

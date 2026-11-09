@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 7 / sınır 7 (v7 10); açgözlü kaybeder; bot48 0,10 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 8 (eski 7), sınır 7→8, bot 9/112
+id: level_167
+title: Hazine Sırası
+moves: 8
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: blue 32, coral 52, star 3
+grid:
+yypc  yyc   ybc   pcb   pcb   ccby  pyb
+yyp   yyp   ycc   bcy*  pcb   cccy  cycy
+cyy*  yyby  yyby  byyy  pyyy  ppby  pyby
+#     yyyc  ybyc  yyyc  byyLc7 bybc  #
+#     pby   byy   bcy   bybyLy5 byb   #
+#     pcb   pbyy  ycyy* bccy  bcc   #
+ycc   pycy  yyyy  ppc   ccc   cyc   cyyb
+ppcp  pccy  yyy   yccy  ycy   ycyc  bcy
+ppcp  pcc   pbcy  ybc   ybyc  yby   cbyc
+solution: 5,0 ; use 0,0,0 ; 2,0 ; 1,2 ; 0,2 ; use 1,5,0 ; 2,4 ; use 1,5,2 ; 3,5 ; use 0,1,5 ; 0,7 ; 0,7

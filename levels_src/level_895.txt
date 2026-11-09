@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 7 hamle + 4 tepsi / limit 9 (pay +2, eski 14) hedef×1,32 bot 0,17 (hedef 0,15) plan 0; zincir v13: yeni çözüm 8 (eski 7), sınır 9→10, bot 33/112
+id: level_895
+title: Bölüm 895
+moves: 10
+roll: off
+specials: on
+goals: blue 48, coral 19, purple 36, envelope 2
+grid:
+ycpb  ycpb  ycpc  ycpp  #     #     #
+yppb  ycpb  yccy  ybpy  #     #     #
+ypbb  pyby  ybcy  ybpy  #     #     #
+ybpb  ypcy  ybby  ybpp  #     #     #
+pycy  ppcy  pypb  bypc  byyb  byyb  pyyy
+pypc  ybpy  pybb  yybbR bbyb  yyyyR pyyy
+ybbpEp ybyp  yyyb  yybbEy yybb  bpyy  byyy
+ybyp  ybyy  ybyy  yycy  bpyy  bpyy  byyc
+ybby  ypby  ybyy  pycy  cpbyR cpcy  bycy
+solution: 2,4 ; use 0,3,0 ; 2,1 ; use 0,2,0 ; 0,0 ; 2,0 ; 4,4 ; 6,4 ; use 0,0,2 ; 1,2 ; use 0,0,1 ; 2,0

@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [protect+exact]; kristal 3; çözüm 11 / sınır 13 (v7 11); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; adillik onarımı: sınır 13→16 (112 oyunda 8 galibiyet); zincir v13: yeni çözüm 9 (eski 11), sınır 16→18, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 14, bot 8/112
+id: level_840
+title: Bölüm 840
+moves: 14
+roll: off
+specials: on
+type: boss
+rules: protect, exact
+goals: coral 34, purple 49, yellow 40, sponge 1
+grid:
+bpbc  bbpc  bcpc  cpcb  ycpb  yypp  pybpK1:2 pcbp
+ybpc  bbpb  bcyc  ypyb  yypb  yypc  pyyc  yybp
+ypyc  bbbb  bybc  ppbb  bbpc  bbpc  ybpc  bbpc
+ypyc  #     #     pbbb  cbbb  #     #     bbpcScby
+ypcy  #     #     pbbb  cbyb  #     #     bbpyP
+ypcy  #     #     pcyb  cbyb  #     #     cbbbP
+ypby  yyby  bbcc  pcbb  ccyb  bpcyK1:2 cpcy  ppbb
+ypby  ypbc  yypp  pyyc  pyyb  pppb  bpbc  bppb
+ypyc  ypyc  yyyc  ppyc  pppb  pppb  bppb  bccbP
+solution: 5,1 ; 0,0 ; 0,2 ; use 0,0,3 ; use 0,7,3 ; 0,4 ; use 0,6,0 ; 3,0 ; use 1,1,0 ; 6,0 ; 2,0 ; 0,0 ; use 1,0,0 ; 4,0 ; use 0,3,0

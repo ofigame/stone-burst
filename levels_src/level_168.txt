@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: reverse [exact]; çözüm 12 / sınır 12 (v7 16); açgözlü kaybeder; bot48 0,17 (taban 0,06); bot 0,00; zincir v13: çözüm aynı, sınır 12→12, bot 26/112
+id: level_168
+title: Parlak Mola
+moves: 12
+roll: off
+specials: on
+type: reverse
+rules: exact
+goals: coral 15, purple 38, star 2
+grid:
+ybpc  pyy   cypb  yypb  ycy   pcyy* ppyy
+ypcc  yycy  cyp   yybb  ccb   pyyb  ppyb
+ypcc  bbcy  #     #     #     ppy   pyyb
+ypp   byc*  #     #     #     yyyb  ppp
+pppb  pypp  #     #     #     ypb   pbyb
+bpb   cypy  cyyy  ypcpLy5 pcp   ycb   ppyb
+byb   cyby  cyyy  bpc   ypp   ypby  ppby
+yyb   byb   byp   bpp   ppp   ppby  ppby
+yypb  ybb   ybbb  ybbb  pppp  ppby  ppby
+solution: 5,3 ; 6,4 ; 3,5 ; use 1,2,1 ; 0,0 ; use 1,0,1 ; 1,0 ; use 0,1,0 ; 0,4 ; 0,0 ; 1,4 ; use 0,1,0 ; 2,0 ; use 3,0,0 ; 5,0 ; 4,0 ; 5,0

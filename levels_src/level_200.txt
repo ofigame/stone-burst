@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [protect+chainOnly+exact]); çözüm 6 / sınır 9 (v7 11); açgözlü kaybeder; bot48 0,08 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 8 (eski 6), sınır 9→15, bot 6/112
+id: level_200
+title: İki Yüzüncü
+moves: 15
+roll: off
+specials: on
+type: boss
+rules: exact
+goals: coral 33, purple 45, yellow 46, star 3
+grid:
+#     #     ypby  ycp   ypp   yyp   #     #
+#     #     bppy  yyc   yppyi1 pbp   #     #
+ypy   ppyp  pyyp  yyc   pbpLc8 ybp   pbp*  pppb
+ppb   bbcp  yycy  cpy   yp    bybb  bybb  yp
+bbbb  bybp  cyyy  yyb   yyci1 bybb  yyb   pyby
+bpb   bbb   ybc   ycb   yybi1 bybb  byb   cyc
+bpb   bpbp* bccp  pccLb8 ccc   ccc   cpc   cpc*
+#     #     yybp  pycp  ycc   yybc  #     #
+#     #     ypcp  pycp  cyc   yyc   #     #
+solution: 7,5 ; 3,0 ; use 0,4,0 ; 2,0 ; use 0,3,0 ; use 0,4,0 ; 0,3 ; 3,5 ; 2,3 ; 2,1 ; use 0,2,1 ; 5,3 ; use 2,3,0 ; use 2,2,0 ; use 1,2,0

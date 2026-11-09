@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 6 hamle + 4 tepsi / limit 9 (pay +3, eski 11) hedef×1,10 bot 0,42 (hedef 0,45) plan 1; zincir v13: yeni çözüm 6 (eski 6), sınır 9→9, bot 40/112
+id: level_094
+title: Kırık Kilit
+moves: 9
+roll: off
+specials: on
+goals: yellow 44, blue 21
+grid:
+yyc   yyb   yyy   yyy   byy   cypi2 cyp
+yyc   yyc   yyci2 ypy   byy   ccp   pyb
+#     pcy   ppc   bby   bbc   byc   #
+#     pcc   pcc   ppc   ppc   pbc   #
+#     pbb   pbp   pyp   yyc   pby   #
+#     pbb   cpb   cpp   bbp   pbp   #
+yyc   yybk1 yyck1 bby   cbp   pcp   pyy
+yyb   yyb   yyc   ccp   pcp   ppb   pyy
+solution: 2,2 ; 3,3 ; use 0,1,0 ; use 0,1,0 ; 0,0 ; 0,0 ; 4,0 ; 3,3 ; use 3,0,6 ; use 1,2,0

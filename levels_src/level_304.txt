@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 5 hamle + 4 tepsi / limit 8 (pay +3, eski 11) hedef×0,95 bot 0,33 (hedef 0,30) plan 1; zincir v13: yeni çözüm 6 (eski 5), sınır 8→9, bot 73/112
+id: level_304
+title: Dön ve Soy
+moves: 9
+roll: off
+specials: on
+goals: coral 19, purple 21
+grid:
+yybp  yyb   yyb   cbp   ybpy  bbp   bby
+yyb   yybp  cyb   cbby  ybp   ybp   yby
+yybp  cbb   cyb   ybby  yyp   cypb  pcp
+pbbp  cyb   cycp  yyb   yyb   pyb   ypbc
+cyc   cycp  ybc   ybb   ybb   bpbb  ypb
+cyp   yby   yyybR yby   cyyb  cyb   cpbb
+#     #     yyyb  ybyb  cyyb  #     #
+#     #     bypy  cbyb  byy   #     #
+#     #     bypy  yppR  bpp   #     #
+solution: 5,2 ; use 0,0,0 ; 0,0 ; 2,1 ; 4,0 ; 2,4 ; use 0,3,0 ; 2,7

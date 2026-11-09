@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk blue 45/43; çözüm 6 / sınır 8 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 6 (eski 6), sınır 8→12, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 13/112
+id: level_227
+title: İnce Ayar
+moves: 10
+roll: off
+specials: on
+type: scarce
+rules: scarce
+goals: blue 41, coral 34, purple 38, envelope 2
+grid:
+bppy  bpby  ypc   #     yypp  bpc   cpc
+bpb   ypb   ypcy  #     yycy  cpc   cpcc
+ppb   ppb   yyc   #     yyby  ypb   ypbc
+pppb  pcpEp pbb   cbbb  byb   bcb   ycp
+pyp   pyp   yyp   cbp   bypc  ccp   ycp
+yyp   ybp   ycc   cbcp  cpp   bpp   cybbEc
+cbp   ybpb  bccb  bbp   cpp   bycb  yyyb
+bypb  pybb  ycp   ypcp  cpp   cyp   yyp
+byc   pcy   ycpc  ycc   ycp   yybp  ycpp
+solution: 6,3 ; 5,0 ; use 0,5,0 ; 5,3 ; 4,4 ; use 1,2,0 ; 6,1 ; 4,1 ; use 2,0,1 ; 6,5 ; 0,0 ; use 2,1,0

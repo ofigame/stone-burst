@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 4 hamle + 3 tepsi / limit 8 (pay +4, eski 6) hedef×1,25 bot 0,46 (hedef 0,55) plan 1; zincir v13: yeni çözüm 4 (eski 4), sınır 8→8, bot 19/112
+id: level_023
+title: Çift Nokta
+tutorial: İki noktalı ataş iki ayrı soyulma ister. Zincirin her dalgası bir nokta düşürür.
+moves: 8
+roll: off
+specials: on
+goals: blue 25, coral 19
+grid:
+pyb   pyy   cyyk2 pcy   ccb   cpb
+pyp   byy   byb   cyb   ccb   cpck2
+yyy   yyp   ppc   pcp   bcb   pcp
+bbb   cyy   bby   yby   cbb   yyc
+yyb   bcc   yyy   byb   cyb   bbc
+#     #     cyb   cyb   #     #
+#     #     ycb   cby   #     #
+solution: 4,0 ; 1,0 ; use 1,0,2 ; 3,0 ; 1,0 ; use 0,0,0 ; use 0,4,3 ; use 0,0,3

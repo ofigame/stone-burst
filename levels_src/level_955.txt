@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 7 hamle + 6 tepsi / limit 15 (pay +8, eski 12) hedef×1,32 bot 0,17 (hedef 0,15) plan 1; zincir v13: yeni çözüm 9 (eski 7), sınır 15→21, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 15, bot 22/112
+id: level_955
+title: Bölüm 955
+moves: 15
+roll: off
+specials: on
+paint: 1
+goals: blue 35, coral 66, purple 53
+grid:
+ppcb  G1:pycb G1:pycc G1:pccc G1:cbyb G1:cbyb cpyb
+pybb  pybb  cycc  ccyc  cbyp  cbcb  cbyc
+pybb  pcbp  pybp  cccp  cccc  cccb  ybcc
+bcppB1 bcpp  ycbp  yycp  cccc  yccp  ybcc
+bcpp  bybp  ypbp  yppy  bpcc  yccp  ycpp
+bypp  cybb  yypc  bcpc  bccc  pcpc  pcpy
+#     #     cypc  bcpc  pbpc  #     #
+#     #     ccpc  bppp  bppp  #     #
+#     #     pcpc  pcpp  pcpp  #     #
+solution: 1,2 ; use 0,0,0 ; 2,1 ; 3,2 ; use 0,4,1 ; use 0,1,0 ; 4,0 ; 0,0 ; 4,6 ; 2,1 ; use 0,2,0 ; use 0,0,0 ; use 0,4,0

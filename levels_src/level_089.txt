@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U (ayna); çözüm 7 hamle + 4 tepsi / limit 11 (pay +4, eski 18) hedef×0,77 bot 0,25 (hedef 0,45) plan 0; zincir v13: yeni çözüm 5 (eski 7), sınır 11→9, bot 11/112
+id: level_089
+title: Yıldız Avcısı
+moves: 9
+roll: off
+specials: on
+goals: purple 20, yellow 27, star 5
+grid:
+cbp   by    pcyp  #     yyc   yy    cpy
+pbci2 bby   pcpc  #     yyyc  ypy*  cpy
+cbyc  bbyc  ppyc  pcyy  ccpi1 cppc  ypyc
+cbyi1 bcp   bpb   yp    ccb   cyy   pyyc
+ccyp  pbc   cpbp  cpbb* cpb   cyc   cybyi1
+ccbp  cbbp  ccbp* ycc*  ypb   yybb  cybb
+yby   cbc*  cccci1 yccc  ypc   ccyb  ccbbi1
+yby   cbyc  ccyc  ccyi2 ycyc  ccyc  ccb
+solution: 4,3 ; use 0,3,2 ; 0,4 ; use 0,1,0 ; 4,3 ; use 0,5,0 ; 1,5 ; use 0,2,0 ; 6,0 ; use 0,0,0

@@ -1,0 +1,16 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı (ayna); çözüm 4 hamle + 3 tepsi / limit 7 (pay +3, eski 11) hedef×1,08 bot 0,75 (hedef 0,52) plan 0; zincir v13: yeni çözüm 6 (eski 4), sınır 7→9, bot 37/112
+id: level_029
+title: Kaskat
+moves: 9
+roll: off
+specials: on
+goals: purple 25, yellow 23
+grid:
+#     #     yyb   pbb   #     #
+yyy   pyp   yyb   pyb   pcp   yyb
+yyy   pyb   pby   pby   pcy   pcy
+bbb   bby   pby   pby   cpy   cpy
+bbb   bby   pbp   pyb   ppp   cpc
+bpy   cby   pyp   pybk1 bbck1 ppp
+#     #     byck1 pby   #     #
+solution: 2,2 ; 2,0 ; use 0,1,1 ; 1,2 ; 2,0 ; 3,4 ; 4,1 ; use 0,1,1

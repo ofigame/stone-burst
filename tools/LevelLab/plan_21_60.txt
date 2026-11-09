@@ -1,0 +1,50 @@
+// Bölüm 21-60 profilleri (belge Bölüm 15). Ritim: yeni mekanik kolay → hazırlık → düşündüren → rahatlatıcı zincir.
+// Biçim: Generator.cs başı. Üretilen kaynaklar levels_src/ altına yazılır; var olan dosya atlanır.
+
+// 21-25: ataş girişi. Önce tek hasar, sonra iki hasar.
+021 | title=Ataş | size=4 | layers=2-2 | colors=cby | clip1=1 | goals=c:0.8 | len=2-3 | slack=2 | win=0.8 | tutorial=Ataşlı yığın seçilemez. Yanındaki bir grubu soy: ataş açılır.
+022 | title=İki Kilit | size=4 | layers=2-2 | colors=cby | clip1=2 | goals=b:0.8 | len=3-4 | slack=1 | win=0.5
+023 | title=Çift Nokta | size=4 | layers=2-3 | colors=cby | clip2=1 | goals=y:0.8 | len=2-4 | slack=2 | win=0.7 | tutorial=İki noktalı ataş iki ayrı soyulma ister. Zincirin her dalgası bir nokta düşürür.
+024 | title=Sıra Önemli | size=5 | layers=2-2 | colors=cby | clip1=1 | clip2=1 | goals=c:0.75,b:0.5 | len=4-5 | slack=1 | win=0.3
+025 | title=Açılan Yol | size=5 | layers=2-3 | colors=cby | clip1=1 | goals=y:0.7 | len=3-4 | slack=1 | win=0.6 | chains=2
+
+// 26-40: birkaç ataş + eski kurallar (mor, 5x5, üç katman, rulo).
+026 | title=Mor Kilit | size=5 | layers=2-3 | colors=cbyp | clip1=2 | goals=p:0.7 | len=3-5 | slack=1 | win=0.5
+027 | title=Kilitli Satır | size=5 | layers=2-3 | colors=cbyp | clip1=2 | roll=on | goals=c:0.7 | len=3-5 | slack=1 | win=0.4
+028 | title=Dikkatli | size=5 | layers=2-3 | colors=cbyp | clip1=1 | clip2=1 | goals=b:0.7,y:0.5 | len=4-6 | slack=1 | win=0.25
+029 | title=Kaskat | size=5 | layers=3-3 | colors=cby | clip1=2 | goals=c:0.6 | len=3-4 | slack=2 | win=0.6 | chains=2
+030 | title=Üç Ataş | size=5 | layers=2-3 | colors=cbyp | clip1=3 | goals=y:0.7 | len=4-5 | slack=1 | win=0.35
+031 | title=Rulo ve Ataş | size=5 | layers=2-3 | colors=cbyp | clip2=1 | roll=on | goals=p:0.7,c:0.5 | len=4-5 | slack=1 | win=0.4
+032 | title=Ortadaki | size=5 | layers=3-3 | colors=cbyp | clip2=2 | goals=b:0.6 | len=4-6 | slack=1 | win=0.3
+033 | title=Gevşe | size=5 | layers=2-3 | colors=cby | clip1=2 | goals=c:0.7 | len=3-4 | slack=2 | win=0.7 | chains=2
+034 | title=Hazırlık | size=5 | layers=3-3 | colors=cbyp | clip1=2 | clip2=1 | goals=y:0.6,p:0.5 | len=4-6 | slack=1 | win=0.35
+035 | title=Hazır Rulo | size=5 | layers=2-3 | colors=cbyp | clip1=2 | roll=start | goals=b:0.7 | len=3-5 | slack=1 | win=0.4
+036 | title=Kilit Zinciri | size=5 | layers=3-3 | colors=cbyp | clip2=2 | goals=c:0.6 | len=4-5 | slack=1 | win=0.4 | chains=1
+037 | title=Düğüm | size=5 | layers=2-3 | colors=cbyp | clip1=3 | clip2=1 | goals=p:0.6,y:0.6 | len=5-6 | slack=1 | win=0.25
+038 | title=Kolay Nefes | size=5 | layers=2-3 | colors=cby | clip1=2 | goals=b:0.7 | len=3-4 | slack=2 | win=0.7 | chains=2
+039 | title=Satır Seçimi | size=5 | layers=3-3 | colors=cbyp | clip1=2 | clip2=1 | roll=on | goals=c:0.6,b:0.5 | len=4-6 | slack=1 | win=0.3
+040 | title=Ataş Ustası | size=5 | layers=3-3 | colors=cbyp | clip1=2 | clip2=2 | goals=y:0.6,p:0.6 | len=5-6 | slack=1 | win=0.2
+
+// 41-50: dip yıldızları, bazı inactive hücreler.
+041 | title=Yıldız | size=4 | layers=2-2 | colors=cby | stars=1 | goals=c:0.5 | len=2-3 | slack=2 | win=0.8 | tutorial=Yıldızlı yığını sonuna kadar soy: dipteki yıldızı toplarsın.
+042 | title=İki Yıldız | size=5 | layers=2-2 | colors=cby | stars=2 | goals=b:0.4 | len=3-4 | slack=1 | win=0.5
+043 | title=Derindeki | size=5 | layers=2-3 | colors=cbyp | stars=2 | goals=y:0.4 | len=4-5 | slack=1 | win=0.3
+044 | title=Yıldız Yağmuru | size=5 | layers=2-3 | colors=cby | stars=2 | goals=c:0.5 | len=3-4 | slack=2 | win=0.6 | chains=2
+045 | title=Boşluklar | size=5 | layers=2-2 | colors=cby | stars=1 | holes=3 | goals=b:0.6 | len=3-4 | slack=2 | win=0.6 | tutorial=Boşluklar tahtaya ait değildir; grupları böler.
+046 | title=Kilitli Yıldız | size=5 | layers=2-3 | colors=cbyp | stars=2 | clip1=1 | holes=2 | goals=p:0.5 | len=4-5 | slack=1 | win=0.35
+047 | title=Rulo Yıldızı | size=5 | layers=2-3 | colors=cbyp | stars=2 | holes=2 | roll=on | goals=c:0.5 | len=4-5 | slack=1 | win=0.35
+048 | title=Adacıklar | size=5 | layers=2-3 | colors=cby | stars=2 | holes=4 | goals=y:0.6 | len=3-4 | slack=2 | win=0.6 | chains=1
+049 | title=Üç Yıldız | size=5 | layers=3-3 | colors=cbyp | stars=3 | clip1=1 | holes=2 | goals=b:0.4 | len=4-6 | slack=1 | win=0.3
+050 | title=Yıldız Avı | size=5 | layers=2-3 | colors=cbyp | stars=3 | clip2=1 | holes=3 | roll=on | goals=p:0.5,c:0.4 | len=5-6 | slack=1 | win=0.25
+
+// 51-60: en fazla dört katman, seyrek 6x6.
+051 | title=Dört Kat | size=5 | layers=3-4 | colors=cby | goals=c:0.6 | len=3-4 | slack=2 | win=0.6 | chains=2 | tutorial=Bazı yığınlar dört katlı. Alttaki renkleri okuyup zinciri hazırla.
+052 | title=Geniş Tahta | size=6 | layers=2-2 | colors=cby | holes=8 | goals=b:0.7 | len=3-4 | slack=2 | win=0.6 | tutorial=Daha büyük tahta: boşluklar ve uzak gruplar.
+053 | title=Derin Kuyu | size=5 | layers=3-4 | colors=cbyp | clip1=1 | stars=1 | goals=y:0.5 | len=4-5 | slack=1 | win=0.35
+054 | title=Seyrek | size=6 | layers=2-3 | colors=cbyp | holes=9 | clip1=2 | goals=p:0.6 | len=4-5 | slack=1 | win=0.4
+055 | title=Sakin Kat | size=5 | layers=3-4 | colors=cby | stars=1 | goals=c:0.5 | len=3-4 | slack=2 | win=0.6 | chains=2
+056 | title=Altı Altı | size=6 | layers=2-3 | colors=cbyp | holes=8 | stars=2 | roll=on | goals=b:0.5 | len=4-5 | slack=1 | win=0.35
+057 | title=Kuleler | size=5 | layers=3-4 | colors=cbyp | clip1=1 | clip2=1 | goals=y:0.5,c:0.4 | len=4-6 | slack=1 | win=0.3
+058 | title=Rahat Kuleler | size=6 | layers=2-3 | colors=cby | holes=8 | goals=c:0.6 | len=3-4 | slack=2 | win=0.6 | chains=2
+059 | title=Son Hazırlık | size=6 | layers=2-4 | colors=cbyp | holes=9 | clip1=2 | stars=2 | goals=p:0.5 | len=4-6 | slack=1 | win=0.3
+060 | title=Kat Kat | size=6 | layers=2-4 | colors=cbyp | holes=8 | clip1=1 | clip2=1 | stars=2 | roll=on | goals=b:0.5,y:0.4 | len=5-6 | slack=1 | win=0.2

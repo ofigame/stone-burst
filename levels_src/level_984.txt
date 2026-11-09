@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3 (kaydırılmış); çözüm 9 hamle + 6 tepsi / limit 11 (pay +2, eski 14) hedef×1,32 bot 0,13 (hedef 0,15) plan 0; zincir v13: yeni çözüm 7 (eski 9), sınır 11→11, bot 6/112
+id: level_984
+title: Bölüm 984
+moves: 11
+roll: off
+specials: on
+goals: coral 41, purple 51, yellow 42, sponge 1
+grid:
+ybyb  bcyb  pcyb  pbyb  pbcb  pcbb  ppbb
+cbyyK1:2 bbyy  ppcy  bbcyScby bbcb  pcbb  ppcb
+ybyc  #     #     bbcy  #     #     cpcc
+yppy  #     #     bbcb  #     #     cpcc
+ypcc  #     #     bbpb  #     #     cbyc
+ppbp  cpbp  bpbp  bcpb  pcyb  cbcbK1:2 cbyb
+yppy  yppp  ybpp  pcpp  pcbp  ccby  cbby
+yppy  ypcy  ybbc  ybpy  ycbp  ccby  cyby
+ypcy  ypcp  yppp  ybbp  pcbp  pcby  pyby
+solution: 0,0 ; use 0,0,0 ; 4,0 ; 3,4 ; use 0,0,0 ; 6,2 ; 0,5 ; use 0,3,0 ; use 0,1,0 ; 4,0 ; use 0,2,0 ; use 0,0,1 ; 3,1 ; use 0,0,0

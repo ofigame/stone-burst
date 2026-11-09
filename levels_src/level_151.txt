@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 4 hamle + 4 tepsi / limit 8 (pay +4, eski 11) hedef×1,27 bot 0,33 (hedef 0,45) plan 0; zincir v13: yeni çözüm 3 (eski 4), sınır 8→7, bot 7/112
+id: level_151
+title: Buzlu Anahtar
+tutorial: Buz komşuluk ister, kilit renk ister. İkisini birlikte planla.
+moves: 7
+roll: off
+specials: on
+goals: blue 44, coral 37
+grid:
+pbp   pbp   pyp   #     ybc   bcc   pcy
+pbp   pbp   byp   #     pyb   pby   pby
+ppp   ccp   ybp   #     cby   cby   yby
+ypc   ycp   ybp   ybp   cbc   cbc   ybc
+ybc   byp   byp   bbpi1 cpy   ccy   cpci1
+cbp   byp   byy   bcb   cpb   cpy   ybc
+cby   cby   ybc   ybcLc5 pcb   ccc   cpc
+ppy   ppb   ppb   bcy   pcb   cpb   ppb
+pyp   pyb   ppb   ypb   ycb   cpp   pcb
+solution: 3,5 ; use 0,6,0 ; 4,2 ; 0,0 ; use 0,4,0 ; use 0,4,0

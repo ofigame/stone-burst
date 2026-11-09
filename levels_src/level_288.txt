@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: reverse [exact]; çözüm 10 / sınır 11 (v7 13); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 11 (eski 10), sınır 11→13, bot 8/112
+id: level_288
+title: Ilık Posta
+moves: 13
+roll: off
+specials: on
+type: reverse
+rules: exact
+goals: coral 63, purple 36, yellow 36, envelope 1
+grid:
+ycbp  yccb  ybcbi1 yycc  bcbc  bcby  bcby
+cpbp  ycbb  cbby  cycc  bcbc  bcbc  ccbp
+cccy  bcpy  cccc  cycy  bcbc  cbbb  cbbb
+cbcc  bypb  #     #     #     ccbb  cbbb
+cbcc  cbpp  #     #     #     ccyb  pyyp
+cycp  cycp  #     #     #     bbyp  pycp
+pybc  pbbp  pybpEy pybp  pbypi1 pyyp  cyyp
+pybc  pyyc  bbyc  bbbc  bcbb  yybp  yycp
+cybc  cybp  pycp  bbyc  bbyc  pbbp  bbpp
+solution: 6,4 ; use 0,0,0 ; 0,3 ; 3,6 ; use 0,5,0 ; use 0,1,2 ; 3,0 ; 0,0 ; 5,0 ; 1,6 ; use 0,1,0 ; use 0,0,0 ; use 0,0,1 ; 2,0 ; 0,1 ; 5,2 ; 5,2 ; use 0,2,2

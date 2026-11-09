@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: resource [exact]; çözüm 7 / sınır 9 (v7 13); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 9 (eski 7), sınır 9→15, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 9/112
+id: level_317
+title: Ne Zaman
+moves: 10
+roll: off
+specials: on
+type: resource
+rules: exact
+goals: purple 44, yellow 62, blue 22
+grid:
+cypy  cyc   cccy  bcy   ccyc  ccy   ccy
+cbpR  ypc   ypc   cpy   ccp   cpy   byyp
+ycc   ycc   bpcy  bppR  bby   bpyy  bpp
+#     yccc  ycc   ycy   yppy  bbyy  #
+#     ybyy  ycb   ycpb  ypp   ypyy  #
+#     yppy  ypc   ypcb  ybbb  ypcy  #
+ppy   yppp  ypc   ybc   ybbb  ypc   ypc
+ppy   pyyp  yyp   yypb  yypb  ypc   ypc
+ppyp  cyyp  cyc   yyp   bcp   bcpc  bcyc
+solution: 2,4 ; 1,6 ; 5,0 ; 5,5 ; use 1,0,0 ; use 1,0,0 ; 1,0 ; use 1,3,0 ; use 0,4,0 ; 0,0 ; 0,0 ; use 0,6,1 ; use 0,5,3

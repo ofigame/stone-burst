@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [chainOnly+exact]; zincir yellow 3; çözüm 8 / sınır 8 (v7 11); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,25; zincir v13: yeni çözüm 6 (eski 8), sınır 8→10, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 8/112
+id: level_770
+title: Bölüm 770
+moves: 10
+roll: off
+specials: on
+paint: 1
+type: boss
+rules: chainOnly, exact
+goals: blue 51, coral 34, chain yellow 3
+grid:
+#     #     bpcy  bcbp  bybp  byby  #     #
+#     #     bybp  pybc  bybp  bycb  #     #
+ybpc  pbbp  bybb  bcbb  bbbb  bppb  yccp  ybpp
+ycpc  pybc  pybc  pcbc  ppbc  pppb  yppp  yypy
+pcpb  pcpb  pypb  ppcc  bpbc  bpcb  bcpb  bcpp
+yccb  pccp  pppp  bpcp  bpbp  bbcb  bccp  ccpp
+ypcb  ppcp  ppcp  ppcy  pbpp  ppbb  cbcb  ccpb
+#     #     pcyp  pcpc  pcyp  pbyb  #     #
+#     #     pcyp  pbyc  pcyy  pcyy  #     #
+solution: 0,2 ; paint 5,0,p ; use 0,3,0 ; 2,1 ; 0,4 ; use 0,3,0 ; 5,2 ; use 1,3,0 ; 2,0 ; use 1,2,1

@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order; kilit yellow→coral; çözüm 6 / sınır 8 (v7 10); açgözlü kaybeder; bot48 0,13 (taban 0,06); bot 0,00; adillik onarımı: sınır 8→9 (112 oyunda 21 galibiyet); zincir v13: yeni çözüm 7 (eski 6), sınır 9→14, bot 7/112
+id: level_278
+title: Kolay Kasa
+moves: 14
+roll: off
+specials: on
+type: order
+goals: yellow 25, blue 49, coral 49, envelope 1
+grid:
+bccb  bccb  ppcc  #     #     #     #
+bccy  bccb  ccbp  pcbp  #     #     #
+pbcb  bcpy  pbpp  pbyp  cbcp  #     #
+cbpb  cppb  pppp  pbcb  pccc  cccc  #
+ycbp  pbpbEy pcpp  pbpp  cbpp  cbpc  pbpc
+ccby  pcpy  ccyp  pcpp  cbbpLb5 cbbp  pcbb
+cpby  pcby  ppyp  ycyp  pcyc  pbby  pcyc
+ypcb  yccy  ppyc  ppycLy3 bpycLy4 bbyy  bcyb
+yppb  ypcb  ppcc  ppyb  bppb  pppb  bcpb
+solution: 2,1 ; use 0,0,1 ; 1,6 ; use 0,0,0 ; 3,1 ; 0,0 ; use 0,2,0 ; 1,5 ; use 0,6,6 ; 4,5 ; use 1,6,4 ; use 0,0,1 ; 4,2

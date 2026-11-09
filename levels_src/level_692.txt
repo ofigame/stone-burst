@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 6 hamle + 6 tepsi / limit 11 (pay +5, eski 18) hedef×0,97 bot 0,21 (hedef 0,23) plan 2; zincir v13: yeni çözüm 7 (eski 6), sınır 11→12, bot 46/112
+id: level_692
+title: Bölüm 692
+moves: 12
+roll: off
+specials: on
+goals: coral 35, purple 32
+grid:
+yppp  G1:bypp G1:cyp G1:bccy G1:pyc G1:pyyp pybp
+bpp   bcp   byb   bbc   bbcp  cyb   pcbp
+bpp   bppy  byb   ccpp  cbp   cbb   pcbp
+#     bppy  byby  ycb   ybbp  ybb   #
+#     yyby  bcb   ycc   bbb   cbyp  #
+#     yyby  yyy   pcc   yccp  ccy   #
+pcyp  yyb   ypy   yyyy  cycp  ccyp  ccyy
+pycp  pcyp  yyy   yycy  cpby  bcbc  ccbB1
+pyc   pyyy  yyyy  yyy   ypyy  cpb   ppbc
+solution: 1,2 ; use 0,0,0 ; 2,1 ; use 0,0,0 ; 3,1 ; 1,4 ; use 0,1,1 ; 3,6 ; 4,7 ; use 2,0,7 ; 5,2 ; use 0,5,2

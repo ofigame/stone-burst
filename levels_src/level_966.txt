@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 10 hamle + 7 tepsi / limit 14 (pay +4, eski 17) hedef×0,97 bot 0,08 (hedef 0,15) plan 1; zincir v13: yeni çözüm 13 (eski 10), sınır 14→21, bot 0/112; zincir v13 kolaylaştırma: hedef −%18, sınır 13, bot 11/112
+id: level_966
+title: Bölüm 966
+moves: 13
+roll: off
+specials: on
+paint: 1
+goals: yellow 28, blue 43, coral 25, envelope 2
+grid:
+pcby  ypbp  pbbc  ybcc  pbcb  pbcb  bpcb
+ypbb  ppbp  ppbp  pbcc  pbcp  pcbb  bybb
+cpcy  cppp  cppc  ccbp  bpbpEy bybp  bybb
+cpcp  #     #     ycby  #     #     pbcp
+pppp  #     #     ybpb  #     #     pbpp
+cbpc  #     #     cbpy  #     #     ybby
+ybpc  ybbb  ybbb  ccpp  yypc  yyby  ybpc
+ybyb  ybpb  ybbb  ycby  ycpc  ybpcEp ybpc
+cbyc  pbpb  pbpy  pcpy  pcpc  ybpc  ycpc
+solution: 4,0 ; use 0,4,0 ; 6,6 ; use 0,3,0 ; 2,0 ; 1,0 ; 5,0 ; 1,6 ; use 0,5,1 ; use 0,0,0 ; 1,6 ; 1,6

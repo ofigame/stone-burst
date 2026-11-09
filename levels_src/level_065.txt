@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 4 hamle + 4 tepsi / limit 8 (pay +4, eski 11) hedef×1,09 bot 0,50 (hedef 0,47) plan 0; zincir v13: yeni çözüm 5 (eski 4), sınır 8→9, bot 77/112
+id: level_065
+title: Kırılan Kaskat
+moves: 9
+roll: off
+specials: on
+goals: purple 47, yellow 19
+grid:
+pcbi1 pcp   ypb   pyb   pbb   pbpi1 pppi1
+ybc   pcp   pcp   pyb   cyb   pbc   cbc
+ypc   ppp   ppp   byp   bpc   cbc   ybb
+yyc   ppc   ppp   pyp   pyp   ccp   ccp
+ppy   ppy   ppb   cbp   ypb   cpc   ccb
+#     #     byb   bbp   ybb   #     #
+#     #     pyb   pyp   pyy   #     #
+#     #     pyb   pyy   pyy   #     #
+solution: 2,0 ; 1,0 ; use 1,2,0 ; 2,4 ; 4,1 ; use 1,5,0 ; 4,6 ; use 1,6,0

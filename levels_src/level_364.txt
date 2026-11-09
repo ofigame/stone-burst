@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 9 hamle + 5 tepsi / limit 15 (pay +6, eski 16) hedef×1,12 bot 0,25 (hedef 0,27) plan 2; zincir v13: yeni çözüm 7 (eski 9), sınır 15→17, bot 4/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 15/112
+id: level_364
+title: Sayaçlı Tur
+moves: 12
+roll: off
+specials: on
+goals: coral 60, purple 32, yellow 32
+grid:
+pbcR  cbbc  pyp   byp   bypy  pybc  bby
+cyyc  pyb   pyp   bpp   cbpy  ybpy  pbpy
+cbc   ppbc  yyp   ybc   cccc  pbpy  pbyy
+#     ppbc  cyb   cycyR cbcy  bbyy  #
+#     ccpc  cbc   cycLy8 byc   bpb   #
+#     bccp  bbc   ccb   bpcy  ccc   #
+yccb  ycbc  yccc  bpcb  ycc   ccpb  yccb
+ycc   yccp  ybpp  ybcy  bbbp  pbbp  ycb
+yccp  ycc   bbyc  bcy   bbbp  yccR  ycbp
+solution: 4,0 ; use 0,4,0 ; 0,0 ; 2,0 ; use 0,2,0 ; 2,3 ; 4,2 ; 5,6 ; use 0,0,1 ; use 0,5,0 ; use 0,5,4 ; use 0,4,2

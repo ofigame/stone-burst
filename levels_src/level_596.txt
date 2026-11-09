@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 9 hamle + 8 tepsi / limit 15 (pay +6, eski 16) hedef×1,14 bot 0,17 (hedef 0,20) plan 2; zincir v13: yeni çözüm 14 (eski 9), sınır 15→24, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 15, bot 12/112
+id: level_596
+title: Bölüm 596
+moves: 15
+roll: off
+specials: on
+goals: coral 72, purple 68, yellow 45
+grid:
+ybcyK2:2 cppp  cccci1 #     cpyci1 ccpc  ycyy
+cyppi1 pypp  cyyc  #     cpyp  cccyK2:2 yccy
+pycp  pyyp  ppyci1 #     cpcp  cpcc  cpbp
+pyyp  pyyp  ypcc  yccpK1:1 ccyc  cpcc  cbcb
+pbyp  pyyp  ppypK1:1 ppcp  cpcy  cppy  bppb
+ppcy  pccy  bppp  ybccK2:2 cbcy  ybpyi1 ybpy
+cpbp  cccy  ycpb  yccc  pbcc  ybcc  ybpb
+cpyy  cpyb  cppb  bcpb  bccc  yycc  yycc
+cppy  bppy  ybyc  bppp  pppci1 ppyc  pbyc
+solution: 5,2 ; 1,0 ; 2,0 ; use 0,0,0 ; 5,0 ; 4,1 ; use 0,0,0 ; use 0,4,0 ; 2,4 ; use 0,1,0 ; 2,5 ; 1,6 ; 4,6 ; use 0,1,0 ; use 0,1,0 ; use 0,0,8

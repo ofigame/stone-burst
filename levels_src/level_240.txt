@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [protect+exact]; kristal 3; çözüm 13 / sınır 15 (v7 14); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 10 (eski 13), sınır 15→16, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 13, bot 6/112
+id: level_240
+title: Büyük Posta
+moves: 13
+roll: off
+specials: on
+type: boss
+rules: protect, exact
+goals: coral 40, purple 43, yellow 42, star 2, envelope 2
+grid:
+cpc   bpcp* pcc   pyypEb ppy   ppy   bcb   byyp
+pcb   bpcp  bpcp  cyc   cpp   cppyEp bcby  ycb
+bpy   bbcp  cyy   cyy   cyyp  bpyy  bcb   ycby*
+bpyb  bbcb  cbcb  #     #     pybc  bpyp  bcbLc8
+ppyb  bpy   bby   #     #     pyyc  pcb   bcp
+ppy   ycy   yby   #     #     pyyp  bcpc  bcpP
+yc    ycyc  yby   pbyc  ppy   bbbc  bcbp  bbP
+cyc   ycyc  bbyc  cpy   ppyy  bpyc  bcyp  cbcP
+pcpy  pcp   bpyb  cpy   cpy   ypy   bcbp  ycb
+solution: 0,6 ; 1,4 ; use 1,4,0 ; 1,0 ; use 0,0,0 ; 6,1 ; 0,1 ; use 2,7,0 ; 3,0 ; 3,1 ; use 0,6,0 ; use 0,6,0 ; use 0,5,0 ; use 0,0,0 ; 0,4 ; 1,2 ; use 0,5,0 ; 5,3 ; 4,6

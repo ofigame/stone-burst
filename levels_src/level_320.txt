@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [protect+exact]; kristal 3; çözüm 11 / sınır 12 (v7 20); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,00; adillik onarımı: sınır 12→13 (112 oyunda 3 galibiyet); adillik onarımı: sınır 13→14 (112 oyunda 9 galibiyet); zincir v13: yeni çözüm 10 (eski 11), sınır 14→17, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 10, bot 7/112
+id: level_320
+title: Büyük Tur
+moves: 10
+roll: off
+specials: on
+type: boss
+rules: protect, exact
+goals: coral 36, purple 38, yellow 50, star 2
+grid:
+ycpp  pp    ppyb  ppyb  cpyb  cccp* ccb   pypy
+bcpb  bcpp  ybyp  pbyb  cbyb  pbcb  pyyy  pyyyR
+bbpp  bbpp  cbby  pbbb  yccb  ycbb  pbyy  pbby
+#     cbpy  pcby  ycby  ycbb  yccc  pbbc  #
+#     cppy  ycpb  pcpc  bcpb  ycpb  bpbb  #
+#     ppbc  ccbc  byyb  bypb  bypb  yyyp  #
+bcyc  pcbc  pcyy  byyy  bypc  bybp  yyyp  yyyp*
+cbyb  bcyy  ycby  ycbyR bybb  bybb  ycyb  bcyp
+bbybP bbybP pcyy  bcbb  bybbP byyb  bcyy  bcyp
+solution: 2,0 ; 6,5 ; 3,5 ; use 0,7,0 ; use 1,4,0 ; 0,0 ; use 1,0,0 ; 0,1 ; use 1,0,0 ; 7,0 ; use 0,5,0 ; use 0,0,0 ; 3,6

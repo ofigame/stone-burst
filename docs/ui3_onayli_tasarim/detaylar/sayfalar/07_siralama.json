@@ -1,0 +1,130 @@
+{
+  "pageId": 7,
+  "title": "Sıralama",
+  "kind": "rank",
+  "referenceScreenshot": "ui2/07_siralama.png",
+  "coordinateSystem": "1080x1920 top-left; modal children card-local",
+  "elements": [
+    {
+      "id": "logo",
+      "rect": [
+        72,
+        48,
+        360,
+        108
+      ],
+      "role": "image",
+      "binding": "PremiumV4/ui/logo-trikat",
+      "note": ""
+    },
+    {
+      "id": "stars",
+      "rect": [
+        700,
+        56,
+        208,
+        88
+      ],
+      "role": "metric",
+      "binding": "runtime star sum",
+      "note": ""
+    },
+    {
+      "id": "settings",
+      "rect": [
+        936,
+        52,
+        96,
+        96
+      ],
+      "role": "icon",
+      "binding": "existing settings handler",
+      "note": ""
+    },
+    {
+      "id": "nav",
+      "rect": [
+        0,
+        1712,
+        1080,
+        208
+      ],
+      "role": "nav",
+      "binding": "existing Harita/Günlük/Taşlar",
+      "note": ""
+    },
+    {
+      "id": "tabs",
+      "rect": [
+        48,
+        184,
+        984,
+        104
+      ],
+      "role": "smallButton",
+      "binding": "runtime world/country",
+      "note": ""
+    },
+    {
+      "id": "podium",
+      "rect": [
+        96,
+        336,
+        888,
+        344
+      ],
+      "role": "runtime",
+      "binding": "existing top three",
+      "note": ""
+    },
+    {
+      "id": "list",
+      "rect": [
+        48,
+        712,
+        984,
+        780
+      ],
+      "role": "runtime",
+      "binding": "existing ten rows",
+      "note": "Satır104; isim38, ayrıntı28, puan44; liste kendi içinde kayar."
+    },
+    {
+      "id": "self",
+      "rect": [
+        48,
+        1532,
+        984,
+        132
+      ],
+      "role": "rowTitle",
+      "binding": "runtime self entry",
+      "note": ""
+    }
+  ],
+  "modal": null,
+  "content": {
+    "keyPattern": "rank.|country.",
+    "buttonBindings": [],
+    "authority": "live Loc/runtime existing case-format/action-condition; frozen snapshot is audit-only"
+  },
+  "sources": [
+    "Assets/KatKat/Scripts/UI/MenuView.Rank.cs"
+  ],
+  "notes": [
+    "Metin, sayı, durum, düğme sayısı, sırası ve eylemi mevcut çalışma zamanından gelir; örnek panodaki içerik kullanılmaz.",
+    "Otomatik yeni kapat/geri düğmesi, yardım, ödeme, güç veya ayar eklenmez."
+  ],
+  "deliveredMockup": "../../sayfalar/07_siralama.png",
+  "assetManifest": "../../parcalar/asset-manifest.json",
+  "assetUsage": "../../parcalar/KULLANIM.md",
+  "sharedSprites": [
+    "modal-seramik",
+    "kart-seramik",
+    "buton-birincil",
+    "buton-ikincil",
+    "baslik-plakasi",
+    "ikon-dugmesi"
+  ],
+  "invariant": "Existing strings, buttons, handlers, tiles and board geometry prevail over generated illustration"
+}

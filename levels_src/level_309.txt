@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 6 hamle + 5 tepsi / limit 14 (pay +8, eski 13) hedef×0,78 bot 0,29 (hedef 0,30) plan 1; zincir v13: çözüm aynı, sınır 14→14, bot 28/112
+id: level_309
+title: Taban Ustası
+moves: 14
+roll: off
+specials: on
+goals: purple 25, yellow 25, blue 37
+grid:
+cbb   bccc  ccb   cybR  yby   cpy   byy
+cpy   cbbp  cbyp  bbc   bpc   byyy  byyy
+pby   ybyp  bbc   cycp  bycp  byyp  pyy
+bbp   #     #     pbc   #     #     pypc
+pbp   #     #     bbp   #     #     pbp
+pcybR #     #     ppp   #     #     pbpc
+cbyc  bcyb  cpy   bbpy  ybb   pbbc  ybb
+bccb  bcyb  ybb   bby   ybb   pbc   ybbb
+bccb  pcc   cyb   cbb   cbc   cyp   pbbb
+solution: 2,6 ; 1,6 ; use 0,1,1 ; 3,1 ; 4,0 ; use 0,6,0 ; use 0,0,1 ; 2,0 ; 3,6 ; use 0,5,0 ; use 0,6,0

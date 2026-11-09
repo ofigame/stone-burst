@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [noSpecials+exact]; çözüm 16 / sınır 19 (v7 10); açgözlü kaybeder; bot48 0,13 (taban 0,04); bot 0,00; zincir v13: yeni çözüm 14 (eski 16), sınır 19→18, bot 10/112
+id: level_940
+title: Bölüm 940
+moves: 18
+roll: off
+type: boss
+rules: noSpecials, exact
+goals: coral 39, purple 48, yellow 29
+grid:
+#     #     #     bccb  byby  bybc  pycc  ppcci2
+#     #     #     pycy  pycy  bycc  bypy  ppcy
+#     #     #     bypc  bycyi1 bypyi1 bypc  bbcy
+#     #     #     pypc  bybc  bybc  yppc  yppcLb8
+pppb  bppb  pbpc  pbpci1 pbpbi1 yybbi2 yppb  ypbc
+pbbp  pbbp  cbbc  bbbc  ybbb  bbbb  pbpc  ybbc
+pppp  cpbp  cpbp  bcyc  bcyb  bbyb  bbpc  bbyc
+cppp  cppp  cppp  bbpc  bbpb  cbybLc8 ccyc  bbyc
+cppb  cppb  cppbi2 cbpb  cbpb  ybpb  ycpci1 ycyc
+solution: 4,5 ; 4,4 ; 3,2 ; 4,3 ; 4,0 ; 0,8 ; 0,4 ; 6,3 ; 3,7 ; 4,5 ; 0,6 ; 0,6 ; 1,6 ; 5,0

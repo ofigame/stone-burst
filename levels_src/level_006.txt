@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı; çözüm 4 hamle + 1 tepsi / limit 8 (pay +4, eski 7) hedef×1,24 bot 0,71 (hedef 0,60) plan 0; zincir v13: yeni çözüm 2 (eski 4), sınır 8→6, bot 58/112
+id: level_006
+title: Roket Zamanı
+tutorial: Beş ya da daha fazla taşı birden soy: rulo roketi alttaki tepsine gelir!
+moves: 6
+roll: off
+specials: on
+goals: coral 19
+grid:
+#     #     bc    bcy   #     #
+yc    cb    cb    bc    yyy   yyb
+ycy   cb    yyy   yc    yyc   bc
+bby   cyb   bcb   ycb   bcb   bby
+ybb   bc    byy   bcy   yc    yy
+ycy   by    bcy   yb    bb    yy
+#     #     bc    yy    #     #
+solution: 1,1 ; use 0,0,2 ; 4,1 ; use 0,2,0

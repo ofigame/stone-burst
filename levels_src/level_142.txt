@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 6 hamle + 5 tepsi / limit 13 (pay +7, eski 10) hedef×1,43 bot 0,42 (hedef 0,45) plan 1; zincir v13: yeni çözüm 7 (eski 6), sınır 13→14, bot 17/112
+id: level_142
+title: Çift Sayaç
+moves: 14
+roll: off
+specials: on
+goals: yellow 36, blue 54
+grid:
+bpy   ypy   cbb   ybb   cbb   cpbLc8 ybb
+byy   yby   ybyLc5 ybb   ybc   pbc   bbc
+byb   yby   pbc   pbb   ycb   pbc   bbb
+#     ybb   pbb   pcb   pcb   bpb   #
+#     cbp   ypc   pyp   pyp   bpp   #
+#     cpb   cyp   byp   byy   bcp   #
+cpp   ppp   pyp   pyy   byy   bcy   bby
+cpc   ppc   ppc   ybc   cbc   pbc   bbc
+cpp   ycy   ycc   ycc   ybc   pbc   bbc
+solution: 2,0 ; use 0,4,1 ; 2,0 ; 0,0 ; 5,0 ; 4,5 ; 3,4 ; use 0,6,0 ; use 0,6,0 ; 1,8 ; use 0,0,1

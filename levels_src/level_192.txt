@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3 (kaydırılmış); çözüm 5 hamle + 5 tepsi / limit 10 (pay +5, eski 13) hedef×1,11 bot 0,33 (hedef 0,42) plan 1; zincir v13: yeni çözüm 6 (eski 5), sınır 10→11, bot 18/112
+id: level_192
+title: Soğuk Kasa
+moves: 11
+roll: off
+specials: on
+goals: coral 18, purple 47
+grid:
+pccp  pcyp  bpy   pyyb  ppy   pcby  bcb
+ppyy  ppyy  bpyy  ypy   ppyy  pcyy  bcb
+pcyy  #     #     bpy   #     #     ybbyi1
+ycyy  #     #     cpp   #     #     bbyy
+ycy   #     #     cpp   #     #     bpyy
+ybp   cbyp  ccbp  bpy   byyyLb7 byy   pyyp
+bpyy  cbb   cbb   cpby  bpby  ppyy  ppyLy5
+byp   pcy   pcbp  pyb   bybp  pyb   bbpy
+bpy   byyb  yyb   ppbp  pybp  ppbi1 ppyp
+solution: 2,0 ; use 0,0,0 ; 1,0 ; use 0,2,0 ; 6,2 ; 3,3 ; use 0,0,0 ; 0,3 ; use 0,1,0 ; 1,5 ; use 0,0,0

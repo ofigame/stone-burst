@@ -1,0 +1,301 @@
+<!doctype html><html lang="tr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TriKat tasarım şartnamesi</title><style>body{max-width:1120px;margin:32px auto;padding:0 20px;font:16px/1.65 system-ui;color:#203846;background:#fff7e8}nav{display:flex;flex-wrap:wrap;gap:16px}a{color:#08766f}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}section{margin:48px 0;border-top:1px solid #d8c09c}h1{line-height:1.2}</style><h1>TriKat · Kesin tasarım şartnamesi</h1><p>Oyun kodu değiştirilmedi. B01–B10 yalnız kenarlık görünüşüdür; tahta şekli mevcut bölümden gelir.</p><nav><a href="#s0">OKU.md</a><a href="#s1">01_OLCU_TIPOGRAFI.md</a><a href="#s2">02_RENK_MALZEME.md</a><a href="#s3">03_ZEMIN_VE_BORDER.md</a><a href="#s4">04_MODAL_DURUMLAR_ASSET.md</a><a href="#s5">05_CLAUDE_CODE_TALIMATI.md</a><a href="#s6">06_BILESEN_IC_YERLESIMLERI.md</a><a href="tum-sayfalar.json">35 ekran JSON</a><a href="icerik/METINLER.md">Mevcut metinler</a></nav><section id="s0"><h2>OKU.md</h2><a href="OKU.md">Dosyayı aç</a><pre># TriKat — Onaylı tasarımın kesin şartnamesi
+
+Tarih08.11.2026. Referans: docs/ui2_uyarlama_onizleme/00_dengeli_tasarim_panosu_v3.png. Sayısal değerler bu görsele uygun yeni uygulama kararıdır; rasterdan birebir ölçüm iddiası yok.
+
+**Oyun koduna, sahneye, prefaba veya veriye müdahale edilmedi.** Kaynaklar yalnız okunup eşleştirildi. Bu klasör bir uygulama tarifi, yürütülmüş entegrasyon değildir. Yeni sprite/materyal üretimi henüz yapılmadı; üretim boyut ve importtarifleri hazırdır.
+
+**Tahtanın şekli değişmez.** B01–B10 yalnız kenarlık. Bölümün dışkonturu,içdelikleri,hücreleri,taşları ve mekanikleri aynı kalır.
+
+## Dosyalar
+
+- [01_OLCU_TIPOGRAFI.md](01_OLCU_TIPOGRAFI.md): kenarboşluğu, fontboyut/ağırlık, satır ve metinkonumu, SafeArea ve taşma.
+- [02_RENK_MALZEME.md](02_RENK_MALZEME.md): bütün boyalı yüzeylerin HEX/alpha/gradient/shadow reçeteleri.
+- [03_ZEMIN_VE_BORDER.md](03_ZEMIN_VE_BORDER.md): 5rastgele zemin ve 10şekildenbağımsız border.
+- [04_MODAL_DURUMLAR_ASSET.md](04_MODAL_DURUMLAR_ASSET.md): karartma, etkileşim, durumlar, katman,9-slice ve üretim ölçüleri.
+- [05_CLAUDE_CODE_TALIMATI.md](05_CLAUDE_CODE_TALIMATI.md): yorum bırakmayan uygulama ve kabul sınırları.
+- [tasarim-tokenlari.json](tasarim-tokenlari.json): ortak ölçü/renk/tipografi/durum makinaceokunabilir kaynağı.
+- [tum-sayfalar.json](tum-sayfalar.json):35ekranın tamamı. sayfalar/ altında ayrıJSON ve açıklama.
+- [icerik/METINLER.md](icerik/METINLER.md):302Türkçe kaynakkaydı; strings-kaynak.txt bütün9dil, source-kullanimlari.json kesin dosya/satırbağları.
+- [kontrol/dogrulama.json](kontrol/dogrulama.json):1454oyunkaynağıönce/sonrahashkontrolü, değişen0dosya.
+
+- [06_BILESEN_IC_YERLESIMLERI.md](06_BILESEN_IC_YERLESIMLERI.md): ikon/yazı/çubuk/thumbnail iç koordinatları; bilesenler/ortak-bilesenler.json ile eşleşir.
+
+## Okuma sırası
+
+Önce buREADME, ardından01–05; implementasyonda tokens ve ilgilisayfaJSON. Canlımetin/durumeylem kaynağının bu anlık referanstan önce geldiği unutulmaz. Onaylıestetik kararlar: olgun/sade oyunhissi, sakin doğalpalet, tamkarartılmış modalçevresi, özgüntaşseti.
+
+## Sayfalar
+
+| No | Ekran | Tarif |
+|---|---|---|
+| 01 | Harita / ana sayfa | [Açıklama](sayfalar/01_ACIKLAMA.md) |
+| 02 | Günlük bulmaca | [Açıklama](sayfalar/02_ACIKLAMA.md) |
+| 03 | Koleksiyon | [Açıklama](sayfalar/03_ACIKLAMA.md) |
+| 04 | Taş vitrini | [Açıklama](sayfalar/04_ACIKLAMA.md) |
+| 05 | Ayarlar | [Açıklama](sayfalar/05_ACIKLAMA.md) |
+| 06 | ZPE istatistik | [Açıklama](sayfalar/06_ACIKLAMA.md) |
+| 07 | Sıralama | [Açıklama](sayfalar/07_ACIKLAMA.md) |
+| 08 | Sıralama bilgisi | [Açıklama](sayfalar/08_ACIKLAMA.md) |
+| 09 | Deneme listesi | [Açıklama](sayfalar/09_ACIKLAMA.md) |
+| 10 | Deneme kural kartı | [Açıklama](sayfalar/10_ACIKLAMA.md) |
+| 11 | Deneme tahtası | [Açıklama](sayfalar/11_ACIKLAMA.md) |
+| 12 | Oyun ekranı | [Açıklama](sayfalar/12_ACIKLAMA.md) |
+| 13 | Özel taşlı oyun | [Açıklama](sayfalar/13_ACIKLAMA.md) |
+| 14 | Duraklat | [Açıklama](sayfalar/14_ACIKLAMA.md) |
+| 15 | Kayıp | [Açıklama](sayfalar/15_ACIKLAMA.md) |
+| 16 | Zafer | [Açıklama](sayfalar/16_ACIKLAMA.md) |
+| 17 | Günlük oyun | [Açıklama](sayfalar/17_ACIKLAMA.md) |
+| 18 | Reklam aranıyor | [Açıklama](sayfalar/18_ACIKLAMA.md) |
+| 19 | Ödüllü test reklamı | [Açıklama](sayfalar/19_ACIKLAMA.md) |
+| 20 | Geçiş test reklamı | [Açıklama](sayfalar/20_ACIKLAMA.md) |
+| 21 | Bölüm başlangıcı | [Açıklama](sayfalar/21_ACIKLAMA.md) |
+| 22 | Dil seçimi | [Açıklama](sayfalar/22_ACIKLAMA.md) |
+| 23 | Tür / kural tanıtımı | [Açıklama](sayfalar/23_ACIKLAMA.md) |
+| 24 | Patron kartı | [Açıklama](sayfalar/24_ACIKLAMA.md) |
+| 25 | Kayıp + ipucu | [Açıklama](sayfalar/25_ACIKLAMA.md) |
+| 26 | İpucu gösterimi | [Açıklama](sayfalar/26_ACIKLAMA.md) |
+| 27 | Kristal kaybı | [Açıklama](sayfalar/27_ACIKLAMA.md) |
+| 28 | Günlük kural kartı | [Açıklama](sayfalar/28_ACIKLAMA.md) |
+| 29 | Günlük zafer | [Açıklama](sayfalar/29_ACIKLAMA.md) |
+| 30 | Günlük kayıp | [Açıklama](sayfalar/30_ACIKLAMA.md) |
+| 31 | Günlük tamamlandı | [Açıklama](sayfalar/31_ACIKLAMA.md) |
+| 32 | Deneme kayıp | [Açıklama](sayfalar/32_ACIKLAMA.md) |
+| 33 | Boya paleti | [Açıklama](sayfalar/33_ACIKLAMA.md) |
+| 34 | Katman görünümü | [Açıklama](sayfalar/34_ACIKLAMA.md) |
+| 35 | Öğretici tur | [Açıklama](sayfalar/35_ACIKLAMA.md) |
+</pre></section><section id="s1"><h2>01_OLCU_TIPOGRAFI.md</h2><a href="01_OLCU_TIPOGRAFI.md">Dosyayı aç</a><pre># Ölçü, yazı ve yerleşim standardı
+
+Bu değerler onaylanan görsele uygun KESİN UYGULAMA KARARLARIDIR; düşük çözünürlüklü panodan piksel ölçülmüş gibi sunulmaz. JSON değerleri bağlayıcıdır. Kaynakta olmayan içerik ekleme kararı içermez.
+
+## Koordinat ve ölçek
+
+Referans1080×1920, köken sol üst, birim reference-px. Tuple x,y,width,height. Temel aralık8; dış yatay48; minimum temas96×96. Grafik taşması temas alanını büyütmez. Menü altında208px navigasyon.
+
+Unity: mevcut CanvasScaler çıktısında SafeArea ekran koordinatlarını canvas yerel birimine bir kez çevir. SafeDesignRoot sabit1080×1920; s=min(safeCanvasWidth/1080,safeCanvasHeight/1920), merkez SafeRect merkezi; root uniform(s,s,1). Mevcut scaler dönüşümü ikinci kez uygulanmaz. Arka plan tüm fiziksel ekrana taşar; UI güvenli alandadır. Çentik alanında ekstra kontrol yok. 1080×2400 ekranda tam ekran desen uzar ama1080×1920 içerik dikey ortalanır. Landmark harita ve tahta geometrisi eski veriden gelir.
+
+Element rect için anchorMin=anchorMax=(0,1), pivot=(0,1), anchoredPosition=(x,-y), sizeDelta=(w,h). Merkezli sayısal plakalarda textRect ayrıca aşağıdaki insets ile kurulacak; parent anchor başka seçilip koordinat karıştırılmaz. Görseller preserveAspect=true; paneller Image.Sliced; tahta çerçevesi Sliced DEĞİL kontur bazlı.
+
+## Yazı rolleri
+
+Nunito ExtraBold800 ve SemiBold600. Sahte Bold yok; ekstra FaceDilate0, karakter aralığı0, kontur0. Başlıklarda sadece gerektiğinde rol bazlı mevcut SDF underlay: renk #302C2A, alpha0.16, offset(0,-1), blur2; gövde ve sayıda yok.
+
+| Rol | Boyut | Ağırlık | Satır yüksekliği | Hizalama | Renk |
+|---|---:|---:|---:|---|---|
+| pageTitle | 56 | 800 | 68 | center | #203846 |
+| modalTitle | 54 | 800 | 66 | center | #203846 |
+| ribbonTitle | 58 | 800 | 70 | center | #FFF9ED |
+| sectionTitle | 40 | 800 | 50 | left | #203846 |
+| button | 44 | 800 | 54 | center | #FFF9ED |
+| buttonSecondary | 44 | 800 | 54 | center | #203846 |
+| body | 36 | 600 | 46 | left | #203846 |
+| bodyCentered | 36 | 600 | 46 | center | #203846 |
+| caption | 28 | 600 | 36 | center | #53646D |
+| metric | 50 | 800 | 62 | center | #203846 |
+| moves | 64 | 800 | 78 | center | #FFF9ED |
+| goal | 38 | 800 | 48 | left | #203846 |
+| nav | 32 | 800 | 40 | center | #203846 |
+| rowTitle | 38 | 800 | 48 | left | #203846 |
+| rowSub | 28 | 600 | 36 | left | #53646D |
+| smallButton | 34 | 800 | 44 | center | #203846 |
+| legal | 26 | 600 | 34 | center | #53646D |
+| zpeValue | 88 | 800 | 104 | center | #118C83 |
+
+TMP satır yüksekliği hedefi tabloda belirtilen px; font metriklerine bağlı varsayılan lineSpacing bırakılmaz. Aynı rol için baseline-to-baseline mesafe hedefe ayarlanır. Orta hizalı kutuda TMP Midline kullanılacak; optik offset y=-2px, diğer kutularda0. Metin kutusu içinde glyph outline değil TMP padding hesabı kullanılır.
+
+## İç boşluklar / metin konumu
+
+- Büyük düğme:116yükseklik; dış radius58; metin insets L36,T20,R36,B20; metin84? değil kalan76px yüksek kutuda midline-center; optik yukarı2px. Primary44/800, secondary44/800. İkon varsa40×40, ikon+yazıgrubu merkezde, araları16px.
+- Round kontrol:112×112; glyph56×56 ortalı; dokunma112; close88grafik/104hit; icon rays çizime eklenmez.
+- Kapsül:104yükseklik; yatay24 düşey16; hedef ikonu72×72; ikon sonrası16; rakam38/800 soldan; bölücü çizgi eklenmez.
+- Modal:860genişlik; içerik x56..804 (748); başlık x56,y80,w748,h80; subtitle y184,h104; eylemler y320+140i. Kart toplam h=384+116n+24max(n-1,0). 3düğme için780; 4 için920. Başlık iki satır olursa ek66 ve sonraki bloklar66 aşağı.
+- Ayar satırı:132yükseklik; ikon72sol; label x104,w396,h64 ortalı; sağtoggle176×88; ikon/label arası32, sağkenar0. Dil düğmesi280×104.
+- Liste satırı: title38/800; secondary28/600; titlekutusu y20,h48, altmetin y76,h72; satır metin alanı ikondan24 sonra başlar.
+- Koleksiyon kartı:468×484; padding24; taşgörsel340×252, x64,y24; adx24,y292,w420,h56; açıklamax24,y360,w420,h100. Kilit88×88, artalanının merkezinde; bulanık kaynağın kendisi değiştirilmez.
+
+## Uzayan metin
+
+Türkçede sabit boyut, kelime sarmalama. Gövde kutusunun gerçek height=max(tablodaki height, TMPpreferredHeight+32); takip eden blokların y değeri aynı artışla ilerler. Kart grubunun tamamı SafeRect yüksekliği-96'dan uzunsa yalnız gövde/rule/liste bölgesi scroll olur; başlık ve düğmeler sabit. Metin kesilmez, üç nokta yapılıp bilgi gizlenmez, yeni kısaltma yazılmaz. Düğme etiketinde önce aynı116yükseklikte iki satıra izin ver; iki satırda 38/800, baseline46. İki satır da sığmazsa yatay padding24, ardından font36 alt sınır; hâlâ taşarsa hata raporla, metin değiştirme. Rakam38altına düşürülmez. Arapça şekillendirme ve RTL mevcut Loc/ArabicShaper; sayı yönü mevcut davranış.9dilin tamamında Noto fallback korunur.
+</pre></section><section id="s2"><h2>02_RENK_MALZEME.md</h2><a href="02_RENK_MALZEME.md">Dosyayı aç</a><pre># Renk, boyalı alan ve malzeme
+
+PNG olmayan bütün düz/gradient alanlarda aşağıdaki sRGB HEX değerleri kullanılır. JSON referansı olmayan yeni rastgele renk üretilmez. Görselde boyalı taş yüzleri bu paletle yeniden renklendirilmez: mevcut sprite/shader aynen kalır.
+
+| Token | HEX |
+|---|---|
+| ink | #203846 |
+| inkSecondary | #53646D |
+| inkMuted | #66747B |
+| ivory | #FFF3DE |
+| ivoryTop | #FFF7E8 |
+| ivoryBottom | #F1DFC0 |
+| sand | #D8C09C |
+| brass | #B99760 |
+| rimHighlight | #FFF9ED |
+| rimShadow | #8E785C |
+| teal | #118C83 |
+| tealTop | #1BA99E |
+| tealBottom | #08766F |
+| tealPressed | #06645E |
+| tealDisabled | #728B86 |
+| onTeal | #FFF9ED |
+| secondaryTop | #FFF6E6 |
+| secondaryBottom | #EAD7B8 |
+| secondaryPressed | #DCC6A2 |
+| coral | #CC6956 |
+| coralDark | #934B3E |
+| purple | #685680 |
+| purpleDark | #42374F |
+| success | #32866D |
+| warning | #AD7838 |
+| error | #A44E43 |
+| track | #D9CEB9 |
+| divider | #D6C6AD |
+| scrim | #111C24 |
+| shadow | #302C2A |
+| homeTop | #697F73 |
+| homeBottom | #435E55 |
+| tabUnselected | #F0E6D3 |
+| tabSelected | #147E75 |
+| lockedVeil | #5E6C70 |
+| focus | #244E5A |
+
+## Boyama reçeteleri
+
+Panel: dikey gradient ivoryTop→ivoryBottom; stop0 ve1; 4px rimHighlight,3px brass,12px ivory pah,9px sand yan yüz. Modal crest yalnız32px yükselen kontur; mascot max196×132; zafer yıldızları gerçekten kazanılan sayıda, büyük bebek karakter/çiçek/fiyonk yok. Kartın her boş alanına ikon eklenmez.
+
+Ana sayfa üst yüzeyi homeTop→homeBottom dikey gradient; y0..312. Logo360×108; yıldızkapsülü208×88; bölgeplakası984×120. Bölgeplakası ivoryTop→ivoryBottom; alt gölge offset(0,8),blur14,alpha0.20. Altmenu tabUnselected, seçili kapsül tabSelected ve yazı onTeal. Coğrafi harita üzerine zemin gradienti/çizgi basılmaz.
+
+Primary: tealTop→tealBottom dikey gradient, stop0/1; 3pxbrass; iç üst yansıma2px onTeal alpha0.32; shadow(0,6),blur10,alpha0.20. Secondary: secondaryTop→secondaryBottom, inkmetin, aynıkenar. Pressed sabit tealPressed veya secondaryPressed, içeriği3px aşağı, shadowy2. Scale1; yeni tıklama/bekleme davranışı yok. Disabled tealDisabled alpha0.62; metin alpha0.72; mevcut interactable kuralı korunur. Focusring3px focus, dışarı6px; herkontrol keyboard-navigation davranışına müdahale etmeden.
+
+Progress track track renginde, fill teal; 14yükseklik, radius7; sayı sağa dayalı ayrı TMP. Track üstüne dekor çerçeve yok. Ayırıcı divider/1px/alpha0.65; gövdede divider satırlar arasında yalnız birkez.
+
+## Karartma
+
+Bütün modalların altında tüm fiziksel ekranı kapsayan düz #111C24, alpha0.72; SafeArea dışı, boş sütunlar ve tahta delikleri de karanlık. Panel, yazı ve modal kontrolü scrim üstünde. Altta kalan harita/HUD/düğme etkileşimi engelli. Dışa dokunma mevcut eylemi korur: yeni close davranışı eklenmez. İkinci modalda toplam alpha0.82 için ikinci scrim alpha=(0.82-0.72)/(1-0.72)=0.3571429; iki kez0.72 uygulanmaz. Tutorial #111C24alpha0.76; sadece mevcut spotlight delikleri açık. Metin kartına karartma uygulanmaz.
+</pre></section><section id="s3"><h2>03_ZEMIN_VE_BORDER.md</h2><a href="03_ZEMIN_VE_BORDER.md">Dosyayı aç</a><pre># Zemin ve yalnız kenarlık standardı
+
+## Kesin sınır
+
+B01–B10 birer TAHTA ŞEKLİ DEĞİLDİR. Panodaki halka/çıkıntılar yalnız malzeme örneğidir. Hiçbirinde şekil maskesi, cells listesi, ızgara boyu, hücre konumu, iç delik veya collider tanımı bulunmaz. JSON boardShapePreset=null. Mevcut BoardView dış konturları ve iç delik konturları okunur; yalnız görünüş bunlara giydirilir.
+
+## Geometri ve kenar profili
+
+P0=mevcut tahta zemin konturu. Aynı P0 bütün seçeneklerde korunur. Dışarı doğru referans px uzaklık:0–4 iç dudak;4–7pirinçhat;7–17üstpah;17–24yan yüz. Gölge(0,12),blur18,alpha0.26; etkisi max30px. Board mesh/taş sprite/pitch/katman kalınlığı/hit-test değişmez. Her dış ve iç kontur aynı profili alır. Delik tarafında boşluğa dekor taşması en fazla min(24,mevcutboşluk/2-8); negatifse0. Boşluk8px altına iniyorsa profili içi boş alana yayma; yalnız mevcut rim içinde kırp. İç delik kapanmaz, genişlemez veya yeniden yuvarlatılmaz. Pah çizgileri tile yüzüne taşmaz.
+
+Concave köşelerde kontur intersection çözümü bevel join, miterLimit1.5; cell union ve bağlantı topolojisi asla tekrar yorumlanmaz. Görsel kenar radius min(8,mevcutkonturköşeyarıçapı); tile tıklama alanına ek radius uygulanmaz. Tahta görüntüsü kontur-mesh/shader ile; standart dikdörtgen9-slice veya panodaki halka PNGsi ile yapılmaz. Normalized textureUV kontur boyunca arcLength, ölçek1referanspx; şekil uzayınca oyma/faset gerilmez.
+
+| Kimlik | Malzeme | Yan yüz | Gölge | Görünüş | Normal bölüm aralığı |
+|---|---|---|---|---|---|
+| B01 | Katmanlı Seramik | #D0B18D | #A8896F | 3 basamaklı düz seramik profil; desen yok | 1–100 |
+| B02 | İnci Kıvrım | #DFD8BE | #ADAA90 | Dış dudakta 24 px periyotlu 2 px sığ kıvrım; iri dalga yok | 101–200 |
+| B03 | Bazalt Altın | #4F514D | #313B39 | Dış basamak bazalt; içte 3 px fırçalı pirinç şerit | 201–300 |
+| B04 | Adaçayı Oyma | #8E9D7E | #5E725B | Yalnız yan yüzde 48 px periyotlu 1.5 px geometrik oyma | 301–400 |
+| B05 | Buzlu Kristal | #B3CCD7 | #758E9D | Dışta 48 px periyotlu sığ faset; min alpha0.88; kırılma efekti yok | 401–500 |
+| B06 | Bal Pirinç | #C5A260 | #8D713E | Çift pah; dış bantta 48 px aralıklı 3 px nokta kakma | 501–600 |
+| B07 | Mercan Kil | #C58A70 | #8E5C4D | Yuvarlatılmış pişmiş kil yan profil; 2 px krem iç hat | 601–700 |
+| B08 | Petrol Dalga | #477D75 | #2E5752 | 64 px periyotta 2 px sığ dalga kabartması yalnız yan yüzde | 701–800 |
+| B09 | Gece Opal | #706579 | #494451 | 96 px aralıklı 4 px pirinç geometrik kakma, parıltı animasyonu yok | 801–900 |
+| B10 | Kumtaşı | #C8B28D | #978061 | 48 px aralıklı sığ segment derzi; taş çıkıntısı/hücre oluşturma yok | 901–1000 |
+
+Aralıklar yalnız görsel kaplama eşlemesidir; bölüm kataloğuna, zorluk veya şekle yazılmaz. Deneme/günlük aynı sıradan bir kaplamayı mevcut bölümün görselindeksiyle deterministik kullanır; ayrı güç veya ödül yok.1000sonrası sonprofilB10korunur; veri artışı içerik kararıdır. Zemin seçimi ile border seçimi bağımsızdır.
+
+## Beş zemin
+
+| Kimlik | Ad | Taban | Açık şerit | Koyu şerit |
+|---|---|---|---|---|
+| Z1 | Şeftali Kum | #F0D8C0 | #E9CFB3 | #E1C3A2 |
+| Z2 | Adaçayı | #E0E4D2 | #D4DCC4 | #C8D2B4 |
+| Z3 | Petrol İnci | #D1E2DA | #BFD6CC | #B1CBBF |
+| Z4 | Dumanlı Lavanta | #DFD8E5 | #D1C7DC | #C4B9D1 |
+| Z5 | Taş Mavisi | #D8E2E7 | #C8D6E0 | #BACBD6 |
+
+Şeritler dikey; genişlik60, periyot120, dönüş0°. Görsel motif kenarda72pxşerit içinde; her192pxte yarıçap96yay, merkezsolx=-40,sağx1120;stroke2pxalpha0.12. MerkezveilivoryTopalpha0.12,merkez540/850,elipsr500/900. Göz alıcı parlama, çiçek, fuşya, şeker pembesi, kaydırmalı desenanimasyonu yok. Tahta içdolguivory, pinstripe1px/periyot16/45°/sandalpha0.07. Desen taş PNGlerinin altındadır.
+
+Yeni oyun girişi başında ayrı KOZMETİK RNG ile Z1–Z5 eşit1/5olasılık. Tekrar seçilmesi serbest. Oyun boyunca, pause/resume, ek hamle, geri al, kayıp sonrası aynı bölüm retry boyunca sabit. Menüye dönüp yeni girişte yeniden seç. Core RNG, bot/çözüm tohumu, bölümJSON, kayıtşeması veya oyun sonuçları etkilenmez. Arka plan seçimi yalnız sunum durumunda tutulur.
+</pre></section><section id="s4"><h2>04_MODAL_DURUMLAR_ASSET.md</h2><a href="04_MODAL_DURUMLAR_ASSET.md">Dosyayı aç</a><pre># Modallar, durumlar ve görsel üretim sözleşmesi
+
+## Katman sırası
+
+- 0: backdrop
+- 100: mapOrBoard
+- 200: hud
+- 250: floatingPalette
+- 400: modalScrim
+- 410: modalShadow
+- 420: modalFrame
+- 430: modalArt
+- 440: modalText
+- 450: modalControls
+- 500: nestedScrim
+- 520: nestedDialog
+- 600: toast
+- 700: tutorial
+
+ResultPanel mevcut DimEnd120/PopEnd340/SettleEnd430/Medal430/Ribbon500/Checks600/Buttons760ms ve Skip/IntroDone akışı korunur; yeni daha geç etkinleşen düğme veya ödül gecikmesi eklenmez. Tasarımda hareket ölçeği göz yormayan mevcut değerlerle sınırlıdır. Basma görseli70ms, bırakma110ms; callback mevcut anda, animasyon sonuna taşınmaz. CanvasGroup bütünlüğü korunur. Modal açılması pause/daily/ads gibi mevcut oyun mantığının zaman durumunu değiştirmez.
+
+## Modal dikey hesap
+
+Kartyerel köken0/0. Metin/body PreferredHeight hesabı sonra bütün dependent bloklar aynı delta kadar aşağı kaydırılır. Grupbounds=kart + yalnız mevcut crest/mascot + mevcutZPEfooter. Top=max(48,(1920-groupHeight)/2), grubun merkezi540. Kartgövdesinin sonundaki56pxpadding her zaman kalır. Türkçe ilk yerleşimJSONunda ölçü var; isteğe göre hizalama/boşluk seçilmez. Title/body alanı boşsa onun gap'i de çıkarılır. FooterZPE varsa kartaltından24px,64pxyükseklik. Close yalnız gerçek kaynaktaki ekranlarda; kendi104×104hitrectine sahip, scrim altında kalmaz.
+
+## Varlık listesi / şeffaflık
+
+- Oyun zeminiZ1–Z5:1080×1920, opaquePNG; repeat garantisi yok, fiziksel ekranıcover.
+- Modalpanel:1024×1536RGBA, yazısız; köşesınırlarıL96 B96 R96 T144;9-slice. Üstcrest ayrı512×192RGBA; yalnız üstortaya, paneli uzatırken crest gerilmez.
+- Primary/secondary düğme:1024×192RGBA;9-slice L96 B48 R96 T48; ikon ve yazı ayrı; Normal/Pressed/Disabled görselstate kaynakları veya tanımlı boyalı gradient.
+- Kapsül1024×160RGBA;9-slice L80 B40 R80 T40. Row1024×192RGBA; L64 B48 R64 T48.
+- TahtakenarıB01–B10:10malzeme reçetesi, şekilPNGi YOK. Gerekirse256×64yazısız yanprofilstrip ve256×256repeatdetaydokusu; contourUV hesabı yukarıdaki standarda göre. Dışkontur/içdelik rendererı için aynı materyal, ayrı şekilasset üretme.
+- Renkleri kaynakPNGde baked ise image.color beyaz; boyama yalnız düz/generatedUIyüzeylere, baked görselikinci kez tintlenmez.
+- Logo, maskot, taşatlası, özelgüçikonları, mevcut3Bmodeller kopyalanıp yeniden çizilmez. VarolanResources yolları kullanılır.
+- Filtrebilinear, mipmapUIoff, sRGBon, alphaisTransparencyon; mevcut AndroidASTCpolitikasına uy. MaxSizezemin2048, panel2048, buton1024. ReferansçözünürlüktestteRGBAuncompressed. Boarddetailseam/normalorientation görünür doğrulanır. Yeni paket/renderpipeline yok.
+
+## Aktarım yasakları
+
+PNG içine metin/sayı/dinamikhedef basma. Panonun3/7 gibi temsili zaferhedefini oyun verisine kopyalama. Kaynaktaki görünmeyen geri/kapat/ipucu/tekrar eylemini otomatik yaratma. Case/localizationformatı değiştirme. Modeli olmayan taşa yeni3Bmodel varmış gibi davranma. Haritada yeni Deneme shortcut ekleme.
+</pre></section><section id="s5"><h2>05_CLAUDE_CODE_TALIMATI.md</h2><a href="05_CLAUDE_CODE_TALIMATI.md">Dosyayı aç</a><pre># Uygulayıcıya kesin sınırlar
+
+Bu klasör şu anda yalnız TASARIM ŞARTNAMESİDİR. Bu çalışmada oyun kodu değiştirilmemiştir. İleride uygulama talimatı verilirse:
+
+1. Önce OKU.md, tasarim-tokenlari.json, bilesenler/modal-varyantlari.json ve ilgili sayfalar JSONunu oku. Onaylıgörsel yalnız malzeme referansıdır; kesin sayısaldeğer bu dosyalardadır.
+2. ui2, mevcutLoc.T/Loc.F/Case, runtime PanelButton dizisi ve görünürlükkoşulları içerik otoritesidir. Kaynak anahtar, sayı, metin veya action yeniden icat edilmez. Ekran başına kaynakdosyası ve satırlar icerik/source-kullanimlari.json içinde.
+3. B01–B10 yalnızmalzeme. BoardShapePresetnull ve mevcutcells/hole konturlarını aynen kullan. Panodaki örnekhalkaları levelmask olarak aktarma.
+4. Taşatlası, taşyüzü, yanrenkler, pitch, katman ve hit-test mevcutkalır. Core, LevelData, save,ads,reward,ZPE,rank hesapları değişmez. KaynakRGBA/mesh işleyişini bozacak globalUIshader değişikliği yapma.
+5. Tasarımpaletine göre görseldekiler haricinde kalan düz boyalı yüzeyleri açık tokenla boya. Font, padding, alignment, gap için bu sözleşmede verilen değerler dışında estetik karar verme.
+6. Çakışmada öncelik: kullanıcı sabitleri / mevcutoyunmantığı &gt; mevcutmetinveeylem &gt; tokensJSON &gt; sayfalayoutJSON &gt; malzemepanosu. Genelrol ile sayfaoverrideçelişirse sayfaoverride geçerli; kaynakmantığına aykırıysa dur ve somutçelişkiyi bildir, içerikdeğiştirerek çözme.
+7. Değişiklikler ayrıca yetkilendirilmeden bu belgeden uygulamaya geçme. Yetki gelince mevcutcheckout/kullanıcıdeğişikliklerini koru; yeni paket ekleme.
+
+## Kabul ölçütleri
+
+- Bütün35ekran, mevcuttüm yazı/düğme/özelliğiyle görünür; yeni içerik yok.
+- Aynı bölüm tümB01–B10görsellerinde aynıcells,holes,tilecount ve colliderlara sahip. Asimetrik,içdelikli,L/U/darboğaz şekilleri ayrıca sınanır.
+- BütünZ1–Z5 + borderkombinasyonlarında hedef/taş/renklerokunur; motifstoneüstüneçıkmaz.
+- Her modalın ekran kenarları ve delikleridahil dışboşluğu0.72karanlık, inputblockmevcutduruma uygun; nested toplam0.82.
+- TürkçeÇĞİıÖŞÜ ve9dilfallbacktaşıyor mu kontrol; tammetin kesilmez.
+-1080×1920,1080×2400,720×1280,tablet4:3 safearea fit/letterboxpattern kontrol; boyutlar tek kez ölçeklenir.
+- Rastgelezemin sunumRNGsi CoreRNG/oyunsonucunuetkilemez, attemptboyunca sabittir.
+- Kaynak ekran yakalama akışı capture-ui2 ile yeni görseller üret; yapılmayan cihaz/performanskontrolünü yapılmış bildirme.
+</pre></section><section id="s6"><h2>06_BILESEN_IC_YERLESIMLERI.md</h2><a href="06_BILESEN_IC_YERLESIMLERI.md">Dosyayı aç</a><pre># Ortak parçaların iç yerleşimleri
+
+Bu dosya dış kutu içindeki görsel ve yazının kesin konumlarını tamamlar. JSON kaynağı: bilesenler/ortak-bilesenler.json. Bütün koordinatlar ilgili bileşenin sol üstünden x,y,w,h; renk adları tasarim-tokenlari.json içindeki HEX değerlerine karşılık gelir.
+
+| Parça | Dış ölçü | Görsel / ikon | Yazı alanı ve rol | İç boşluk / durum |
+|---|---|---|---|---|
+| Alt menü öğesi | 296×176 | 104,8,88,88 | 16,108,264,48; nav32/800 | Seçili kapsül28,100,240,64; diğer öğelerin arka planı saydam |
+| Hedef kapsülü | 240×104 başlangıç | 16,16,72,72 | 104,16,120,72; goal38/800 | Değişken genişlik formülü JSON'da; kapsüller arası16 |
+| Kural satırı | 748×160 başlangıç | 20,36,88,88 | 132,20,592,120; body36/600 | Gerçek preferred height+40; satırlar arası16 |
+| Ayar satırı | 748×132 | 0,30,72,72 | 104,30,396,72; rowTitle38/800 | Toggle572,22,176,88; thumb72; track kenar2 |
+| Sıralama satırı | 936×104 | Baş harf avatar96,20,64,64 | Ad184,8,484,48; ayrıntı184,56,484,36; puan724,20,192,64 | Sayı ve puan sağa/ilgili hizaya; gerçek durumlar korunur |
+| ZPE bileşeni | 748×88 | 0,16,56,56 | Ad76,10,412,36; değer648,12,100,56 | Çubuk76,56,548,14; değerin alanına girmez |
+| Koleksiyon kartı | 468×484 | 64,24,340,252; kilit190,106,88,88 | Ad24,292,420,56; açıklama24,360,420,100 | Kilitli durum mevcut bulanık PNG; yeni blur filtresi yok |
+| Sonraki bölüm | 668×300 | Canlı mini tahta220,24,352,252 | Label24,24,172,240; rowSub28/600 | Ok596,118,48,64; gerçek kaynak düğmesi varsa etkileşim |
+| Başlık plakası | 784×112 | Metinsiz yüzey | 32,20,720,72; pageTitle56/800 | Kenar3brass; gölge aşağı6 blur12 alpha0.20 |
+| Öğretici kutusu | 888×200 başlangıç | Maskot16,36,128,144 | 168,24,672,152; body36/600 | Ekran kenarından32; delik/ok kaynak kümeden |
+| Bilgi bandı | 920×96 | Yeni dekor yok | Insets28,20,28,20; bodyCentered36/600 | Sadece mevcut toast içeriği ve süresi |
+| Güç alanı | 888×160 | Her gerçek simge144×144 | Sadece mevcut caption | En fazla4; gap48; grup merkezde; yeni altlık/yuva yok |
+
+## Metin ve durum ayrıntıları
+
+Satır listelerinin puan/ikon/sayaçları sağa hizalıdır; isim/açıklama alanı soldan sabittir. Görsel kutu büyürken yazı alanının anchor'u değişmez. SDF kontur gövdeye eklenmez. Sekme seçimi yalnız görsel dolgu değiştirir; sekmelerin tıklama eylemleri aynı kalır. Modal içindeki bilgi kartları birbirinin içinde ikinci bir ağır çerçeve oluşturmaz: yalnız sand2px ve radius28 kullanır.
+
+Beşli hedef satırı984px içine sığmadığında önce goal fontu38 olarak korunur, kapsül yataypadding16, ikon64, gap12 olur. Hâlâ sığmıyorsa mevcut hedef alanı iki satıra açılır; ikinci satır toplam alanı104+16 kadar büyütür, tahta zarfının üst sınırı bu artış kadar aşağı kayar. Tahta hücreleri yeniden düzenlenmez. Genel tahta zarfı kısa kalırsa mevcut kamera/fit davranışı ile aynı kontur ölçeklenir; pitch verisi değişmez. Tahtanın fiziksel hit alanı ve kamera birlikte aynı dönüşümü kullanır.
+
+Başlıklarda maksimum satır sayısı bir varsayılan tasarım sınırıdır; gerçek çeviri taşarsa iki satıra genişler, son kelimeler gizlenmez. En küçük açıklama26px; daha küçük metinle sıkıştırmak yasaktır.
+</pre></section></html>

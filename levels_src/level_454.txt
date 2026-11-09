@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı (ayna); çözüm 9 hamle + 6 tepsi / limit 11 (pay +2, eski 14) hedef×1,13 bot 0,13 (hedef 0,24) plan 1; zincir v13: yeni çözüm 9 (eski 9), sınır 11→15, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 9, bot 7/112
+id: level_454
+title: Bölüm 454
+moves: 9
+roll: off
+specials: on
+goals: yellow 35, blue 53, coral 27, sponge 2
+grid:
+#     #     bcbc  pcbc  pcpc  #     #
+#     #     bpbc  ycpc  pcpc  #     #
+bpbb  byby  bcbc  ycbc  pppc  bcpy  bcby
+bpcb  bybb  bbbb  ycbcSby ybbp  ybpp  bcby
+bypb  bycb  bycy  bccc  bbby  bbpy  bbby
+bppb  bpyy  bpyy  bpby  bpby  bbpy  cyby
+yppb  bppy  cppy  pppy  pppy  bypy  cbyyScb
+#     #     cpcb  ppcb  pppy  #     #
+#     #     cycc  ypbb  bcpc  #     #
+solution: 2,0 ; 5,2 ; use 0,3,1 ; 0,2 ; use 0,6,2 ; use 0,2,1 ; 0,2 ; 1,2 ; 4,3 ; use 1,2,0 ; use 0,4,3

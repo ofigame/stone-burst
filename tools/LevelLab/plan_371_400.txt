@@ -1,0 +1,40 @@
+// Bölüm 371-400 profilleri (Premium-v2 rehberi §11: 301–400 döner taban bloğunun sonu).
+// 371–380 taban + zarf (döndürme mühür rengini komşuya getirir), 381–390 taban + buz/ataş,
+// 391–400 blok finali (iki/üç taban, en fazla iki ek aile, yıldız, rulo, 6x6).
+// Her çözümde en az bir döndürme (kalite kapısı). 10'luk ritim (§11). Biçim: Generator.cs başı.
+
+// 371-380: taban + zarf.
+371 | title=Mühür Turu | size=5 | layers=2-3 | colors=cby | rotor=1 | env=c | goals=b:0.5 | len=3-4 | slack=2 | win=0.6 | tutorial=Zarfın yanındaki yığını döndür: mühür rengi üste gelince soy.
+372 | title=Postacı Çark | size=5 | layers=2-3 | colors=cby | rotor=1 | env=b | goals=y:0.5 | len=4-5 | slack=1 | win=0.45
+373 | title=İki Mühür Tur | size=5 | layers=2-3 | colors=cbyp | rotor=1 | env=y,p | goals=c:0.5 | len=4-5 | slack=1 | win=0.35
+374 | title=Dönen Mektup | size=5 | layers=3-3 | colors=cbyp | rotor=2 | env=c | goals=b:0.5,p:0.4 | len=5-6 | slack=1 | win=0.3
+375 | title=Posta Akışı | size=5 | layers=3-3 | colors=cby | rotor=1 | env=c,b | goals=y:0.6 | len=3-4 | slack=2 | win=0.65 | chains=2
+376 | title=Çark Adası | size=6 | layers=2-2 | colors=cby | holes=9 | rotor=1 | env=y | goals=c:0.5 | len=4-5 | slack=1 | win=0.4
+377 | title=Sıralı Posta | size=5 | layers=2-3 | colors=cbyp | rotor=2 | rotorMin=2 | env=p,c | goals=y:0.5 | len=5-6 | slack=1 | win=0.25
+378 | title=Hafif Mektup II | size=5 | layers=2-2 | colors=cby | rotor=1 | env=b | goals=c:0.6 | len=3-4 | slack=2 | win=0.7
+379 | title=Posta Çarkçısı | size=6 | layers=2-3 | colors=cbyp | holes=5 | rotor=2 | env=c,b,y | goals=p:0.4 | len=5-7 | slack=1 | win=0.2
+380 | title=Mektup Çarkı | size=6 | layers=3-3 | colors=cbyp | holes=4 | rotor=2 | env=b,p | roll=on | stars=1 | goals=c:0.4,y:0.4 | len=6-7 | slack=1 | win=0.2 | chains=1
+
+// 381-390: taban + buz / ataş.
+381 | title=Buzlu Çark | size=5 | layers=2-3 | colors=cby | rotor=1 | ice1=1 | goals=b:0.5 | len=3-4 | slack=2 | win=0.6
+382 | title=Soğuk Tur | size=5 | layers=2-3 | colors=cby | rotor=1 | ice1=2 | goals=c:0.5 | len=4-5 | slack=1 | win=0.45
+383 | title=Ataşlı Çark | size=5 | layers=2-3 | colors=cbyp | rotor=1 | clip1=1 | goals=y:0.5 | len=4-5 | slack=1 | win=0.35
+384 | title=Kırık Tur | size=5 | layers=3-3 | colors=cbyp | rotor=2 | ice2=1 | goals=p:0.5 | len=5-6 | slack=1 | win=0.3
+385 | title=Erime Çarkı | size=5 | layers=3-3 | colors=cby | rotor=1 | ice1=2 | goals=c:0.6 | len=3-4 | slack=2 | win=0.65 | chains=2
+386 | title=Buzlu Ada Turu | size=6 | layers=2-2 | colors=cby | holes=9 | rotor=1 | ice1=2 | goals=y:0.5 | len=4-5 | slack=1 | win=0.4
+387 | title=Kıskaç Sırası | size=5 | layers=2-3 | colors=cbyp | rotor=2 | rotorMin=2 | clip2=1 | goals=b:0.5,c:0.4 | len=5-6 | slack=1 | win=0.25
+388 | title=Ilık Çark | size=5 | layers=2-2 | colors=cby | rotor=1 | ice1=1 | goals=b:0.6 | len=3-4 | slack=2 | win=0.7
+389 | title=Örtü Çarkçısı | size=6 | layers=2-3 | colors=cbyp | holes=5 | rotor=2 | ice1=2 | clip1=1 | goals=c:0.4,p:0.4 | len=5-7 | slack=1 | win=0.2
+390 | title=Kış Çarkı | size=6 | layers=3-3 | colors=cbyp | holes=4 | rotor=2 | ice1=2 | ice2=1 | roll=on | stars=1 | goals=y:0.4,b:0.4 | len=6-7 | slack=1 | win=0.2 | chains=1
+
+// 391-400: blok finali.
+391 | title=Son Çarklar | size=5 | layers=2-3 | colors=cby | rotor=2 | goals=c:0.6 | len=3-4 | slack=2 | win=0.6
+392 | title=Üç Çark | size=5 | layers=2-3 | colors=cbyp | rotor=3 | goals=b:0.5 | len=4-5 | slack=1 | win=0.45
+393 | title=Kasa ve Posta | size=5 | layers=3-3 | colors=cbyp | rotor=2 | lock=y:4 | env=c | goals=p:0.5 | len=4-6 | slack=1 | win=0.35
+394 | title=Sabırlı Çark | size=6 | layers=2-3 | colors=cbyp | holes=6 | rotor=2 | rotorMin=2 | ice1=2 | goals=b:0.5,y:0.4 | len=5-6 | slack=1 | win=0.3
+395 | title=Büyük Dönüş | size=5 | layers=3-3 | colors=cby | rotor=2 | goals=c:0.5,b:0.4 | len=3-4 | slack=2 | win=0.6 | chains=2
+396 | title=Çark Köprüleri | size=6 | layers=2-3 | colors=cby | holes=11 | rotor=2 | env=b | stars=1 | goals=y:0.5 | len=4-6 | slack=1 | win=0.4
+397 | title=Son Sıra III | size=5 | layers=3-4 | colors=cbyp | rotor=2 | rotorMin=2 | lock=c:4 | goals=b:0.5,p:0.4 | len=5-6 | slack=1 | win=0.25
+398 | title=Son Mola II | size=5 | layers=2-2 | colors=cby | rotor=1 | goals=b:0.6 | len=3-4 | slack=2 | win=0.7
+399 | title=Çark Ustası | size=6 | layers=3-4 | colors=cbyp | holes=5 | rotor=3 | rotorMin=2 | env=c,y | stars=1 | goals=p:0.4 | len=6-7 | slack=1 | win=0.2
+400 | title=Dört Yüzüncü | size=6 | layers=3-3 | colors=cbyp | holes=4 | rotor=3 | lock=b:5 | roll=on | stars=2 | goals=c:0.4,y:0.4 | len=6-7 | slack=1 | win=0.2 | chains=1

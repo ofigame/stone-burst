@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk purple 24/22; çözüm 7 / sınır 9 (v7 10); açgözlü kaybeder; bot48 0,33 (taban 0,06); bot 0,42; zincir v13: yeni çözüm 6 (eski 7), sınır 9→12, bot 2/112; zincir v13 kolaylaştırma: hedef −%12, sınır 8, bot 6/112
+id: level_267
+title: Önce Ataş
+moves: 8
+roll: off
+specials: on
+type: scarce
+rules: scarce
+goals: blue 22, coral 36, purple 20, envelope 2
+grid:
+ycp   byp   bpbp  bcbpEc pyp   #     #
+cyp   ppc   cybp  cybp  cyy   byy   #
+pyby  pccy  bbb   cpb   cycp  cyck2 bycy
+cyby  cyyy  cyy   #     #     #     bpc
+byby  cbyy  cypEp #     #     #     bby
+ybby  cbpy  cby   #     #     #     bcc
+yyb   ybby  yyp   ccyc  ccyc  ccc   yccc
+#     ybc   pycc  pcyc  ycy   ypyc  ypck2
+#     #     cyc   yccc  cbcc  cbcc  cbcc
+solution: 6,5 ; 0,0 ; use 0,1,0 ; 0,0 ; 6,5 ; use 0,0,4 ; use 0,0,2 ; use 0,2,0 ; 1,4 ; 1,0

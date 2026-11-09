@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: chain [chainOnly]; zincir purple 3; çözüm 7 / sınır 9 (v7 9); açgözlü kaybeder; bot48 0,27 (taban 0,06); bot 0,17; zincir v13: yeni çözüm 6 (eski 7), sınır 9→10, bot 16/112
+id: level_217
+title: Planlı Posta
+moves: 10
+roll: off
+specials: on
+type: chain
+rules: chainOnly
+goals: yellow 32, blue 32, envelope 2, chain purple 3
+grid:
+pppb  ppp   ypbc  ycbc  #     #     #
+bppEy bpp   bpb   ycbc  #     #     #
+bcyy  bpby  bpb   bpyb  #     #     #
+ccy   cpby  ypb   ypyb  #     #     #
+ccyb  bpy   ycp   ypy   ybcb  pbc   ybcb
+cyc   yypb  yypb  yyyb  pbcb  pbc   yby
+cbc   pbcb  pccb  pcp   pcpb  bcc   ycy
+cpc   cycc  ccpc  cpp   bcb   bpb   ybbp
+ypbc  cypc  ccpc  cpy   cpy   bpy   ypcpEy
+solution: 0,5 ; 4,4 ; use 0,0,2 ; use 0,0,0 ; 4,4 ; 2,6 ; use 1,0,2 ; 3,2 ; 3,3 ; use 1,1,5

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 13 hamle + 9 tepsi / limit 17 (pay +4, eski 14) hedef×1,30 bot 0,13 (hedef 0,23) plan 3; zincir v13: yeni çözüm 10 (eski 13), sınır 17→18, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 14/112
+id: level_468
+title: Bölüm 468
+moves: 12
+roll: off
+specials: on
+goals: coral 47, purple 57, yellow 28, sponge 2
+grid:
+cbpb  cbyp  cyyp  bycp  pbbb  pbcb  bbcc
+cbpb  cbyp  bbpp  bbbp  pbbb  pbbc  bbcc
+pppp  cppp  bcppScb bcpp  pcbb  bcbc  bbbc
+pppy  cppc  #     #     #     pbbp  bbbc
+cppy  cpbc  #     #     #     pbcp  bbbp
+cppy  cyby  #     #     #     bycp  bcyp
+cppp  cpby  ccyp  ycyp  bccp  bycp  pccpSby
+ppyp  ccyy  pbcb  yycp  yycb  pcyb  pccb
+pyyc  pbyc  pbyb  yyyb  ycyb  pcbb  pcbb
+solution: 2,7 ; use 0,1,0 ; 4,6 ; 0,3 ; use 0,2,0 ; 0,0 ; 4,0 ; use 0,1,0 ; 0,0 ; use 0,5,0 ; use 1,6,0 ; 4,0 ; 1,4 ; use 0,1,0 ; use 0,0,2

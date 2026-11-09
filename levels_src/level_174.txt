@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 8 hamle + 5 tepsi / limit 12 (pay +4, eski 14) hedef×1,11 bot 0,46 (hedef 0,38) plan 1; zincir v13: yeni çözüm 7 (eski 8), sınır 12→13, bot 13/112
+id: level_174
+title: Satır Satır
+moves: 13
+roll: off
+specials: on
+goals: yellow 39, blue 20
+grid:
+cpp   ppp   ppc   cpc   cycc  cyy   ypy
+pbcc  bbc   pbcy  cpc   cpc   yyy   bbyc
+cbb   bcby  cbcyLp8 pcc   yby   ypyy  bpy
+pcb   #     #     ppc   #     #     bbcb
+pyb   #     #     pccc  #     #     pbc
+yyyb  #     #     yccc  #     #     ppp
+cyy   cyyp  cyy   yyyb  pccb  pypb  pcpb
+cbc   cyyp  cyc   pycp  ppp   yypp  ypy
+cbc   cpc   cpcp  yccp  pyc   yyp   ybpp
+solution: 0,7 ; 1,6 ; use 0,0,2 ; 0,4 ; 5,0 ; use 0,5,0 ; 2,0 ; 6,5 ; use 0,6,0 ; use 0,6,0 ; 1,1

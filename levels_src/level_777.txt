@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: chain [chainOnly+exact]; zincir yellow 10; çözüm 10 / sınır 13 (v7 15); açgözlü kaybeder; bot48 0,10 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 9 (eski 10), sınır 13→12, bot 7/112
+id: level_777
+title: Bölüm 777
+moves: 12
+roll: off
+specials: on
+paint: 1
+type: chain
+rules: chainOnly, exact
+goals: purple 38, blue 50, sponge 1, chain yellow 10
+grid:
+pccp  pccb  pccb  bcbb  bcpy  bypb  pyyb
+cycp  cycp  cbcb  bbbb  ycbc  yybb  yyyb
+cccy  pccy  bccy  bbyc  pbyc  pbyb  bbyb
+cbcy  #     #     pcycScb #     #     ybcb
+cbbp  #     #     cbyc  #     #     ybcb
+cbbp  #     #     cbyb  #     #     ybcp
+bbyp  bpyb  cpyb  ybyp  ybyc  pbcc  pbcc
+bybp  bppp  cbpc  yyyp  ybyp  pbcc  bcpc
+bybp  cppc  cypc  yypc  byyp  bbpp  bcpp
+solution: 3,6 ; use 0,0,2 ; paint 4,0,b ; 1,0 ; use 0,0,0 ; 6,3 ; 2,7 ; use 0,3,0 ; 0,0 ; use 0,1,2 ; 5,6 ; 0,6 ; 0,4

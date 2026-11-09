@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 11 hamle + 7 tepsi / limit 21 (pay +10, eski 11) hedef×1,49 bot 0,17 (hedef 0,15) plan 1; zincir v13: yeni çözüm 11 (eski 11), sınır 21→25, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 20, bot 13/112
+id: level_923
+title: Bölüm 923
+moves: 20
+roll: off
+specials: on
+paint: 1
+goals: blue 44, coral 26
+grid:
+ccbc  G1:pcp G1:pcpp G1:pcp G1:bypy G1:cyc cyc
+pbbc  pbp   bcp   yyyp  cycp  ypyb  cpcp
+ybb   ppb   ppbb  pbbb  bby   bby   ppy
+#     yypc  ppp   ppp   pby   pbyy  #
+#     ybpc  ppp   bpp   byb   cpc   #
+#     yyc   ppb   ypb   yyp   yypb  #
+ycyp  yyyp  ppy   bpyy  bcpy  ycp   bbp
+yybB1 yyc   ypcb  ypb   pppb  bcp   bycb
+yybb  yyb   ybpb  ypb   bypb  yyp   bycb
+solution: 0,7 ; use 0,5,1 ; 5,1 ; 1,1 ; use 1,0,0 ; 0,0 ; 2,6 ; 1,1 ; 1,5 ; 6,7 ; use 1,0,1 ; 1,3 ; use 1,0,0 ; 4,0 ; use 3,0,0 ; use 1,1,0

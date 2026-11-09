@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact] (yedek; istenen pure [noSpecials+exact]); çözüm 7 / sınır 10 (v7 13); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 10→11 (112 oyunda 7 galibiyet); zincir v13: yeni çözüm 8 (eski 7), sınır 11→12, bot 6/112
+id: level_588
+title: Bölüm 588
+moves: 12
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: coral 43, purple 39, yellow 23
+grid:
+pcycK1:1 bcbcK2:2 bbyc  bbyc  cbyc  cpyp  cpbp
+bcbp  ccpc  bypp  cypp  cbbp  cpbp  ppby
+bpby  ycbp  bypcK2:2 bppy  bccy  bcyy  cpbc
+cpby  #     #     pppc  #     #     cpcc
+cppp  #     #     pppc  #     #     cppp
+cpppK2:2 #     #     pbpb  #     #     cppy
+cbpp  cccbK1:1 yccy  bbcb  pbyb  ycyb  cppy
+cbby  ccpy  cccy  bbcy  bbpb  bcyc  cppy
+pbby  pypy  cypb  cyyb  byyb  byyb  cppb
+solution: 3,5 ; 2,6 ; use 0,0,0 ; 6,5 ; 5,0 ; use 0,2,1 ; 2,1 ; use 1,1,0 ; 3,5 ; 2,2 ; use 0,0,0 ; 0,6 ; use 2,0,0 ; use 1,1,1 ; use 0,0,6

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe; çözüm 9 hamle + 5 tepsi / limit 13 (pay +4, eski 14) hedef×1,11 bot 0,29 (hedef 0,37) plan 0; zincir v13: yeni çözüm 11 (eski 9), sınır 13→16, bot 6/112
+id: level_194
+title: Sabırlı Anahtar
+moves: 16
+roll: off
+specials: on
+goals: yellow 47, blue 41
+grid:
+#     #     cppLb7 ppp   bpyb  #     #
+#     yccy  ppyy  pcy   bpyb  bpc   #
+ycp   yyp   ycyb  bcyc  bcyb  cpc   cpbb
+yyb   yyp   yb    ycyb  byb   bcb   bpbb
+ybbb  bcbb  ycy   ycyb  ycb   pcbp  bbp
+cpb   byb   pcb   pyyLc8 pybp  pyc   bycc
+cpy   cyy   pyy   pyp   cyp   cppp  cpc
+#     cyyy  byyy  byb   pbby  cbp   #
+#     #     py    bpbc  cb    #     #
+solution: 4,5 ; 4,0 ; 5,1 ; 3,5 ; use 1,4,2 ; 1,5 ; use 1,1,1 ; 2,0 ; 0,4 ; 2,7 ; 0,2 ; use 0,0,2 ; 0,2 ; 5,4 ; use 0,2,1

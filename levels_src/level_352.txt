@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 7 hamle + 4 tepsi / limit 11 (pay +4, eski 18) hedef×1,12 bot 0,25 (hedef 0,33) plan 1; zincir v13: yeni çözüm 7 (eski 7), sınır 11→11, bot 23/112
+id: level_352
+title: Dön ve Topla
+moves: 11
+roll: off
+specials: on
+goals: coral 40, purple 37, star 3
+grid:
+ppy   ypb   pccbR pycb  byc   ycp   ycp
+ypy   yyc   yycb  pycbR bycc  bcc   bcc
+ypy   ypyc* pyby  yyb   yyc   ypcy  yccy
+#     ppyc  ypc   yypc  yyp   bpc   #
+#     ppyc  pyc   cycb  cbcc  bbcc  #
+#     ppy   cyyy  cyyb* cbyc  bby   #
+pyy   pppc  byp   bbpp  cpyc  bbyc  bpbc
+pyy   pyy   ppp   bbpp* pppc  bbyc  bcbc
+pyy   byy   bby   bbpp  bbpp  bbyp  ycy
+solution: 5,3 ; 1,0 ; use 0,2,0 ; 0,0 ; 1,6 ; use 1,0,0 ; 5,3 ; 3,2 ; 5,0 ; use 0,3,0 ; use 0,6,2

@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: resource [exact]; çözüm 7 / sınır 9 (v7 13); açgözlü kaybeder; bot48 0,25 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 7 (eski 7), sınır 9→9, bot 10/112
+id: level_107
+title: Doğru Sıra
+moves: 9
+roll: off
+specials: on
+type: resource
+rules: exact
+goals: blue 32, coral 30
+grid:
+cpy   cyy   pbc   pbb   pyy   yyp   yyci1
+ybpi1 yyp   bbpi2 pbb   pbp   yyp   cyp
+#     cby   cpp   ybb   pbb   bbb   #
+#     cby   ypc   ybc   ppci2 ypb   #
+#     cpc   cpc   ypc   bpc   cpc   #
+#     cpc   cyci1 ycc   bbc   cyc   #
+cpc   cpp   byp   ybc   pbc   cyc   byp
+bpp   bpp   cyc   pbc   pbb   byp   byp
+solution: 2,3 ; use 0,5,0 ; 3,0 ; 3,0 ; use 0,2,0 ; 0,0 ; 3,0 ; use 1,2,0 ; 1,2 ; 0,6 ; use 1,2,1

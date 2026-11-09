@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil dikdörtgen; çözüm 8 hamle + 6 tepsi / limit 14 (pay +6, eski 15) hedef×1,43 bot 0,33 (hedef 0,37) plan 0; zincir v13: yeni çözüm 10 (eski 8), sınır 14→16, bot 6/112
+id: level_120
+title: Kış Bahçesi
+moves: 16
+roll: off
+specials: on
+goals: coral 75, purple 45, star 3
+grid:
+bbb   ypbb  ypbi2 ppy   ppp   bpc   bpc   bpcbi1
+bbcp  ybc   ypcp  ypcp  bpcp  bpbc  cpcc  cpcc
+cybk1 ycb   ycb   bccp  bbbbi1 ybb   cbyc  bbc
+cyb   bcbp  ppbi2 bycy  byc   bcyb  cbyb  pccb
+ccy   byc   pypy  ppcy  ypcy  cbc   ccyb  bcyc
+cpyp  ycy   cbcy  bbc*  bbc   bcc*  bcyb  cbcbi1
+ypy   ypyc* ycc   bbcp  cbc   bc    bcybi2 cyyp
+ycyck1 yyy   bpyi1 cpcp  cpc   cycb  byyb  cyyb
+ycy   ycp   ppp   pyp   pypbi1 cycb  cycc  cyy
+solution: 5,4 ; 5,2 ; use 1,4,0 ; 5,0 ; 3,5 ; use 1,0,1 ; 3,3 ; 0,6 ; 0,0 ; use 2,2,0 ; 2,0 ; use 2,6,1 ; 7,6 ; 0,0 ; use 2,1,0 ; use 0,7,0 ; use 1,7,0

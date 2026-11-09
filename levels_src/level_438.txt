@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order [exact]; kilit purple→blue; çözüm 8 / sınır 10 (v7 11); açgözlü kaybeder; bot48 0,17 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 10 (eski 8), sınır 10→16, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 7/112
+id: level_438
+title: Bölüm 438
+moves: 11
+roll: off
+specials: on
+type: order
+rules: exact
+goals: yellow 41, blue 45, coral 22, sponge 2
+grid:
+#     #     ycppScb ybcp  ybcc  bbcc  pbcp
+#     byyp  bcyp  bbpp  bbcp  bbcp  bbcp
+bypy  bbpp  #     #     #     ybcp  pbcp
+bbby  bbby  #     #     #     pccb  pbyb
+ybcy  bbcy  #     #     #     pppbLp3 pyyb
+ypby  ypcbLp3 ppyc  yppbSby ypbb  yppb  pyyp
+ypbc  ppbc  bpyc  yppb  yycc  yyyb  yyyp
+ypbc  ypbc  bybc  cybb  pycb  yyyp  #
+bpbc  bcbc  bybb  cycb  pyyb  #     #
+solution: 0,2 ; 3,0 ; use 1,3,0 ; use 0,2,0 ; 3,6 ; 5,3 ; use 1,3,0 ; 5,4 ; use 1,3,0 ; 4,6 ; 6,4 ; 2,5 ; 3,5 ; use 2,1,1

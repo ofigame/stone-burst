@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 5 hamle + 4 tepsi / limit 8 (pay +3, eski 11) hedef×0,97 bot 0,38 (hedef 0,25) plan 1; zincir v13: çözüm aynı, sınır 8→8, bot 37/112
+id: level_571
+title: Bölüm 571
+moves: 8
+roll: off
+specials: on
+goals: blue 48, coral 35
+grid:
+ppyc  bbp   ycc   ycc   byy   cbbp  pbbp
+ppy   ybpcK1:1 cbpb  cypb  cbcpK2:2 cby   cbb
+ppypK2:2 ypp   yppp  ypcpK1:1 ppyp  pbb   pbb
+#     pppp  cpp   cpcK2:2 cpcc  bbbc  #
+#     bcp   ccb   cpcp  bpp   bbbc  #
+#     pccb  bcb   ypcp  bpp   bpb   #
+bppb  bcbb  bcbp  pcp   bppp  cppp  cpb
+bppb  bbpb  bcp   ycp   ycp   cbpp  cbp
+cpc   ypc   ccp   bbcp  ycb   ybb   ybbp
+solution: 3,4 ; use 0,2,1 ; 2,1 ; 3,2 ; use 0,0,0 ; 1,0 ; 6,1 ; use 0,1,0 ; use 0,1,0

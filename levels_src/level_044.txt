@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven; çözüm 6 hamle + 5 tepsi / limit 11 (pay +5, eski 11) hedef×1,41 bot 0,50 (hedef 0,50) plan 1; zincir v13: yeni çözüm 6 (eski 6), sınır 11→11, bot 14/112
+id: level_044
+title: Yıldız Yağmuru
+moves: 11
+roll: off
+specials: on
+goals: coral 29, purple 41, star 3
+grid:
+cyp   bbp   cbc   #     #     #     #
+cyp   cyp   cyp   ccc   #     #     #
+yyp   byp*  byc   bcb   bbp*  #     #
+yyp   pyp   pyc   pbb   pby   bbp   #
+yyc   ybc   pbc   bbc   bby   bbp   bpy
+ycc   ycy   pbc   bpy   bpy   pbp   cby
+pcb   pcb   ppc   ppy   cby   cbp   cbp*
+pcb   ppb   ppb   ppp   cpp   cpp   pcp
+solution: 0,0 ; use 0,1,0 ; 5,3 ; 3,1 ; 2,4 ; use 0,2,0 ; 4,3 ; use 0,4,2 ; 3,2 ; use 0,1,0 ; use 1,2,0

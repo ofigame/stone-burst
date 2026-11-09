@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 8 hamle + 5 tepsi / limit 11 (pay +3, eski 12) hedef×1,12 bot 0,29 (hedef 0,35) plan 1; zincir v13: yeni çözüm 7 (eski 8), sınır 11→11, bot 6/112
+id: level_302
+title: Bir Tur
+moves: 11
+roll: off
+specials: on
+goals: yellow 42, blue 22
+grid:
+byc   yyc   ypc   ypb   #     #     #
+byb   ppb   ypb   ypb   #     #     #
+yyc   ybb   ccb   ycb   #     #     #
+cyc   yyc   ccc   cbp   #     #     #
+cyc   ypc   pbc   pbc   cbc   ypyR  ycp
+ycb   ycc   ypc   ypc   cbb   cby   cby
+cpc   ycc   pyp   ycy   ycb   ybb   cby
+ppc   yyp   ccc   ypy   ccbR  cpb   cpy
+ypc   ypp   ypy   ypc   cpc   cpy   cpy
+solution: 3,0 ; 4,5 ; use 0,1,2 ; 5,4 ; 0,2 ; use 0,1,0 ; use 0,1,0 ; 3,7 ; 3,3 ; rot 5,4 ; use 1,0,0 ; use 0,0,0

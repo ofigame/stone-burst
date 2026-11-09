@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: pure [noSpecials]; çözüm 18 / sınır 22 (v7 13); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 15 (eski 18), sınır 22→23, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 21, bot 7/112
+id: level_188
+title: Kolay Kapı
+moves: 21
+roll: off
+type: pure
+rules: noSpecials
+goals: coral 28, purple 32, yellow 32
+grid:
+ppp   pypc  pypc  #     #     #     #
+bypcLb5 yypc  yyp   yypp  #     #     #
+cbp   bypp  pcpp  ccp   pcb   #     #
+ybbb  ycy   bcpp  ycbp  pcbb  pcbb  #
+ccb   ccy   ccy   ccyk1 pyb   cybb  pcbb
+cccy  pccy  ycyy  yby   pyy   pbby  cpb
+pyby  pccb  ycby  yppy  pppy  bbby  bbb
+pyby  byb   ypb   ybc   yppck1 bbp   bcb
+bbby  bpy   bpyb  bycb  bypc  bypc  bypy
+solution: 1,6 ; 1,0 ; 0,0 ; 1,3 ; 1,2 ; 2,2 ; 3,7 ; 3,6 ; 4,7 ; 4,2 ; 3,2 ; 4,3 ; 4,4 ; 4,3 ; 4,2

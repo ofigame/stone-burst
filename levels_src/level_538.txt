@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: protect [protect+exact]; kristal 3; çözüm 10 / sınır 13 (v7 11); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 13 (eski 10), sınır 13→16, bot 14/112
+id: level_538
+title: Bölüm 538
+moves: 16
+roll: off
+specials: on
+type: protect
+rules: protect, exact
+goals: yellow 42, blue 31, coral 30
+grid:
+cypc  bypc  pppbP ppppP yypp  pypp  pppcP
+cypc  cypb  pypbK1:2 pyyp  yyyp  ypyc  pppcK1:2
+bypc  bypc  cypb  cbyp  ybyb  ybyb  pbpb
+bybc  bypy  yyyy  pbby  cbpb  cbyp  ccyp
+bybc  bycc  yyyy  pcby  pcpb  bcpp  bcyp
+bypy  yccc  yycc  pycc  pccp  bcpb  bbyb
+#     #     cypc  ccpp  ycpp  #     #
+#     #     cbcb  cbpp  ycpp  #     #
+#     #     ybpb  ycpp  ycpp  #     #
+solution: 4,2 ; 6,2 ; 0,0 ; 1,4 ; use 3,0,1 ; 4,4 ; 0,2 ; 0,3 ; 6,3 ; 3,3 ; 1,1 ; use 1,3,1 ; 3,2 ; 2,7 ; 4,1

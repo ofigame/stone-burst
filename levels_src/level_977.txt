@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U (ayna); çözüm 8 hamle + 5 tepsi / limit 14 (pay +6, eski 16) hedef×0,97 bot 0,17 (hedef 0,15) plan 1; zincir v13: yeni çözüm 8 (eski 8), sınır 14→14, bot 7/112
+id: level_977
+title: Bölüm 977
+moves: 14
+roll: off
+specials: on
+goals: purple 55, yellow 45, blue 47
+grid:
+bcby  bccp  bccp  #     ypcpK1:2 yybp  pcbp
+ccbpK1:2 bcbpi1 bccp  #     bbcy  ybyb  pybb
+ccpb  bcby  bcpy  #     bbcy  pyybi2 ccpb
+pyyb  ccbb  ccby  bcpyi1 bcpy  pppb  ppppi1
+ycpp  ccbpi1 byyy  yybp  byyy  byyci2 ybbci2
+ybpb  bbbp  ycpp  bcyp  ycbp  yyyc  cppc
+ybpc  bbpc  pcpb  pccc  ypyc  ypbc  yypc
+ybpb  ycbb  pcbb  ppcc  ypcc  ybyp  ybpc
+ybbb  pcbp  ycbp  ycbpi1 yyyc  ybbp  cppc
+solution: 5,5 ; 3,4 ; use 0,5,1 ; 4,1 ; use 1,1,0 ; 0,1 ; use 1,5,0 ; 2,5 ; 2,4 ; use 1,0,0 ; 4,0 ; 5,2 ; use 1,4,0 ; use 1,4,0

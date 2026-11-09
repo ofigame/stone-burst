@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 8 hamle + 7 tepsi / limit 14 (pay +6, eski 14) hedef×1,66 bot 0,08 (hedef 0,15) plan 2; zincir v13: yeni çözüm 9 (eski 8), sınır 14→19, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 14, bot 12/112
+id: level_905
+title: Bölüm 905
+moves: 14
+roll: off
+specials: on
+goals: purple 61, yellow 40, blue 54
+grid:
+cppp  bppci1 bypci1 byyci1 bcyc  bcpc  bcpc
+cbpb  cppb  bcpbi2 bcyb  ccyb  cpyp  bppc
+pppb  pppb  bppb  bpyc  cbyci1 cpcc  cpyc
+#     ppbb  pbcc  ccyc  ccyc  cpcc  #
+#     ybpbi2 ybpb  bbpc  yccc  pcccK1:2 #
+#     cyyb  cbbb  bbpb  yppb  ppcp  #
+bccb  bybb  pybb  yypy  yppb  ypbp  ppbp
+bycb  ppbb  pypp  yypy  ypyy  cybb  cpyb
+bypbK1:2 byppi1 pypp  yyppi2 cyyp  cyyb  cpyb
+solution: 2,4 ; 0,1 ; use 0,0,1 ; 1,0 ; use 1,0,0 ; 1,4 ; use 0,3,0 ; 1,7 ; use 0,2,0 ; 4,0 ; use 1,2,0 ; 4,1 ; use 1,0,0 ; 5,6

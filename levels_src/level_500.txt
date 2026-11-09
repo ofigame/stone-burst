@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [noSpecials+scarce+exact]); çözüm 7 / sınır 9 (v7 10); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,08; adillik onarımı: sınır 9→10 (112 oyunda 17 galibiyet); zincir v13: yeni çözüm 8 (eski 7), sınır 10→13, bot 5/112
+id: level_500
+title: 500. Bölüm Finali
+moves: 13
+roll: off
+specials: on
+type: boss
+rules: exact
+goals: coral 49, purple 44, yellow 55, sponge 2
+grid:
+#     #     cccy  cccy  cycy  cppy  #     #
+#     #     bcpb  bcpy  byby  cpby  #     #
+pppy  bppy  bcpy  bppy  cpyy  cpcy  cpcy  bpcp
+pppb  ppcc  ypccScb bppy  bpyy  cpyy  cbyy  bcyp
+pbpb  pycb  yycb  bypb  byby  ccpy  bbcy  bcyc
+ybpb  pypb  yypb  bcyc  bcby  bccp  ybcb  bcyb
+ybpb  pycc  bbcc  bcyy  bcpy  byyy  yccy  ycpb
+#     #     bbyc  bbyb  bpyy  byyy  #     #
+#     #     yypb  ycyb  pcbb  pybbScby #     #
+solution: 2,0 ; 0,3 ; use 0,2,0 ; use 0,5,0 ; 2,1 ; 4,0 ; use 0,2,0 ; 0,2 ; use 1,5,0 ; 3,7 ; 5,6 ; 4,3 ; use 0,5,0 ; use 1,2,1

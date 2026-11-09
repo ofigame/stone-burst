@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [noSpecials+exact]); çözüm 12 / sınır 15 (v7 18); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,00; adillik onarımı: sınır 15→17 (112 oyunda 7 galibiyet); zincir v13: yeni çözüm 8 (eski 12), sınır 17→17, bot 4/112; zincir v13 kolaylaştırma: hedef −%6, sınır 13, bot 6/112
+id: level_780
+title: Bölüm 780
+moves: 13
+roll: off
+specials: on
+paint: 1
+type: boss
+rules: exact
+goals: coral 48, purple 70, yellow 63
+grid:
+#     #     pcyc  cpcy  cppy  cppy  cypy  cppy
+#     pbbb  cbpb  cycy  cypc  cypc  pypy  ypcy
+bcpb  pcbp  pccp  bbcb  cccc  ccyc  ppyc  ypcy
+bcpb  cypb  cybb  #     #     bbpy  pyyc  pycc
+cypp  cypb  cybb  #     #     pcyy  yypp  bycy
+pcyp  pcyp  ypbp  #     #     pcby  bypp  bycp
+pcyp  pcyp  yyyp  ypyy  ypyp  yybp  bybb  byyp
+pbyc  pbyp  byyy  bpyy  pcyy  ppby  ppyb  #
+ppyc  ppyp  pppc  pppc  pcpy  pcby  #     #
+solution: 3,0 ; 2,0 ; use 0,3,0 ; 2,6 ; 1,1 ; use 0,2,0 ; use 0,2,0 ; 5,5 ; 3,6 ; 6,1 ; use 0,5,4 ; use 1,2,2 ; 5,7 ; use 2,2,0

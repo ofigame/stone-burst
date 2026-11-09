@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 4 hamle + 4 tepsi / limit 8 (pay +4, eski 12) hedef×1,09 bot 0,50 (hedef 0,49) plan 1; zincir v13: yeni çözüm 4 (eski 4), sınır 8→8, bot 63/112
+id: level_055
+title: Sakin Kat
+moves: 8
+roll: off
+specials: on
+goals: blue 23, coral 20, star 2
+grid:
+yyy   yyy   ycy   ypy   ccy   yby   pby*
+yyy   ycy   cpy   cpy   ccy   yby   pbc
+ycp   ycy   ppc   bpc   ycy   bpy   ybc
+pcp   pcp   ppc   ppb   pcc   ypy   cby
+ycp   pcp   pbb*  ppb   ppb   ppp   cby
+#     #     bbb   pbb   ppp   #     #
+#     #     bby   bbb   bpy   #     #
+#     #     ccp   bcp   bcy   #     #
+solution: 0,0 ; 3,3 ; use 1,6,0 ; 2,0 ; use 0,6,1 ; 0,2 ; use 0,0,0 ; use 0,5,2

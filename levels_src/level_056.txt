@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 5 hamle + 2 tepsi / limit 9 (pay +4, eski 15) hedef×1,09 bot 0,58 (hedef 0,48) plan 1; zincir v13: yeni çözüm 3 (eski 5), sınır 9→7, bot 47/112
+id: level_056
+title: Altı Altı
+moves: 7
+roll: off
+specials: on
+goals: coral 45, purple 34, star 3
+grid:
+ppb   pcb   cpb   #     cpb   cpc   ccc
+ppb   ppb*  cpb   #     ppb   cpb   ccy
+ppb   ppy   ppb   bb    pcb   ccy   ccy
+cpy   py    pcc   pcc   pcc   pcc   ccy
+by    ypy   bpb   bpc   bcy   cb    cy
+cpc   ypc   byb   pcb   ccb   pc    ccp
+bpy   ycy   ycy   pcb   byc   ccp   ccp*
+bcy   ycy*  yby   pcp   pyp   cyp   ppc
+solution: 0,0 ; use 0,6,1 ; 4,0 ; use 0,0,0 ; 2,4 ; use 0,1,0

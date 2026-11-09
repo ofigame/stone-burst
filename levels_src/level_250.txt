@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı (ayna); çözüm 5 hamle + 5 tepsi / limit 9 (pay +4, eski 14) hedef×1,12 bot 0,25 (hedef 0,28) plan 0; zincir v13: yeni çözüm 8 (eski 5), sınır 9→12, bot 6/112
+id: level_250
+title: Yıldız Postası
+moves: 12
+roll: off
+specials: on
+goals: yellow 44, blue 51, coral 36, star 3, envelope 2
+grid:
+#     #     #     pbcp  pby   #     #     #
+#     ybpp  bp    pyy   yyyy  bb    bccb* #
+bbc   cbc   cbcyEc cycy  pyb*  pyb   bcb   bcb
+byyp  bycy  cbcb  cycb* ccb   ccb   ycbb  ccb
+bcyp  byc   cbpy  cbpy  ypbc  ypb   ypb   ccbc
+bcyp  ybyp  cbpp  by    cp    ybc   bpyp  ccyEb
+ccyy  bby   cbp   pbp   cbb   bpc   bpy   bbyp
+pcpy  bby   bcp   ypcy  ypby  ypb   ypyp  bpbp
+pcp   bcyc  bcp   bcc   ypb   cpbp  cpbp  cpbp
+solution: 5,1 ; 0,3 ; 4,0 ; use 0,6,1 ; use 0,4,0 ; 0,3 ; use 0,3,0 ; 7,5 ; 6,5 ; 6,5 ; 3,1 ; use 0,4,1 ; use 0,4,1

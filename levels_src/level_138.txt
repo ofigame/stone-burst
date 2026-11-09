@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: protect [protect]; kristal 2; çözüm 6 / sınır 8 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 8→9 (112 oyunda 9 galibiyet); zincir v13: çözüm aynı, sınır 9→9, bot 16/112
+id: level_138
+title: Rahat Kilit
+moves: 9
+roll: off
+specials: on
+type: protect
+rules: protect
+goals: yellow 37, blue 26
+grid:
+bypp  ycy   pcy   pcy   pcy   pyc   ypbb
+yypp  yypp  cyyp  ccyp  ccy   ybc   pccP
+bpbp  bpb   ycbp  ycy   ycyp  bcyp  bycb
+pbcp  #     #     ycyp  #     #     pcbP
+bcc   #     #     yccb  #     #     yyyy
+yycp  #     #     yyb   #     #     ypbyLb5
+cybb  bcc   bcb   pyc   yyyb  ybb   ybyy
+cybb  bcb   ycyy  pcb   pcbb  bby   bbc
+pcbp  cyb   pbby  ycby  bcc   pcc   bcc
+solution: 0,0 ; use 0,1,0 ; 0,6 ; use 0,2,1 ; 1,6 ; 6,5 ; 0,2 ; 0,0 ; use 1,0,0 ; use 1,3,0 ; use 0,1,1

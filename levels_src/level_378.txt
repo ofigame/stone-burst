@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: protect [protect+exact]; kristal 3; çözüm 9 / sınır 14 (v7 14); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,08; adillik onarımı: sınır 14→17 (112 oyunda 6 galibiyet); zincir v13: yeni çözüm 11 (eski 9), sınır 17→23, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 15, bot 12/112
+id: level_378
+title: Hafif Mektup II
+moves: 15
+roll: off
+specials: on
+type: protect
+rules: protect, exact
+goals: yellow 47, blue 33, coral 19, envelope 1
+grid:
+pcbp  yycp  yycp  pyypP pybp  bybc  bybp
+pcbp  yycy  yycp  ccyb  pyyb  byyc  pyyc
+pbbpR pbby  pcpp  ybyb  pyyb  pyyc  pyyc
+ybyp  pbyy  #     #     #     pyyc  pyyc
+ypcy  pbyy  #     #     #     ppyy  pypy
+ppcyP ppby  #     #     #     ppbyR yypy
+bpbb  ppybEb ybbb  yppc  cpcc  ypcy  yypy
+cpypP cpyb  bbpp  bbpp  ypcc  ypcy  ybcy
+cpbb  cpbb  cpbb  bybb  bpcb  bbpy  cbpy
+solution: 5,4 ; 5,0 ; use 0,5,0 ; 5,0 ; use 1,5,0 ; 3,6 ; 5,4 ; 6,5 ; use 0,1,0 ; use 1,1,0 ; 0,0

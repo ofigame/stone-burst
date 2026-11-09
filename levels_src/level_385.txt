@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 11 hamle + 7 tepsi / limit 14 (pay +3, eski 13) hedef×1,13 bot 0,17 (hedef 0,26) plan 2; zincir v13: yeni çözüm 11 (eski 11), sınır 14→18, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 16, bot 7/112
+id: level_385
+title: Erime Çarkı
+moves: 16
+roll: off
+specials: on
+goals: purple 54, yellow 38, blue 32
+grid:
+ppcp  ppbb  cpcp  cycb  ccpp  bycp  bybc
+ypbp  pybp  cycp  cbyp  cbyc  cycc  bybc
+ypby  ppbp  yypb  ybyb  bbppR pbcpi1 bybb
+ypbc  cpcc  bcpc  bcpc  bcpp  bccp  bycp
+ppcp  cpcyi1 cypy  pybc  pccp  yccp  pyyy
+ybpp  ypbc  pypp  pybci1 bbpyR pycy  pypy
+#     #     yyby  ybbc  yppy  #     #
+#     #     ybbc  cpbc  bpby  #     #
+#     #     pccc  cbcb  cpcy  #     #
+solution: 6,4 ; 0,3 ; 4,2 ; use 1,0,0 ; use 1,1,1 ; 5,0 ; use 1,1,0 ; 0,1 ; 2,4 ; 5,4 ; use 1,4,0 ; 2,0 ; 2,1 ; use 1,0,0

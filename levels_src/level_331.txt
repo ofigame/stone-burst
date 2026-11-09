@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 5 hamle + 5 tepsi / limit 12 (pay +7, eski 14) hedef×1,29 bot 0,33 (hedef 0,34) plan 1; zincir v13: yeni çözüm 8 (eski 5), sınır 12→15, bot 8/112
+id: level_331
+title: Buzlu Taban
+moves: 15
+roll: off
+specials: on
+goals: blue 43, coral 50
+grid:
+pbcp  pyb   pyb   bcyc  bpyc  bpyy  bpy
+pycR  pyb   pybc  pyc   bcyc  bcyy  pcy
+ccc   bbbi1 bpcc  cpcy  pccy  pcyy  pcy
+#     yccp  bcpc  ypcc  ypby  ccb   #
+#     cypc  bbpc  cbcy  cpby  cpy   #
+#     ypc   bcpb  cccb  ccb   cpp   #
+ppcy  ypcy  yypy  yyc   cbbb  cbbp  bpbp
+pbby  pbc   yyp   ybbp  ypbbR ypb   ybc
+ycb   ycp   ypp   ypb   yppci1 cppc  pbb
+solution: 5,0 ; 3,0 ; 4,3 ; use 0,3,0 ; 3,1 ; use 0,1,0 ; 1,4 ; 2,5 ; use 0,0,2 ; 5,0 ; 4,0 ; use 1,5,0 ; use 0,5,1 ; use 0,1,2

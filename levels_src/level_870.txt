@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk blue 34/33; çözüm 8 / sınır 11 (v7 11); açgözlü kaybeder; bot48 0,25 (taban 0,04); bot 0,17; zincir v13: yeni çözüm 7 (eski 8), sınır 11→10, bot 8/112
+id: level_870
+title: Bölüm 870
+moves: 10
+roll: off
+specials: on
+paint: 1
+type: boss
+rules: scarce, exact
+goals: yellow 78, blue 33, coral 41, envelope 2
+grid:
+#     #     pbbp  pcpp  ccpy  cppy  cppy  yppy
+#     bpbp  pbbp  pcppEy pcyy  pcyy  cpyy  ypyy
+cbby  ypyy  ypyy  ycby  yccy  ycyy  yyyb  ypyy
+cpbp  ppbp  ppbp  #     #     ycyb  yyyb  pyyy
+cpbb  pypc  yppc  #     #     yyby  yyyy  bpcy
+cpbc  yypc  yypb  #     #     yybp  ppcy  bpcy
+ypbp  bypy  bypb  bycb  pybb  pyyc  ppcc  bpcc
+yppp  cppc  cypc  cpcc  ypcc  ppyc  pycy  #
+ypyc  cppc  cpycEp ppyc  pbyy  yyby  #     #
+solution: 4,0 ; 5,6 ; use 0,2,0 ; use 0,2,0 ; 7,0 ; use 0,4,0 ; 7,1 ; use 0,1,2 ; 2,0 ; use 0,1,1 ; 5,6 ; 3,0 ; use 0,1,2

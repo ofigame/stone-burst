@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk blue 67/66; çözüm 9 / sınır 12 (v7 15); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,08; adillik onarımı: sınır 12→13 (112 oyunda 8 galibiyet); zincir v13: yeni çözüm 8 (eski 9), sınır 13→16, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 9/112
+id: level_827
+title: Bölüm 827
+moves: 12
+roll: off
+specials: on
+paint: 1
+type: scarce
+rules: scarce
+goals: blue 59, coral 47, purple 44
+grid:
+ypcb  G1:ypcp G1:bbcp G1:bbbc G1:pcbc G1:pbbc ybbp
+ypcb  yccb  yccp  bbcc  bbby  pbpy  ybby
+yccb  yccb  pbbp  ypbc  bppc  bppc  ybby
+#     yccb  yccp  yccc  cccc  bycp  #
+#     ybpy  cbby  ccyp  cycp  cycpB1 #
+#     cypp  yccb  ccyp  ccyp  cbbp  #
+pbpy  yycb  pycp  ycby  pbyb  bbbp  bcbp
+pbpb  yybb  bybp  pybb  byyb  bpby  bycp
+pcyb  pcyp  byyp  bpyp  bpyp  bpcy  bpcc
+solution: paint 2,5,p ; 5,3 ; 3,1 ; use 0,0,0 ; 0,0 ; use 0,3,0 ; 1,4 ; 3,6 ; use 0,1,0 ; 4,1 ; 2,0 ; use 0,2,0 ; use 0,5,0

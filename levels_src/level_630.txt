@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk yellow 35/34; çözüm 8 / sınır 11 (v7 11); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,00; adillik onarımı: sınır 11→12 (112 oyunda 7 galibiyet); zincir v13: yeni çözüm 11 (eski 8), sınır 12→19, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 5/112
+id: level_630
+title: Bölüm 630
+moves: 11
+roll: off
+specials: on
+type: boss
+rules: scarce, exact
+goals: yellow 32, blue 64, coral 55
+grid:
+bcby  pcbc  cccc  G1:bccc G1:bbpc G1:bbpb ppyb  ppyb
+byby  pbbb  pccb  pccb  pppc  bppc  pycb  ppyb
+byby  ybpb  ycpb  ycyc  ppyc  pppc  bpyy  ppyb
+bcbb  bbpb  yppb  #     #     bppp  pypc  ycyc
+ccybB1 bbpb  bpcp  #     #     bppp  bcpb  yccb
+ccpb  cppb  cpcp  #     #     ppyp  ppcc  ppcb
+ccyb  cppb  cpcb  pypb  pypp  pppp  ppbb  pbcc
+cpcb  cpcb  cpbp  ppyb  ppyc  pypb  pybc  pbbc
+cpbb  ypcb  yppb  pppb  ppcc  bcpc  pybc  bybc
+solution: 1,1 ; use 0,6,0 ; 6,3 ; 1,0 ; use 0,0,0 ; 6,0 ; use 0,0,0 ; use 0,0,1 ; 2,1 ; 0,4 ; use 0,0,0 ; 1,0

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 10 hamle + 6 tepsi / limit 15 (pay +5, eski 13) hedef×1,12 bot 0,42 (hedef 0,36) plan 0; zincir v13: yeni çözüm 10 (eski 10), sınır 15→19, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 15, bot 11/112
+id: level_292
+title: Üç Postacı
+moves: 15
+roll: off
+specials: on
+goals: coral 54, purple 34, envelope 3
+grid:
+bcp   bppp  ycpp  bcp   cpb   ppb   pbbb
+bcbp  bcy   bcyp  bcyp  cpy   cpyb  cbbb
+ccbEc ccbp  bcp   bpcc  cpyc  cpyEb cbb
+#     cycc  ccbc  bbbc  bbbEy cpb   #
+#     bybc  yby   yby   yby   ccyy  #
+#     bcb   yccp  ycyp  ycy   bpy   #
+pyy   cpyb  pbcp  bcy   bby   bpy   cpb
+pcyy  ppy   pbp   cbyp  ccp   ccc   ccb
+ycyp  bpbp  ccp   ccp   cbpc  cbbc  cbbc
+solution: 0,0 ; use 0,4,0 ; 1,2 ; 1,1 ; 2,5 ; 2,4 ; use 0,1,0 ; 6,6 ; use 1,0,0 ; 0,6 ; use 0,0,8 ; 5,5 ; 1,6 ; 4,8 ; use 0,2,3

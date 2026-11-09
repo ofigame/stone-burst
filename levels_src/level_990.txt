@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk blue 55/54; çözüm 11 / sınır 11 (v7 12); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; adillik onarımı: sınır 11→12 (112 oyunda 4 galibiyet); adillik onarımı: sınır 12→13 (112 oyunda 8 galibiyet); zincir v13: yeni çözüm 13 (eski 11), sınır 13→19, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 6/112
+id: level_990
+title: Bölüm 990
+moves: 12
+roll: off
+specials: on
+paint: 1
+type: boss
+rules: scarce, exact
+goals: yellow 79, blue 51, coral 50, envelope 2
+grid:
+byby  cyby  byby  bcby  ycby  ycbb  pbyb  ypbc
+cbyy  byby  byby  bppy  cpby  ypyb  cpyb  cpbc
+cpyy  cpby  pycc  bpbb  cpbc  cpyy  cbyy  pbbc
+ypyy  cpyy  cycy  #     #     bbpy  pbby  pbcc
+ypyyEp cpyy  pyyb  #     #     yybb  cyby  yyby
+byby  cbyy  cpbb  #     #     yyyb  cbcb  ycypEy
+cbyp  cyyp  cyyb  pppy  cpcy  yyyc  pcyc  pccp
+cyyc  cyyc  ccyy  cppy  cpcy  bpcp  ppyp  ppyp
+bpby  cpcc  cpcc  cppc  cpyc  bpyc  ppyc  ypcc
+solution: 5,2 ; 0,0 ; 0,1 ; 0,7 ; use 1,1,0 ; use 2,0,0 ; 5,5 ; use 2,4,0 ; 7,0 ; use 2,0,1 ; 7,5 ; use 2,5,0 ; use 0,5,0 ; use 0,7,0

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 6 hamle + 5 tepsi / limit 10 (pay +4, eski 13) hedef×0,78 bot 0,33 (hedef 0,33) plan 0; zincir v13: yeni çözüm 7 (eski 6), sınır 10→11, bot 31/112
+id: level_243
+title: Mühür ve Işık
+moves: 11
+roll: off
+specials: on
+goals: blue 25, coral 46, star 2, envelope 2
+grid:
+ycb   cbb   cbyyEy ccyy  cyy   bby   bbc
+ccby  ccc   ccb   ccpy  ccyc* cbcp  ypcy
+cccp  pbc   pbp   ppy   cpc   cbcp  cbcy
+cbc   pccy  #     #     #     pcpp  cccy
+bccc  bbc   #     #     #     cccp  ccp
+pbcp  pbc   #     #     #     ccyp  pcb
+ppcpEc pbc*  cyp   cyby  cpb   cpy   ccpy
+cpb   cpc   ccpy  yyby  cpbc  ycpc  pcby
+cppc  cyp   cyp   byb   cbbc  ppbb  pbb
+solution: 0,3 ; use 0,0,0 ; 1,5 ; use 0,3,0 ; 1,1 ; use 0,1,0 ; 5,1 ; 4,1 ; 2,0 ; use 0,0,0 ; 5,0

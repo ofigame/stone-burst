@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 11 hamle + 3 tepsi / limit 15 (pay +4, eski 14) hedef×0,77 bot 0,17 (hedef 0,44) plan 1; zincir v13: yeni çözüm 6 (eski 11), sınır 15→14, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 7/112
+id: level_161
+title: Altın Anahtar
+tutorial: Kilitli yığının dibinde yıldız olabilir: önce kilidi aç, sonra sonuna kadar soy.
+moves: 11
+roll: off
+specials: on
+goals: purple 36, yellow 17, star 2
+grid:
+ppc   pyc   yyc   yyp   bpp   bpb   bpb
+ppc   pbc   yyp   ycp   ycp   ycy   ypb
+ppy   cpy   cpy   cpy   bpy   bcy   ypbLc5
+ppb*  cpy   pcp   cyy   ppp   bpp   ybc
+pcb   ccy*  bcc   pcc   ppc   ypp   ybp
+cyy   ccy   bbc   pcc   ppc   ppp   ybp
+#     #     pbc   pcb   ypc   #     #
+#     #     pcp   pcp   ypc   #     #
+#     #     pcp   ppc   ppc   #     #
+solution: 5,1 ; 1,4 ; 1,4 ; use 2,0,3 ; use 0,3,0 ; use 0,4,0 ; 4,0 ; 3,1

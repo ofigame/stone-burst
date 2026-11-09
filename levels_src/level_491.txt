@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 6 hamle + 6 tepsi / limit 11 (pay +5, eski 17) hedef×0,96 bot 0,50 (hedef 0,28) plan 0; zincir v13: yeni çözüm 6 (eski 6), sınır 11→11, bot 25/112
+id: level_491
+title: Bölüm 491
+moves: 11
+roll: off
+specials: on
+goals: blue 47, coral 34, sponge 2
+grid:
+pyb   bcyy  pcc   ycc   cccc  cbc   pbcyScby
+pbyb  pbcy  pccb  pcc   ccc   cbc   byyp
+pbb   pbc   pbpb  pbp   pbyc  ccy   bbyb
+pcpb  ccpb  cbpb  ybpb  pbc   cyc   ybyb
+ppp   cpy   cyc   cbcb  pbcb  pbpb  ybyb
+ppyb  cpyc  bcby  bccb  pccy  pcy   pbb
+#     #     pyby  ybyy  bby   #     #
+#     #     bypyScb byy   byyp  #     #
+#     #     byp   pyb   bybp  #     #
+solution: 2,0 ; 2,5 ; use 0,0,0 ; use 0,0,0 ; 1,0 ; 1,0 ; 4,2 ; use 1,2,0 ; 3,6 ; use 0,0,1

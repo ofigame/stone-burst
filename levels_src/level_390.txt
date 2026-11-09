@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk yellow 38/37; çözüm 11 / sınır 14 (v7 9); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; adillik onarımı: sınır 14→15 (112 oyunda 3 galibiyet); adillik onarımı: sınır 15→16 (112 oyunda 5 galibiyet); zincir v13: yeni çözüm 14 (eski 11), sınır 16→23, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 17, bot 5/112
+id: level_390
+title: Kış Çarkı
+moves: 17
+roll: off
+specials: on
+type: boss
+rules: scarce, exact
+goals: yellow 35, blue 51, coral 24, star 2
+grid:
+cybcR cbpc  byyb* ppby  pbyb  pbcc  ppcb  yccbR
+bypc  pbpc  pbbyi1 pbby  pbcb* pcbc  pccbR yccb
+bbyb  #     #     pbcc  bbcp  #     #     pycp
+ppby  #     #     pbbp  pbcp  #     #     pcbc
+bbcb  #     #     cbcc  ybcci2 #     #     pybc
+bc    cbbp  cppp  cbbp  cbby  ycbp  ybbci1 ybb
+bypc  bbpp  cppb  cyyb  ybyb  ybbc  cbbc  yybc
+bybc  bbpb  ybbb  ypbb  ybyyi1 ypby  bbbp  cbpp
+ybpc  cbpc  bbpc  bbpp  bbppi2 pppy  bpbp  pybp
+solution: 0,5 ; 2,6 ; use 0,5,0 ; use 0,0,0 ; 4,0 ; use 0,3,0 ; 0,0 ; 5,7 ; use 0,0,0 ; 7,3 ; 1,5 ; 3,7 ; use 0,2,0 ; use 1,0,0 ; 4,2 ; 3,2 ; use 2,7,0 ; use 0,7,1

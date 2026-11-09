@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk coral 34/32; çözüm 9 / sınır 11 (v7 8); açgözlü kaybeder; bot48 0,15 (taban 0,06); bot 0,33; zincir v13: çözüm aynı, sınır 11→11, bot 9/112
+id: level_187
+title: Anahtar Planı
+moves: 11
+roll: off
+specials: on
+type: scarce
+rules: scarce
+goals: blue 36, coral 32, purple 33
+grid:
+ypy   yycp  pcy   ycb   byb   yyy   yyyp
+pyyc  yby   pcy   ybbb  ybyb  yyy   ybyp
+pyyk1 pby   pyc   pcy   pby   pbyk1 pbyp
+#     cpbb  pbyp  yycp  bby   bypy  #
+#     cbpy  cpy   ccy   pyp   pypp  #
+#     pycy  yppc  cpp   bypc  cybc  #
+cpp   byc   byc   bcp   bbpc  cbp   yyb
+cppy  cpp   pbcb  bbp   byp   bcp   ccb
+ppcLc7 pbyy  bcbLp7 bbpy  bpp   bbp   bcp
+solution: 3,5 ; use 0,1,0 ; 5,0 ; 2,2 ; use 0,3,2 ; 5,5 ; use 0,1,0 ; 3,0 ; use 0,3,1 ; 0,0 ; 2,0 ; 1,1 ; 2,0 ; use 0,1,3

@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk yellow 24/22; çözüm 8 / sınır 11 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,00; adillik onarımı: sınır 11→12 (112 oyunda 12 galibiyet); zincir v13: yeni çözüm 10 (eski 8), sınır 12→15, bot 6/112
+id: level_150
+title: Kilit Bahçesi
+moves: 15
+roll: off
+specials: on
+type: boss
+rules: scarce, exact
+goals: yellow 22, blue 33, star 2
+grid:
+#     #     yppp  yppp  ppbb  ppb   pbbc  bcc
+#     pby   ybpb  bbp*  pbp   pbcc  pcb   ccby
+bcp   bcyy  pcc   bcbp  bby   bpcc  cpyb  ccb
+bcpp  bcppLb8 bycp  #     #     ypp   bppb  byc
+bcp   bcp   cbc   #     #     pppcLy8 cpcc  bpc
+bcp   ccp   ccpp  #     #     cpb   ypbc  bpb
+pc    cbpp  cby   cbc   cpc   cccy  bbb   pp
+cbpp  cbp   ycby  cbbc  cppy  ccc*  cbbp  #
+cbc   ycp   bcby  ycby  cpby  cpcy  #     #
+solution: 0,2 ; 2,0 ; use 0,4,0 ; use 0,1,1 ; 2,6 ; use 0,7,1 ; 6,2 ; 6,0 ; use 0,4,0 ; 3,6 ; 5,3 ; 2,0 ; use 2,0,3 ; 5,5 ; use 0,5,0 ; 2,0 ; use 0,2,0

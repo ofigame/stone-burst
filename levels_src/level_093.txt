@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x2+2x2; çözüm 5 hamle + 3 tepsi / limit 8 (pay +3, eski 12) hedef×0,93 bot 0,42 (hedef 0,45) plan 0; zincir v13: yeni çözüm 5 (eski 5), sınır 8→8, bot 25/112
+id: level_093
+title: Ortak Komşu
+moves: 8
+roll: off
+specials: on
+goals: purple 24, yellow 23
+grid:
+pyp   pyp   pyy   pyyi1 cbc   pyp   ypy
+byp   byp   ycb   yyb   bcc   byy   byc
+pyb   byp   byb   bpy   pcc   byc   bcc
+pcp   #     #     ccp   #     #     bcc
+pcpk2 #     #     pyc   #     #     bcy
+pyy   pyp   ycp   ybc   bpc   cpb   bpp
+pyy   cyy   ccb   ccci1 bcb   bcb   ypb
+pbbk2 byy   bpy   pyy   byb   bbb   bpc
+solution: 0,5 ; use 0,0,2 ; 0,5 ; 0,0 ; 5,5 ; use 1,6,0 ; use 0,0,0 ; 5,0

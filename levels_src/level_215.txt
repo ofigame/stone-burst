@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L (ayna); çözüm 8 hamle + 5 tepsi / limit 12 (pay +4, eski 12) hedef×1,28 bot 0,33 (hedef 0,35) plan 1; zincir v13: çözüm aynı, sınır 12→12, bot 30/112
+id: level_215
+title: Mektup Akışı
+moves: 12
+roll: off
+specials: on
+goals: blue 39, coral 26, envelope 2
+grid:
+#     #     #     cbcy  cpc   cppc  cpp
+#     #     #     cbpy  cppy  bppy  yppEc
+#     #     #     cbpy  bpc   bpcEc yyc
+#     #     #     cycy  byc   bycp  byb
+ypb   yyp   cyyy  cpc   bpbp  bybp  pyb
+ybb   cpp   cpyy  ypyy  ycb   bcb   pcbb
+ypb   cpb   yyyy  ypb   ycp   bcpp  ccp
+yyb   yybp  yyp   pypp  pbp   pbbp  pbb
+yyby  yyb   yybp  pyp   pbpp  pbb   pbb
+solution: 4,6 ; 3,0 ; use 1,6,0 ; use 0,3,1 ; 3,0 ; 4,0 ; use 0,4,0 ; 2,4 ; use 0,3,0 ; 2,4 ; 0,4 ; 3,3 ; use 0,3,0

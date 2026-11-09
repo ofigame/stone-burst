@@ -1,0 +1,107 @@
+{
+  "pageId": 3,
+  "title": "Koleksiyon",
+  "kind": "collection",
+  "referenceScreenshot": "ui2/03_koleksiyon.png",
+  "coordinateSystem": "1080x1920 top-left; modal children card-local",
+  "elements": [
+    {
+      "id": "logo",
+      "rect": [
+        72,
+        48,
+        360,
+        108
+      ],
+      "role": "image",
+      "binding": "PremiumV4/ui/logo-trikat",
+      "note": ""
+    },
+    {
+      "id": "stars",
+      "rect": [
+        700,
+        56,
+        208,
+        88
+      ],
+      "role": "metric",
+      "binding": "runtime star sum",
+      "note": ""
+    },
+    {
+      "id": "settings",
+      "rect": [
+        936,
+        52,
+        96,
+        96
+      ],
+      "role": "icon",
+      "binding": "existing settings handler",
+      "note": ""
+    },
+    {
+      "id": "nav",
+      "rect": [
+        0,
+        1712,
+        1080,
+        208
+      ],
+      "role": "nav",
+      "binding": "existing Harita/Günlük/Taşlar",
+      "note": ""
+    },
+    {
+      "id": "title",
+      "rect": [
+        180,
+        188,
+        720,
+        92
+      ],
+      "role": "pageTitle",
+      "binding": "collection title",
+      "note": ""
+    },
+    {
+      "id": "category",
+      "rect": [
+        48,
+        316,
+        984,
+        88
+      ],
+      "role": "sectionTitle",
+      "binding": "runtime section + count",
+      "note": ""
+    },
+    {
+      "id": "scroll",
+      "rect": [
+        48,
+        428,
+        984,
+        1252
+      ],
+      "role": "runtime",
+      "binding": "existing all 22 items",
+      "note": "2 sütun; kart468×484; yatay48, düşey32. Kart içi padding24; art[64,24,340,252], name[24,292,420,56], desc[24,360,420,100]."
+    }
+  ],
+  "modal": null,
+  "content": {
+    "keyPattern": "collection.|stone.",
+    "buttonBindings": [],
+    "authority": "live Loc/runtime existing case-format/action-condition; frozen snapshot is audit-only"
+  },
+  "sources": [
+    "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "Assets/KatKat/Scripts/UI/MenuView.CollectionV10.cs"
+  ],
+  "notes": [
+    "Metin, sayı, durum, düğme sayısı, sırası ve eylemi mevcut çalışma zamanından gelir; örnek panodaki içerik kullanılmaz.",
+    "Otomatik yeni kapat/geri düğmesi, yardım, ödeme, güç veya ayar eklenmez."
+  ]
+}

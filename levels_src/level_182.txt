@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 4 hamle + 4 tepsi / limit 9 (pay +5, eski 15) hedef×0,94 bot 0,71 (hedef 0,42) plan 1; zincir v13: çözüm aynı, sınır 9→9, bot 49/112
+id: level_182
+title: İki Kapı
+moves: 9
+roll: off
+specials: on
+goals: yellow 28, blue 30
+grid:
+bpp   ypy   bpb   bbc   pybLb7 pyb   byb
+bpp   ypy   ypy   bpc   yyb   yyb   byc
+ppp   pppk1 ypp   byp   yyc   ycc   byc
+ypb   bpp   bpp   bpp   ypc   ccc   bpc
+ybp   bbp   bpc   bpp   cbp   ybc   ybb
+ypc   ypc   bbc   yppk1 ybp   ppp   ybb
+#     #     bby   bbp   ycp   #     #
+#     #     bby   pbp   ccp   #     #
+#     #     bcp   pby   pyy   #     #
+solution: 2,2 ; 0,0 ; use 0,2,0 ; 6,1 ; use 0,1,0 ; 0,0 ; use 0,0,0 ; use 0,4,0

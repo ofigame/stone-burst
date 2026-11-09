@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3 (kaydırılmış) (ayna); çözüm 8 hamle + 4 tepsi / limit 11 (pay +3, eski 14) hedef×1,12 bot 0,25 (hedef 0,27) plan 0; zincir v13: çözüm aynı, sınır 11→11, bot 28/112
+id: level_363
+title: Çark ve Kasa
+moves: 11
+roll: off
+specials: on
+goals: blue 38, coral 28
+grid:
+ybpc  bbcy  pby   bybp  bcyp  #     #
+bpc   ybcLp7 cbc   ycyp  bcyy  pcyy  #
+ypcb  ybcb  pycb  pyb   bcy   pcyy  pbc
+yppb  #     #     #     yyy   ycy   ppc
+bcpR  #     #     #     ybyyR ypyy  cpby
+ccy   #     #     #     ypyy  ypp   bpc
+ccpb  ycp   ybpc  pbp   pyy   pbp   bbpc
+#     cycy  cbcy  bpcy  cyb   bypp  byb
+#     #     cpb   cpb   cybb  cbb   bbb
+solution: 4,7 ; 4,1 ; use 1,0,0 ; 4,1 ; use 1,2,1 ; 0,0 ; 5,1 ; use 2,1,1 ; 0,0 ; 0,0 ; 3,0 ; use 2,2,0

@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: pure [noSpecials]; çözüm 15 / sınır 18 (v7 16); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,17; zincir v13: yeni çözüm 14 (eski 15), sınır 18→21, bot 4/112; zincir v13 kolaylaştırma: hedef −%6, sınır 19, bot 9/112
+id: level_148
+title: Hafif Mandal
+moves: 19
+roll: off
+type: pure
+rules: noSpecials
+goals: coral 28, purple 18
+grid:
+#     #     bbypLb5 bcp   bcp   #     #
+#     pbcp  pby   byyc  ybpLy5 byyc  #
+bycb  bbcc  ppbc  pyb   byy   yyp   ycp
+yycb  ybc   cbcy  pyby  yby   ycyp  yyyc
+ybcb  ybpb  cbpb  pbyy  ybyy  cbyc  ybyc
+ycy   bbpb  cbc   ccc   ccyy  cbp   cbyc
+ycp   ycp   ybc   cby   cby   pccb  byy
+#     cbyb  ppc   cpc   pbb   pbpb  #
+#     #     yybp  yccy  ybp   #     #
+solution: 0,2 ; 5,2 ; 4,2 ; 1,2 ; 2,0 ; 6,2 ; 2,7 ; 1,5 ; 3,0 ; 3,4 ; 2,5 ; 3,2 ; 2,2 ; 2,0 ; 2,0 ; 1,1

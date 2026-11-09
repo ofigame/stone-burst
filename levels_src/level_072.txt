@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x2; çözüm 6 hamle + 6 tepsi / limit 13 (pay +7, eski 13) hedef×1,26 bot 0,54 (hedef 0,52) plan 1; zincir v13: yeni çözüm 6 (eski 6), sınır 13→13, bot 36/112
+id: level_072
+title: Yıldız Yolu
+moves: 13
+roll: off
+specials: on
+goals: coral 25, purple 33, star 3
+grid:
+bbb   bbp   ppci1 ppc   cbc   yb    yyb
+pbb   ypb   ppc   bbc   cby   cyy   yyy
+pbb   ppb   ypc   bpb   ccy   cyy   yyy
+ypp   yyp   #     #     #     byci1 byy*
+bp    pyp   #     #     #     yyc*  byy
+byp   byp   byc   cyc   cyp   cpp   pbc
+byp   byp   byy*  bcy   ypb   cpp   ppp
+byp   ycp   ycy   pcy   ycb   cppi1 ppp
+solution: 0,3 ; use 0,3,0 ; 4,1 ; 5,1 ; use 0,0,0 ; 4,5 ; use 1,1,0 ; 2,5 ; 4,0 ; use 0,2,0 ; use 0,0,0

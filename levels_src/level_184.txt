@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 9 hamle + 5 tepsi / limit 12 (pay +3, eski 11) hedef×1,44 bot 0,38 (hedef 0,37) plan 0; zincir v13: yeni çözüm 8 (eski 9), sınır 12→12, bot 9/112
+id: level_184
+title: Kilit Zinciri
+moves: 12
+roll: off
+specials: on
+goals: coral 35, purple 51
+grid:
+yyby  ycc   yypy  bpcy  ppp   cppp  cppk1
+byp   bcc   yycp  bycp  ppcp  ppp   ppp
+yyp   ycp   pypb  bbcp  pcc   bppc  ycpc
+yyp   bcy   ybc   bbpy  byby  pbb   ycpc
+cycb  pcb   pyb   ypp   pypy  pbp   pbcc
+bbbp  pby   ypyy  yyyy  pyb   pbbp  pbc
+#     #     ypyc  ybyLp8 pybc  #     #
+#     #     ybyc  bbb   cyb   #     #
+#     #     ypcck1 cbcb  cycb  #     #
+solution: 4,0 ; 4,2 ; 3,7 ; use 0,1,0 ; 4,0 ; use 1,4,0 ; 5,2 ; 3,3 ; 2,2 ; use 1,1,0 ; use 1,2,2 ; 0,0 ; use 1,2,0 ; use 1,3,0

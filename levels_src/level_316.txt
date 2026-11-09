@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 4 hamle + 4 tepsi / limit 10 (pay +6, eski 16) hedef×0,95 bot 0,38 (hedef 0,29) plan 1; zincir v13: çözüm aynı, sınır 10→10, bot 42/112
+id: level_316
+title: Döner Kule
+moves: 10
+roll: off
+specials: on
+goals: coral 24, purple 36, yellow 26
+grid:
+#     #     ppc   ypby  yp    #     #
+#     ppcb  ppbb  cpp   cypyR pypb  #
+cpy   pyb   ybpp  yppp  ycpp  pbp   bypb
+bcpb  bbpy  bbp   bp    yccp  bccc  bycc
+bcy   bbyy  bpyy  bbp   bcy   bpcb  yyb
+ppyy  pbyy  ybyy  bby   cpyb  ypcb  yyyp
+ppy   ypcp  ycp   bcpbR bbp   cpb   cpy
+#     ypcp  ycb   bcb   bbbb  cbbb  #
+#     #     bc    bcp   by    #     #
+solution: 5,4 ; 1,3 ; use 0,2,0 ; 5,4 ; use 0,3,0 ; 4,0 ; use 0,2,0 ; use 0,3,1

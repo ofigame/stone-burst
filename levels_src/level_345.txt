@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3 (kaydırılmış); çözüm 5 hamle + 4 tepsi / limit 8 (pay +3, eski 13) hedef×0,95 bot 0,29 (hedef 0,28) plan 2; zincir v13: yeni çözüm 5 (eski 5), sınır 8→8, bot 26/112
+id: level_345
+title: Dörtlü Dönüş
+moves: 8
+roll: off
+specials: on
+goals: purple 24, yellow 31, blue 26
+grid:
+cpbc  cbpc  ybyb  cbpb  ypybR bpy   cppc
+ccc   bppc  bppc  ccp   ypy   cpy   bpcc
+bcc   #     #     bcyc  #     #     bpcp
+bby   #     #     ybbp  #     #     ybyc
+pyyy  #     #     bybp  #     #     cyb
+byby  pbbcR yby   ybc   ypby  ccyy  cyby
+byby  bbbc  ypb   cpy   ycc   cccy  cpcy
+byb   cccc  cpbc  ccbc  ycbc  cpc   ypy
+bycy  bpcc  bpcc  bcy   ycy   cbp   ypy
+solution: 1,5 ; use 0,5,0 ; 4,6 ; 0,0 ; use 0,1,1 ; 0,0 ; use 1,0,3 ; 6,0 ; use 0,6,0 ; use 0,0,0

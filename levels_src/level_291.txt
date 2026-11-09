@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 6 hamle + 5 tepsi / limit 11 (pay +5, eski 14) hedef×0,95 bot 0,33 (hedef 0,36) plan 1; zincir v13: yeni çözüm 6 (eski 6), sınır 11→11, bot 7/112
+id: level_291
+title: Son Mektuplar
+moves: 11
+roll: off
+specials: on
+goals: blue 37, coral 36, envelope 2
+grid:
+ybc   bcc   bccy  bcpy  bpc   cpcc  cpc
+bcc   bbp   ccp   bcp   bpc   ppc   ppc
+yby   cbyp  ccyp  bpp   cpp   cppy  cppy
+pby   #     #     ypc   #     #     yppy
+ybc   #     #     pcc   #     #     ybp
+ybc   #     #     pbc   #     #     yby
+pbc   ypbp  ycb   ycbb  ypbb  bpy   bby
+pbc   ypcp  ycy   ycb   bpbb  bpy   bpy
+pbc   pccc  pcybEc pcybEb bpcb  bpc   bcyy
+solution: 0,4 ; use 0,3,0 ; 3,5 ; 4,0 ; use 0,0,0 ; 1,1 ; use 1,2,0 ; 5,0 ; use 0,0,1 ; use 0,0,0 ; 4,6

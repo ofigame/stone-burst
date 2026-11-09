@@ -1,0 +1,16 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 5 hamle + 3 tepsi / limit 10 (pay +5, eski 12) hedef×1,41 bot 0,58 (hedef 0,60) plan 0; zincir v13: yeni çözüm 5 (eski 5), sınır 10→10, bot 63/112
+id: level_022
+title: İki Kilit
+moves: 10
+roll: off
+specials: on
+goals: yellow 29, blue 18
+grid:
+#     #     #     ypy   yyy   yyb
+#     #     ppp   cpp   cyc   bpck1
+#     bbp   cbp   bcp   ccc   byc
+ccc   ycb   ccp   cyy   cyc   byp
+ccb   ccb   cyy   byy   byy   byp
+byb   ccb   cyyk1 pyyk1 pyp   yyc
+ccc   ccb   pcb   ppb   pyb   pyp
+solution: 1,3 ; 3,3 ; use 1,5,0 ; use 0,3,0 ; 3,0 ; 4,1 ; use 1,1,2 ; 3,0 ; use 0,4,0

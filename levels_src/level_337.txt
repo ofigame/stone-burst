@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: chain [chainOnly+exact]; zincir blue 4; çözüm 8 / sınır 12 (v7 16); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,08; adillik onarımı: sınır 12→13 (112 oyunda 12 galibiyet); zincir v13: yeni çözüm 9 (eski 8), sınır 13→16, bot 9/112
+id: level_337
+title: Kilitli Tur
+moves: 16
+roll: off
+specials: on
+type: chain
+rules: chainOnly, exact
+goals: purple 46, yellow 38, chain blue 4
+grid:
+pbyb  pbybR cbcp  cbcy  #     #     #
+pyyc  pbyb  bbcp  ccyy  #     #     #
+pyyc  cccb  bpyb  bccp  #     #     #
+cbyp  yccbLc7 yypb  ppcb  #     #     #
+pcyy  pcyy  ppbb  ppbb  ppbb  pcpb  pcyb
+pcpy  pcpy  bpcc  bpbcR bcbp  pcyp  pcyp
+yccb  pcbbR pcpc  bppc  ppbc  pbyy  pcyy
+yycb  pccb  pccb  bbbc  ybbb  yybb  ycbp
+yybb  bcyb  pccb  ybbb  ybbb  ybbb  bcbp
+solution: 0,6 ; 2,5 ; 0,0 ; use 0,3,0 ; use 0,2,0 ; 4,6 ; 5,5 ; 3,7 ; use 3,0,4 ; 0,1 ; use 2,0,0 ; use 0,0,1 ; 2,0 ; 3,3 ; use 2,0,0 ; use 0,3,3

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven; çözüm 10 hamle + 6 tepsi / limit 13 (pay +3, eski 12) hedef×1,32 bot 0,08 (hedef 0,15) plan 1; zincir v13: yeni çözüm 10 (eski 10), sınır 13→14, bot 10/112
+id: level_943
+title: Bölüm 943
+moves: 14
+roll: off
+specials: on
+goals: blue 59, coral 60, envelope 2
+grid:
+cpb   bcbp  bcbp  #     #     #     #
+ppb   cccp  bccc  bybc  #     #     #
+ppy   bcy   bycc  bycc  byyc  #     #
+bbyp  bbyEp bbyEy bbb   cpbc  cypc  #
+bbyp  bbyR  bbb   cbbc  ybb   yybc  ypcc
+cccp  bbc   bbyc  ybyp  ycyc  yycp  yyc
+ccc   bcbc  bcpp  ycpp  ycy   yycp  ybcpR
+ccbc  bcbc  bcbp  ccb   bcpc  bbp   bbp
+ccbcR ccb   ccb   cyb   cypc  bbp   bbp
+solution: 2,1 ; use 0,1,0 ; 0,2 ; 0,5 ; 0,3 ; 1,1 ; use 1,0,0 ; use 1,1,0 ; 3,1 ; 2,3 ; use 1,0,6 ; 5,3 ; 3,3 ; 0,0 ; use 3,0,0

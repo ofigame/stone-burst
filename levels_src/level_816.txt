@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3 (kaydırılmış); çözüm 8 hamle + 7 tepsi / limit 10 (pay +2, eski 10) hedef×1,14 bot 0,13 (hedef 0,16) plan 1; zincir v13: yeni çözüm 9 (eski 8), sınır 10→11, bot 7/112
+id: level_816
+title: Bölüm 816
+moves: 11
+roll: off
+specials: on
+goals: coral 53, purple 42, yellow 38, sponge 1
+grid:
+#     #     bbcp  bccp  bycp  bycp  bbcp
+#     bpcp  cccc  bcyp  cbyp  pbyp  bccp
+bpbb  bpbp  cccc  bccc  ccyp  ccyp  cccyK1:2
+cpbb  #     #     #     ypbc  cpyp  ccby
+cbcy  #     #     #     pcypScby ypby  cpby
+ybyy  #     #     #     ybpc  bcbc  bpbc
+ybyy  ybyb  ycyb  ybyp  ybyp  bcbc  bbbc
+yppy  yccy  yccp  cbyp  ybcp  ycyp  #
+yppy  ypcy  ypcb  ppcpK1:2 ppyp  #     #
+solution: 2,0 ; 3,6 ; use 0,4,0 ; 4,5 ; use 0,1,1 ; 3,0 ; 2,0 ; 2,1 ; use 0,1,1 ; 0,5 ; 0,5 ; use 0,2,1 ; use 2,0,2 ; 1,1 ; use 0,2,1

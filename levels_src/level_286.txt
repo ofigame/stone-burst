@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U (ayna); çözüm 8 hamle + 6 tepsi / limit 12 (pay +4, eski 14) hedef×1,29 bot 0,29 (hedef 0,31) plan 0; zincir v13: çözüm aynı, sınır 12→12, bot 16/112
+id: level_286
+title: Buz Takımadası
+moves: 12
+roll: off
+specials: on
+goals: yellow 50, blue 62, coral 48, star 2, envelope 1
+grid:
+bbyp  bb    bbb   #     byy   cc    bbyp
+bcb   ybby  ybb   #     bycc  bycc  pb
+cbyy* cbby  cbcy  #     bbc   pbcc  pbc
+cbb   cbb   cyc   cbc   ycb   pccy  pbycEb
+ccb   bcc   cccy  yccci1 ycb   yb    ccy
+pcc   ppyc  bpyy  ybc   ypb   bbb   cbbc
+cp    ppyc  pccy  ybc   bbb   pbby  bpy
+bcyy* ppyyi1 bpyy  cbyy  bbyy  cybc  pbby
+bcyy  pcyy  cbpi1 cbyy  cbb   ppy   pyyc
+solution: 4,3 ; 5,0 ; 1,1 ; use 1,1,0 ; 2,5 ; use 1,4,0 ; use 0,0,0 ; 0,2 ; use 0,5,0 ; 5,5 ; 1,0 ; use 0,0,0 ; 0,5 ; use 0,0,0

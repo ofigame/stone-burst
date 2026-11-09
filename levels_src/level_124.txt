@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 6 hamle + 5 tepsi / limit 9 (pay +3, eski 13) hedef×1,43 bot 0,42 (hedef 0,42) plan 0; zincir v13: yeni çözüm 6 (eski 6), sınır 9→9, bot 31/112
+id: level_124
+title: Uzak Anahtar
+moves: 9
+roll: off
+specials: on
+goals: coral 28, purple 38
+grid:
+cby   pbp   pbp   cpp   ypp   bbp   bcp
+cby   cpy   cpy   cpc   yyp   bbb   bbp
+cby   ypp   ypp   yyy   cyp   cbb   bbp
+cyc   byy   yyp   yyp   cyp   ypp   bbb
+cyb   yyc   pyy   cpy   cpb   ccb   cbp
+ybc   byy   ybp   byyLy8 cpb   cpc   cpb
+#     #     pcp   byy   ypy   #     #
+#     #     byy   ycy   yyy   #     #
+#     #     ycp   ycp   ybp   #     #
+solution: 1,0 ; use 0,3,0 ; 5,0 ; use 0,3,0 ; 0,0 ; 3,4 ; use 1,0,0 ; 1,0 ; 3,5 ; use 0,0,3 ; use 0,2,6

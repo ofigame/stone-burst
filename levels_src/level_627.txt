@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk purple 27/26; çözüm 7 / sınır 9 (v7 12); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 6 (eski 7), sınır 9→9, bot 6/112
+id: level_627
+title: Bölüm 627
+moves: 9
+roll: off
+specials: on
+type: scarce
+rules: scarce
+goals: blue 46, coral 37, purple 24
+grid:
+cpbp  pcby  G1:pbby G1:cbpp G1:cpbp #     #
+cpcc  cyyp  pbby  ybbb  ybbb  ccyb  #
+cbbp  pbbp  ybcy  yycc  cyyc  ycyb  ycbb
+bccb  yccy  #     #     #     cbyy  cbbb
+bccb  bccp  #     #     #     bpcp  cbyb
+bpcp  bpcp  #     #     #     cyyb  cpyb
+cccp  bbcpB1 ybcb  cyyb  cyyb  ybyc  cbyb
+#     bycb  cbpb  cycb  cypy  ybyy  ybyc
+#     #     cbcy  cbcy  cbyy  ybyp  cyyb
+solution: 1,4 ; 3,1 ; use 1,0,0 ; 0,2 ; 3,6 ; use 1,0,1 ; use 1,0,0 ; 5,5 ; use 1,0,1 ; 1,0 ; use 0,2,0 ; use 0,0,0

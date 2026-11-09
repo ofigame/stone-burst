@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 2; exact [exact] (sıradaki tür; order tutmadı); çözüm 8 / sınır 10 (v7 9); açgözlü kaybeder; bot48 0,08 (taban 0,04); zincir v13: yeni çözüm 9 (eski 8), sınır 10→11, bot 10/112
+id: daily_d016_t2
+title: Günlük 16
+moves: 11
+roll: on
+specials: on
+type: exact
+rules: exact
+goals: purple 30, blue 21
+grid:
+byc   bby   bcc   bcc   pbc   ppp   bcc
+bbck2 ybb   cyc   byck1 bpp   pcp   ppp
+cpbk2 pby   cby   pyy   ccyk1 bcy   ycp
+cyb   byy   cby   pyp   cyp   ycy   ycc
+cpc   cpc   cbp   byp   ccp   ypbk2 cpbk1
+#     #     pcp   ycy   ccy   #     #
+#     #     pyc   pyy   bpb   #     #
+#     #     pby   ppp   pby   #     #
+solution: 3,3 ; 5,0 ; roll 1 ; 2,1 ; use 2,1,1 ; 2,0 ; roll 0 ; use 2,4,0 ; 3,5 ; roll 7 ; 2,6 ; use 0,4,0

@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 7 hamle + 5 tepsi / limit 9 (pay +2, eski 13) hedef×0,97 bot 0,17 (hedef 0,17) plan 1; zincir v13: yeni çözüm 5 (eski 7), sınır 9→8, bot 19/112
+id: level_784
+title: Bölüm 784
+moves: 8
+roll: off
+specials: on
+paint: 1
+goals: coral 34, purple 68, yellow 30, sponge 1
+grid:
+cpbp  cpbp  ppbp  ppyy  ppyy  pcby  pcbc
+cpby  cpyy  ppyy  ppyy  ypcb  ycby  pcbc
+pppy  cppy  ypby  ypbb  ypcb  ypby  pcpc
+pppy  pppy  ppby  ypbb  cpcb  cbby  pbpy
+pppc  pppp  pcpy  cccy  ypcy  ypby  ybbp
+cppp  bccp  bccb  pccb  yppp  ycppScb bbbp
+#     #     bpcb  pppb  pppb  #     #
+#     #     bpbb  cppb  cypc  #     #
+#     #     bybb  pypp  cypp  #     #
+solution: 3,0 ; use 0,0,1 ; 3,0 ; use 0,0,5 ; 0,0 ; 6,3 ; use 0,0,0 ; 0,2 ; use 0,2,0 ; use 0,6,2

@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x2+2x2 (kaydırılmış); çözüm 4 hamle + 3 tepsi / limit 9 (pay +5, eski 12) hedef×1,10 bot 0,50 (hedef 0,48) plan 1; zincir v13: yeni çözüm 5 (eski 4), sınır 9→10, bot 27/112
+id: level_111
+title: Bahar Buzu
+moves: 10
+roll: off
+specials: on
+goals: blue 45, coral 25, star 2
+grid:
+ybb   cbc   cbc   ybc   ybp   bbb   pbb
+bcb   bcb   cbb   ybc   bpc   pbp   pbp
+pcb   pcc   pbb   pbc   bpc   pbp   pby
+ppy   bpy   ycci1 pbc   ppy   pbbi1 bbp
+bcy   #     #     byyi1 #     #     ccb
+bbb   #     #     pcy   #     #     ccb
+ybp   cby   pby   pcy   bby   ccb   ccb*
+pcy   pby   ppy   bcy   bpy*  cbp   byp
+solution: 3,5 ; 4,7 ; 6,4 ; use 0,1,0 ; 0,0 ; use 1,6,0 ; use 0,0,0 ; 4,0 ; use 0,5,0

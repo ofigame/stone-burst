@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 7 hamle + 5 tepsi / limit 13 (pay +6, eski 15) hedef×0,95 bot 0,33 (hedef 0,33) plan 1; zincir v13: yeni çözüm 8 (eski 7), sınır 13→14, bot 17/112
+id: level_256
+title: Kule Postası
+moves: 14
+roll: off
+specials: on
+goals: coral 30, purple 30, yellow 31, envelope 1
+grid:
+#     #     cby   cby   bbp   #     #
+#     bby   ycyb  bbb   bbbb  ybb   #
+ybp   ybpp  ybc   ybb   ycb   ycp   ybpEb
+yppc  ybp   bbcc  bbb   ybb   yccp  ycc
+ycb   ycc   py    pp    by    yccp  ypb
+ppb   ycby  pcpy  pcp   pyb   ycc   ycb
+ppby  pccy  pypy  pcy   ppby  ppbc  ybyc
+#     pyc   pycb  cypb  ppyy  ppyy  #
+#     #     yy    cyy   pc    #     #
+solution: 2,4 ; 0,4 ; 0,3 ; use 1,6,2 ; use 0,4,0 ; 5,3 ; 4,0 ; use 1,2,0 ; 2,0 ; use 1,2,0 ; 3,4 ; 3,2

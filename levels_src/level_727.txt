@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 13 / sınır 16 (v7 16); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,33; zincir v13: yeni çözüm 12 (eski 13), sınır 16→19, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 9, bot 20/112
+id: level_727
+title: Bölüm 727
+moves: 9
+roll: off
+specials: on
+paint: 1
+type: exact
+rules: exact
+goals: blue 58, coral 30, purple 25, sponge 1
+grid:
+#     #     cbpp  cbyb  yppc  #     #
+#     cbcc  bbyb  bbyb  yyyc  yyyc  #
+bycc  bypp  ccyp  cybp  yybp  bbbb  bybb
+cypc  bypp  bbpp  ybbp  ybbp  yybp  bypb
+cybp  bpbp  bybb  ybyc  ycbc  cybp  yypp
+cybc  bybc  cppc  cpbc  bycc  cycc  yccp
+bybc  ypbb  bcyy  cpbc  bpbb  byyy  bcyy
+#     bypb  cpbb  bppb  bypb  byyy  #
+#     #     cpbp  bybb  bypbScb #     #
+solution: 1,2 ; use 0,4,0 ; 0,4 ; 1,2 ; use 1,4,0 ; 4,1 ; use 0,3,0 ; use 0,3,0 ; 3,3 ; 1,6 ; use 0,1,1 ; use 0,5,1

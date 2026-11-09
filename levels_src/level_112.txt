@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 3 hamle + 3 tepsi / limit 7 (pay +4, eski 11) hedef×1,10 bot 0,54 (hedef 0,48) plan 1; zincir v13: yeni çözüm 4 (eski 3), sınır 7→8, bot 57/112
+id: level_112
+title: Buz Çemberi
+moves: 8
+roll: off
+specials: on
+goals: coral 19, purple 22
+grid:
+byp   byp   byp   pbyi1 cpy   ypc   cpp
+cyp   yyb   ycb   pbc   cpyi1 bpy   cpp
+#     yyy   cyb   cyp   bpy   bppi1 #
+#     bbc   cyb   cyp   ccp   bcp   #
+#     bcy   bcb   byb   cpp   ccy   #
+#     bby   pbb   byb   cpp   bpp   #
+pcb   pby   cyy   bbyi1 bpy   bby   bcy
+cbb   yby   bpy   cpp   bby   pby   bbyi1
+solution: 1,1 ; 1,4 ; 3,2 ; use 0,0,0 ; use 0,5,0 ; 3,0 ; use 0,4,0

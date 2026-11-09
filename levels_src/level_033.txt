@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x2; çözüm 5 hamle + 2 tepsi / limit 8 (pay +3, eski 9) hedef×1,09 bot 0,42 (hedef 0,51) plan 1; zincir v13: yeni çözüm 4 (eski 5), sınır 8→7, bot 13/112
+id: level_033
+title: Gevşe
+moves: 7
+roll: off
+specials: on
+goals: purple 27, yellow 42
+grid:
+ycy   pcy   bcyk1 cyy   ypb   cypk1 cyy
+ycb   pcy   ycy   cyy   cypk1 ypp   ypy
+byb   yyb   yyb   yyy   yyp   ypp   ypy
+pyp   ypp   #     #     #     yyy   pyc
+ypy   pyp   #     #     #     bpc   cpc
+ccy   pcc   pyy   bcy   bpy   cpy   cbp
+pcc   ycy   cbb   bpc   bpy   yyy   cyy
+ccb   ybc   cyp   ypc   ypp   yyp   yyb
+solution: 0,1 ; 0,0 ; use 0,1,0 ; 2,5 ; use 0,0,0 ; 0,5 ; use 0,5,0

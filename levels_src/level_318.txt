@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order [exact]; kilit coral→blue; çözüm 6 / sınır 7 (v7 10); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,17; zincir v13: çözüm aynı, sınır 7→7, bot 22/112
+id: level_318
+title: Rahat Tur
+moves: 7
+roll: off
+specials: on
+type: order
+rules: exact
+goals: yellow 53, blue 19, coral 32
+grid:
+ypyy  ypbyR ypbc  ppby  pppy  ypy   ybyy
+ypy   ycbc  ycyc  bcp   pcpy  ycp   cpy
+cpyy  ccy   cyy   ycyy  pcyy  ccy   cpybLc3
+ycpb  #     #     yccy  #     #     cbpb
+ycpb  #     #     pcb   #     #     ycc
+ycp   #     #     ycp   #     #     pcbp
+bpp   cypb  ycc   ycc   ybbc  cybb  ccbb
+byp   yyc   pyc   yyc   yycc  byp   byp
+ppbLc4 cycy  pyc   yccc  yypcR bbp   pypc
+solution: 0,0 ; use 0,0,0 ; 2,6 ; use 0,1,0 ; 0,0 ; use 0,2,0 ; 5,7 ; 1,6 ; 4,6 ; use 1,6,0

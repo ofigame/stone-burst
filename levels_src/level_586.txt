@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L (ayna); çözüm 8 hamle + 7 tepsi / limit 14 (pay +6, eski 17) hedef×1,31 bot 0,13 (hedef 0,20) plan 3; zincir v13: yeni çözüm 9 (eski 8), sınır 14→19, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 14, bot 20/112
+id: level_586
+title: Bölüm 586
+moves: 14
+roll: off
+specials: on
+goals: yellow 51, blue 30, coral 57, envelope 2
+grid:
+#     #     #     yyyb  ccyb  ccyp  bpcp
+#     #     #     cyyb  cccb  yycp  yccp
+#     #     #     ccyc  pcyb  pccb  pccb
+#     #     #     pyyb  cyyb  pcccK1:1 pccy
+bcyy  bycy  bycb  ppyb  cpyb  ccpc  cccy
+ycby  byby  bypy  cppyK2:2 ppyy  ccpc  ccpc
+ybbp  ypbp  cpbyEb cpby  cpcb  yccyK2:2 ycpy
+ybbcEy ybbcK2:2 ybby  cpcyK1:1 cpcy  ypcy  cpbc
+ccyc  ccyc  ypyc  ppyy  ybcb  ypyp  ypyc
+solution: 3,0 ; 0,4 ; 4,0 ; use 0,4,0 ; use 0,0,5 ; use 0,3,0 ; 4,3 ; 5,0 ; use 0,3,1 ; 2,6 ; 3,3 ; 0,6 ; use 0,3,0

@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 5 hamle + 4 tepsi / limit 10 (pay +5, eski 10) hedef×1,42 bot 0,46 (hedef 0,52) plan 1; zincir v13: yeni çözüm 6 (eski 5), sınır 10→11, bot 12/112
+id: level_071
+title: Buzlu Yıldız
+moves: 11
+roll: off
+specials: on
+goals: blue 29, coral 47, star 2
+grid:
+#     #     #     #     bbc   bcc   ybc
+#     #     #     cby   cbc   cbc   bbc
+#     #     bcb   cby   cyy   cyp   byp
+#     bcb   bcb   bby   ccy   cyp   cyp
+ycc   ycc*  pcc   cpb   pbp   yyp   byc
+pcc   cpc   ybp   pyb*  cyp   ppy   pyy
+cpyi1 ycc   bcc   ppb   cpb   ycb   ccc
+ypci1 cpy   ccy   pyb   ccb   cpb   ycc
+solution: 3,1 ; 2,2 ; use 1,4,0 ; 5,2 ; 0,4 ; use 1,6,0 ; 2,4 ; 1,5 ; use 0,4,0 ; use 2,6,0 ; use 0,0,6

@@ -1,0 +1,161 @@
+{
+  "pageId": 16,
+  "title": "Zafer",
+  "kind": "victory",
+  "referenceScreenshot": "ui2/16_zafer_karti.png",
+  "coordinateSystem": "1080x1920 top-left; modal children card-local",
+  "elements": [],
+  "modal": {
+    "width": 860,
+    "height": 1232,
+    "position": "center complete visual group inside safe area",
+    "localOrigin": "card-top-left",
+    "frame": {
+      "radius": 48,
+      "rimWidths": [
+        4,
+        3,
+        12,
+        9
+      ],
+      "crestRise": 32,
+      "shadowOffset": [
+        0,
+        14
+      ],
+      "shadowBlur": 22,
+      "shadowAlpha": 0.28
+    },
+    "elements": [
+      {
+        "id": "stars",
+        "rect": [
+          230,
+          -124,
+          400,
+          172
+        ],
+        "role": "image",
+        "binding": "runtime actual Stars",
+        "note": ""
+      },
+      {
+        "id": "ribbon",
+        "rect": [
+          16,
+          16,
+          828,
+          152
+        ],
+        "role": "ribbonTitle",
+        "binding": "runtime existing victory title",
+        "note": ""
+      },
+      {
+        "id": "goals",
+        "rect": [
+          96,
+          204,
+          668,
+          104
+        ],
+        "role": "goal",
+        "binding": "runtime GoalState[]",
+        "note": ""
+      },
+      {
+        "id": "preview",
+        "rect": [
+          96,
+          344,
+          668,
+          300
+        ],
+        "role": "runtime",
+        "binding": "NextLevelPreviewView.Data",
+        "note": ""
+      },
+      {
+        "id": "zpe",
+        "rect": [
+          240,
+          680,
+          380,
+          72
+        ],
+        "role": "smallButton",
+        "binding": "runtime actual ZPE",
+        "note": ""
+      },
+      {
+        "id": "button0",
+        "rect": [
+          56,
+          804,
+          748,
+          116
+        ],
+        "role": "button",
+        "binding": "runtime PanelButton[0]",
+        "note": ""
+      },
+      {
+        "id": "button1",
+        "rect": [
+          56,
+          944,
+          748,
+          116
+        ],
+        "role": "buttonSecondary",
+        "binding": "runtime PanelButton[1]",
+        "note": ""
+      }
+    ],
+    "close": {
+      "create": false,
+      "onlyIfExisting": true,
+      "visualRect": [
+        792,
+        -28,
+        88,
+        88
+      ],
+      "hitRect": [
+        784,
+        -36,
+        104,
+        104
+      ]
+    },
+    "overflow": "Keep fonts/buttons fixed. Calculate actual TMP preferred heights, grow textual rows then card. If total exceeds safeHeight-96, scroll content area only; keep title and actions fixed. Empty/missing optional sections removed with their exact adjacent gap."
+  },
+  "content": {
+    "keyPattern": "win.|btn.|zpe.",
+    "buttonBindings": [
+      "btn.continue",
+      "btn.replay"
+    ],
+    "authority": "live Loc/runtime existing case-format/action-condition; frozen snapshot is audit-only"
+  },
+  "sources": [
+    "Assets/KatKat/Scripts/UI/ResultPanel.cs",
+    "Assets/KatKat/Scripts/UI/NextLevelPreviewView.cs"
+  ],
+  "notes": [
+    "Metin, sayı, durum, düğme sayısı, sırası ve eylemi mevcut çalışma zamanından gelir; örnek panodaki içerik kullanılmaz.",
+    "Otomatik yeni kapat/geri düğmesi, yardım, ödeme, güç veya ayar eklenmez."
+  ],
+  "deliveredMockup": "../../sayfalar/16_zafer_karti.png",
+  "assetManifest": "../../parcalar/asset-manifest.json",
+  "assetUsage": "../../parcalar/KULLANIM.md",
+  "sharedSprites": [
+    "modal-seramik",
+    "kart-seramik",
+    "buton-birincil",
+    "buton-ikincil",
+    "baslik-plakasi",
+    "ikon-dugmesi"
+  ],
+  "invariant": "Existing strings, buttons, handlers, tiles and board geometry prevail over generated illustration"
+}

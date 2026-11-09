@@ -1,0 +1,16 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 4 hamle + 3 tepsi / limit 9 (pay +5, eski 7) hedef×1,57 bot 0,63 (hedef 0,57) plan 1; zincir v13: yeni çözüm 5 (eski 4), sınır 9→10, bot 37/112
+id: level_018
+title: Bölüm 18
+moves: 10
+roll: off
+specials: on
+goals: coral 41, blue 32
+grid:
+cyb   cbb   cbc   #     #     #
+cyb   byy   ccy   #     #     #
+cyb   cyy   ccc   #     #     #
+byb   bcb   bcc   bcy   cbc   ccc
+cyb   cyc   ccc   yyc   cbc   ycc
+cyb   ycb   bcb   byc   bcc   ycc
+bbb   cbb   bby   bby   bbc   bcc
+solution: 2,2 ; 5,3 ; use 0,1,1 ; 0,0 ; 2,0 ; use 1,1,0 ; 1,0

@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [noSpecials+scarce+exact]; kıt renk purple 66/65; çözüm 11 / sınır 14 (v7 9); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; adillik onarımı: sınır 14→15 (112 oyunda 3 galibiyet); adillik onarımı: sınır 15→16 (112 oyunda 9 galibiyet); zincir v13 kolaylaştırma: hedef −%18, sınır 15, bot 108/112
+id: level_700
+title: 700. Bölüm Finali
+moves: 15
+roll: off
+type: boss
+rules: noSpecials, scarce, exact
+goals: coral 30, purple 38, yellow 24
+grid:
+yccc  pbpc  G1:ybpc G1:yypc G1:pypb G1:cycb G1:ccpb cypp
+yycc  yyyc  yppc  pppc  ppcc  bycp  ccyp  bcyp
+bbyc  bbyc  bpyb  bppc  bppc  byyc  bcyc  bcbp
+#     ppyb  bpyb  bpyb  byyb  byyc  ycyc  #
+#     pyyc  byyp  bcyb  bbpp  bbyy  bbyp  #
+#     yybc  ycbb  bycb  bccc  bbcy  ybpp  #
+cbpbB1 cypb  ypyb  bccy  ypcy  cpcp  cbpc  bbpc
+ccpb  cpcp  pypy  bbpb  ypyp  cpyp  yyyc  yypc
+ycbp  bybc  pbpp  ybyp  cbyp  cbpp  pypb  yypb
+solution: 7,0 ; 0,0 ; 0,2 ; 1,6 ; 2,6 ; 3,4 ; 1,4 ; 2,1 ; 4,7 ; 5,2

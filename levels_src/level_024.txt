@@ -1,0 +1,16 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 2x3; çözüm 6 hamle + 2 tepsi / limit 9 (pay +3, eski 14) hedef×1,08 bot 0,54 (hedef 0,54) plan 0; zincir v13: yeni çözüm 5 (eski 6), sınır 9→12, bot 2/112; zincir v13 kolaylaştırma: hedef −%18, sınır 9, bot 11/112
+id: level_024
+title: Sıra Önemli
+moves: 9
+roll: off
+specials: on
+goals: coral 23, purple 12
+grid:
+ccp   pcyk1 ccy   cyy   cyy   pyb
+pcy   pcy   ppb   byb   byc   bcb
+cbp   pcy   #     #     cyb   bbb
+cyc   cby   #     #     cyc   cyb
+cpb   ppbk2 #     #     cby   cyb
+byck1 byp   bpp   ppy   cyc   cyc
+yyc   yyp   bpp   bpck2 byc   cyc
+solution: 5,0 ; use 0,0,0 ; 1,0 ; use 0,0,0 ; 3,0 ; use 0,5,0

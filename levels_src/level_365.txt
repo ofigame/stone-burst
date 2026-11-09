@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı (ayna); çözüm 7 hamle + 6 tepsi / limit 15 (pay +8, eski 12) hedef×1,12 bot 0,29 (hedef 0,27) plan 1; zincir v13: yeni çözüm 6 (eski 7), sınır 15→14, bot 11/112
+id: level_365
+title: Kilit Akışı II
+moves: 14
+roll: off
+specials: on
+goals: purple 66, yellow 33, blue 21
+grid:
+#     #     #     yppp  #     #     #
+#     pycR  cypp  cppp  ccpp  cyp   #
+pbcy  bccy  byc   bpp   cpc   ppcp  ypp
+ycc   ypc   byc   bbp   bcc   ycp   ypp
+ycpy  pyy   ycy   ybp   cbcc  pbpc  yppc
+ycp   ypp   ycyb  ycy   pbcc  cbcc  cpp
+bppR  bpp   ypbb  cpb   ybbc  ppb   ccpp
+cpb   cppc  yppb  ypc   ypcc  ppb   ccb
+cpb   bpp   pyp   ypcpLc7 ppc   ppcy  ypyy
+solution: 4,2 ; 2,5 ; use 0,1,1 ; 1,1 ; 3,0 ; use 0,2,2 ; 1,5 ; use 0,5,1 ; use 0,3,0 ; 0,2 ; use 1,6,2 ; use 0,3,0

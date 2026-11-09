@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 6 hamle + 6 tepsi / limit 15 (pay +9, eski 14) hedef×0,96 bot 0,29 (hedef 0,32) plan 1; zincir v13: yeni çözüm 6 (eski 6), sınır 15→15, bot 12/112
+id: level_371
+title: Mühür Turu
+tutorial: Zarfın yanındaki yığını döndür: mühür rengi üste gelince soy.
+moves: 15
+roll: off
+specials: on
+goals: blue 41, coral 29, envelope 1
+grid:
+cyb   cpy   cpy   bpy   pcc   pcc   pcc
+cybb  cpb   cpbp  bpy   bcp   ycyc  ycyc
+yyp   ycb   bcbpR bbyy  bppy  ypp   yyyc
+pby   pbyy  cbp   cyyy  bbpy  cbp   pyc
+byy   pyy   cbpy  cyp   cbp   cbpb  ybp
+byc   byy   bbp   bppc  bppEc bpc   bcc
+#     #     bbpyR bbb   bpb   #     #
+#     #     pccy  ppb   ppbp  #     #
+#     #     ycb   ppb   ppcp  #     #
+solution: 1,0 ; use 0,0,0 ; 4,1 ; 4,0 ; 3,2 ; use 0,1,0 ; 1,2 ; 1,1 ; use 2,4,0 ; use 0,0,1 ; use 0,3,2

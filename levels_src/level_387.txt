@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk blue 63/62; çözüm 10 / sınır 11 (v7 13); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 11→13 (112 oyunda 7 galibiyet); zincir v13: yeni çözüm 12 (eski 10), sınır 13→19, bot 0/112; zincir v13 kolaylaştırma: hedef −%18, sınır 9, bot 7/112
+id: level_387
+title: Kıskaç Sırası
+moves: 9
+roll: off
+specials: on
+type: scarce
+rules: scarce
+goals: blue 51, coral 34, purple 35
+grid:
+ycbb  bcbb  bybp  bbbp  bcby  pcbyk2 bybp
+bbbc  bybpR bybp  byyb  ccyc  pcbc  pcbc
+ypyb  ppbb  bpbc  cybb  cyyb  pcyc  pcyb
+ypyb  pyyp  cbbp  #     #     #     pcyb
+cpyb  pypp  bbppk2 #     #     #     cpcb
+cyyp  cyyp  pybp  #     #     #     bcpb
+cyyb  cyby  pyby  cbcp  pccp  bcbp  bcppR
+cbyb  cbyyR pbyy  cbcp  ppyp  ypcp  bppp
+ccyb  ccyy  bbpy  cbcp  ypcp  ypcp  ypcp
+solution: 3,6 ; use 0,0,1 ; 0,0 ; 2,0 ; use 0,0,0 ; 4,0 ; 3,0 ; use 0,0,0 ; 0,5 ; use 0,1,0

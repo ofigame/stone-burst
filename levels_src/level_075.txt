@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x2+2x2; çözüm 7 hamle + 4 tepsi / limit 15 (pay +8, eski 13) hedef×1,09 bot 0,46 (hedef 0,46) plan 0; zincir v13: yeni çözüm 7 (eski 7), sınır 15→19, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 14, bot 9/112
+id: level_075
+title: Ilık Rüzgâr
+moves: 14
+roll: off
+specials: on
+goals: blue 36, coral 25
+grid:
+pbb   ppb   ppp   pcb   bbb   bbb   cbbi1
+bbbi1 bpb   ycb   ppp   pbc   bbb   bcci1
+pyb   cbb   cbp   bcy   cpy   cpc   cpp
+ycbi1 #     #     cby   #     #     cyc
+ppp   #     #     pyp   #     #     yyc
+ybp   ypp   pbb   ycb   pyb   yyc   cyc
+ypp   cpp   ppc   bcbi1 pyc   cyc   cyc
+pbb   cpp   cbb   pbb   pyc   pyy   cyy
+solution: 6,3 ; 0,0 ; use 1,2,0 ; use 0,0,0 ; 0,4 ; use 0,3,0 ; 0,0 ; use 0,0,1 ; 4,0 ; 4,0

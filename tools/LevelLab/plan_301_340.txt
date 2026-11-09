@@ -1,0 +1,52 @@
+// Bölüm 301-340 profilleri (Premium-v2 rehberi §11: 301–400 döner taban).
+// "İlk denemede tek taban, iki katman; sonra sıra planlama." 301–310 tek taban (2 katman ağırlıklı),
+// 311–320 tek taban üç katman (sıra planlama, bazen iki döndürme), 321–330 iki taban,
+// 331–340 taban + eski örtüler (en çok iki ek aile). Her çözümde en az bir döndürme. 10'luk ritim (§11).
+
+// 301-310: tek taban.
+301 | title=Döner Taban | size=4 | layers=2-2 | colors=cby | rotor=1 | goals=c:0.6 | len=2-3 | slack=2 | win=0.8 | tutorial=Tabandaki altın düğmeye dokun: üstteki katman en alta iner. Bir hamle sayılır.
+302 | title=Bir Tur | size=4 | layers=2-2 | colors=cby | rotor=1 | goals=b:0.6 | len=3-4 | slack=2 | win=0.6
+303 | title=Doğru An | size=5 | layers=2-2 | colors=cby | rotor=1 | goals=y:0.6 | len=3-4 | slack=1 | win=0.5
+304 | title=Dön ve Soy | size=5 | layers=2-3 | colors=cbyp | rotor=1 | goals=p:0.5 | len=4-5 | slack=1 | win=0.35
+305 | title=Dönen Şelale | size=5 | layers=2-3 | colors=cby | rotor=1 | goals=c:0.6 | len=3-4 | slack=2 | win=0.6 | chains=2
+306 | title=Ada Tabanı | size=5 | layers=2-3 | colors=cby | holes=4 | rotor=1 | goals=b:0.6 | len=3-5 | slack=1 | win=0.45
+307 | title=Önce Dön | size=5 | layers=2-3 | colors=cbyp | rotor=1 | goals=y:0.5,c:0.4 | len=5-6 | slack=1 | win=0.25
+308 | title=Kolay Tur | size=5 | layers=2-2 | colors=cby | rotor=1 | goals=c:0.6 | len=3-4 | slack=2 | win=0.7
+309 | title=Taban Ustası | size=5 | layers=2-3 | colors=cbyp | rotor=1 | goals=b:0.5,p:0.4 | len=5-6 | slack=1 | win=0.25
+310 | title=Dönme Dolap | size=6 | layers=2-3 | colors=cbyp | holes=4 | rotor=1 | roll=on | goals=c:0.4,y:0.4 | len=5-7 | slack=1 | win=0.25 | chains=1
+
+// 311-320: tek taban, üç katman — sıra planlama.
+311 | title=Üç Kat Tur | size=5 | layers=3-3 | colors=cby | rotor=1 | goals=y:0.5 | len=3-4 | slack=2 | win=0.6 | tutorial=Üç katmanda her dönüş sırayı kaydırır. İstediğin rengi üste getir.
+312 | title=İki Tur | size=5 | layers=3-3 | colors=cby | rotor=1 | rotorMin=2 | goals=c:0.5 | len=4-5 | slack=1 | win=0.45
+313 | title=Sıra Kaydır | size=5 | layers=3-3 | colors=cbyp | rotor=1 | goals=b:0.5 | len=4-5 | slack=1 | win=0.35
+314 | title=Doğru Sıra | size=5 | layers=3-3 | colors=cbyp | rotor=1 | rotorMin=2 | goals=p:0.5,y:0.4 | len=5-6 | slack=1 | win=0.3
+315 | title=Dönen Akış | size=5 | layers=3-3 | colors=cby | rotor=1 | goals=c:0.6 | len=3-4 | slack=2 | win=0.65 | chains=2
+316 | title=Döner Kule | size=6 | layers=2-3 | colors=cby | holes=8 | rotor=1 | goals=b:0.5 | len=4-5 | slack=1 | win=0.4
+317 | title=Ne Zaman | size=5 | layers=3-3 | colors=cbyp | rotor=1 | goals=y:0.5,c:0.4 | len=5-6 | slack=1 | win=0.25
+318 | title=Rahat Tur | size=5 | layers=3-3 | colors=cby | rotor=1 | goals=b:0.6 | len=3-4 | slack=2 | win=0.7
+319 | title=Tur Ustası | size=5 | layers=3-4 | colors=cbyp | rotor=1 | rotorMin=2 | goals=c:0.5,p:0.4 | len=5-7 | slack=1 | win=0.2
+320 | title=Büyük Tur | size=6 | layers=3-3 | colors=cbyp | holes=4 | rotor=1 | roll=on | stars=1 | goals=y:0.4,b:0.4 | len=6-7 | slack=1 | win=0.2 | chains=1
+
+// 321-330: iki taban.
+321 | title=İki Taban | size=5 | layers=2-3 | colors=cby | rotor=2 | goals=c:0.6 | len=3-4 | slack=2 | win=0.6 | tutorial=İki taban: hangisini döndüreceğini seç.
+322 | title=Çift Tur | size=5 | layers=2-3 | colors=cby | rotor=2 | goals=b:0.5 | len=3-5 | slack=1 | win=0.5
+323 | title=Karşılıklı | size=5 | layers=2-3 | colors=cbyp | rotor=2 | goals=y:0.5 | len=4-5 | slack=1 | win=0.35
+324 | title=İki Kat Plan | size=5 | layers=3-3 | colors=cbyp | rotor=2 | rotorMin=2 | goals=p:0.5 | len=4-6 | slack=1 | win=0.3
+325 | title=Çift Akış | size=5 | layers=3-3 | colors=cby | rotor=2 | goals=c:0.6 | len=3-4 | slack=2 | win=0.65 | chains=2
+326 | title=Taban Adaları | size=6 | layers=2-3 | colors=cby | holes=9 | rotor=2 | goals=y:0.5 | len=4-5 | slack=1 | win=0.4
+327 | title=Sıralı Taban | size=5 | layers=2-3 | colors=cbyp | rotor=2 | rotorMin=2 | goals=b:0.5,c:0.4 | len=5-6 | slack=1 | win=0.25
+328 | title=Hafif Çift | size=5 | layers=2-2 | colors=cby | rotor=2 | goals=c:0.6 | len=3-4 | slack=2 | win=0.7
+329 | title=Çift Usta | size=6 | layers=2-3 | colors=cbyp | holes=5 | rotor=2 | rotorMin=2 | goals=y:0.4,p:0.4 | len=5-7 | slack=1 | win=0.2
+330 | title=Dönme Bahçesi | size=6 | layers=3-3 | colors=cbyp | holes=4 | rotor=2 | roll=on | stars=1 | goals=c:0.4,b:0.4 | len=6-7 | slack=1 | win=0.2 | chains=1
+
+// 331-340: taban + eski örtüler.
+331 | title=Buzlu Taban | size=5 | layers=2-3 | colors=cby | rotor=1 | ice1=1 | goals=b:0.6 | len=3-4 | slack=2 | win=0.6
+332 | title=Taban ve Zarf | size=5 | layers=2-3 | colors=cby | rotor=1 | env=c | goals=y:0.5 | len=3-5 | slack=1 | win=0.5
+333 | title=Taban ve Kilit | size=5 | layers=2-3 | colors=cbyp | rotor=1 | lock=b:4 | goals=c:0.5 | len=4-5 | slack=1 | win=0.35
+334 | title=Dön Sonra Aç | size=5 | layers=3-3 | colors=cbyp | rotor=1 | env=y,p | goals=b:0.5 | len=4-6 | slack=1 | win=0.3
+335 | title=Erime Turu | size=5 | layers=3-3 | colors=cby | rotor=1 | ice1=2 | goals=c:0.6 | len=3-4 | slack=2 | win=0.65 | chains=2
+336 | title=Yıldızlı Taban | size=6 | layers=2-3 | colors=cby | holes=8 | rotor=1 | stars=2 | goals=y:0.5 | len=4-5 | slack=1 | win=0.4
+337 | title=Kilitli Tur | size=5 | layers=2-3 | colors=cbyp | rotor=2 | lock=c:4 | goals=b:0.5,y:0.4 | len=5-6 | slack=1 | win=0.25
+338 | title=Mola Turu | size=5 | layers=2-2 | colors=cby | rotor=1 | goals=b:0.6 | len=3-4 | slack=2 | win=0.7
+339 | title=Örtü Turu | size=6 | layers=2-3 | colors=cbyp | holes=5 | rotor=2 | ice1=1 | env=c | goals=y:0.4,p:0.4 | len=5-7 | slack=1 | win=0.2
+340 | title=Dönen Final | size=6 | layers=3-3 | colors=cbyp | holes=4 | rotor=2 | env=b | roll=on | stars=1 | goals=c:0.4,y:0.4 | len=6-7 | slack=1 | win=0.2 | chains=1

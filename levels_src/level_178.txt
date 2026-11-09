@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: protect [protect]; kristal 2; çözüm 4 / sınır 6 (v7 9); açgözlü kaybeder; bot48 0,31 (taban 0,06); bot 0,42; zincir v13: yeni çözüm 4 (eski 4), sınır 6→6, bot 17/112
+id: level_178
+title: Hafif Kat
+moves: 6
+roll: off
+specials: on
+type: protect
+rules: protect
+goals: yellow 31, blue 37, coral 17
+grid:
+#     #     #     ypbb  #     #     #
+#     pby   pbcp  ppcb  pbcy  pybp  #
+bpbc  cbb   bbbp  pbbp  pbby  pcbc  yyb
+bcb   ypp   bpp   ppc   cbcy  ybbc  ybb
+bccy  ypcy  bpb   bpyy  cpb   cbbp  cbb
+ycyLb5 ypb   ppb   ppy   cpb   cbyc  cbyy
+yccy  ypb   pcy   pcy   bby   cby   cbyy
+ycp   yppb  pppP  ybp   yby   cby   cbyy
+yyp   yppb  yppP  bppb  ypyb  bbbb  ppyy
+solution: 2,4 ; 0,4 ; use 0,5,1 ; 5,5 ; use 0,3,0 ; use 0,0,2 ; 4,1 ; use 0,0,2

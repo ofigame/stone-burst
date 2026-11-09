@@ -1,0 +1,118 @@
+{
+  "pageId": 4,
+  "title": "Taş vitrini",
+  "kind": "showcase",
+  "referenceScreenshot": "ui2/04_tas_vitrini_3d.png",
+  "coordinateSystem": "1080x1920 top-left; modal children card-local",
+  "elements": [
+    {
+      "id": "back",
+      "rect": [
+        48,
+        48,
+        112,
+        112
+      ],
+      "role": "icon",
+      "binding": "existing back",
+      "note": ""
+    },
+    {
+      "id": "name",
+      "rect": [
+        148,
+        188,
+        784,
+        112
+      ],
+      "role": "pageTitle",
+      "binding": "runtime stone name",
+      "note": ""
+    },
+    {
+      "id": "newNote",
+      "rect": [
+        96,
+        328,
+        888,
+        92
+      ],
+      "role": "bodyCentered",
+      "binding": "runtime new-stone note",
+      "note": ""
+    },
+    {
+      "id": "model",
+      "rect": [
+        160,
+        452,
+        760,
+        800
+      ],
+      "role": "runtime",
+      "binding": "existing 3D model or PNG",
+      "note": ""
+    },
+    {
+      "id": "desc",
+      "rect": [
+        96,
+        1300,
+        888,
+        176
+      ],
+      "role": "bodyCentered",
+      "binding": "runtime power description",
+      "note": ""
+    },
+    {
+      "id": "swipe",
+      "rect": [
+        96,
+        1500,
+        888,
+        72
+      ],
+      "role": "caption",
+      "binding": "runtime rotate hint",
+      "note": ""
+    },
+    {
+      "id": "continue",
+      "rect": [
+        166,
+        1620,
+        748,
+        116
+      ],
+      "role": "button",
+      "binding": "runtime continue",
+      "note": ""
+    }
+  ],
+  "modal": null,
+  "content": {
+    "keyPattern": "stone.",
+    "buttonBindings": [],
+    "authority": "live Loc/runtime existing case-format/action-condition; frozen snapshot is audit-only"
+  },
+  "sources": [
+    "Assets/KatKat/Scripts/UI/StoneShowcase.cs"
+  ],
+  "notes": [
+    "Metin, sayı, durum, düğme sayısı, sırası ve eylemi mevcut çalışma zamanından gelir; örnek panodaki içerik kullanılmaz.",
+    "Otomatik yeni kapat/geri düğmesi, yardım, ödeme, güç veya ayar eklenmez."
+  ],
+  "deliveredMockup": "../../sayfalar/04_tas_vitrini_3d.png",
+  "assetManifest": "../../parcalar/asset-manifest.json",
+  "assetUsage": "../../parcalar/KULLANIM.md",
+  "sharedSprites": [
+    "modal-seramik",
+    "kart-seramik",
+    "buton-birincil",
+    "buton-ikincil",
+    "baslik-plakasi",
+    "ikon-dugmesi"
+  ],
+  "invariant": "Existing strings, buttons, handlers, tiles and board geometry prevail over generated illustration"
+}

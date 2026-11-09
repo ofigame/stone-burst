@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "level_002",
+  "title": "Zincir",
+  "tutorial": "Zincir: soyduğun taşların altından yan yana en az 3 aynı renk birlikte çıkarsa, onlar da kendiliğinden patlar!",
+  "width": 4,
+  "height": 4,
+  "moveLimit": 2,
+  "rollEnabled": false,
+  "startingRoll": false,
+  "stars": [105, 140],
+  "goals": [
+    { "type": "collectColor", "color": "blue", "amount": 3 }
+  ],
+  "cells": [
+    { "x": 0, "y": 0, "active": true, "layers": ["blue", "coral"], "clipHitsRemaining": 0, "hasBottomStar": false },
+    { "x": 1, "y": 0, "active": true, "layers": ["blue", "coral"], "clipHitsRemaining": 0, "hasBottomStar": false },
+    { "x": 2, "y": 0, "active": true, "layers": ["blue", "coral"], "clipHitsRemaining": 0, "hasBottomStar": false },
+    { "x": 3, "y": 0, "active": true, "layers": ["yellow", "coral"], "clipHitsRemaining": 0, "hasBottomStar": false },
+    { "x": 0, "y": 1, "active": true, "layers": ["blue", "yellow"], "clipHitsRemaining": 0, "hasBottomStar": false },
+    { "x": 1, "y": 1, "active": true, "layers": ["blue", "yellow"], "clipHitsRemaining": 0, "hasBottomStar": false },
+    { "x": 2, "y": 1, "active": true, "layers": ["blue", "yellow"], "clipHitsRemaining": 0, "hasBottomStar": false },
+    { "x": 3, "y": 1, "active": true, "layers": ["coral", "yellow"], "clipHitsRemaining": 0, "hasBottomStar": false },
+    { "x": 0, "y": 2, "active": true, "layers": ["yellow", "coral"], "clipHitsRemaining": 0, "hasBottomStar": false },
+    { "x": 1, "y": 2, "active": true, "layers": ["yellow", "coral"], "clipHitsRemaining": 0, "hasBottomStar": false },
+    { "x": 2, "y": 2, "active": true, "layers": ["coral", "yellow"], "clipHitsRemaining": 0, "hasBottomStar": false },
+    { "x": 3, "y": 2, "active": true, "layers": ["coral", "yellow"], "clipHitsRemaining": 0, "hasBottomStar": false },
+    { "x": 0, "y": 3, "active": true, "layers": ["yellow", "coral"], "clipHitsRemaining": 0, "hasBottomStar": false },
+    { "x": 1, "y": 3, "active": true, "layers": ["yellow", "coral"], "clipHitsRemaining": 0, "hasBottomStar": false },
+    { "x": 2, "y": 3, "active": true, "layers": ["coral", "yellow"], "clipHitsRemaining": 0, "hasBottomStar": false },
+    { "x": 3, "y": 3, "active": true, "layers": ["coral", "yellow"], "clipHitsRemaining": 0, "hasBottomStar": false }
+  ],
+  "solution": [
+    { "type": "tap", "x": 0, "y": 0 }
+  ]
+}

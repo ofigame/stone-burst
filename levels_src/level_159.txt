@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3 (kaydırılmış) (ayna); çözüm 5 hamle + 3 tepsi / limit 13 (pay +8, eski 12) hedef×0,77 bot 0,33 (hedef 0,39) plan 1; zincir v13: çözüm aynı, sınır 13→13, bot 14/112
+id: level_159
+title: Örtü Ustası II
+moves: 13
+roll: off
+specials: on
+goals: blue 35, coral 21
+grid:
+ppyy  ppb   ppb   cybb  pcb   #     #
+ppyy  cc    ppy   bbyyLb8 bybb  yyp   #
+cccyi1 cbcb  #     #     #     ycb   ycbc
+cbp   cbc   #     #     #     yyp   cybp
+bbpLc7 bbc   #     #     #     cbp   cypp
+bypb  byp   bcyy  pbybi1 ybby  cypc  cybc
+bypbi1 byp   ycp   ccy   ybpy  ybp   cyb
+#     ycbc  ybbc  ypy   ybpc  yybc  byb
+#     #     ybb   yybp  yyb   yyb   ypbc
+solution: 1,5 ; 2,6 ; 1,5 ; use 0,1,1 ; 5,3 ; 1,2 ; use 0,1,0 ; use 0,4,0

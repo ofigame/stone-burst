@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 12 hamle + 7 tepsi / limit 15 (pay +3, eski 13) hedef×1,13 bot 0,13 (hedef 0,28) plan 2; zincir v13: yeni çözüm 8 (eski 12), sınır 15→15, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 12/112
+id: level_472
+title: Bölüm 472
+moves: 12
+roll: off
+specials: on
+goals: coral 57, purple 42, sponge 2
+grid:
+#     #     #     #     ycp   bcyc  bcc
+#     #     #     ycc   ycyyScb bcy   ycc
+#     #     bccb  bcyc  bcyb  bcpb  ycpb
+#     cyp   cyp   ycbc  yccbScby pccb  pcpb
+bcyp  pcpy  pcbp  bcbb  ycc   pcc   pccb
+ppb   pccb  pbb   ppbb  pcb   pcp   pcb
+ppcc  ppc   cbcb  ycc   ypyy  pcp   ccp
+ppb   ppb   cbp   cccy  yby   pcpp  cbp
+pbcb  pppb  cbpc  bbc   pbcb  pbp   cbpy
+solution: 4,2 ; use 0,3,1 ; 4,1 ; 3,3 ; use 0,5,0 ; 3,5 ; use 0,4,0 ; 2,4 ; 1,3 ; use 0,4,0 ; 1,4 ; use 0,0,4

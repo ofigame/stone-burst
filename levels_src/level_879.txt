@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3 (kaydırılmış); çözüm 9 hamle + 7 tepsi / limit 19 (pay +10, eski 19) hedef×1,32 bot 0,13 (hedef 0,15) plan 2; zincir v13: yeni çözüm 9 (eski 9), sınır 19→23, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 16, bot 18/112
+id: level_879
+title: Bölüm 879
+moves: 16
+roll: off
+specials: on
+goals: blue 39, coral 42, purple 55, envelope 2
+grid:
+cybb  bybc  ycbc  yybb  pybb  pypc  ppcc
+bypc  bbcc  ycbc  ycpbR pccb  pppb  bypcEy
+bcpy  bypy  yyyy  bypc  bpcb  bpcc  bbcc
+pcpy  bcyp  yyypR ypyc  ypcc  bpcc  bbcc
+pypb  bcbb  #     #     #     ypyy  bbpc
+yppp  yppp  #     #     #     ypbc  cppc
+yppp  yppp  #     #     #     ppbp  pppc
+yypc  bypy  bbpy  cbyy  cppc  ppbc  ppyc
+yypc  bypy  bypyR bbpy  cbpcEp cppc  ypyc
+solution: 1,7 ; 3,2 ; use 0,0,1 ; 5,0 ; use 0,5,0 ; use 0,0,0 ; 0,1 ; use 0,1,0 ; 0,3 ; use 0,0,0 ; 3,0 ; use 0,4,0

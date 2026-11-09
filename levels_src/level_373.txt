@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı; çözüm 20 hamle + 9 tepsi / limit 22 (pay +2, eski 14) hedef×1,13 bot 0,08 (hedef 0,27) plan 3; zincir v13 kolaylaştırma: hedef −%6, sınır 9, bot 6/112
+id: level_373
+title: İki Mühür Tur
+moves: 9
+roll: off
+specials: on
+goals: purple 33, yellow 34, envelope 2
+grid:
+#     #     pcb   pccp  pyc   #     #
+#     #     pbb   bcc   cbc   #     #
+pcc   bcb   pcb   bcyp  bccp  bycp  byc
+pcp   pppbEy pcyb  pcy   byy   yyc   yyc
+pbyy  ypy   pcyb  bcybR byyb  ybc   ypcb
+pbyy  yppy  ycpy  byy   cycb  byc   pbcb
+yyy   yyyEp ccp   ccp   ccp   pycy  pbbb
+#     #     ccpp  bbpp  cby   #     #
+#     #     bcp   cbyp  cbyR  #     #
+solution: 0,4 ; 2,0 ; use 1,3,0 ; 0,4 ; 2,0 ; 3,2 ; use 1,0,2 ; 3,0 ; use 1,2,0 ; 3,4 ; use 0,0,6 ; use 0,4,0 ; use 0,4,0

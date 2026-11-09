@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı (ayna); çözüm 6 hamle + 4 tepsi / limit 10 (pay +4, eski 10) hedef×1,43 bot 0,42 (hedef 0,42) plan 0; zincir v13: yeni çözüm 8 (eski 6), sınır 10→16, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 9, bot 9/112
+id: level_125
+title: Açılan Şelale
+moves: 9
+roll: off
+specials: on
+goals: purple 47, yellow 32
+grid:
+#     #     #     ccp   #     #     #
+#     bcc   bcy   ccy   ppb   cbb   #
+bpy   ypp   bpp   cyp   pyc   ppp   cbp
+cpb   cpp   bpp   bpc   bycLc7 bpy   cbc
+bpp   ypp   ypp   cby   byp   ppp   bpp
+ypc   ypb   ycb   ybc   cyp   pyp   pyp
+cbc   cbc   ybc   yby   cyy   pyy   byy
+pbc   ypc   ypc   ycp   byp   bbb   bpb
+ppc   ypc   ypc   ycp   ycp   bcb   bcb
+solution: 0,5 ; use 0,3,0 ; 4,2 ; 1,2 ; use 0,2,1 ; 4,6 ; 4,2 ; use 0,0,2

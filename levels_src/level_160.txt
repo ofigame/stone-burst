@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [protect+exact]); çözüm 6 / sınır 8 (v7 11); açgözlü kazanır; bot48 0,13 (taban 0,04); bot 0,25; zincir v13: yeni çözüm 7 (eski 6), sınır 8→13, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 8, bot 6/112
+id: level_160
+title: Kilit ve Kar
+moves: 8
+roll: off
+specials: on
+type: boss
+rules: exact
+goals: coral 39, purple 48, yellow 29, star 2
+grid:
+pppc  pppi2 bccc  bppy  bbcy  pccy  pcy   pcy
+pbpi1 pbpy* pbby  bcby  bccy  pccy  pyc   pycb
+pbp   pcp   pcp   pcbLp8 pbc   bpc   byc   pycb
+pcyi1 pcby  bbp   yby   cbc   ppcb  pccb  pcc
+bpy   pcb   yp    ybyb  ybcb  bp    bypb  bcpb
+ycy   ycb   ybpbi1 pbyb  pby   bby   bbcb  pbc
+#     #     yyb   yyb   bbb   bby*  #     #
+#     #     cpb   pyp   bpbc  bycci2 #     #
+#     #     ppby  ppby  pyp   ppbc  #     #
+solution: 3,0 ; use 0,0,0 ; 0,0 ; use 0,6,1 ; 2,1 ; 7,1 ; use 0,2,0 ; use 0,0,0 ; 3,4 ; 0,5 ; use 0,0,0

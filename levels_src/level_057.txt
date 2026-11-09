@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x2+2x2 (kaydırılmış); çözüm 8 hamle + 4 tepsi / limit 13 (pay +5, eski 11) hedef×1,09 bot 0,50 (hedef 0,48) plan 0; zincir v13: yeni çözüm 7 (eski 8), sınır 13→16, bot 11/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 27/112
+id: level_057
+title: Kuleler
+moves: 11
+roll: off
+specials: on
+goals: purple 34, yellow 14
+grid:
+ppb   bcc   pyc   pcc   ppy   bpy   ppb
+ccb   bcc   pcpk2 byp   bcy   bpy   pyb
+cpb   #     #     pcc   #     #     pcck2
+ccy   #     #     pcb   #     #     ccp
+pcyk1 pcy   pcy   pcb   pcbk1 cbb   cpp
+bcy   ycy   pcy   bcc   bcb   bbb   cpp
+bcy   cpp   cpp   bpp   bcp   ccb   cpp
+bby   cby   cby   bbp   cbp   cbb   cpb
+solution: 1,4 ; 0,0 ; use 0,0,0 ; 4,0 ; 5,4 ; use 1,0,0 ; 3,3 ; 1,0 ; use 1,2,0 ; use 0,0,0

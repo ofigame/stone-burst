@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 4 hamle + 4 tepsi / limit 7 (pay +3, eski 11) hedef×0,94 bot 0,67 (hedef 0,42) plan 0; zincir v13: yeni çözüm 4 (eski 4), sınır 7→7, bot 77/112
+id: level_129
+title: Kilit Ustası
+moves: 7
+roll: off
+specials: on
+goals: purple 29, yellow 43
+grid:
+ycp   cbcp  cyy   ybb   yycy  pbb   ybp
+ybp   cbcp  bcpp  bycp  bbcb  ybb   ybyy
+ybp   yppb  pcp   bcp   bpb   pcby  yyb
+ycbp  #     #     yyp   #     #     yyb
+yyy   #     #     yppp  #     #     cyb
+yyb   #     #     ycp   #     #     pyyp
+pcbp  yyb   ycpy  yypc  cpyc  cycp  yyy
+bbb   cpbbLc10 cpy   yyyc  ycyp  cyy   cyy
+bbb   bpp   cby   yyyc  ybyc  cbyc  ccc
+solution: 0,0 ; 3,5 ; use 0,2,0 ; 3,0 ; use 0,6,0 ; 6,5 ; use 0,2,0 ; use 0,3,4

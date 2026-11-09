@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U (ayna); çözüm 10 hamle + 7 tepsi / limit 20 (pay +10, eski 15) hedef×1,32 bot 0,08 (hedef 0,20) plan 3; zincir v13: yeni çözüm 11 (eski 10), sınır 20→25, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 19, bot 6/112
+id: level_922
+title: Bölüm 922
+moves: 19
+roll: off
+specials: on
+goals: yellow 41, blue 40
+grid:
+ybcc  G1:ypcc G1:ypp #     G1:bbcy G1:byb G1:yybc
+cby   ypc   bppp  #     pccy  ybp   yyy
+cbyb  ccy   cppb  #     pcc   bcbb  yyy
+cbb   ccy   ccpb  ppcy  bccp  ycb   ycbR
+ppbc  ccp   bppy  pypy  bybp  bybc  yyb
+bpb   bppc  bpppR ypb   ccp   bcp   bcc
+bpbcR yppc  yppc  bppc  ccpc  ccp   ccy
+ppcc  ypbB1 ycpb  ycp   ccpy  pbpy  ybp
+pcp   ycp   ycpb  cycy  cbp   cbpy  cbpy
+solution: 4,7 ; 1,5 ; 4,3 ; use 0,0,2 ; 1,4 ; use 1,0,1 ; 4,5 ; use 0,6,0 ; use 0,5,0 ; 4,0 ; 4,0 ; 2,0 ; 0,0 ; use 0,5,0 ; use 0,4,0 ; use 0,6,0 ; use 0,4,0

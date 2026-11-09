@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 10 hamle + 7 tepsi / limit 17 (pay +7, eski 13) hedef×1,13 bot 0,33 (hedef 0,28) plan 0; zincir v13: yeni çözüm 10 (eski 10), sınır 17→18, bot 6/112
+id: level_462
+title: Bölüm 462
+moves: 18
+roll: off
+specials: on
+goals: yellow 47, blue 37, sponge 2
+grid:
+cyyc  cyyc  yyp   byp   cyc   ycyb  ypyb
+cyy   pyyp  bpcp  bpcy  ccc   yccb  ypyb
+pybc  ppbp  cpc   cpby  cbb   cbp   yypb
+cybb  #     #     cbcb  #     #     yyy
+cbbc  #     #     pbcb  #     #     yyyb
+pbb   #     #     ybcy  #     #     pbpb
+pbb   bcp   cbby  cbcyScb cbcy  ppc   ppcb
+bypy  bcpy  bbp   cypy  ybpy  ybc   cpcb
+bypp  byppSby byp   yyp   ybcy  ybc   ypc
+solution: 5,0 ; use 0,3,0 ; 2,7 ; 3,5 ; use 0,3,2 ; 3,6 ; use 0,0,0 ; 0,2 ; 0,0 ; 2,0 ; 0,0 ; use 2,6,0 ; use 2,2,0 ; 0,7 ; 3,0

@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 10 / sınır 11 (v7 18); açgözlü kaybeder; bot48 0,10 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 8 (eski 10), sınır 11→13, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 9, bot 8/112
+id: level_108
+title: Hazır Rulo
+moves: 9
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: coral 63, purple 23
+grid:
+cyy   cybp  bcp   bcpc  bbp   bbcy  bbcy
+cyy   cybp  cybi1 bcpc  ycc   cbc   cbc
+yccb  cccp  ycc   ycp   ycp   cpcb  cpcc
+pyyb  yycp  #     #     #     cbcb  cbcb
+ypybi1 ccyp  #     #     #     cbp   cppb
+ccb   ccyp  bcp   bcpy  ccpyi1 bbp   yyc
+bcb   bcbp  ccc   yccy  cypy  ypy   cpyc
+bcyc  bcb   ycc   ypyy  cyc   cpyc  cpyc
+solution: 1,0 ; 0,2 ; use 0,2,0 ; 3,0 ; use 0,5,0 ; 3,5 ; 1,0 ; use 2,4,1 ; 5,3 ; 0,0 ; use 0,6,0 ; use 2,1,2

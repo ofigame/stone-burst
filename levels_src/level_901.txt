@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 7 hamle + 6 tepsi / limit 11 (pay +4, eski 11) hedef×1,32 bot 0,17 (hedef 0,20) plan 1; zincir v13: yeni çözüm 6 (eski 7), sınır 11→11, bot 6/112
+id: level_901
+title: Bölüm 901
+moves: 11
+roll: off
+specials: on
+goals: purple 54, yellow 52, sponge 1
+grid:
+ccbc  cpb   cpbc  #     pby   bbyb  bbbb
+ccb   ccbc  cpbc  #     ppyb  bbyp  bbb
+bccy  cbby  pbyy  #     ppy   bbyb  bybb
+bcbp  ycbp  bby   bpyb  pycb  ybyy  yyy
+ypb   ypbp  pbyp  pyy   pyc   yyyy  bpy
+yppc  ypp   pbpLc8 ppyp  ppy   cpcy  bpyScby
+ypbc  ypp   pppp  cpcp  cpcp  cyc   bycb
+bpbc  pbpLb8 ycp   ccpp  yyc   cyy   bpy
+bpc   ypcc  ycc   ccy   ccyp  bcyy  bpcy
+solution: 0,3 ; 0,2 ; use 0,0,0 ; 1,4 ; use 0,0,0 ; 4,0 ; use 0,1,0 ; 5,6 ; use 0,5,1 ; 5,5 ; use 0,4,1 ; use 0,5,4

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 7 hamle + 6 tepsi / limit 11 (pay +4, eski 13) hedef×1,30 bot 0,13 (hedef 0,24) plan 3; zincir v13: yeni çözüm 8 (eski 7), sınır 11→16, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 10, bot 25/112
+id: level_444
+title: Bölüm 444
+moves: 10
+roll: off
+specials: on
+goals: coral 25, purple 31, yellow 57, sponge 2
+grid:
+ycyy  bpbb  pcby  ybbp  ybbp  yypb  pybp
+ypyy  ycyy  ybpy  ybby  yyby  yyby  pybp
+ypyp  ycbp  bbpy  bbby  ybby  cbyp  pybp
+ycbp  #     #     ypcp  #     #     bybc
+bbyc  #     #     yppb  #     #     cbbc
+ycyy  #     #     ybcb  #     #     ycbp
+yycy  cbby  ybbp  ybbp  bbcb  bybp  cybb
+yycySby yycy  pccy  yybyScb cpcp  bybp  cybp
+pycy  pycy  bpcy  bccy  byby  bybp  bpbb
+solution: 0,0 ; use 0,3,0 ; 3,4 ; 0,5 ; use 0,0,0 ; 1,0 ; use 0,0,0 ; use 0,2,0 ; 0,0 ; 3,5 ; use 1,0,7 ; use 0,1,1

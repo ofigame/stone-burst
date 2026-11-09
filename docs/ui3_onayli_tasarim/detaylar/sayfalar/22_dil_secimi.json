@@ -1,0 +1,209 @@
+{
+  "pageId": 22,
+  "title": "Dil seçimi",
+  "kind": "language",
+  "referenceScreenshot": "ui2/22_dil_secimi.png",
+  "coordinateSystem": "1080x1920 top-left; modal children card-local",
+  "elements": [],
+  "modal": {
+    "width": 860,
+    "height": 1120,
+    "position": "center complete visual group inside safe area",
+    "localOrigin": "card-top-left",
+    "frame": {
+      "radius": 48,
+      "rimWidths": [
+        4,
+        3,
+        12,
+        9
+      ],
+      "crestRise": 32,
+      "shadowOffset": [
+        0,
+        14
+      ],
+      "shadowBlur": 22,
+      "shadowAlpha": 0.28
+    },
+    "elements": [
+      {
+        "id": "title",
+        "rect": [
+          56,
+          56,
+          748,
+          80
+        ],
+        "role": "modalTitle",
+        "binding": "runtime language title",
+        "note": ""
+      },
+      {
+        "id": "language0",
+        "rect": [
+          56,
+          192,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[0].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language1",
+        "rect": [
+          312,
+          192,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[1].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language2",
+        "rect": [
+          568,
+          192,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[2].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language3",
+        "rect": [
+          56,
+          356,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[3].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language4",
+        "rect": [
+          312,
+          356,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[4].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language5",
+        "rect": [
+          568,
+          356,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[5].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language6",
+        "rect": [
+          56,
+          520,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[6].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language7",
+        "rect": [
+          312,
+          520,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[7].NativeName",
+        "note": ""
+      },
+      {
+        "id": "language8",
+        "rect": [
+          568,
+          520,
+          236,
+          116
+        ],
+        "role": "smallButton",
+        "binding": "Loc.Languages[8].NativeName",
+        "note": ""
+      },
+      {
+        "id": "closeButton",
+        "rect": [
+          56,
+          824,
+          748,
+          116
+        ],
+        "role": "buttonSecondary",
+        "binding": "runtime close",
+        "note": ""
+      }
+    ],
+    "close": {
+      "create": false,
+      "onlyIfExisting": true,
+      "visualRect": [
+        792,
+        -28,
+        88,
+        88
+      ],
+      "hitRect": [
+        784,
+        -36,
+        104,
+        104
+      ]
+    },
+    "overflow": "Keep fonts/buttons fixed. Calculate actual TMP preferred heights, grow textual rows then card. If total exceeds safeHeight-96, scroll content area only; keep title and actions fixed. Empty/missing optional sections removed with their exact adjacent gap."
+  },
+  "content": {
+    "keyPattern": "ui.language|ui.close",
+    "buttonBindings": [
+      "runtime native languages",
+      "ui.close"
+    ],
+    "authority": "live Loc/runtime existing case-format/action-condition; frozen snapshot is audit-only"
+  },
+  "sources": [
+    "Assets/KatKat/Scripts/UI/MenuView.cs"
+  ],
+  "notes": [
+    "Metin, sayı, durum, düğme sayısı, sırası ve eylemi mevcut çalışma zamanından gelir; örnek panodaki içerik kullanılmaz.",
+    "Otomatik yeni kapat/geri düğmesi, yardım, ödeme, güç veya ayar eklenmez.",
+    "Dokuz dilin native adları Loc.Languages içinden; Fransızca/İspanyolca aksanlar ve Arapça/CJK harfler aynen korunur."
+  ],
+  "deliveredMockup": "../../sayfalar/22_dil_secimi.png",
+  "assetManifest": "../../parcalar/asset-manifest.json",
+  "assetUsage": "../../parcalar/KULLANIM.md",
+  "sharedSprites": [
+    "modal-seramik",
+    "kart-seramik",
+    "buton-birincil",
+    "buton-ikincil",
+    "baslik-plakasi",
+    "ikon-dugmesi"
+  ],
+  "invariant": "Existing strings, buttons, handlers, tiles and board geometry prevail over generated illustration"
+}

@@ -1,0 +1,39 @@
+// Bölüm 241-270 profilleri (Premium-v2 rehberi §11: 201–300 zarf bloğu, ikinci üçte biri).
+// Zarf eski mekaniklerle birleşir: yıldız ve boşluklar (241–250), dört katman + rulo (251–260),
+// zarf + ataş, mühür sırası (261–270). Aynı anda en çok iki örtü ailesi. 10'luk ritim (§11).
+
+// 241-250: zarf + yıldız + boşluklu tahta.
+241 | title=Yıldızlı Mektup | size=5 | layers=2-2 | colors=cby | env=c | stars=1 | goals=b:0.5 | len=3-4 | slack=2 | win=0.6
+242 | title=Posta Yıldızı | size=5 | layers=2-3 | colors=cby | env=b | stars=2 | goals=y:0.5 | len=3-5 | slack=1 | win=0.5
+243 | title=Mühür ve Işık | size=5 | layers=2-3 | colors=cbyp | env=y,c | stars=1 | goals=p:0.5 | len=4-5 | slack=1 | win=0.35
+244 | title=Derin Mektup | size=5 | layers=3-3 | colors=cbyp | env=p | stars=2 | goals=c:0.5 | len=5-6 | slack=1 | win=0.3
+245 | title=Işıklı Akış | size=5 | layers=3-3 | colors=cby | env=c,b | stars=1 | goals=y:0.6 | len=3-4 | slack=2 | win=0.65 | chains=2
+246 | title=Posta Takımadası | size=6 | layers=2-2 | colors=cby | holes=10 | env=y | stars=2 | goals=b:0.5 | len=4-5 | slack=1 | win=0.4
+247 | title=Sıralı Mühür | size=5 | layers=2-3 | colors=cbyp | env=b,p | stars=1 | goals=c:0.5,y:0.4 | len=5-6 | slack=1 | win=0.25
+248 | title=Yumuşak Posta | size=5 | layers=2-2 | colors=cby | env=c | goals=y:0.6 | len=3-4 | slack=2 | win=0.7
+249 | title=Mektup Avcısı | size=6 | layers=2-3 | colors=cbyp | holes=6 | env=c,y,p | stars=2 | goals=b:0.4 | len=5-7 | slack=1 | win=0.2
+250 | title=Yıldız Postası | size=6 | layers=3-3 | colors=cbyp | holes=4 | env=b,c | roll=on | stars=2 | goals=y:0.4,p:0.4 | len=6-7 | slack=1 | win=0.2 | chains=1
+
+// 251-260: zarf + dört katman + rulo.
+251 | title=Kat Kat Mektup | size=5 | layers=3-4 | colors=cby | env=c | goals=b:0.5 | len=3-4 | slack=2 | win=0.6
+252 | title=Rulo Postası | size=5 | layers=3-3 | colors=cby | env=b | roll=on | goals=c:0.5 | len=4-5 | slack=1 | win=0.45
+253 | title=Derin Mühür | size=5 | layers=3-4 | colors=cbyp | env=y,b | goals=p:0.5 | len=4-5 | slack=1 | win=0.4
+254 | title=Satır Postası | size=5 | layers=3-4 | colors=cbyp | env=p | roll=on | goals=c:0.5,y:0.4 | len=5-6 | slack=1 | win=0.3
+255 | title=Dörtlü Akış | size=5 | layers=3-4 | colors=cby | env=c,y | roll=start | goals=b:0.6 | len=3-5 | slack=2 | win=0.6 | chains=2
+256 | title=Kule Postası | size=6 | layers=3-4 | colors=cby | holes=8 | env=b | goals=y:0.5 | len=4-6 | slack=1 | win=0.4
+257 | title=Kat Planı | size=5 | layers=3-4 | colors=cbyp | env=c,p | goals=b:0.5,y:0.4 | len=5-6 | slack=1 | win=0.25
+258 | title=Hafif Kule | size=5 | layers=3-3 | colors=cby | env=y | goals=c:0.6 | len=3-4 | slack=2 | win=0.7
+259 | title=Kule Ustası | size=6 | layers=3-4 | colors=cbyp | holes=5 | env=b,c,y | roll=on | goals=p:0.4 | len=6-7 | slack=1 | win=0.2
+260 | title=Kule Mektubu | size=6 | layers=3-4 | colors=cbyp | holes=4 | env=p,b | roll=on | stars=2 | goals=c:0.4,y:0.4 | len=6-7 | slack=1 | win=0.2 | chains=1
+
+// 261-270: zarf + ataş, mühür sırası.
+261 | title=Ataşlı Mektup | size=5 | layers=2-2 | colors=cby | env=c | clip1=1 | goals=b:0.6 | len=3-4 | slack=2 | win=0.6 | tutorial=Ataş komşuluk ister, zarf komşuda doğru rengi.
+262 | title=İki Kapak | size=5 | layers=2-3 | colors=cby | env=b | clip1=1 | goals=y:0.6 | len=3-5 | slack=1 | win=0.5
+263 | title=Kapak Sırası | size=5 | layers=2-3 | colors=cbyp | env=y,p | clip1=1 | goals=c:0.5 | len=4-5 | slack=1 | win=0.35
+264 | title=Ağır Kapak | size=5 | layers=3-3 | colors=cbyp | env=c | clip2=1 | goals=b:0.5,p:0.4 | len=5-6 | slack=1 | win=0.3
+265 | title=Kapak Akışı | size=5 | layers=3-3 | colors=cby | env=c,b | clip1=1 | goals=y:0.6 | len=3-4 | slack=2 | win=0.65 | chains=2
+266 | title=Posta Çerçevesi | size=6 | layers=2-2 | colors=cby | holes=10 | env=y | clip1=1 | goals=c:0.5 | len=4-5 | slack=1 | win=0.4
+267 | title=Önce Ataş | size=5 | layers=2-3 | colors=cbyp | env=p,c | clip2=1 | goals=y:0.5,b:0.4 | len=5-6 | slack=1 | win=0.25
+268 | title=Kolay Kapak | size=5 | layers=2-2 | colors=cby | env=b | clip1=1 | goals=c:0.6 | len=3-4 | slack=2 | win=0.7
+269 | title=Kapak Ustası | size=6 | layers=2-3 | colors=cbyp | holes=5 | env=c,b,y | clip1=1 | clip2=1 | goals=p:0.4 | len=5-7 | slack=1 | win=0.2
+270 | title=Kapaklar Bahçesi | size=6 | layers=3-3 | colors=cbyp | holes=4 | env=y,p | clip1=2 | roll=on | stars=1 | goals=c:0.4,b:0.4 | len=6-7 | slack=1 | win=0.2 | chains=1

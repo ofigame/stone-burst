@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı (ayna); çözüm 5 hamle + 4 tepsi / limit 9 (pay +4, eski 14) hedef×0,95 bot 0,08 (hedef 0,30) plan 2; zincir v13: yeni çözüm 10 (eski 5), sınır 9→15, bot 11/112
+id: level_305
+title: Dönen Şelale
+moves: 15
+roll: off
+specials: on
+goals: purple 36, yellow 40
+grid:
+#     #     #     pcyy  #     #     #
+#     bycyR pbyb  pbp   pcb   ypb   #
+bbc   pbb   pbbb  pbc   pycb  yyc   byyR
+bpc   ppby  pbb   pbc   cyy   byc   ypc
+pbcy  ppcy  ppby  pcc   bycy  yyby  ybp
+ybcy  ypcy  ppb   bcc   byb   yyby  ypc
+ybc   pcby  ypbc  ycc   ypp   cbpy  cpcp
+pcy   pcbc  pcbc  pcyy  ybp   ybp   yby
+ccb   ccbc  pcyc  pby   cbyy  cby   cby
+solution: 3,2 ; 2,1 ; use 0,3,0 ; use 0,3,1 ; 3,4 ; 2,1 ; 2,6 ; 1,3 ; 4,1 ; 2,1 ; 6,5 ; use 2,6,2 ; 4,3 ; use 2,0,2 ; use 0,0,3

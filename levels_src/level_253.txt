@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven; çözüm 14 hamle + 7 tepsi / limit 17 (pay +3, eski 13) hedef×1,28 bot 0,33 (hedef 0,33) plan 1; zincir v13: yeni çözüm 14 (eski 14), sınır 17→17, bot 16/112
+id: level_253
+title: Derin Mühür
+moves: 17
+roll: off
+specials: on
+goals: purple 43, yellow 44, envelope 2
+grid:
+ycb   ybc   pbc   #     #     #     #
+bypEy ycyy  bby   bby   #     #     #
+ycy   ycyy  bbyb  pcbb  bbcc  #     #
+bcyp  bcp   byyc  cbbc  pbcc  pcbp  #
+ppy   bpp   bppc  ppbc  pbbp  pcbp  pcpbEb
+cyp   cyp   cpp   cpbb  yybb  pcbb  pcp
+bcpy  byy   ccp   ccp   yypb  pbpy  cppy
+ycp   bcy   ccy   ccyc  yyyy  pppy  cpby
+cpp   bcc   ycbb  cbb   ycyy  ycy   pyy
+solution: 5,6 ; use 0,0,3 ; 1,1 ; 0,2 ; 2,1 ; 5,3 ; use 0,0,1 ; 0,5 ; use 0,0,1 ; 1,0 ; 0,0 ; 3,5 ; 4,5 ; use 0,1,0 ; 2,2 ; 3,2 ; 5,5 ; use 0,2,0 ; 3,5 ; use 2,4,2 ; use 2,4,2

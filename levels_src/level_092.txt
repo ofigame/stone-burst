@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 6 hamle + 3 tepsi / limit 10 (pay +4, eski 10) hedef×1,26 bot 0,63 (hedef 0,50) plan 0; zincir v13: yeni çözüm 4 (eski 6), sınır 10→8, bot 26/112
+id: level_092
+title: Komşu Örtüler
+moves: 8
+roll: off
+specials: on
+goals: coral 20, purple 21
+grid:
+byy   pyp   ppp   ppy   ppy   cpb   ppbi1
+bpck1 pcy   pby   bpy   cbb   cpb   ppb
+bcc   bcy   cyy   bby   pyb   yyb   pyb
+bcb   bcb   bcb   bby   yyb   ybb   bbck1
+ccb   bcb   bcb   bby   ybb   ycb   bcc
+#     #     yyy   yyyi1 bbc   #     #
+#     #     pyy   pyy   byy   #     #
+#     #     pby   pyci1 pyy   #     #
+solution: 2,5 ; 3,0 ; 5,0 ; use 1,5,0 ; 1,0 ; use 0,6,0 ; use 0,2,0 ; use 0,0,2

@@ -1,0 +1,112 @@
+{
+  "pageId": 21,
+  "title": "Bölüm başlangıcı",
+  "kind": "start",
+  "referenceScreenshot": "ui2/21_bolum_baslangic_karti.png",
+  "coordinateSystem": "1080x1920 top-left; modal children card-local",
+  "elements": [],
+  "modal": {
+    "width": 860,
+    "height": 600,
+    "position": "center complete visual group inside safe area",
+    "localOrigin": "card-top-left",
+    "frame": {
+      "radius": 48,
+      "rimWidths": [
+        4,
+        3,
+        12,
+        9
+      ],
+      "crestRise": 32,
+      "shadowOffset": [
+        0,
+        14
+      ],
+      "shadowBlur": 22,
+      "shadowAlpha": 0.28
+    },
+    "elements": [
+      {
+        "id": "title",
+        "rect": [
+          56,
+          56,
+          748,
+          80
+        ],
+        "role": "modalTitle",
+        "binding": "runtime level number",
+        "note": ""
+      },
+      {
+        "id": "stars",
+        "rect": [
+          176,
+          164,
+          508,
+          104
+        ],
+        "role": "image",
+        "binding": "runtime existing star state",
+        "note": ""
+      },
+      {
+        "id": "summary",
+        "rect": [
+          56,
+          300,
+          748,
+          88
+        ],
+        "role": "bodyCentered",
+        "binding": "runtime mechanics names",
+        "note": ""
+      },
+      {
+        "id": "play",
+        "rect": [
+          56,
+          428,
+          748,
+          116
+        ],
+        "role": "button",
+        "binding": "ui.playbig",
+        "note": ""
+      }
+    ],
+    "close": {
+      "create": false,
+      "onlyIfExisting": true,
+      "visualRect": [
+        792,
+        -28,
+        88,
+        88
+      ],
+      "hitRect": [
+        784,
+        -36,
+        104,
+        104
+      ]
+    },
+    "overflow": "Keep fonts/buttons fixed. Calculate actual TMP preferred heights, grow textual rows then card. If total exceeds safeHeight-96, scroll content area only; keep title and actions fixed. Empty/missing optional sections removed with their exact adjacent gap."
+  },
+  "content": {
+    "keyPattern": "ui.playbig|level.",
+    "buttonBindings": [
+      "ui.playbig"
+    ],
+    "authority": "live Loc/runtime existing case-format/action-condition; frozen snapshot is audit-only"
+  },
+  "sources": [
+    "Assets/KatKat/Scripts/UI/MenuView.cs"
+  ],
+  "notes": [
+    "Metin, sayı, durum, düğme sayısı, sırası ve eylemi mevcut çalışma zamanından gelir; örnek panodaki içerik kullanılmaz.",
+    "Otomatik yeni kapat/geri düğmesi, yardım, ödeme, güç veya ayar eklenmez.",
+    "Yıldızlar o bölümün gerçek durumunu gösterir; panodaki altın yıldızlar otomatik kazanılmış sayılmaz."
+  ]
+}

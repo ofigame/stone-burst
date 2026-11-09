@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: resource [exact]; çözüm 6 / sınır 8 (v7 16); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 8→9 (112 oyunda 9 galibiyet); zincir v13: yeni çözüm 6 (eski 6), sınır 9→11, bot 6/112
+id: level_197
+title: Son Sıra
+moves: 11
+roll: off
+specials: on
+type: resource
+rules: exact
+goals: purple 45, yellow 31, blue 33
+grid:
+bcp   bcc   ccc   bycb  bby   byc   bycb
+bcc   ccp   bcc   yycb  cycy  cycpLp7 bbc
+ccc   cyp   bccy  pycy  pccy  cbp   cbp
+#     cpbi1 byc   pyy   bccc  bbp   #
+#     cpyp  cyy   pcy   pccc  bbpcLc8 #
+#     yyyp  ycc   pccb  cypp  cppc  #
+bpc   bypp  ycpc  cpcb  cpp   pcpp  pcpp
+bcb   ycbb  ypyy  cpb   cpbb  ppb   pcb
+bcb   ccby  pcb   cpb   ypbb  ypci1 ppp
+solution: 3,5 ; use 0,1,0 ; 1,4 ; use 0,0,0 ; 4,0 ; use 0,3,0 ; 0,0 ; 5,1 ; 3,0 ; use 0,3,2 ; use 0,3,1 ; use 0,1,0

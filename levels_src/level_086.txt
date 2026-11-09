@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 4 hamle + 3 tepsi / limit 8 (pay +4, eski 12) hedef×0,77 bot 0,50 (hedef 0,45) plan 2; zincir v13: çözüm aynı, sınır 8→8, bot 77/112
+id: level_086
+title: Ada Yolu
+moves: 8
+roll: off
+specials: on
+goals: yellow 19, blue 14, star 3
+grid:
+cyy   cpy   cby   #     cby   ypc   ypp
+cyy   yyc   by    #     py    cp    ypp
+pyy   ypy   cpp   ccc   bcc   pp    ypp*
+pbpi1 pbp   pbp   bcc   bcc   bbc   ycpi1
+ppy   bcp   bbp   bbp*  bbc*  pcc   ycp
+pyc   ppc   ppp   ppp   bp    pbc   pcp
+ypy   ppy   ppp   ppp   cpp   cbc   pcp
+ypy   ypy   pbyi1 ppp   ppp   cbc   cbb
+solution: 2,2 ; 3,2 ; 2,4 ; use 0,0,0 ; 6,0 ; use 0,1,0 ; use 0,2,0

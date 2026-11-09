@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe; çözüm 5 hamle + 4 tepsi / limit 9 (pay +4, eski 13) hedef×0,95 bot 0,33 (hedef 0,29) plan 1; zincir v13: yeni çözüm 5 (eski 5), sınır 9→9, bot 44/112
+id: level_314
+title: Doğru Sıra
+moves: 9
+roll: off
+specials: on
+goals: yellow 37, blue 26, coral 34
+grid:
+#     #     ybc   ycbb  ypbp  #     #
+#     bbp   ccpp  yccp  ypcR  cbpc  #
+cppp  bpp   cypp  yypp  cbbp  ccbp  cybc
+ccpp  bppp  cypp  yyp   yycb  cyc   cyb
+pcc   ccbp  cyy   ccy   ccpb  ccc   cyb
+yypy  cyb   yby   cypb  ycp   pcb   ycb
+bypyR cypy  yyp   ypyp  ycp   ycbc  bcbc
+#     bbyc  yybc  cybc  bcbc  bcb   #
+#     #     ypp   ypb   ycbc  #     #
+solution: 1,1 ; 2,1 ; use 0,3,0 ; 2,0 ; 3,2 ; 4,4 ; use 0,2,1 ; use 0,3,1 ; use 0,2,0

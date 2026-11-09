@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 9 hamle + 5 tepsi / limit 17 (pay +8, eski 14) hedef×1,12 bot 0,25 (hedef 0,32) plan 1; zincir v13: yeni çözüm 7 (eski 9), sınır 17→15, bot 9/112
+id: level_274
+title: Kasa Postası
+moves: 15
+roll: off
+specials: on
+goals: yellow 58, blue 46, coral 30, envelope 2
+grid:
+byyy  byyb  pyyb  yycy  byc   yyy   bbp
+pyyy  pcy   pcybEb yyc   ybb   bbbb  cbpb
+pycy  pyyy  ypyb  ypcb  bpb   bbb   cbbLy8
+pyb   yyc   ypy   ypc   ybcbEc cbbp  cbb
+cyc   yycp  pccp  pcc   cpcb  cbc   cbbc
+cybc  bbp   ypb   ypcc  ypy   ppcc  pcbc
+#     #     yyb   byb   pcyc  #     #
+#     #     yyby  byb   byyc  #     #
+#     #     byy   byyy  yby   #     #
+solution: 1,4 ; 1,3 ; 4,1 ; 4,3 ; use 0,1,0 ; 0,0 ; use 0,3,0 ; 3,5 ; 2,0 ; use 0,0,0 ; use 0,1,0 ; use 0,0,0 ; use 0,0,0

@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: chain [chainOnly+exact]; zincir purple 8; çözüm 9 / sınır 12 (v7 13); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 8 (eski 9), sınır 12→11, bot 34/112
+id: level_457
+title: Bölüm 457
+moves: 11
+roll: off
+specials: on
+type: chain
+rules: chainOnly, exact
+goals: yellow 58, blue 37, sponge 2, chain purple 8
+grid:
+#     #     cccb  ypcb  ypcy  #     #
+#     ycyy  yccb  ypyc  yycy  cbcy  #
+pcyb  pcyb  ycyb  byyc  pyyy  cpyy  cbcy
+bybb  pyyb  byyc  byyc  byyc  yyyb  cccp
+bcpb  bcyb  bbbb  cbyy  cbyy  ccbb  ycpy
+ccpc  cppc  pbpb  cbpbSby pbpb  pbbb  ccpp
+ccpc  cppc  pbpb  cbpb  pypb  pybb  pcyp
+#     bppc  bccy  pccy  pyyy  yyyy  #
+#     #     pccp  yccy  yyyyScb #     #
+solution: 2,0 ; use 0,4,0 ; 2,0 ; use 0,4,0 ; 1,4 ; 4,0 ; 4,3 ; 5,6 ; use 0,5,1 ; 6,3 ; use 0,1,1 ; 6,2 ; use 2,6,4

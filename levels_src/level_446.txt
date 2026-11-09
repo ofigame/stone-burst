@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı; çözüm 9 hamle + 6 tepsi / limit 12 (pay +3, eski 12) hedef×0,96 bot 0,21 (hedef 0,24) plan 0; zincir v13: yeni çözüm 12 (eski 9), sınır 12→19, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 14, bot 9/112
+id: level_446
+title: Bölüm 446
+moves: 14
+roll: off
+specials: on
+goals: yellow 43, blue 27, coral 41, envelope 2, sponge 2
+grid:
+#     #     #     cbpc  #     #     #
+#     cppp  cbpc  ybpcSby ypcy  bpcc  #
+pypp  pbpp  pbpc  ybpc  pyppScb bbcc  ypyc
+yyyp  pcyc  pcbp  pbby  ybcy  bbcy  bpcp
+yyyp  ccyp  bcyp  pbyy  cbcy  cbcp  ybcc
+pcyp  ccyc  ccyp  cyyb  cccp  cycy  ybby
+pcpp  bbyp  cbyc  cycb  bycp  bycp  bbby
+yycbEb cpyc  cpyc  cpcb  yyppEy yycc  yybc
+cccp  cpcb  cpcb  cpcb  yccp  yycc  yybc
+solution: 3,5 ; 4,5 ; 3,3 ; use 1,3,0 ; 1,1 ; use 1,4,1 ; 1,3 ; use 0,0,2 ; use 0,2,3 ; 0,6 ; use 0,5,1 ; 5,7 ; 5,7

@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [noSpecials+exact]); çözüm 5 / sınır 6 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,42; zincir v13: yeni çözüm 5 (eski 5), sınır 6→6, bot 8/112
+id: level_140
+title: Renk Finali
+moves: 6
+roll: off
+specials: on
+type: boss
+rules: exact
+goals: coral 29, purple 22, star 2
+grid:
+cppp  ypp   yyy   yyb   #     #     #     #
+ypy   yyyc  yyyp  yybp  ybp   #     #     #
+yybp  byy   bcy   bcy   bbp   cppb  #     #
+bybp  pyyb  byyb  byy   yyy   yyy   cyc   #
+pbbc  yyy   pbb   byc   bpcp  py    cpc   yccy
+pbb   bbb   cccc  ccc*  pycp  pyc   cpc   yccy
+yyp   bbbp  bbpp  yccLc10 yyc   byc   byc   yccy
+yybp  ybb   yypp  yccb  yccb  cbb   yccb  pcpy
+yycp* yy    byp   bcb   byy   ycbb  pb    pcp
+solution: 6,3 ; 5,6 ; use 1,0,0 ; 3,4 ; 2,5 ; use 1,1,1 ; 0,8 ; use 0,0,0

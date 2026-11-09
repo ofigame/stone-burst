@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk coral 48/47; çözüm 9 / sınır 13 (v7 14); açgözlü kaybeder; bot48 0,19 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 10 (eski 9), sınır 13→14, bot 14/112
+id: level_550
+title: Bölüm 550
+moves: 14
+roll: off
+specials: on
+type: boss
+rules: scarce, exact
+goals: yellow 64, blue 60, coral 47
+grid:
+ycbc  ypbc  yybc  #     #     ycbp  yybp  yyby
+ccbc  ypbc  yybc  #     #     ppbc  cypy  ypyy
+cppc  cpbc  ypbc  #     #     ppbp  ppbp  yyyb
+bppp  cybp  ycccK1:2 cccy  ybyy  ppcy  ppby  yyyb
+bbyp  byyc  bcyc  cbcy  bbyy  ccyy  cbyp  pbyb
+bbpc  bbcc  ypyc  bbyp  bbyp  pyyy  pyyp  bpyp
+bppc  bppb  yyyb  bcyb  pbpp  pppcK1:2 pppp  bpyp
+bppy  bpyb  pbyb  ybyb  bbyp  ppyc  ppyp  bcyc
+bppp  bppp  pbyb  ybyp  pbyp  pbpc  ppcc  bcyc
+solution: 3,3 ; 3,3 ; use 0,0,0 ; 1,5 ; 0,2 ; use 0,1,0 ; 1,3 ; 7,2 ; use 0,0,0 ; 6,5 ; use 0,7,0 ; 5,0 ; use 0,0,0 ; 0,6 ; 0,7 ; use 0,5,0 ; use 0,5,0

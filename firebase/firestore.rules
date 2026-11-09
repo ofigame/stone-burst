@@ -1,0 +1,29 @@
+rules_version = '2';
+// Stone Burst sıralaması (docs/v13/KAYIT_PLANI.md). Herkes girişliyse okur; yalnız kendi kaydını yazar.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /scores/{uid} {
+      allow read: if request.auth != null;
+      allow delete: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid && valid(request.resource.data);
+    }
+    // Bulut kaydı (iOS; Firestore). Yalnız sahibi okur/yazar; kayıt JSON metni en çok 512 KB.
+    match /saves/{uid} {
+      allow read, delete: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['data', 'updated'])
+        && request.resource.data.data is string && request.resource.data.data.size() <= 524288
+        && request.resource.data.updated == request.time;
+    }
+    function valid(d) {
+      return d.keys().hasOnly(['name', 'country', 'score', 'zpe', 'level', 'stars', 'updated'])
+        && d.name is string && d.name.size() > 0 && d.name.size() <= 40
+        && d.country is string && (d.country.size() == 0 || d.country.matches('^[A-Z]{2}$'))
+        && d.score is int && d.score > 0 && d.score <= 1000
+        && d.zpe is int && d.zpe >= 0 && d.zpe <= 100
+        && d.level is int && d.level >= 20 && d.level <= 10000
+        && d.stars is int && d.stars >= 0 && d.stars <= 3 * d.level
+        && d.updated == request.time;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 7 / sınır 8 (v7 10); açgözlü kaybeder; bot48 0,25 (taban 0,06); bot 0,17; zincir v13: yeni çözüm 8 (eski 7), sınır 8→11, bot 6/112
+id: level_247
+title: Sıralı Mühür
+moves: 11
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: blue 26, coral 60, purple 38, star 2, envelope 2
+grid:
+#     #     cyyc  yyp   ybpy  #     #
+#     ybc   cyyc  cypc  ybpc  bbp   #
+cpc   pbc   cyy   yyp   ycp   pcbb  bcc
+ypc   cyyEp cyyc  yyc   cppc  cpp   ccp
+ypcb  pcy   bcpc* ycp   cpc   bpp   ccpc
+ypy   pcy   pcpc  ybp   cpp   cpb   ppc
+ycc   bcc   ccc   cpy   cpbc  cpb   cbcp
+#     bbcb  cpc   cpyc  cbbc  cbbbEb #
+#     #     ybyb* yyy   yyyc  #     #
+solution: 2,3 ; 2,0 ; 3,0 ; use 0,1,1 ; 2,0 ; use 0,4,0 ; 4,2 ; use 0,4,0 ; 2,8 ; 2,0 ; 0,4 ; use 0,3,1 ; use 0,6,2 ; use 0,5,2

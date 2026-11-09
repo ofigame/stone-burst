@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 6 hamle + 5 tepsi / limit 10 (pay +4, eski 15) hedef×0,95 bot 0,25 (hedef 0,32) plan 1; zincir v13: yeni çözüm 6 (eski 6), sınır 10→12, bot 11/112
+id: level_264
+title: Ağır Kapak
+moves: 12
+roll: off
+specials: on
+goals: coral 25, purple 26, yellow 27, envelope 1
+grid:
+bbc   bbpp  yyyp  byb   pcby  bcb   bcbb
+bbbp  yyp   bpp   bypb  bybp  ybpk2 bpb
+yby   bppp  yyb   yyb   bbb   cbbc  cpyc
+byp   #     #     yyyc  #     #     cpp
+byyp  #     #     ybyc  #     #     cbpc
+bybp  #     #     bbp   #     #     pbp
+byp   bcc   bbcc  bccb  ypbb  ybb   ppby
+bpb   bpcc  ypy   ycy   ccy   cby   pyyy
+bpbpk2 bpb   ypyc  ycycEc cbyc  cbyp  cby
+solution: 3,0 ; 1,0 ; use 1,0,0 ; 2,0 ; use 1,1,0 ; 6,6 ; use 1,2,0 ; use 0,6,0 ; 3,4 ; 1,6

@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: reverse [exact]; çözüm 8 / sınır 13 (v7 14); açgözlü kaybeder; bot48 0,15 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 9 (eski 8), sınır 13→18, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 13, bot 7/112
+id: level_808
+title: Bölüm 808
+moves: 13
+roll: off
+specials: on
+type: reverse
+rules: exact
+goals: coral 45, purple 41, yellow 47, sponge 1
+grid:
+#     #     #     cbyy  #     #     #
+#     ybyy  bypy  ypyc  bbyc  ycyc  #
+bbbc  bbbc  cypy  yppb  ypbb  ypbcK1:2 yybc
+bbbp  bbpp  cppb  ycpb  ypbb  byyy  pybc
+bcbp  bcby  cppbScby ccby  bcpp  pcbp  pcbp
+bcby  bppy  yppy  ycby  pcbp  ppyy  pcyb
+bbyy  yybp  yppc  yybp  ycbp  bpcy  ppcb
+bbyc  bbyc  byyb  bycb  bpybK1:2 cpby  cpcy
+bbcc  cbcc  cycb  cycb  cyyy  cpbc  cpcc
+solution: 4,4 ; 1,4 ; use 1,3,2 ; 3,3 ; 3,5 ; 3,1 ; use 2,5,1 ; use 2,3,0 ; 2,1 ; use 1,4,1 ; use 1,4,2 ; 0,2 ; use 1,2,2 ; 2,4

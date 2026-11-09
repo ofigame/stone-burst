@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3 (kaydırılmış); çözüm 6 hamle + 6 tepsi / limit 11 (pay +5, eski 17) hedef×0,95 bot 0,13 (hedef 0,33) plan 1; zincir v13: yeni çözüm 7 (eski 6), sınır 11→16, bot 1/112; zincir v13 kolaylaştırma: hedef −%12, sınır 10, bot 26/112
+id: level_246
+title: Posta Takımadası
+moves: 10
+roll: off
+specials: on
+goals: yellow 41, blue 25, coral 22, star 3, envelope 1
+grid:
+ycyb  yyyb* ycc   ycbc  yb    byyy  cpyy
+ycy   ycyb  ycb   cyyc  byc   byyEy cpy
+yy    #     #     bbb   #     #     bp
+ppp   #     #     cpp   #     #     bypp
+pcpc  #     #     ybc   #     #     yypp
+ppcc* ppcc  ppb   cpcc  cbc*  ybbp  ypp
+pyc   ppcc  bc    ycpc  bb    bpb   yppp
+pyc   pbcc  ybbc  ybbc  bby   yybp  yypp
+yyc   ybb   ypb   ybp   yyb   ypb   cypp
+solution: 0,4 ; 6,2 ; use 0,0,0 ; use 0,0,0 ; 0,3 ; 6,3 ; use 0,0,0 ; use 0,1,0 ; 5,5

@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order [exact]; kilit coral→blue; çözüm 6 / sınır 7 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 7→8 (112 oyunda 9 galibiyet); zincir v13: yeni çözüm 6 (eski 6), sınır 8→9, bot 8/112
+id: level_678
+title: Bölüm 678
+moves: 9
+roll: off
+specials: on
+type: order
+rules: exact
+goals: yellow 44, blue 30, coral 38
+grid:
+ccyp  G1:cppy G1:ccpy G1:cpyc G1:bpyc G1:bppc ybbc
+ccyp  ccyp  bcby  bybp  bppc  yppc  yybc
+pcbp  pcpp  pcyp  byyp  bypp  bypc  yybc
+pcbp  #     #     #     ycpp  bcpp  bcbc
+pbby  #     #     #     ycppB1 bcpc  bpbc
+cbpy  #     #     #     cypc  pcpc  bccc
+cbpy  ppyc  yyyy  yppp  cpby  ccby  bccc
+cbpy  pbcc  pyyy  ycpp  yppy  ppby  ppcy
+cbpbLc4 pbybLc4 pypc  ypcp  yppy  pbpy  cpcy
+solution: 0,0 ; 6,0 ; 4,1 ; use 0,2,1 ; use 0,0,0 ; 2,1 ; 1,0 ; use 1,4,0 ; 3,6 ; use 2,6,0 ; use 0,0,0

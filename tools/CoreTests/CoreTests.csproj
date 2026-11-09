@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Kat Kat kural motoru testlerini Unity açmadan çalıştırır. Unity'deki EditMode testleriyle AYNI dosyaları derler:
+    Scripts/Core, Scripts/Levels ve Tests/EditMode. Çalıştırma (proje kökünden):
+      dotnet test tools/CoreTests
+  -->
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <IsPackable>false</IsPackable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>KatKat.CoreTests</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Assets/KatKat/Scripts/Core/**/*.cs" />
+    <Compile Include="../../Assets/KatKat/Scripts/Levels/**/*.cs" />
+    <Compile Include="../../Assets/KatKat/Tests/EditMode/**/*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="NUnit" Version="3.14.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+  </ItemGroup>
+</Project>

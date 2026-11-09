@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: chain [chainOnly]; zincir purple 6; çözüm 6 / sınır 8 (v7 10); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 7 (eski 6), sınır 8→9, bot 28/112
+id: level_297
+title: Son Sıra II
+moves: 9
+roll: off
+specials: on
+type: chain
+rules: chainOnly
+goals: yellow 34, blue 34, envelope 2, chain purple 6
+grid:
+cbbb  cbbc  cypy  cypy  ccpy  cppp  bcpp
+cybb  byby  bccy  cybc  ycpbEp ccpp  bcpp
+bpbb  byby  pcby  cycb  cppb  cppp  bbcc
+bcpp  bcyy  #     #     #     pypp  pypp
+pbcb  pcpc  #     #     #     pycpEc pcpp
+pbcb  pyyp  #     #     #     pycbLy7 bbcp
+bbyc  cccc  cbyp  ybcy  pcpc  pypc  pcpc
+cpyb  cbyc  bbyy  bcyy  bccy  ccbc  yypy
+cpyb  cbpy  cppy  bccy  pbpb  cccp  cccc
+solution: 2,0 ; use 0,0,0 ; 3,6 ; 5,5 ; 0,4 ; use 0,2,0 ; use 1,0,0 ; 5,0 ; 5,0 ; 1,0 ; use 1,0,0 ; use 1,0,1

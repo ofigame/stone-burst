@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 4 hamle + 4 tepsi / limit 8 (pay +4, eski 10) hedef×1,25 bot 0,71 (hedef 0,53) plan 0; zincir v13: yeni çözüm 5 (eski 4), sınır 8→9, bot 20/112
+id: level_062
+title: İnce Buz
+moves: 9
+roll: off
+specials: on
+goals: yellow 24, blue 45
+grid:
+byb   byb   byb   bpbi1 #     #     #
+pyb   pyy   byyi1 bpy   #     #     #
+pcc   bcc   ybp   bpy   #     #     #
+pyy   bpc   cbb   bpb   cpb   bpb   bpb
+pcci1 bbc   cby   bbb   cpy   bpb   bpb
+bcc   bbb   ybb   ybp   pbp   bcp   bcy
+bcc   bbc   ybp   ybb   pbb   ycb   byb
+ycy   bcp   pby   pby   pcb   pcp   pcp
+solution: 2,3 ; use 0,2,2 ; 2,2 ; use 0,1,1 ; 0,0 ; 0,2 ; 1,4 ; use 1,1,1

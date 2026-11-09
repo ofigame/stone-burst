@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3; çözüm 6 hamle + 6 tepsi / limit 12 (pay +6, eski 14) hedef×1,29 bot 0,25 (hedef 0,27) plan 1; zincir v13: yeni çözüm 7 (eski 6), sınır 12→17, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 17/112
+id: level_366
+title: Kasa Adası
+moves: 12
+roll: off
+specials: on
+goals: yellow 44, blue 18, coral 34
+grid:
+#     #     cpbc  ppcc  ccp   cbbb  cpc
+#     cycc  cyc   ppyb  ccyb  cbbb  bcc
+cccp  pb    ppcb  pcyb  ccyb  cb    bcyp
+cypp  cby   #     #     #     yypb  byp
+cyp   ycy   #     #     #     yb    bcp
+cyp   cyp   #     #     #     ypp   yppy
+yyp   yypp  cyp   yppp  ypp   yppp  ypp
+yycR  ypcy  cpc   cppp  yppp  yppp  #
+yyyy  ypyyR ypy   ypycLb7 ypyc  #     #
+solution: 5,0 ; use 0,4,0 ; 2,0 ; use 0,3,0 ; 5,0 ; 0,6 ; 5,5 ; 3,6 ; use 1,1,1 ; use 1,1,1 ; use 0,1,1

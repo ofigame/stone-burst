@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order [exact]; kilit blue→coral; çözüm 6 / sınır 11 (v7 14); açgözlü kaybeder; bot48 0,13 (taban 0,06); bot 0,17; zincir v13: yeni çözüm 8 (eski 6), sınır 11→17, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 9/112
+id: level_398
+title: Son Mola II
+moves: 10
+roll: off
+specials: on
+type: order
+rules: exact
+goals: yellow 55, blue 35, coral 38
+grid:
+ppycLb4 cycp  pyyc  #     #     #     #
+yycc  yycc  cypc  cbpb  #     #     #
+yybp  cycb  cyybR cyyb  bypp  #     #
+pybb  yyyb  cyyb  cyyy  bpby  bbyc  #
+pybb  yybb  yyyc  ypycLb3 ypyy  cbyb  bccb
+bybp  bpbp  bpcc  bppc  cpyy  cccp  cccp
+bpbp  bpcy  cpcy  byyc  cpyy  cccp  cccp
+bpbp  bpcy  cpyp  ppyp  bpyp  byyp  bpcp
+ppbp  ybyc  ppyp  ppyp  ppyp  ypcp  ypcpR
+solution: 5,5 ; use 0,2,0 ; 3,1 ; 2,2 ; use 0,0,3 ; use 0,0,0 ; 1,3 ; 0,2 ; use 0,2,0 ; use 0,0,2

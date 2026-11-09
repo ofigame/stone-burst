@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3 (kaydırılmış) (ayna); çözüm 5 hamle + 3 tepsi / limit 8 (pay +3, eski 12) hedef×0,79 bot 0,42 (hedef 0,27) plan 1; zincir v13: yeni çözüm 5 (eski 5), sınır 8→8, bot 82/112
+id: level_375
+title: Posta Akışı
+moves: 8
+roll: off
+specials: on
+goals: blue 22, coral 31, purple 29, envelope 2
+grid:
+cypc  cycy  ccpp  yypp  bypc  #     #
+ccyc  ccpy  ccpp  ycpp  bcpp  bybc  #
+bpcy  cpcyR #     #     #     yypc  yypy
+pcpy  yycy  #     #     #     ypyy  bypy
+ccpp  ccby  #     #     #     yppy  cpyy
+bppy  bbpy  bbby  bcbyEc bcpy  cppc  ypcy
+ppppEb cbppR bcby  bcby  bcpy  bppc  yppc
+#     cbpp  bycp  bcpp  pppy  bpbb  yybc
+#     #     cypc  cycy  bycp  cycp  bybc
+solution: 1,0 ; 2,0 ; use 0,0,0 ; use 0,0,0 ; 1,4 ; 5,2 ; use 1,4,1 ; 0,0

@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order; kilit purple→blue; çözüm 6 / sınır 11 (v7 12); açgözlü kaybeder; bot48 0,15 (taban 0,06); bot 0,00; zincir v13: çözüm aynı, sınır 11→11, bot 16/112
+id: level_158
+title: Ilık Mandal
+moves: 11
+roll: off
+specials: on
+type: order
+goals: yellow 47, blue 34
+grid:
+cbyp  ccy   cyyy  #     #     #     #
+ybp   yyb   yyy   ycyp  #     #     #
+ypc   byby  ycby  yccp  byc   #     #
+pycp  ypc   pbcp  bbc   bbc   ycc   #
+yccb  ccbc  cpci1 cbc   bbc   bpcbi1 bccbLy5
+ccb   cpbc  cpbLp5 ypc   bbcp  bccp  ccc
+cbbb  cbbb  ypbLp5 yccy  byyy  bpyy  cpy
+pbp   pyp   pyy   ypy   cpyy  pby   cyyp
+bbyb  pby   pbyc  pyyc  pyy   pyy   cbyp
+solution: 3,6 ; use 0,0,0 ; 4,6 ; 0,0 ; use 0,0,0 ; 3,1 ; use 1,2,0 ; 4,2 ; 0,2 ; use 1,1,0 ; use 1,2,0

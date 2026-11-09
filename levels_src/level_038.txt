@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 5 / sınır 6 (v7 8); açgözlü kazanır; bot48 0,27 (taban 0,10); bot 0,33; zincir v13: yeni çözüm 5 (eski 5), sınır 6→6, bot 16/112
+id: level_038
+title: Kolay Nefes
+moves: 6
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: yellow 30, blue 24
+grid:
+ybp   ybp   ypy   #     cyc   yyc   yyck1
+cbp   ppp   cbc   #     pyc   pbp   yyp
+cbp   ccb   cpp   pcc   ppc   pbc   pbp
+cbpk1 cbp   bpp   ccc   ccc   pbp   pbp
+cby   cyy   ccy   cpc   ccc   cpp   pbp
+cyy   cyy   cyy   bcb   pbc   cbc   ppp
+cyc   cyy   cyb   ppb   ppck1 ppb   ppb
+yyb   ypy   ypc   ppc   ppc   pbc   ypc
+solution: 0,4 ; 5,1 ; use 0,5,1 ; 4,0 ; use 0,2,0 ; 0,0 ; 4,5 ; use 0,0,0 ; use 0,5,2

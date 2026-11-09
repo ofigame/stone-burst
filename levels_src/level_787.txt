@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk coral 64/63; çözüm 9 / sınır 11 (v7 12); açgözlü kaybeder; bot48 0,13 (taban 0,06); bot 0,00; zincir v13: çözüm aynı, sınır 11→11, bot 6/112
+id: level_787
+title: Bölüm 787
+moves: 11
+roll: off
+specials: on
+paint: 1
+type: scarce
+rules: scarce
+goals: blue 33, coral 59, purple 35, sponge 1
+grid:
+yyyp  yccy  yccy  yypy  #     #     #
+cpcp  ppcb  cpcb  ypcp  #     #     #
+pppp  pbpy  ccby  bccy  #     #     #
+pbcy  pycy  pccy  pbcy  #     #     #
+pycy  bbpy  bppy  bbyb  bbyb  bbpp  cpcp
+bbcy  yccy  bpyy  bpyp  bbyb  cbpb  cpcp
+yccy  bccb  bppb  cbyp  ccyb  cccb  cppp
+cccy  cccp  bccc  ccpp  cbcp  ybcb  cypp
+pcby  pccp  yccc  cypp  cbpp  cbppScb cypy
+solution: paint 4,7,b ; 3,4 ; 3,5 ; 1,2 ; use 0,0,0 ; use 1,1,1 ; 6,4 ; 5,4 ; use 1,0,1 ; 0,1 ; 0,0 ; 1,0 ; use 0,1,0 ; use 0,2,0

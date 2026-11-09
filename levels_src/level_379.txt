@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 9 hamle + 7 tepsi / limit 15 (pay +6, eski 16) hedef×1,29 bot 0,25 (hedef 0,26) plan 2; zincir v13: yeni çözüm 8 (eski 9), sınır 15→14, bot 16/112
+id: level_379
+title: Posta Çarkçısı
+moves: 14
+roll: off
+specials: on
+goals: blue 38, coral 69, purple 36, envelope 3
+grid:
+yccp  pycp  bycy  #     byyp  byyp  yyyy
+ypcp  pycp  bycyR #     yycy  ypyc  ycyy
+ypcp  bc    bycy  #     ypcb  by    ycyc
+bbcy  pbcy  pycb  pppb  ppbb  pyyc  ccccR
+bbcy  cccc  cybc  ypbc  ypbc  cyyc  ccyc
+bbyy  pcyy  pypy  ycyc  cpyc  cpycEc ycpp
+yy    yyyp  bccc  bcppR bcppEy bppc  bb
+pyppEb yy    cpcp  yccb  cpcc  cbp   bybb
+bccc  bcyp  cccc  cccb  yccb  yybb  yybb
+solution: 6,2 ; 0,3 ; use 0,0,0 ; 1,0 ; use 1,0,0 ; 6,6 ; 3,5 ; 4,0 ; use 0,4,2 ; use 0,1,0 ; 2,6 ; use 0,4,1 ; use 0,1,2 ; 4,2 ; use 0,6,3

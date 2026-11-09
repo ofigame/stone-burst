@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 5 hamle + 5 tepsi / limit 10 (pay +5, eski 15) hedef×0,96 bot 0,33 (hedef 0,31) plan 1; zincir v13: yeni çözüm 6 (eski 5), sınır 10→11, bot 53/112
+id: level_381
+title: Buzlu Çark
+moves: 11
+roll: off
+specials: on
+goals: purple 27, yellow 36
+grid:
+ycp   yccb  pbc   bbyp  ybccR bbcc  bccc
+ycpb  yccb  pycb  pbb   ybbi1 ybcc  bcc
+yyb   yyci1 cyy   pcbc  pbcc  pbcc  bpcc
+cbb   #     #     ppbc  #     #     bpyc
+cbbp  #     #     ppbc  #     #     ppy
+cbbp  #     #     pbb   #     #     ypy
+cyyp  cyyb  cyyb  cbcb  cccy  bcbp  bpyy
+yyyb  yycbR ycc   ycpc  bcp   bbp   bpy
+yyb   yycb  yyc   bcc   bcy   bpy   cpyc
+solution: 3,5 ; use 0,2,0 ; 6,3 ; use 0,0,0 ; 0,6 ; 4,0 ; use 0,3,0 ; 1,0 ; use 0,2,0 ; 0,0

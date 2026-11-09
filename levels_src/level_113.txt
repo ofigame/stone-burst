@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L (ayna); çözüm 7 hamle + 4 tepsi / limit 11 (pay +4, eski 11) hedef×1,26 bot 0,33 (hedef 0,43) plan 2; zincir v13: yeni çözüm 5 (eski 7), sınır 11→9, bot 8/112
+id: level_113
+title: Karma
+moves: 9
+roll: off
+specials: on
+goals: purple 48, yellow 24, star 2
+grid:
+#     #     #     ypp   cbp   cbp   cbpi1
+#     #     #     bpc   ypck1 ppp   ppp
+#     #     #     bbc   bpc   bcc   pcp
+ybb   yyb*  pyp   bcc   bpc   pbc   pcp
+pbb   pbb   ppy   pcc   ybc   pbc   ccp
+pbb   pyc   yyy   yyc   yyc   pcp   pyc
+pbb   pbyi1 yyyi1 yyp   pyp   pcp   pcp
+pbc   pbc   pyc   pyp   pyp*  ycp   ycck1
+solution: 3,0 ; use 0,3,1 ; 6,0 ; 2,4 ; 0,3 ; use 0,4,1 ; use 0,1,3 ; 0,3 ; use 0,3,0

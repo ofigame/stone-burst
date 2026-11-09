@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 5 hamle + 4 tepsi / limit 9 (pay +4, eski 9) hedef×1,58 bot 0,54 (hedef 0,53) plan 0; zincir v13: yeni çözüm 6 (eski 5), sınır 9→10, bot 60/112
+id: level_061
+title: Buz
+tutorial: Yanında soyma yap, buzu kır.
+moves: 10
+roll: off
+specials: on
+goals: purple 33, yellow 39
+grid:
+bbp   bbb   bpp   #     bpp   bcb   pyy
+bbc   bbc   bpc   #     cpy   byy   yyb
+bbc   pbc   ppc   cpb   cyb   yyb   cyb
+bpy   cby   bcb   ycb   cyb   yyb   cyc
+bppi1 ppp   bcp   bcb   ycb   ybci1 cbc
+yyb   pyp   pyb   ppb   ypc   ypc   bpc
+yyy   byp   bcy   bpy   bpy   byc   bpc
+ycy   byy   bpy   bpy   bpy   byc   bpc
+solution: 6,1 ; 6,2 ; 4,4 ; 1,4 ; use 0,6,0 ; use 0,0,0 ; 0,1 ; use 0,2,0 ; 0,0 ; use 1,6,0

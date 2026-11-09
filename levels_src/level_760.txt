@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [protect+exact]; kristal 3; çözüm 10 / sınır 13 (v7 9); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,08; adillik onarımı: sınır 13→14 (112 oyunda 5 galibiyet); zincir v13: yeni çözüm 10 (eski 10), sınır 14→14, bot 8/112
+id: level_760
+title: Bölüm 760
+moves: 14
+roll: off
+specials: on
+paint: 1
+type: boss
+rules: protect, exact
+goals: coral 48, purple 54, yellow 27
+grid:
+ppby  ppbb  pppb  #     #     cyyb  ccyb  ccyp
+pbby  pbcb  ybpb  #     #     ccyb  ccyy  ccyy
+cbby  cbcb  ybbb  #     #     bbpy  bbyy  bbpy
+cpbp  pycb  ppbb  cpcy  cbpp  pbcp  bbpp  bbpyP
+bpbb  bybb  ppbb  ppbp  pcpp  pccp  bycp  bypp
+bpbc  bpbb  ppbp  ppbp  pcbp  pcpp  pccc  pppp
+bcbpP bcbc  bccc  pybc  pybc  ccpc  pyyc  cpyc
+bbbpP bbbp  bbcy  bbbc  ccbc  ccpc  pyyp  cpyp
+ybbp  ycbp  yccy  ycby  ycbc  ycpy  ycyp  cpyp
+solution: 6,5 ; 4,3 ; paint 7,3,p ; use 0,0,0 ; 1,0 ; 5,0 ; use 0,6,0 ; 3,3 ; 1,0 ; use 0,6,0 ; 0,0 ; use 2,0,4 ; 5,5 ; 0,0

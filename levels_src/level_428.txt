@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: pure [noSpecials+exact]; çözüm 17 / sınır 21 (v7 10); açgözlü kaybeder; bot48 0,10 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 18 (eski 17), sınır 21→22, bot 22/112
+id: level_428
+title: Bölüm 428
+moves: 22
+roll: off
+type: pure
+rules: noSpecials, exact
+goals: coral 27, purple 32, yellow 25, sponge 1
+grid:
+pypb  ppbc  pcpb  #     #     #     #
+pycb  pcbb  pcpb  ycby  #     #     #
+pycc  cbcbScb pbbb  pypy  cpcy  #     #
+pccc  ycbc  pcby  yypy  yycy  ypcp  #
+ppcc  cpyb  pycy  yybp  yppp  yyyp  cyyb
+ppbc  byyy  yycy  yycy  ypbb  ypyb  ppcc
+bpbc  pycb  pppb  bpcb  ppcb  ypcb  ccyy
+bbbc  pbbb  ppbc  ppcc  pbyy  pyyp  cbcp
+bbbb  ppbb  bpbc  bbyy  pbyy  pbyp  ycbb
+solution: 4,5 ; 0,2 ; 3,1 ; 0,0 ; 0,1 ; 1,3 ; 3,2 ; 4,7 ; 5,7 ; 5,4 ; 2,7 ; 0,6 ; 0,7 ; 2,6 ; 1,1 ; 1,0 ; 2,0 ; 2,0

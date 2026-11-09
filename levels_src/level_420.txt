@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 2x3; çözüm 9 hamle + 5 tepsi / limit 11 (pay +2, eski 15) hedef×1,13 bot 0,21 (hedef 0,20) plan 3; zincir v13: yeni çözüm 9 (eski 9), sınır 11→13, bot 11/112
+id: level_420
+title: Bölüm 420
+moves: 13
+roll: off
+specials: on
+goals: coral 37, purple 63, yellow 47, sponge 1
+grid:
+#     #     byyb  pyyb  ppyb  pyyb  bbpp  bbby
+#     pypy  bpyb  byyp  bbpp  bypp  bcpp  bbpp
+cypy  bypb  bppb  pppy  bbpp  cbpp  cppp  bppp
+cypyScb cypc  cypy  #     #     cppy  cppc  bppb
+cycb  cbpy  yycy  #     #     bcbc  ppbc  pypc
+cycb  cbcy  ybcy  #     #     bcby  byby  pybc
+cyyb  cpyb  ybpy  ppcy  pccb  pccb  bycp  cbbb
+cpyy  cpyb  bppb  bppb  bbcy  pbbb  bybp  #
+yppy  yyyy  bypb  bbpb  bbyb  cbyb  #     #
+solution: 0,4 ; use 0,1,3 ; 0,2 ; 2,0 ; 4,0 ; use 0,2,0 ; 3,0 ; use 1,1,1 ; 3,6 ; 5,4 ; 6,1 ; 1,4 ; use 3,1,1 ; use 1,1,1

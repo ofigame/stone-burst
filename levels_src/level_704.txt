@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe; çözüm 12 hamle + 7 tepsi / limit 14 (pay +2, eski 16) hedef×1,31 bot 0,17 (hedef 0,18) plan 2; zincir v13: yeni çözüm 11 (eski 12), sınır 14→14, bot 6/112
+id: level_704
+title: Bölüm 704
+moves: 14
+roll: off
+specials: on
+paint: 1
+goals: coral 42, purple 54, yellow 46, sponge 1
+grid:
+#     #     bcyy  bbby  bybc  #     #
+#     yypc  bcpc  bbpy  cppp  bbpp  #
+bybb  byyy  bcbc  bcpy  cypy  bbpp  yypy
+yybc  bybc  bybp  pcby  cppp  cbbp  ybby
+yycc  yycy  cycp  pccc  cpby  pbbp  bcby
+pppc  ppcpScb byby  ccpc  ccby  pcyp  bcbp
+pbcc  ppcc  ccyp  ycyc  bypc  bbyp  bbcp
+#     pbpb  ppyb  ypyp  yyyp  yyyp  #
+#     #     ppyp  ppyp  pcyp  #     #
+solution: 0,3 ; use 0,1,1 ; 4,1 ; use 0,1,1 ; 0,4 ; use 0,2,0 ; 5,1 ; use 0,4,1 ; 4,3 ; 0,2 ; use 0,2,0 ; 2,0 ; 2,0 ; 5,1 ; use 1,2,1 ; use 2,2,0 ; paint 4,0,b ; 3,0 ; use 0,1,7 ; use 0,1,7

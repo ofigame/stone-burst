@@ -1,0 +1,143 @@
+{
+  "pageId": 5,
+  "title": "Ayarlar",
+  "kind": "settings",
+  "referenceScreenshot": "ui2/05_ayarlar.png",
+  "coordinateSystem": "1080x1920 top-left; modal children card-local",
+  "elements": [
+    {
+      "id": "logo",
+      "rect": [
+        72,
+        48,
+        360,
+        108
+      ],
+      "role": "image",
+      "binding": "PremiumV4/ui/logo-trikat",
+      "note": ""
+    },
+    {
+      "id": "stars",
+      "rect": [
+        700,
+        56,
+        208,
+        88
+      ],
+      "role": "metric",
+      "binding": "runtime star sum",
+      "note": ""
+    },
+    {
+      "id": "settings",
+      "rect": [
+        936,
+        52,
+        96,
+        96
+      ],
+      "role": "icon",
+      "binding": "existing settings handler",
+      "note": ""
+    },
+    {
+      "id": "nav",
+      "rect": [
+        0,
+        1712,
+        1080,
+        208
+      ],
+      "role": "nav",
+      "binding": "existing Harita/Günlük/Taşlar",
+      "note": ""
+    },
+    {
+      "id": "title",
+      "rect": [
+        180,
+        188,
+        720,
+        92
+      ],
+      "role": "pageTitle",
+      "binding": "ui.settings",
+      "note": ""
+    },
+    {
+      "id": "panel",
+      "rect": [
+        110,
+        444,
+        860,
+        640
+      ],
+      "role": "paint",
+      "binding": "ivory",
+      "note": ""
+    },
+    {
+      "id": "row0",
+      "rect": [
+        166,
+        500,
+        748,
+        132
+      ],
+      "role": "rowTitle",
+      "binding": "existing sound/vibration/language",
+      "note": ""
+    },
+    {
+      "id": "row1",
+      "rect": [
+        166,
+        664,
+        748,
+        132
+      ],
+      "role": "rowTitle",
+      "binding": "existing sound/vibration/language",
+      "note": ""
+    },
+    {
+      "id": "row2",
+      "rect": [
+        166,
+        828,
+        748,
+        132
+      ],
+      "role": "rowTitle",
+      "binding": "existing sound/vibration/language",
+      "note": ""
+    }
+  ],
+  "modal": null,
+  "content": {
+    "keyPattern": "ui.settings|settings.|ui.sound|ui.vibration",
+    "buttonBindings": [],
+    "authority": "live Loc/runtime existing case-format/action-condition; frozen snapshot is audit-only"
+  },
+  "sources": [
+    "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "Assets/KatKat/Scripts/UI/MenuView.cs"
+  ],
+  "notes": [
+    "Metin, sayı, durum, düğme sayısı, sırası ve eylemi mevcut çalışma zamanından gelir; örnek panodaki içerik kullanılmaz.",
+    "Otomatik yeni kapat/geri düğmesi, yardım, ödeme, güç veya ayar eklenmez."
+  ],
+  "deliveredMockup": "../../sayfalar/05_ayarlar.png",
+  "assetManifest": "../../parcalar/asset-manifest.json",
+  "assetUsage": "../../parcalar/KULLANIM.md",
+  "sharedSprites": [
+    "modal-seramik",
+    "kart-seramik",
+    "buton-birincil",
+    "buton-ikincil",
+    "baslik-plakasi",
+    "ikon-dugmesi"
+  ],
+  "invariant": "Existing strings, buttons, handlers, tiles and board geometry prevail over generated illustration"
+}

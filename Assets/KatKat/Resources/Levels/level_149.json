@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 2,
+  "id": "level_149",
+  "capabilities": [],
+  "trialType": "aha",
+  "rules": ["exact"],
+  "width": 5,
+  "height": 6,
+  "moveLimit": 1,
+  "rollEnabled": false,
+  "startingRoll": false,
+  "stars": [202, 270],
+  "goals": [
+    { "type": "collectColor", "color": "yellow", "amount": 11 }
+  ],
+  "cells": [
+    { "x": 0, "y": 0, "active": true, "layers": ["coral", "coral", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 1, "y": 0, "active": true, "layers": ["coral", "yellow", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 2, "y": 0, "active": true, "layers": ["coral", "yellow", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 3, "y": 0, "active": true, "layers": ["coral", "yellow", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 4, "y": 0, "active": true, "layers": ["yellow", "yellow", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 0, "y": 1, "active": true, "layers": ["coral", "blue", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 1, "y": 1, "active": true, "layers": ["coral", "blue", "blue"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 2, "y": 1, "active": true, "layers": ["yellow", "yellow", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 3, "y": 1, "active": true, "layers": ["yellow", "coral", "blue"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 4, "y": 1, "active": true, "layers": ["yellow", "coral", "blue"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 0, "y": 2, "active": true, "layers": ["coral", "coral", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 1, "y": 2, "active": true, "layers": ["blue", "blue", "blue"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 2, "y": 2, "active": true, "layers": ["yellow", "coral", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 3, "y": 2, "active": true, "layers": ["yellow", "yellow", "blue"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 4, "y": 2, "active": true, "layers": ["yellow", "coral", "blue"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 0, "y": 3, "active": true, "layers": ["coral", "coral", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 1, "y": 3, "active": true, "layers": ["blue", "coral", "blue"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 2, "y": 3, "active": true, "layers": ["blue", "coral", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 3, "y": 3, "active": true, "layers": ["blue", "yellow", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 4, "y": 3, "active": true, "layers": ["blue", "coral", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 0, "y": 4, "active": true, "layers": ["coral", "coral", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 1, "y": 4, "active": true, "layers": ["blue", "blue", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 2, "y": 4, "active": true, "layers": ["yellow", "blue", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 3, "y": 4, "active": true, "layers": ["yellow", "coral", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 4, "y": 4, "active": true, "layers": ["yellow", "coral", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 0, "y": 5, "active": true, "layers": ["yellow", "coral", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 1, "y": 5, "active": true, "layers": ["yellow", "coral", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 2, "y": 5, "active": true, "layers": ["yellow", "blue", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 3, "y": 5, "active": true, "layers": ["yellow", "blue", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 4, "y": 5, "active": true, "layers": ["yellow", "blue", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false }
+  ],
+  "solution": [
+    { "type": "tap", "x": 2, "y": 3 }
+  ]
+}

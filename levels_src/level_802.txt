@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 6 hamle + 6 tepsi / limit 11 (pay +5, eski 15) hedef×1,14 bot 0,13 (hedef 0,21) plan 1; zincir v13: yeni çözüm 12 (eski 6), sınır 11→21, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 13, bot 6/112
+id: level_802
+title: Bölüm 802
+moves: 13
+roll: off
+specials: on
+goals: yellow 37, blue 32
+grid:
+cbyc  G1:cbbc G1:pybc G1:byb G1:byby G1:pyby cbpc
+ybb   yybc  ppbcR cpc   ppb   pbby  ycyb
+yybc  yypc  ppp   pbyy  pbbc  pbbc  pbpc
+ypyc  byb   pbpp  pby   ypyc  pyybR pcb
+pbbc  byyc  bypp  pcp   ycc   ycbb  ycb
+cpyB1 cpcb  ccpb  pcpb  pcpb  ypp   ycb
+#     #     pppy  ycp   ypcb  #     #
+#     #     pcyb  ycy   yccb  #     #
+#     #     ycyb  ybcbR bcc   #     #
+solution: 1,1 ; use 0,0,1 ; 2,1 ; use 0,1,1 ; 6,0 ; use 0,1,1 ; 2,1 ; 5,1 ; 0,3 ; use 0,0,0 ; use 0,0,0 ; 3,0

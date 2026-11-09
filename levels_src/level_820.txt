@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [noSpecials+exact]); çözüm 9 / sınır 13 (v7 17); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; zincir v13: yeni çözüm 12 (eski 9), sınır 13→18, bot 5/112
+id: level_820
+title: Bölüm 820
+moves: 18
+roll: off
+specials: on
+type: boss
+rules: exact
+goals: coral 58, purple 41, yellow 57
+grid:
+cbyy  cybpi1 pybc  #     #     pbyb  ppyb  ypcb
+cyyy  yybci1 yycc  #     #     ybyp  yccy  ypcy
+cpyp  cpyb  ybyc  #     #     yycp  bbcy  ybcy
+cbypLb8 bpyy  bpyc  pcbb  ycpb  bccc  bcby  bcby
+ybyp  ypyp  bpyci1 pppb  ppcc  yyybi1 cccc  cccy
+ybybi1 ybyb  bbyb  bpyb  cpcbLc8 cycc  cyyc  cyyy
+cyyb  yypb  pcyb  pcyb  bcbp  cbbpi2 cbbp  cyby
+cccc  ypyb  pcbbi2 ppbb  yppb  bbcp  bbpp  yybp
+pbybi2 pbyb  bbyb  bcyb  bcbb  bccp  bbcp  yyyp
+solution: 6,1 ; 3,3 ; use 0,2,0 ; 0,2 ; 1,2 ; use 0,1,0 ; 5,2 ; use 0,0,0 ; 4,6 ; 6,5 ; 3,3 ; use 0,1,1 ; 5,6 ; 5,0 ; use 0,6,0 ; use 0,7,0 ; 6,2 ; 1,0 ; use 1,1,0

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 6 hamle + 4 tepsi / limit 12 (pay +6, eski 15) hedef×0,95 bot 0,29 (hedef 0,34) plan 1; zincir v13: yeni çözüm 7 (eski 6), sınır 12→13, bot 20/112
+id: level_233
+title: Soğuk Mühür
+moves: 13
+roll: off
+specials: on
+goals: purple 48, yellow 19, envelope 2
+grid:
+#     #     pccy  ybp   pbbc  #     #
+#     pcc   pcb   pcpp  cppc  ppp   #
+ppp   ypby  pcb   cppb  cbpb  ppp   ybb
+ypbc  yycy  ycc   bpcbEy cpp   cbpp  ybb
+pppc  pybi1 pycyi1 pcp   ypp   ycc   ybc
+ppbc  pyb   yyc   pcpb  pccp  ccc   cbc
+ppc   ypbp  yccb  pcbb  bcy   bcypEp bpy
+#     bcbp  bbbp  bcbp  byy   bcyp  #
+#     #     bcbb  bpbb  bpb   #     #
+solution: 2,1 ; 3,0 ; use 0,3,1 ; 4,0 ; use 0,2,0 ; 0,3 ; use 0,3,0 ; 0,2 ; 1,2 ; 0,4 ; use 2,4,1

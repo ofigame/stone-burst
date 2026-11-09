@@ -1,0 +1,107 @@
+{
+  "pageId": 9,
+  "title": "Deneme listesi",
+  "kind": "trials",
+  "referenceScreenshot": "ui2/09_deneme_listesi.png",
+  "coordinateSystem": "1080x1920 top-left; modal children card-local",
+  "elements": [
+    {
+      "id": "logo",
+      "rect": [
+        72,
+        48,
+        360,
+        108
+      ],
+      "role": "image",
+      "binding": "PremiumV4/ui/logo-trikat",
+      "note": ""
+    },
+    {
+      "id": "stars",
+      "rect": [
+        700,
+        56,
+        208,
+        88
+      ],
+      "role": "metric",
+      "binding": "runtime star sum",
+      "note": ""
+    },
+    {
+      "id": "settings",
+      "rect": [
+        936,
+        52,
+        96,
+        96
+      ],
+      "role": "icon",
+      "binding": "existing settings handler",
+      "note": ""
+    },
+    {
+      "id": "nav",
+      "rect": [
+        0,
+        1712,
+        1080,
+        208
+      ],
+      "role": "nav",
+      "binding": "existing Harita/Günlük/Taşlar",
+      "note": ""
+    },
+    {
+      "id": "title",
+      "rect": [
+        120,
+        184,
+        840,
+        96
+      ],
+      "role": "pageTitle",
+      "binding": "trial title",
+      "note": ""
+    },
+    {
+      "id": "intro",
+      "rect": [
+        96,
+        304,
+        888,
+        92
+      ],
+      "role": "bodyCentered",
+      "binding": "existing description",
+      "note": ""
+    },
+    {
+      "id": "list",
+      "rect": [
+        48,
+        428,
+        984,
+        1252
+      ],
+      "role": "runtime",
+      "binding": "existing ten trials",
+      "note": "Satır156, boşluk20; ikon88; metin x136 width684; ok x880 size64. Başlık38 altmetin28."
+    }
+  ],
+  "modal": null,
+  "content": {
+    "keyPattern": "trial.",
+    "buttonBindings": [],
+    "authority": "live Loc/runtime existing case-format/action-condition; frozen snapshot is audit-only"
+  },
+  "sources": [
+    "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "Assets/KatKat/Scripts/UI/MenuView.Trial.cs"
+  ],
+  "notes": [
+    "Metin, sayı, durum, düğme sayısı, sırası ve eylemi mevcut çalışma zamanından gelir; örnek panodaki içerik kullanılmaz.",
+    "Otomatik yeni kapat/geri düğmesi, yardım, ödeme, güç veya ayar eklenmez."
+  ]
+}

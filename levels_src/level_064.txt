@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U (ayna); çözüm 5 hamle + 5 tepsi / limit 11 (pay +6, eski 11) hedef×1,25 bot 0,50 (hedef 0,48) plan 0; zincir v13: yeni çözüm 7 (eski 5), sınır 11→13, bot 19/112
+id: level_064
+title: Buz Sırası
+moves: 13
+roll: off
+specials: on
+goals: coral 38, purple 31
+grid:
+pbc   pby   pby   #     pyy   pyc   bpc
+pbc   pby   bby   #     yyy   cbc   cpc
+pyyi2 pyb   pbc   ycc   yyc   cpc   bpc
+pyci2 pbb   ycy   pbc   yyc   cyc   byc
+pyb   ybb   pby   pby   cyc   ycpi1 bbp
+ccb   ycc   pbc   pbci1 ycp   ycp   ycp
+ycb   pbc   pbc   pyy   bby   ybb   pbb
+ycb   ppc   pyc   pyy   ypy   ybb   ybbi1
+solution: 2,3 ; 5,0 ; use 0,0,0 ; 5,4 ; 1,2 ; 1,0 ; use 2,0,0 ; 3,6 ; use 0,0,7 ; 4,0 ; use 0,5,0

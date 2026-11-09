@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3 (kaydırılmış); çözüm 4 hamle + 4 tepsi / limit 9 (pay +5, eski 13) hedef×0,79 bot 0,38 (hedef 0,33) plan 2; zincir v13: yeni çözüm 5 (eski 4), sınır 9→10, bot 42/112
+id: level_351
+title: Yıldızlı Tur
+moves: 10
+roll: off
+specials: on
+goals: blue 38, coral 19, star 2
+grid:
+bby   bpy   ppy   cpyp  cpp   yppc  ybcp
+bby   bpy   bpbp  cpy*  ccpp  bcpc  ybc
+cby   bpyc  pyb   bbb   bbyp  bbyp  ybcp
+cbyp  cpc   ypcy  cbcyR cby   bby   ybpp
+bby   cpyb  #     #     #     bby   ybp*
+pyy   ppyR  #     #     #     pcy   ycyp
+cyc   pby   #     #     #     ppb   ppyp
+bypy  bypy  bbp   cbpp  bcbb  bcbb  bpbb
+bypy  byp   cbyp  cbbp  ccbb  cyp   bypy
+solution: 3,0 ; 0,0 ; use 0,0,0 ; 2,2 ; use 0,3,0 ; 0,4 ; use 0,6,1 ; 4,0

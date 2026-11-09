@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı (ayna); çözüm 6 hamle + 4 tepsi / limit 9 (pay +3, eski 14) hedef×0,94 bot 0,42 (hedef 0,40) plan 0; zincir v13: yeni çözüm 8 (eski 6), sınır 9→15, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 6/112
+id: level_154
+title: Kırık Sayaç
+moves: 11
+roll: off
+specials: on
+goals: yellow 38, blue 23
+grid:
+#     #     byyc  pcyc  pcbc  #     #
+#     #     bpy   pcyp  bcbc  #     #
+ypyp  cpy   cpyy  pbc   pcp   ycyb  ycc
+ybyi2 ybbb  ppb   ppy   ypy   cpy   ccc
+pbpb  pbbb  cpyyi2 pyyp  byyp  cpyp  ccy
+pbpb  ppyp  byc   byp   ccpp  cpy   pyb
+pbp   pbcb  bbp   cyyy  ppy   ypyyLy8 bpbb
+#     #     byy   ppy   bpy   #     #
+#     #     yyp   cyy   cybc  #     #
+solution: 1,3 ; 3,4 ; use 0,2,0 ; 5,5 ; use 1,5,2 ; 0,4 ; 5,2 ; use 1,2,0 ; 0,3 ; use 0,0,6

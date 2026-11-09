@@ -1,0 +1,13 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). ; zincir v13: çözüm aynı, sınır 2 (öğretici: adillik payı uygulanmaz)
+id: level_004
+title: Hangisi Önce?
+tutorial: Hedefe bak. Bazen önce başka bir grubu soymak, hedef rengi birleştirir.
+moves: 2
+roll: off
+goals: blue 7
+grid:
+yb    yb    yb    yb
+yb    cy    bc    bc
+cy    cy    yc    by
+cb    cb    cy    cy
+solution: 2,1 ; 0,0

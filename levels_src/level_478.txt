@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order [exact]; kilit purple→yellow; çözüm 9 / sınır 11 (v7 12); açgözlü kaybeder; bot48 0,13 (taban 0,06); bot 0,17; zincir v13: yeni çözüm 9 (eski 9), sınır 11→15, bot 5/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 6/112
+id: level_478
+title: Bölüm 478
+moves: 11
+roll: off
+specials: on
+type: order
+rules: exact
+goals: yellow 50, blue 47, coral 47, sponge 2
+grid:
+#     #     #     pypb  #     #     #
+#     ycyp  yccb  pcpb  cbpp  pbpy  #
+pyyy  pbcp  cccp  cccb  ppyp  pbpyLp4 pbpc
+pyyy  pbyy  cbybScby cccb  cpypScb cpcy  bcpc
+bbcy  ppby  bpbc  cpcp  ypbp  ccby  bcbc
+bcpc  bybc  bpbc  yccc  ycbc  ccpc  ccby
+yypp  yypp  cppy  ycpc  ycbc  bbbc  ccbyLp4
+cypc  yypp  ccpy  ybyc  bbyb  bybb  byby
+cybc  yypp  ybpy  ybpc  bbyy  byby  pyby
+solution: 0,2 ; 0,4 ; use 0,3,0 ; 3,0 ; use 0,3,0 ; 3,1 ; 5,6 ; use 0,2,1 ; 0,5 ; use 0,2,1 ; 0,6 ; use 0,0,2 ; 4,7 ; use 0,0,2 ; use 0,2,1

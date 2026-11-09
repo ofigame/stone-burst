@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 12 hamle + 6 tepsi / limit 15 (pay +3, eski 10) hedef×1,13 bot 0,13 (hedef 0,28) plan 1; zincir v13: yeni çözüm 6 (eski 12), sınır 15→13, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 6/112
+id: level_461
+title: Bölüm 461
+moves: 10
+roll: off
+specials: on
+goals: purple 34, yellow 40, sponge 2
+grid:
+bpy   ppy   pbbSby bbcy  bbc   bbyc  ccyy
+ypb   pbpb  ppby  ybpy  ycp   bcyc  ccpc
+yyy   ybby  pcp   ycp   ycc   ybcy  cppc
+ybyb  yby   yby   ycpy  bbc   bbcy  bbcp
+yby   yby   yyy   yyc   bbb   bbp   bpb
+ybcyScb ypcy  pycy  pbcy  pbyc  pyp   byc
+#     #     ppc   pbc   pbc   #     #
+#     #     ppy   bbyc  pbp   #     #
+#     #     pcyc  bcy   pbpb  #     #
+solution: 0,2 ; use 0,0,0 ; 3,0 ; use 0,0,0 ; 0,0 ; 4,5 ; use 0,5,0 ; 4,3 ; use 1,1,0 ; use 0,2,0

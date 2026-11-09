@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order [exact]; kilit yellow→coral; çözüm 11 / sınır 13 (v7 17); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,00; adillik onarımı: sınır 13→14 (112 oyunda 7 galibiyet); zincir v13: yeni çözüm 10 (eski 11), sınır 14→17, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 6/112
+id: level_638
+title: Bölüm 638
+moves: 11
+roll: off
+specials: on
+type: order
+rules: exact
+goals: yellow 90, blue 47, coral 32
+grid:
+cpby  G1:pbcp G1:pccy G1:pcpy G1:yypy G1:yypb yypb
+pyby  pcby  ycby  pypy  yypy  ybpb  ybcb
+yybb  yyby  ybby  ybbp  ybpp  bypy  ybcb
+#     byby  cbcp  bbpb  ybyb  pycb  #
+#     bycb  bycc  bypcLy3 pyyb  pcyb  #
+#     ypcy  byyy  yypb  pyyy  pyyb  #
+cybc  ypby  ybyyB1 yyyb  yyyy  ycyb  yccb
+cyby  ypyb  ypyy  ypyy  yyyy  ycyy  yycb
+yyby  cycc  pycc  yppcLy5 ybcc  cbyp  cypp
+solution: 0,0 ; use 0,6,0 ; 4,4 ; 2,5 ; use 0,1,1 ; 3,1 ; use 0,5,1 ; 3,4 ; 2,0 ; use 0,2,0 ; use 0,4,0 ; 3,2 ; 1,5 ; use 0,2,0 ; use 1,4,0

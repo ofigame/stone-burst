@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order; kilit yellow→blue; çözüm 7 / sınır 9 (v7 10); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,25; zincir v13: yeni çözüm 7 (eski 7), sınır 9→10, bot 10/112
+id: level_198
+title: Dinlen
+moves: 10
+roll: off
+specials: on
+type: order
+goals: yellow 57, blue 42, coral 23
+grid:
+ybp   pyyy  pyby  ybpy  ybyb  cpc   cpc
+bybb  ppy   ppp   ppc   ybcb  ybc   cpcb
+bcpb  bpybLy5 #     #     #     bbcb  ypcb
+byyy  cbpy  #     #     #     pccb  ypcb
+yyyp  ybcp  #     #     #     ppc   pcp
+yyyp  yycp  pbcp  ybppLb5 pbpp  yycp  yycp
+yyy   yyyp  pyb   pbpb  pbpbLy3 ypc   pyc
+byy   yybp  yyb   pppb  bcpy  pyp   pyc
+ypyp  ypbp  ypb   ypbb  bcp   pyp   byyb
+solution: 0,4 ; 0,3 ; 2,5 ; use 0,4,0 ; use 0,5,0 ; 5,3 ; 0,3 ; use 0,1,0 ; 3,0 ; 2,0 ; use 3,0,5 ; use 0,0,1 ; use 1,0,0 ; use 0,0,0

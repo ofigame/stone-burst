@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı (ayna); çözüm 8 hamle + 7 tepsi / limit 14 (pay +6, eski 13) hedef×1,14 bot 0,13 (hedef 0,10) plan 1; zincir v13: yeni çözüm 8 (eski 8), sınır 14→14, bot 7/112
+id: level_880
+title: Bölüm 880
+moves: 14
+roll: off
+specials: on
+goals: coral 66, purple 63, yellow 67, sponge 1
+grid:
+#     #     #     pyypK1:2 pyyp  #     #     #
+#     pbpp  pcyp  pyyc  pcyp  pypp  pbcc  #
+ypcb  ypbbScby byyb  pycy  pcpp  yppp  ppcp  ppcy
+cppy  cpby  byyc  pybc  pcpp  ycpy  ypcp  ypcy
+cppy  cpyb  yybc  ybcc  cbcy  yccy  yycp  yycy
+cppc  cbyc  bbbc  ybbc  cbbcK1:2 pcpy  pybb  yycy
+yybc  yyyy  yybc  ybcc  ybcc  ybpc  pycc  ybcy
+ybyc  ycyy  yybp  bcyc  cccc  ycpc  pypc  ybpb
+ycyp  pcyp  cbyp  bcyp  bcpc  bcpc  pbpc  ybpc
+solution: 2,3 ; 3,0 ; 5,1 ; use 0,3,0 ; 3,1 ; use 0,3,0 ; use 0,0,2 ; 1,2 ; 2,1 ; use 0,2,1 ; 7,6 ; use 0,3,1 ; use 0,1,1 ; 1,1 ; use 1,1,1

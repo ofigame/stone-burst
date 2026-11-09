@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 6 hamle + 5 tepsi / limit 11 (pay +5, eski 17) hedef×0,94 bot 0,38 (hedef 0,38) plan 0; zincir v13: yeni çözüm 5 (eski 6), sınır 11→10, bot 18/112
+id: level_176
+title: Kule Kilidi
+moves: 10
+roll: off
+specials: on
+goals: coral 30, purple 40
+grid:
+pyc   cyy   cpy   #     cbbp  cbb   bbp
+ccby  bp    cbb   #     ppb   pc    pppp
+cpby  ypb   cyb   #     ppb   ppy   ypb
+cpby  pbb   cbb   cpyb  ppb   bb    bpb
+pypc  bpbLy8 bpb   cpy   cpb   bpb   bpbb
+ppy   byb   ccb   bcy   cpy   bpyp  bpb
+pby   yb    byyy  byyb  cpb   bcc   cpb
+pbyc  bbyy  cyyy  cpy   cyb   cpbc  cycb
+pbcc  pbyy  pyyy  pyyp  pbp   pbp   pbc
+solution: 2,1 ; use 0,0,0 ; 4,0 ; use 0,1,1 ; 3,6 ; 0,0 ; use 1,0,0 ; 3,3 ; use 0,0,1 ; use 0,2,0

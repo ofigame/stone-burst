@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [noSpecials+exact]); çözüm 7 / sınır 8 (v7 10); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 8 (eski 7), sınır 8→13, bot 5/112
+id: level_460
+title: Bölüm 460
+moves: 13
+roll: off
+specials: on
+type: boss
+rules: exact
+goals: coral 72, purple 73, yellow 36, sponge 2
+grid:
+#     #     #     ybycSby ybpy  #     #     #
+#     cbyp  ccyp  ccyp  cppy  cppp  pbcp  #
+ypcc  ybcc  ccyp  ccpp  ccpp  cppp  bbpy  pypb
+ypcy  ycyc  ycyc  yccc  bppy  cbcp  bbpc  bpbc
+ppcy  pccc  ycbc  pcbc  pybp  ccbp  ppbc  ppbcScb
+ppcb  bpbb  ccbc  ccbc  ccbp  ccbp  ppbc  ppby
+pppb  bcpb  bcbp  ccbp  bbyy  ccby  cybp  cyby
+yppb  ycpb  bcbb  bcbp  bcyp  bcyc  bpyp  yppp
+pppb  pcpb  cbyy  cpby  ccbp  bybc  bpbp  yppb
+solution: 0,5 ; use 0,4,0 ; 4,0 ; 2,1 ; use 0,4,0 ; 7,2 ; use 0,4,0 ; 4,1 ; 1,1 ; use 0,5,1 ; use 0,3,0 ; use 0,3,0 ; 5,6 ; 2,6 ; use 0,1,4

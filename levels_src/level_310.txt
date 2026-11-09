@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk coral 41/40; çözüm 7 / sınır 8 (v7 9); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 7 (eski 7), sınır 8→9, bot 6/112
+id: level_310
+title: Dönme Dolap
+moves: 9
+roll: off
+specials: on
+type: boss
+rules: scarce, exact
+goals: yellow 68, blue 54, coral 40
+grid:
+cbby  bbby  pbpy  #     #     byyc  bbyb  bcyb
+cbpy  bbby  byby  #     #     bybc  bpyy  bpyb
+byby  byyy  bypy  #     #     bccy  bcbc  bcpb
+bybc  byyy  bpyy  yypy  pbpy  ypcy  ybpcR bcpb
+bbpy  bpyy  byyb  yypy  ybpbR ybpy  ppyy  bybb
+yppy  yycc  pypp  yyby  bccb  yypb  pypp  yybp
+ycyy  ycyy  yy    pypb  bccc  cbb   pybb  yybc
+bpbb  yccy  bycy  bycc  bycc  yppb  bpbb  bbbb
+bppc  yccp  pp    bpcy  bpcc  bpc   yccp  bbyb
+solution: 0,0 ; use 0,0,0 ; 4,5 ; use 0,0,0 ; 7,1 ; use 0,1,0 ; 0,6 ; use 0,5,2 ; 6,5 ; 0,2 ; 3,3 ; use 0,1,8 ; use 0,1,8

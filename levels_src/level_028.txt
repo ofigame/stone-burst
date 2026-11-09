@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 5 / sınır 6 (v7 9); açgözlü kaybeder; bot48 0,21 (taban 0,10); bot 0,25; zincir v13: yeni çözüm 4 (eski 5), sınır 6→6, bot 21/112
+id: level_028
+title: Dikkatli
+moves: 6
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: coral 25, purple 26
+grid:
+#     #     ycp   pcp   #     #
+#     ccp   pcp   cypk2 cyp   #
+ypy   cyp   pyy   ppy   ppc   bpc
+cyp   cyc   pcc   yyc   ppp   ppck1
+cyc   cyck2 ccp   ccp   ccy   bpp
+#     ppck1 ypp   pcy   yyp   #
+#     #     pbp   cpp   #     #
+solution: 2,0 ; 2,4 ; use 0,2,0 ; 1,3 ; use 1,3,0 ; 3,1 ; use 1,1,1

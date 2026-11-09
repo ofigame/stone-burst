@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 5 hamle + 5 tepsi / limit 8 (pay +3, eski 12) hedef×0,97 bot 0,33 (hedef 0,24) plan 0; zincir v13: yeni çözüm 6 (eski 5), sınır 8→9, bot 35/112
+id: level_622
+title: Bölüm 622
+moves: 9
+roll: off
+specials: on
+goals: yellow 44, blue 29
+grid:
+#     #     G1:yyp G1:yybc G1:pybc #     #
+#     cpyb  cpyy  ypy   pbyc  ybc   #
+ppy   cyyy  cyy   cyyb  pyy   cbcc  ybc
+pccB1 pcc   pcyy  yyby  yyby  cbc   ypc
+bby   pby   pby   pbbp  byby  cybp  ypb
+bpyp  bcc   bbcp  bycp  cycb  ccc   ypyc
+bpy   ppp   bppp  bpp   pbc   yby   ypyc
+#     bcb   bcby  bpc   bycy  yyy   #
+#     #     bpc   bpc   ypcb  #     #
+solution: 4,1 ; 2,1 ; use 1,1,1 ; 1,1 ; use 1,5,1 ; 1,4 ; 1,5 ; use 1,0,5 ; use 1,3,4 ; 6,3

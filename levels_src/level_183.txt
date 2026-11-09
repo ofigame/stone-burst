@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 4 hamle + 4 tepsi / limit 8 (pay +4, eski 13) hedef×0,94 bot 0,17 (hedef 0,37) plan 2; zincir v13: yeni çözüm 5 (eski 4), sınır 8→9, bot 29/112
+id: level_183
+title: Kapı Sırası
+moves: 9
+roll: off
+specials: on
+goals: blue 30, coral 38
+grid:
+cyp   bpp   ycp   bcc   bcc   ycb   ycc
+yyc   ypp   ypc   yyc   yyc   yyc   bcc
+yyc   ybpLy7 ybc   byck2 byc   bcc   bbc
+yyc   #     #     yby   #     #     bcc
+yyb   #     #     cyb   #     #     cyc
+bpc   #     #     pcb   #     #     cpp
+ycb   pcp   pbpk2 pcb   byp   cpb   cpp
+bpb   cbp   ccb   ccp   ccb   cpb   cpb
+byb   pby   bpp   ccp   ccb   ccb   ccb
+solution: 5,6 ; 3,0 ; use 1,3,0 ; use 0,3,0 ; 6,1 ; 0,6 ; 3,5 ; use 0,4,0

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil dikdörtgen; çözüm 8 hamle + 5 tepsi / limit 10 (pay +2, eski 16) hedef×1,32 bot 0,13 (hedef 0,15) plan 1; zincir v13: yeni çözüm 6 (eski 8), sınır 10→9, bot 14/112
+id: level_953
+title: Bölüm 953
+moves: 9
+roll: off
+specials: on
+goals: purple 35, yellow 45
+grid:
+pcy   cbpc  cbcc  cyc   yyc   yycb  yycci1
+cbpK1:2 bbyi2 bby   bbyi2 byb   cbbb  ybb
+bypi1 bbp   bby   byybi1 byyb  cyb   ybb
+cypy  cyp   cby   pby   cpy   ypc   ybyb
+cccy  cby   bbyb  ppy   pccp  cpc   pcyb
+cpb   bcb   bcb   cppp  cccp  cbc   cbcbi1
+bpb   cbb   bcby  pcy   cpc   cpcb  cbpb
+cpb   pcb   bcyyi2 pcy   ppy   cpy   cby
+bcb   bcyy  bcyi1 ccpy  cbp   cpypK1:2 cpc
+solution: 5,0 ; use 0,0,0 ; 3,3 ; 5,2 ; 0,0 ; use 1,0,0 ; 1,4 ; use 0,6,0 ; use 1,4,0 ; 1,0 ; use 1,3,5

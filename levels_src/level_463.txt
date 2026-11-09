@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 6 hamle + 5 tepsi / limit 10 (pay +4, eski 13) hedef×0,96 bot 0,21 (hedef 0,23) plan 2; zincir v13: yeni çözüm 6 (eski 6), sınır 10→10, bot 18/112
+id: level_463
+title: Bölüm 463
+moves: 10
+roll: off
+specials: on
+goals: blue 61, coral 17, sponge 2
+grid:
+bby   bbyb  pypb  pypb  pyyb  pyb   cybp
+cbb   pbb   pyy   pyy   bcy   pypb  cyb
+cbb   pcbb  pcbb  byy   bcb   bpySby yyp
+#     cbbb  bbb   byb   ypby  ypp   #
+#     ybp   ybbc  ybp   ypp   ypp   #
+#     ypb   ybb   ybp   ybpy  ybp   #
+ppyb  ypyb  ycyc  ycy   yyp   yyp   cbpb
+pbbb  ppcbScb pcp   bypb  bypy  cypy  cbpy
+pbb   pbcb  bcp   bcp   byyy  yyyy  yyy
+solution: 1,0 ; 5,3 ; use 0,2,0 ; 0,1 ; 0,0 ; use 0,0,0 ; use 0,4,1 ; use 0,0,0 ; 0,7 ; 2,5 ; use 1,2,4

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı (ayna); çözüm 8 hamle + 5 tepsi / limit 10 (pay +2, eski 13) hedef×1,13 bot 0,25 (hedef 0,26) plan 1; zincir v13: yeni çözüm 8 (eski 8), sınır 10→10, bot 8/112
+id: level_395
+title: Büyük Dönüş
+moves: 10
+roll: off
+specials: on
+goals: blue 44, coral 51, purple 33
+grid:
+#     #     #     bcby  #     #     #
+#     bbyb  bbpy  bcpy  pyyy  ccbb  #
+bbyy  byyy  bypp  bypc  pyyy  ccpb  cccy
+ypbp  ypcp  bycpR bypc  ybpy  cybb  yycy
+cpyy  ycyp  ccby  cbpc  cbpc  cbpb  cbcb
+cpyy  ypyp  ccby  cybc  cpbc  ccpy  ccpb
+cpyy  cpyyR cyby  cypy  bypy  bcpy  bcpb
+cpyc  cpyc  pycc  pycy  pypyR bcpy  bcyb
+pycb  pycb  pycb  yycy  pyyy  bcyy  bcyb
+solution: 0,4 ; 5,1 ; use 0,2,2 ; 3,2 ; use 0,1,1 ; 0,4 ; 3,0 ; 3,7 ; 2,1 ; use 0,3,1 ; 0,2 ; use 0,3,0 ; use 0,1,1

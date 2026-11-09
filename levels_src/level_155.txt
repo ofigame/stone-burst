@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı (ayna); çözüm 6 hamle + 5 tepsi / limit 12 (pay +6, eski 15) hedef×0,94 bot 0,46 (hedef 0,39) plan 0; zincir v13: yeni çözüm 9 (eski 6), sınır 12→15, bot 13/112
+id: level_155
+title: Erime Zinciri
+moves: 15
+roll: off
+specials: on
+goals: blue 39, coral 28
+grid:
+#     #     #     cyp   #     #     #
+#     pbpp  pypp  yycp  cyc   cccp  #
+pyb   pyb   pybp  pyc   cbc   cbc   bbppi1
+pbcb  pbyb  yby   ppcp  ypyp  cyyy  bbpp
+pyy   pbyy  ybyi1 pby   cyy   bcyb  bcp
+cyyb  bpy   cyyb  pyy   ppy   bcb   cby
+pcbb  ccpp  ccy   ycp   bpp   byb   bbb
+pcyLc7 pcpp  cppi1 cpyc  cpp   byb   bbbb
+pcp   bppp  bpyc  cpyc  yybc  bycy  bbb
+solution: 5,4 ; 0,4 ; 2,3 ; use 0,5,1 ; 3,7 ; use 0,0,2 ; 3,0 ; 3,1 ; 0,4 ; use 0,0,6 ; use 2,4,1 ; 2,3 ; 3,2 ; use 3,2,2 ; use 0,0,7

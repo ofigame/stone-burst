@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3; çözüm 5 hamle + 5 tepsi / limit 11 (pay +6, eski 11) hedef×0,94 bot 0,42 (hedef 0,36) plan 1; zincir v13: çözüm aynı, sınır 11→11, bot 42/112
+id: level_204
+title: Doğru Komşu
+moves: 11
+roll: off
+specials: on
+goals: coral 29, purple 24, envelope 1
+grid:
+#     #     ypy   ypb   bpc   cpc   cpy
+#     bby   yby   ybb   cby   cyc   cpp
+pbc   yyp   cyp   ycb   ccc   cyc   pbc
+pyy   yyy   #     #     #     pbb   pbc
+pyy   byy   #     #     #     pbb   pby
+pyb   ycbEp #     #     #     ccb   pby
+bcb   bcb   bbb   bcb   ccp   pcy   ppy
+pbp   pbp   cbp   ccb   cpy   cpy   #
+pbp   cbp   cpp   cpb   cbb   #     #
+solution: 0,7 ; 6,4 ; use 0,0,5 ; 1,5 ; 4,0 ; use 1,4,0 ; 5,5 ; use 0,6,0 ; use 1,5,0 ; use 0,4,0

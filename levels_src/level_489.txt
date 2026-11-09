@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 9 hamle + 7 tepsi / limit 12 (pay +3, eski 19) hedef×1,13 bot 0,17 (hedef 0,23) plan 2; zincir v13: yeni çözüm 8 (eski 9), sınır 12→11, bot 8/112
+id: level_489
+title: Bölüm 489
+moves: 11
+roll: off
+specials: on
+goals: purple 26, yellow 76, blue 60, sponge 2
+grid:
+bpyy  bpyy  bpyb  ppbb  pyyb  ccyb  bbyb
+bpyy  bpyy  bpyb  bpbb  byyb  bcyy  ccyy
+yyyy  bypy  byby  cyby  bpyy  ybyy  ybcy
+yypy  #     #     cybb  #     #     ybcy
+ycpc  #     #     bpcc  #     #     ybyy
+ybby  #     #     bpcy  #     #     ypyb
+ybcb  cbcb  bbbb  bpbb  yppb  yypb  yyyb
+ybcb  bcbb  bbby  bbbyScby yybb  bypb  byyb
+ybyp  cccb  bybp  byypScb yyyp  yyyp  yyyp
+solution: 6,5 ; 0,0 ; 2,0 ; use 0,2,0 ; use 0,0,0 ; 2,6 ; use 1,3,0 ; use 0,3,0 ; 3,7 ; 3,5 ; 5,0 ; 2,0 ; use 2,3,0 ; use 1,0,2

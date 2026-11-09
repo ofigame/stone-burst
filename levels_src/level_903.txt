@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3 (kaydırılmış) (ayna); çözüm 9 hamle + 5 tepsi / limit 12 (pay +3, eski 13) hedef×0,97 bot 0,19 (hedef 0,15) plan 0; zincir v13: yeni çözüm 8 (eski 9), sınır 12→15, bot 1/112; zincir v13 kolaylaştırma: hedef −%12, sınır 11, bot 6/112
+id: level_903
+title: Bölüm 903
+moves: 11
+roll: off
+specials: on
+goals: blue 29, coral 29, envelope 2
+grid:
+yypc  yypc  bypc  bpby  bpyy  #     #
+ypp   yppc  byy   byby  ycyy  pcby  #
+ppc   #     #     #     ycbR  ypb   ycp
+pbcc  #     #     #     ypcc  ypb   ypb
+pcc   #     #     #     ypbc  ypbEp ypyEy
+bypp  byp   yypy  cyyR  ccbR  ccb   ybyp
+cbpp  bbpp  cbpy  cbbc  cpbc  cyb   cyyp
+#     bbpp  cyy   ybbc  cyy   ybpy  ccbc
+#     #     ycc   ycby  ycbb  yccb  cpcp
+solution: 3,0 ; 5,1 ; 5,4 ; 4,2 ; use 1,3,0 ; use 1,0,0 ; 2,5 ; use 1,0,3 ; 0,4 ; 0,5 ; use 1,2,0 ; use 0,0,6

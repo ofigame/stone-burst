@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: pure [noSpecials]; çözüm 11 / sınır 14 (v7 13); açgözlü kaybeder; bot48 0,25 (taban 0,10); bot 0,17; zincir v13: yeni çözüm 13 (eski 11), sınır 14→16, bot 49/112
+id: level_077
+title: Çatlak Plan
+moves: 16
+roll: off
+type: pure
+rules: noSpecials
+goals: purple 33, yellow 15
+grid:
+bpb   pyb   byp   pyp   pyp   ppp   ppp
+bpb   byb   byp   bypi1 pypi1 ypp   ppc
+#     ybc   ccpi2 bcp   bbb   cbc   #
+#     ybc   ybp   ypb   ypb   cpc   #
+#     bpb   yby   ypb   bbb   cyp   #
+#     pyy   ppy   ypp   pyci1 bbp   #
+pyb   byb   pcc   ypc   ppc   cpb   ybc
+pbb   pybi2 bpp   pbc   pbc   bbp   ybp
+solution: 2,0 ; 3,0 ; 2,4 ; 1,2 ; 0,0 ; 4,5 ; 2,5 ; 0,6 ; 1,5 ; 1,4 ; 3,5 ; 5,4 ; 0,0

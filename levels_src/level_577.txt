@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact] (yedek; istenen chain [chainOnly+exact]); çözüm 9 / sınır 11 (v7 11); açgözlü kaybeder; bot48 0,21 (taban 0,06); bot 0,25; zincir v13: yeni çözüm 9 (eski 9), sınır 11→11, bot 14/112
+id: level_577
+title: Bölüm 577
+moves: 11
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: purple 58, yellow 33, blue 44
+grid:
+#     #     ybyp  ppyp  ybypK1:1 #     #
+#     bcyp  ybyp  ybypK2:2 cpcp  ypcpK1:1 #
+bpbp  ycbp  bbbp  cbcp  cpcp  pppp  ccbb
+ypyp  ypyb  bcbb  ccyy  cppp  ppppK2:2 bcpb
+bpcyK2:2 bpyb  bbyb  bbyp  cbyy  ppcy  ppyc
+ybcc  ypyc  bbbc  ybbp  ybpp  ybcb  bbbc
+yycy  bpbb  bpby  bcyp  bbpp  bbbb  bpbc
+#     bpbp  cpcy  cpcp  ybyb  ppbc  #
+#     #     bccp  cpcp  cbcp  #     #
+solution: 3,4 ; use 0,6,2 ; 2,0 ; 3,0 ; 6,3 ; use 0,4,0 ; use 0,3,0 ; 2,2 ; 3,6 ; 1,6 ; use 1,5,1 ; 0,4 ; use 2,0,4 ; 5,2 ; use 0,2,0

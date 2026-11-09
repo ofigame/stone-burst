@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [protect+exact]; kristal 3; çözüm 10 / sınır 13 (v7 12); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; adillik onarımı: sınır 13→16 (112 oyunda 5 galibiyet); zincir v13: yeni çözüm 10 (eski 10), sınır 16→18, bot 6/112
+id: level_360
+title: Yıldız Çarkı
+moves: 18
+roll: off
+specials: on
+type: boss
+rules: protect, exact
+goals: coral 52, purple 24, yellow 29, star 3
+grid:
+bccc* bccp  pccy  bbpc  cyyb  cbyb  bpcb  bbpb
+bbcp  pycp  pyyy  cycy  cbyy  cbcy* bpcy  bbpb
+bbcp  pycb  pycb  cycy  cbcyR bbcy  bccy  cyyy
+bbcy  bccc  byyy  #     #     bbcb  bccc  bcpc
+cycy  ccyc  bcyy  #     #     pbcb  bccc  bcpcR
+cycy  yyc   bbyy  #     #     ppcb  bb    bpcc
+cycb  cycy  pycy  pbpb  bbpb  pccb  bccp  bcpbP
+cycb  cyyy  cycy  pbyb* pbyb  pccb  bccpR bbpbP
+cyyp  cyyp  cyyy  pppy  pbpy  bbbpP bbcp  bbpc
+solution: 2,0 ; use 0,0,0 ; 5,2 ; 0,3 ; 2,6 ; 3,6 ; 2,3 ; use 2,0,0 ; use 0,0,0 ; 1,0 ; 0,1 ; 1,0 ; use 1,6,0 ; 7,3 ; use 1,1,0

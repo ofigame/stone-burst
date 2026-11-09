@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk coral 19/16; çözüm 4 / sınır 7 (v7 9); açgözlü kaybeder; bot48 0,13 (taban 0,10); bot 0,17; adillik onarımı: sınır 7→8 (112 oyunda 25 galibiyet); zincir v13: yeni çözüm 4 (eski 4), sınır 8→9, bot 17/112
+id: level_067
+title: Önce Hangisi
+moves: 9
+roll: off
+specials: on
+type: scarce
+rules: scarce
+goals: blue 23, coral 16
+grid:
+#     #     ypc   bpc   cyy   #     #
+#     pyb   yyp   byy   bcb   bcy   #
+bbp   bcb   ybpi1 ycb   pcbi1 ycy   ycy
+cbp   ycp   ybp   pbpi2 ppy   ycy   yyy
+bpp   byp   bpp   bpp   ypy   ypp   ybc
+ppp   ypp   byp   yyb   ycb   yyc   yyc
+#     cyb   bpb   yyy   bcp   bpp   #
+#     #     pyy   pyyi2 bbp   #     #
+solution: 0,2 ; use 0,2,1 ; 1,1 ; use 0,2,0 ; 5,1 ; 1,1 ; use 1,4,1 ; use 0,4,0

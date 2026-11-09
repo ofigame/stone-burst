@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 7 hamle + 6 tepsi / limit 15 (pay +8, eski 13) hedef×1,29 bot 0,25 (hedef 0,29) plan 0; zincir v13: yeni çözüm 9 (eski 7), sınır 15→17, bot 7/112
+id: level_333
+title: Taban ve Kilit
+moves: 17
+roll: off
+specials: on
+goals: purple 62, yellow 35
+grid:
+ppby  cyb   pybp  pcpp  pcy   pcp   pypc
+ypp   bpy   pbyp  pbyp  pcyb  pcpb  pypbR
+ycp   ycby  bby   ppc   cpbbR pcyb  ppb
+ycp   ycyy  #     #     #     ppbp  ppbp
+ypp   ybyy  #     #     #     pbp   cpb
+cpbc  pyb   #     #     #     ppp   cpbp
+cpbcLb7 ypb   ypc   ypb   ppbb  ppb   cbb
+ccc   cpcb  ypcy  yyby  bpc   pbyb  cpb
+ccc   cpcb  bpby  byb   ybc   pbcb  cbbb
+solution: 1,1 ; 2,0 ; 4,1 ; use 1,0,0 ; 1,4 ; 6,1 ; use 2,3,0 ; use 2,3,0 ; 0,4 ; 0,0 ; use 2,1,0 ; 6,4 ; use 2,0,0 ; 4,6 ; use 2,0,0

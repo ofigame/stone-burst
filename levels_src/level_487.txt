@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 9 / sınır 11 (v7 13); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,08; adillik onarımı: sınır 11→12 (112 oyunda 10 galibiyet); zincir v13: yeni çözüm 8 (eski 9), sınır 12→15, bot 4/112; zincir v13 kolaylaştırma: hedef −%6, sınır 13, bot 10/112
+id: level_487
+title: Bölüm 487
+moves: 13
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: blue 43, coral 42, purple 45, sponge 2
+grid:
+#     #     cbbb  cbbb  yyyp  #     #
+#     bpbb  cpbb  yybb  pycp  ybyy  #
+bccb  bpyb  ccyb  bypb  ppbb  ypbb  ccpb
+bcycScb bcpc  ybyp  bypc  ppyc  ppyp  cpcp
+bpyy  bpyy  pppp  pppp  ppyc  ppypScby cpcp
+bbbb  yccp  pyyy  pbpp  ypyy  ppyb  cpcb
+bccp  bbcc  yyyc  ycyp  ppyy  pcyb  ccyb
+#     yccc  pcyc  pcyc  pcyb  bcyb  #
+#     #     ypyc  pcyc  pcyb  #     #
+solution: 2,0 ; 5,5 ; use 0,0,2 ; 3,2 ; 2,0 ; use 1,4,0 ; 4,3 ; 4,3 ; use 2,2,1 ; use 2,2,0 ; use 1,0,5 ; 0,3 ; use 0,0,2 ; 0,5

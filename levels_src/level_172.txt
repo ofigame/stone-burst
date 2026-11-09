@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 6 hamle + 4 tepsi / limit 11 (pay +5, eski 15) hedef×0,94 bot 0,54 (hedef 0,43) plan 0; zincir v13: yeni çözüm 5 (eski 6), sınır 11→10, bot 25/112
+id: level_172
+title: Rulo Anahtarı
+moves: 10
+roll: off
+specials: on
+goals: coral 31, purple 25
+grid:
+#     #     #     #     bpp   cyb   ccb
+#     #     #     byb   yyy   cyb   yyb
+#     #     cyp   ybp   cyyLb8 cyb   bpb
+#     cyy   ccb   ppc   cyp   cpp   bpp
+ypp   ppy   pbb   ycb   ycy   cpp   bpp
+ypy   ppc   ypc   yyb   ycy   bby   cby
+yyc   yyc   ybc   cyy   pcy   pcp   cpp
+cyy   ybc   ybc   ppc   pyy   cyy   cyc
+bbp   ybp   ybp   cbp   ccp   yyb   ycb
+solution: 1,5 ; use 0,4,0 ; 5,0 ; 6,2 ; 4,1 ; use 0,3,1 ; use 1,6,0 ; use 0,6,0 ; 3,1 ; use 0,2,2

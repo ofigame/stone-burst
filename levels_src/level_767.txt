@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 6 / sınır 9 (v7 10); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 7 (eski 6), sınır 9→12, bot 6/112
+id: level_767
+title: Bölüm 767
+moves: 12
+roll: off
+specials: on
+paint: 1
+type: exact
+rules: exact
+goals: blue 49, coral 46, purple 37, sponge 1
+grid:
+byyp  byyb  bcyc  ccpc  cypc  cypc  bbpy
+bcbp  bcbb  cpyb  yppc  cyyc  cppc  cpyc
+bcby  bcpb  ccpp  ybpp  cybc  cybb  cybb
+#     pcby  ccpp  ybpp  ybyc  bpbc  #
+#     ppcc  pbcy  yccp  ypyb  bpbb  #
+#     bybp  bycy  pycy  yypc  pppb  #
+ypby  ppbpScb pccy  bcyy  ccyb  ccpy  cbbp
+yppb  ppbc  bcby  bpyy  bcyb  bbcp  cycp
+ycpy  ycyc  bcpy  bcyy  bybp  bypp  bycp
+solution: 2,0 ; 2,4 ; use 0,0,0 ; use 0,1,0 ; 1,5 ; 4,5 ; 1,2 ; use 1,1,1 ; 0,0 ; use 2,6,0 ; 2,0 ; use 2,2,0 ; use 0,6,0

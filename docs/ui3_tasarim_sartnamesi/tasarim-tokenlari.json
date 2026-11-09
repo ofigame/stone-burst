@@ -1,0 +1,1018 @@
+{
+  "schemaVersion": 1,
+  "status": "approved-direction_exact-authored-spec_not-measured-from-raster",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "origin": "top-left",
+    "unit": "reference-px",
+    "outerPadding": 48,
+    "spacingUnit": 8
+  },
+  "colors": {
+    "ink": "#203846",
+    "inkSecondary": "#53646D",
+    "inkMuted": "#66747B",
+    "ivory": "#FFF3DE",
+    "ivoryTop": "#FFF7E8",
+    "ivoryBottom": "#F1DFC0",
+    "sand": "#D8C09C",
+    "brass": "#B99760",
+    "rimHighlight": "#FFF9ED",
+    "rimShadow": "#8E785C",
+    "teal": "#118C83",
+    "tealTop": "#1BA99E",
+    "tealBottom": "#08766F",
+    "tealPressed": "#06645E",
+    "tealDisabled": "#728B86",
+    "onTeal": "#FFF9ED",
+    "secondaryTop": "#FFF6E6",
+    "secondaryBottom": "#EAD7B8",
+    "secondaryPressed": "#DCC6A2",
+    "coral": "#CC6956",
+    "coralDark": "#934B3E",
+    "purple": "#685680",
+    "purpleDark": "#42374F",
+    "success": "#32866D",
+    "warning": "#AD7838",
+    "error": "#A44E43",
+    "track": "#D9CEB9",
+    "divider": "#D6C6AD",
+    "scrim": "#111C24",
+    "shadow": "#302C2A",
+    "homeTop": "#697F73",
+    "homeBottom": "#435E55",
+    "tabUnselected": "#F0E6D3",
+    "tabSelected": "#147E75",
+    "lockedVeil": "#5E6C70",
+    "focus": "#244E5A"
+  },
+  "typography": {
+    "pageTitle": {
+      "size": 56,
+      "weight": 800,
+      "lineHeight": 68,
+      "align": "center",
+      "color": "ink",
+      "maxLines": 1
+    },
+    "modalTitle": {
+      "size": 54,
+      "weight": 800,
+      "lineHeight": 66,
+      "align": "center",
+      "color": "ink",
+      "maxLines": 2
+    },
+    "ribbonTitle": {
+      "size": 58,
+      "weight": 800,
+      "lineHeight": 70,
+      "align": "center",
+      "color": "onTeal",
+      "maxLines": 1
+    },
+    "sectionTitle": {
+      "size": 40,
+      "weight": 800,
+      "lineHeight": 50,
+      "align": "left",
+      "color": "ink",
+      "maxLines": 1
+    },
+    "button": {
+      "size": 44,
+      "weight": 800,
+      "lineHeight": 54,
+      "align": "center",
+      "color": "onTeal",
+      "maxLines": 1
+    },
+    "buttonSecondary": {
+      "size": 44,
+      "weight": 800,
+      "lineHeight": 54,
+      "align": "center",
+      "color": "ink",
+      "maxLines": 1
+    },
+    "body": {
+      "size": 36,
+      "weight": 600,
+      "lineHeight": 46,
+      "align": "left",
+      "color": "ink",
+      "maxLines": null
+    },
+    "bodyCentered": {
+      "size": 36,
+      "weight": 600,
+      "lineHeight": 46,
+      "align": "center",
+      "color": "ink",
+      "maxLines": null
+    },
+    "caption": {
+      "size": 28,
+      "weight": 600,
+      "lineHeight": 36,
+      "align": "center",
+      "color": "inkSecondary",
+      "maxLines": null
+    },
+    "metric": {
+      "size": 50,
+      "weight": 800,
+      "lineHeight": 62,
+      "align": "center",
+      "color": "ink",
+      "maxLines": 1
+    },
+    "moves": {
+      "size": 64,
+      "weight": 800,
+      "lineHeight": 78,
+      "align": "center",
+      "color": "onTeal",
+      "maxLines": 1
+    },
+    "goal": {
+      "size": 38,
+      "weight": 800,
+      "lineHeight": 48,
+      "align": "left",
+      "color": "ink",
+      "maxLines": 1
+    },
+    "nav": {
+      "size": 32,
+      "weight": 800,
+      "lineHeight": 40,
+      "align": "center",
+      "color": "ink",
+      "maxLines": 1
+    },
+    "rowTitle": {
+      "size": 38,
+      "weight": 800,
+      "lineHeight": 48,
+      "align": "left",
+      "color": "ink",
+      "maxLines": 1
+    },
+    "rowSub": {
+      "size": 28,
+      "weight": 600,
+      "lineHeight": 36,
+      "align": "left",
+      "color": "inkSecondary",
+      "maxLines": 2
+    },
+    "smallButton": {
+      "size": 34,
+      "weight": 800,
+      "lineHeight": 44,
+      "align": "center",
+      "color": "ink",
+      "maxLines": 1
+    },
+    "legal": {
+      "size": 26,
+      "weight": 600,
+      "lineHeight": 34,
+      "align": "center",
+      "color": "inkSecondary",
+      "maxLines": null
+    },
+    "zpeValue": {
+      "size": 88,
+      "weight": 800,
+      "lineHeight": 104,
+      "align": "center",
+      "color": "teal",
+      "maxLines": 1
+    }
+  },
+  "fonts": {
+    "600": "Typography/Nunito-SemiBold",
+    "800": "Typography/Nunito-ExtraBold",
+    "fallbacks": [
+      "Typography/NotoSansArabic",
+      "Typography/NotoSansKR"
+    ],
+    "syntheticBold": false,
+    "tracking": 0,
+    "outlineWidth": 0,
+    "faceDilate": 0,
+    "autoSize": false
+  },
+  "zOrder": {
+    "backdrop": 0,
+    "mapOrBoard": 100,
+    "hud": 200,
+    "floatingPalette": 250,
+    "modalScrim": 400,
+    "modalShadow": 410,
+    "modalFrame": 420,
+    "modalArt": 430,
+    "modalText": 440,
+    "modalControls": 450,
+    "nestedScrim": 500,
+    "nestedDialog": 520,
+    "toast": 600,
+    "tutorial": 700
+  },
+  "backgrounds": [
+    {
+      "id": "Z1",
+      "name": "Şeftali Kum",
+      "base": "#F0D8C0",
+      "bandA": "#E9CFB3",
+      "bandB": "#E1C3A2",
+      "stripeWidth": 60,
+      "stripePeriod": 120,
+      "angle": 0,
+      "edgeMotif": {
+        "width": 72,
+        "periodY": 192,
+        "radius": 96,
+        "centerXLeft": -40,
+        "centerXRight": 1120,
+        "lineWidth": 2,
+        "opacity": 0.12,
+        "color": "inkSecondary"
+      },
+      "centerVeil": {
+        "color": "ivoryTop",
+        "maxAlpha": 0.12,
+        "center": [
+          540,
+          850
+        ],
+        "radii": [
+          500,
+          900
+        ]
+      },
+      "rotation": "yok"
+    },
+    {
+      "id": "Z2",
+      "name": "Adaçayı",
+      "base": "#E0E4D2",
+      "bandA": "#D4DCC4",
+      "bandB": "#C8D2B4",
+      "stripeWidth": 60,
+      "stripePeriod": 120,
+      "angle": 0,
+      "edgeMotif": {
+        "width": 72,
+        "periodY": 192,
+        "radius": 96,
+        "centerXLeft": -40,
+        "centerXRight": 1120,
+        "lineWidth": 2,
+        "opacity": 0.12,
+        "color": "inkSecondary"
+      },
+      "centerVeil": {
+        "color": "ivoryTop",
+        "maxAlpha": 0.12,
+        "center": [
+          540,
+          850
+        ],
+        "radii": [
+          500,
+          900
+        ]
+      },
+      "rotation": "yok"
+    },
+    {
+      "id": "Z3",
+      "name": "Petrol İnci",
+      "base": "#D1E2DA",
+      "bandA": "#BFD6CC",
+      "bandB": "#B1CBBF",
+      "stripeWidth": 60,
+      "stripePeriod": 120,
+      "angle": 0,
+      "edgeMotif": {
+        "width": 72,
+        "periodY": 192,
+        "radius": 96,
+        "centerXLeft": -40,
+        "centerXRight": 1120,
+        "lineWidth": 2,
+        "opacity": 0.12,
+        "color": "inkSecondary"
+      },
+      "centerVeil": {
+        "color": "ivoryTop",
+        "maxAlpha": 0.12,
+        "center": [
+          540,
+          850
+        ],
+        "radii": [
+          500,
+          900
+        ]
+      },
+      "rotation": "yok"
+    },
+    {
+      "id": "Z4",
+      "name": "Dumanlı Lavanta",
+      "base": "#DFD8E5",
+      "bandA": "#D1C7DC",
+      "bandB": "#C4B9D1",
+      "stripeWidth": 60,
+      "stripePeriod": 120,
+      "angle": 0,
+      "edgeMotif": {
+        "width": 72,
+        "periodY": 192,
+        "radius": 96,
+        "centerXLeft": -40,
+        "centerXRight": 1120,
+        "lineWidth": 2,
+        "opacity": 0.12,
+        "color": "inkSecondary"
+      },
+      "centerVeil": {
+        "color": "ivoryTop",
+        "maxAlpha": 0.12,
+        "center": [
+          540,
+          850
+        ],
+        "radii": [
+          500,
+          900
+        ]
+      },
+      "rotation": "yok"
+    },
+    {
+      "id": "Z5",
+      "name": "Taş Mavisi",
+      "base": "#D8E2E7",
+      "bandA": "#C8D6E0",
+      "bandB": "#BACBD6",
+      "stripeWidth": 60,
+      "stripePeriod": 120,
+      "angle": 0,
+      "edgeMotif": {
+        "width": 72,
+        "periodY": 192,
+        "radius": 96,
+        "centerXLeft": -40,
+        "centerXRight": 1120,
+        "lineWidth": 2,
+        "opacity": 0.12,
+        "color": "inkSecondary"
+      },
+      "centerVeil": {
+        "color": "ivoryTop",
+        "maxAlpha": 0.12,
+        "center": [
+          540,
+          850
+        ],
+        "radii": [
+          500,
+          900
+        ]
+      },
+      "rotation": "yok"
+    }
+  ],
+  "borders": [
+    {
+      "id": "B01",
+      "name": "Katmanlı Seramik",
+      "scope": "border-only",
+      "preservesGeometry": true,
+      "boardShapePreset": null,
+      "side": "#D0B18D",
+      "shadow": "#A8896F",
+      "detail": "3 basamaklı düz seramik profil; desen yok",
+      "profile": [
+        {
+          "from": 0,
+          "to": 4,
+          "role": "innerLip",
+          "color": "rimHighlight"
+        },
+        {
+          "from": 4,
+          "to": 7,
+          "role": "brassLine",
+          "color": "brass"
+        },
+        {
+          "from": 7,
+          "to": 17,
+          "role": "upperBevel",
+          "color": "ivory"
+        },
+        {
+          "from": 17,
+          "to": 24,
+          "role": "sidewall",
+          "color": "#D0B18D"
+        }
+      ],
+      "shadowStyle": {
+        "offset": [
+          0,
+          12
+        ],
+        "blur": 18,
+        "spread": 0,
+        "alpha": 0.26
+      },
+      "levelRange": [
+        1,
+        100
+      ],
+      "raycast": false
+    },
+    {
+      "id": "B02",
+      "name": "İnci Kıvrım",
+      "scope": "border-only",
+      "preservesGeometry": true,
+      "boardShapePreset": null,
+      "side": "#DFD8BE",
+      "shadow": "#ADAA90",
+      "detail": "Dış dudakta 24 px periyotlu 2 px sığ kıvrım; iri dalga yok",
+      "profile": [
+        {
+          "from": 0,
+          "to": 4,
+          "role": "innerLip",
+          "color": "rimHighlight"
+        },
+        {
+          "from": 4,
+          "to": 7,
+          "role": "brassLine",
+          "color": "brass"
+        },
+        {
+          "from": 7,
+          "to": 17,
+          "role": "upperBevel",
+          "color": "ivory"
+        },
+        {
+          "from": 17,
+          "to": 24,
+          "role": "sidewall",
+          "color": "#DFD8BE"
+        }
+      ],
+      "shadowStyle": {
+        "offset": [
+          0,
+          12
+        ],
+        "blur": 18,
+        "spread": 0,
+        "alpha": 0.26
+      },
+      "levelRange": [
+        101,
+        200
+      ],
+      "raycast": false
+    },
+    {
+      "id": "B03",
+      "name": "Bazalt Altın",
+      "scope": "border-only",
+      "preservesGeometry": true,
+      "boardShapePreset": null,
+      "side": "#4F514D",
+      "shadow": "#313B39",
+      "detail": "Dış basamak bazalt; içte 3 px fırçalı pirinç şerit",
+      "profile": [
+        {
+          "from": 0,
+          "to": 4,
+          "role": "innerLip",
+          "color": "rimHighlight"
+        },
+        {
+          "from": 4,
+          "to": 7,
+          "role": "brassLine",
+          "color": "brass"
+        },
+        {
+          "from": 7,
+          "to": 17,
+          "role": "upperBevel",
+          "color": "ivory"
+        },
+        {
+          "from": 17,
+          "to": 24,
+          "role": "sidewall",
+          "color": "#4F514D"
+        }
+      ],
+      "shadowStyle": {
+        "offset": [
+          0,
+          12
+        ],
+        "blur": 18,
+        "spread": 0,
+        "alpha": 0.26
+      },
+      "levelRange": [
+        201,
+        300
+      ],
+      "raycast": false
+    },
+    {
+      "id": "B04",
+      "name": "Adaçayı Oyma",
+      "scope": "border-only",
+      "preservesGeometry": true,
+      "boardShapePreset": null,
+      "side": "#8E9D7E",
+      "shadow": "#5E725B",
+      "detail": "Yalnız yan yüzde 48 px periyotlu 1.5 px geometrik oyma",
+      "profile": [
+        {
+          "from": 0,
+          "to": 4,
+          "role": "innerLip",
+          "color": "rimHighlight"
+        },
+        {
+          "from": 4,
+          "to": 7,
+          "role": "brassLine",
+          "color": "brass"
+        },
+        {
+          "from": 7,
+          "to": 17,
+          "role": "upperBevel",
+          "color": "ivory"
+        },
+        {
+          "from": 17,
+          "to": 24,
+          "role": "sidewall",
+          "color": "#8E9D7E"
+        }
+      ],
+      "shadowStyle": {
+        "offset": [
+          0,
+          12
+        ],
+        "blur": 18,
+        "spread": 0,
+        "alpha": 0.26
+      },
+      "levelRange": [
+        301,
+        400
+      ],
+      "raycast": false
+    },
+    {
+      "id": "B05",
+      "name": "Buzlu Kristal",
+      "scope": "border-only",
+      "preservesGeometry": true,
+      "boardShapePreset": null,
+      "side": "#B3CCD7",
+      "shadow": "#758E9D",
+      "detail": "Dışta 48 px periyotlu sığ faset; min alpha0.88; kırılma efekti yok",
+      "profile": [
+        {
+          "from": 0,
+          "to": 4,
+          "role": "innerLip",
+          "color": "rimHighlight"
+        },
+        {
+          "from": 4,
+          "to": 7,
+          "role": "brassLine",
+          "color": "brass"
+        },
+        {
+          "from": 7,
+          "to": 17,
+          "role": "upperBevel",
+          "color": "ivory"
+        },
+        {
+          "from": 17,
+          "to": 24,
+          "role": "sidewall",
+          "color": "#B3CCD7"
+        }
+      ],
+      "shadowStyle": {
+        "offset": [
+          0,
+          12
+        ],
+        "blur": 18,
+        "spread": 0,
+        "alpha": 0.26
+      },
+      "levelRange": [
+        401,
+        500
+      ],
+      "raycast": false
+    },
+    {
+      "id": "B06",
+      "name": "Bal Pirinç",
+      "scope": "border-only",
+      "preservesGeometry": true,
+      "boardShapePreset": null,
+      "side": "#C5A260",
+      "shadow": "#8D713E",
+      "detail": "Çift pah; dış bantta 48 px aralıklı 3 px nokta kakma",
+      "profile": [
+        {
+          "from": 0,
+          "to": 4,
+          "role": "innerLip",
+          "color": "rimHighlight"
+        },
+        {
+          "from": 4,
+          "to": 7,
+          "role": "brassLine",
+          "color": "brass"
+        },
+        {
+          "from": 7,
+          "to": 17,
+          "role": "upperBevel",
+          "color": "ivory"
+        },
+        {
+          "from": 17,
+          "to": 24,
+          "role": "sidewall",
+          "color": "#C5A260"
+        }
+      ],
+      "shadowStyle": {
+        "offset": [
+          0,
+          12
+        ],
+        "blur": 18,
+        "spread": 0,
+        "alpha": 0.26
+      },
+      "levelRange": [
+        501,
+        600
+      ],
+      "raycast": false
+    },
+    {
+      "id": "B07",
+      "name": "Mercan Kil",
+      "scope": "border-only",
+      "preservesGeometry": true,
+      "boardShapePreset": null,
+      "side": "#C58A70",
+      "shadow": "#8E5C4D",
+      "detail": "Yuvarlatılmış pişmiş kil yan profil; 2 px krem iç hat",
+      "profile": [
+        {
+          "from": 0,
+          "to": 4,
+          "role": "innerLip",
+          "color": "rimHighlight"
+        },
+        {
+          "from": 4,
+          "to": 7,
+          "role": "brassLine",
+          "color": "brass"
+        },
+        {
+          "from": 7,
+          "to": 17,
+          "role": "upperBevel",
+          "color": "ivory"
+        },
+        {
+          "from": 17,
+          "to": 24,
+          "role": "sidewall",
+          "color": "#C58A70"
+        }
+      ],
+      "shadowStyle": {
+        "offset": [
+          0,
+          12
+        ],
+        "blur": 18,
+        "spread": 0,
+        "alpha": 0.26
+      },
+      "levelRange": [
+        601,
+        700
+      ],
+      "raycast": false
+    },
+    {
+      "id": "B08",
+      "name": "Petrol Dalga",
+      "scope": "border-only",
+      "preservesGeometry": true,
+      "boardShapePreset": null,
+      "side": "#477D75",
+      "shadow": "#2E5752",
+      "detail": "64 px periyotta 2 px sığ dalga kabartması yalnız yan yüzde",
+      "profile": [
+        {
+          "from": 0,
+          "to": 4,
+          "role": "innerLip",
+          "color": "rimHighlight"
+        },
+        {
+          "from": 4,
+          "to": 7,
+          "role": "brassLine",
+          "color": "brass"
+        },
+        {
+          "from": 7,
+          "to": 17,
+          "role": "upperBevel",
+          "color": "ivory"
+        },
+        {
+          "from": 17,
+          "to": 24,
+          "role": "sidewall",
+          "color": "#477D75"
+        }
+      ],
+      "shadowStyle": {
+        "offset": [
+          0,
+          12
+        ],
+        "blur": 18,
+        "spread": 0,
+        "alpha": 0.26
+      },
+      "levelRange": [
+        701,
+        800
+      ],
+      "raycast": false
+    },
+    {
+      "id": "B09",
+      "name": "Gece Opal",
+      "scope": "border-only",
+      "preservesGeometry": true,
+      "boardShapePreset": null,
+      "side": "#706579",
+      "shadow": "#494451",
+      "detail": "96 px aralıklı 4 px pirinç geometrik kakma, parıltı animasyonu yok",
+      "profile": [
+        {
+          "from": 0,
+          "to": 4,
+          "role": "innerLip",
+          "color": "rimHighlight"
+        },
+        {
+          "from": 4,
+          "to": 7,
+          "role": "brassLine",
+          "color": "brass"
+        },
+        {
+          "from": 7,
+          "to": 17,
+          "role": "upperBevel",
+          "color": "ivory"
+        },
+        {
+          "from": 17,
+          "to": 24,
+          "role": "sidewall",
+          "color": "#706579"
+        }
+      ],
+      "shadowStyle": {
+        "offset": [
+          0,
+          12
+        ],
+        "blur": 18,
+        "spread": 0,
+        "alpha": 0.26
+      },
+      "levelRange": [
+        801,
+        900
+      ],
+      "raycast": false
+    },
+    {
+      "id": "B10",
+      "name": "Kumtaşı",
+      "scope": "border-only",
+      "preservesGeometry": true,
+      "boardShapePreset": null,
+      "side": "#C8B28D",
+      "shadow": "#978061",
+      "detail": "48 px aralıklı sığ segment derzi; taş çıkıntısı/hücre oluşturma yok",
+      "profile": [
+        {
+          "from": 0,
+          "to": 4,
+          "role": "innerLip",
+          "color": "rimHighlight"
+        },
+        {
+          "from": 4,
+          "to": 7,
+          "role": "brassLine",
+          "color": "brass"
+        },
+        {
+          "from": 7,
+          "to": 17,
+          "role": "upperBevel",
+          "color": "ivory"
+        },
+        {
+          "from": 17,
+          "to": 24,
+          "role": "sidewall",
+          "color": "#C8B28D"
+        }
+      ],
+      "shadowStyle": {
+        "offset": [
+          0,
+          12
+        ],
+        "blur": 18,
+        "spread": 0,
+        "alpha": 0.26
+      },
+      "levelRange": [
+        901,
+        1000
+      ],
+      "raycast": false
+    }
+  ],
+  "randomBackground": {
+    "selection": "uniform-5-independent-cosmetic-RNG",
+    "sameForEntireAttempt": true,
+    "restartKeepsSelection": true,
+    "menuReturnAndNewEntryReselect": true,
+    "affectsCoreRng": false,
+    "saveSchemaChange": false,
+    "repeatsAllowed": true
+  },
+  "modal": {
+    "width": 860,
+    "padding": [
+      56,
+      64,
+      56,
+      56
+    ],
+    "radius": 48,
+    "scrimColor": "scrim",
+    "scrimAlpha": 0.72,
+    "scrimCovers": "entire-screen-including-safe-area-and-holes",
+    "outsideClick": "preserve-existing-handler-do-not-add-close",
+    "blocksRaycasts": true,
+    "titleHeight": 80,
+    "titleGap": 24,
+    "subtitleHeight": 104,
+    "contentGap": 32,
+    "buttonWidth": 748,
+    "buttonHeight": 116,
+    "buttonGap": 24,
+    "bottomPadding": 56,
+    "crestMax": [
+      196,
+      132
+    ],
+    "closeVisual": 88,
+    "closeHit": 104,
+    "nestedTotalAlpha": 0.82
+  },
+  "button": {
+    "radius": 58,
+    "outline": 3,
+    "labelInset": [
+      36,
+      20,
+      36,
+      20
+    ],
+    "iconSize": 40,
+    "iconLabelGap": 16,
+    "contentOpticalOffset": [
+      0,
+      -2
+    ],
+    "states": {
+      "normal": {
+        "gradient": [
+          "tealTop",
+          "tealBottom"
+        ],
+        "shadowOffset": [
+          0,
+          6
+        ],
+        "shadowAlpha": 0.2
+      },
+      "pressed": {
+        "fill": "tealPressed",
+        "contentOffset": [
+          0,
+          3
+        ],
+        "shadowOffset": [
+          0,
+          2
+        ],
+        "scale": 1
+      },
+      "disabled": {
+        "fill": "tealDisabled",
+        "alpha": 0.62,
+        "raycast": "existing-rule"
+      },
+      "focus": {
+        "ring": "focus",
+        "ringWidth": 3,
+        "ringOutset": 6
+      },
+      "selected": {
+        "fill": "tabSelected",
+        "label": "onTeal",
+        "check": "only-if-existing"
+      }
+    },
+    "shadowBlur": 10
+  },
+  "motion": {
+    "preserveResultPanelTiming": true,
+    "buttonDownMs": 70,
+    "buttonUpMs": 110,
+    "modalNewAnimations": false,
+    "backgroundAnimation": false,
+    "reducedMotion": "stop-cosmetic-pulses-not-state-transitions"
+  },
+  "board": {
+    "shapeFrom": "existing-BoardView-floor-contours-and-holes",
+    "cellsChanged": false,
+    "tileSpritesChanged": false,
+    "pitchChanged": false,
+    "innerClearance": 6,
+    "maxOutwardBorder": 24,
+    "holeClearance": 8,
+    "shadowExtent": 30,
+    "interiorFill": "ivory",
+    "interiorPattern": {
+      "type": "diagonal-pinstripe",
+      "width": 1,
+      "period": 16,
+      "angle": 45,
+      "color": "sand",
+      "alpha": 0.07
+    },
+    "geometryRule": "Do not create shape presets, ring silhouettes, new cells or altered holes; only decorate existing contours."
+  }
+}

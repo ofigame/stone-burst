@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3; çözüm 6 hamle + 5 tepsi / limit 11 (pay +5, eski 17) hedef×0,97 bot 0,58 (hedef 0,21) plan 0; zincir v13: yeni çözüm 8 (eski 6), sınır 11→13, bot 11/112
+id: level_564
+title: Bölüm 564
+moves: 13
+roll: off
+specials: on
+goals: coral 35, purple 25, yellow 44
+grid:
+#     #     cpcb  ypbp  ypyp  pyyc  pcyc
+#     cbbb  cycp  yycp  yyyy  bybc  bcbc
+bybp  bbcb  bpyc  ypcpK1:2 byyy  bybc  bcyc
+yybc  pbpy  #     #     #     bybc  bcyc
+yypc  ybpb  #     #     #     bybc  bcyc
+yyyc  yyyb  #     #     #     bypy  bcyp
+yyby  yyby  bpbb  bbyp  ycby  ycbp  ccbp
+yyyb  yybcK1:2 cpcy  bbbp  ybbb  yccb  #
+ypbc  ypbc  pybp  pybp  yybb  #     #
+solution: 5,0 ; 3,6 ; use 0,5,0 ; 5,5 ; 1,4 ; use 0,6,0 ; 2,7 ; 0,5 ; use 1,3,0 ; 4,0 ; 5,5 ; use 2,2,0 ; use 0,2,0

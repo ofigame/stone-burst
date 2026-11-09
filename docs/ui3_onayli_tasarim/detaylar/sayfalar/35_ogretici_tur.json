@@ -1,0 +1,156 @@
+{
+  "pageId": 35,
+  "title": "Öğretici tur",
+  "kind": "tutorial",
+  "referenceScreenshot": "ui2/35_ogretici_tur.png",
+  "coordinateSystem": "1080x1920 top-left; modal children card-local",
+  "elements": [
+    {
+      "id": "pause",
+      "rect": [
+        48,
+        64,
+        112,
+        112
+      ],
+      "role": "icon",
+      "binding": "existing:PausePressed",
+      "note": ""
+    },
+    {
+      "id": "undo",
+      "rect": [
+        920,
+        64,
+        112,
+        112
+      ],
+      "role": "icon",
+      "binding": "existing:OnUndoClicked",
+      "note": ""
+    },
+    {
+      "id": "mascot",
+      "rect": [
+        424,
+        0,
+        232,
+        132
+      ],
+      "role": "image",
+      "binding": "existing:MascotView",
+      "note": ""
+    },
+    {
+      "id": "moves",
+      "rect": [
+        286,
+        112,
+        508,
+        120
+      ],
+      "role": "moves",
+      "binding": "hud.moves + runtime MovesLeft",
+      "note": ""
+    },
+    {
+      "id": "stars",
+      "rect": [
+        80,
+        256,
+        920,
+        84
+      ],
+      "role": "image",
+      "binding": "runtime score thresholds",
+      "note": ""
+    },
+    {
+      "id": "goals",
+      "rect": [
+        48,
+        364,
+        984,
+        112
+      ],
+      "role": "goal",
+      "binding": "runtime GoalState[]",
+      "note": ""
+    },
+    {
+      "id": "boardVisualEnvelope",
+      "rect": [
+        72,
+        508,
+        936,
+        1116
+      ],
+      "role": "runtime",
+      "binding": "existing BoardView",
+      "note": "Yerleşim zarfı; hücre/şekil/mesh yeniden oluşturulmaz. Çerçeve ve gölge zarf içinde kalır."
+    },
+    {
+      "id": "powers",
+      "rect": [
+        96,
+        1664,
+        888,
+        160
+      ],
+      "role": "runtime",
+      "binding": "existing tray/stone/roll bindings",
+      "note": "Yalnız kaynakta var olan güçler. Sabit yeni düğme veya alt tepsi ekleme."
+    },
+    {
+      "id": "spotlight",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "role": "runtime",
+      "binding": "existing tutorial hole",
+      "note": "Scrim0.76; sadece mevcut hedef hücre kümesi, mevcut ok ve tooltip aydınlık. Yeni grup/hücre seçme."
+    },
+    {
+      "id": "instruction",
+      "rect": [
+        96,
+        328,
+        888,
+        200
+      ],
+      "role": "body",
+      "binding": "existing tutorial copy",
+      "note": "maskot128×144 solda; text x168 y24 w672 h152; actual preferredheight ile aşağı büyür."
+    }
+  ],
+  "modal": null,
+  "content": {
+    "keyPattern": "tut.",
+    "buttonBindings": [],
+    "authority": "live Loc/runtime existing case-format/action-condition; frozen snapshot is audit-only"
+  },
+  "sources": [
+    "Assets/KatKat/Scripts/UI/TutorialOverlay.cs",
+    "Assets/KatKat/Scripts/UI/HudView.cs"
+  ],
+  "notes": [
+    "Metin, sayı, durum, düğme sayısı, sırası ve eylemi mevcut çalışma zamanından gelir; örnek panodaki içerik kullanılmaz.",
+    "Otomatik yeni kapat/geri düğmesi, yardım, ödeme, güç veya ayar eklenmez.",
+    "Öğretici maskesinin delik geometrisi mevcut hedef kümesinden; tüm tahta aydınlatılmaz."
+  ],
+  "deliveredMockup": "../../sayfalar/35_ogretici_tur.png",
+  "assetManifest": "../../parcalar/asset-manifest.json",
+  "assetUsage": "../../parcalar/KULLANIM.md",
+  "sharedSprites": [
+    "modal-seramik",
+    "kart-seramik",
+    "buton-birincil",
+    "buton-ikincil",
+    "baslik-plakasi",
+    "ikon-dugmesi"
+  ],
+  "invariant": "Existing strings, buttons, handlers, tiles and board geometry prevail over generated illustration"
+}

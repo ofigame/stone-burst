@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U (ayna); çözüm 4 hamle + 4 tepsi / limit 11 (pay +7, eski 12) hedef×1,09 bot 0,50 (hedef 0,51) plan 1; zincir v13: yeni çözüm 6 (eski 4), sınır 11→13, bot 38/112
+id: level_082
+title: Buzlu Patika
+moves: 13
+roll: off
+specials: on
+goals: yellow 33, blue 20, star 2
+grid:
+pyb   cpp   pcc   #     pyp   byp   cyp
+pcb   pcp   pcci1 #     ppc   byp   ypb
+ypb   byy   pcy   ypy   bpc   bpc   ypp
+yyb   yyy   ppp   yyp   ypc   ppc   cpc
+ybb   cyb   cpp   cpp   ypc   pcc   bpp*
+ybb   cyb   cpbi1 cpb   byc   pcy   ypy*
+pcb   pyb   pyb   bpp   cpc   bcy   pcy
+cybi1 cyp   cyp   ppp   cbp   pcy   pcy
+solution: 0,0 ; 4,1 ; 4,3 ; use 0,6,1 ; 1,2 ; use 0,1,0 ; use 1,6,0 ; 0,2 ; use 0,5,0 ; 0,7

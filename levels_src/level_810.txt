@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [chainOnly+exact]; zincir blue 10; çözüm 11 / sınır 14 (v7 16); açgözlü kaybeder; bot48 0,10 (taban 0,04); bot 0,00; adillik onarımı: sınır 14→15 (112 oyunda 6 galibiyet); zincir v13: yeni çözüm 9 (eski 11), sınır 15→17, bot 6/112
+id: level_810
+title: Bölüm 810
+moves: 17
+roll: off
+specials: on
+type: boss
+rules: chainOnly, exact
+goals: yellow 67, coral 65, chain blue 10
+grid:
+bcyy  cpyc  G1:pypc G1:yypc G1:yypc G1:pccc G1:pcbc ycpc
+bbpp  cpbc  pypc  cypc  ccbc  ccbc  ycbb  ycpc
+cpbp  ypbp  cbpp  cypc  cybc  cbpc  ycpb  bcpb
+cppp  yppp  cypbB1 #     #     cbpy  yypb  yypp
+yppb  ypbp  pycb  #     #     ybby  yppp  yypp
+ypcb  ypcb  pyccR #     #     ypby  bpcy  ypcp
+byyy  yybyR cyby  cyyc  bcbc  bpcp  bpcp  bybp
+pycc  cyyy  cyyc  cpby  bcpc  pcbp  bybp  bybp
+cyyc  cpby  cyycR pcpp  pypc  pyby  cyby  cyby
+solution: 7,3 ; 1,0 ; use 0,7,0 ; 0,6 ; use 0,0,0 ; 0,1 ; 2,3 ; use 0,4,1 ; 2,2 ; 2,3 ; use 0,1,0 ; 6,1 ; use 0,1,0 ; 0,1 ; use 0,0,0 ; use 0,0,0 ; use 0,3,0

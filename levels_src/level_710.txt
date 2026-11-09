@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk blue 43/42; çözüm 7 / sınır 9 (v7 8); açgözlü kaybeder; bot48 0,08 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 7 (eski 7), sınır 9→13, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 9, bot 10/112
+id: level_710
+title: Bölüm 710
+moves: 9
+roll: off
+specials: on
+paint: 1
+type: boss
+rules: scarce, exact
+goals: yellow 59, blue 40, coral 42
+grid:
+#     #     ybyb  ybyb  ybyy  pbyy  #     #
+#     #     cpyy  ccyy  yccy  bccy  #     #
+cbcc  bpcp  bpcp  cbcp  cbbp  pbcp  bccb  ycpb
+cpcc  cpcb  cpcp  bbcp  bycp  pycp  pyyy  ycyy
+pcpc  pcpb  pcyb  pcpp  pycp  pcby  yyyy  ycyy
+pbyp  bbpb  pybp  pybp  yccp  ycyy  yyyy  ycyb
+pcpb  pbpy  pbbp  pcbp  ycbp  ycyp  cyyy  cyyp
+#     #     ycyp  pcpb  bpbp  ypyp  #     #
+#     #     ccyb  ybpp  bcyp  ycyp  #     #
+solution: 1,2 ; 6,3 ; use 0,2,0 ; 2,0 ; use 0,4,0 ; 0,2 ; use 0,3,1 ; 5,2 ; use 1,2,0 ; 6,3 ; 3,1 ; use 0,5,0 ; use 0,6,2

@@ -1,0 +1,15 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: aha [exact]; 5×6 tek dokunuş; ilk dokunuş 1/6; deneme 59; bot 1,00; zincir v13: çözüm aynı, sınır 1→1, bot 112/112
+id: level_799
+moves: 1
+roll: off
+type: aha
+rules: exact
+goals: coral 10
+grid:
+cyc   cbc   ybc   cby   bcy
+cyc   bbc   ybb   bbb   bcb
+cyc   cbc   yby   yyc   yyc
+cyb   cbb   cby   ccy   ccc
+byb   byc   bcc   bcc   ycb
+cyb   byc   bcy   bcc   bbc
+solution: 0,0

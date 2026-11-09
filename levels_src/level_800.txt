@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [protect+chainOnly+exact]; kristal 3; zincir yellow 3; çözüm 9 / sınır 11 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,00; adillik onarımı: sınır 11→15 (112 oyunda 5 galibiyet); zincir v13: çözüm aynı, sınır 15→15, bot 14/112
+id: level_800
+title: 800. Bölüm Finali
+moves: 15
+roll: off
+specials: on
+paint: 1
+type: boss
+rules: protect, chainOnly, exact
+goals: coral 29, purple 28, chain yellow 3
+grid:
+#     #     bccbP bccp  pcpp  cbcp  #     #
+#     #     bcpb  pbpp  pbcb  cpcp  #     #
+pbpc  cybp  ybpb  ybpb  bccb  cypy  cypy  cbby
+cbby  ybby  ybbb  ybbb  ybcb  cypb  ybpc  ybcc
+pycc  cbbc  pbbc  ppbc  ybpy  cppy  ybpy  ccpy
+ybbbP cybp  pybc  ppbb  pcby  pcyy  pccc  pcpc
+yypp  yyby  bbyy  bbbbP bbby  ycyy  ypyb  pcpc
+#     #     pbyb  bbpy  ybbb  ypyb  #     #
+#     #     cbbp  bpbb  bpcb  ypcb  #     #
+solution: 4,4 ; 6,3 ; use 1,4,0 ; use 0,3,0 ; 7,3 ; 0,4 ; use 1,0,2 ; use 0,6,2 ; paint 4,1,p ; 4,0 ; 5,5 ; 5,4 ; 4,5

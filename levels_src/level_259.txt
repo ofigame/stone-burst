@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 8 hamle + 5 tepsi / limit 12 (pay +4, eski 14) hedef×1,12 bot 0,29 (hedef 0,32) plan 1; zincir v13: yeni çözüm 9 (eski 8), sınır 12→16, bot 7/112
+id: level_259
+title: Kule Ustası
+moves: 16
+roll: off
+specials: on
+goals: blue 38, coral 42, purple 41, envelope 3
+grid:
+bybcEc bybc  pybc  #     pcbp  pcp   ccpy
+cbc   byb   bp    #     cp    ppb   yc
+pcbp  byb   pyb   #     pcpc  pcp   pbpc
+pcc   pccy  pcy   pcy   pcp   ycyc  yccc
+ppp   bpp   pcyc  ycyc  ccyc  yyy   yccc
+pppy  bypy  ybpc  cpyc  cyy   pyp   ypccEy
+pppy  yyby  yby   yy    byyy  pyyy  yyc
+bpb   ypby  ycyy  cy    bybb  pbby  pbc
+byb   byb   bbyEb pbyc  ppbc  ppb   ppp
+solution: 0,5 ; 1,3 ; use 0,1,0 ; 4,0 ; use 0,1,0 ; 4,5 ; use 0,0,3 ; 0,2 ; 1,6 ; 6,7 ; use 1,0,0 ; use 0,0,0 ; 5,3 ; use 0,0,5 ; 5,3 ; use 0,4,6

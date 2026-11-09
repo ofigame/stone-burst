@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 9 hamle + 7 tepsi / limit 11 (pay +2, eski 14) hedef×1,13 bot 0,17 (hedef 0,24) plan 2; zincir v13: yeni çözüm 8 (eski 9), sınır 11→14, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 13, bot 9/112
+id: level_445
+title: Bölüm 445
+moves: 13
+roll: off
+specials: on
+goals: purple 82, yellow 32, blue 42, sponge 2
+grid:
+pyyy  byypLc10 ybcp  ybcc  ybcc  yypp  yypp
+pypy  bppy  bbpy  bbpy  ybcy  pypb  bypbScb
+pcpp  bpbp  bbpp  bbpc  bccc  bypc  bypb
+#     cpbp  bpbc  ppbc  pccc  pcpb  #
+#     pppp  bppb  bppb  cppp  pppp  #
+#     pcpb  pcpb  pcpb  pbyp  pbyb  #
+pypc  pypb  pypb  pcpb  pcyb  pbyb  bbyb
+pypcSby pybc  pcpc  pcpc  bcyc  ppyp  bbyp
+bybp  bcbp  bcbp  pcpc  bcpp  pppp  bpyp
+solution: 2,4 ; 0,2 ; use 0,2,0 ; use 0,0,0 ; 2,0 ; 2,0 ; 2,1 ; use 2,6,0 ; 0,6 ; use 0,1,0 ; use 0,0,0 ; 6,1 ; use 0,0,1

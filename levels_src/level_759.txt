@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3 (kaydırılmış); çözüm 8 hamle + 5 tepsi / limit 11 (pay +3, eski 18) hedef×0,80 bot 0,36 (hedef 0,17) plan 0; zincir v13: yeni çözüm 7 (eski 8), sınır 11→13, bot 8/112
+id: level_759
+title: Bölüm 759
+moves: 13
+roll: off
+specials: on
+paint: 1
+goals: blue 33, coral 46, purple 29, sponge 1
+grid:
+ypyc  ypcb  cccp  cyyp  cyyp  cbpy  cbpy
+ybyc  cpyc  cccp  cbyp  cbyp  bbpp  cbpc
+ypyc  ppcy  cccp  ccyp  cyyp  bbcp  bbcc
+bpyb  ppcc  cpby  ppcb  cyyp  byycScb cybc
+bcbc  #     #     byyy  #     #     cybb
+pccb  #     #     byyy  #     #     cybb
+pcpb  #     #     cyyp  #     #     ybbb
+pcpb  bcpp  bbyp  bccy  pcyy  yccc  ypcc
+ccpb  bcpb  pbyp  pccp  pcbc  ycbc  ppcc
+solution: 0,5 ; use 0,6,0 ; 2,0 ; use 0,1,0 ; 0,0 ; use 0,0,0 ; 5,7 ; 2,0 ; 6,0 ; use 1,5,0 ; use 1,5,0 ; 3,4 ; use 1,5,0

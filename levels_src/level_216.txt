@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 6 hamle + 5 tepsi / limit 14 (pay +8, eski 15) hedef×1,11 bot 0,21 (hedef 0,35) plan 1; zincir v13: yeni çözüm 6 (eski 6), sınır 14→18, bot 2/112; zincir v13 kolaylaştırma: hedef −%12, sınır 13, bot 32/112
+id: level_216
+title: Posta Yolu
+moves: 13
+roll: off
+specials: on
+goals: coral 40, purple 29, envelope 2
+grid:
+ycyp  ycy   ccyp  bcy   cccc  cpcc  ccp
+ycpp  ycp   ypp   ppp   bbb   cpcc  cypy
+cp    ycp   bpbp  ppbp  ppc   ppcc  yyc
+cyb   #     #     ycbp  #     #     ccy
+bb    #     #     yccEb #     #     by
+byb   #     #     ycc   #     #     bbbcEb
+cyb   pyyc  pcyy  bybc  ycc   bbyp  cccb
+yyb   pbyc  ppy   ypyy  ybc   bbyp  bby
+yyb   yb    bpyy  cpy   cyyy  yby   bbyp
+solution: 4,0 ; 0,0 ; use 0,6,0 ; use 0,4,0 ; 1,6 ; use 0,0,1 ; 0,3 ; use 0,4,0 ; 0,0

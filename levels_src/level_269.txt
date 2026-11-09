@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı (ayna); çözüm 9 hamle + 6 tepsi / limit 13 (pay +4, eski 16) hedef×1,28 bot 0,17 (hedef 0,32) plan 3; zincir v13: yeni çözüm 8 (eski 9), sınır 13→16, bot 5/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 13/112
+id: level_269
+title: Kapak Ustası
+moves: 12
+roll: off
+specials: on
+goals: purple 60, yellow 42, blue 32, envelope 3
+grid:
+#     #     #     pppbEc #     #     #
+#     ppcp  ppcp  ppp   ccyy  ppp   #
+pbpp  pcc   pccp  cpc   pcy   pcyy  yyby
+pbp   pcpy  bpbk1 bpbb  cpy   ccby  cybyEy
+cbp   pcb   bpb   bpbb  bpyy  bcyy  ycb
+cbpy  pcp   pyb   bybp  cyyp  ycyEb cpp
+pbcb  pypb  byp   yypbk2 cppp  cppp  cpp
+pbc   cyp   bypb  yypb  cyp   bppp  byyp
+pbc   yycc  yycb  yyc   cyybk1 byy   bbybk2
+solution: 3,5 ; 3,3 ; use 1,5,1 ; 4,1 ; use 0,6,2 ; 0,6 ; use 0,4,1 ; 0,2 ; 1,2 ; use 2,3,0 ; 4,1 ; 1,1 ; use 1,1,1 ; use 0,0,2 ; use 0,6,4

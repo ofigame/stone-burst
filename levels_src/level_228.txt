@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact] (yedek; istenen pure [noSpecials+exact]); çözüm 5 / sınır 7 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 5 (eski 5), sınır 7→9, bot 10/112
+id: level_228
+title: Kolay Renkler
+moves: 9
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: coral 27, purple 24, yellow 21, envelope 2
+grid:
+ppp   bppp  bbp   byp   yyy   yby   cppb
+ppp   bypEy byb   bypc  yyy   yyyy  cby
+bpyy  bpp   bcbc  bcpc  ycy   cpc   cby
+cbc   #     #     cyp   #     #     cpc
+ccc   #     #     bycc  #     #     cpcp
+pcpy  #     #     byc   #     #     cpc
+cpc   pccy  byb   bypy  bby   bpb   cpcbEb
+cbc   bbc   byby  bcyy  yypb  cyby  bpcc
+bcpb  bpb   bpb   bpb   ypby  bpby  bpbb
+solution: 4,0 ; 3,1 ; 0,0 ; use 2,2,0 ; 3,0 ; use 2,0,0 ; 1,6 ; use 2,6,1 ; use 0,0,0

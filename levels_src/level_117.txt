@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: reverse [exact]; çözüm 10 / sınır 10 (v7 14); açgözlü kaybeder; bot48 0,23 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 8 (eski 10), sınır 10→11, bot 9/112
+id: level_117
+title: Son Plan
+moves: 11
+roll: off
+specials: on
+type: reverse
+rules: exact
+goals: purple 42, yellow 40
+grid:
+byyp  yyc   cyc   cccy  cccy  cbb   cpb
+cyci2 cyc   ccby  cccyi1 cccy  cbb   bpby
+cpcy  ypcy  ccby  ycb   bcb   bcb   bcp
+cpc   ypy   #     #     #     ycyb  yppbi2
+ppy   ppyy  #     #     #     ybpb  ybpb
+cppy  pppy  bpy   ypp   ybci1 pbcp  byci1
+cbpy  pyp   bpbc  cpp   ppc   ppp   bypb
+bypy  cyp   bcbc  pcc   ppcb  yppb  yyb
+solution: 5,0 ; 3,0 ; 6,6 ; use 0,0,0 ; 1,0 ; use 0,0,0 ; 4,5 ; 2,5 ; 1,4 ; 6,3 ; use 0,0,0 ; use 0,6,3

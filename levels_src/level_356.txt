@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı; çözüm 6 hamle + 5 tepsi / limit 10 (pay +4, eski 13) hedef×0,96 bot 0,29 (hedef 0,27) plan 2; zincir v13: yeni çözüm 7 (eski 6), sınır 10→15, bot 11/112
+id: level_356
+title: Takımada Turu
+moves: 15
+roll: off
+specials: on
+goals: coral 31, purple 27, yellow 31, star 3
+grid:
+#     #     #     pcy*  #     #     #
+#     cpc   cbcy  pcyyR pcb   pcb   #
+ccby  ccby  ccby  pcy   cpyb  pcy   ypb
+bc    pcbyR pcb   ppy   cpy   cpy   yb
+bbby* pbyy  yc    pyc   py    ybyc* cpby
+bbby  cbcb  pbp   pbp   pbp   ybp   pbb
+ybb   ybb   byb   bpy   cpy   pycy  yb
+bppy  bppy  cpby  ybb   pyb   pyc   yyc
+bpy   bbyy  ccyy  cbb   ybby  cycb  yycb
+solution: rot 3,1 ; 3,0 ; use 0,2,1 ; 2,6 ; use 0,1,1 ; 2,5 ; use 0,0,4 ; 0,3 ; 1,3 ; 5,4 ; use 1,0,4 ; use 0,6,4

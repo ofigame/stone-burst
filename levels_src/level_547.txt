@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk coral 49/48; çözüm 9 / sınır 10 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 10→11 (112 oyunda 7 galibiyet); zincir v13: yeni çözüm 7 (eski 9), sınır 11→13, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 8, bot 7/112
+id: level_547
+title: Bölüm 547
+moves: 8
+roll: off
+specials: on
+type: scarce
+rules: scarce
+goals: blue 44, coral 43, purple 37
+grid:
+#     #     byyb  pycc  ppyc  #     #
+#     cbcy  cbcb  cpcc  ppyc  pbyc  #
+cpyp  pbbp  pbbp  pypc  ybbbK1:2 cbyc  cbyc
+cpbp  bbcp  bbcc  ppcc  ppcb  ccyb  ybyb
+bbbp  pyycK1:2 bpcp  cbyp  cpyy  ypyp  ybcp
+yppb  ypbp  cppp  bbcy  cbcy  ybcp  cbcy
+pppb  yppb  bpcb  bbpp  bbpp  ybcp  ybyp
+#     yccb  pccy  bbcp  bbpp  yycp  #
+#     #     pbcb  bbcp  ybpp  #     #
+solution: 5,4 ; use 0,0,2 ; 3,0 ; 2,0 ; 3,4 ; use 0,3,0 ; use 0,2,1 ; 4,0 ; 2,4 ; use 2,2,0 ; use 0,3,1 ; use 0,5,3

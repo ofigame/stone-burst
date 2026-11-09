@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 13 hamle + 8 tepsi / limit 17 (pay +4, eski 16) hedef×1,30 bot 0,25 (hedef 0,26) plan 1; zincir v13: yeni çözüm 10 (eski 13), sınır 17→14, bot 19/112
+id: level_386
+title: Buzlu Ada Turu
+moves: 14
+roll: off
+specials: on
+goals: yellow 57, blue 44, coral 47
+grid:
+ppp   ypyc  ypyci1 #     yccc  bcpb  ybc
+pppy  ypcc  cpyyi1 #     cccpi1 bccbR bbyb
+cppp  cbcp  cbcy  #     yccp  bpbb  ypbb
+cppc  bppp  cbpy  cpcyR cppy  bppp  ypbb
+bpcc  pb    ybpy  yppp  ccpy  yy    ypyy
+bpcc  bbpc  ycpy  ccpp  yccb  ypyp  ypyp
+cb    bcbc  bbyc  bcyb  yccb  ypyb  yb
+ycbb  ycbb  ybyb  ycyb  yccp  yybp  yybp
+yccb  ypc   ycyp  ycyp  yccp  yp    yybp
+solution: 4,5 ; 0,3 ; use 0,0,0 ; 2,2 ; use 0,1,0 ; 1,2 ; 5,0 ; 0,7 ; use 0,2,0 ; use 0,1,0 ; 0,0 ; 0,4 ; use 0,5,0 ; 5,1 ; 5,2 ; use 0,0,3

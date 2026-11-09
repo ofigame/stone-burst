@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x2+2x2 (kaydırılmış); çözüm 5 hamle + 4 tepsi / limit 10 (pay +5, eski 10) hedef×1,43 bot 0,46 (hedef 0,49) plan 0; zincir v13: yeni çözüm 5 (eski 5), sınır 10→10, bot 35/112
+id: level_102
+title: Derin Buz
+moves: 10
+roll: off
+specials: on
+goals: yellow 16, blue 31
+grid:
+pbb   pbc   pppi2 ypb   yyb   byp   bbp
+bbb   pcb   ycb   ypb   ypp   byp   bbp
+bcb   #     #     cbb   #     #     ybp
+ccp   #     #     cbp   #     #     cpp
+ypc   ppc   cpci2 cpc   ppp   pbp   cpp
+ppc   ppc   cpc   cpc   ybc   ppp   cpp
+pyc   bbc   pbc   cbc   ybp   ppb   ppp
+cyp   pyc   cyc   cyc   cbp   cbb   cpb
+solution: 0,4 ; 0,0 ; use 0,3,0 ; 3,0 ; use 0,0,0 ; 6,3 ; use 1,4,0 ; 1,0 ; use 0,0,1

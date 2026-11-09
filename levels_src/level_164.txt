@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 8 hamle + 5 tepsi / limit 12 (pay +4, eski 15) hedef×1,11 bot 0,33 (hedef 0,39) plan 1; zincir v13: yeni çözüm 6 (eski 8), sınır 12→13, bot 6/112
+id: level_164
+title: Derin Kasa
+moves: 13
+roll: off
+specials: on
+goals: coral 45, purple 38, star 3
+grid:
+yccb  yccb  yccb  yypb  #     #     #
+yyy   yyyb  yyy   ycp   #     #     #
+ypc   yyy   ybp   ybp   #     #     #
+cpcy  pcyc  ccc   cbcp  #     #     #
+byc   bpc   cpc   ccc   ccbp  cbbpLy8 ccc
+yycp  ypcp  cbcp  cpc   cpbp  ppbp  pcy
+yyb   cpb   bbby  bpb*  ypb   ypbp  pbp
+ypyy  ppyy  pbby  bpp*  ypc   ybcc  pbp*
+ypc   ycb   ppbc  bcc   yycb  ybp   pbpb
+solution: 4,4 ; use 0,3,0 ; 1,3 ; 1,4 ; use 0,0,0 ; 0,1 ; use 0,0,0 ; 0,5 ; use 0,3,0 ; 3,0 ; use 1,0,3

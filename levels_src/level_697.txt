@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact] (yedek; istenen chain [chainOnly+exact]); çözüm 9 / sınır 9 (v7 11); açgözlü kaybeder; bot48 0,10 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 8 (eski 9), sınır 9→11, bot 12/112
+id: level_697
+title: Bölüm 697
+moves: 11
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: purple 38, yellow 31, blue 41
+grid:
+cccp  G1:cycp G1:bycb G1:pyyc G1:cyyc G1:cpcc bbcc
+bccp  bccb  byyb  ppyc  cpyy  bpcc  bccc
+cpcb  cpyb  ppcc  pbyc  cbbc  cccb  ccbb
+cbcb  yccb  ybcc  ybpc  cbpc  ccpc  ccbc
+cbcb  cbcb  ybcc  bppp  cbcc  cbpc  bcbp
+cbpb  bbpp  ybpp  bpbp  cpyb  cpby  cppc
+#     #     ybyy  bpyy  bypy  #     #
+#     #     pbcyB1 pycy  byyp  #     #
+#     #     cpcy  cycy  cycp  #     #
+solution: 1,1 ; 3,1 ; use 0,2,1 ; use 0,0,0 ; 3,2 ; 4,5 ; use 1,2,1 ; 3,4 ; use 0,2,0 ; 2,0 ; 3,0 ; 4,0 ; use 1,1,0 ; use 1,2,0

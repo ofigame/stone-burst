@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 4 hamle + 3 tepsi / limit 9 (pay +5, eski 11) hedef×1,26 bot 0,50 (hedef 0,49) plan 0; zincir v13: çözüm aynı, sınır 9→9, bot 65/112
+id: level_101
+title: Dördüncü Kat
+tutorial: Dört katmanlı yığınlar: alttaki renkleri planla.
+moves: 9
+roll: off
+specials: on
+goals: purple 30, yellow 27
+grid:
+#     #     #     #     pcy   ccy   pcy
+#     #     #     pybi1 cyb   bcb   cpy
+#     #     yyc   byc   yyb   ppb   ppb
+#     ybp   bpy   pyc   bpb   bpy   bcb
+bcc   ccy   cyc   byp   ycp   pby   pby
+bby   byy   yby   yyb   bcb   ybb   bpb
+bby   bbp   bcy   ycc   bcp   ycp   pybi1
+bby   bbp   bbp   bpp   bpp   ypp   ppb
+solution: 1,6 ; use 0,4,0 ; 2,2 ; 3,1 ; 6,0 ; use 0,4,0 ; use 0,2,2

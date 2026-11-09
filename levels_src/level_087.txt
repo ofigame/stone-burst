@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: resource [exact]; çözüm 5 / sınır 8 (v7 9); açgözlü kaybeder; bot48 0,13 (taban 0,10); bot 0,25; adillik onarımı: sınır 8→9 (112 oyunda 26 galibiyet); zincir v13: yeni çözüm 5 (eski 5), sınır 9→13, bot 6/112; zincir v13 kolaylaştırma: hedef −%12, sınır 8, bot 27/112
+id: level_087
+title: Hangi Yol
+moves: 8
+roll: off
+specials: on
+type: resource
+rules: exact
+goals: blue 37, coral 27, star 3
+grid:
+pyy   pbp   ybp   ybpb  bbpb  #     #
+cbcp  cbp   cyp*  yyp   bbbb  cbbb  #
+cycpi1 cyp   bypb  ccb   pybb  pbc   cbcb
+cbcp  #     #     #     pyci1 pyc   cbc*
+cbc   #     #     #     pcb   pyb   bcyb
+cbcy  cbp   bby   bbbc  bpbc* cyp   cyy
+#     ybp   bbyy  cbpci1 cbpc  cbpc  cbp
+#     #     bbyyi2 cbyc  cbyc  cbpci2 cbp
+solution: 3,0 ; 1,0 ; use 1,0,1 ; 4,0 ; use 1,3,2 ; 4,4 ; use 1,0,1 ; use 0,0,1

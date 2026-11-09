@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 8 hamle + 1 tepsi / limit 16 (pay +8, eski 17) hedef×0,77 bot 0,50 (hedef 0,46) plan 0; zincir v13: yeni çözüm 5 (eski 8), sınır 16→13, bot 33/112
+id: level_079
+title: Buz Labirenti
+moves: 13
+roll: off
+specials: on
+goals: blue 31, coral 27, star 2
+grid:
+bpyb  pyyc  pyyc* #     bpci1 bpbi2 byby
+ypyb  ycy   bbyci2 #     bpc   bpcy* bycy
+pcb   ybpc  ybc   bppc  bpcc  cycy  byc
+pcb   cp    bccb  bcc   bcc   by    bycb
+yppc  ycp   pcpb  bcy   ycy   ycyy  ccyi1
+ycpc  yppc  pbbb  ybbb  ycbp  yby   pcyp
+ppcpi1 ppp   bpy   ybbc  cc    cpypi1 ppyp
+ypcp  bb    ybbc  ybbc  ybbci1 ppc   ypy
+solution: 6,0 ; 4,1 ; 2,2 ; use 0,1,0 ; 4,0 ; use 0,0,0 ; 0,0

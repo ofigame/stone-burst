@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [chainOnly+exact]; zincir blue 6; çözüm 6 / sınır 7 (v7 12); açgözlü kaybeder; bot48 0,60 (taban 0,04); bot 0,75; zincir v13: yeni çözüm 4 (eski 6), sınır 7→5, bot 8/112
+id: level_050
+title: Yıldız Avı
+moves: 5
+roll: off
+specials: on
+type: boss
+rules: chainOnly, exact
+goals: yellow 24, star 5, chain blue 6
+grid:
+byp   ybp   pyp   #     byc   cbp   cbp
+bcp   cyp   pypk2 #     byb   bbp   pyp*
+cby   pbp   pbp*  bcp   bbp*  cbp   ybp
+cby   cpc   pbp   cyy   bbp   pby   yby
+bpb   byy   yypk2 ycp   bpp   ycy   ycy*
+byy   bpb   ypb   yyp   cyc   pyc   pbp
+bpb   byy   bpb   yyc   pyc   pcp*  ycp
+bpb   bpb   byb   ybb   pcp   pbp   ybp
+solution: 0,0 ; use 0,0,0 ; 6,5 ; 5,4 ; use 1,2,0 ; 4,1 ; use 0,1,0

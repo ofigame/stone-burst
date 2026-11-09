@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 7 hamle + 4 tepsi / limit 13 (pay +6, eski 8) hedef×1,29 bot 0,21 (hedef 0,29) plan 2; zincir v13: yeni çözüm 6 (eski 7), sınır 13→16, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 14, bot 7/112
+id: level_325
+title: Çift Akış
+moves: 14
+roll: off
+specials: on
+goals: purple 49, yellow 57, blue 32
+grid:
+byb   yyb   yybpR ypb   ypb   yppb  ybp
+yyb   yybp  yypp  ppy   ppb   ybb   ybp
+cyy   bybyR byyp  pbyb  ycy   ybpR  yppb
+cyyp  cyp   pyp   pbyb  ycc   ycby  yppb
+pypp  pyp   pyp   pybp  yybp  yyb   ypbb
+pbp   pbp   pyy   cyyb  ycb   ypbp  ypbp
+#     #     pyy   cyb   cbbp  #     #
+#     #     ycyb  ccy   pcp   #     #
+#     #     ypbp  yyp   yppb  #     #
+solution: 2,0 ; 0,0 ; 3,2 ; use 0,5,0 ; 1,0 ; use 0,0,0 ; use 0,3,1 ; 2,5 ; use 0,2,1

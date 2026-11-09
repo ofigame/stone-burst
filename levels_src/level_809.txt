@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 12 hamle + 7 tepsi / limit 22 (pay +10, eski 14) hedef×1,14 bot 0,08 (hedef 0,16) plan 2; zincir v13: yeni çözüm 9 (eski 12), sınır 22→23, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 18, bot 6/112
+id: level_809
+title: Bölüm 809
+moves: 18
+roll: off
+specials: on
+goals: purple 61, yellow 42, blue 41
+grid:
+ybyp  yyypi2 yyyp  pycy  pccb  pccb  pbcc
+ybyp  yyyci2 ppyc  pybci1 pycc  pbcc  ybyy
+pbpp  pccc  ppbc  ppbc  ppcc  ycpc  ycpc
+#     ppcp  bycp  bycc  ppcc  ypbc  #
+#     cppb  bbcb  bccbK1:2 bpcy  ypbc  #
+#     bbpp  bbpb  ycpyi2 bbcc  bcbc  #
+pyyb  pbpp  pbpp  ycppK1:2 bcpp  ycbci1 ycbb
+pbcb  ppcp  pbyp  ppyp  byby  cybyi1 ycbb
+pbcb  pbcpi1 ybcp  pbpc  ccyy  ccpy  cpbyi1
+solution: 2,1 ; use 0,4,0 ; 2,2 ; use 0,3,0 ; 3,0 ; 2,0 ; use 0,0,0 ; use 0,0,0 ; 0,0 ; use 0,1,0 ; 5,6 ; 0,6 ; use 0,0,8 ; use 0,5,1

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 6 hamle + 5 tepsi / limit 14 (pay +8, eski 14) hedef×1,27 bot 0,33 (hedef 0,40) plan 1; zincir v13: yeni çözüm 6 (eski 6), sınır 14→18, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 13, bot 6/112
+id: level_153
+title: İki Yol
+moves: 13
+roll: off
+specials: on
+goals: purple 41, yellow 36
+grid:
+ppyi2 ppy   ppy   ppc   ppb   cpb   bpb
+ppy   ppy   ypy   ppp   bpp   ppb   bcb
+ypy   ypc   pyy   bpbi1 bpy   bcb   ybb
+yby   pbc   #     #     #     ycb   bbb
+yby   ppc   #     #     #     ycb   ycb
+yby   pyy   #     #     #     ybb   ybb
+ccy   ycc   ybc   bcy   ybb   ybb   ybb
+yby   ybc   pbc   pcc   ccp   ycp   ybpLp7
+yby   ybc   pbc   pbc   pbpi2 pppi1 pyb
+solution: 1,0 ; 4,0 ; use 0,3,0 ; 1,0 ; use 0,0,0 ; use 0,0,0 ; 5,5 ; 6,0 ; use 1,0,0

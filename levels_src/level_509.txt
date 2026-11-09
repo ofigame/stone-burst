@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 9 hamle + 6 tepsi / limit 11 (pay +2, eski 15) hedef×1,13 bot 0,08 (hedef 0,22) plan 2; zincir v13: yeni çözüm 7 (eski 9), sınır 11→10, bot 8/112
+id: level_509
+title: Bölüm 509
+moves: 10
+roll: off
+specials: on
+goals: purple 44, yellow 59, blue 23
+grid:
+#     #     #     #     yyyp  pycp  pycy
+#     #     #     cpcp  bccc  yypp  pycpK1:1
+#     #     ycpp  yccp  ypyb  ybpb  pbcc
+#     cycc  yycp  ypcpK1:1 ybyc  yyyc  yyyc
+ccyc  cyyc  cypc  ppbc  pbbc  ybyb  ycyy
+ypyp  bcyc  pcpc  pbcc  pbcc  ypcb  ycyy
+bccc  bccc  ypyc  pbcc  pbcy  cpcy  ppyy
+pcyy  pcyy  bbyy  bbyc  bbcy  bpyy  ppyy
+pbyy  pccy  bbcy  bpyy  bpyy  bycc  ppyc
+solution: 6,2 ; 4,2 ; 4,2 ; 4,0 ; use 0,4,0 ; 1,3 ; use 1,3,1 ; 4,6 ; 5,0 ; use 1,5,2 ; use 1,4,0 ; use 1,6,2

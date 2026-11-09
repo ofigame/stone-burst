@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı (ayna); çözüm 5 hamle + 4 tepsi / limit 8 (pay +3, eski 12) hedef×1,11 bot 0,50 (hedef 0,38) plan 1; zincir v13: yeni çözüm 5 (eski 5), sınır 8→8, bot 26/112
+id: level_179
+title: Derin Usta
+moves: 8
+roll: off
+specials: on
+goals: blue 33, coral 37, purple 18
+grid:
+#     #     ycyy  yycc  ycyc  #     #
+#     #     yyc   cpp   by    #     #
+cb    yycy  cycb  yybc  yybc  ypb   bb
+pcp   ybpy  cycb  ccc   ycc   cpc   cpy
+cbpc  cbb   cbbb  bbcb  cbyc  ypycLp10 cpp
+py    bybcLc7 cyb   bbc   pbyc  pbp   pp
+pcyc  pybc  cyb   pybp  pbyp  cbb   cpby
+#     #     cybp  ccbp  cppp  #     #
+#     #     cbb   yyb   ccy   #     #
+solution: 3,2 ; 2,2 ; use 0,3,1 ; 2,1 ; use 0,3,0 ; 4,0 ; use 0,4,1 ; 5,4 ; use 0,3,0 ; use 0,2,4

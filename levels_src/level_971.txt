@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 4 hamle + 4 tepsi / limit 9 (pay +5, eski 15) hedef×0,97 bot 0,36 (hedef 0,20) plan 0; zincir v13: yeni çözüm 7 (eski 4), sınır 9→12, bot 54/112
+id: level_971
+title: Bölüm 971
+moves: 12
+roll: off
+specials: on
+paint: 1
+goals: blue 41, coral 22
+grid:
+cyb   G1:cyby G1:yybb G1:yyb G1:yyb G1:cybb ycbB1
+ppb   pcbb  yccb  ppyb  ppy   ccy   ycby
+ppbc  ppb   ppcy  ppy   ppc   ypp   ycp
+yyb   pbb   pppy  pyyy  pcp   bpp   bppp
+yyby  ybpb  ybpy  ycy   bcpb  bcp   bppp
+pbb   bbyb  bbyb  ccpb  ccpb  ccp   bpbp
+#     #     bcyy  pyyy  cpy   #     #
+#     #     bycy  pbp   pbp   #     #
+#     #     cyb   pbb   bbc   #     #
+solution: 0,0 ; 3,1 ; use 0,2,1 ; 3,1 ; 1,3 ; use 0,6,0 ; use 0,6,0 ; 2,0 ; 4,6 ; 3,7 ; use 0,2,0

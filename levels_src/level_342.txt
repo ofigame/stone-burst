@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3 (kaydırılmış); çözüm 9 hamle + 7 tepsi / limit 12 (pay +3, eski 14) hedef×0,95 bot 0,33 (hedef 0,33) plan 2; zincir v13: yeni çözüm 9 (eski 9), sınır 12→14, bot 6/112
+id: level_342
+title: Rulo ve Tur
+moves: 14
+roll: off
+specials: on
+goals: yellow 47, blue 33
+grid:
+byyc  pycy  cycy  cyc   byc   ybp   ybp
+yypy  cyp   cyp   cyc   cycb  ppc   ybb
+yypy  yyp   yypp  cpcp  cpc   yyc   ypb
+yyp   yyp   yypp  ccc   cccyR cpcy  ycb
+bppb  ypbb  #     #     #     cyb   cbb
+cbpb  ppbb  #     #     #     byy   pyy
+cpcb  pcb   #     #     #     pyby  bpb
+bcpb  cpcb  pybp  byy   pycb  bycc  byb
+cpc   bpcp  bbcp  yccp  bbcR  bbc   bpcy
+solution: 0,4 ; 6,1 ; use 0,1,0 ; 0,1 ; use 1,4,1 ; 0,0 ; 0,0 ; 4,7 ; use 0,6,0 ; use 1,5,0 ; 4,0 ; use 0,5,0 ; 2,7 ; 2,7 ; use 0,0,7

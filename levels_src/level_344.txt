@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe; çözüm 6 hamle + 5 tepsi / limit 12 (pay +6, eski 13) hedef×0,95 bot 0,21 (hedef 0,28) plan 1; zincir v13: yeni çözüm 5 (eski 6), sınır 12→11, bot 9/112
+id: level_344
+title: İki Tur İki Kat
+moves: 11
+roll: off
+specials: on
+goals: coral 52, purple 34, yellow 35
+grid:
+#     #     byyc  ccy   cpc   #     #
+#     cpy   cyyc  cyc   cpbb  bcp   #
+cpy   ybyc  cbyc  cbc   bpy   ccy   bcp
+cpcp  cycp  cbc   cbcc  pcy   byp   bcpy
+cpcp  cycp  cbcp  ybcc  yby   bcyp  cpc
+yyc   yyp   yppb  ypy   yyy   pcy   pcyy
+yyp   bypbR yppb  pbpb  pbyy  cpyy  pyp
+#     bppb  cypb  pcyb  pcyy  ccb   #
+#     #     ybcb  pcb   pcyR  #     #
+solution: 4,2 ; 2,5 ; 0,3 ; use 0,3,0 ; 2,0 ; use 0,4,0 ; use 0,3,0 ; 4,1 ; use 0,2,0 ; use 0,2,1

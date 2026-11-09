@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 12 hamle + 8 tepsi / limit 22 (pay +10, eski 8) hedef×1,30 bot 0,13 (hedef 0,26) plan 3; zincir v13: yeni çözüm 8 (eski 12), sınır 22→22, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 17, bot 18/112
+id: level_383
+title: Ataşlı Çark
+moves: 17
+roll: off
+specials: on
+goals: blue 44, coral 34
+grid:
+#     #     cpy   cyp   ycp   #     #
+#     cpyy  cpcyR bcpy  ycpb  pbpbk1 #
+cbby  cbbc  pybc  pppy  ppp   pypb  pypb
+bbb   cbbp  cppy  ycpy  ccb   pcbp  pypp
+pyb   cbp   ccpp  ccby  bpbp  bcbp  cpp
+pypb  bbyb  cbb   ccby  bybp  bybp  yybc
+pppk1 ppyb  ypcb  bpbb  bybp  bybR  ypb
+#     ppc   ycc   bcc   byp   bypc  #
+#     #     ycc   bppc  bypc  #     #
+solution: 2,0 ; use 0,2,1 ; 5,3 ; 0,3 ; use 0,3,1 ; 3,4 ; 2,0 ; use 0,2,0 ; use 0,1,1 ; 0,5 ; use 1,0,3 ; 1,2 ; use 0,5,1

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L (ayna); çözüm 6 hamle + 5 tepsi / limit 11 (pay +5, eski 18) hedef×1,11 bot 0,29 (hedef 0,34) plan 0; zincir v13: yeni çözüm 7 (eski 6), sınır 11→12, bot 9/112
+id: level_226
+title: Posta Adaları
+moves: 12
+roll: off
+specials: on
+goals: yellow 36, blue 31, envelope 2
+grid:
+#     #     #     bcc   cbc   cp    ypc
+#     #     #     ccc   bb    pbc   pyyc
+#     #     #     bcy   pcc   pbcp  cp
+#     #     #     bpbp  cccp  ccp   bccp
+pcby  ppb   byyy  pyyy  pcbb  bbcb  bbcpEb
+ypc   bcby  bpby  bpby  ycb   cycp  ybc
+pcb   bcyy  ycy   ypc   cybc  pyb   bpc
+yybcEc ycyy  ypy   ypyc  ppbc  bypp  bpc
+cccy  cccy  pccy  ppy   pppp  ppcp  bpc
+solution: 2,4 ; use 0,3,2 ; 0,5 ; 4,4 ; 0,4 ; use 0,2,4 ; 5,2 ; 3,0 ; use 2,4,0 ; 4,7 ; use 3,0,5 ; use 2,0,5

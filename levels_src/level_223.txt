@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı; çözüm 8 hamle + 6 tepsi / limit 14 (pay +6, eski 12) hedef×1,11 bot 0,13 (hedef 0,35) plan 2; zincir v13: çözüm aynı, sınır 14→18, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 32/112
+id: level_223
+title: Ayrı Yollar
+moves: 12
+roll: off
+specials: on
+goals: blue 59, coral 24, envelope 2
+grid:
+#     #     ycy   ycb   cpb   #     #
+#     #     yyp   cpp   ypb   #     #
+cpy   ccy   pybEy ccp   bbb   bbb   bcb
+bbp   pby   cbb   cpp   bby   bby   bbb
+ybp   ycy   cby   cbb   pbb   bbc   bbb
+bpp   ycp   bcp   cbb   bbp   pbc   bcc
+bbc   ccp   cpb   bbc   bbc   pbp   bbp
+#     #     bbb   byb   bbbEp #     #
+#     #     bcb   bby   byc   #     #
+solution: 0,2 ; 3,0 ; use 0,4,0 ; 2,2 ; 0,2 ; use 0,3,0 ; 5,2 ; use 0,1,2 ; 3,7 ; use 0,0,3 ; use 0,0,3

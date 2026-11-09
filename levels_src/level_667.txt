@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk coral 45/44; çözüm 10 / sınır 13 (v7 16); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 11 (eski 10), sınır 13→18, bot 7/112
+id: level_667
+title: Bölüm 667
+moves: 18
+roll: off
+specials: on
+type: scarce
+rules: scarce
+goals: blue 45, coral 41, purple 37
+grid:
+bcyp  G1:ccyp G1:ccyp G1:cybp G1:cybp G1:pyby byyy
+bcyp  ccyp  ycbp  ybbp  ypbp  pyby  byyc
+cpyy  bbcy  bbby  bbbp  cppp  ypyc  yyyb
+ccbb  ccby  cbby  bbbc  bpbc  bpyc  bbpy
+cppb  ccpyB1 bcyb  bpbb  ypbb  ybbp  ybyy
+cppp  ccpp  bcbp  cpbp  ppyp  pybp  pbyp
+#     #     cypc  cpbc  pcyp  #     #
+#     #     pybc  ppbc  bcyy  #     #
+#     #     pcyc  ycpy  bcpy  #     #
+solution: 0,0 ; 2,1 ; 1,4 ; use 0,1,1 ; 3,1 ; 6,0 ; use 1,0,0 ; 4,1 ; use 0,1,1 ; 1,5 ; use 3,0,3 ; 5,0 ; 2,8 ; 1,0 ; 3,0 ; use 0,1,0 ; use 0,1,0 ; use 0,1,0

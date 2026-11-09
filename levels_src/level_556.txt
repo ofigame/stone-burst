@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil dikdörtgen; çözüm 7 hamle + 6 tepsi / limit 17 (pay +10, eski 15) hedef×1,14 bot 0,21 (hedef 0,21) plan 0; zincir v13: yeni çözüm 7 (eski 7), sınır 17→21, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 16, bot 13/112
+id: level_556
+title: Bölüm 556
+moves: 16
+roll: off
+specials: on
+goals: coral 67, purple 49, yellow 46
+grid:
+cppb  cppyi1 pbpy  pyyb  pyyb  pyyb  pycb
+cpcc  ybbb  ybpb  pyyp  bbyp  pbyb  pbyy
+ppcy  ppcb  ybcy  bbyyi1 bbbp  pbby  cbyy
+cpcy  ppcb  ybcb  yyyy  yybp  ybpci1 cbpc
+cpcy  bpcp  bpcy  bbby  pbbc  ybpci1 cbpci1
+bpcb  bpcp  bccp  pcbp  pcbc  ycbc  ccyc
+cpcc  ccyb  cccp  bypc  ycyc  pcyc  pcyc
+cpyb  cpcb  yccc  ycpc  ycyc  cyyb  ccyc
+bpyb  cpybi1 ypccK1:2 ycpb  cyyc  ccpbK1:2 cpbb
+solution: 4,4 ; use 0,0,0 ; 2,1 ; 1,0 ; use 0,6,0 ; use 0,6,0 ; 0,6 ; 0,2 ; 2,0 ; use 1,0,0 ; use 1,1,0

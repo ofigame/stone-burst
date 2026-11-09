@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [chainOnly+exact]; zincir yellow 6; çözüm 7 / sınır 14 (v7 12); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; adillik onarımı: sınır 14→15 (112 oyunda 3 galibiyet); adillik onarımı: sınır 15→19 (112 oyunda 5 galibiyet); zincir v13: çözüm aynı, sınır 19→19, bot 8/112
+id: level_090
+title: Gece Yıldızı
+moves: 19
+roll: off
+specials: on
+type: boss
+rules: chainOnly, exact
+goals: blue 16, star 5, chain yellow 6
+grid:
+cc    cyp   bypy* ppp   ppp   cpb   cbc
+ccp   ccp*  ccpy  pyp   pppb  cpbb  cyp
+#     ccp   ccc   cyb   cyb   cpb*  #
+#     ppp   cccp  cycyi1 ypcb  cy    #
+#     cpppi1 yypp  yppy  ypp   cby   #
+#     cypp  cyp   yppyi2 ypb*  ycc*  #
+cpbyi2 bpp   cypci1 cpp   ybb   cbcb  bcbb
+cyyb  cyyb  cyyc  cppi2 bcbc  ypby  cpb
+solution: 5,0 ; 3,0 ; use 1,0,7 ; 4,5 ; 2,0 ; 1,0 ; use 3,1,0 ; 1,3 ; use 0,5,0 ; 0,0 ; use 2,0,0 ; use 0,2,0 ; use 0,5,0

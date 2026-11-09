@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: reverse [exact]; çözüm 5 / sınır 6 (v7 8); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 6→7 (112 oyunda 13 galibiyet); zincir v13: yeni çözüm 5 (eski 5), sınır 7→7, bot 6/112
+id: level_208
+title: Kolay Posta
+moves: 7
+roll: off
+specials: on
+type: reverse
+rules: exact
+goals: coral 46, purple 40, yellow 24, envelope 1
+grid:
+#     #     #     pbcc  #     #     #
+#     pby   ybyp  bbp   ypyp  ypyp  #
+cppy  yypEc pbb   bbpp  bpp   ccc   pbyb
+ccyy  bbc   ybbb  pbb   bcp   cpb   pbcb
+cpyy  cbc   cpby  ppp   bppc  bpc   pcc
+cpy   ybyc  bby   pyb   bycc  bbc   pbc
+cbcy  cbpy  pcby  pcby  pycc  ypb   yybc
+cccy  ccby  pcb   pbb   bpp   bbp   byp
+bccb  cpb   cccb  pbcb  cpcb  pbc   ypp
+solution: 0,2 ; 4,4 ; use 0,3,0 ; 1,7 ; use 0,2,1 ; use 0,1,1 ; 1,1 ; use 0,1,1 ; 0,2 ; use 0,3,0

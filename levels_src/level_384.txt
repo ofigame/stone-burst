@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 8 hamle + 7 tepsi / limit 11 (pay +3, eski 10) hedef×1,13 bot 0,17 (hedef 0,26) plan 2; zincir v13: yeni çözüm 9 (eski 8), sınır 11→15, bot 10/112
+id: level_384
+title: Kırık Tur
+moves: 15
+roll: off
+specials: on
+goals: coral 46, purple 63, yellow 55
+grid:
+cyyy  pbpb  pypp  pcypi2 pycp  pycy  pycb
+bbpb  bbpp  ybpp  pbpp  cbpp  pbcy  pbcy
+cbyb  bbyb  bbpb  ybcc  pppp  pbppR pbcp
+#     bbyc  bpyc  bpcp  ppppi2 pbcp  #
+#     cycy  bycp  yycpR ppcp  cpyyR #
+#     cyyy  cycp  ycyp  yyyc  yyyc  #
+ccyy  cyyy  cycy  yypp  yycc  yycc  ybyc
+ycyp  cpyp  yycp  pycb  ypcp  ypcy  ypyb
+ycpb  yypp  pycp  pycp  cyyp  yycy  pbpb
+solution: 2,0 ; use 0,4,0 ; 2,0 ; 0,7 ; 1,3 ; use 0,0,0 ; use 0,3,0 ; use 0,2,0 ; 1,4 ; 6,0 ; 4,5 ; 1,0 ; 4,2 ; use 2,0,7 ; use 0,6,0 ; use 1,1,0

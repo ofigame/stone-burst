@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 9 hamle + 7 tepsi / limit 13 (pay +4, eski 16) hedef×1,11 bot 0,13 (hedef 0,38) plan 3; zincir v13: yeni çözüm 7 (eski 9), sınır 13→15, bot 4/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 7/112
+id: level_241
+title: Yıldızlı Mektup
+moves: 11
+roll: off
+specials: on
+goals: purple 49, yellow 49, star 2, envelope 1
+grid:
+pycy  pyy   pcy   cpy   cpcp  cpc   cby
+ppc   pcyp  ycy   ppyp  pyy   cby   ppy
+ppy   ypyc  ycyc  cby   pyyy  bpy   ppbc
+#     cycc  bpcc  ppcb  bypEc bpp*  #
+#     pcyc  ppbc  ppb   cypb  bbyb  #
+#     yyc   bpc   cbc   yycb  ycbc  #
+bypc  yppc  ycb   cycc  yycb* pbpb  yypc
+bypc  ypc   cpyc  yycc  yyp   yypb  yypb
+bypc  ccyc  pby   pbc   ybpc  pby   yypy
+solution: 1,2 ; 3,3 ; use 0,0,0 ; use 0,0,0 ; 5,2 ; use 0,2,0 ; 0,0 ; use 0,6,0 ; 3,6 ; use 0,0,0

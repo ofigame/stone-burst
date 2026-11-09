@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 8 hamle + 6 tepsi / limit 16 (pay +8, eski 14) hedef×1,29 bot 0,13 (hedef 0,30) plan 3; zincir v13: yeni çözüm 9 (eski 8), sınır 16→17, bot 6/112
+id: level_306
+title: Ada Tabanı
+moves: 17
+roll: off
+specials: on
+goals: yellow 34, blue 49, coral 55
+grid:
+cby   cbyy  cpyy  ppyy  bpc   bpp   ppcc
+bby   cbb   ycb   ppyy  cpp   pyc   ppb
+bbb   bcby  byp   bypc  pcpc  ccb   cyb
+bcb   cpby  #     #     #     ccb   cybc
+cpb   ccby  #     #     #     bcc   bcb
+cpby  ccby  #     #     #     bybc  bcbc
+cc    cpc   cycp  cypp  cyb   byb   yy
+cccc  ccyc  ccpp  cypR  cybcR bybp  ybc
+ccyc  ccb   ybp   cbpc  bcbc  bbbc  ybcb
+solution: 0,0 ; 1,0 ; 0,0 ; use 1,0,0 ; 6,1 ; 3,0 ; use 1,2,1 ; 4,2 ; use 1,4,0 ; use 1,6,0 ; 1,6 ; 1,4 ; 2,8 ; use 2,2,6 ; use 0,0,2

@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [protect+chainOnly+exact]); çözüm 10 / sınır 10 (v7 13); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 6 (eski 10), sınır 10→9, bot 10/112
+id: level_400
+title: Dört Yüzüncü
+moves: 9
+roll: off
+specials: on
+type: boss
+rules: exact
+goals: coral 49, purple 39, yellow 44, star 3
+grid:
+ppyyR ppbb  bpbc  pbpc  pyyc  yypb  pyyb  yycy
+ppyy  ppbb  bycb  pbbc  pycy  pycy  pypyR yycy
+ppyy  ypyb* bpyp  bcccR bycy  pycy  pypy  yypc
+pyyy  yybp  ycbc  ybcc  bccb  bcyc  yybb  yypb
+ccyp  ccyp  yccc  ybcc  bbcc  ccby  ypby  yypp
+ccyp  cp    pycc  cccc  bbpb  ybpc  pyc   pycc*
+ycyp  ybyc  ybyc  ccbc  ybpb  ybpc  pbyy  pyyc
+pcyp  pcyc  bcby* pcbyR pbbb  pbpc  pyyp  pypc
+yccp  pccy  cbc   pcbbR pbbb  pp    ybyp  pcbcLb8
+solution: 1,3 ; 5,5 ; use 0,2,0 ; 4,0 ; use 1,3,0 ; 1,0 ; use 0,1,0 ; use 0,0,0 ; 4,5 ; use 0,5,0 ; 1,0 ; use 0,0,1

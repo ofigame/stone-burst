@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 6 hamle + 5 tepsi / limit 8 (pay +2, eski 11) hedef×0,97 bot 0,42 (hedef 0,18) plan 1; zincir v13: yeni çözüm 6 (eski 6), sınır 8→8, bot 41/112
+id: level_684
+title: Bölüm 684
+moves: 8
+roll: off
+specials: on
+goals: coral 58, purple 40, yellow 42
+grid:
+ycyy  G1:pbyb G1:ycyb G1:ycyc G1:ccbc G1:ccyb ypyc
+pbbb  ybbb  ycyb  ccbb  ccyc  ccycB1 ypcc
+pbbb  ycbb  yccb  pcbc  ycbc  ypyc  yppc
+ccbc  ycbp  #     #     #     yppc  bycp
+yccp  ypyp  #     #     #     ypcy  cppy
+yppc  ypcy  #     #     #     cpcp  cpcp
+cycy  cpcy  ycpc  ybcy  bbcp  cpcp  cpcp
+cpcy  yppy  ycpy  pypy  yppy  cyyp  ycyp
+cpcy  yyyy  pbbb  pcyy  pcpy  ccyp  ycyp
+solution: 6,0 ; use 0,0,0 ; 5,2 ; 0,1 ; 1,3 ; use 0,0,0 ; 0,3 ; use 0,0,0 ; use 0,6,0 ; 0,1 ; use 0,4,1

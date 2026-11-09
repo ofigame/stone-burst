@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk blue 54/52; çözüm 11 / sınır 11 (v7 9); açgözlü kaybeder; bot48 0,08 (taban 0,04); bot 0,17; zincir v13: yeni çözüm 10 (eski 11), sınır 11→14, bot 4/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 5/112
+id: level_230
+title: Üç Mühür
+moves: 10
+roll: off
+specials: on
+type: boss
+rules: scarce, exact
+goals: yellow 44, blue 49, coral 36, star 2, envelope 3
+grid:
+yyyy  pby   pcc   pbc   cbc   cbc*  cbyEc cbyp
+yp    cycc  pbcc  pbc   cbyc  yby   cby   cp
+ppbc  cybc  cycc  ccc   cbp   bbyp  cyy   cbyp
+#     pybc  pybc  pcpb  cpbb  bpy   byy   #
+#     bp    cyb   bcy   ypy*  bpyp  ypy   #
+#     bbb   cpby  byb   ypyp  cyyp  cby   #
+bbbp  cbpp  cycpEb byb   cpy   cpp   ybyc  ypyc
+cbb   cpb   cpp   byb   cpb   ypby  ypy   ypyc
+cbbc  cbpc  cpp   ybb   cpc   cpp   cppEp cpy
+solution: 2,0 ; use 0,0,0 ; 4,2 ; use 0,2,0 ; 4,2 ; 5,6 ; use 0,0,0 ; use 0,1,0 ; 2,5 ; 0,6 ; 1,3 ; use 0,5,2

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 8 hamle + 5 tepsi / limit 18 (pay +10, eski 13) hedef×0,95 bot 0,25 (hedef 0,29) plan 2; zincir v13: yeni çözüm 7 (eski 8), sınır 18→21, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 16, bot 28/112
+id: level_319
+title: Tur Ustası
+moves: 16
+roll: off
+specials: on
+goals: blue 68, coral 40, purple 41
+grid:
+pby   byy   bbbpR #     bybp  bybp  cbyc
+ppb   pcbc  cbyc  #     bybc  bppp  bbpp
+ppbb  pcb   yycb  #     bbpp  ypc   cpp
+bpp   cbb   pbyp  bbbp  bbb   bbc   cbpc
+bpbp  pbp   pbp   bbbp  bbbp  bpc   cpcc
+ppbp  cyb   pbbp  bbb   ccb   cpc   cpc
+bpbp  pbpp  pcpp  bcy   bcc   pycc  ybyc
+bpb   bbb   bcp   pcyR  pccc  pcy   pyb
+bbc   cbc   bcp   ccbc  cccc  ccb   pbb
+solution: 0,3 ; 5,2 ; 4,0 ; use 0,4,0 ; 6,3 ; use 0,6,0 ; use 0,2,0 ; 4,1 ; use 0,2,0 ; 4,0 ; use 0,2,0

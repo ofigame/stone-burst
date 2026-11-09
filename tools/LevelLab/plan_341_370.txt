@@ -1,0 +1,40 @@
+// Bölüm 341-370 profilleri (Premium-v2 rehberi §11: 301–400 döner taban, ikinci yarı).
+// 341–350 taban + dört katman ve rulo (sıra planlama derinleşir), 351–360 taban + yıldız ve boşluklu tahtalar,
+// 361–370 taban + renk kilidi (döndürme kilit rengini üste getirir). Her çözümde en az bir döndürme
+// (kalite kapısı). Aynı anda en çok iki örtü/taban ailesi. 10'luk ritim (§11). Biçim: Generator.cs başı.
+
+// 341-350: taban + dört katman + rulo.
+341 | title=Derin Tur | size=5 | layers=3-4 | colors=cby | rotor=1 | goals=c:0.5 | len=3-4 | slack=2 | win=0.6
+342 | title=Rulo ve Tur | size=5 | layers=3-3 | colors=cby | rotor=1 | roll=on | goals=b:0.5 | len=4-5 | slack=1 | win=0.45
+343 | title=Kat Sırası | size=5 | layers=3-4 | colors=cbyp | rotor=1 | goals=y:0.5 | len=4-5 | slack=1 | win=0.4
+344 | title=İki Tur İki Kat | size=5 | layers=3-4 | colors=cbyp | rotor=1 | rotorMin=2 | goals=p:0.5,c:0.4 | len=5-6 | slack=1 | win=0.3
+345 | title=Dörtlü Dönüş | size=5 | layers=4-4 | colors=cby | rotor=1 | roll=start | goals=b:0.5 | len=3-5 | slack=2 | win=0.6 | chains=2
+346 | title=Kule Turu | size=6 | layers=3-4 | colors=cby | holes=8 | rotor=1 | goals=c:0.5 | len=4-6 | slack=1 | win=0.4
+347 | title=Doğru Kat | size=5 | layers=3-4 | colors=cbyp | rotor=2 | goals=y:0.5,b:0.4 | len=5-6 | slack=1 | win=0.25
+348 | title=Hafif Kule | size=5 | layers=3-3 | colors=cby | rotor=1 | goals=c:0.6 | len=3-4 | slack=2 | win=0.7
+349 | title=Kat Ustası | size=6 | layers=3-4 | colors=cbyp | holes=5 | rotor=2 | rotorMin=2 | roll=on | goals=p:0.4,y:0.4 | len=6-7 | slack=1 | win=0.2
+350 | title=Dönen Kule | size=6 | layers=3-4 | colors=cbyp | holes=4 | rotor=2 | roll=on | stars=1 | goals=b:0.4,c:0.4 | len=6-7 | slack=1 | win=0.2 | chains=1
+
+// 351-360: taban + yıldız, boşluklu tahtalar.
+351 | title=Yıldızlı Tur | size=5 | layers=2-3 | colors=cby | rotor=1 | stars=1 | goals=b:0.5 | len=3-4 | slack=2 | win=0.6
+352 | title=Dön ve Topla | size=5 | layers=2-3 | colors=cby | rotor=1 | stars=2 | goals=y:0.5 | len=4-5 | slack=1 | win=0.45
+353 | title=Ada Turu | size=5 | layers=2-3 | colors=cbyp | holes=4 | rotor=1 | stars=1 | goals=c:0.5 | len=4-5 | slack=1 | win=0.35
+354 | title=Işık Sırası | size=5 | layers=3-3 | colors=cbyp | rotor=2 | stars=2 | goals=p:0.5 | len=5-6 | slack=1 | win=0.3
+355 | title=Parıltı Akışı | size=5 | layers=3-3 | colors=cby | rotor=1 | stars=1 | goals=c:0.6 | len=3-4 | slack=2 | win=0.65 | chains=2
+356 | title=Takımada Turu | size=6 | layers=2-2 | colors=cby | holes=10 | rotor=1 | stars=2 | goals=b:0.5 | len=4-5 | slack=1 | win=0.4
+357 | title=Yıldız Planı | size=5 | layers=2-3 | colors=cbyp | rotor=2 | rotorMin=2 | stars=1 | goals=y:0.5,c:0.4 | len=5-6 | slack=1 | win=0.25
+358 | title=Yumuşak Tur | size=5 | layers=2-2 | colors=cby | rotor=1 | goals=y:0.6 | len=3-4 | slack=2 | win=0.7
+359 | title=Gece Turu | size=6 | layers=2-3 | colors=cbyp | holes=6 | rotor=2 | stars=2 | goals=c:0.4,p:0.4 | len=5-7 | slack=1 | win=0.2
+360 | title=Yıldız Çarkı | size=6 | layers=3-3 | colors=cbyp | holes=4 | rotor=2 | roll=on | stars=2 | goals=b:0.4,y:0.4 | len=6-7 | slack=1 | win=0.2 | chains=1
+
+// 361-370: taban + renk kilidi.
+361 | title=Kilit Turu | size=5 | layers=2-3 | colors=cby | rotor=1 | lock=c:3 | goals=b:0.5 | len=3-4 | slack=2 | win=0.6 | tutorial=Döndürmek renk toplamaz: kilidin rengini üste getir, sonra soy.
+362 | title=Doğru Rengi Üste | size=5 | layers=2-3 | colors=cby | rotor=1 | lock=b:4 | goals=y:0.5 | len=4-5 | slack=1 | win=0.45
+363 | title=Çark ve Kasa | size=5 | layers=3-3 | colors=cbyp | rotor=1 | lock=p:4 | goals=c:0.5 | len=4-5 | slack=1 | win=0.35
+364 | title=Sayaçlı Tur | size=5 | layers=3-3 | colors=cbyp | rotor=2 | lock=y:5 | goals=b:0.5 | len=5-6 | slack=1 | win=0.3
+365 | title=Kilit Akışı II | size=5 | layers=3-3 | colors=cby | rotor=1 | lock=c:4 | goals=y:0.6 | len=3-4 | slack=2 | win=0.65 | chains=2
+366 | title=Kasa Adası | size=6 | layers=2-3 | colors=cby | holes=8 | rotor=1 | lock=b:4 | goals=c:0.5 | len=4-5 | slack=1 | win=0.4
+367 | title=İki Kasa Tur | size=5 | layers=2-3 | colors=cbyp | rotor=2 | lock=c:4,y:3 | goals=p:0.5 | len=5-6 | slack=1 | win=0.25
+368 | title=Rahat Kasa | size=5 | layers=2-2 | colors=cby | rotor=1 | lock=y:3 | goals=b:0.6 | len=3-4 | slack=2 | win=0.7
+369 | title=Kasa Ustası | size=6 | layers=3-3 | colors=cbyp | holes=5 | rotor=2 | rotorMin=2 | lock=p:5 | goals=c:0.4,b:0.4 | len=5-7 | slack=1 | win=0.2
+370 | title=Kilitli Çark | size=6 | layers=3-3 | colors=cbyp | holes=4 | rotor=2 | lock=b:5 | roll=on | stars=1 | goals=y:0.4,p:0.4 | len=6-7 | slack=1 | win=0.2 | chains=1

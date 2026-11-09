@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 8 hamle + 4 tepsi / limit 10 (pay +2, eski 13) hedef×0,79 bot 0,33 (hedef 0,28) plan 2; zincir v13: yeni çözüm 5 (eski 8), sınır 10→7, bot 6/112
+id: level_353
+title: Ada Turu
+moves: 7
+roll: off
+specials: on
+goals: purple 32, yellow 38, star 2
+grid:
+#     #     ypy   pcp   ycpb  #     #
+#     ypcc  pycc  pypc  ycp   ccb   #
+ypy   pycc  yyyc  pyb   ycbb  cpy   ccyb
+ypyc  ypyc  cypc  cyyc  ccyb  ccyb* ccyc
+byp   pypR  cyp   yyp   ybpb  ycy   cc
+ppp   pybp  pc    ybpp  cy    ycyb  ycyb
+ypppR yppp  cpbp  cpb   bcbb  yyyb  cyy
+#     ybp   ybc   cpcp  ccyp* cbyp  #
+#     #     ybby  ybb   yby   #     #
+solution: 1,1 ; use 0,4,0 ; 2,3 ; 2,2 ; 6,2 ; use 0,2,0 ; use 0,2,0 ; 3,6 ; use 0,4,0

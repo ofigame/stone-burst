@@ -1,0 +1,109 @@
+# Stone Burst iOS derlemesi (kullanıcı, 2026-11-09: "githuba bağlayacağız orada derlenecek").
+# 1) Linux: Unity Xcode projesini çıkarır (GameCI).  2) macOS: Xcode derler, imzalar, TestFlight'a yükler.
+# Gizli anahtarlar (Settings → Secrets and variables → Actions) docs/v13/IOS_PLANI.md §4'te.
+# ÇALIŞTIRILMADI: depo henüz GitHub'da değil.
+name: iOS
+
+on:
+  workflow_dispatch:
+    inputs:
+      upload:
+        description: "TestFlight'a yükle"
+        type: boolean
+        default: false
+
+env:
+  UNITY_VERSION: 6000.6.4f1
+
+jobs:
+  xcode:
+    name: Unity → Xcode projesi
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-iOS-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: Library-iOS-
+      - name: Unity derlemesi
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          KATKAT_IOS_OUT: build/iOS/iOS
+          KATKAT_IOS_TEAM: ${{ secrets.APPLE_TEAM_ID }}
+          KATKAT_BUILD_NUMBER: ${{ github.run_number }}
+        with:
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: iOS
+          buildMethod: KatKat.EditorTools.BuildScripts.BuildIOS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: xcode-project
+          path: build/iOS/iOS
+          retention-days: 3
+
+  ipa:
+    name: Xcode → IPA (TestFlight)
+    needs: xcode
+    runs-on: macos-15
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: tools/ios
+      - uses: actions/download-artifact@v4
+        with:
+          name: xcode-project
+          path: xcode
+      - name: Uygulama ikonlarından saydamlık kanalını kaldır (App Store şartı)
+        run: |
+          for f in xcode/Unity-iPhone/Images.xcassets/AppIcon.appiconset/*.png; do
+            sips -s format jpeg "$f" --out /tmp/i.jpg >/dev/null && sips -s format png /tmp/i.jpg --out "$f" >/dev/null
+          done
+      - name: CocoaPods (AdMob ve Firebase bağımlılıkları)
+        run: |
+          if [ -f xcode/Podfile ]; then cd xcode && pod install --repo-update; fi
+      - name: İmza sertifikası
+        uses: apple-actions/import-codesign-certs@v3
+        with:
+          p12-file-base64: ${{ secrets.IOS_DIST_CERT_P12 }}
+          p12-password: ${{ secrets.IOS_DIST_CERT_PASSWORD }}
+      - name: Dağıtım profili
+        run: |
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          echo "${{ secrets.IOS_PROVISION_PROFILE }}" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/stoneburst.mobileprovision
+      - name: Arşivle ve IPA çıkar
+        env:
+          TEAM: ${{ secrets.APPLE_TEAM_ID }}
+          PROFILE: ${{ secrets.IOS_PROVISION_PROFILE_NAME }}
+        run: |
+          sed -e "s/__TEAM__/$TEAM/" -e "s/__PROFILE__/$PROFILE/" tools/ios/ExportOptions.plist > /tmp/ExportOptions.plist
+          if [ -d xcode/Unity-iPhone.xcworkspace ]; then SRC="-workspace xcode/Unity-iPhone.xcworkspace"; else SRC="-project xcode/Unity-iPhone.xcodeproj"; fi
+          xcodebuild $SRC -scheme Unity-iPhone -configuration Release \
+            -archivePath "$RUNNER_TEMP/StoneBurst.xcarchive" -destination 'generic/platform=iOS' \
+            DEVELOPMENT_TEAM="$TEAM" CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY="Apple Distribution" \
+            PROVISIONING_PROFILE_SPECIFIER="$PROFILE" archive
+          xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/StoneBurst.xcarchive" \
+            -exportOptionsPlist /tmp/ExportOptions.plist -exportPath "$RUNNER_TEMP/ipa"
+      - name: IPA yolu
+        id: ipa
+        run: echo "path=$(ls "$RUNNER_TEMP"/ipa/*.ipa | head -1)" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: StoneBurst-ipa
+          path: ${{ runner.temp }}/ipa/*.ipa
+          retention-days: 7
+      - name: TestFlight'a yükle
+        if: ${{ inputs.upload }}
+        uses: apple-actions/upload-testflight-build@v1
+        with:
+          app-path: ${{ steps.ipa.outputs.path }}
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_P8 }}

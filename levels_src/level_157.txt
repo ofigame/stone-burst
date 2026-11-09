@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: resource [exact]; çözüm 7 / sınır 9 (v7 10); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,42; zincir v13: yeni çözüm 7 (eski 7), sınır 9→9, bot 8/112
+id: level_157
+title: Önce Buz
+moves: 9
+roll: off
+specials: on
+type: resource
+rules: exact
+goals: purple 41, yellow 22
+grid:
+ppb   pcbi1 ccbp  ccpb  #     #     #
+ypcbi1 ycb   bbcp  ybcc  #     #     #
+ypp   bpy   bpcLc8 ppc   #     #     #
+byy   bpyi2 bpb   bpbp  #     #     #
+pcp   bpyb  bpyb  bpbp  bbbp  ypb   cbcp
+ppb   bpc   cybp  bppp  bbb   bbcc  cbc
+bccp  bccp  ycb   pbb   ccb   bbcci1 bbcc
+byc   yyyp  ypb   ccbp  ccb   bbcc  bbp
+ybcpi2 yyy   yyy   ycyc  cbpc  cbpp  ccp
+solution: 3,3 ; 2,3 ; 5,5 ; use 1,2,0 ; use 1,1,2 ; 0,0 ; 0,0 ; use 0,0,0 ; use 0,0,8 ; 0,7 ; use 0,3,0 ; 5,5 ; use 1,3,2

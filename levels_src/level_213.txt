@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 7 hamle + 4 tepsi / limit 10 (pay +3, eski 13) hedef×1,11 bot 0,29 (hedef 0,35) plan 1; zincir v13: yeni çözüm 6 (eski 7), sınır 10→9, bot 29/112
+id: level_213
+title: Uzak Zarflar
+moves: 9
+roll: off
+specials: on
+goals: purple 38, yellow 33, envelope 2
+grid:
+pbp   ycc   bbc   byy   ycy   ycy   pcy
+pyp   pyp   ybc   ycb   pcb   pcy   ppy
+cyp   pyc   pbc   pcc   bbp   bcp   pcy
+cby   cbc   #     #     #     ccp   ppc
+cyb   cyy   #     #     #     ccp   cpc
+yyb   bcb   #     #     #     cpb   ybp
+ycb   bbb   cbb   ypb   byb   ybb   bpp
+ycb   cby   cpy   yyy   byb   pyp   ypp
+cbbEy bbbEy pyb   ypc   bpb   ppp   ypp
+solution: 3,0 ; use 0,0,8 ; 0,4 ; 6,0 ; use 0,3,0 ; use 0,0,0 ; 1,0 ; use 0,2,1 ; 6,2 ; 0,1 ; use 0,6,0

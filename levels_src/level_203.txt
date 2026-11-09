@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 11 hamle + 5 tepsi / limit 14 (pay +3, eski 9) hedef×1,44 bot 0,42 (hedef 0,36) plan 0; zincir v13: yeni çözüm 8 (eski 11), sınır 14→15, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 9, bot 6/112
+id: level_203
+title: İnci Mühür
+moves: 9
+roll: off
+specials: on
+goals: blue 27, coral 40, envelope 1
+grid:
+#     #     bcb   byb   byp   #     #
+#     cbb   pcp   yyc   pcp   pcp   #
+cyy   cbc   bcc   pcc   cpp   bpp   ppp
+bcb   yyy   cyc   cyc   cyy   ppc   ppc
+cyy   cyc   pyc   cbp   ybp   ycc   ppp
+cyy   pby   ypc   ypp   ybb   pcp   pcp
+ppy   pbcEy ppc   cpp   bpb   bcp   pcp
+#     pbc   pbc   ypc   bpb   bbc   #
+#     #     bcb   yyc   byc   #     #
+solution: 3,1 ; 2,4 ; 0,4 ; use 0,2,0 ; 6,4 ; use 0,2,0 ; use 1,2,0 ; 4,0 ; 4,2 ; use 0,5,1 ; use 0,1,1

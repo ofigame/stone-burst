@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 8; scarce [scarce]; kıt renk blue 41/40; çözüm 8 / sınır 10 (v7 11); açgözlü kazanır; bot48 0,04 (taban 0,04); zincir v13: yeni çözüm 11 (eski 8), sınır 10→17, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 14, bot 10/112
+id: daily_d005_t8
+title: Günlük 5
+moves: 14
+roll: on
+specials: on
+type: scarce
+rules: scarce
+goals: coral 42, blue 38, yellow 37, sponge 1
+grid:
+#     #     yypp  yypc  ybbc  #     #
+#     cypc  ybbb  yypy  ypbc  ybbb  #
+cccyScpy cccy  cpyp  ycbb  ycpb  ypcb  cycy
+cccp  cbcp  ypcp  ypyy  ycpb  yppb  ppcb
+pcyb  ppyb  cpyy  pcpp  pcpbK1:2 ycyb  ypcp
+ccyb  ccyb  cppb  pppp  pcpy  ppcp  ppcp
+cbby  cbby  cybp  cyby  pybyK1:2 ppby  ppcp
+#     yybp  ypbp  cppy  yyby  ypby  #
+#     #     ybcb  cbcb  cyby  #     #
+solution: 5,1 ; roll 2 ; use 0,2,0 ; 4,5 ; 1,3 ; use 0,3,0 ; 3,1 ; use 0,4,0 ; 3,4 ; roll 2 ; use 0,0,2 ; 2,0 ; use 0,4,0

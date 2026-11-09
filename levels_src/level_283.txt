@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven; çözüm 8 hamle + 5 tepsi / limit 16 (pay +8, eski 16) hedef×1,29 bot 0,33 (hedef 0,31) plan 2; zincir v13: yeni çözüm 7 (eski 8), sınır 16→15, bot 7/112
+id: level_283
+title: Kar Mektubu
+moves: 15
+roll: off
+specials: on
+goals: blue 47, coral 41, envelope 2
+grid:
+bpc   bpb   yybc  #     #     #     #
+bpp   byp   yybc  cyb   #     #     #
+bbbp  byp   pyc   pccEy ccyy  #     #
+pbpp  pyp   pbc   pcc   ccc   bcb   #
+ybcp  ybbp  pbp   cbyy  ccy   bcb   pcbc
+yypp  ybb   cbcc  cyb   cyyy  bcby  bbb
+pypp  ybp   cyci2 cby   cyy   bbyy  bby
+pycpi2 pycp  pyc   cbpc  cbyci1 bcy   bcy
+pypp  pbpp  byp   bbpEc bcp   bcpci1 bcp
+solution: 0,1 ; 3,4 ; use 0,0,0 ; use 0,1,0 ; 0,5 ; 3,4 ; use 0,0,2 ; 3,1 ; use 1,3,2 ; 0,4 ; 0,0 ; use 1,0,2

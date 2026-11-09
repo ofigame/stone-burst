@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 6 hamle + 4 tepsi / limit 10 (pay +4, eski 8) hedef×1,43 bot 0,46 (hedef 0,44) plan 1; zincir v13: yeni çözüm 5 (eski 6), sınır 10→9, bot 15/112
+id: level_103
+title: Rulo Altında
+moves: 9
+roll: off
+specials: on
+goals: blue 32, coral 36
+grid:
+bpc   byb   cyy   #     pcc   pyyi1 pyy
+ppc   pbb   pcy   #     pcb   pyb   pyy
+ppc   ccp   pby   pcy   ppy   pcy   pcy
+ppc   cyp   ycc   ycb   cbb   cbb   cbbi1
+ppy   pcy   pcy   bpb   yyp   pbb   ycy
+ppb   pcb   bpb   pcp   pcp   cyp   cppi1
+pcb   pcb   ccb   cpb   yby   cyp   cpc
+pyy   pbb   pbb   ppc   cbb   pcc   pyp
+solution: 0,5 ; 2,0 ; use 0,1,0 ; use 0,0,0 ; 3,4 ; use 0,0,0 ; 0,1 ; use 0,4,0 ; 1,3 ; use 0,0,2

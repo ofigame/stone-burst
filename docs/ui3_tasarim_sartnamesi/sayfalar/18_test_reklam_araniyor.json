@@ -1,0 +1,97 @@
+{
+  "pageId": 18,
+  "title": "Reklam aranıyor",
+  "kind": "adLoading",
+  "referenceScreenshot": "ui2/18_test_reklam_araniyor.png",
+  "coordinateSystem": "1080x1920 top-left; modal children card-local",
+  "elements": [],
+  "modal": {
+    "width": 760,
+    "height": 460,
+    "position": "center complete visual group inside safe area",
+    "localOrigin": "card-top-left",
+    "frame": {
+      "radius": 48,
+      "rimWidths": [
+        4,
+        3,
+        12,
+        9
+      ],
+      "crestRise": 32,
+      "shadowOffset": [
+        0,
+        14
+      ],
+      "shadowBlur": 22,
+      "shadowAlpha": 0.28
+    },
+    "elements": [
+      {
+        "id": "title",
+        "rect": [
+          48,
+          56,
+          664,
+          80
+        ],
+        "role": "modalTitle",
+        "binding": "runtime ad search",
+        "note": ""
+      },
+      {
+        "id": "count",
+        "rect": [
+          304,
+          160,
+          152,
+          152
+        ],
+        "role": "metric",
+        "binding": "runtime timeout",
+        "note": ""
+      },
+      {
+        "id": "note",
+        "rect": [
+          48,
+          344,
+          664,
+          72
+        ],
+        "role": "caption",
+        "binding": "runtime no-fill note",
+        "note": ""
+      }
+    ],
+    "close": {
+      "create": false,
+      "onlyIfExisting": true,
+      "visualRect": [
+        792,
+        -28,
+        88,
+        88
+      ],
+      "hitRect": [
+        784,
+        -36,
+        104,
+        104
+      ]
+    },
+    "overflow": "Keep fonts/buttons fixed. Calculate actual TMP preferred heights, grow textual rows then card. If total exceeds safeHeight-96, scroll content area only; keep title and actions fixed. Empty/missing optional sections removed with their exact adjacent gap."
+  },
+  "content": {
+    "keyPattern": "ad.",
+    "buttonBindings": [],
+    "authority": "live Loc/runtime existing case-format/action-condition; frozen snapshot is audit-only"
+  },
+  "sources": [
+    "Assets/KatKat/Scripts/UI/TestAdScreen.cs"
+  ],
+  "notes": [
+    "Metin, sayı, durum, düğme sayısı, sırası ve eylemi mevcut çalışma zamanından gelir; örnek panodaki içerik kullanılmaz.",
+    "Otomatik yeni kapat/geri düğmesi, yardım, ödeme, güç veya ayar eklenmez."
+  ]
+}

@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [chainOnly+exact]); çözüm 8 / sınır 11 (v7 11); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; zincir v13: yeni çözüm 10 (eski 8), sınır 11→17, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 10/112
+id: level_210
+title: Mektup Günü
+moves: 12
+roll: off
+specials: on
+type: boss
+rules: exact
+goals: yellow 51, blue 44, coral 29, envelope 1
+grid:
+ccbc  ccbp  ccyp  pbb   pbb   pbpb  cybb  bbcp
+cyy   cpy   ccy   ybb   pbb   bbp   pypb  yypp
+cyyy  ycc   ybpp  ybb   pby   pby   cy    ybp
+cyyy  yypy  cbp   cbbb  pby   pbbyEp yypy  yyp
+cyp   #     #     bpyp  ppyb  #     #     pyyy
+pycb  #     #     pcy   ppy   #     #     pcy
+ypc   #     #     bcpy  ppy   #     #     pcy
+ypc   bcpy  pcp   pcby  pbby  ppby  ppby  bbbc
+yppy  ccpy  ccby  ccb   pcb   bpb   bpbc  bbbc
+solution: 3,0 ; use 0,0,1 ; 5,0 ; use 0,0,0 ; 3,0 ; use 0,0,0 ; 7,2 ; use 0,0,0 ; 3,4 ; use 0,6,0 ; 0,0 ; use 0,1,0

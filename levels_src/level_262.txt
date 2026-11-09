@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 6 hamle + 5 tepsi / limit 10 (pay +4, eski 15) hedef×0,95 bot 0,38 (hedef 0,37) plan 0; zincir v13: çözüm aynı, sınır 10→10, bot 30/112
+id: level_262
+title: İki Kapak
+moves: 10
+roll: off
+specials: on
+goals: yellow 40, blue 28, envelope 1
+grid:
+#     #     #     #     ccc   ccyy  bcyy
+#     #     #     pyc   cccy  ycpy  cby
+#     #     ppyb  pcpy  bccy  bcpy  bpp
+#     yppb  ppy   yccc  bccyEb bbcbk1 bppb
+ybp   ybb   ppp   yycc  yyp   yyp   byb
+yccy  ycp   ccpc  cyp   cyp   yypb  bypbk1
+cpcc  ypp   cpc   bycc  bpb   yybb  yypb
+cbcc  cbpb  ppcc  byp   ccy   pppy  yypb
+pbc   cbcb  ppcb  ppcb  ppcy  pcc   byp
+solution: 5,0 ; 5,5 ; use 0,6,1 ; 4,4 ; 4,3 ; 4,0 ; use 1,5,0 ; 4,0 ; use 1,6,0 ; use 0,3,1 ; use 0,3,3

@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x2; çözüm 5 hamle + 3 tepsi / limit 9 (pay +4, eski 11) hedef×0,92 bot 0,54 (hedef 0,55) plan 0; zincir v13: yeni çözüm 6 (eski 5), sınır 9→10, bot 35/112
+id: level_042
+title: İki Yıldız
+moves: 10
+roll: off
+specials: on
+goals: yellow 22, blue 14, star 3
+grid:
+#     #     cyc   bbc   bpc*  cpc   cyb
+#     ccc   ccb   cbc   cpc   cpc   ycb
+yyp   bcc   ycp   cyp   cyp   cpp*  ycb
+pcp   byp   #     #     #     yyy   yyy
+ccp   ppc   #     #     #     yyy*  bby
+pcc   ccc   cpp   pyb   pyb   byb   bcb
+pcc   ppp   ppc   pyb   cyb   bpb   #
+ycy   ypy   ycy   ycb   ccb   #     #
+solution: 3,5 ; 2,0 ; 3,0 ; 2,2 ; use 1,0,2 ; 6,2 ; use 0,2,0 ; 5,3

@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [protect+exact]; kristal 3; çözüm 14 / sınır 14 (v7 18); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; adillik onarımı: sınır 14→15 (112 oyunda 7 galibiyet); zincir v13: yeni çözüm 11 (eski 14), sınır 15→14, bot 11/112
+id: level_960
+title: Bölüm 960
+moves: 14
+roll: off
+specials: on
+type: boss
+rules: protect, exact
+goals: coral 49, purple 25, yellow 33, sponge 1
+grid:
+#     #     bcpb  bcpb  pccc  yccc  ycyc  ycyb
+#     pcbb  bbbb  pbcb  pccy  bccb  ypybScby ycyb
+pbbb  cbbbK1:2 bbbc  pbcc  bcyy  bcbb  ypbb  ypyy
+bbbcP bbby  pbby  #     #     cyyy  cpby  bpyy
+ybbc  ybcc  pbcy  #     #     cyyy  cyyy  cypy
+pbbc  pycy  yycy  #     #     cyyy  pyyy  pbcc
+pbbc  pbcy  pccb  yycy  pcyy  pbpy  pbpc  pbcc
+pcbc  pbbb  cccy  cycp  cccc  cccc  pppc  #
+bbbpP bbbpP cbbb  bcbp  cccc  ccpcK1:2 #     #
+solution: 7,2 ; use 0,4,1 ; 5,3 ; use 0,7,0 ; 4,0 ; 7,5 ; 6,5 ; use 0,0,7 ; use 0,2,0 ; 4,0 ; 2,6 ; 1,1 ; 2,0 ; use 0,2,0 ; 2,0 ; use 1,0,2 ; use 2,6,0 ; 3,0 ; use 2,2,0

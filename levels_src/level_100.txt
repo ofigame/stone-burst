@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [noSpecials+scarce+exact]); çözüm 9 / sınır 9 (v7 15); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; zincir v13: yeni çözüm 7 (eski 9), sınır 9→11, bot 4/112; zincir v13 kolaylaştırma: hedef −%6, sınır 8, bot 6/112
+id: level_100
+title: Yüzüncü
+moves: 8
+roll: off
+specials: on
+type: boss
+rules: exact
+goals: coral 50, purple 44, star 2
+grid:
+ppbc  ypbck1 ypb   bpb   bppc  bpp   cpp   cppi1
+cb    pybc  ycb   bpc*  bcc   cppc  cpc   pcy
+bbyi1 pyyb  ycbb  yccbi1 ccb   cypc  cypp  cppp
+#     pby   cyy   bybb  pyb   byp   cyp   #
+#     bbyyi1 byy   cpbb  cbc   bbcb  cbcb  #
+#     ycby  bby   cyb   cyb   cyp   cbcbi2 #
+ycy   ycy   bbyb  byyk1 byby  bppy  cpp   pbp
+ycy   yby   bby   bcbi2 bcb   ycc   ypp   ypppi1
+ycyy  bcp   bcp   bcp   ycc   ycc   ycp   bpp*
+solution: 2,0 ; 0,0 ; use 1,0,0 ; 3,0 ; 1,0 ; 5,6 ; use 1,0,1 ; use 1,0,0 ; 3,7 ; 5,2 ; use 3,6,0 ; use 0,4,0

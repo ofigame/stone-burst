@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 8 hamle + 6 tepsi / limit 11 (pay +3, eski 14) hedef×1,11 bot 0,38 (hedef 0,33) plan 3; zincir v13: yeni çözüm 8 (eski 8), sınır 11→11, bot 6/112
+id: level_245
+title: Işıklı Akış
+moves: 11
+roll: off
+specials: on
+goals: purple 52, yellow 49, blue 40, star 2, envelope 2
+grid:
+pyb   pybb  ybpEb ybp   bcp   bcp   bcbbEc
+pybb  ypp   pbby  yby   ccy   ccpc  ccpy
+bypb  bpp   pbpb  yby*  ycbb  bcp   bypy
+#     bppb  bppb  pycp  bcyb  ccy   #
+#     bppp  bpp   yby   pbyb  pcbb  #
+#     ypp   ypbp  ybbp  pby   yyc   #
+yyc   yyc   ppbp  ypy   pccb  ypbb  pypb
+yyyp  bccp  byyp  pccy  pccy  bcy   cyp
+pbyb  ycc   pycy  bcyy  cccy  cccy* cyp
+solution: 1,4 ; use 0,2,1 ; 4,2 ; use 0,2,0 ; 4,0 ; 0,0 ; use 0,0,0 ; 0,6 ; use 0,4,1 ; use 0,1,0 ; 1,1 ; 0,6 ; 1,0 ; use 0,0,0

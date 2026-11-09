@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3 (kaydırılmış); çözüm 9 hamle + 7 tepsi / limit 16 (pay +7, eski 10) hedef×1,30 bot 0,13 (hedef 0,27) plan 2; zincir v13: yeni çözüm 12 (eski 9), sınır 16→23, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 12, bot 37/112
+id: level_501
+title: Bağlı Ataş
+tutorial: Bağlı ataşlar tek sayaç taşır: herhangi birinin yanında soy, hepsi birlikte gevşer.
+moves: 12
+roll: off
+specials: on
+goals: purple 57, yellow 40
+grid:
+bybc  cybc  ccy   ccb   pypy  pcp   pcp
+bpcc  bpy   bpy   bcb   yypy  ybpy  ycp
+bpc   bpy   #     #     #     pbp   pbp
+bppp  bppp  #     #     #     ppp   pppp
+bcp   cpy   #     #     #     yppc  ppp
+pyp   bpp   pcy   ppy   ypycK1:1 ypp   ypy
+pyp   bypy  yccy  ycp   ycy   ycyc  ycy
+bybb  bypy  yccy  ycp   ybpc  ybpc  ycp
+bypbK1:1 bcp   pcp   pby   pbpc  pbpb  ycpb
+solution: 5,0 ; use 0,5,0 ; 0,5 ; use 0,2,0 ; 4,5 ; 0,3 ; 1,5 ; use 0,0,3 ; use 0,4,0

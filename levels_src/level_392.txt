@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 8 hamle + 5 tepsi / limit 17 (pay +9, eski 15) hedef×1,13 bot 0,29 (hedef 0,31) plan 0; zincir v13: yeni çözüm 10 (eski 8), sınır 17→19, bot 7/112
+id: level_392
+title: Üç Çark
+moves: 19
+roll: off
+specials: on
+goals: coral 50, purple 44
+grid:
+ycyb  ycc   yycp  bycb  pyy   ypyp  ypyR
+pbpp  pby   bbc   bbb   ypbp  bpcp  bpc
+ppyp  bbyR  bcc   byb   cybp  yccp  bpc
+#     bcyc  bcpp  pbcp  pcbcR ycc   #
+#     bcyp  bypp  pbyp  pby   ypc   #
+#     cypp  cyp   cbyc  cbp   pbyc  #
+bccy  cycy  cbcc  cbb   cbbR  pbp   pppy
+ycbc  cpb   ypb   cyby  ccby  ccby  ybpy
+bbbc  pybc  yppc  cbpc  cbp   ybpR  ybp
+solution: 0,7 ; 6,6 ; 5,6 ; use 2,2,0 ; 5,1 ; use 2,1,0 ; 3,0 ; use 2,0,1 ; 4,0 ; use 2,1,0 ; 0,0 ; 4,5 ; 0,1 ; 4,3 ; use 0,0,6 ; use 1,4,5

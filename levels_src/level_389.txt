@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U (ayna); çözüm 8 hamle + 5 tepsi / limit 16 (pay +8, eski 15) hedef×1,13 bot 0,21 (hedef 0,26) plan 1; zincir v13: yeni çözüm 8 (eski 8), sınır 16→20, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 15, bot 17/112
+id: level_389
+title: Örtü Çarkçısı
+moves: 15
+roll: off
+specials: on
+goals: purple 47, yellow 57, blue 33
+grid:
+bc    ypyp  pbcy  #     bpcyk1 bbby  bb
+cyypR cpyp  pbyy  #     bpyc  ppcy  ppyy
+bcc   cpcc  cpcy  #     ppyc  ppcc  pc
+bpcc  yccc  yccyk1 yccc  yyycR yycc  yycp
+bpcc  ypcc  ccyc  ccyc  yycc  bycp  bycp
+ypbc  ypcc  cpyc  cpyc  cpyp  pybp  pycpi1
+bpby  pbcc  pby   byyc  pp    pybp  pyby
+bpyy  pbcb  pbcb  bbcci1 bbbc  bybc  pyby
+bpyy  ppyyR pbcy  ybcci1 ybbc  ybyy  ybyy
+solution: 4,1 ; 0,2 ; use 0,2,0 ; 0,2 ; use 0,1,0 ; 5,4 ; 1,7 ; use 0,0,1 ; use 1,5,0 ; 1,2 ; use 1,1,0 ; 5,1 ; use 0,5,0

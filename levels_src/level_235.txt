@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 12 hamle + 8 tepsi / limit 15 (pay +3, eski 12) hedef×1,28 bot 0,29 (hedef 0,34) plan 2; zincir v13: yeni çözüm 7 (eski 12), sınır 15→13, bot 6/112
+id: level_235
+title: Erime Postası
+moves: 13
+roll: off
+specials: on
+goals: blue 42, coral 46, envelope 2
+grid:
+ccpb  ppp   ppp   cyyEc cyyp  cbpp  bcpEb
+cbp   ppp   ccyy  cyyy  cyc   cbpp  cbb
+cbpp  pbpp  pcc   ccci1 cbcc  cbp   byb
+#     ycpp  pcb   ccb   pcbc  pybc  #
+#     ycpp  ypp   bcc   ccbp  ccb   #
+#     pbc   bpp   cpb   ccbp  yyp   #
+pbc   cbyi1 ppc   pbc   bbp   bbp   bbc
+cbyp  cbyb  yyc   ybpc  ybp   byp   bbpc
+cbyp  cyp   yyp   yyp   yyp   bybi1 bcp
+solution: 1,0 ; use 0,4,1 ; 2,3 ; use 0,0,0 ; 4,3 ; 2,2 ; use 0,0,1 ; 0,0 ; use 0,0,0 ; 1,6 ; 5,0 ; use 0,5,0 ; use 0,0,0

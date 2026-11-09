@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe; çözüm 2 hamle + 2 tepsi / limit 6 (pay +4, eski 4) hedef×1,24 bot 0,71 (hedef 0,60) plan 0; zincir v13: çözüm aynı, sınır 6→6, bot 17/112
+id: level_007
+title: Roket Yolu
+tutorial: Tepsideki rokete dokun, sonra bir taşa: o satırı (ya da sütunu) sarar. Hamle harcamaz!
+moves: 6
+roll: off
+specials: on
+goals: blue 25
+grid:
+#     #     cbb   cbb   #     #
+#     byy   bcb   bc    yb    #
+yb    ybb   ycb   cy    yy    by
+ccb   bc    ccb   yy    bc    yby
+byb   bbc   cy    yyb   ycy   cy
+#     by    by    by    yy    #
+#     #     cyc   byy   #     #
+solution: 3,2 ; use 0,3,1 ; 2,0 ; use 0,2,0

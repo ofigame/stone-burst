@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: protect [protect]; kristal 2; çözüm 4 / sınır 7 (v7 7); açgözlü kazanır; bot48 0,65 (taban 0,10); bot 0,33; zincir v13: yeni çözüm 4 (eski 4), sınır 7→7, bot 39/112
+id: level_068
+title: Erime
+moves: 7
+roll: off
+specials: on
+type: protect
+rules: protect
+goals: coral 23, purple 31
+grid:
+byc   byy   cpp   #     #     #     #
+byc   ypb   cyy   pypi1 #     #     #
+ppp   ycp   ppp   cyp   ypy   #     #
+ycp   ppy   ppc   pyc   cyy   bcb   #
+cyy   pyp   ypy   pbc   cyy   pyc   cpc
+pyb   pyp   ppc   ppc   cyc   byci1 byp
+yybP  yyp   cpyi1 ppy   ypy   bpc   yybP
+byb   byc   bpp   ppy   cpy   cpc   ypc
+solution: 2,3 ; 0,2 ; 3,2 ; 5,4 ; use 2,2,0 ; use 2,0,0

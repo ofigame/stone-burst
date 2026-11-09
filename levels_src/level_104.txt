@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 6 hamle + 4 tepsi / limit 9 (pay +3, eski 13) hedef×1,10 bot 0,42 (hedef 0,44) plan 0; zincir v13: yeni çözüm 5 (eski 6), sınır 9→8, bot 9/112
+id: level_104
+title: Kat Kat Buz
+moves: 8
+roll: off
+specials: on
+goals: coral 24, purple 21
+grid:
+cyp   byy   bpb   bpb   bpb   ypyi1 bby
+cyy   cpy   byp   pbbi1 pyy   ccy   byb
+bcyi2 cyy   cbc   pyb   bpb   byc   pyy
+pbp   pbp   pbc   ppb   ppb   ppp   cyb
+bpy   byci2 yyc   cby   pcy   pcc   pyb
+#     #     yyc   ccy   pcy   #     #
+#     #     ccy   ccy   ycy   #     #
+#     #     bpb   yyy   yyc   #     #
+solution: 3,4 ; use 0,2,0 ; 5,0 ; use 0,0,0 ; 2,2 ; 2,2 ; 0,0 ; use 0,0,0 ; use 0,5,0

@@ -1,0 +1,125 @@
+{
+  "pageId": 32,
+  "title": "Deneme kayıp",
+  "kind": "result",
+  "referenceScreenshot": "ui2/32_deneme_kayip_karti.png",
+  "coordinateSystem": "1080x1920 top-left; modal children card-local",
+  "elements": [],
+  "modal": {
+    "width": 860,
+    "height": 640,
+    "position": "center complete visual group inside safe area",
+    "localOrigin": "card-top-left",
+    "frame": {
+      "radius": 48,
+      "rimWidths": [
+        4,
+        3,
+        12,
+        9
+      ],
+      "crestRise": 32,
+      "shadowOffset": [
+        0,
+        14
+      ],
+      "shadowBlur": 22,
+      "shadowAlpha": 0.28
+    },
+    "elements": [
+      {
+        "id": "title",
+        "rect": [
+          56,
+          80,
+          748,
+          80
+        ],
+        "role": "modalTitle",
+        "binding": "runtime existing title",
+        "note": ""
+      },
+      {
+        "id": "subtitle",
+        "rect": [
+          56,
+          184,
+          748,
+          104
+        ],
+        "role": "bodyCentered",
+        "binding": "runtime existing subtitle/goal chips",
+        "note": ""
+      },
+      {
+        "id": "button0",
+        "rect": [
+          56,
+          320,
+          748,
+          116
+        ],
+        "role": "button",
+        "binding": "runtime PanelButton[0]",
+        "note": ""
+      },
+      {
+        "id": "button1",
+        "rect": [
+          56,
+          460,
+          748,
+          116
+        ],
+        "role": "buttonSecondary",
+        "binding": "runtime PanelButton[1]",
+        "note": ""
+      }
+    ],
+    "close": {
+      "create": false,
+      "onlyIfExisting": true,
+      "visualRect": [
+        792,
+        -28,
+        88,
+        88
+      ],
+      "hitRect": [
+        784,
+        -36,
+        104,
+        104
+      ]
+    },
+    "overflow": "Keep fonts/buttons fixed. Calculate actual TMP preferred heights, grow textual rows then card. If total exceeds safeHeight-96, scroll content area only; keep title and actions fixed. Empty/missing optional sections removed with their exact adjacent gap."
+  },
+  "content": {
+    "keyPattern": "trial.|lose.|btn.",
+    "buttonBindings": [
+      "btn.retry",
+      "trial.list"
+    ],
+    "authority": "live Loc/runtime existing case-format/action-condition; frozen snapshot is audit-only"
+  },
+  "sources": [
+    "Assets/KatKat/Scripts/UI/ResultPanel.cs"
+  ],
+  "notes": [
+    "Metin, sayı, durum, düğme sayısı, sırası ve eylemi mevcut çalışma zamanından gelir; örnek panodaki içerik kullanılmaz.",
+    "Otomatik yeni kapat/geri düğmesi, yardım, ödeme, güç veya ayar eklenmez.",
+    "İpucu görünürlüğü mevcut kayıp sayısı/koşuluna bağlı; koşul değiştirilmez."
+  ],
+  "deliveredMockup": "../../sayfalar/32_deneme_kayip_karti.png",
+  "assetManifest": "../../parcalar/asset-manifest.json",
+  "assetUsage": "../../parcalar/KULLANIM.md",
+  "sharedSprites": [
+    "modal-seramik",
+    "kart-seramik",
+    "buton-birincil",
+    "buton-ikincil",
+    "baslik-plakasi",
+    "ikon-dugmesi"
+  ],
+  "invariant": "Existing strings, buttons, handlers, tiles and board geometry prevail over generated illustration"
+}

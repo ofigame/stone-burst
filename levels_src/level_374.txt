@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe; çözüm 8 hamle + 7 tepsi / limit 16 (pay +8, eski 13) hedef×1,29 bot 0,21 (hedef 0,27) plan 3; zincir v13: yeni çözüm 8 (eski 8), sınır 16→20, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 17, bot 12/112
+id: level_374
+title: Dönen Mektup
+moves: 17
+roll: off
+specials: on
+goals: yellow 60, blue 54, coral 30, envelope 1
+grid:
+#     #     bycb  cbpy  cbcy  #     #
+#     yyyb  bbcy  bbby  bbby  cbbc  #
+cyyb  yyyb  cypb  ppbb  bpbb  ybbb  cbcc
+cyyb  cyybEc pbyb  pybbR bppb  bppy  ypby
+cyyp  pypb  yccy  pbyb  bybb  bppy  pypy
+cbypR pbycR pbyc  pbyc  pybb  yypy  yycy
+cbbb  ccyy  bcyb  pyyc  pcbb  pyby  bycy
+#     cyyy  pbpb  yycp  ycpp  ycpy  #
+#     #     ycyp  yccp  ycpp  #     #
+solution: 5,3 ; 1,1 ; 3,0 ; use 0,4,0 ; use 0,2,0 ; 1,1 ; 5,6 ; use 0,2,0 ; 2,2 ; 2,1 ; use 0,2,0 ; 4,5 ; use 0,5,1 ; 0,4 ; use 0,2,0

@@ -1,0 +1,2045 @@
+[
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Ads.cs",
+    "line": 92,
+    "keys": [
+      "ad.nofill"
+    ],
+    "expression": "if (o == AdOutcome.Failed) _hud.ShowToast(Loc.T(\"ad.nofill\"), 2.4f);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Ads.cs",
+    "line": 106,
+    "keys": [
+      "ad.extra.got"
+    ],
+    "expression": "_hud.ShowToast(Loc.F(\"ad.extra.got\", n), 2f);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 232,
+    "keys": [
+      "err.notfound"
+    ],
+    "expression": "ShowContentError(Loc.T(\"err.notfound\"));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 236,
+    "keys": [
+      "err.notfound"
+    ],
+    "expression": "if (level == null) { ShowContentError(Loc.T(\"err.notfound\")); return; }"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 260,
+    "keys": [
+      "err.load"
+    ],
+    "expression": "ShowContentError(Loc.F(\"err.load\", _level.Id));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 313,
+    "keys": [
+      "err.title"
+    ],
+    "expression": "_hud.ShowPanel(Loc.T(\"err.title\"), message,"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 314,
+    "keys": [
+      "btn.home"
+    ],
+    "expression": "new HudView.PanelButton(Loc.T(\"btn.home\"), UiIcon.Back, true, ShowHome));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 418,
+    "keys": [
+      "toast.nomoves.tray"
+    ],
+    "expression": "_hud.ShowToast(Loc.T(\"toast.nomoves.tray\"));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 427,
+    "keys": [
+      "toast.min3"
+    ],
+    "expression": "_hud.ShowToast(Loc.T(\"toast.min3\"));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 435,
+    "keys": [
+      "toast.clip"
+    ],
+    "expression": "if (cell.ClipHitsRemaining > 0) _hud.ShowToast(Loc.T(\"toast.clip\"));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 436,
+    "keys": [
+      "toast.ice"
+    ],
+    "expression": "else if (cell.IceHitsRemaining > 0) _hud.ShowToast(Loc.T(\"toast.ice\"));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 437,
+    "keys": [
+      "toast.envelope"
+    ],
+    "expression": "else if (cell.HasEnvelope) _hud.ShowToast(Loc.F(\"toast.envelope\", LayerPalette.ColorName(cell.EnvelopeColor)));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 438,
+    "keys": [
+      "toast.lock"
+    ],
+    "expression": "else _hud.ShowToast(Loc.F(\"toast.lock\", cell.LockRemaining, LayerPalette.ColorName(cell.LockColor)));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 463,
+    "keys": [
+      "toast.rotor.cover",
+      "toast.rotor.two"
+    ],
+    "expression": "_hud.ShowToast(cell.HasCover ? Loc.T(\"toast.rotor.cover\") : Loc.T(\"toast.rotor.two\"));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 502,
+    "keys": [
+      "toast.roll.pick"
+    ],
+    "expression": "_hud.ShowToast(Loc.T(\"toast.roll.pick\"), 2.6f);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 518,
+    "keys": [
+      "toast.roll.empty"
+    ],
+    "expression": "_hud.ShowToast(Loc.T(\"toast.roll.empty\"));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 527,
+    "keys": [
+      "toast.roll.confirm"
+    ],
+    "expression": "_hud.ShowToast(Loc.T(\"toast.roll.confirm\"), 2.2f);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 578,
+    "keys": [
+      "toast.roll.won"
+    ],
+    "expression": "_hud.ShowToast(Loc.T(\"toast.roll.won\"), 2.4f);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 600,
+    "keys": [
+      "praise.combo"
+    ],
+    "expression": "/// (\"Süper!\", \"Kat Kat!\", \"Şahane!\", \"Efsane!\"); birleşimde Loc.T(\"praise.combo\"); doğan taşın adı."
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 608,
+    "keys": [
+      "praise.combo"
+    ],
+    "expression": "if (wave.ComboWith != SpecialKind.None) _hud.ShowPraise(Loc.T(\"praise.combo\"), 3);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 612,
+    "keys": [
+      "praise.rainbow",
+      "praise.rocket"
+    ],
+    "expression": "_hud.ShowPraise(r.SpecialCreated == SpecialKind.Rainbow ? Loc.T(\"praise.rainbow\") : Loc.T(\"praise.rocket\"), 1);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 614,
+    "keys": [
+      "praise.1",
+      "praise.2",
+      "praise.3",
+      "praise.4"
+    ],
+    "expression": "string[] words = { Loc.T(\"praise.1\"), Loc.T(\"praise.2\"), Loc.T(\"praise.3\"), Loc.T(\"praise.4\") };"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 641,
+    "keys": [
+      "toast.use.rainbow"
+    ],
+    "expression": "_hud.ShowToast(kind == SpecialKind.Rainbow ? Loc.T(\"toast.use.rainbow\")"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 642,
+    "keys": [
+      "toast.use.row"
+    ],
+    "expression": ": kind == SpecialKind.RocketRow ? Loc.T(\"toast.use.row\")"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 643,
+    "keys": [
+      "toast.use.col"
+    ],
+    "expression": ": Loc.T(\"toast.use.col\"), 2.6f);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 654,
+    "keys": [
+      "toast.use.noeffect",
+      "toast.use.invalid"
+    ],
+    "expression": "_hud.ShowToast(r.Reason == RejectReason.TrayNoEffect ? Loc.T(\"toast.use.noeffect\") : Loc.T(\"toast.use.invalid\"));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 678,
+    "keys": [
+      "toast.paint.pick"
+    ],
+    "expression": "if (_paintMode) _hud.ShowToast(Loc.T(\"toast.paint.pick\"), 2.2f);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 687,
+    "keys": [
+      "toast.paint.invalid"
+    ],
+    "expression": "_hud.ShowToast(Loc.T(\"toast.paint.invalid\"));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 708,
+    "keys": [
+      "toast.paint.same"
+    ],
+    "expression": "if (r.Reason == RejectReason.SameColor) _hud.ShowToast(Loc.T(\"toast.paint.same\"));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 733,
+    "keys": [
+      "praise.celebrate"
+    ],
+    "expression": "_hud.ShowPraise(Loc.T(\"praise.celebrate\"), 2);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 804,
+    "keys": [
+      "toast.nomoves.tray2"
+    ],
+    "expression": "_hud.ShowToast(Loc.T(\"toast.nomoves.tray2\"), 2.6f);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 849,
+    "keys": [
+      "win.big"
+    ],
+    "expression": "// Büyük kutlama yalnızca son hamle zincirle bittiyse; küçük üçlüde Loc.T(\"win.big\") yok (rehber §6)."
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 860,
+    "keys": [
+      "win.big",
+      "win.title"
+    ],
+    "expression": "_hud.ShowVictory(chain ? Loc.T(\"win.big\") : Loc.T(\"win.title\"), _session.State.Goals, next, Mathf.Max(1, _session.State.Stars),"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 861,
+    "keys": [
+      "btn.continue",
+      "btn.levels"
+    ],
+    "expression": "new HudView.PanelButton(hasNext ? Loc.T(\"btn.continue\") : Loc.T(\"btn.levels\"), UiIcon.Play, true, () => AfterWinContinue(() => { if (hasNext) StartLevel(_levelIndex + 1); else ShowLevels(); })),"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 862,
+    "keys": [
+      "btn.replay"
+    ],
+    "expression": "new HudView.PanelButton(Loc.T(\"btn.replay\"), UiIcon.Restart, false, () => StartLevel(_levelIndex)));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 877,
+    "keys": [
+      "ad.extra.offer"
+    ],
+    "expression": "if (ExtraMovesOffered) buttons.Add(new HudView.PanelButton(Loc.F(\"ad.extra.offer\", _adConfig.ExtraMoves), UiIcon.Play, true, OnExtraMovesPressed));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 878,
+    "keys": [
+      "btn.undo"
+    ],
+    "expression": "buttons.Add(new HudView.PanelButton(Loc.T(\"btn.undo\"), UiIcon.Undo, !ExtraMovesOffered, Undo));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 879,
+    "keys": [
+      "btn.retry"
+    ],
+    "expression": "buttons.Add(new HudView.PanelButton(Loc.T(\"btn.retry\"), UiIcon.Restart, false, Restart));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 881,
+    "keys": [
+      "lose.protect.title",
+      "lose.moves.title",
+      "lose.stuck.title"
+    ],
+    "expression": "string title = crystal ? Loc.T(\"lose.protect.title\") : moves ? Loc.T(\"lose.moves.title\") : Loc.T(\"lose.stuck.title\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 882,
+    "keys": [
+      "lose.protect.body",
+      "lose.moves.body",
+      "lose.stuck.body"
+    ],
+    "expression": "string body = crystal ? Loc.T(\"lose.protect.body\") : moves ? Loc.T(\"lose.moves.body\") : Loc.T(\"lose.stuck.body\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 936,
+    "keys": [
+      "pause.title",
+      "pause.body"
+    ],
+    "expression": "_hud.ShowPanel(Loc.T(\"pause.title\"), Loc.F(\"pause.body\", _levelIndex + 1, _session?.State.Score ?? 0),"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 937,
+    "keys": [
+      "btn.continue"
+    ],
+    "expression": "new HudView.PanelButton(Loc.T(\"btn.continue\"), UiIcon.Play, true, () => _hud.HidePanel()),"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 938,
+    "keys": [
+      "btn.restart"
+    ],
+    "expression": "new HudView.PanelButton(Loc.T(\"btn.restart\"), UiIcon.Restart, false, Restart),"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.cs",
+    "line": 939,
+    "keys": [
+      "btn.levels"
+    ],
+    "expression": "new HudView.PanelButton(Loc.T(\"btn.levels\"), UiIcon.Menu, false, ShowLevels));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 173,
+    "keys": [
+      "zpe.calibrating"
+    ],
+    "expression": "if (z.Calibrating) return Loc.F(\"zpe.calibrating\", z.Count, z.MinLevels);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 174,
+    "keys": [
+      "zpe.value"
+    ],
+    "expression": "if (_zpeBefore < 0) return Loc.F(\"zpe.value\", z.Score);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 176,
+    "keys": [
+      "zpe.change"
+    ],
+    "expression": "return d == 0 ? null : Loc.F(\"zpe.change\", z.Score, (d > 0 ? \"+\" : \"\") + d);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 254,
+    "keys": [
+      "stone.unlock.stars"
+    ],
+    "expression": "case StoneUnlock.StarsTotal: return Loc.F(\"stone.unlock.stars\", s.UnlockValue);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 258,
+    "keys": [
+      "stone.unlock.world"
+    ],
+    "expression": "return Loc.F(\"stone.unlock.world\", n);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 259,
+    "keys": [
+      "stone.unlock.treasure"
+    ],
+    "expression": "case StoneUnlock.Treasure: return Loc.T(\"stone.unlock.treasure\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 260,
+    "keys": [
+      "stone.unlock.level"
+    ],
+    "expression": "default: return Loc.F(\"stone.unlock.level\", s.UnlockValue);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 292,
+    "keys": [
+      "stone.new"
+    ],
+    "expression": "_showcase.Show(s.StoneId, isNew ? Loc.F(\"stone.new\", name) : \"\", name, Loc.T(s.DescKey), StoneSprite(s), GlowColor(s), onClose);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 347,
+    "keys": [
+      "daily.tag"
+    ],
+    "expression": "_hud.SetLevel(Loc.Upper(Loc.T(\"daily.tag\")), s.MovesLeft, s.Goals, s.RollEnabled, _daily.State.attemptsUsed);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 354,
+    "keys": [
+      "trial.intro."
+    ],
+    "expression": "_hud.ShowRuleCard(MainTypeTitle(_level), Loc.T(\"trial.intro.\" + _level.TrialType), rules, null);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 357,
+    "keys": [
+      "daily.power.hint"
+    ],
+    "expression": "if (CollectionRules.ActiveStone(_save.Data.meta) != null) _hud.ShowToast(Loc.T(\"daily.power.hint\"), 3f);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 360,
+    "keys": [
+      "daily.bonus.toast"
+    ],
+    "expression": "_hud.ShowToast(Loc.F(\"daily.bonus.toast\", _outcome.MoveBonus), 2.6f);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 398,
+    "keys": [
+      "daily.power.used"
+    ],
+    "expression": "_hud.ShowToast(Loc.T(\"daily.power.used\"), 2.4f);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 401,
+    "keys": [
+      "daily.power.spent"
+    ],
+    "expression": "case PowerResult.AlreadyUsed: _hud.ShowToast(Loc.T(\"daily.power.spent\"), 2.2f); return false;"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 402,
+    "keys": [
+      "daily.power.nostone"
+    ],
+    "expression": "case PowerResult.NoStone: _hud.ShowToast(Loc.T(\"daily.power.nostone\"), 2.2f); return false;"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 403,
+    "keys": [
+      "daily.power.invalid"
+    ],
+    "expression": "default: _hud.ShowToast(Loc.T(\"daily.power.invalid\"), 2.2f); return false;"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 457,
+    "keys": [
+      "err.notfound"
+    ],
+    "expression": "if (level == null) { _daily.FinishAttempt(false); ShowContentError(Loc.T(\"err.notfound\")); return false; }"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 488,
+    "keys": [
+      "daily.win.title",
+      "daily.win.stars",
+      "daily.win.again"
+    ],
+    "expression": "_hud.ShowPanel(Loc.T(\"daily.win.title\"), rewarded ? Loc.F(\"daily.win.stars\", stars, _daily.Config.MoveBonus) : Loc.T(\"daily.win.again\"),"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 489,
+    "keys": [
+      "btn.levels"
+    ],
+    "expression": "new HudView.PanelButton(Loc.T(\"btn.levels\"), UiIcon.Play, true, ShowLevels),"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 490,
+    "keys": [
+      "daily.title"
+    ],
+    "expression": "new HudView.PanelButton(Loc.T(\"daily.title\"), UiIcon.Menu, false, ShowDaily));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 500,
+    "keys": [
+      "btn.undo"
+    ],
+    "expression": "new HudView.PanelButton(Loc.T(\"btn.undo\"), UiIcon.Undo, true, Undo),"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 502,
+    "keys": [
+      "daily.retry"
+    ],
+    "expression": "if (canRetry) buttons.Add(new HudView.PanelButton(Loc.T(\"daily.retry\"), UiIcon.Restart, false, DailyRestart));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 503,
+    "keys": [
+      "daily.leave"
+    ],
+    "expression": "buttons.Add(new HudView.PanelButton(Loc.T(\"daily.leave\"), UiIcon.Menu, false, LeaveDaily));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 504,
+    "keys": [
+      "lose.moves.title",
+      "lose.stuck.title"
+    ],
+    "expression": "_hud.ShowPanel(moves ? Loc.T(\"lose.moves.title\") : Loc.T(\"lose.stuck.title\"),"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 505,
+    "keys": [
+      "daily.lost.retry",
+      "daily.lost.final"
+    ],
+    "expression": "canRetry ? Loc.T(\"daily.lost.retry\") : Loc.T(\"daily.lost.final\"), buttons.ToArray());"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Meta.cs",
+    "line": 511,
+    "keys": [
+      "daily.lost.final"
+    ],
+    "expression": "if (_daily.AttemptsLeft <= 0) { _hud.ShowToast(Loc.T(\"daily.lost.final\"), 2.4f); return; }"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Rank.cs",
+    "line": 68,
+    "keys": [
+      "rank.you"
+    ],
+    "expression": "Name = Loc.T(\"rank.you\"), IsSelf = true, Zpe = zpe, Level = reached, Stars = stars,"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Rank.cs",
+    "line": 100,
+    "keys": [
+      "country."
+    ],
+    "expression": "return Loc.T(\"country.\" + code, native);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Rules.cs",
+    "line": 27,
+    "keys": [
+      "level.boss"
+    ],
+    "expression": "private static string MainTypeTitle(LevelData d) => d.TrialType == \"boss\" ? Loc.T(\"level.boss\") : TrialTitle(d);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Rules.cs",
+    "line": 41,
+    "keys": [
+      "trial.intro."
+    ],
+    "expression": "_hud.ShowRuleCard(MainTypeTitle(_level), Loc.T(\"trial.intro.\" + type), rules, () => { if (_mainHint) ShowMainHint(); });"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Rules.cs",
+    "line": 51,
+    "keys": [
+      "trial.hint"
+    ],
+    "expression": "return new HudView.PanelButton(Loc.T(\"trial.hint\"), UiIcon.Play, false, () =>"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Rules.cs",
+    "line": 69,
+    "keys": [
+      "trial.hint.toast"
+    ],
+    "expression": "_hud.ShowToast(Loc.T(\"trial.hint.toast\"), 2.4f);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 52,
+    "keys": [
+      "trial.intro."
+    ],
+    "expression": "Index = i, Title = TrialTitle(d), Intro = Loc.T(\"trial.intro.\" + d.TrialType), Rules = new List<string>(d.Rules), Done = TrialDone(i), Boss = d.TrialType == \"boss\","
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 58,
+    "keys": [
+      "trial.type."
+    ],
+    "expression": "public static string TrialTitle(LevelData d) => Loc.T(\"trial.type.\" + d.TrialType, d.Title);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 63,
+    "keys": [
+      "err.notfound"
+    ],
+    "expression": "if (d == null) { ShowContentError(Loc.T(\"err.notfound\")); return; }"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 78,
+    "keys": [
+      "trial.tag"
+    ],
+    "expression": "_hud.SetLevel(Loc.Upper(Loc.T(\"trial.tag\")) + \" \" + (_trialIndex + 1), _session.State.MovesLeft, _session.State.Goals, _session.State.RollEnabled, _trialIndex + 1);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 81,
+    "keys": [
+      "trial.intro."
+    ],
+    "expression": "_hud.ShowRuleCard(TrialTitle(d), Loc.T(\"trial.intro.\" + d.TrialType), rules, () => { if (_trialHint) ShowTrialHint(); });"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 90,
+    "keys": [
+      "trial.rule."
+    ],
+    "expression": "string text = Loc.T(\"trial.rule.\" + r);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 92,
+    "keys": [
+      "trial.rule.chainOnly.color",
+      "color."
+    ],
+    "expression": "foreach (var g in d.Goals) if (g.Type == \"collectChain\") { text = Loc.F(\"trial.rule.chainOnly.color\", Loc.T(\"color.\" + g.Color, g.Color)); break; }"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 93,
+    "keys": [
+      "trial.rule.exact"
+    ],
+    "expression": "if (r == \"exact\") text = Loc.F(\"trial.rule.exact\", d.MoveLimit);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 108,
+    "keys": [
+      "trial.hint.toast"
+    ],
+    "expression": "_hud.ShowToast(Loc.T(\"trial.hint.toast\"), 2.4f);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 119,
+    "keys": [
+      "trial.won.title",
+      "trial.won.body"
+    ],
+    "expression": "_hud.ShowPanel(Loc.T(\"trial.won.title\"), Loc.F(\"trial.won.body\", _trialIndex + 1, TrialCount),"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 120,
+    "keys": [
+      "trial.next",
+      "trial.list"
+    ],
+    "expression": "new HudView.PanelButton(hasNext ? Loc.T(\"trial.next\") : Loc.T(\"trial.list\"), UiIcon.Play, true,"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 122,
+    "keys": [
+      "trial.list"
+    ],
+    "expression": "new HudView.PanelButton(Loc.T(\"trial.list\"), UiIcon.Menu, false, () => { ShowLevels(); ShowTrials(); }));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 128,
+    "keys": [
+      "lose.protect.title"
+    ],
+    "expression": "string title = status == GameStatus.LostProtected ? Loc.T(\"lose.protect.title\")"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 129,
+    "keys": [
+      "lose.moves.title",
+      "lose.stuck.title"
+    ],
+    "expression": ": status == GameStatus.LostOutOfMoves ? Loc.T(\"lose.moves.title\") : Loc.T(\"lose.stuck.title\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 130,
+    "keys": [
+      "lose.protect.body"
+    ],
+    "expression": "string body = status == GameStatus.LostProtected ? Loc.T(\"lose.protect.body\")"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 131,
+    "keys": [
+      "lose.moves.body",
+      "lose.stuck.body"
+    ],
+    "expression": ": status == GameStatus.LostOutOfMoves ? Loc.T(\"lose.moves.body\") : Loc.T(\"lose.stuck.body\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 134,
+    "keys": [
+      "btn.retry"
+    ],
+    "expression": "new HudView.PanelButton(Loc.T(\"btn.retry\"), UiIcon.Restart, true, () => { _trialHint = false; Restart(); }),"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 138,
+    "keys": [
+      "trial.hint"
+    ],
+    "expression": "buttons.Add(new HudView.PanelButton(Loc.T(\"trial.hint\"), UiIcon.Play, false, () => { _trialHint = true; Restart(); OutcomeAssist(AssistFlags.Guidance); ShowTrialHint(); }));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Trial.cs",
+    "line": 139,
+    "keys": [
+      "trial.list"
+    ],
+    "expression": "buttons.Add(new HudView.PanelButton(Loc.T(\"trial.list\"), UiIcon.Menu, false, () => { ShowLevels(); ShowTrials(); }));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Tutorial.cs",
+    "line": 158,
+    "keys": [
+      "tut.continue"
+    ],
+    "expression": "TourOverlay.Show(info.Hole?.Invoke(), Loc.T(info.Key), false, Loc.T(\"tut.continue\"));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Tutorial.cs",
+    "line": 172,
+    "keys": [
+      "tut.next"
+    ],
+    "expression": "string text = _guideText.TryGetValue(_tourCursor, out var k) ? Loc.T(k) : Loc.T(\"tut.next\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Tutorial.cs",
+    "line": 197,
+    "keys": [
+      "tut.use.slot"
+    ],
+    "expression": "TourOverlay.Show(_hud.TraySlotRect(step.Row), Loc.T(\"tut.use.slot\"), true, null);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Tutorial.cs",
+    "line": 199,
+    "keys": [
+      "tut.use.cell"
+    ],
+    "expression": "TourOverlay.Show(CellsRect(new[] { new Coord(step.X, step.Y) }), Loc.T(\"tut.use.cell\"), true, null);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/Game/GameController.Tutorial.cs",
+    "line": 202,
+    "keys": [
+      "tut.mech.rotor"
+    ],
+    "expression": "TourOverlay.Show(CellsRect(new[] { new Coord(step.X, step.Y) }), Loc.T(\"tut.mech.rotor\"), true, null);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/HudView.cs",
+    "line": 70,
+    "keys": [
+      "hud.moves"
+    ],
+    "expression": "var label = UiFactory.Text(\"MovesLabel\", ribbon.transform, Loc.T(\"hud.moves\"), 52, Color.white, TextAnchor.MiddleRight);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/HudView.cs",
+    "line": 534,
+    "keys": [
+      "daily.power.caption"
+    ],
+    "expression": "if (caption != null) _stoneCaption.text = Loc.F(\"daily.power.caption\", caption, used ? 0 : 1);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/HudView.Rules.cs",
+    "line": 44,
+    "keys": [
+      "trial.tag"
+    ],
+    "expression": "var tag = UiFactory.Text(\"Tag\", card.transform, Loc.T(\"trial.tag\"), 30, new Color32(0xA8, 0x64, 0x16, 0xFF));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/HudView.Rules.cs",
+    "line": 67,
+    "keys": [
+      "trial.tapstart"
+    ],
+    "expression": "var go = UiFactory.Text(\"Go\", card.transform, Loc.T(\"trial.tapstart\"), 30, new Color32(0x14, 0x86, 0x9A, 0xFF));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/HudView.Rules.cs",
+    "line": 106,
+    "keys": [
+      "trial.start"
+    ],
+    "expression": "Ui1.Button(\"Start\", c, Loc.T(\"trial.start\"), true, new Vector2(0.5f, 0f), new Vector2(0f, 120f), new Vector2(713f, 140f), () => HideRuleCard(true), UiArt.Icon(UiIcon.Play), 60);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/HudView.Rules.cs",
+    "line": 145,
+    "keys": [
+      "daily.title"
+    ],
+    "expression": "var t = Ui1.Label(\"Title\", plate.transform, Loc.T(\"daily.title\"), 46, Ui1.Navy);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/HudView.Rules.cs",
+    "line": 206,
+    "keys": [
+      "trial.peek.top"
+    ],
+    "expression": "var top = UiFactory.Text(\"Top\", peek, Loc.T(\"trial.peek.top\"), 20, new Color32(0x50, 0x67, 0x7A, 0xFF));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.CollectionV10.cs",
+    "line": 102,
+    "keys": [
+      "collection.title"
+    ],
+    "expression": "var title = UiFactory.Title(\"Title\", page, Loc.T(\"collection.title\"), 61, new Color32(0xFF, 0xEC, 0xC2, 0xFF), new Color32(0x3E, 0x1C, 0x5E, 0xFF));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.CollectionV10.cs",
+    "line": 112,
+    "keys": [
+      "ui.settings"
+    ],
+    "expression": "var gb = ShellRoundButton(Loc.T(\"ui.settings\"), page, PremiumArt.V4(\"icons/settings\") ?? UiArt.Icon(UiIcon.SoundOn), 110f, settings);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.CollectionV10.cs",
+    "line": 219,
+    "keys": [
+      "collection.count"
+    ],
+    "expression": "ccount.text = Loc.F(\"collection.count\", s.owned, s.total);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 107,
+    "keys": [
+      "ui.home",
+      "btn.levels"
+    ],
+    "expression": "/// <summary>Sol üst ekran etiketi (Loc.T(\"ui.home\") / Loc.T(\"btn.levels\")).</summary>"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 306,
+    "keys": [
+      "ui.home"
+    ],
+    "expression": "ScreenTag(page, Loc.T(\"ui.home\"));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 364,
+    "keys": [
+      "ui.playbig"
+    ],
+    "expression": "var play = UiFactory.PillButton(\"Play\", playArea, Loc.T(\"ui.playbig\"), true, new Vector2(640f, 196f), onContinue);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 373,
+    "keys": [
+      "ui.level"
+    ],
+    "expression": "var lv = UiFactory.Text(\"Level\", play.transform, Loc.F(\"ui.level\", continueIndex + 1), 36, UiArt.Cream);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 427,
+    "keys": [
+      "ui.soon"
+    ],
+    "expression": "// (\"2 — BAHÇE · Yeşil Vadi · 101–200\"), en üstte Loc.T(\"ui.soon\"). Düğümler ve yol parçaları"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1169,
+    "keys": [
+      "ui.soon"
+    ],
+    "expression": "var t = UiFactory.Text(\"Text\", card.transform, Loc.T(\"ui.soon\"), 36, UiArt.Brown);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1363,
+    "keys": [
+      "ui.levelbig"
+    ],
+    "expression": "var title = UiFactory.Title(\"Title\", card.transform, Loc.F(\"ui.levelbig\", index + 1), 74, UiArt.Cream, UiArt.HudTealDark);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1386,
+    "keys": [
+      "ui.playbig"
+    ],
+    "expression": "var play = UiFactory.PillButton(\"Play\", card.transform, Loc.T(\"ui.playbig\"), true, new Vector2(480f, 156f), () => { UiFactory.Kill(root.gameObject); _startCard = null; LevelChosen?.Invoke(i); });"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1393,
+    "keys": [
+      "intro.default"
+    ],
+    "expression": "if (caps == null) return Loc.T(\"intro.default\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1394,
+    "keys": [
+      "intro.gate"
+    ],
+    "expression": "if (caps.Contains(\"gate\")) return Loc.T(\"intro.gate\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1395,
+    "keys": [
+      "intro.paint"
+    ],
+    "expression": "if (caps.Contains(\"paint\")) return Loc.T(\"intro.paint\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1396,
+    "keys": [
+      "intro.linkedClip"
+    ],
+    "expression": "if (caps.Contains(\"linkedClip\")) return Loc.T(\"intro.linkedClip\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1397,
+    "keys": [
+      "intro.sponge"
+    ],
+    "expression": "if (caps.Contains(\"sponge\")) return Loc.T(\"intro.sponge\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1398,
+    "keys": [
+      "intro.rotor"
+    ],
+    "expression": "if (caps.Contains(\"rotor\")) return Loc.T(\"intro.rotor\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1399,
+    "keys": [
+      "intro.envelope"
+    ],
+    "expression": "if (caps.Contains(\"envelope\")) return Loc.T(\"intro.envelope\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1400,
+    "keys": [
+      "intro.colorLock"
+    ],
+    "expression": "if (caps.Contains(\"colorLock\")) return Loc.T(\"intro.colorLock\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1401,
+    "keys": [
+      "intro.ice"
+    ],
+    "expression": "if (caps.Contains(\"ice\")) return Loc.T(\"intro.ice\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1402,
+    "keys": [
+      "intro.clip"
+    ],
+    "expression": "if (caps.Contains(\"clip\")) return Loc.T(\"intro.clip\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1403,
+    "keys": [
+      "intro.star"
+    ],
+    "expression": "if (caps.Contains(\"star\")) return Loc.T(\"intro.star\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1404,
+    "keys": [
+      "intro.specials",
+      "intro.default"
+    ],
+    "expression": "return caps.Contains(\"specials\") ? Loc.T(\"intro.specials\") : Loc.T(\"intro.default\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1432,
+    "keys": [
+      "ui.settings"
+    ],
+    "expression": "var title = UiFactory.Title(\"Title\", page, Loc.T(\"ui.settings\"), 92, UiArt.Cream, UiArt.HudTealDark);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1444,
+    "keys": [
+      "ui.sound"
+    ],
+    "expression": "SwitchRow(cr, y, UiIcon.SoundOn, UiIcon.SoundOff, Loc.T(\"ui.sound\"), sound, v => SoundChanged?.Invoke(v));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1447,
+    "keys": [
+      "ui.vibration"
+    ],
+    "expression": "SwitchRow(cr, y, UiIcon.VibrateOn, UiIcon.VibrateOff, Loc.T(\"ui.vibration\"), vibration, v => VibrationChanged?.Invoke(v));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1452,
+    "keys": [
+      "ui.settingsnote"
+    ],
+    "expression": "var note = UiFactory.Text(\"Note\", cr, Loc.T(\"ui.settingsnote\"), 30, new Color(UiArt.Brown.r, UiArt.Brown.g, UiArt.Brown.b, 0.75f), TextAnchor.MiddleCenter, FontStyle.Normal);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1498,
+    "keys": [
+      "ui.on",
+      "ui.off"
+    ],
+    "expression": "Loc.Set(stateText, state ? Loc.T(\"ui.on\") : Loc.T(\"ui.off\"));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1515,
+    "keys": [
+      "ui.language"
+    ],
+    "expression": "var t = UiFactory.Text(\"Label\", row, Loc.T(\"ui.language\"), 46, UiArt.Brown, TextAnchor.MiddleLeft);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1541,
+    "keys": [
+      "ui.language"
+    ],
+    "expression": "var title = UiFactory.Title(\"Title\", card.transform, Loc.T(\"ui.language\"), 64, UiArt.HudTealDark, UiArt.Cream);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.cs",
+    "line": 1559,
+    "keys": [
+      "ui.close"
+    ],
+    "expression": "var close = UiFactory.PillButton(\"Close\", card.transform, Loc.T(\"ui.close\"), false, new Vector2(380f, 132f), () => UiFactory.Kill(root.gameObject));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Meta.cs",
+    "line": 120,
+    "keys": [
+      "daily.tier"
+    ],
+    "expression": "string s = Loc.F(\"daily.tier\", m.TierMin, m.TierMax);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Meta.cs",
+    "line": 132,
+    "keys": [
+      "daily.none"
+    ],
+    "expression": "if (!m.Available) status = Loc.T(\"daily.none\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Meta.cs",
+    "line": 133,
+    "keys": [
+      "daily.status.won"
+    ],
+    "expression": "else if (m.Won) status = Loc.T(\"daily.status.won\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Meta.cs",
+    "line": 134,
+    "keys": [
+      "daily.status.locked"
+    ],
+    "expression": "else if (!m.Entered) status = Loc.T(\"daily.status.locked\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Meta.cs",
+    "line": 135,
+    "keys": [
+      "daily.status.open"
+    ],
+    "expression": "else if (m.AttemptOpen) status = Loc.T(\"daily.status.open\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Meta.cs",
+    "line": 136,
+    "keys": [
+      "daily.status.left"
+    ],
+    "expression": "else if (m.AttemptsLeft > 0) status = Loc.F(\"daily.status.left\", m.AttemptsLeft, m.AttemptsAllowed);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Meta.cs",
+    "line": 137,
+    "keys": [
+      "daily.status.none"
+    ],
+    "expression": "else status = Loc.T(\"daily.status.none\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Meta.cs",
+    "line": 151,
+    "keys": [
+      "daily.stone",
+      "daily.nostone"
+    ],
+    "expression": "var stx = UiFactory.Text(\"StoneText\", row.transform, m.StoneName != null ? Loc.F(\"daily.stone\", m.StoneName) : Loc.T(\"daily.nostone\"), 32, new Color32(0x4A, 0x3A, 0x5C, 0xFF), TextAnchor.MiddleLeft, FontStyle.Normal);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Meta.cs",
+    "line": 158,
+    "keys": [
+      "daily.bonus.active"
+    ],
+    "expression": "var bn = UiFactory.Text(\"Bonus\", c, Loc.T(\"daily.bonus.active\"), 28, new Color32(0x2E, 0x8C, 0x3C, 0xFF));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Meta.cs",
+    "line": 180,
+    "keys": [
+      "daily.enter.free",
+      "daily.enter.ad"
+    ],
+    "expression": "if (!m.Entered) { label = m.AdFree ? Loc.T(\"daily.enter.free\") : Loc.T(\"daily.enter.ad\"); act = enter; }"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Meta.cs",
+    "line": 181,
+    "keys": [
+      "daily.resume",
+      "daily.play"
+    ],
+    "expression": "else if (m.AttemptOpen || m.AttemptsLeft > 0) { label = m.AttemptOpen ? Loc.T(\"daily.resume\") : Loc.T(\"daily.play\"); act = () => play(); }"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Meta.cs",
+    "line": 209,
+    "keys": [
+      "daily.proto"
+    ],
+    "expression": "var note = UiFactory.Text(\"Proto\", root, Loc.T(\"daily.proto\"), 24, new Color(1f, 1f, 1f, 0.8f), TextAnchor.MiddleCenter, FontStyle.Normal);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 112,
+    "keys": [
+      "rank.title"
+    ],
+    "expression": "var t = RankText(\"TitleText\", cap.transform, Loc.T(\"rank.title\"), 56);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 143,
+    "keys": [
+      "rank.world"
+    ],
+    "expression": "RankTab(page, new Vector2(-246f, y), new Vector2(w, h), Loc.T(\"rank.world\"), null, m.Scope == LeaderboardScope.World,"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 145,
+    "keys": [
+      "rank.country"
+    ],
+    "expression": "string cname = string.IsNullOrEmpty(m.CountryName) ? Loc.T(\"rank.country\") : m.CountryName;"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 327,
+    "keys": [
+      "rank.top10"
+    ],
+    "expression": "var top = RankText(\"Top10\", panel, Loc.T(\"rank.top10\"), 56);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 335,
+    "keys": [
+      "rank.score"
+    ],
+    "expression": "var ct = UiFactory.Text(\"Text\", cap.transform, Loc.T(\"rank.score\"), 26, RankInk);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 342,
+    "keys": [
+      "rank.player"
+    ],
+    "expression": "var h1 = UiFactory.Text(\"Player\", band.transform, Loc.T(\"rank.player\"), 26, RankInk);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 345,
+    "keys": [
+      "rank.cols"
+    ],
+    "expression": "var h2 = UiFactory.Text(\"Cols\", band.transform, Loc.T(\"rank.cols\"), 24, RankInk);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 367,
+    "keys": [
+      "rank.loading"
+    ],
+    "expression": "if (m.Loading) { ListMessage(viewport, Loc.T(\"rank.loading\"), false); return; }"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 368,
+    "keys": [
+      "rank.error"
+    ],
+    "expression": "if (r == null || r.Status == LeaderboardStatus.Error) { ListMessage(viewport, Loc.T(\"rank.error\"), true); return; }"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 369,
+    "keys": [
+      "rank.offline"
+    ],
+    "expression": "if (r.Status == LeaderboardStatus.NotConnected) { ListMessage(viewport, Loc.T(\"rank.offline\"), true); return; }"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 370,
+    "keys": [
+      "rank.nocountry"
+    ],
+    "expression": "if (r.Status == LeaderboardStatus.NoCountry) { ListMessage(viewport, Loc.T(\"rank.nocountry\"), false); return; }"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 371,
+    "keys": [
+      "rank.empty"
+    ],
+    "expression": "if (r.Status == LeaderboardStatus.Empty || r.Top.Count == 0) { ListMessage(viewport, Loc.T(\"rank.empty\"), false); return; }"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 381,
+    "keys": [
+      "rank.dev"
+    ],
+    "expression": "var dt = UiFactory.Text(\"Text\", dev.transform, Loc.T(\"rank.dev\"), 20, Color.white);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 399,
+    "keys": [
+      "rank.retry"
+    ],
+    "expression": "var bt = RankText(\"Text\", b.transform, Loc.T(\"rank.retry\"), 36);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 474,
+    "keys": [
+      "rank.level"
+    ],
+    "expression": "string a = $\"ZPE {Num(e.Zpe)} · {Loc.F(\"rank.level\", Num(e.Level))} ·\";"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 506,
+    "keys": [
+      "rank.your"
+    ],
+    "expression": "var lt = RankText(\"Text\", label.transform, Loc.T(\"rank.your\"), 40);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 524,
+    "keys": [
+      "rank.you"
+    ],
+    "expression": "var you = RankText(\"You\", card, Loc.T(\"rank.you\"), 50);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 538,
+    "keys": [
+      "rank.level"
+    ],
+    "expression": "Pill(card, new Vector2(0f, -38f), Loc.F(\"rank.level\", Num(self.Level)), false);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 540,
+    "keys": [
+      "rank.need"
+    ],
+    "expression": "string foot = !eligible ? Loc.F(\"rank.need\", m.Completed, m.MinLevels)"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 541,
+    "keys": [
+      "rank.notranked",
+      "rank.formula"
+    ],
+    "expression": ": rank <= 0 ? Loc.T(\"rank.notranked\") : Loc.T(\"rank.formula\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 595,
+    "keys": [
+      "rank.score"
+    ],
+    "expression": "var t = RankText(\"Title\", card.transform, Loc.T(\"rank.score\"), 50);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 597,
+    "keys": [
+      "rank.info.body"
+    ],
+    "expression": "var body = UiFactory.Text(\"Body\", card.transform, Loc.T(\"rank.info.body\"), 32, RankInk2, TextAnchor.UpperLeft, FontStyle.Normal); // ikincil: Nunito 600"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Rank.cs",
+    "line": 620,
+    "keys": [
+      "rank.title"
+    ],
+    "expression": "var t = UiFactory.Title(\"RankLabel\", shell, Loc.T(\"rank.title\"), 30, Color.white, V11Navy);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 438,
+    "keys": [
+      "zpe.short"
+    ],
+    "expression": "var lab = UiFactory.Title(\"Label\", icon.transform, Loc.T(\"zpe.short\"), 26, Color.white, V11Navy);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 536,
+    "keys": [
+      "zpe.short"
+    ],
+    "expression": "var label = UiFactory.Text(\"Label\", cap.transform, Loc.T(\"zpe.short\"), 24, new Color32(0xD9, 0xFF, 0xF8, 0xFF), TextAnchor.MiddleLeft);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 594,
+    "keys": [
+      "zpe.title"
+    ],
+    "expression": "var title = UiFactory.Title(\"Title\", c, Loc.T(\"zpe.title\"), 46, ink, PillCream);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 599,
+    "keys": [
+      "zpe.calibrating"
+    ],
+    "expression": "var big = UiFactory.Title(\"Score\", c, m.Calibrating ? Loc.F(\"zpe.calibrating\", m.Count, m.Min) : m.Score + \"<size=50%>/100</size>\", m.Calibrating ? 52 : 110, ShellTealDark, PillCream);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 604,
+    "keys": [
+      "zpe.stat.calib",
+      "zpe.stat.trend"
+    ],
+    "expression": "string sub = m.Calibrating ? Loc.F(\"zpe.stat.calib\", Mathf.Max(0, m.Min - m.Count)) : Loc.F(\"zpe.stat.trend\", (m.Trend > 0 ? \"+\" : \"\") + m.Trend);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 638,
+    "keys": [
+      "zpe.stat.levels",
+      "zpe.stat.win",
+      "zpe.stat.first"
+    ],
+    "expression": "foreach (var line in new[] { Loc.F(\"zpe.stat.levels\", m.Count), Loc.F(\"zpe.stat.win\", m.WinPct), Loc.F(\"zpe.stat.first\", m.FirstPct) })"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 646,
+    "keys": [
+      "zpe.note"
+    ],
+    "expression": "var note = UiFactory.Text(\"Note\", c, Loc.T(\"zpe.note\"), 26, new Color32(0x8A, 0x5A, 0x2A, 0xFF), TextAnchor.MiddleCenter, FontStyle.Normal);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 698,
+    "keys": [
+      "zpe.short"
+    ],
+    "expression": "var ct = UiFactory.Text(\"Text\", chip.transform, Loc.T(\"zpe.short\"), 32, ShellNavy);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 703,
+    "keys": [
+      "zpe.calibrating"
+    ],
+    "expression": "string value = !z.Has ? \"\" : z.Calibrating ? Loc.F(\"zpe.calibrating\", z.Count, z.Min) : z.Score.ToString();"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 708,
+    "keys": [
+      "zpe.title"
+    ],
+    "expression": "var range = UiFactory.Text(\"ZpeName\", front, Loc.T(\"zpe.title\"), 24, ShellAmber, TextAnchor.MiddleCenter, FontStyle.Normal);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 743,
+    "keys": [
+      "ui.region"
+    ],
+    "expression": "var ct = UiFactory.Text(\"Text\", chip.transform, Loc.F(\"ui.region\", region + 1) + \" • \" + first + \"–\" + last, 32, V11Navy);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 752,
+    "keys": [
+      "ui.settings"
+    ],
+    "expression": "var b = ShellRoundButton(Loc.T(\"ui.settings\"), page, PremiumArt.V4(\"icons/settings\") ?? UiArt.Icon(UiIcon.SoundOn), 116f, settings);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 787,
+    "keys": [
+      "ui.map"
+    ],
+    "expression": "ShellTab(rt, 0, baseY, Loc.T(\"ui.map\"), MapIcon(), mapOn, mapOn ? null : levels);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 788,
+    "keys": [
+      "daily.short"
+    ],
+    "expression": "ShellTab(rt, 1, baseY, Loc.T(\"daily.short\"), CalendarIcon(), active == TabDaily, active == TabDaily ? null : (Action)(() => DailyPressed?.Invoke()));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 789,
+    "keys": [
+      "collection.short"
+    ],
+    "expression": "ShellTab(rt, 2, baseY, Loc.T(\"collection.short\"), ShellArt(\"icon-crystal\") ?? CrystalIconTemp(), active == TabCollection, active == TabCollection ? null : (Action)(() => CollectionPressed?.Invoke()));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 812,
+    "keys": [
+      "ui.map"
+    ],
+    "expression": "new TabItem { Label = Loc.T(\"ui.map\"), Icon = MapIcon(), On = mapOn, Act = mapOn ? null : levels },"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 813,
+    "keys": [
+      "daily.short"
+    ],
+    "expression": "new TabItem { Label = Loc.T(\"daily.short\"), Icon = CalendarIcon(), On = active == TabDaily, Act = active == TabDaily ? null : (Action)(() => DailyPressed?.Invoke()) },"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 814,
+    "keys": [
+      "collection.short"
+    ],
+    "expression": "new TabItem { Label = Loc.T(\"collection.short\"), Icon = V11(\"icon-stones\") ?? ShellArt(\"icon-crystal\") ?? CrystalIconTemp(), On = active == TabCollection, Act = active == TabCollection ? null : (Action)(() => CollectionPressed?.Invoke()) },"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 835,
+    "keys": [
+      "ui.map"
+    ],
+    "expression": "new TabItem { Label = Loc.T(\"ui.map\"), Icon = MapIcon(), On = true },"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 836,
+    "keys": [
+      "daily.short"
+    ],
+    "expression": "new TabItem { Label = Loc.T(\"daily.short\"), Icon = CalendarIcon() },"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 837,
+    "keys": [
+      "collection.short"
+    ],
+    "expression": "new TabItem { Label = Loc.T(\"collection.short\"), Icon = V11(\"icon-stones\") },"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 838,
+    "keys": [
+      "rewards.short"
+    ],
+    "expression": "new TabItem { Label = Loc.T(\"rewards.short\"), Icon = ShellArt(\"icon-chest\") ?? ChestIconTemp() },"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "line": 839,
+    "keys": [
+      "ui.settings"
+    ],
+    "expression": "new TabItem { Label = Loc.T(\"ui.settings\"), Icon = PremiumArt.V4(\"icons/settings\") ?? UiArt.Icon(UiIcon.SoundOn) },"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Trial.cs",
+    "line": 34,
+    "keys": [
+      "trial.button"
+    ],
+    "expression": "var t = UiFactory.Title(\"TrialLabel\", shell, Loc.T(\"trial.button\"), 30, Color.white, V11Navy);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Trial.cs",
+    "line": 61,
+    "keys": [
+      "trial.list.title"
+    ],
+    "expression": "var title = UiFactory.Title(\"Title\", card.transform, Loc.T(\"trial.list.title\"), 52, V11Navy, Color.white);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Trial.cs",
+    "line": 65,
+    "keys": [
+      "trial.list.sub"
+    ],
+    "expression": "var sub = UiFactory.Text(\"Sub\", card.transform, Loc.T(\"trial.list.sub\"), 28, new Color32(0x50, 0x67, 0x7A, 0xFF), TextAnchor.MiddleCenter, FontStyle.Normal);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 92,
+    "keys": [
+      "daily.title"
+    ],
+    "expression": "var title = Ui1.Label(\"Title\", c, Loc.T(\"daily.title\"), 86, Ui1.Navy);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 100,
+    "keys": [
+      "daily.tier"
+    ],
+    "expression": "string s = Loc.F(\"daily.tier\", m.TierMin, m.TierMax);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 114,
+    "keys": [
+      "daily.none"
+    ],
+    "expression": "if (!m.Available) status = Loc.T(\"daily.none\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 115,
+    "keys": [
+      "daily.status.won"
+    ],
+    "expression": "else if (m.Won) status = Loc.T(\"daily.status.won\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 116,
+    "keys": [
+      "daily.status.locked"
+    ],
+    "expression": "else if (!m.Entered) status = Loc.T(\"daily.status.locked\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 117,
+    "keys": [
+      "daily.status.open"
+    ],
+    "expression": "else if (m.AttemptOpen) status = Loc.T(\"daily.status.open\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 118,
+    "keys": [
+      "daily.status.left"
+    ],
+    "expression": "else if (m.AttemptsLeft > 0) status = Loc.F(\"daily.status.left\", m.AttemptsLeft, m.AttemptsAllowed);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 119,
+    "keys": [
+      "daily.status.none"
+    ],
+    "expression": "else status = Loc.T(\"daily.status.none\");"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 120,
+    "keys": [
+      "daily.stone",
+      "daily.nostone"
+    ],
+    "expression": "var lines = new List<string> { status, m.StoneName != null ? Loc.F(\"daily.stone\", m.StoneName) : Loc.T(\"daily.nostone\") };"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 121,
+    "keys": [
+      "daily.bonus.active"
+    ],
+    "expression": "if (m.BonusToday) lines.Add(Loc.T(\"daily.bonus.active\"));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 152,
+    "keys": [
+      "daily.enter.free",
+      "daily.enter.ad"
+    ],
+    "expression": "if (!m.Entered) { label = m.AdFree ? Loc.T(\"daily.enter.free\") : Loc.T(\"daily.enter.ad\"); act = enter; ad = !m.AdFree; }"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 153,
+    "keys": [
+      "daily.resume",
+      "daily.play"
+    ],
+    "expression": "else if (m.AttemptOpen || m.AttemptsLeft > 0) { label = m.AttemptOpen ? Loc.T(\"daily.resume\") : Loc.T(\"daily.play\"); act = () => play(); }"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 159,
+    "keys": [
+      "daily.proto"
+    ],
+    "expression": "var note = Ui1.Label(\"Proto\", c, Loc.T(\"daily.proto\"), 26, Ui1.Ink2, false);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 170,
+    "keys": [
+      "ui.settings"
+    ],
+    "expression": "Ui1.Header(page, Loc.T(\"ui.settings\"), new Vector2(0.5f, 1f), new Vector2(0f, -278f), new Vector2(648f, 190f), 84);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 176,
+    "keys": [
+      "ui.sound"
+    ],
+    "expression": "SwitchRowUi1(c, y, \"icon-sound\", Loc.T(\"ui.sound\"), sound, v => SoundChanged?.Invoke(v));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 179,
+    "keys": [
+      "ui.vibration"
+    ],
+    "expression": "SwitchRowUi1(c, y, \"icon-vibration\", Loc.T(\"ui.vibration\"), vibration, v => VibrationChanged?.Invoke(v));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 186,
+    "keys": [
+      "ui.language"
+    ],
+    "expression": "var lt = Ui1.Label(\"Label\", lrow.transform, Loc.T(\"ui.language\"), 58, Ui1.Navy, true, TextAnchor.MiddleLeft);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 190,
+    "keys": [
+      "ui.settingsnote"
+    ],
+    "expression": "var note = Ui1.Label(\"Note\", page, Loc.T(\"ui.settingsnote\"), 30, Color.white, false);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 239,
+    "keys": [
+      "ui.on",
+      "ui.off"
+    ],
+    "expression": "Loc.Set(stateText, state ? Loc.T(\"ui.on\") : Loc.T(\"ui.off\"));"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 265,
+    "keys": [
+      "zpe.title"
+    ],
+    "expression": "var full = Ui1.Label(\"FullName\", c, Loc.T(\"zpe.title\"), 30, Ui1.Ink2, false);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 268,
+    "keys": [
+      "zpe.calibrating"
+    ],
+    "expression": "var big = Ui1.Label(\"Score\", c, m.Calibrating ? Loc.F(\"zpe.calibrating\", m.Count, m.Min) : m.Score + \"<size=55%><color=#4A5D72>/100</color></size>\", m.Calibrating ? 52 : 150, Ui1.TealDark);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 327,
+    "keys": [
+      "zpe.stat.calib",
+      "zpe.stat.trend"
+    ],
+    "expression": "string sub = m.Calibrating ? Loc.F(\"zpe.stat.calib\", Mathf.Max(0, m.Min - m.Count)) : Loc.F(\"zpe.stat.trend\", (m.Trend > 0 ? \"+\" : \"\") + m.Trend);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 331,
+    "keys": [
+      "zpe.stat.levels",
+      "zpe.stat.win",
+      "zpe.stat.first"
+    ],
+    "expression": "string stats = Loc.F(\"zpe.stat.levels\", m.Count) + \"  ·  \" + Loc.F(\"zpe.stat.win\", m.WinPct) + \"  ·  \" + Loc.F(\"zpe.stat.first\", m.FirstPct);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 335,
+    "keys": [
+      "zpe.note"
+    ],
+    "expression": "var note = Ui1.Label(\"Note\", c, Loc.T(\"zpe.note\"), 34, Ui1.Navy, true);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 353,
+    "keys": [
+      "rank.score"
+    ],
+    "expression": "var t = Ui1.Label(\"Title\", c, Loc.T(\"rank.score\"), 72, Ui1.Navy);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 359,
+    "keys": [
+      "rank.info.intro"
+    ],
+    "expression": "var intro = Ui1.Label(\"Intro\", c, Loc.T(\"rank.info.intro\"), 38, Ui1.Navy, false);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 364,
+    "keys": [
+      "rank.part.zpe",
+      "rank.part.zpe.desc"
+    ],
+    "expression": "(Loc.T(\"rank.part.zpe\"), Loc.T(\"rank.part.zpe.desc\"), \"%50\", Ui1.Art(\"icon-zpe\")),"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 365,
+    "keys": [
+      "rank.part.level",
+      "rank.part.level.desc"
+    ],
+    "expression": "(Loc.T(\"rank.part.level\"), Loc.T(\"rank.part.level.desc\"), \"%30\", RuleIcons.For(\"exact\")),"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 366,
+    "keys": [
+      "rank.part.stars",
+      "rank.part.stars.desc"
+    ],
+    "expression": "(Loc.T(\"rank.part.stars\"), Loc.T(\"rank.part.stars.desc\"), \"%20\", PremiumArt.V4(\"icons/star\") ?? ProceduralArt.StarSprite),"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 388,
+    "keys": [
+      "rank.info.rules"
+    ],
+    "expression": "var rules = Ui1.Label(\"Rules\", c, Loc.T(\"rank.info.rules\"), 32, Ui1.Ink2, false);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 391,
+    "keys": [
+      "btn.ok"
+    ],
+    "expression": "Ui1.Button(\"Ok\", c, Loc.T(\"btn.ok\"), true, new Vector2(0.5f, 0f), new Vector2(0f, 165f), new Vector2(560f, 130f), CloseRankInfo, null, 54);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 414,
+    "keys": [
+      "trial.list.title"
+    ],
+    "expression": "Ui1.Ribbon(body, Loc.T(\"trial.list.title\"), new Vector2(0.5f, 1f), new Vector2(0f, -250f), new Vector2(821f, 154f), 60);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 418,
+    "keys": [
+      "trial.list.sub"
+    ],
+    "expression": "var st = Ui1.Label(\"Sub\", sub.transform, Loc.T(\"trial.list.sub\"), 34, Ui1.Navy, false);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 499,
+    "keys": [
+      "collection.title"
+    ],
+    "expression": "Ui1.Ribbon(page, Loc.T(\"collection.title\"), new Vector2(0.5f, 1f), new Vector2(0f, -250f), new Vector2(820f, 150f), 58);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 580,
+    "keys": [
+      "collection.count"
+    ],
+    "expression": "ccount.text = Loc.F(\"collection.count\", tops[idx].owned, tops[idx].total);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/MenuView.Ui1.cs",
+    "line": 642,
+    "keys": [
+      "collection.owned",
+      "collection.unlock.stars"
+    ],
+    "expression": "string line = it.Owned ? Loc.T(\"collection.owned\") : starLine ? Loc.F(\"collection.unlock.stars\", it.Stars) : it.Desc;"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/NextLevelPreviewView.cs",
+    "line": 16,
+    "keys": [
+      "ui.soon"
+    ],
+    "expression": "/// Sonraki bölüm yoksa tahta çizilmez; Loc.T(\"ui.soon\") yazar."
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/NextLevelPreviewView.cs",
+    "line": 59,
+    "keys": [
+      "ui.soon"
+    ],
+    "expression": "var t = UiFactory.Text(\"End\", root, Loc.T(\"ui.soon\"), 40, UiArt.Brown);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/NextLevelPreviewView.cs",
+    "line": 64,
+    "keys": [
+      "ui.next"
+    ],
+    "expression": "var label = UiFactory.Text(\"Label\", root, Loc.T(\"ui.next\"), 34, UiArt.Brown, TextAnchor.MiddleLeft);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/NextLevelPreviewView.cs",
+    "line": 67,
+    "keys": [
+      "ui.level"
+    ],
+    "expression": "var num = UiFactory.Text(\"Number\", root, Loc.F(\"ui.level\", data.Number), 26, new Color(UiArt.Brown.r, UiArt.Brown.g, UiArt.Brown.b, 0.8f), TextAnchor.MiddleLeft, FontStyle.Normal);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/NextLevelPreviewView.cs",
+    "line": 75,
+    "keys": [
+      "ui.newtheme"
+    ],
+    "expression": "var tt = UiFactory.Text(\"Name\", tag.transform, Loc.F(\"ui.newtheme\", data.Theme.LocalName), 24, Color.white);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/NextLevelPreviewView.cs",
+    "line": 98,
+    "keys": [
+      "ui.previewfail"
+    ],
+    "expression": "var t = UiFactory.Text(\"Error\", area, Loc.T(\"ui.previewfail\"), 28, UiArt.Brown);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/ResultPanel.cs",
+    "line": 333,
+    "keys": [
+      "ui.next"
+    ],
+    "expression": "? Loc.T(\"ui.next\").Replace(\"\\\\n\", \" \").Replace(\"\\n\", \" \") : Ui1.Case(b.Label, true);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/StoneShowcase.cs",
+    "line": 120,
+    "keys": [
+      "btn.continue"
+    ],
+    "expression": "var ok = UiFactory.PillButton(\"Ok\", _safe, Loc.T(\"btn.continue\"), true, new Vector2(520f, 130f), Close);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/StoneShowcase.cs",
+    "line": 148,
+    "keys": [
+      "btn.continue"
+    ],
+    "expression": "Ui1.Button(\"Ok\", _safe, Ui1.Case(Loc.T(\"btn.continue\"), true), true, new Vector2(0.5f, 0f), new Vector2(0f, 173f), new Vector2(670f, 160f), Close, null, 62);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/StoneShowcase.cs",
+    "line": 178,
+    "keys": [
+      "stone.preview.drag"
+    ],
+    "expression": "_hint.text = _hasModel ? Loc.T(\"stone.preview.drag\") : \"\";"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/TestAdScreen.cs",
+    "line": 186,
+    "keys": [
+      "ad.searching"
+    ],
+    "expression": "_title = UiFactory.Title(\"Title\", card.transform, Loc.T(\"ad.searching\"), 50, Navy, Color.white);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/TestAdScreen.cs",
+    "line": 192,
+    "keys": [
+      "ad.searching.sub"
+    ],
+    "expression": "_sub = UiFactory.Text(\"Sub\", card.transform, Loc.T(\"ad.searching.sub\"), 28, Navy, TextAnchor.MiddleCenter, FontStyle.Normal);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/TestAdScreen.cs",
+    "line": 204,
+    "keys": [
+      "ad.test"
+    ],
+    "expression": "var tt = UiFactory.Title(\"TagText\", tag.transform, Loc.T(\"ad.test\"), 52, Navy, Color.white);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/TestAdScreen.cs",
+    "line": 214,
+    "keys": [
+      "ad.test.note"
+    ],
+    "expression": "var note = UiFactory.Text(\"Note\", frame.transform, Loc.T(\"ad.test.note\"), 28, new Color(0.75f, 0.82f, 1f), TextAnchor.MiddleCenter, FontStyle.Normal);"
+  },
+  {
+    "file": "Assets/KatKat/Scripts/UI/TestAdScreen.cs",
+    "line": 221,
+    "keys": [
+      "ad.claim"
+    ],
+    "expression": "var ct = UiFactory.Title(\"Text\", _claim.transform, Loc.T(\"ad.claim\"), 46, Color.white, new Color32(0x1E, 0x6E, 0x2C, 0xFF));"
+  }
+]

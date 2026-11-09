@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Seviye yazım aracı (Unity gerektirmez). Kullanım için docs/CALISTIRMA.md. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Generator.cs" />
+    <Compile Include="GeneratorV5.cs" />
+    <Compile Include="Harden.cs" />
+    <Compile Include="Rebuild.cs" />
+    <Compile Include="Stress.cs" />
+    <Compile Include="Daily.cs" />
+    <Compile Include="ZpeRef.cs" />
+    <Compile Include="Trial.cs" />
+    <Compile Include="Campaign.cs" />
+    <Compile Include="Audit.cs" />
+    <Compile Include="Chain.cs" />
+    <Compile Include="../../Assets/KatKat/Scripts/Core/**/*.cs" />
+    <Compile Include="../../Assets/KatKat/Scripts/Levels/**/*.cs" />
+  </ItemGroup>
+</Project>

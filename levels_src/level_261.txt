@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 5 hamle + 5 tepsi / limit 10 (pay +5, eski 15) hedef×0,95 bot 0,33 (hedef 0,37) plan 0; zincir v13: yeni çözüm 7 (eski 5), sınır 10→12, bot 39/112
+id: level_261
+title: Ataşlı Mektup
+tutorial: Ataş komşuluk ister, zarf komşuda doğru rengi.
+moves: 12
+roll: off
+specials: on
+goals: purple 42, yellow 35, envelope 1
+grid:
+cyp   ccbp  ppb   ppb   ppb   pbc   pbp
+cbp   ccpc  ppbcEc pbbp  ppcp  bpcp  bbpp
+cbp   ybb   ycc   yby   ppy   ppy   bby
+pcp   #     #     ybyc  #     #     bbyc
+yypy  #     #     ybyk1 #     #     pccc
+cpp   #     #     byb   #     #     pbyb
+yyp   ccpy  bpyc  ypyc  bpbc  ybb   ybc
+yyyy  ycpy  ycyy  ycy   ybbc  ycbck1 ybpb
+ycyy  pcp   pbp   pbpy  ybpy  ycc   ycb
+solution: 1,6 ; 6,0 ; use 0,5,0 ; 0,5 ; use 1,3,2 ; 2,0 ; 0,0 ; 6,5 ; use 2,0,0 ; 4,1

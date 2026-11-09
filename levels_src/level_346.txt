@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L (ayna); çözüm 6 hamle + 6 tepsi / limit 10 (pay +4, eski 16) hedef×1,29 bot 0,38 (hedef 0,28) plan 2; zincir v13: yeni çözüm 9 (eski 6), sınır 10→17, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 9, bot 11/112
+id: level_346
+title: Kule Turu
+moves: 9
+roll: off
+specials: on
+goals: yellow 27, blue 22, coral 46
+grid:
+#     #     #     ccy   cpp   cpcyR bbcy
+#     #     #     ccbc  ccpp  cpc   bpcy
+#     #     #     bcyp  bcyp  cpcp  cb
+#     #     #     ypp   bpp   cpp   ccb
+ccbc  bcpy  bpp   ypcc  ypp   pyc   ccc
+bcp   bppy  bppR  pbp   yppb  ypc   pp
+bpy   bypy  pp    pby   ybc   bcyc  pcbc
+cpc   cypy  pcb   ccp   ccbc  ycyp  ycb
+yppc  yypc  yypc  cypc  ccpc  ccp   bcpy
+solution: 5,4 ; use 0,6,2 ; 4,0 ; use 0,3,0 ; 3,0 ; 4,0 ; use 0,3,0 ; use 0,6,0 ; 2,4 ; use 0,3,3

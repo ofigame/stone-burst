@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 6 hamle + 4 tepsi / limit 12 (pay +6, eski 13) hedef×1,26 bot 0,38 (hedef 0,43) plan 0; zincir v13: yeni çözüm 6 (eski 6), sınır 12→16, bot 5/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 22/112
+id: level_116
+title: Köprüler
+moves: 12
+roll: off
+specials: on
+goals: coral 44, purple 17, star 2
+grid:
+cpb   ypb   bpb   #     cp    byp*  byc
+cpb   cbb   cpb   #     bbb   byp   bypi1
+cyc   cbc   bbb   pbc   ybc   byb   yc
+ycc   bcc   ycci1 ybc   ybc   cyc   pcb
+cb    yy    byc   yyb   byc   ccc   bc
+ybc   bbc   ypc   pcb   cybi1 cby   cyp
+ypy   cbc   byc   yyb   cb    cpc   bcb
+ppy   cpy*  cby   cbb   bcb   pbb   bbb
+solution: 0,0 ; use 0,5,0 ; 0,6 ; 0,0 ; 3,4 ; use 0,4,0 ; 1,4 ; use 0,4,0 ; 1,1 ; use 0,1,1

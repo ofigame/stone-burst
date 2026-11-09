@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 6 hamle + 6 tepsi / limit 8 (pay +2, eski 12) hedef×0,95 bot 0,25 (hedef 0,28) plan 1; zincir v13: yeni çözüm 7 (eski 6), sınır 8→9, bot 10/112
+id: level_339
+title: Örtü Turu
+moves: 9
+roll: off
+specials: on
+goals: blue 47, coral 33, purple 49, envelope 1
+grid:
+byypR bbypR bcyp  bcyp  pcyp  pbyb  pbyp
+bypp  bypy  bppy  pbbb  pbyp  pbyp  pbyc
+yby   pppy  yppy  pbbb  pbbp  pbpp  bp
+ybbb  yppp  ypbp  yycb  yycp  ybpc  ybpc
+ycbb  cpbp  cybpR cypp  ycpc  ybpci1 ybpc
+ycyb  yppp  bbpp  ccpp  ycpb  ycpp  yccc
+#     #     bppp  cpcb  cbcbEc #     #
+#     #     cppy  cppc  ybcc  #     #
+#     #     cbpc  cbpc  pbcci1 #     #
+solution: 1,3 ; use 0,6,1 ; 0,0 ; 1,1 ; use 0,1,0 ; 3,3 ; use 0,4,0 ; use 0,1,0 ; 3,5 ; 5,0 ; 0,0 ; use 0,0,0

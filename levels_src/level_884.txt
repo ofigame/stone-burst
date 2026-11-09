@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 11 hamle + 6 tepsi / limit 15 (pay +4, eski 12) hedef×1,32 bot 0,17 (hedef 0,15) plan 1; zincir v13: yeni çözüm 10 (eski 11), sınır 15→14, bot 8/112
+id: level_884
+title: Bölüm 884
+moves: 14
+roll: off
+specials: on
+goals: coral 44, purple 63, yellow 42
+grid:
+ypyc  bpyc  bpyb  ybbb  cbcp  pbcp  ybcp
+ppyyi2 bpyy  bpyb  yccb  cbcb  pbcpi1 pybp
+ppyy  pppyi1 pbpb  yccb  bybb  ppcb  pybpLb8
+bppy  pppc  pcpc  pccy  pccci2 ppbc  pybpi2
+bpby  bypc  pycc  cbcy  ppcp  ypbp  ypbc
+cppy  cppy  cppci1 cppy  cpcy  cpbb  cbbcLc8
+#     #     cbpy  cbyy  bbcy  #     #
+#     #     ycpp  yycpi1 bbyy  #     #
+#     #     ycpp  yycp  pybpi1 #     #
+solution: 3,3 ; 2,0 ; 3,1 ; 2,0 ; use 0,2,0 ; 2,3 ; use 0,5,0 ; use 0,0,0 ; 6,1 ; 0,0 ; use 0,0,0 ; 0,1 ; 4,3 ; 2,6 ; use 0,0,0 ; use 1,3,0 ; use 0,3,4

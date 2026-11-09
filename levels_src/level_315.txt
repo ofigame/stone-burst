@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 8 hamle + 7 tepsi / limit 18 (pay +10, eski 17) hedef×0,95 bot 0,21 (hedef 0,29) plan 1; zincir v13: yeni çözüm 7 (eski 8), sınır 18→17, bot 8/112
+id: level_315
+title: Dönen Akış
+moves: 17
+roll: off
+specials: on
+goals: blue 37, coral 38, purple 30
+grid:
+cpp   cypR  bycy  bpcy  cpccR cpy   ycp
+bpp   bbpb  byp   bpcp  cpp   cpyy  pbb
+cpp   cpcb  cpc   cpcp  bcpy  cbyy  bbyy
+cbpb  cpcb  #     #     #     cbc   pbcy
+cpcb  cccb  #     #     #     ppp   ppc
+ccbb  ycyb  #     #     #     bppp  pccp
+ccb   ypc   ycc   bycp  byyc  ccy   bbpp
+ycb   yypb  yypb  byy   bpyc  bby   bby
+cccp  bbb   yypb  ypp   cpy   bypy  yyp
+solution: 1,1 ; 0,0 ; use 0,0,0 ; 4,0 ; 0,6 ; use 0,0,0 ; 4,6 ; use 0,0,1 ; 1,0 ; 5,0 ; use 1,6,0 ; use 0,1,1 ; use 0,6,0

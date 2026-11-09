@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: reverse [exact]; çözüm 7 / sınır 8 (v7 9); açgözlü kaybeder; bot48 0,10 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 6 (eski 7), sınır 8→8, bot 23/112
+id: level_128
+title: Kolay Mandal
+moves: 8
+roll: off
+specials: on
+type: reverse
+rules: exact
+goals: coral 35, purple 33
+grid:
+pbpy  pyb   ycbc  #     #     #     #
+bpp   ypbb  ycc   bby   #     #     #
+bpcc  bpb   ybb   pyyLy5 yyp   #     #
+bbcc  bcyc  pbp   pppb  ypp   byc   #
+bcc   bbbc  bbbc  pypp  ypyp  cpc   yycy
+cpy   bcpy  bcp   pypp  cpyp  ppy   cyy
+byby  bcby  bypy  pycy  cpc   pcby  pbyy
+yyb   cyb   yyc   cycy  ybyc  cbb   pbby
+cpb   cpby  cycy  cyc   pyb   pbb   ybb
+solution: 0,7 ; 0,5 ; use 0,2,0 ; 4,2 ; 4,4 ; use 0,0,1 ; 1,0 ; use 0,2,0 ; 0,0 ; use 0,0,0 ; use 0,0,0

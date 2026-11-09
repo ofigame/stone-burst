@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: resource [exact]; çözüm 7 / sınır 8 (v7 13); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 6 (eski 7), sınır 8→8, bot 6/112
+id: level_277
+title: İnce Plan
+moves: 8
+roll: off
+specials: on
+type: resource
+rules: exact
+goals: purple 51, yellow 39, blue 28, envelope 2
+grid:
+ycy   ppc   yybp  cyp   cyp   cyp   yppcEc
+ypy   ypb   byb   bypb  ccyb  ccpb  ccpb
+ybcLb7 yccc  bcc   bcb   byc   ycc   ycpb
+#     ycb   yccb  bbcp  yycp  yyc   #
+#     bppc  ypy   ycc   pypp  byp   #
+#     ypy   ypby  yyc   pyp   cpp   #
+cpcp  ypyp  bpbp  ppbp  pppb  pcpbLy5 ycpb
+bcpb  bpp   bcb   yybp  ccyp  ccyb  ccc
+cpp   ypp   bpcp  bcb   ccybEp ccyb  cycc
+solution: 1,1 ; use 0,2,0 ; 6,0 ; use 0,0,0 ; 2,0 ; use 0,0,2 ; 2,4 ; 1,2 ; use 0,2,0 ; 2,7 ; use 1,6,0 ; use 0,1,0

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 5 hamle + 4 tepsi / limit 11 (pay +6, eski 10) hedef×1,27 bot 0,42 (hedef 0,40) plan 0; zincir v13: yeni çözüm 9 (eski 5), sınır 11→15, bot 6/112
+id: level_143
+title: Karışık Anahtar
+moves: 15
+roll: off
+specials: on
+goals: blue 35, coral 31
+grid:
+#     #     yby   ycy   cyy   #     #
+#     cbp   ybp   ycy   cyy   pbb   #
+yyy   bbp   ybpLp5 yyp   ycy   pcy   bpy
+bby   bbc   yby   bby   yyc   ppy   bpy
+ypy   ypc   ypy   bpc   byc   cpy   cyy
+bcb   ypc   ypb   cpc   byc   cyb   cyp
+bcb   bpb   cpb   cpbLy7 cyc   cyb   cyb
+#     bpc   cpb   bpp   cpp   cyb   #
+#     #     cpb   cpp   cpp   #     #
+solution: 2,0 ; 0,5 ; use 0,3,0 ; use 0,2,0 ; 1,1 ; 2,0 ; 1,4 ; 1,2 ; 3,7 ; 3,7 ; use 3,4,0 ; 0,2 ; use 1,5,1

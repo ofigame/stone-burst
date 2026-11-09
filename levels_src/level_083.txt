@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U (ayna); çözüm 7 hamle + 4 tepsi / limit 11 (pay +4, eski 17) hedef×0,93 bot 0,42 (hedef 0,46) plan 1; zincir v13: yeni çözüm 5 (eski 7), sınır 11→9, bot 27/112
+id: level_083
+title: Üç Yıldız
+moves: 9
+roll: off
+specials: on
+goals: blue 27, coral 23, star 5
+grid:
+pyc*  ccb   pcb   #     ppc   ppc   pcc
+cyy   ccy*  cyb   #     ppbi1 pbb   pbc
+bpy   cyy   ppy   ppb   ybb*  ybc   ybc*
+ypp   yyy   yyy*  ypb   ypb   ybc   ycc
+ypp   cyp   yyp   ppp   pbb   ybc   ybci1
+pyc   pcbi1 ppy   pbp   bbc   bpc   ypc
+cyp   ppc   pby   pbp   bbb   bpc   cpc
+ppc   ppc   pbc   pbc   bbb   bpc   bpc
+solution: 4,0 ; 4,1 ; use 0,1,0 ; 0,1 ; 0,0 ; use 0,1,0 ; 1,2 ; use 0,0,0 ; use 0,0,0

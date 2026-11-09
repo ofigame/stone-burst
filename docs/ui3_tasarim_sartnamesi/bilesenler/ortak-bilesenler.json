@@ -1,0 +1,469 @@
+{
+  "nav": {
+    "size": [
+      1080,
+      208
+    ],
+    "fill": "tabUnselected",
+    "children": {
+      "itemBounds": [
+        [
+          48,
+          16,
+          296,
+          176
+        ],
+        [
+          392,
+          16,
+          296,
+          176
+        ],
+        [
+          736,
+          16,
+          296,
+          176
+        ]
+      ],
+      "iconLocal": [
+        104,
+        8,
+        88,
+        88
+      ],
+      "labelLocal": [
+        16,
+        108,
+        264,
+        48
+      ],
+      "labelRole": "nav",
+      "selectedCapsuleLocal": [
+        28,
+        100,
+        240,
+        64
+      ],
+      "selectedFill": "tabSelected",
+      "selectedLabel": "onTeal",
+      "separator": false,
+      "existingActionsOnly": true
+    }
+  },
+  "goalChip": {
+    "size": [
+      240,
+      104
+    ],
+    "fill": [
+      "ivoryTop",
+      "ivoryBottom"
+    ],
+    "radius": 52,
+    "children": {
+      "icon": [
+        16,
+        16,
+        72,
+        72
+      ],
+      "label": [
+        104,
+        16,
+        120,
+        72
+      ],
+      "labelRole": "goal"
+    },
+    "dynamicWidth": "max(184,16+72+16+TMPPreferredWidth+24); center group; gap16; existing goal count only"
+  },
+  "ruleRow": {
+    "size": [
+      748,
+      160
+    ],
+    "fill": "ivory",
+    "radius": 28,
+    "outline": {
+      "width": 2,
+      "color": "sand"
+    },
+    "children": {
+      "icon": [
+        20,
+        36,
+        88,
+        88
+      ],
+      "text": [
+        132,
+        20,
+        592,
+        120
+      ],
+      "textRole": "body"
+    },
+    "heightFormula": "max(128, TMPPreferredHeight(text,width592,font36,line46)+40)",
+    "stackGap": 16
+  },
+  "settingsRow": {
+    "size": [
+      748,
+      132
+    ],
+    "fill": "transparent",
+    "children": {
+      "icon": [
+        0,
+        30,
+        72,
+        72
+      ],
+      "label": [
+        104,
+        30,
+        396,
+        72
+      ],
+      "labelRole": "rowTitle",
+      "toggle": [
+        572,
+        22,
+        176,
+        88
+      ]
+    },
+    "toggle": {
+      "onTrack": "teal",
+      "offTrack": "track",
+      "thumb": "ivoryTop",
+      "thumbSize": 72,
+      "onCenter": [
+        704,
+        66
+      ],
+      "offCenter": [
+        616,
+        66
+      ],
+      "stroke": 2,
+      "strokeColor": "brass",
+      "existingStateBindingOnly": true
+    }
+  },
+  "rankRow": {
+    "size": [
+      936,
+      104
+    ],
+    "fill": "ivory",
+    "radius": 24,
+    "padding": [
+      20,
+      16,
+      20,
+      16
+    ],
+    "children": {
+      "rank": [
+        20,
+        20,
+        60,
+        64
+      ],
+      "rankRole": "goal",
+      "avatar": [
+        96,
+        20,
+        64,
+        64
+      ],
+      "name": [
+        184,
+        8,
+        484,
+        48
+      ],
+      "nameRole": "rowTitle",
+      "details": [
+        184,
+        56,
+        484,
+        36
+      ],
+      "detailsRole": "caption",
+      "score": [
+        724,
+        20,
+        192,
+        64
+      ],
+      "scoreRole": "metric"
+    },
+    "selfFill": "tabSelected",
+    "selfText": "onTeal",
+    "avatarSource": "existing initials or existing assigned image; no fabricated faces",
+    "rowGap": 8
+  },
+  "zpeMetric": {
+    "size": [
+      748,
+      88
+    ],
+    "fill": "teal",
+    "children": {
+      "icon": [
+        0,
+        16,
+        56,
+        56
+      ],
+      "name": [
+        76,
+        10,
+        412,
+        36
+      ],
+      "nameRole": "rowSub",
+      "track": [
+        76,
+        56,
+        548,
+        14
+      ],
+      "value": [
+        648,
+        12,
+        100,
+        56
+      ],
+      "valueRole": "goal"
+    },
+    "trackFill": "track",
+    "trackRadius": 7,
+    "valueAlign": "right",
+    "weightIsNotValue": true
+  },
+  "collectionCard": {
+    "size": [
+      468,
+      484
+    ],
+    "fill": [
+      "ivoryTop",
+      "ivoryBottom"
+    ],
+    "radius": 32,
+    "outline": {
+      "width": 2,
+      "color": "brass"
+    },
+    "children": {
+      "art": [
+        64,
+        24,
+        340,
+        252
+      ],
+      "lock": [
+        190,
+        106,
+        88,
+        88
+      ],
+      "name": [
+        24,
+        292,
+        420,
+        56
+      ],
+      "nameRole": "smallButton",
+      "description": [
+        24,
+        360,
+        420,
+        100
+      ],
+      "descriptionRole": "rowSub"
+    },
+    "states": {
+      "owned": {
+        "lock": false,
+        "artSource": "existing Collection/stones"
+      },
+      "locked": {
+        "lock": true,
+        "artSource": "existing Collection/stones_blur"
+      },
+      "selected": {
+        "outlineWidth": 4,
+        "outlineColor": "teal",
+        "check": "existing only"
+      }
+    },
+    "scrollBottomPadding": 32
+  },
+  "nextPreview": {
+    "size": [
+      668,
+      300
+    ],
+    "fill": "ivory",
+    "radius": 28,
+    "children": {
+      "label": [
+        24,
+        24,
+        172,
+        240
+      ],
+      "labelRole": "rowSub",
+      "liveBoard": [
+        220,
+        24,
+        352,
+        252
+      ],
+      "arrow": [
+        596,
+        118,
+        48,
+        64
+      ]
+    },
+    "source": "real next level data, never screen crop",
+    "raycast": "existing source action only"
+  },
+  "hudStars": {
+    "size": [
+      920,
+      84
+    ],
+    "fill": "purpleDark",
+    "radius": 42,
+    "stroke": {
+      "width": 3,
+      "color": "brass"
+    },
+    "children": {
+      "progress": [
+        12,
+        12,
+        896,
+        60
+      ],
+      "stars": "positions from existing threshold-to-score mapping"
+    },
+    "unearnedStarFill": "#D4C8AA",
+    "earnedStarSource": "existing gold star sprite",
+    "notEqualThirdsUnlessExisting": true
+  },
+  "titlePlaque": {
+    "size": [
+      784,
+      112
+    ],
+    "fill": [
+      "ivoryTop",
+      "ivoryBottom"
+    ],
+    "radius": 56,
+    "children": {
+      "text": [
+        32,
+        20,
+        720,
+        72
+      ],
+      "role": "pageTitle"
+    },
+    "stroke": {
+      "width": 3,
+      "color": "brass"
+    },
+    "shadow": {
+      "color": "shadow",
+      "alpha": 0.2,
+      "offset": [
+        0,
+        6
+      ],
+      "blur": 12
+    }
+  },
+  "modalCrest": {
+    "visualSize": [
+      196,
+      132
+    ],
+    "anchor": "card top center",
+    "localOffset": [
+      332,
+      -94
+    ],
+    "source": "existing mascot or existing rule emblem only",
+    "addsInteraction": false,
+    "omitIfAbsent": true
+  },
+  "tutorialBubble": {
+    "size": [
+      888,
+      200
+    ],
+    "fill": "ivory",
+    "radius": 36,
+    "children": {
+      "mascot": [
+        16,
+        36,
+        128,
+        144
+      ],
+      "text": [
+        168,
+        24,
+        672,
+        152
+      ],
+      "textRole": "body"
+    },
+    "textAlign": "left",
+    "screenClampPadding": 32,
+    "target": "existing tutorial target set and existing arrow",
+    "scrim": {
+      "color": "scrim",
+      "alpha": 0.76
+    }
+  },
+  "infoToast": {
+    "size": [
+      920,
+      96
+    ],
+    "padding": [
+      28,
+      20,
+      28,
+      20
+    ],
+    "role": "bodyCentered",
+    "fill": "ivory",
+    "radius": 32,
+    "source": "existing toast text/timing; no new tip content"
+  },
+  "powerArea": {
+    "size": [
+      888,
+      160
+    ],
+    "fill": "transparent",
+    "maxSlots": 4,
+    "iconSize": 144,
+    "gap": 48,
+    "positionsFormula": "center group of source-visible slots in width888; (888-(n*144+(n-1)*48))/2 start",
+    "labels": "only existing source captions",
+    "newSlots": false,
+    "backingTray": false
+  }
+}

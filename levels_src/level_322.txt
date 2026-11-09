@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 8 hamle + 6 tepsi / limit 17 (pay +9, eski 11) hedef×1,12 bot 0,29 (hedef 0,34) plan 1; zincir v13: yeni çözüm 7 (eski 8), sınır 17→17, bot 6/112
+id: level_322
+title: Çift Tur
+moves: 17
+roll: off
+specials: on
+goals: yellow 77, blue 27
+grid:
+ccyb  ccyy  byby  pyby  pbc   pyc   pyc
+bcy   bcyyR byyy  byy   pby   byc   pyy
+byyc  cpyc  yby   byc   yycy  ypcR  ypcp
+#     cbc   ybcy  yyc   ypy   bcpp  #
+#     ybcy  ybcy  yycc  bccc  bcy   #
+#     pbcy  bcyc  yybc  bcbc  ybc   #
+yycp  ypcp  yycc  cyc   cyc   yyp   yyy
+ycp   ypy   ypc   cbp   cbpp  yypp  ycyR
+ycp   ycyy  ycy   ycp   yby   ycy   ccyp
+solution: 1,0 ; 4,0 ; use 0,1,0 ; 2,0 ; 1,5 ; 1,0 ; use 0,2,0 ; use 0,0,0 ; 3,4 ; 3,0 ; use 1,5,0 ; use 0,0,0 ; use 0,0,2 ; use 0,3,4

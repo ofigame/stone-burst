@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: protect [protect]; kristal 2; çözüm 5 / sınır 8 (v7 9); açgözlü kaybeder; bot48 0,33 (taban 0,10); bot 0,42; zincir v13: yeni çözüm 5 (eski 5), sınır 8→8, bot 10/112
+id: level_088
+title: Işıltı
+moves: 8
+roll: off
+specials: on
+type: protect
+rules: protect
+goals: coral 33, purple 15, star 3
+grid:
+#     #     #     pbc   #     #     #
+#     pbc   pbc   pyb   byb*  byb*  #
+bby   pbcc  cbc   pyc   bycbi1 cpb   byyP
+ccyp  cccp  ccc   pyc   bccb  bcc   bccp
+bpy   ppyi1 ccb   pcbb  yccy  ypyp  ycbp
+bybP  pccc  pcc   ycbb  ycpy  pyyc  ccb
+bybc  pcc*  pcc   yyc   cyyy  cbp   cbb
+byb   byb   byp   ybpy  cypp  cypy  bcbb
+solution: 3,1 ; 4,1 ; 2,4 ; 1,1 ; use 0,1,1 ; 1,2 ; use 0,3,0

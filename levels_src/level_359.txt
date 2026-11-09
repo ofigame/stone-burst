@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı (ayna); çözüm 6 hamle + 3 tepsi / limit 16 (pay +10, eski 13) hedef×0,79 bot 0,25 (hedef 0,27) plan 1; zincir v13: yeni çözüm 6 (eski 6), sınır 16→16, bot 16/112
+id: level_359
+title: Gece Turu
+moves: 16
+roll: off
+specials: on
+goals: blue 47, coral 38, purple 21, star 3
+grid:
+#     #     bcpb* cbcy  cbcy* #     #
+#     #     ybpb  cccb  cbcb  #     #
+pbcy  pbcp  ybcb* cbcb  cbybR cbyp  ccycR
+ppby  ybpy  ybcc  cbyc  ccypR ycbp  ccbc
+cbpb  cbpb  cccp  ppby  ycpp  pppy  ccbc
+cbbb  ycpc  bcbc  bcbp  bcbp  bcbp  bpbc
+cbbb  ccbb  bcbc  bbbp  pbbc  pbbc  bpbc
+#     #     pppc  ppby  cbbb  #     #
+#     #     ycyp  bpby  pcby  #     #
+solution: 6,2 ; 5,2 ; 2,0 ; use 0,2,0 ; use 0,3,0 ; 0,3 ; use 1,2,0 ; 4,1 ; use 0,4,0 ; 1,2

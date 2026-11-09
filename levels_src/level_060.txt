@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [protect+exact]; kristal 2; çözüm 7 / sınır 8 (v7 10); açgözlü kaybeder; bot48 0,15 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 7 (eski 7), sınır 8→10, bot 5/112
+id: level_060
+title: Kat Kat
+moves: 10
+roll: off
+specials: on
+type: boss
+rules: protect, exact
+goals: coral 32, purple 18, star 3
+grid:
+pcbk1 byc   bcc   bcc   bcc   pcb   bppk2
+pcp   pyb   bcb   bbc   byy   pcy   ppp
+pcp   pcy   cybk2 byb   bypk1 bcc   byp
+pcy   ccy   ccp*  byb*  bcp   bcp   bpc
+bcy   ccp   #     #     #     bbc   yyb
+cby   bcb   #     #     #     bpc   bpc
+bcb   bcb   yyb   bp    bcb*  bcb   bpc
+bbP   yb    yybP  yyb   bpp   cc    bc
+solution: 5,4 ; use 0,5,0 ; 1,0 ; use 0,5,0 ; 1,2 ; 1,1 ; 2,0 ; use 2,0,1 ; 3,1 ; use 2,1,0 ; 0,1 ; use 0,4,0 ; use 0,4,0 ; use 0,4,0

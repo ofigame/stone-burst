@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 4 hamle + 4 tepsi / limit 8 (pay +4, eski 12) hedef×1,25 bot 0,46 (hedef 0,49) plan 0; zincir v13: yeni çözüm 9 (eski 4), sınır 8→13, bot 30/112
+id: level_053
+title: Derin Kuyu
+moves: 13
+roll: off
+specials: on
+goals: purple 21, yellow 28, star 2
+grid:
+cyc   bcb   bcb   bcb   bbp   bby   ccp
+byy   ybb   bbb*  ycb   yyp   ccp   cyp
+#     cyc   cyck1 bbc   yyp   cyc   #
+#     cpb   cbp   cbp   byp   cyp   #
+#     bpb   ypc   ypc   yyp   cyy   #
+#     bbc   bpc   cpc   cpy   bbb   #
+byy   cbp   pbb   pcb   cyy*  cyy   byy
+yyb   bbyk1 pcb   ccb   ccp   byy   byb
+solution: 4,5 ; 4,0 ; use 1,5,0 ; 2,4 ; 1,3 ; use 1,1,3 ; 1,2 ; 1,0 ; use 1,0,1 ; 1,4 ; 6,0 ; 0,1 ; use 0,2,0

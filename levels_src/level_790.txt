@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk yellow 49/48; çözüm 13 / sınır 15 (v7 14); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; adillik onarımı: sınır 15→16 (112 oyunda 6 galibiyet); zincir v13: yeni çözüm 12 (eski 13), sınır 16→19, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 18, bot 6/112
+id: level_790
+title: Bölüm 790
+moves: 18
+roll: off
+specials: on
+paint: 1
+type: boss
+rules: scarce, exact
+goals: yellow 46, blue 87, coral 36
+grid:
+pbbc  ybbp  yybp  #     #     pccc  ppby  pppb
+ybpc  ybpp  yybp  #     #     pbcb  bpbb  bpcb
+bbby  ybpy  bbpp  #     #     pbpb  bpcb  bpcb
+ycbb  ycbb  ybyb  ycyp  bccy  yppy  bpcb  bpcb
+ycbb  pybb  pyyb  pcyy  ppbb  yccy  yccb  ppcb
+cpbp  pyyb  pbcb  pbby  ybcy  ycpb  ypcb  ppcb
+cpcp  ccyp  pcyb  pcyp  bbyy  pbyb  pbcy  pcbb
+cpyp  cpyb  pcbb  pcbb  ppbb  bbbb  pbbp  pbbp
+cpyp  ppyb  ppbp  pcbb  bbbb  bbbb  bbyc  bbyc
+solution: 7,0 ; 2,3 ; use 0,6,0 ; use 0,0,0 ; 4,4 ; 0,2 ; 3,3 ; use 0,5,0 ; use 1,2,3 ; 7,4 ; use 1,0,0 ; 1,4 ; 1,0 ; 0,0 ; 1,0 ; paint 1,1,y ; 2,0 ; 5,7

@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: resource [exact]; çözüm 7 / sınır 7 (v7 15); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 7→9 (112 oyunda 12 galibiyet); zincir v13: yeni çözüm 5 (eski 7), sınır 9→8, bot 11/112
+id: level_237
+title: Kilit Sonra Zarf
+moves: 8
+roll: off
+specials: on
+type: resource
+rules: exact
+goals: purple 47, yellow 27, blue 24, envelope 2
+grid:
+pyc   ccc   pbbc  bbp   cppcLy7 pcbp  cpbc
+bypc  byc   bcy   bbp   cbp   cbpp  cpbc
+byc   bycp  byyc  bcy   ybyEp ybyc  ybcc
+bpcb  #     #     pyb   #     #     ppc
+ybyy  #     #     ppyy  #     #     ypcc
+ypyy  #     #     ppy   #     #     ypc
+bpp   bpy   pcpp  ppc   ppb   pybc  yyc
+ypp   yypp  cppc  pbc   ppb   pcbc  pybc
+ybp   ycpp  pcbp  pyb   pybp  pcb   bypcEc
+solution: 6,0 ; use 0,3,0 ; 0,0 ; use 0,2,0 ; 2,1 ; use 0,1,0 ; 3,5 ; use 0,0,0 ; 3,3 ; use 0,0,0

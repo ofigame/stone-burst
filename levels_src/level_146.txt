@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 5 hamle + 4 tepsi / limit 9 (pay +4, eski 15) hedef×1,10 bot 0,38 (hedef 0,40) plan 0; zincir v13: yeni çözüm 6 (eski 5), sınır 9→10, bot 43/112
+id: level_146
+title: Kilit Adaları
+moves: 10
+roll: off
+specials: on
+goals: yellow 63, blue 28
+grid:
+bbc   bbc   cyc   #     cycy  cby   ypycLy5
+pbcy  bbcLb5 byb   #     ybc   ybyc  ypyc
+ybcy  yyc   cb    #     bbb   ccb   cbyc
+ybc   yyc   yyc   ycby  bcy   bcyy  bcpy
+ybcp  cyp   yc    yyby  cy    py    ycp
+bpcp  ppc   pp    yypy  ycy   ypp   ycp
+bpc   ypcc  ybp   yypy  ycpp  ycpp  ybp
+bby   yb    ybp   pcpy  pcyp  yy    pypy
+bcy   bcpp  bppy  pyyy  pyy   pyyp  pyy
+solution: 3,3 ; use 0,4,0 ; 4,0 ; 5,0 ; 0,0 ; 0,0 ; use 1,2,0 ; 6,3 ; use 1,2,1 ; use 2,3,4

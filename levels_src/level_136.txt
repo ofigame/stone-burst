@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 5 hamle + 4 tepsi / limit 9 (pay +4, eski 14) hedef×0,94 bot 0,17 (hedef 0,41) plan 0; zincir v13: yeni çözüm 4 (eski 5), sınır 9→8, bot 8/112
+id: level_136
+title: Bahçe Yolu
+moves: 8
+roll: off
+specials: on
+goals: coral 41, purple 28
+grid:
+#     #     pcp   ccp   cbp   #     #
+#     cyy   cyy   cpp   pbp   pbp   #
+pcb   bcy   pcc   pcc   pcc   pbb   ccp
+pbc   ybb   ybb   pcc   pbp   ccp   bcpLc7
+cpc   ppb   bpp   ybp   ybp   pcb   bbb
+bpc   cy    ccc   bbc   ybp   yb    bpb
+bpc   ycp   ccc   ccc   cyp   yyp   byb
+#     bcc   cbc   ycp   cbp   bbp   #
+#     #     ccb   cyb   ccy   #     #
+solution: 2,5 ; use 0,1,1 ; 6,2 ; 0,3 ; 2,0 ; use 0,2,0 ; use 1,1,1 ; use 0,3,0

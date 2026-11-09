@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [chainOnly+exact]; zincir yellow 6; çözüm 4 / sınır 8 (v7 15); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; zincir v13: yeni çözüm 4 (eski 4), sınır 8→9, bot 7/112
+id: level_130
+title: Mandal Finali
+moves: 9
+roll: off
+specials: on
+type: boss
+rules: chainOnly, exact
+goals: blue 57, chain yellow 6
+grid:
+bcyp  bcy   bpcp  #     #     ycy   ybpb  yypb
+pcy   pcy   ycy   #     #     cbyc  yby   yyp
+ppy   ypy   yby   #     #     pby   pbc   pyc
+cbpy  cpyb  ccyb  cby   pbcb  ppcb  bpcc  bbc
+ybpy  cppp  ccp   cyy   bbcb  bpcb  pbcb  ppc
+pcb   ybpbLb10 yyyb  cyyy  bbcp  bbpc  pbp   pbc
+pcb   ybby  yybb  cybc  cypy  yypy  ybpy  bbp
+pcby  pyby  pybb  byb   byb   bypy  ycc   ybcp
+ccc   pcb   pcb   pbb   bbb   ybb   ypb   ypcc
+solution: 2,5 ; use 0,1,0 ; 2,2 ; 6,2 ; use 0,1,0 ; 5,2 ; use 0,7,0 ; use 0,4,4

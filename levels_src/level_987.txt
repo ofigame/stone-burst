@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk purple 31/30; çözüm 9 / sınır 12 (v7 12); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 9 (eski 9), sınır 12→12, bot 6/112
+id: level_987
+title: Bölüm 987
+moves: 12
+roll: off
+specials: on
+paint: 1
+type: scarce
+rules: scarce
+goals: blue 44, coral 46, purple 30
+grid:
+ccyb  G1:ccpc G1:cppc G1:ccpc G1:bccb G1:cpcp cycy
+bcpb  bccb  bcpp  ccpc  bccb  bcyc  cycc
+bycy  cccb  ccyp  ccyy  byby  cyyy  pyyy
+yycy  ybyp  #     #     #     yyby  cyyy
+yyby  ybpyB1 #     #     #     pcbb  pybb
+byby  byyy  #     #     #     ccpb  pcbp
+bpby  bbyy  bbyy  ccyb  yccb  yccb  ycbp
+byby  bbbp  cbyc  ccyp  bcpp  bccc  pcyp
+bpbp  bbby  cbcy  cccp  cccp  yccc  ycyy
+solution: 0,2 ; use 0,2,1 ; 5,4 ; use 0,0,0 ; 1,3 ; 1,0 ; use 0,2,0 ; 1,0 ; 5,4 ; 5,1 ; use 0,4,0 ; 3,0 ; use 3,0,7 ; 5,7 ; use 0,5,1 ; use 0,5,0

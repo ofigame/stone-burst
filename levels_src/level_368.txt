@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: reverse [exact]; çözüm 10 / sınır 13 (v7 12); açgözlü kaybeder; bot48 0,15 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 13 (eski 10), sınır 13→20, bot 4/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 12/112
+id: level_368
+title: Rahat Kasa
+moves: 12
+roll: off
+specials: on
+type: reverse
+rules: exact
+goals: coral 53, purple 39, yellow 46
+grid:
+pcbp  pcbc  cpyy  #     #     #     #
+ycbp  bcbc  cbyy  cybc  #     #     #
+ycbp  bcbc  ybbpR ypby  cbbb  #     #
+yyyp  yyyp  ybbp  bcyy  pbby  cypyR #
+yypp  yyyp  ycpp  ypcy  cpby  cycy  cccy
+cypp  yypp  yypp  ppcp  bpcp  ybcp  cbcy
+cypc  ccpc  cbpp  cpcp  yccp  yccp  ycyyLy5
+ypby  cybp  bbbp  cybp  cyby  pbpy  ycyy
+cbpc  cbbc  cbcc  cycp  yycy  byyy  yccy
+solution: 0,0 ; 3,2 ; use 0,1,0 ; 0,4 ; 4,6 ; use 0,2,0 ; 1,1 ; 5,4 ; use 0,3,3 ; 2,2 ; use 2,4,2 ; 2,0 ; 2,6 ; use 0,3,1

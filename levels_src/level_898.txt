@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: protect [protect+exact]; kristal 3; çözüm 9 / sınır 12 (v7 12); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 12 (eski 9), sınır 12→19, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 14, bot 8/112
+id: level_898
+title: Bölüm 898
+moves: 14
+roll: off
+specials: on
+type: protect
+rules: protect, exact
+goals: yellow 39, blue 44, coral 27
+grid:
+ppcy  G1:ppcy G1:pbby G1:pcby G1:ccpb pcpyR G1:ccpy
+pppb  bpcb  bbpy  pbpy  pbpy  pppy  ybyy
+cppb  yppb  bbpb  bbbb  ppyb  ppyb  ypyb
+#     yppb  ypppR yppb  ycpp  ycpb  #
+#     ycyp  bppp  bpyb  yccp  yccb  #
+#     ycyb  bcyb  bpyb  cccp  yccp  #
+bpbp  bcbp  bcyp  pcyy  cbyy  cbyy  yybyB1
+bpbpR bcbp  cbbp  ppyp  cbyc  cybc  pyby
+bpbp  bpbpP pbypP pbyc  pbyc  pycc  pycpP
+solution: 0,1 ; 0,1 ; 5,3 ; use 0,1,1 ; 5,3 ; use 0,0,0 ; 4,6 ; 3,6 ; use 0,0,0 ; 2,1 ; use 1,0,6 ; use 0,4,0

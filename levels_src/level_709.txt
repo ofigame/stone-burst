@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 6 hamle + 5 tepsi / limit 9 (pay +3, eski 15) hedef×0,97 bot 0,17 (hedef 0,18) plan 1; zincir v13: yeni çözüm 7 (eski 6), sınır 9→10, bot 16/112
+id: level_709
+title: Bölüm 709
+moves: 10
+roll: off
+specials: on
+paint: 1
+goals: purple 52, yellow 32, blue 39, sponge 1
+grid:
+pbcc  pbpc  cbbc  #     cppc  ccpc  ccbbScb
+ybcy  ycpy  ycby  #     pppc  cppp  ccbb
+cccy  ycpc  yccc  #     pcpp  pppp  ppbb
+cccy  pccc  pccc  ypcy  yccp  yybb  yybb
+cpcy  pcpy  ppyb  ppyy  ycbb  yycb  yybp
+cpby  ccbc  ccyb  ypyc  ycbb  ypcb  ybcy
+cpby  bcpb  bcbb  cpbc  ccbc  cpcy  cbcy
+pppc  pcpc  bcbb  bcbp  bcbc  cbcc  cbcy
+pppc  pcpc  bcpb  bcbp  pbbc  pbbc  cycc
+solution: 0,1 ; 6,1 ; use 0,0,0 ; use 0,1,0 ; 2,4 ; use 0,1,0 ; 5,3 ; 3,3 ; use 0,1,0 ; 1,1 ; 3,4 ; use 1,5,1

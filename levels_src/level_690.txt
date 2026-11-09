@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [chainOnly+exact]; zincir yellow 10; çözüm 12 / sınır 12 (v7 12); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,00; adillik onarımı: sınır 12→13 (112 oyunda 7 galibiyet); zincir v13: yeni çözüm 13 (eski 12), sınır 13→14, bot 27/112
+id: level_690
+title: Bölüm 690
+moves: 14
+roll: off
+specials: on
+type: boss
+rules: chainOnly, exact
+goals: blue 47, coral 48, chain yellow 10
+grid:
+#     #     G1:pyyc G1:ppbc G1:ppbc G1:ppbc G1:ppbb ppcb
+#     pppc  byyc  ppby  byyc  ppby  cpbb  ccbp
+bcpy  bppc  byyc  ppyb  ppcy  ypby  cpbb  bpbp
+bppp  yppp  yppc  #     #     ypyy  ybpb  ybpb
+pppp  ypyp  ypyc  #     #     yppc  cppc  ycpb
+ypbc  yyyc  ybbp  #     #     yppc  yppc  bcpb
+yyyc  yyyc  cbyp  pcyp  pccp  bccp  bcyc  bcpbB1
+cyyc  byyc  cbyc  ccpp  bcpy  bcpc  bcpc  #
+bbyc  cbyc  cbyc  cbbc  cbby  bppy  #     #
+solution: 0,5 ; 6,1 ; use 1,7,0 ; use 0,2,0 ; 2,0 ; 6,0 ; 5,4 ; use 0,6,1 ; use 0,6,0 ; 1,1 ; 1,4 ; 1,1 ; use 0,1,2 ; 2,0 ; 4,7 ; 4,6 ; 2,6 ; 0,3 ; use 0,0,3

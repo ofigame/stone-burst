@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 5 hamle + 4 tepsi / limit 12 (pay +7, eski 14) hedef×0,80 bot 0,21 (hedef 0,24) plan 2; zincir v13: yeni çözüm 8 (eski 5), sınır 12→19, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 15, bot 6/112
+id: level_651
+title: Bölüm 651
+moves: 15
+roll: off
+specials: on
+goals: blue 32, coral 29
+grid:
+bcb   G1:bcb G1:bcbp G1:bpb G1:bpb G1:ybbb ypc
+yyyp  bcbp  bcbp  bcb   bpc   cby   cpcb
+bypy  bypp  bcp   bpby  bppb  cbb   cpc
+bypy  #     #     bppb  #     #     ypc
+pyb   #     #     ycpb  #     #     ycyp
+cbpc  #     #     ycy   #     #     yycp
+bcyc  byy   bcyb  ycy   cybB1 cyy   cyyp
+bcp   yycp  pcb   pybp  yybp  yyc   bcbp
+pyyb  pyb   pcbc  ccb   ccc   pyc   ycy
+solution: 0,1 ; use 0,0,2 ; 1,1 ; use 0,3,1 ; 5,7 ; 2,6 ; use 0,0,6 ; 3,6 ; use 1,6,0 ; 3,0 ; use 0,0,0 ; 0,0

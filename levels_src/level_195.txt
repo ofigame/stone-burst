@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 6 hamle + 4 tepsi / limit 9 (pay +3, eski 12) hedef×1,11 bot 0,33 (hedef 0,36) plan 1; zincir v13: çözüm aynı, sınır 9→9, bot 36/112
+id: level_195
+title: Büyük Akış
+moves: 9
+roll: off
+specials: on
+goals: blue 33, coral 26
+grid:
+#     #     #     #     pbpp  ybb   pyb
+#     #     #     cpc   pbbb  ybbb  pyby
+#     #     ppc   ypyc  yyyb  yyb   pycy
+#     ycyy  ppc   ppy   ypcb  ccp   cycy
+pbby  pbcy  pcci1 bpb   bpcp  yyppi1 ybpy
+pyb   pbyy  bcc   bcbyi1 ppcp  yppp  ycb
+byb   bcy   yccy  ppby  ppy   ppy   yyyy
+bypc  bcp   bcpy  ppp   cpy   ppcbLy7 cby
+yyp   yyp   ycpy  ppp   yyc   ccy   cby
+solution: 4,4 ; 1,3 ; 3,1 ; use 0,5,0 ; use 0,4,3 ; 2,2 ; use 0,5,0 ; 5,0 ; 5,4 ; use 0,4,1

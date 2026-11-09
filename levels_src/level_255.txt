@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 6 hamle + 6 tepsi / limit 14 (pay +8, eski 13) hedef×1,28 bot 0,25 (hedef 0,33) plan 2; zincir v13: çözüm aynı, sınır 14→18, bot 4/112; zincir v13 kolaylaştırma: hedef −%6, sınır 15, bot 8/112
+id: level_255
+title: Dörtlü Akış
+moves: 15
+roll: off
+specials: on
+goals: blue 36, coral 51, purple 23, envelope 2
+grid:
+pby   cbbb  ybc   ybc   cpc   bpcb  bpc
+pbyb  cbybEc yby   cyc   cppc  bpc   bpcb
+cbybEy ccy   ycyy  ycpb  ccbc  cpc   ybpb
+ccy   #     #     ycpb  #     #     cycc
+ccy   #     #     ppc   #     #     cbcc
+ypcc  #     #     pyy   #     #     ycyc
+cycc  pycb  ppp   cbb   yyby  yyy   ycyc
+cycb  cycb  bppb  cbp   ybb   cppy  ybpc
+pyc   cpcb  cpy   ycy   yby   cbpy  cpy
+solution: 6,3 ; use 0,1,0 ; 2,0 ; use 0,1,0 ; 6,5 ; use 0,0,1 ; 4,0 ; use 0,1,0 ; 0,5 ; use 0,1,0 ; 0,6 ; 1,6

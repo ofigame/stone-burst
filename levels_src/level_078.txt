@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: protect [protect]; kristal 2; çözüm 7 / sınır 11 (v7 12); açgözlü kaybeder; bot48 0,10 (taban 0,10); bot 0,08; zincir v13: çözüm aynı, sınır 11→12, bot 12/112
+id: level_078
+title: Serin Mola
+moves: 12
+roll: off
+specials: on
+type: protect
+rules: protect
+goals: yellow 31, blue 23
+grid:
+#     #     cyyc  ycbc  ycp   ycpP  ccpP
+#     cpcc  bycp  yyyp  pcc   pcpb  byp
+yyyc  yyc   #     #     #     pyp   bypi1
+yyyp  byy   #     #     #     cbcy  bypy
+yby   pbyb  bpp   cbpi1 cyp   cyby  byb
+ybb   ybb   pbc   pbpy  cyyy  cbcy  bycp
+ybbb  cbb   cbb   cbpp  bcpp  yycp  #
+ybbc  bbbc  bybi1 bypp  byyc  #     #
+solution: 1,4 ; use 0,0,2 ; 0,2 ; 0,4 ; 0,2 ; 5,3 ; 1,4 ; use 0,5,1 ; 4,4 ; use 1,0,2 ; use 1,1,2 ; use 0,1,1

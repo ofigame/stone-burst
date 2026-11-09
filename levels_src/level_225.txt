@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 10 hamle + 6 tepsi / limit 18 (pay +8, eski 14) hedef×1,11 bot 0,33 (hedef 0,34) plan 0; zincir v13: yeni çözüm 10 (eski 10), sınır 18→22, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 18, bot 12/112
+id: level_225
+title: Renkli Akış
+moves: 18
+roll: off
+specials: on
+goals: purple 47, yellow 44, envelope 2
+grid:
+cpcp  cpcp  cpcp  cpb   ypbp  yyby  yyb
+ypbp  ycb   bpy   ypy   ypby  ypby  ypby
+bypp  ycb   ycp   ppy   bbc   bbcp  bbyyEc
+cpp   bpyc  #     #     #     bbyb  bbyp
+bppp  pppb  #     #     #     pbyp  bcy
+bppp  bcp   #     #     #     pyyy  pbp
+yby   ccy   cccc  cccc  cccc  pyb   pbp
+ycyy  ycy   ccy   cccc  pbc   pbpy  pypy
+ycyy  ccyy  ccyyEy bbc   bbc   pbpy  bbp
+solution: 5,0 ; use 0,0,2 ; 0,0 ; use 0,5,0 ; 0,7 ; 1,5 ; 1,2 ; use 1,4,0 ; 6,5 ; use 1,5,0 ; 6,5 ; 1,3 ; 0,4 ; 6,2 ; use 0,0,4

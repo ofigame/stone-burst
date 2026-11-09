@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk purple 44/43; çözüm 7 / sınır 14 (v7 20); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 9 (eski 7), sınır 14→16, bot 15/112
+id: level_347
+title: Doğru Kat
+moves: 16
+roll: off
+specials: on
+type: scarce
+rules: scarce
+goals: blue 47, coral 65, purple 40
+grid:
+yyby  bbpb  bbpb  cbpc  cccy  pccy  ypcy
+ycbb  ycpb  cppy  cbby  pbbc  pbpc  pbcy
+yccbR yccb  ycby  ppyp  bbpc  bccc  cbcy
+#     ycpc  bpby  bccy  bbbb  pcpc  #
+#     yccc  bcbp  cccp  cccp  cccp  #
+#     cbbc  bcbpR ccbp  cccp  yccc  #
+cycc  ybcc  pbpy  ccpy  pbby  cbyy  pbyy
+ycyc  bycc  yppp  cpyb  ycyp  cbcp  cbyc
+ypcc  bpcc  bbcp  bcybR ccbp  bccp  cbyp
+solution: 4,0 ; 3,0 ; use 1,3,0 ; 1,3 ; use 1,1,0 ; 2,6 ; 3,4 ; 2,1 ; use 1,1,0 ; use 1,2,1 ; 0,1 ; 5,6 ; 3,3 ; use 2,1,0 ; use 2,2,1

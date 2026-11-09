@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: resource [exact]; çözüm 9 / sınır 13 (v7 12); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 13→14 (112 oyunda 6 galibiyet); zincir v13: yeni çözüm 9 (eski 9), sınır 14→14, bot 8/112
+id: level_357
+title: Yıldız Planı
+moves: 14
+roll: off
+specials: on
+type: resource
+rules: exact
+goals: purple 47, yellow 57, blue 43, star 2
+grid:
+ypby  ybyy  ybpy  ybpy  pcpy  pcpy  pccy
+ypyy  ycyy  pcyy  pcpy  pcpy  bccy  ycpp
+ybyy  bcpc  bcpy  pcpy  pbcyR bbcb* bbcb
+bbyy  bccc  #     #     #     ybcp  ybcy
+bbby  bccy  #     #     #     ypcb  ypcp
+bbbb  ppcy  #     #     #     ybcb  ypcy
+bbbb  bcpy  bcpb  ycpc  pbpc  pbcp  yccy
+bpbc  bppc  ycpc  yppc  cppcR ybcy  ybcy
+bppp* bbcpR yccc  ypcc  cpcc  ypcy  yyyy
+solution: 0,0 ; use 0,0,0 ; 1,0 ; use 0,0,0 ; 1,1 ; 0,2 ; use 0,1,0 ; use 0,2,1 ; 5,3 ; use 0,1,5 ; 0,5 ; 0,0 ; 2,7 ; use 2,0,7 ; 5,7 ; use 0,6,0 ; use 0,6,0

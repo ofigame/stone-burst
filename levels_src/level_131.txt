@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 5 hamle + 4 tepsi / limit 10 (pay +5, eski 11) hedef×1,27 bot 0,42 (hedef 0,46) plan 2; zincir v13: yeni çözüm 8 (eski 5), sınır 10→17, bot 5/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 10/112
+id: level_131
+title: Başka Anahtar
+tutorial: Bu kilit hedefin değil, kendi rengini ister. Sayacına bak.
+moves: 11
+roll: off
+specials: on
+goals: blue 37, coral 33
+grid:
+ypp   ypp   ypc   ycc   bpc   bcy   bcy
+yccLy5 ycc   ypc   ycc   bbb   bcy   pcy
+ypy   ypy   ypb   byb   ycy   pcy   pby
+ybb   pby   bpc   byp   bbb   yby   cby
+cbb   cbc   cpc   bbp   bbp   pcc   pcy
+bbp   bpb   bpc   cpb   ppp   pcc   ypy
+#     #     bpp   bpp   bpc   #     #
+#     #     ccb   ccb   cyb   #     #
+#     #     pcp   ccb   cyb   #     #
+solution: 5,0 ; 2,7 ; 2,0 ; use 0,3,0 ; 3,3 ; 0,3 ; use 2,2,0 ; use 2,4,1 ; 2,0 ; use 2,4,1 ; use 0,0,1

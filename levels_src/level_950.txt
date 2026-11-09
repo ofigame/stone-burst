@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk yellow 66/65; çözüm 12 / sınır 12 (v7 15); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; adillik onarımı: sınır 12→15 (112 oyunda 9 galibiyet); zincir v13: yeni çözüm 11 (eski 12), sınır 15→15, bot 5/112
+id: level_950
+title: Bölüm 950
+moves: 15
+roll: off
+specials: on
+paint: 1
+type: boss
+rules: scarce, exact
+goals: yellow 65, blue 50, coral 47, envelope 2
+grid:
+#     #     bpcy  bppc  bpcc  bycy  #     #
+#     #     pccy  pccc  ppcc  cycc  #     #
+ccpp  pcpp  ppbp  ppby  yyby  ybcyEy cppc  pppc
+ccpb  pcpb  ccbp  ccbc  cybb  yybb  pybc  ppbc
+ycpb  ccpb  ccby  ccbb  ccbb  pbbb  pypy  pppy
+pyyb  pbyc  cbyyEp cbbp  ccyb  ybbb  yypy  bbyy
+yyyb  yyyc  ypyp  ybpp  bbyy  ybby  ypyy  ybyy
+#     #     byyc  cypb  byyy  cbby  #     #
+#     #     cyyy  byyy  cbyy  cbcc  #     #
+solution: 6,4 ; 4,3 ; use 0,2,0 ; 3,5 ; 3,2 ; 2,0 ; use 0,4,0 ; 0,4 ; use 0,3,3 ; use 0,5,0 ; 2,0 ; use 0,2,0 ; use 0,3,1 ; paint 5,2,p ; 5,2 ; 3,0 ; 2,6 ; use 1,0,6 ; use 0,5,2

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 7 hamle + 4 tepsi / limit 10 (pay +3, eski 14) hedef×1,11 bot 0,42 (hedef 0,38) plan 1; zincir v13: yeni çözüm 8 (eski 7), sınır 10→11, bot 18/112
+id: level_175
+title: Rulo Şelalesi
+moves: 11
+roll: off
+specials: on
+goals: blue 37, coral 48
+grid:
+ycc   ycc   bccc  byby  byb   ypy   ypyb
+yccb  yccb  bccb  bcc   bycLc8 bppb  ypyb
+yccb  yyc   bcyb  bccc  bypc  byp   bpc
+cccb  cccb  bcyb  cppp  bpp   cppy  bpyp
+cpcc  bbcc  ybc   ycc   bpc   bpcp  bpp
+ccb   ycpc  ppc   ypcy  ppy   ypy   ypy
+#     #     ccpp  bcy   ppp   #     #
+#     #     cbyp  pypb  yypy  #     #
+#     #     ycyy  cbp   pyy   #     #
+solution: 0,1 ; 0,0 ; 4,2 ; use 0,0,0 ; use 0,4,0 ; 3,0 ; 6,2 ; 1,2 ; use 0,2,0 ; 1,5 ; 2,7 ; use 0,2,0 ; use 0,0,5

@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order [exact]; kilit blue→yellow; çözüm 9 / sınır 12 (v7 14); açgözlü kaybeder; bot48 0,15 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 10 (eski 9), sınır 12→17, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 14, bot 6/112
+id: level_958
+title: Bölüm 958
+moves: 14
+roll: off
+specials: on
+paint: 1
+type: order
+rules: exact
+goals: yellow 32, blue 46, coral 37, envelope 2
+grid:
+cbcc  ppcyEp byyy  pyyp  bybp  bcpy  bcpc
+bybb  pyby  bypyLb3 bypc  byby  bypyLb4 bcpc
+pbbb  pybb  yypp  bcpc  pybcEy pypc  pypp
+bppb  pppb  pcpb  ccpc  pcpc  pypp  pypp
+bppp  pppp  pcpc  pcpc  ccpc  ycpc  yypy
+bycb  bycc  bpbc  bpbc  cpbc  ypbc  yyby
+#     #     bpbc  bpcb  cpcc  #     #
+#     #     bbcy  bppb  bppb  #     #
+#     #     bybb  bcpc  bbpb  #     #
+solution: 3,1 ; 2,0 ; use 1,0,0 ; 0,1 ; use 0,4,0 ; 1,0 ; use 1,0,0 ; 6,0 ; use 1,3,0 ; 5,2 ; 1,0 ; use 2,0,0 ; 3,6 ; use 0,2,0

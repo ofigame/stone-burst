@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe; çözüm 6 hamle + 5 tepsi / limit 10 (pay +4, eski 15) hedef×1,09 bot 0,42 (hedef 0,47) plan 0; zincir v13: yeni çözüm 8 (eski 6), sınır 10→12, bot 15/112
+id: level_074
+title: Donuk Orta
+moves: 12
+roll: off
+specials: on
+goals: yellow 26, blue 18
+grid:
+#     #     bcp   ppc   pyb   #     #
+#     byb   bcp   bpp   ppc   ppp   #
+ppb   ppy   ppc   bpp   cyp   ppp   cyp
+bpb   ppy   bypi2 bcc   bpp   ycc   ccb
+yyp   pyp   yyc   ppb   ccp   ccpi2 cyb
+ypy   ppc   bpc   ypy   ccy   bcp   byp
+#     yypi2 bcc   cby   cby   ycy   #
+#     #     ccy   cby   ybb   #     #
+solution: 2,0 ; use 0,1,2 ; 2,0 ; 3,0 ; use 0,2,0 ; 2,4 ; 0,2 ; 5,4 ; use 1,4,0 ; use 0,2,0 ; 6,2 ; 5,3 ; use 1,5,1

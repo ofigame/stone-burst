@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [chainOnly+exact]; zincir coral 3; çözüm 13 / sınır 13 (v7 11); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,25; zincir v13: yeni çözüm 6 (eski 13), sınır 13→7, bot 5/112
+id: level_290
+title: Kar Bahçesi
+moves: 7
+roll: off
+specials: on
+type: boss
+rules: chainOnly, exact
+goals: yellow 37, blue 61, star 2, envelope 2, chain coral 3
+grid:
+cppb  cppy  cypp  cbpp  cbpc  cbpcEy bbbb  bcbb
+ccbb  bybb  byby  cpbp  ypby  bbpc  bbpb  bcpbi1
+ybbb  bpbb  yybp  yybp  ypby  bcccEb bccc  ppbc
+#     ypbb  ypyb  ycyci1 ypcb  bcyb  pccb  #
+#     ypyb  bpcb  bcpc  ppcbi2 pccb  pccc  #
+#     pbcb  pbcc  pbpp  pcpp  yccp  yccp  #
+pbyp* cbyp  ccpp  pcpp  pcbp  ppbp* ypcp  bbyb
+pbyp  cbyp  ccpp  cbpp  pppp  ppbp  bpyp  bybb
+bpb   bypyi2 bypp  bypb  pypb  yypc  ybyci1 byb
+solution: 3,5 ; use 0,0,0 ; 0,1 ; use 0,5,0 ; 0,6 ; 5,2 ; use 0,1,0 ; 0,0 ; use 0,6,0 ; 0,0 ; use 0,2,0

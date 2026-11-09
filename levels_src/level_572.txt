@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 10 hamle + 4 tepsi / limit 14 (pay +4, eski 13) hedef×1,31 bot 0,38 (hedef 0,25) plan 0; zincir v13: yeni çözüm 11 (eski 10), sınır 14→15, bot 6/112
+id: level_572
+title: Bölüm 572
+moves: 15
+roll: off
+specials: on
+goals: coral 60, purple 25
+grid:
+cyy   cyy   yyccK1:1 ybc   #     #     #
+cycp  cycb  ybcc  ybcc  #     #     #
+cbbb  ccbbK2:2 yyc   yycc  #     #     #
+cbbb  cbbb  cyc   yyc   #     #     #
+cbcb  ypp   ycc   ycc   ycyy  ycyc  ycy
+cbcp  ycp   ycp   ycpbK1:1 ycpb  ycb   pccp
+cbc   bbcc  ycc   ycpK2:2 ycp   ycpb  ppcK2:2
+ybbb  bby   bpyb  bpbb  ybcb  ybc   pbcp
+bcb   bccb  bcc   ppy   pbcp  pbcp  pbcp
+solution: 3,0 ; use 0,0,1 ; 0,6 ; 1,1 ; use 1,2,0 ; 3,5 ; 2,2 ; use 1,1,4 ; 5,4 ; 0,2 ; use 1,2,0 ; 1,6 ; 0,2 ; use 3,6,5 ; 0,0 ; 0,1

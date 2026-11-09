@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: pure [noSpecials+exact]; çözüm 18 / sınır 19 (v7 12); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 17 (eski 18), sınır 19→18, bot 14/112
+id: level_988
+title: Bölüm 988
+moves: 18
+roll: off
+type: pure
+rules: noSpecials, exact
+goals: coral 43, purple 43, yellow 25
+grid:
+#     #     #     ybpb  #     #     #
+#     bcyy  cbyy  ypcy  yppy  ypbp  #
+pyyy  pyyb  cyyb  cycb  bycy  pycy  cycp
+bpbc  pcbc  ccybi1 bycb  bpcc  pycp  pycp
+bcbc  bcpc  bcpci2 bppb  bcbcLb8 pcbb  pcbbi1
+bppb  cbbc  cccc  yppb  yppb  ycbb  cbpb
+bcbp  bcbci2 ccbb  cpcb  yppbLc8 ypby  bppb
+bcyp  bpyp  bpyb  bpcbi1 cppbi2 cpbp  ybbb
+ypypi1 bpyp  bppp  cppp  cpppi1 cbcp  cbcb
+solution: 6,2 ; 0,6 ; 0,3 ; 1,2 ; 1,1 ; 3,1 ; 1,2 ; 3,3 ; 3,1 ; 1,7 ; 2,3 ; 4,7 ; 4,7 ; 3,6 ; 3,6 ; 4,7 ; 0,6

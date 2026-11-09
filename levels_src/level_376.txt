@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 7 hamle + 4 tepsi / limit 13 (pay +6, eski 13) hedef×1,29 bot 0,21 (hedef 0,27) plan 0; zincir v13: yeni çözüm 6 (eski 7), sınır 13→12, bot 20/112
+id: level_376
+title: Çark Adası
+moves: 12
+roll: off
+specials: on
+goals: coral 42, purple 47, yellow 44, envelope 1
+grid:
+#     #     #     #     cybb  cb    bycb
+#     #     #     cc    pc    byyb  bybb
+#     #     bbycEy pbyc  pbyb  cbyb  cybb
+#     cpy   cpyc  cpyb  cpyb  bb    by
+pbpc  ybpc  ypyc  ypbb  bcby  bcbb  ccbb
+pbpc  yppp  ypyy  ypbp  ycpy  bcby  byby
+bbyc  yyyp  yypy  yppy  bppp  cybp  cycy
+byybR yypp  bppyR bppy  bppp  cppc  cppc
+bpyb  bppp  bpcy  bccy  pccc  pccc  cpcc
+solution: 4,0 ; use 0,5,0 ; 1,3 ; 0,4 ; use 0,6,0 ; 6,0 ; 4,1 ; 6,6 ; use 0,3,1 ; use 0,1,5 ; use 0,6,1 ; use 0,6,2

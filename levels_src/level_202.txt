@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 5 hamle + 4 tepsi / limit 10 (pay +5, eski 11) hedef×1,28 bot 0,42 (hedef 0,41) plan 1; zincir v13: yeni çözüm 6 (eski 5), sınır 10→15, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 50/112
+id: level_202
+title: Mavi Mühür
+moves: 10
+roll: off
+specials: on
+goals: yellow 40, blue 30, envelope 1
+grid:
+#     #     #     #     ypb   ypy   bcy
+#     #     #     yyp   ybb   ybb   yby
+#     #     bpp   ypp   ycy   ycb   ppp
+#     cpp   bpp   yyb   ycyEb yyc   byc
+pyp   pbp   bbp   byy   ypb   ycc   bcc
+pyp   pby   bcy   bpy   ypb   cyc   ycb
+pcp   pcp   ycp   ycy   pyc   pcc   ccb
+pcp   ypp   ypy   cbb   cbc   pbc   pcb
+bbp   ybp   cbp   cbp   cyy   cyb   cby
+solution: 3,1 ; use 0,4,0 ; 2,2 ; 3,1 ; 4,2 ; use 1,5,0 ; use 1,4,1 ; 4,4 ; use 0,4,0

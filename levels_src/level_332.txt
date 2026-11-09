@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 8 hamle + 7 tepsi / limit 15 (pay +7, eski 17) hedef×1,29 bot 0,38 (hedef 0,34) plan 0; zincir v13: yeni çözüm 8 (eski 8), sınır 15→15, bot 11/112
+id: level_332
+title: Taban ve Zarf
+moves: 15
+roll: off
+specials: on
+goals: coral 26, purple 36, envelope 1
+grid:
+pyp   ycc   bcp   bypR  bcp   ycp   ybyp
+pcb   ycbp  ycb   byb   bypb  ybpEc yby
+bbb   bbbb  cbby  cbby  bppb  ybp   ybyc
+bbcb  bbcb  ypc   ypc   bpbb  bpbc  ybbc
+pyyb  byy   bpyy  yycy  byb   bcb   ycp
+pbpp  bycp  byy   ycp   bcp   ycbp  ycyp
+#     #     ppby  ccb   bcb   #     #
+#     #     pppR  bpb   bbbb  #     #
+#     #     pyp   ybbp  bbb   #     #
+solution: 6,4 ; 3,6 ; use 1,5,0 ; 6,2 ; use 1,0,0 ; 0,1 ; use 1,1,0 ; 0,4 ; use 1,0,1 ; 3,0 ; 0,2 ; use 0,0,2 ; 4,2 ; use 0,4,3 ; use 1,1,0 ; use 0,2,6

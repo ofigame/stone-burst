@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk purple 41/40; çözüm 5 / sınır 9 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,25; zincir v13: çözüm aynı, sınır 9→13, bot 4/112; zincir v13 kolaylaştırma: hedef −%6, sınır 8, bot 9/112
+id: level_307
+title: Önce Dön
+moves: 8
+roll: off
+specials: on
+type: scarce
+rules: scarce
+goals: blue 38, coral 26, purple 38
+grid:
+#     #     cpc   ccbb  ccby  #     #
+#     cpcb  cpbb  ccbb  ccpb  bby   #
+bcc   bpb   cbb   ybb   ypp   ypp   ycby
+bpp   ppcb  cbcb  bbpb  byyb  bcpb  pbpb
+ccp   pbb   cccb  cccy  bbpc  ybc   ppcp
+ccc   cbp   cpp   cccy  bbpR  ybp   ybpy
+bbb   bbb   cpc   byc   bby   cpp   pbpp
+#     yby   bpyy  bpcy  bppy  ybyR  #
+#     #     byby  bpcy  ypc   #     #
+solution: 3,0 ; use 0,4,0 ; 4,1 ; 5,3 ; use 0,3,0 ; use 0,2,1 ; 2,0 ; use 0,2,0

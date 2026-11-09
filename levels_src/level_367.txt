@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 6 / sınır 10 (v7 14); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 10→11 (112 oyunda 13 galibiyet); zincir v13: yeni çözüm 8 (eski 6), sınır 11→17, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 12/112
+id: level_367
+title: İki Kasa Tur
+moves: 12
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: blue 44, coral 38, purple 55
+grid:
+#     #     bybb  pycy  cycc  #     #
+#     yyby  cpby  byyy  byycR bcpc  #
+cycb  yccb  pcbb  pyyyLy5 yycy  ybpy  cbpc
+ccyc  pppb  pcbb  pypb  pcbp  ybcc  ybcp
+cbyc  pybcLc7 pcbc  ppbpR ppbp  pbpy  ybpy
+bbyp  cpbb  pccb  ppbp  cpbp  bybp  ycyy
+ybyp  ybbp  ppbp  ppbpR ppbp  cpyc  cbyc
+#     cbbp  ypbp  bpbp  ppyc  ppyc  #
+#     #     yppy  yppc  ypyc  #     #
+solution: 4,3 ; use 0,4,0 ; 0,2 ; use 0,3,0 ; 5,1 ; use 0,2,0 ; 0,2 ; use 0,3,0 ; 3,0 ; 3,1 ; 3,1 ; use 0,3,0

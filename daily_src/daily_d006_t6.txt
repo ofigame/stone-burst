@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 6; resource [exact] (sıradaki tür; pure tutmadı); çözüm 10 / sınır 12 (v7 12); açgözlü kaybeder; bot48 0,06 (taban 0,04); zincir v13: yeni çözüm 9 (eski 10), sınır 12→15, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 7/112
+id: daily_d006_t6
+title: Günlük 6
+moves: 11
+roll: on
+specials: on
+type: resource
+rules: exact
+goals: coral 66, yellow 48, blue 22, sponge 1
+grid:
+cyyc  cyyc  cybc  cpbc  cpbb  #     #
+cyyy  cyyy  cyby  cycc  cccb  cycp  #
+ybyy  cyyy  cycy  cycc  cybb  cycp  yyyp
+byyy  bbbc  #     #     #     cybp  cybp
+bcbc  bbycSpb #     #     #     ccbp  cybp
+byyp  byyc  #     #     #     cypp  cybp
+cyyp  cypb  cbcp  cycp  bypy  pcpy  cybp
+#     cypp  cccp  cccp  cbpy  yccp  yccp
+#     #     cccb  cccp  yccp  yccp  yccc
+solution: 5,1 ; use 0,0,0 ; 0,0 ; 2,0 ; 0,0 ; use 0,4,0 ; use 0,1,0 ; use 0,0,1 ; 0,1 ; 1,6 ; use 1,4,1 ; use 0,0,4

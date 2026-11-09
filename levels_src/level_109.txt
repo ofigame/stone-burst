@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 8 hamle + 5 tepsi / limit 12 (pay +4, eski 15) hedef×1,10 bot 0,33 (hedef 0,43) plan 2; zincir v13: yeni çözüm 10 (eski 8), sınır 12→14, bot 8/112
+id: level_109
+title: Derinlik Ustası
+moves: 14
+roll: off
+specials: on
+goals: purple 50, yellow 38
+grid:
+cccp  cybc  ycb   #     cc    pcpi2 pbp
+ccbp  cpb   ppbc  #     cybi2 bcpc  pyyp
+bcb   cybp  ypb   pyc   pycb  pccp  yyyp
+bccc  cp    ycpp  pycyi1 pyc   py    pyyp
+pcbp  pbp   pbc   ppcy  bpc   ypyp  pbyp
+ycy   ybpy  ybpy  bpby  bpby  ycyp  bpcpi1
+pcypi1 cby   byp   ypb   yb    yycp  bycy
+ccypi2 ccyp  cyp   ccby  byc   byc   cybc
+solution: 6,0 ; use 0,1,0 ; 6,1 ; 1,2 ; 3,5 ; 3,6 ; 1,0 ; use 0,0,0 ; 0,2 ; 1,2 ; use 2,0,4 ; 3,3 ; 4,0 ; use 0,5,0

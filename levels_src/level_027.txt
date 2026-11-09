@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 6 / sınır 8 (v7 10); açgözlü kazanır; bot48 0,23 (taban 0,10); bot 0,17; zincir v13: yeni çözüm 7 (eski 6), sınır 8→13, bot 1/112; zincir v13 kolaylaştırma: hedef −%18, sınır 8, bot 16/112
+id: level_027
+title: Kilitli Satır
+moves: 8
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: blue 15, coral 21
+grid:
+ycb   ypb   pyb   cyy   cyb   cpb
+ypb   pyb   pyb   pyb   cyp   cpb
+ypbk1 cyb   byyk1 bcb   yby   ypc
+yyy   cyc   #     #     ppp   ppy
+cyy   cyy   #     #     ppy   ycy
+cyb   cyy   #     #     ycy   ycy
+cyy   ccy   ccb   ycbk1 ycy   ycc
+solution: 0,3 ; 0,0 ; 5,3 ; use 0,5,0 ; use 0,0,0 ; 0,3 ; use 0,3,0 ; use 0,4,0 ; 3,0

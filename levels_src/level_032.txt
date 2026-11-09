@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 6 hamle + 4 tepsi / limit 11 (pay +5, eski 10) hedef×1,57 bot 0,75 (hedef 0,56) plan 0; zincir v13: çözüm aynı, sınır 11→11, bot 78/112
+id: level_032
+title: Ortadaki
+moves: 11
+roll: off
+specials: on
+goals: coral 31, purple 9
+grid:
+bby   bby   byy   cyy   cyy   cyy   yyc
+bby   bcy   bby   bby   cby   byy   yyck2
+cbc   cyc   byyk2 bby   bcb   ccc   yyc
+bcc   cyc   pypk2 bcy   byc   cbc   yby
+bcc   bcc   bbp   bcy   bbb   ybc   yyc
+#     #     bby   bby   bbp   #     #
+#     #     pyy   bpb   yyp   #     #
+#     #     yyc   ypp   ycp   #     #
+solution: 0,2 ; use 0,3,0 ; 5,2 ; use 0,2,3 ; 0,0 ; use 0,3,0 ; 4,0 ; 0,0 ; 4,0 ; use 0,2,3

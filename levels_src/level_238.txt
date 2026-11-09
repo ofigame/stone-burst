@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order; kilit blue→yellow; çözüm 9 / sınır 11 (v7 13); açgözlü kaybeder; bot48 0,21 (taban 0,06); bot 0,17; zincir v13: yeni çözüm 9 (eski 9), sınır 11→12, bot 6/112
+id: level_238
+title: Posta Molası
+moves: 12
+roll: off
+specials: on
+type: order
+goals: yellow 49, blue 40, coral 41, envelope 1
+grid:
+#     #     #     ybb   #     #     #
+#     ybpy  ybpyLb3 bbb   ybbp  bbb   #
+ycb   ycpy  ycpEb bbcc  ybcc  bbb   bcbc
+ypcc  ypcy  pbc   yybc  cyc   ycbc  bcb
+ypcc  ypcy  ppcc  pbc   yycy  ycc   bcpb
+ycbb  bpc   ypcc  yycc  yyc   ybbc  ycbc
+ycy   ypy   ypcc  pcp   ppp   pcp   ycbp
+cbc   bpb   bpc   bpc   ppp   ycpy  ycp
+pyb   yyc   ybc   ybc   pby   ypyb  ycyLb3
+solution: 3,2 ; 3,6 ; use 0,3,0 ; 5,7 ; use 0,0,2 ; 3,0 ; 4,2 ; 1,1 ; use 0,1,1 ; 1,2 ; use 2,4,1 ; use 0,3,0 ; 4,6 ; 1,5 ; use 0,4,4

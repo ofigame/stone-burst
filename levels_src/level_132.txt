@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3; çözüm 5 hamle + 4 tepsi / limit 10 (pay +5, eski 8) hedef×1,43 bot 0,42 (hedef 0,46) plan 0; zincir v13: yeni çözüm 5 (eski 5), sınır 10→10, bot 16/112
+id: level_132
+title: İki Renk
+moves: 10
+roll: off
+specials: on
+goals: coral 45, purple 39
+grid:
+#     #     yyc   ppy   bpc   ccc   bcc
+#     byc   yyc   bpc   bpc   yyc   pyc
+byp   byp   yby   pyy   yyc   ycc   ycp
+bcp   bcp   #     #     #     yyy   pcc
+pcb   pyc   #     #     #     cpy   cpc
+bpp   bbp   #     #     #     cpy   cpp
+byp   cyy   ccc   ppc   pcc   ppc   bcc
+pcc   yyc   cyp   ppc   yccLc7 ycp   #
+bcp   yyp   pyp   ppp   ypc   #     #
+solution: 2,7 ; 2,6 ; use 1,0,2 ; 2,0 ; use 1,5,0 ; 3,6 ; 2,0 ; use 2,3,0 ; use 0,2,0 ; use 0,2,0

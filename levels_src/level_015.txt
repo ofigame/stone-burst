@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 4 hamle + 2 tepsi / limit 10 (pay +6, eski 8) hedef×1,24 bot 0,50 (hedef 0,59) plan 1; zincir v13: çözüm aynı, sınır 10→10, bot 41/112
+id: level_015
+title: Domino
+tutorial: Alttan aynı renk açılınca kendiliğinden soyulur: dominoyu hazırla!
+moves: 10
+roll: off
+specials: on
+goals: coral 33
+grid:
+#     #     #     yb    ybc   bc
+#     #     bc    cbc   cbc   cb
+#     ybc   byy   by    cbc   yyy
+yc    cy    ccy   cby   cby   yyc
+ycy   ccb   cc    yc    bbc   yy
+yb    cb    ccy   yyy   cbc   cby
+cby   cy    cby   yy    cyb   cy
+solution: 2,2 ; 4,0 ; use 1,3,0 ; 5,2 ; 2,3 ; use 1,1,4

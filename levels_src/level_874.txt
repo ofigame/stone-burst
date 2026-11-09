@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil dikdörtgen; çözüm 9 hamle + 8 tepsi / limit 19 (pay +10, eski 17) hedef×1,66 bot 0,13 (hedef 0,16) plan 2; zincir v13: yeni çözüm 9 (eski 9), sınır 19→23, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 17, bot 11/112
+id: level_874
+title: Bölüm 874
+moves: 17
+roll: off
+specials: on
+goals: yellow 34, blue 57, coral 55
+grid:
+yypc  G1:ycpb G1:ypcb G1:ypcb G1:bpbb G1:cbbc cbpc
+ycpc  yccb  bpcb  bppy  bybp  cbcc  cbpc
+ccpc  yccb  bppb  bppb  yybp  pbcp  ppcy
+cppp  cpcb  cppb  ybyp  yyyp  cppp  pppy
+cbpb  cbpb  cbbbR cbyb  cpbp  yyyp  pppyR
+cbpb  cypb  cybb  cpbb  cybp  bybb  ppby
+cypc  cypp  cybpB1 cyyp  cpbp  cybb  pbby
+bcpc  bppc  ypbp  ppbc  cpbc  pppc  pppyR
+pcbc  bbpc  bcbc  pcbc  bccy  ppyc  pcbc
+solution: 1,1 ; 2,1 ; use 0,3,1 ; 0,6 ; use 0,0,0 ; 3,3 ; use 0,0,0 ; 1,6 ; use 0,1,0 ; use 0,2,0 ; 5,5 ; 5,2 ; use 0,0,0

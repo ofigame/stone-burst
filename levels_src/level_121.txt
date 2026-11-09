@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 3 hamle + 3 tepsi / limit 7 (pay +4, eski 11) hedef×0,93 bot 0,38 (hedef 0,47) plan 2; zincir v13: yeni çözüm 3 (eski 3), sınır 7→7, bot 71/112
+id: level_121
+title: Renk Kilidi
+tutorial: Kilidin rengindeki katmanları tahtanın herhangi bir yerinden soy: sayaç düşer, kilit açılır.
+moves: 7
+roll: off
+specials: on
+goals: purple 30, yellow 29
+grid:
+bpb   ycy   ycy   cyp   pby   cby   cbc
+bpb   bpb   ppp   ypy   ybb   yyy   yyy
+ppb   pyb   byc   ypb   ypp   ycc   yby
+#     pyc   pyc   ycb   cpb   cyb   #
+#     bcb   pcb   pyb   cyy   ycy   #
+#     ycb   pcb   cbb   cby   ccp   #
+byc   bcb   cbb   cbp   yyy   ybb   bbp
+ypy   ypy   ypb   byb   bpp   ypp   pcp
+cpy   cppLc5 pbb   yyc   bbb   pcp   pcp
+solution: 2,2 ; 0,0 ; use 0,3,0 ; 1,0 ; use 0,1,0

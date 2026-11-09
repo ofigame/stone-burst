@@ -1,0 +1,40 @@
+// Bölüm 271-300 profilleri (Premium-v2 rehberi §11: 201–300 zarf bloğunun sonu).
+// 271–280 zarf + renk kilidi (kilit renk sayar, zarf komşuda renk ister: aynı renk iki işe yarar),
+// 281–290 zarf + buz, 291–300 blok finali (zarf + bir eski örtü; iki/üç mühür; yıldız, rulo, 6x6).
+// Aynı anda en çok iki örtü ailesi. 10'luk ritim (§11).
+
+// 271-280: zarf + renk kilidi.
+271 | title=Kilitli Posta | size=5 | layers=2-2 | colors=cby | env=c | lock=c:3 | goals=b:0.5 | len=3-4 | slack=2 | win=0.6 | tutorial=Aynı renk iki işe yarar: kilit sayacını düşürür, yanındaki zarfı açar.
+272 | title=Ortak Renk | size=5 | layers=2-3 | colors=cby | env=b | lock=b:4 | goals=y:0.5 | len=3-5 | slack=1 | win=0.5
+273 | title=Ayrı Renkler | size=5 | layers=2-3 | colors=cbyp | env=y | lock=p:4 | goals=c:0.5 | len=4-5 | slack=1 | win=0.35
+274 | title=Kasa Postası | size=5 | layers=3-3 | colors=cbyp | env=c,b | lock=y:5 | goals=p:0.5 | len=5-6 | slack=1 | win=0.3
+275 | title=Kilit Akışı | size=5 | layers=3-3 | colors=cby | env=c | lock=c:4 | goals=y:0.6 | len=3-4 | slack=2 | win=0.65 | chains=2
+276 | title=Kasa Adaları | size=6 | layers=2-2 | colors=cby | holes=9 | env=b,y | lock=c:4 | goals=b:0.4 | len=4-5 | slack=1 | win=0.4
+277 | title=İnce Plan | size=5 | layers=2-3 | colors=cbyp | env=p,c | lock=b:4,y:3 | goals=c:0.4 | len=5-6 | slack=1 | win=0.25
+278 | title=Kolay Kasa | size=5 | layers=2-2 | colors=cby | env=y | lock=b:3 | goals=c:0.6 | len=3-4 | slack=2 | win=0.7
+279 | title=Kasa Ustası | size=6 | layers=2-3 | colors=cbyp | holes=5 | env=c,b | lock=p:5,y:4 | stars=1 | goals=b:0.4 | len=5-7 | slack=1 | win=0.2
+280 | title=Hazine Mektubu | size=6 | layers=3-3 | colors=cbyp | holes=4 | env=y,p | lock=c:5 | roll=on | stars=1 | goals=b:0.4 | len=6-7 | slack=1 | win=0.2 | chains=1
+
+// 281-290: zarf + buz.
+281 | title=Soğuk Posta | size=5 | layers=2-2 | colors=cby | env=c | ice1=1 | goals=b:0.6 | len=3-4 | slack=2 | win=0.6
+282 | title=Buzlu Mühür | size=5 | layers=2-3 | colors=cby | env=b | ice1=2 | goals=y:0.5 | len=3-5 | slack=1 | win=0.5
+283 | title=Kar Mektubu | size=5 | layers=2-3 | colors=cbyp | env=y,c | ice1=1 | ice2=1 | goals=p:0.5 | len=4-5 | slack=1 | win=0.35
+284 | title=Donuk Kapak | size=5 | layers=3-3 | colors=cbyp | env=p | ice2=2 | goals=c:0.5,b:0.4 | len=5-6 | slack=1 | win=0.3
+285 | title=Erime Postası II | size=5 | layers=3-3 | colors=cby | env=c,y | ice1=2 | goals=b:0.6 | len=3-4 | slack=2 | win=0.65 | chains=2
+286 | title=Buz Takımadası | size=6 | layers=2-2 | colors=cby | holes=10 | env=b | ice1=2 | stars=1 | goals=c:0.5 | len=4-5 | slack=1 | win=0.4
+287 | title=Önce Buz Sonra Zarf | size=5 | layers=2-3 | colors=cbyp | env=c,p | ice1=2 | goals=y:0.5,b:0.4 | len=5-6 | slack=1 | win=0.25
+288 | title=Ilık Posta | size=5 | layers=2-2 | colors=cby | env=y | ice1=1 | goals=c:0.6 | len=3-4 | slack=2 | win=0.7
+289 | title=Kış Postacısı | size=6 | layers=2-3 | colors=cbyp | holes=5 | env=c,b,p | ice1=2 | ice2=1 | goals=y:0.4 | len=5-7 | slack=1 | win=0.2
+290 | title=Kar Bahçesi | size=6 | layers=3-3 | colors=cbyp | holes=4 | env=b,y | ice1=2 | ice2=1 | roll=on | stars=1 | goals=c:0.4,p:0.4 | len=6-7 | slack=1 | win=0.2 | chains=1
+
+// 291-300: blok finali.
+291 | title=Son Mektuplar | size=5 | layers=2-3 | colors=cby | env=c,b | goals=y:0.6 | len=3-4 | slack=2 | win=0.6
+292 | title=Üç Postacı | size=5 | layers=2-3 | colors=cbyp | env=c,b,y | goals=p:0.5 | len=4-5 | slack=1 | win=0.45
+293 | title=Kasalı Final | size=5 | layers=3-3 | colors=cbyp | env=p,c | lock=b:4 | goals=y:0.5 | len=4-6 | slack=1 | win=0.35
+294 | title=Sabırlı Posta | size=6 | layers=2-3 | colors=cbyp | holes=6 | env=y,b | ice1=2 | goals=c:0.5,p:0.4 | len=5-6 | slack=1 | win=0.3
+295 | title=Büyük Akış II | size=5 | layers=3-3 | colors=cby | env=c,y,b | goals=b:0.5 | len=3-4 | slack=2 | win=0.6 | chains=2
+296 | title=Posta Köprüleri | size=6 | layers=2-3 | colors=cby | holes=11 | env=b,c | clip1=1 | stars=2 | goals=y:0.5 | len=4-6 | slack=1 | win=0.4
+297 | title=Son Sıra II | size=5 | layers=3-3 | colors=cbyp | env=c,p | lock=y:4 | goals=b:0.5,c:0.4 | len=5-6 | slack=1 | win=0.25
+298 | title=Son Mola | size=5 | layers=2-2 | colors=cby | env=b | goals=c:0.7 | len=3-4 | slack=2 | win=0.7
+299 | title=Posta Ustası II | size=6 | layers=3-4 | colors=cbyp | holes=5 | env=c,b,y | ice1=2 | stars=2 | goals=p:0.4 | len=6-7 | slack=1 | win=0.2
+300 | title=Üç Yüzüncü | size=6 | layers=3-3 | colors=cbyp | holes=4 | env=c,b,p | lock=y:5 | roll=on | stars=2 | goals=b:0.4,c:0.4 | len=6-7 | slack=1 | win=0.2 | chains=1

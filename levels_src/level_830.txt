@@ -1,0 +1,21 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk coral 44/43; çözüm 10 / sınır 11 (v7 12); açgözlü kazanır; bot48 0,04 (taban 0,04); bot 0,17; zincir v13: yeni çözüm 12 (eski 10), sınır 11→16, bot 5/112
+id: level_830
+title: Bölüm 830
+moves: 16
+roll: off
+specials: on
+paint: 1
+type: boss
+rules: scarce, exact
+goals: yellow 31, blue 82, coral 43, envelope 2
+grid:
+#     #     cbbc  pbbb  pbbp  pbbp  #     #
+#     #     ypbb  cbbb  pybp  pbbp  #     #
+byyb  pcbc  ybpc  cbbc  cbbp  cbbp  bypb  yypb
+bbbb  ccyc  ypyc  cppc  cpcc  yybb  byyb  cypb
+ypbbEy cbyp  cppc  cppc  cpyc  cpbb  byyb  bbyb
+cbpc  cbyp  cppb  cpyb  ypybEp ycbb  ccyb  cbbc
+bbpp  bbpp  bbpb  bpbb  bcyb  pcbc  ypbc  ybbc
+#     #     ppyb  bpbb  bcyb  ppyb  #     #
+#     #     pppp  ppbb  ppbb  ppbb  #     #
+solution: 6,2 ; use 0,2,0 ; 3,3 ; use 0,7,2 ; 0,2 ; use 0,4,0 ; 2,0 ; 5,5 ; use 0,4,1 ; 0,6 ; 2,0 ; 3,2 ; use 0,0,3 ; 2,5 ; use 0,2,0 ; 5,6 ; paint 2,1,b ; 3,0 ; use 2,2,1

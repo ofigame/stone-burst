@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 6 hamle + 4 tepsi / limit 11 (pay +5, eski 17) hedef×0,95 bot 0,17 (hedef 0,34) plan 1; zincir v13: yeni çözüm 7 (eski 6), sınır 11→12, bot 17/112
+id: level_234
+title: Kasa ve Zarf
+moves: 12
+roll: off
+specials: on
+goals: yellow 37, blue 24, envelope 1
+grid:
+cbc   cbcc  cyy   pcpc  pcy   pcyy  ccc
+ccc   cycc  ycy   pyy   cccp  ccc   cccy
+cpcc  yycc  yybc  ppb   pcb   pyc   pbc
+cpc   ypcb  #     #     #     pycyEc pbcy
+ypc   ypp   #     #     #     pppc  pbc
+bppy  ybpy  #     #     #     yppc  ybcy
+ybpy  ybc   ccp   pppb  ypb   ybpc  ybb
+ybb   yyb   ccbp  ppp   ccby  cbb   cpcp
+bbb   bybLb8 cypp  cypp  cccy  ccby  ccc
+solution: 0,0 ; use 0,2,0 ; 6,0 ; 3,6 ; use 0,0,0 ; 0,0 ; 0,2 ; use 1,2,0 ; use 1,1,0 ; 1,0 ; 2,6 ; use 1,2,2

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 5 hamle + 4 tepsi / limit 9 (pay +4, eski 15) hedef×0,94 bot 0,50 (hedef 0,44) plan 0; zincir v13: yeni çözüm 6 (eski 5), sınır 9→10, bot 68/112
+id: level_162
+title: Yıldız Kasası
+moves: 10
+roll: off
+specials: on
+goals: yellow 28, blue 24, star 3
+grid:
+ycy   ypc   pcc   pcp   pcp*  cbp   pbp
+cpy   ypy   ycy   ccc   pbp   cbp   pbp
+yyp   yyp*  ccy   ypb   pyp   pbp   bbc
+cpb   bpy   #     #     #     pyc   bbc
+bbc   bbp   #     #     #     pby   pby
+bbc   bbp   #     #     #     bby   pbb
+byc   cpc   ypb   ybp   ybp   yby   yby
+pyc   pcc   ccc   cccLb7 ccy   ybp   ybc
+pyc   pcc*  yyp   pcc   cbp   pcp   cyp
+solution: 3,0 ; use 0,0,0 ; 0,0 ; 3,0 ; 1,0 ; use 1,1,0 ; 0,4 ; use 0,3,2 ; 1,6 ; use 0,0,0

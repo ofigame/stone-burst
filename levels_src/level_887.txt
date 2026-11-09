@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 8 / sınır 13 (v7 11); açgözlü kaybeder; bot48 0,10 (taban 0,06); bot 0,17; zincir v13: yeni çözüm 7 (eski 8), sınır 13→16, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 6/112
+id: level_887
+title: Bölüm 887
+moves: 12
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: blue 55, coral 37, purple 41, envelope 2
+grid:
+yppc  yypy  cypy  bbpp  bbbp  bbbp  bbbb
+cpcc  pppb  cypp  bccc  bpcpR ybyp  cbyp
+pppc  ppcy  pypb  pcpy  pycp  ybpb  byyb
+#     bbbb  cccp  byyb  ypyb  ybcb  #
+#     pppp  pppc  cppc  bybc  yycp  #
+#     ccpc  pppc  pbpc  bybb  bcbbEp #
+pbpcEy pbcc  bcpy  bbbb  ccyp  cbyp  bpyb
+yybcR yycc  bcbc  pcbb  cppcR bbyb  bpyb
+yybc  bpyc  yccc  byyy  pyyb  bpyb  pyyc
+solution: 3,0 ; use 0,0,6 ; 2,4 ; 5,2 ; use 0,4,0 ; 1,1 ; 5,5 ; use 0,0,0 ; use 0,0,0 ; use 0,3,0 ; 3,0

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3 (kaydırılmış); çözüm 10 hamle + 7 tepsi / limit 12 (pay +2, eski 13) hedef×0,97 bot 0,08 (hedef 0,10) plan 2; zincir v13: yeni çözüm 9 (eski 10), sınır 12→15, bot 12/112
+id: level_930
+title: Bölüm 930
+moves: 15
+roll: off
+specials: on
+goals: yellow 67, blue 27, coral 53
+grid:
+cyyb  cyyp  G1:cyyp G1:cccp G1:ypcp G1:yppp G1:ycpc yypc
+pyyb  pyyb  pcbp  ypcp  ypcp  cppp  pybp  cypc
+pycb  yybbR cppc  pyby  yyby  yypy  yycc  cpcc
+yycb  yyyy  yyppB1 pppc  yypp  yyby  yycy  cpcc
+ybyc  #     #     cpbc  cybyR #     #     cpcp
+ybpy  #     #     cpbc  yybc  #     #     cpcc
+yppy  #     #     cbby  ccyc  #     #     ccyc
+cppy  cbpy  cbpy  pbcy  pccy  pcyy  bccy  bccc
+cbpp  cbcy  cpcy  cbcy  pbcy  bccyR bccc  bccc
+solution: 0,5 ; 0,0 ; 3,2 ; use 0,7,0 ; 7,0 ; use 2,2,1 ; 0,0 ; use 2,0,0 ; 7,0 ; use 2,1,0 ; 4,2 ; 7,7 ; 1,2 ; use 2,1,0 ; use 0,1,0

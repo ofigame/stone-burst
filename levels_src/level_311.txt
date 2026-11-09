@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 8 hamle + 5 tepsi / limit 12 (pay +4, eski 12) hedef×0,95 bot 0,33 (hedef 0,35) plan 0; zincir v13: çözüm aynı, sınır 12→12, bot 34/112
+id: level_311
+title: Üç Kat Tur
+tutorial: Üç katmanda her dönüş sırayı kaydırır. İstediğin rengi üste getir.
+moves: 12
+roll: off
+specials: on
+goals: blue 44, coral 20
+grid:
+cpy   ypp   ycp   ycpp  pppc  ypcc  yyp
+bbyc  bpbb  ppp   ybpc  ycbbR ypbc  ybp
+cpp   bybc  ppb   ycbb  cbbb  ybp   byyy
+ypb   ypb   pbpy  pbp   cby   ccyy  ypp
+bbby  bybb  bbby  pby   cpp   cpc   ppp
+byy   cyyb  bpy   pyy   cpp   cpbb  ypp
+#     #     bpyb  pcyb  pcbb  #     #
+#     #     cpy   pby   bbbR  #     #
+#     #     yyyy  yppc  byb   #     #
+solution: 2,6 ; 2,3 ; use 1,4,0 ; use 0,4,0 ; 1,1 ; 1,0 ; 3,1 ; 4,1 ; use 2,5,0 ; 1,2 ; 0,4 ; use 0,1,1 ; use 0,2,0

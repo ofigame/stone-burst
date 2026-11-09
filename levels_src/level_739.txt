@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 7 hamle + 6 tepsi / limit 11 (pay +4, eski 16) hedef×0,97 bot 0,17 (hedef 0,17) plan 0; zincir v13: yeni çözüm 8 (eski 7), sınır 11→12, bot 16/112
+id: level_739
+title: Bölüm 739
+moves: 12
+roll: off
+specials: on
+paint: 1
+goals: blue 51, coral 55, purple 31, sponge 1
+grid:
+cyyc  cyyc  cybc  #     pycc  bycc  bccb
+cpyc  ccyc  ccbc  #     pyyc  yyyb  yyyy
+yppc  cpyc  pcyc  #     pcyc  bcyb  yyby
+yppy  yypc  yycp  bbpb  bcybScb bcyb  byby
+ycpy  ypyy  bbpp  cypp  bbbb  bbby  bcby
+ycby  cpyy  cyby  cycc  pypp  pycc  ycpc
+ycby  bcby  pcbc  pccc  pycb  pccc  ycpb
+yyyb  bcyy  bcyc  cpyc  cpyb  bbpb  bypb
+ycyb  bcyy  bbyy  ppyp  ppyp  bpyb  bypb
+solution: 0,3 ; 3,5 ; use 1,4,0 ; use 0,6,0 ; 1,4 ; 0,3 ; 1,5 ; 0,0 ; use 0,0,1 ; 4,1 ; use 0,4,0 ; use 0,2,0 ; 3,4 ; use 0,3,3

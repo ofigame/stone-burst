@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 7 hamle + 7 tepsi / limit 17 (pay +10, eski 10) hedef×1,31 bot 0,08 (hedef 0,21) plan 2; zincir v13: yeni çözüm 10 (eski 7), sınır 17→24, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 18, bot 8/112
+id: level_545
+title: Bölüm 545
+moves: 18
+roll: off
+specials: on
+goals: purple 61, yellow 42, blue 32
+grid:
+ppyp  ppbpK1:2 pcyp  pcyyK1:2 ppcp  bpypLc10 ppyb
+pbcp  bybc  yppc  ycbc  ppcp  bccc  bcyy
+bycp  bybc  cybc  ycbc  ycpp  bcpc  ccyb
+cybp  ccbp  ccbp  ycyp  ycpp  bcbb  ppbb
+cybp  ccbp  ycbp  ypyp  pcyy  ccyp  ppbb
+cyby  cpcy  yppc  yppy  ypyy  ppyb  pppb
+#     #     ppyy  yppy  ypcc  #     #
+#     #     bpyp  yppp  bcbc  #     #
+#     #     byby  cppc  cpcc  #     #
+solution: 0,0 ; 4,0 ; use 0,1,0 ; 4,2 ; 5,2 ; use 0,0,0 ; use 0,1,0 ; 6,3 ; use 1,3,0 ; 2,0 ; 0,0 ; 0,3 ; use 2,0,0 ; use 0,2,0 ; use 0,5,0

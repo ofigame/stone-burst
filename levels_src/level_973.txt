@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı; çözüm 7 hamle + 6 tepsi / limit 11 (pay +4, eski 11) hedef×1,15 bot 0,17 (hedef 0,15) plan 0; zincir v13: yeni çözüm 8 (eski 7), sınır 11→16, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 13, bot 6/112
+id: level_973
+title: Bölüm 973
+moves: 13
+roll: off
+specials: on
+goals: purple 45, yellow 26, sponge 1
+grid:
+#     #     pybb  pybLb8 byp   #     #
+#     #     pybb  pyb   pcb   #     #
+bpc   bpb   ypbScby pcb   pcbp  pppp  ypp
+bbcb  bbbb  ybbp  pcc   cbyy  ppc   ppyc
+bbcb  bbyb  ybyp  pccp  pccp  ppy   ppy
+bbyb  bby   bcc   pyc   pcy   ppy   ppy
+ppcb  ppby  pbc   pbpc  ycpc  ccp   pcp
+#     #     bbcy  bbcy  bbcy  #     #
+#     #     bcccLc8 byc   bccy  #     #
+solution: 1,2 ; use 0,2,0 ; 2,0 ; 5,4 ; use 1,0,3 ; 4,2 ; 1,4 ; 3,2 ; use 0,3,0 ; use 0,4,3 ; 2,2 ; use 1,4,0 ; 4,6 ; use 2,0,2 ; use 1,0,2

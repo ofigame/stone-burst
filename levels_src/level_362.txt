@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 8 hamle + 6 tepsi / limit 13 (pay +5, eski 16) hedef×1,12 bot 0,33 (hedef 0,32) plan 2; zincir v13: yeni çözüm 8 (eski 8), sınır 13→15, bot 6/112
+id: level_362
+title: Doğru Rengi Üste
+moves: 15
+roll: off
+specials: on
+goals: yellow 34, blue 33
+grid:
+ppp   cppp  cybp  bypp  #     #     #
+bppy  bcp   byc   byc   #     #     #
+bcpyLb7 ccpy  byb   byb   #     #     #
+pyp   ccb   cybb  pybb  #     #     #
+pycp  cbcp  pyy   pyb   pypb  cbb   cpbyR
+pbcp  pbcp  bcpy  pcpy  pyp   cpb   cyb
+ppb   pbp   bcp   pcpy  pbcy  cppc  cypc
+bpb   bcb   bcb   pbc   ybc   ypp   yyyc
+ypbc  ypc   pcb   pcc   yppp  yppp  yypR
+solution: 2,2 ; use 0,0,0 ; 2,4 ; use 0,2,0 ; 0,1 ; 5,4 ; 3,5 ; 6,4 ; use 0,0,0 ; 6,7 ; 1,1 ; use 0,2,0

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 7 hamle + 5 tepsi / limit 11 (pay +4, eski 15) hedef×0,96 bot 0,33 (hedef 0,27) plan 1; zincir v13: yeni çözüm 6 (eski 7), sınır 11→10, bot 12/112
+id: level_355
+title: Parıltı Akışı
+moves: 10
+roll: off
+specials: on
+goals: blue 51, coral 54, purple 30, star 2
+grid:
+cycy  pyc   cyy   #     cbcb  cbb   cbb
+cycy  pycc  pycR  #     cpcp  cpp   cpbp
+cycp  pyb   ccyb  #     bpc   ypb   ypb
+cybp  bcyy  pcyb  pbyc  bby   bcby  cyyR
+cpbp  cpcc  bpcb  bcc   bby   cpy   cpcy
+bpb   cpc   pbcp* pcy   cbb   cpp   cpyy
+ypbc  bbbc  bbc   pyyb  ycy   ycp   ycby
+ycbc  bcyc  byyb  bcy   bcb   bpc*  bcpy
+ybbc  pcyc  pcyy  pby   bcp   bcpb  pcpb
+solution: 4,3 ; use 0,4,0 ; 1,0 ; use 0,4,0 ; 0,2 ; 5,4 ; use 0,4,0 ; use 0,4,1 ; 3,5 ; use 0,4,1 ; 0,0 ; use 0,6,1

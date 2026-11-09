@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 6 hamle + 5 tepsi / limit 13 (pay +7, eski 12) hedef×1,11 bot 0,46 (hedef 0,43) plan 0; zincir v13: yeni çözüm 7 (eski 6), sınır 13→14, bot 32/112
+id: level_171
+title: Kat Kilidi
+moves: 14
+roll: off
+specials: on
+goals: blue 33, coral 43
+grid:
+ybbLc7 bby   bby   bby   cyy   cyc   cyc
+ypb   cpb   cpc   cpc   ccc   ccc   pcc
+cpb   cpp   ybp   bby   bcb   bpb   ypb
+cpb   cpp   #     #     #     cpb   byb
+cpb   cbp   #     #     #     cpp   cpy
+ypb   pbc   #     #     #     ccp   ccp
+ycy   cbp   cyc   cyy   byy   ccy   pcp
+cpy   cby   ccp   cbc   ybc   ycc   ccp
+cpb   cpy   cbp   ybc   pbc   bbp   ccp
+solution: 3,7 ; 5,4 ; 0,0 ; 5,0 ; use 1,0,0 ; use 2,4,1 ; 0,0 ; use 2,1,0 ; 2,1 ; 5,0 ; use 1,1,0 ; use 1,2,2

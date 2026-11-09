@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 9 hamle + 7 tepsi / limit 12 (pay +3, eski 13) hedef×1,49 bot 0,17 (hedef 0,16) plan 2; zincir v13: yeni çözüm 10 (eski 9), sınır 12→17, bot 4/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 10/112
+id: level_805
+title: Bölüm 805
+moves: 12
+roll: off
+specials: on
+goals: purple 37, yellow 48, blue 35, sponge 1
+grid:
+yccy  ccyb  ycyp  cpyp  cppp  bypb  bypb
+cccy  cyyy  cpyp  ypyp  bpppScby bypy  byyb
+cyyy  cyyc  ybyp  ybyp  cpyb  cpcb  cyyc
+cbcy  cycc  cbyp  cbyb  cpyb  cpyb  ypyc
+cycc  pybc  pbcb  cccb  cpyp  ypyc  pccc
+yccy  pybc  ccccLb8 cccp  pcbp  bcbcLc8 bccb
+#     #     ccby  pccp  pcpp  #     #
+#     #     ccby  pccy  pypc  #     #
+#     #     bcbb  bybb  byby  #     #
+solution: 2,0 ; use 0,1,0 ; 1,2 ; 4,4 ; use 0,0,0 ; 4,0 ; 2,6 ; 3,4 ; use 3,4,0 ; 5,2 ; 1,1 ; use 3,1,1 ; 0,0 ; use 3,6,1 ; use 0,4,0 ; use 0,0,0

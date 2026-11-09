@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 7 / sınır 8 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 8→9 (112 oyunda 13 galibiyet); zincir v13: yeni çözüm 7 (eski 7), sınır 9→11, bot 6/112
+id: level_807
+title: Bölüm 807
+moves: 11
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: blue 25, coral 37, purple 27, envelope 2
+grid:
+yccy  yccp  yccp  ycpp  pycpR #     #
+ybyy  yccp  ybcp  ybcc  bycc  byybEp #
+cbyp  ybbc  ybcc  pbcc  pycc  pyyb  pyycR
+yccp  ybbp  #     #     #     bpyy  bppc
+ybcp  yccp  #     #     #     pppy  bppy
+pbcy  ybpc  #     #     #     pppc  ppbp
+ybcy  cbbyEy cccc  pccyR pyby  yyyp  pyyp
+#     bpbc  bpcy  pycy  ybbp  bycc  pyyc
+#     #     ppcy  pycc  yycc  bycc  byyc
+solution: 1,0 ; 3,6 ; use 0,0,6 ; use 0,5,1 ; 1,0 ; use 0,3,0 ; 3,0 ; 5,7 ; use 0,6,2 ; 3,0 ; use 1,2,1 ; 5,3 ; use 0,0,5 ; use 0,1,0

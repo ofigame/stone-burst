@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı (ayna); çözüm 9 hamle + 6 tepsi / limit 12 (pay +3, eski 13) hedef×1,10 bot 0,13 (hedef 0,42) plan 1; zincir v13: yeni çözüm 7 (eski 9), sınır 12→14, bot 1/112; zincir v13 kolaylaştırma: hedef −%12, sınır 7, bot 17/112
+id: level_118
+title: Nefes
+moves: 7
+roll: off
+specials: on
+goals: yellow 43, blue 27
+grid:
+#     #     #     pypc  #     #     #
+#     ycyb  pcpc  ybpc  ycy   pbyp  #
+bypb  ycy   ybcc  ybpc  ybp   ycp   ypb
+yccc  cycc  ccpc  cbpy  bbb   ybppi1 ybp
+ccc   ycy   pbcc  ccy   yybp  pybp  bpby
+ccy   byy   ccy   ccpp  cybp  bybc  byb
+pyc   pyyb  pcybi1 bcp   byb   yccc  pyc
+pbcyi1 pycy  yyb   yyp   byp   byp   bypb
+solution: 3,0 ; use 0,1,1 ; 5,1 ; 1,4 ; use 0,3,0 ; 1,1 ; use 0,5,1 ; use 0,2,2

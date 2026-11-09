@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [noSpecials+scarce+exact]); çözüm 8 / sınır 9 (v7 12); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,08; adillik onarımı: sınır 9→10 (112 oyunda 10 galibiyet); zincir v13: yeni çözüm 8 (eski 8), sınır 10→10, bot 16/112
+id: level_300
+title: Üç Yüzüncü
+moves: 10
+roll: off
+specials: on
+type: boss
+rules: exact
+goals: coral 46, purple 56, yellow 34, star 3, envelope 3
+grid:
+ppbc  pp    ccpc  pccp  pbpp  yypp  cyy   cyyy
+pyyc  pppc  pcpc  pccc  pbcc  pycc* cyyc  cyyc
+ppbc  pppy  pbpbEp pccb  pycc  cycc  cpcc  pypc
+ppby  #     #     ppbb  bcbc  #     #     pppc
+bypy  #     #     ppbb  bcbcEb #     #     ppbc
+bbyy  #     #     ppyb  bcyb  #     #     ybbb
+pbyy  ybyy  pybb  pppp  bpyp  bpyb  pbybLy8 pyyb
+bpyc  yyyy  ypbc  cpppEc bppc  bbpc  pbbp  ybbb
+ybyc* cbby  ypbp  yppp  ycbc* ycbc  ycbb  bybb
+solution: 0,0 ; 2,2 ; 2,0 ; use 0,2,0 ; 1,0 ; use 1,6,0 ; use 0,0,0 ; use 0,6,0 ; 3,5 ; 7,4 ; use 0,0,0 ; 5,6 ; 4,8 ; use 0,1,2

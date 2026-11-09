@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U (ayna); çözüm 8 hamle + 6 tepsi / limit 15 (pay +7, eski 15) hedef×1,12 bot 0,29 (hedef 0,36) plan 0; zincir v13: yeni çözüm 11 (eski 8), sınır 15→18, bot 7/112
+id: level_281
+title: Soğuk Posta
+moves: 18
+roll: off
+specials: on
+goals: purple 41, yellow 42, envelope 1
+grid:
+ycy   ycp   pcpc  #     yyy   yyy   cbcc
+ypp   ycpy  bpc   #     yyyb  cby   cbc
+cpyyi1 cppy  cyc   #     byy   cbyy  ybcy
+ccy   yppy  ppp   pcc   bcb   cyb   ybc
+cby   cbb   ybbb  pbb   bpcc  cpc   yppbi1
+ccbc  ycbc  bbpc  bppc  bbbc  ybby  bcp
+ycb   ycb   ycb   ypp   bbbc  bbpb  pcbb
+ccb   cyb   yybp  cpbp  bbb   cbpb  cbpb
+pypp  cyb   cybp  pcbp  pcb   cbpp  bbpbEc
+solution: 4,4 ; 4,5 ; use 0,2,0 ; use 0,1,0 ; 1,1 ; 4,3 ; 4,0 ; use 1,0,0 ; 0,1 ; 0,0 ; use 1,2,0 ; 4,1 ; 4,0 ; use 2,0,1 ; 1,4 ; 3,3 ; use 3,3,3

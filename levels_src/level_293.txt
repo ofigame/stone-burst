@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 9 hamle + 6 tepsi / limit 15 (pay +6, eski 16) hedef×1,12 bot 0,33 (hedef 0,30) plan 2; zincir v13: yeni çözüm 7 (eski 9), sınır 15→13, bot 24/112
+id: level_293
+title: Kasalı Final
+moves: 13
+roll: off
+specials: on
+goals: purple 50, yellow 43, envelope 2
+grid:
+ppb   pppEp ypp   yypy  yyby  byby  pyy
+ppb   ppb   ppp   bypy  byb   bpb   pbyc
+pcbbEc pbbb  pbbc  bcp   bpbp  bpb   bbyc
+#     ybc   ycyy  bpy   bpc   ybcp  #
+#     pbcc  ppy   bpyc  bccp  ybcp  #
+#     ccc   bpp   ypp   ycc   yycp  #
+pcy   bcc   cyyp  cyyp  cccp  ycc   yyp
+ycyy  ybcy  ycyy  ccpy  bbcc  ybcp  yyypLb7
+ybbb  ybc   pby   ccpp  cbc   cbcp  cbyp
+solution: 3,0 ; use 0,0,2 ; 0,0 ; 0,0 ; use 1,1,0 ; use 0,3,0 ; 2,3 ; 4,0 ; use 0,2,0 ; 1,3 ; 4,2 ; use 2,2,0 ; use 0,1,0

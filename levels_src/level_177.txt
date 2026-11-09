@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: chain [chainOnly]; zincir yellow 3; çözüm 6 / sınır 8 (v7 11); açgözlü kaybeder; bot48 0,25 (taban 0,06); bot 0,25; zincir v13: yeni çözüm 7 (eski 6), sınır 8→9, bot 13/112
+id: level_177
+title: İki Kat İki Kilit
+moves: 9
+roll: off
+specials: on
+type: chain
+rules: chainOnly
+goals: purple 42, blue 40, chain yellow 3
+grid:
+bby   bbb   bpyp  bpyp  ppb   pbcb  pcc
+ybpc  bbb   cyyy  cbyp  cbb   pbpb  pcppLb7
+pbyLc7 ppyy  ypy   cby   bybp  pppp  pppp
+ypy   ypyy  #     #     #     cpy   bpp
+bpby  cbcy  #     #     #     cpcc  ybbc
+cpbp  cbc   #     #     #     ccbc  ybbc
+bbbp  bcp   bcb   ccbb  cbcb  cbpc  cyyc
+bcb   bcpb  ccp   bbcp  cbcc  bypc  byb
+cbcp  bpc   bcpc  ccp   bcbc  yyb   byb
+solution: 5,4 ; 2,1 ; use 0,1,0 ; use 0,2,0 ; 2,6 ; 0,6 ; 2,1 ; use 0,2,0 ; 1,0 ; 5,1 ; use 0,1,2

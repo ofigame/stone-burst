@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x2+2x2 (kaydırılmış); çözüm 6 hamle + 5 tepsi / limit 13 (pay +7, eski 12) hedef×1,25 bot 0,54 (hedef 0,50) plan 0; zincir v13: yeni çözüm 5 (eski 6), sınır 13→12, bot 39/112
+id: level_039
+title: Satır Seçimi
+moves: 12
+roll: off
+specials: on
+goals: blue 26, coral 40
+grid:
+ypb   ypbk1 ppbk2 cpb   cpb   pcb   ycb
+ccc   pcc   pyb   ppb   ccbk1 pcb   pcb
+ccc   pcc   cypk1 cpp   ybp   pyp   pcp
+ccb   cbck2 cbc   ccp   ybp   pbp   pyp
+pcb   #     #     pcc   #     #     pyp
+cpb   #     #     pcc   #     #     yyy
+cpb   ccy   ccc   byp   ypp   ypy   pby
+cpy   bcy   bcc   bpc   bpc   ypc   pby
+solution: 3,2 ; 3,0 ; use 0,3,0 ; 6,3 ; use 0,0,0 ; 0,1 ; 1,6 ; use 1,0,1 ; use 0,1,0

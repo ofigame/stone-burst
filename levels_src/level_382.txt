@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 6 hamle + 4 tepsi / limit 10 (pay +4, eski 15) hedef×0,79 bot 0,29 (hedef 0,31) plan 0; zincir v13: yeni çözüm 7 (eski 6), sınır 10→11, bot 15/112
+id: level_382
+title: Soğuk Tur
+moves: 11
+roll: off
+specials: on
+goals: yellow 36, blue 26
+grid:
+ycyR  ycbb  pyb   bccb  yccc  ycpc  ycb
+ybby  bcb   bccb  ycpy  ycp   ycpp  ycbp
+ppb   bccb  yccb  yccci1 yccc  pbyR  ybyp
+#     bbyp  ypc   cyc   ycy   yybb  #
+#     pby   ybyc  ycbp  ycc   ypyp  #
+#     ypyci1 ypyc  ycbp  ycb   bpbp  #
+ypy   ypb   ypb   ypb   cpbc  bpb   ypyp
+ycp   yccc  ycc   ypbc  cpbi1 bpbp  bpbp
+pycc  pbcc  pcp   ycb   cpb   cpc   cpc
+solution: 1,0 ; use 0,4,1 ; 3,4 ; 3,0 ; 4,6 ; use 0,0,0 ; 1,0 ; 6,0 ; 5,0 ; use 0,0,0 ; use 0,0,0

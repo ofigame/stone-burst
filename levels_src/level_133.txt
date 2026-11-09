@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı; çözüm 5 hamle + 4 tepsi / limit 9 (pay +4, eski 11) hedef×1,10 bot 0,58 (hedef 0,41) plan 0; zincir v13: yeni çözüm 5 (eski 5), sınır 9→9, bot 45/112
+id: level_133
+title: Ters Anahtar
+moves: 9
+roll: off
+specials: on
+goals: purple 33, yellow 24
+grid:
+#     #     ccb   cbc   cyc   #     #
+#     #     cbp   ccb   bbc   #     #
+ypb   ycc   cbp   ypp   pbb   bbp   ybc
+pcc   ycp   ppp   ypc   bpc   cyp   byc
+pyc   yyp   yyp   cbpLp7 ycp   byp   cyb
+cbc   pbp   ypp   yyp   bcp   pyb   cyy
+cyy   cbp   pyb   ppy   ppb   bpb   cyy
+#     #     ccy   bpy   ppb   #     #
+#     #     bcy   cby   bbb   #     #
+solution: 5,5 ; 2,1 ; use 0,2,0 ; 1,4 ; 5,3 ; 6,2 ; use 0,3,2 ; use 0,3,2

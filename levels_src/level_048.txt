@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 4 / sınır 5 (v7 11); açgözlü kaybeder; bot48 0,15 (taban 0,10); bot 0,17; zincir v13: yeni çözüm 5 (eski 4), sınır 5→8, bot 11/112
+id: level_048
+title: Adacıklar
+moves: 8
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: coral 18, purple 15, star 3
+grid:
+#     #     pcc   bpc   bbc   bbc   ybc
+#     ycp   pcp   pcp   pbp   bbc   cb
+bbb   bby   #     #     #     cc    ccc
+yyy   ybb   #     #     #     bpy*  bpy
+cyb   pyb   pyc*  pyc   cyb   byy   byb
+yyc   pyb   pyb   pyb   cyb*  bpb   bpb
+yby   ybb   cyy   yyb   bpp   bpb   #
+yby   yby   bpy   yyc   ypc   #     #
+solution: 0,6 ; use 0,0,4 ; 1,5 ; use 0,2,0 ; 3,0 ; 5,3 ; use 0,0,3 ; 5,3

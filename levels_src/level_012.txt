@@ -1,0 +1,17 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe; çözüm 3 hamle + 2 tepsi / limit 8 (pay +5, eski 10) hedef×1,08 bot 0,58 (hedef 0,64) plan 1; zincir v13: çözüm aynı, sınır 8→8, bot 54/112
+id: level_012
+title: Büyük Gösteri
+tutorial: Özel taşları biriktir: tepside dört yer var, istediğin an kullan!
+moves: 8
+roll: off
+specials: on
+goals: coral 14
+grid:
+#     #     cb    yb    #     #
+#     yy    bc    cb    yy    #
+bby   cb    ybb   yy    bb    cyc
+bc    yc    ycy   bb    byy   cyc
+ybb   cy    cbb   bbb   yyb   cbc
+#     yyb   byc   cb    yy    #
+#     #     bb    cb    #     #
+solution: 5,2 ; 3,3 ; 5,2 ; use 1,2,0 ; use 0,2,0

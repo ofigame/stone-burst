@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 7 hamle + 4 tepsi / limit 10 (pay +3, eski 14) hedef×0,95 bot 0,25 (hedef 0,30) plan 2; zincir v13: yeni çözüm 5 (eski 7), sınır 10→9, bot 15/112
+id: level_295
+title: Büyük Akış II
+moves: 9
+roll: off
+specials: on
+goals: blue 28, coral 41, purple 28, envelope 3
+grid:
+bpy   bpy   bpyb  bcy   #     #     #
+bppc  bpcc  cpc   bcycEc #     #     #
+bpp   cpc   ccb   bcbc  #     #     #
+bppy  bpc   ccpc  bcb   #     #     #
+ypp   ppcb  pcp   cbpy  ybc   ybc   bbcp
+yppc  ypc   ypp   cpcy  cbc   cbb   bbcp
+yppc  bppc  bppc  ypyc  cbcy  cbb   ccb
+cpcy  bcyEy cpypEb bpyp  cpc   ppc   ccby
+ypy   bcyy  cpyp  bpyp  cccp  cccc  ccc
+solution: 0,1 ; use 0,2,0 ; 1,1 ; use 0,0,0 ; 2,4 ; use 0,3,0 ; 3,0 ; 0,1 ; use 1,1,1 ; use 0,0,0

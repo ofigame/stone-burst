@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact]; çözüm 4 / sınır 5 (v7 8); açgözlü kaybeder; bot48 0,08 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 4 (eski 4), sınır 5→5, bot 12/112
+id: level_030
+title: Üç Ataş
+moves: 5
+roll: off
+specials: on
+type: boss
+rules: exact
+goals: yellow 29, blue 19
+grid:
+yyp   yyb   cbb   bbb   bybk1 pyy
+yyb   pyb   #     #     byy   pyy
+cyb   pyb   #     #     bby   pby
+ycb   ccyk1 ppp   ypck1 bbp   bbyk1
+cpc   cyc   #     #     ybp   ybp
+ycy   cyb   #     #     yby   bby
+byy   byp   yyp   bcp   ypp   byy
+solution: 4,3 ; 5,0 ; 1,0 ; use 0,1,0 ; 2,0 ; use 1,1,0

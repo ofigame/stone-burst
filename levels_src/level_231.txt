@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3 (kaydırılmış); çözüm 5 hamle + 5 tepsi / limit 9 (pay +4, eski 15) hedef×0,95 bot 0,33 (hedef 0,39) plan 1; zincir v13: yeni çözüm 7 (eski 5), sınır 9→11, bot 52/112
+id: level_231
+title: Buzlu Posta
+moves: 11
+roll: off
+specials: on
+goals: blue 35, coral 28, envelope 1
+grid:
+bpb   cpbb  cpyy  pyy   bppc  bpcp  ypyp
+cpbc  ppc   cpyy  pyy   bcpc  bppp  ypyp
+yppc  pbpc  ypp   ypy   bpp   pppy  cyci1
+ycpc  pbpy  ppp   ypyy  ypbEc ppb   ypyb
+yypp  pypy  #     #     #     ypbb  yybb
+yypp  bcp   #     #     #     yyp   yyp
+bcy   bccb  #     #     #     bypp  bcp
+yccci1 yyc   yycb  cyc   bcbp  cbpb  bcbb
+ycc   bcc   byc   byc   cyb   cbbb  cbbb
+solution: 1,7 ; use 0,0,3 ; 2,7 ; 5,5 ; 4,7 ; use 0,4,0 ; 0,2 ; use 2,0,0 ; use 1,0,6 ; 1,5 ; 4,0 ; use 0,4,0

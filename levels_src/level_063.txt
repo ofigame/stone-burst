@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x2; çözüm 5 hamle + 3 tepsi / limit 11 (pay +6, eski 10) hedef×1,42 bot 0,46 (hedef 0,48) plan 1; zincir v13: yeni çözüm 5 (eski 5), sınır 11→11, bot 54/112
+id: level_063
+title: Kalın Buz
+tutorial: Kalın buz iki soyulma ister. Zincirin her dalgası bir çatlak açar.
+moves: 11
+roll: off
+specials: on
+goals: blue 27, coral 34
+grid:
+pbb   cby   pby   pby   pyb   pbb   pcc
+pyb   pbb   pbc   cby   pyb   ppb   pcc
+ppy   pby   ccy   ccyi2 bpy   cyb   bcb
+pyy   yyb   #     #     #     bcc   pcc
+pyb   cyp   #     #     #     byb   pyc
+ypb   yyy   ycy   cby   pby   cpc   ppc
+yppi2 yyp   ccp   cpy   cby   cyp   cpc
+ypp   ccp   ccp   ccp   pcp   cpy   pyc
+solution: 1,5 ; 1,6 ; use 1,0,0 ; 1,0 ; 6,0 ; use 1,1,0 ; 0,1 ; use 1,0,0 ; use 0,0,2

@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 7 hamle + 7 tepsi / limit 15 (pay +8, eski 14) hedef×1,14 bot 0,08 (hedef 0,16) plan 1; zincir v13: yeni çözüm 8 (eski 7), sınır 15→20, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 18, bot 17/112
+id: level_835
+title: Bölüm 835
+moves: 18
+roll: off
+specials: on
+paint: 1
+goals: blue 28, coral 48, purple 34
+grid:
+yybc  G1:yyby G1:ybbp G1:ppbc G1:pccc G1:pbcc pbcy
+ycby  ycby  cbpy  pcpy  yccp  pppc  cbpb
+ycbyB1 ycby  cpcy  pccb  pccb  pppc  pbcy
+pcbc  pcpy  cyyy  pyyy  yypy  yypc  yycy
+pcby  pyyp  cyyy  cyyy  yyyc  yycy  yycy
+cyyc  pbyy  yyyy  cyyc  ybyc  cyyy  yypy
+#     #     pbcb  cbpc  ybpy  #     #
+#     #     pccb  pccy  bypy  #     #
+#     #     bcpb  pbpc  bypc  #     #
+solution: 0,1 ; use 0,0,0 ; 6,2 ; 2,3 ; use 0,2,0 ; 2,6 ; use 0,0,0 ; 4,0 ; use 1,4,0 ; 3,0 ; 2,6 ; paint 6,0,b ; 5,0 ; 4,5 ; use 0,2,0 ; use 0,2,8

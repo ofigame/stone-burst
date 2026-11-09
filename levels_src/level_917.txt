@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: resource [exact]; çözüm 8 / sınır 9 (v7 10); açgözlü kaybeder; bot48 0,13 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 8 (eski 8), sınır 9→13, bot 4/112; zincir v13 kolaylaştırma: hedef −%6, sınır 8, bot 6/112
+id: level_917
+title: Bölüm 917
+moves: 8
+roll: off
+specials: on
+type: resource
+rules: exact
+goals: purple 42, yellow 49, blue 45, sponge 1
+grid:
+pcyc  cbpc  ybbb  yybc  yybc  cypb  cypb
+ycyc  ycyc  ybcbLb8 yybb  yypb  cypb  bypb
+ycyc  ycyy  ybcy  ypbb  yyyb  cypbScby bccc
+#     ycpc  ybyy  cpyy  bpyc  cppy  #
+#     ccbc  cpyc  ycbb  cbpc  cbyy  #
+#     cbbc  ccbc  ccpc  ybpc  cbpc  #
+bccb  bccc  bpyb  bcpp  bypy  cppyLc8 cppp
+bcpp  bcpp  ccpp  ccpp  ccby  pcby  pcbp
+bcpp  bcpy  bcbp  bcbp  bpyy  bcby  pcyp
+solution: 3,6 ; use 0,0,0 ; 2,0 ; 4,5 ; 3,6 ; use 0,2,0 ; 3,0 ; use 1,3,0 ; use 1,0,0 ; 2,1 ; use 1,1,0

@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 8 hamle + 6 tepsi / limit 13 (pay +5, eski 16) hedef×1,12 bot 0,29 (hedef 0,37) plan 0; zincir v13: yeni çözüm 9 (eski 8), sınır 13→14, bot 14/112
+id: level_271
+title: Kilitli Posta
+tutorial: Aynı renk iki işe yarar: kilit sayacını düşürür, yanındaki zarfı açar.
+moves: 14
+roll: off
+specials: on
+goals: blue 69, coral 36, envelope 1
+grid:
+pcbb  bcpb  cpyy  #     cpc   bpcb  bpyb
+bcc   ybpy  ypyy  #     pccy  cppc  bpy
+yccc  ypp   cpy   #     cpp   cpp   bppp
+bccc  ccy   pcyb  bpp   cppy  bbpy  bycEc
+bpc   ppy   pbb   bpbb  bbb   ybby  bbc
+bpc   ppp   cbbb  bcbb  bcby  ybb   ycbb
+bcpb  pbpb  cpyb  bcc   ycp   ybc   ybbb
+ybpLc5 pbp   cpy   ycpb  ybpb  byc   yybb
+cpp   bbp   bbpb  bbpb  bbp   bbcc  byyc
+solution: 0,1 ; use 0,4,0 ; 2,3 ; use 0,0,1 ; 2,4 ; 0,4 ; use 0,4,1 ; 4,0 ; 3,4 ; 5,3 ; use 0,0,0 ; 2,0 ; use 0,4,0 ; 1,0 ; use 0,0,0 ; use 1,5,0

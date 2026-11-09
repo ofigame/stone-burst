@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: resource [exact]; çözüm 7 / sınır 9 (v7 9); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,17; zincir v13: yeni çözüm 7 (eski 7), sınır 9→9, bot 10/112
+id: level_837
+title: Bölüm 837
+moves: 9
+roll: off
+specials: on
+type: resource
+rules: exact
+goals: purple 59, yellow 47, blue 28, sponge 1
+grid:
+pybc  yypc  pyyp  pyyp  cpyp  cpbb  cpbb
+cbyp  ccbp  cpyp  cppy  cccy  cccy  bbcb
+yybb  ycbb  cyyp  ycpcLc8 cccy  cpcy  bbcb
+ybyp  ycpp  yppp  bppy  bcpyLb8 bpyb  bbybScby
+ybyp  pbyp  #     #     #     cbcb  cbyb
+cpyp  ybyb  #     #     #     ccpc  ccpb
+yppy  cpyp  #     #     #     bcpc  ccyp
+ypyp  cpyy  yyyp  pcpp  ccpp  bppc  ybpp
+ypyp  cyyp  cyyy  bcyc  ccpp  cppc  cpyc
+solution: 2,0 ; use 0,5,0 ; 2,0 ; use 0,4,0 ; 0,0 ; 5,0 ; use 0,1,0 ; 1,5 ; 5,4 ; use 0,1,0 ; 6,1 ; use 0,0,6 ; use 0,1,0

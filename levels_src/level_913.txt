@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 5 hamle + 5 tepsi / limit 9 (pay +4, eski 12) hedef×1,14 bot 0,13 (hedef 0,15) plan 3; zincir v13: yeni çözüm 6 (eski 5), sınır 9→10, bot 11/112
+id: level_913
+title: Bölüm 913
+moves: 10
+roll: off
+specials: on
+goals: purple 49, yellow 37
+grid:
+ybyc  bcb   ppby  pppy  bppyK1:2 pppy  ppb
+bcbi1 bpb   yyp   yypi1 bbpy  ppbb  ppbb
+bcb   bcb   ybpb  ycb   bbb   pbb   ppbbi1
+#     ypbi2 cypci1 bypc  bbpc  ccb   #
+#     cbyc  cyyc  pyp   bppy  ccby  #
+#     cby   cyy   cyyp  cpy   ccb   #
+cbb   cpb   cpyc  bpy   bpyc  ccbi2 ccpp
+ybb   cpbp  cpp   bypi1 bypc  bcpi2 yby
+ypbp  ypb   ypb   ybpcK1:2 bcc   bby   bbyc
+solution: 1,0 ; use 0,0,0 ; 3,2 ; use 0,6,0 ; 2,0 ; 1,0 ; use 1,0,0 ; 2,0 ; 4,0 ; use 2,2,0 ; use 0,1,3

@@ -1,0 +1,20 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 11 / sınır 11 (v7 17); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 14 (eski 11), sınır 11→18, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 9, bot 7/112
+id: level_287
+title: Önce Buz Sonra Zarf
+moves: 9
+roll: off
+specials: on
+type: exact
+rules: exact
+goals: blue 42, coral 48, purple 42, envelope 2
+grid:
+bcyp  ccbb  cycb  cycb  cpcc  ppcc  ppbc
+bcypi1 ppby  pybbEp cycb  cycc  cyccEc ppby
+bcpy  cppy  cybp  pycp  ppcp  ppbc  pyby
+#     cppyi1 ppbp  ppcp  pppc  bcpy  #
+#     bbcy  bcby  ccby  pcpy  bppyi1 #
+#     yccb  cpcb  ccby  cbpy  cppy  #
+ybpp  ybpb  cpbb  ccby  ccpy  cpbb  pybp
+ybyy  ypyb  ypyb  ccby  cppy  ppcp  bpcp
+bpyy  bpyb  cyyb  cyyb  cyby  cycy  bycb
+solution: 2,2 ; 1,1 ; 1,0 ; 4,0 ; 1,4 ; use 1,0,0 ; use 1,4,0 ; use 1,1,0 ; 4,2 ; 1,5 ; use 0,0,0 ; use 0,0,1 ; 0,0 ; use 0,0,0

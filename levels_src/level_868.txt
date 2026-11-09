@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: pure [noSpecials+exact]; çözüm 20 / sınır 21 (v7 14); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,08; adillik onarımı: sınır 21→22 (112 oyunda 7 galibiyet); zincir v13: yeni çözüm 19 (eski 20), sınır 22→21, bot 20/112
+id: level_868
+title: Bölüm 868
+moves: 21
+roll: off
+type: pure
+rules: noSpecials, exact
+goals: coral 30, purple 42, yellow 36
+grid:
+pppc  pppci1 pbpc  yybc  yybb  bypb  yccpi1
+cppc  cppcLb8 ybbc  yybc  pybpi1 bypb  cccp
+cppb  yppb  ypcc  cpcc  pbcb  cbcp  ccyp
+#     cppb  ypyb  ccyb  ypyb  ycyp  #
+#     bpcy  yppb  ypyb  ypyp  ppyp  #
+#     bpcy  bcpbLc8 bcbb  ybby  pbpy  #
+yppci2 ccyy  ccby  bbbbi2 ybbb  pbpp  pbbp
+yybyi2 byyy  bpby  bpbb  ypbb  yccc  pbbc
+yyyy  pyyy  byyy  bypy  yppci1 pppci1 pbbc
+solution: 6,1 ; 0,2 ; 0,0 ; 2,2 ; 0,0 ; 1,4 ; 1,6 ; 0,7 ; 2,5 ; 1,3 ; 5,7 ; 1,4 ; 5,7 ; 3,8 ; 4,0 ; 5,0 ; 3,6 ; 2,7 ; 4,7

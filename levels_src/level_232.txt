@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 8 hamle + 6 tepsi / limit 15 (pay +7, eski 13) hedef×1,11 bot 0,33 (hedef 0,39) plan 1; zincir v13: yeni çözüm 8 (eski 8), sınır 15→15, bot 12/112
+id: level_232
+title: Kilitli Mektup
+moves: 15
+roll: off
+specials: on
+goals: coral 36, purple 34, envelope 1
+grid:
+#     #     #     #     bycb  pbc   pcyy
+#     #     #     cyc   pcc   pbc   pcy
+#     #     pypb  pbpb  pbp   pbc   byy
+#     pppb  bbbLc7 pyb   bbb   bpbp  yyby
+ybp   ppy   pbb   byyy  bybp  yybb  byy
+ycc   pccy  cyp   bcc   byb   ybb   byy
+ycbp  ybp   ccp   cbc   bbpEb bbp   cbyy
+ybyp  cpb   cyp   cyc   pycb  bpcb  cpyb
+ybb   ccbp  yyp   bpbc  bpcc  bpcc  bbc
+solution: 2,5 ; 3,5 ; use 0,4,0 ; 4,0 ; use 0,4,1 ; 6,0 ; use 1,4,1 ; 3,2 ; 6,2 ; 1,4 ; use 1,6,1 ; use 0,1,3 ; 1,3 ; use 0,3,1 ; use 0,3,1

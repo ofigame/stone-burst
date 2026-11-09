@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 5 hamle + 4 tepsi / limit 10 (pay +5, eski 16) hedef×0,77 bot 0,29 (hedef 0,39) plan 2; zincir v13: yeni çözüm 12 (eski 5), sınır 10→17, bot 11/112
+id: level_166
+title: Kasa Adaları
+moves: 17
+roll: off
+specials: on
+goals: yellow 18, blue 36, star 3
+grid:
+pccb  pccLb7 bcc   bbcb  bbbb  byyb  cbc
+ycb   pcp   pcy   pbc   bpc   bbc   cc
+cyb   ccp   cccc  bbc   byb   bbb   bcc
+#     cbc   ccb   pbcy  cypb* pbc   #
+#     pcb   pbcb  ybbb  pbbb  pp    #
+#     yb    pbbb  pby   cbpb  pb    #
+ypy   pbcy  pyy   pyy   pbpy  pcp   ybpy*
+ppcp  cbcp  yby   ppbp  ppbp  pbbp  ybby
+pbcp  cbcp  ybyp  ppyp  ppc   pbb*  ybby
+solution: 6,0 ; 3,0 ; use 0,5,0 ; 5,4 ; 6,6 ; use 2,6,0 ; 2,4 ; use 2,0,8 ; 1,0 ; 5,1 ; 1,1 ; 0,0 ; 0,0 ; 3,7 ; 3,3 ; use 0,5,0 ; use 0,0,0

@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3 (kaydırılmış); çözüm 6 hamle + 5 tepsi / limit 14 (pay +8, eski 13) hedef×1,11 bot 0,42 (hedef 0,37) plan 0; zincir v13: yeni çözüm 7 (eski 6), sınır 14→15, bot 17/112
+id: level_186
+title: Çerçeveli Kasa
+moves: 15
+roll: off
+specials: on
+goals: yellow 24, blue 30
+grid:
+pbp   ppp   ppcp  ppcp  pycp  cycp  cbpp
+cbpc  pbp   pbpp  pbc   pccc  cycp  cbpp
+byb   pppp  bypp  yc    pbcb  cbc   cbp
+bcp   bcpb  pcp   yyp   pbcbk1 cbcy  cc
+bccc  pcc   pccLy7 #     #     #     cycp
+cb    cyc   pcc   #     #     #     bbp
+bypc  py    bbpp  #     #     #     pbcyk1
+yypc  pbpc  cbpc  cbpy  ybc   yyc   ypcb
+pybc  pbb   pbc   cbc   pyc   pyc   yycb
+solution: 0,0 ; use 0,0,0 ; 0,4 ; 1,7 ; use 0,0,2 ; 5,0 ; 0,0 ; 2,2 ; 0,3 ; use 1,2,1 ; use 0,0,7 ; use 0,3,7

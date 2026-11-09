@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3 (kaydırılmış); çözüm 9 hamle + 7 tepsi / limit 14 (pay +5, eski 14) hedef×0,96 bot 0,25 (hedef 0,32) plan 2; zincir v13: yeni çözüm 11 (eski 9), sınır 14→17, bot 12/112
+id: level_372
+title: Postacı Çark
+moves: 17
+roll: off
+specials: on
+goals: coral 32, purple 37, envelope 1
+grid:
+#     #     ycy   cpp   pppc  pbp   ycpp
+#     yyyb  cyyb  bpyp  bcyp  pbp   pypp
+ccby  cycy  cycb  bpyc  ycy   yby   ycpb
+cccc  cbc   cpyEb cpbcR ybyb  byy   ybyb
+bbcc  #     #     #     bpyb  yppb  yppb
+bbyc  #     #     #     pyy   pyp   pyp
+bbb   #     #     #     pypbR pyb   pbpc
+pbb   pcbb  pyy   pyyy  pypb  pbc   #
+cyb   pccb  ypc   cyyy  bbp   #     #
+solution: 1,1 ; 3,0 ; 2,0 ; 4,0 ; 5,0 ; 3,0 ; use 1,2,0 ; 5,4 ; use 1,3,1 ; 6,0 ; use 1,4,0 ; 0,2 ; 0,6 ; use 1,0,2 ; 1,7 ; use 0,0,8

@@ -1,0 +1,143 @@
+{
+  "pageId": 1,
+  "title": "Harita / ana sayfa",
+  "kind": "menu",
+  "referenceScreenshot": "ui2/01_harita_ana_sayfa.png",
+  "coordinateSystem": "1080x1920 top-left; modal children card-local",
+  "elements": [
+    {
+      "id": "logo",
+      "rect": [
+        72,
+        48,
+        360,
+        108
+      ],
+      "role": "image",
+      "binding": "PremiumV4/ui/logo-trikat",
+      "note": ""
+    },
+    {
+      "id": "stars",
+      "rect": [
+        700,
+        56,
+        208,
+        88
+      ],
+      "role": "metric",
+      "binding": "runtime star sum",
+      "note": ""
+    },
+    {
+      "id": "settings",
+      "rect": [
+        936,
+        52,
+        96,
+        96
+      ],
+      "role": "icon",
+      "binding": "existing settings handler",
+      "note": ""
+    },
+    {
+      "id": "region",
+      "rect": [
+        48,
+        176,
+        984,
+        120
+      ],
+      "role": "sectionTitle",
+      "binding": "existing region bindings",
+      "note": ""
+    },
+    {
+      "id": "map",
+      "rect": [
+        0,
+        312,
+        1080,
+        1392
+      ],
+      "role": "runtime",
+      "binding": "existing map geometry",
+      "note": "Harita içeriği kaynak geometri; zemin çizgisi haritanın üzerine çizilmez."
+    },
+    {
+      "id": "nav",
+      "rect": [
+        0,
+        1712,
+        1080,
+        208
+      ],
+      "role": "nav",
+      "binding": "existing Harita/Günlük/Taşlar",
+      "note": ""
+    },
+    {
+      "id": "zpe",
+      "rect": [
+        48,
+        332,
+        132,
+        180
+      ],
+      "role": "goal",
+      "binding": "existing ZPE 0–100",
+      "note": ""
+    },
+    {
+      "id": "rank",
+      "rect": [
+        48,
+        548,
+        132,
+        164
+      ],
+      "role": "nav",
+      "binding": "existing rank handler",
+      "note": ""
+    },
+    {
+      "id": "lockedStone",
+      "rect": [
+        884,
+        332,
+        148,
+        160
+      ],
+      "role": "image",
+      "binding": "existing blurred stone",
+      "note": ""
+    },
+    {
+      "id": "stoneProgress",
+      "rect": [
+        844,
+        512,
+        188,
+        64
+      ],
+      "role": "caption",
+      "binding": "existing threshold progress",
+      "note": ""
+    }
+  ],
+  "modal": null,
+  "content": {
+    "keyPattern": "ui.map|map.|zpe.|rank.",
+    "buttonBindings": [],
+    "authority": "live Loc/runtime existing case-format/action-condition; frozen snapshot is audit-only"
+  },
+  "sources": [
+    "Assets/KatKat/Scripts/UI/MenuView.Shell.cs",
+    "Assets/KatKat/Scripts/UI/MenuView.cs"
+  ],
+  "notes": [
+    "Metin, sayı, durum, düğme sayısı, sırası ve eylemi mevcut çalışma zamanından gelir; örnek panodaki içerik kullanılmaz.",
+    "Otomatik yeni kapat/geri düğmesi, yardım, ödeme, güç veya ayar eklenmez."
+  ]
+}

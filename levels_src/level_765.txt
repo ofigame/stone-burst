@@ -1,0 +1,19 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 8 hamle + 4 tepsi / limit 10 (pay +2, eski 13) hedef×0,80 bot 0,17 (hedef 0,17) plan 1; zincir v13: yeni çözüm 6 (eski 8), sınır 10→9, bot 9/112
+id: level_765
+title: Bölüm 765
+moves: 9
+roll: off
+specials: on
+paint: 1
+goals: purple 28, yellow 31, blue 29, sponge 1
+grid:
+bycb  bycy  yyyy  yyby  cpyp  cycp  cbcp
+bycy  yycy  yycc  pcbc  ppbc  pbcyLc10 cbcy
+cycb  cycb  yccc  ccpc  pcpc  pbpy  pccy
+cybb  cpcc  #     #     #     ccpy  bccy
+bcbc  cbpcScb #     #     #     cccy  cbcp
+bbpb  bbcy  #     #     #     cbcc  bycc
+ybpb  pbpy  pcbc  cccp  cccy  bbpy  bbcp
+ybbb  pbpy  pccc  pccy  pccy  bbyy  bbcp
+ybbc  ybyc  pccc  pccc  pcbc  pbcy  bbcp
+solution: 4,6 ; 2,6 ; use 1,1,0 ; use 0,1,0 ; 2,1 ; 0,0 ; use 0,4,0 ; use 0,3,0 ; 5,0 ; 2,0 ; use 0,4,0

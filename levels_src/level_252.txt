@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 9 hamle + 5 tepsi / limit 16 (pay +7, eski 13) hedef×1,28 bot 0,38 (hedef 0,38) plan 0; zincir v13: yeni çözüm 9 (eski 9), sınır 16→16, bot 14/112
+id: level_252
+title: Rulo Postası
+moves: 16
+roll: off
+specials: on
+goals: coral 38, purple 34, envelope 1
+grid:
+byc   bcyb  byy   pyy   pyyb  bcc   bcc
+ybcy  pbyy  pyy   pyyb  yyybEb ycyb  bcyb
+pbcy  bpy   byyp  byy   ybp   byyb  bcyb
+ybcy  bbpy  #     #     #     bpb   yypb
+ybc   cby   #     #     #     ycp   pcp
+ybc   ybpy  #     #     #     ycpp  pcpp
+cbc   yby   cccb  yyyb  yyyp  bcp   ycpp
+cbc   cbb   cycb  cyb   bppy  bcp   pcpp
+cyc   cyyy  cyy   byyc  byy   pcpy  pppy
+solution: 5,1 ; 4,7 ; 5,3 ; use 1,0,0 ; 6,4 ; 0,0 ; use 0,1,0 ; use 1,1,1 ; 2,6 ; 3,6 ; use 1,5,0 ; 4,0 ; 1,0 ; use 1,1,0

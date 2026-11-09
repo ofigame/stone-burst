@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 5 hamle + 5 tepsi / limit 10 (pay +5, eski 10) hedef×0,95 bot 0,42 (hedef 0,37) plan 0; zincir v13: çözüm aynı, sınır 10→10, bot 35/112
+id: level_272
+title: Ortak Renk
+moves: 10
+roll: off
+specials: on
+goals: coral 51, purple 31, envelope 1
+grid:
+ppb   cccb  byyc  ypbc  #     #     #
+ppcp  ppb   pbcc  ybc   #     #     #
+cyc   bby   cby   cyyy  #     #     #
+ccyy  bccy  bybp  ccc   #     #     #
+ccby  ccyc  ccc   ccpy  cpc   cpy   cpyb
+ccb   cbbc  cbcc  ccp   bbp   ypp   ybpb
+cccp  cbbcLb7 bcc   ppyc  bbyp  bpp   bppbEb
+bcb   ppb   bcc   bccp  bpp   pppb  cpp
+bpcy  bbcc  pcc   yccp  ypcp  ypp   bppc
+solution: 1,4 ; use 0,0,0 ; 3,5 ; 2,4 ; use 0,1,0 ; 5,5 ; use 0,0,0 ; 0,2 ; use 0,1,0 ; use 0,1,0

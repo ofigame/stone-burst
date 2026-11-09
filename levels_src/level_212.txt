@@ -1,0 +1,18 @@
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 7 hamle + 5 tepsi / limit 12 (pay +5, eski 11) hedef×1,11 bot 0,08 (hedef 0,40) plan 1; zincir v13: yeni çözüm 5 (eski 7), sınır 12→10, bot 7/112
+id: level_212
+title: Çift Mühür
+moves: 10
+roll: off
+specials: on
+goals: coral 36, purple 34, envelope 2
+grid:
+ccb   ppb   bcy   bcy   #     #     #
+ccb   pcb   pbp   ycp   #     #     #
+ycy   ccb   pbpEb ybp   #     #     #
+cyy   ccb   cyc   yyc   #     #     #
+cyy   pcp   pby   yyc   cpb   cpp   ppy
+ybp   pyc   bpb   yyc   pcb   bpb   ppy
+bpc   bpc   byc   yyc   ybc   pby   ppy
+bcyEb ppc   pbp   yyy   bpc   bpc   ppc
+bcy   ppb   ycy   pcy   bby   bpy   ypy
+solution: 2,3 ; use 0,0,0 ; 3,3 ; 4,4 ; 1,0 ; use 0,1,0 ; use 1,0,0 ; use 0,3,1 ; 0,2 ; use 0,0,0
