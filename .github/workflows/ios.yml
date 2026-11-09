@@ -96,11 +96,22 @@ jobs:
           PROFILE: ${{ secrets.IOS_PROVISION_PROFILE_NAME }}
         run: |
           sed -e "s/__TEAM__/$TEAM/" -e "s/__PROFILE__/$PROFILE/" tools/ios/ExportOptions.plist > /tmp/ExportOptions.plist
+          # Profil yalnız uygulama hedefine yazılır (run 4: komut satırından verilince Pods, SPM paketleri ve
+          # UnityFramework "does not support provisioning profiles" hatası verdi).
+          ruby -e '
+            require "xcodeproj"
+            p = Xcodeproj::Project.open("xcode/Unity-iPhone.xcodeproj")
+            t = p.targets.find { |x| x.name == "Unity-iPhone" } or abort("Unity-iPhone hedefi yok")
+            t.build_configurations.each do |c|
+              c.build_settings["PROVISIONING_PROFILE_SPECIFIER"] = ENV["PROFILE"]
+              c.build_settings["PROVISIONING_PROFILE"] = ""
+            end
+            p.save'
           if [ -d xcode/Unity-iPhone.xcworkspace ]; then SRC="-workspace xcode/Unity-iPhone.xcworkspace"; else SRC="-project xcode/Unity-iPhone.xcodeproj"; fi
           xcodebuild $SRC -scheme Unity-iPhone -configuration Release \
             -archivePath "$RUNNER_TEMP/StoneBurst.xcarchive" -destination 'generic/platform=iOS' \
             DEVELOPMENT_TEAM="$TEAM" CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY="Apple Distribution" \
-            PROVISIONING_PROFILE_SPECIFIER="$PROFILE" CURRENT_PROJECT_VERSION="${{ github.run_number }}" archive
+            CURRENT_PROJECT_VERSION="${{ github.run_number }}" archive
           xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/StoneBurst.xcarchive" \
             -exportOptionsPlist /tmp/ExportOptions.plist -exportPath "$RUNNER_TEMP/ipa"
       - name: IPA yolu
