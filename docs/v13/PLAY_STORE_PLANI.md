@@ -48,3 +48,11 @@ Tarih: 2026-11-10. Kullanıcı: "play store hazırlığımızı da yapalım". Ka
   - Mağaza girişi 6 dil (en-US varsayılan, de-DE, tr-TR, es-ES, ar, ja-JP): ad (iOS'takiyle aynı), kısa açıklama (yeni, ≤80), uzun açıklama (iOS metinleri).
   - Görseller: ikon 512 (`docs/magaza/play/icon-512.png`), tanıtım görseli 1024×500 (`feature-1024x500.png`), en-US telefon ekran görüntüleri 1080×1920 (`docs/magaza/android/en`, sıra 03,02,01,05,04,06). Diğer 5 dile de kendi telefon ekran görüntüleri yüklendi (2026-11-10, aynı sıra; `docs/magaza/android/(dil)`).
   - Kullanıcının beyanları (Claude'un tıklaması engellendi): Reklam (Evet), İçerik derecelendirme (IARC), Hedef kitle, Veri güvenliği, Resmi kurum / Finans / Sağlık.
+- 2026-11-10: **Kurulum görevleri 11/11 tamam** (beyanları kullanıcı işaretledi, Claude ekrandan yönlendirdi):
+  - Reklam: içeriyor.
+  - IARC (info@ofigame.com, kategori Oyun): IARC 3+, ESRB E, PEGI 3, USK 0.
+  - Hedef kitle: 13-15, 16-17, 18+ (13 altı yok → Aileler politikası dışı).
+  - Veri güvenliği: paylaşım yok, aktarımda şifreli, hesap OAuth (Play Games), hesap/veri silme bağlantısı gizlilik politikası (e-postayla 30 gün içinde). Toplanan (hepsi zorunlu, kısa süreli değil): Ad ve Kullanıcı kimlikleri (uygulama işlevi, hesap yönetimi); Yaklaşık konum (analiz, reklam); Teşhisler (analiz); Uygulama etkileşimleri (analiz, reklam); Diğer işlemler (uygulama işlevi, analiz); Cihaz kimlikleri (analiz, sahtekarlık önleme, reklam). Android'de Play Games / Firebase / Analytics henüz açık değil; beyan tam kapsama göre yapıldı.
+  - Resmi kurum: Hayır; Finans: özellik yok; Sağlık: özellik yok.
+  - Mağaza girişi taslağı kaydedildi; yapay zeka öğe beyanı: "Öğeleri etiketleme" (kullanıcı).
+  - Sırada: Play Games Services + Firebase Android + AdMob Android kimlikleri, sonra kapalı test (12 kişi, 14 gün).
