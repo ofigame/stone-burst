@@ -46,10 +46,12 @@ namespace KatKat.EditorTools
             AssetDatabase.SaveAssets();
             AddDefine(NamedBuildTarget.iOS, Define);
             AddDefine(NamedBuildTarget.Android, Define);
-            // Çevrimiçi hesap ve sıralama (Firebase + Game Center): yalnız iOS. Android'de Firebase Android uygulaması ve
-            // Play Games eklentisi henüz yok; orada test hesabı çalışır.
+            // Çevrimiçi hesap ve sıralama: iOS'ta Game Center + Firebase; Android'de Play Games + Firebase
+            // (2026-11-10: Firebase Android uygulaması ve Play Games eklentisi eklendi). Dosyalar yoksa test hesabı çalışır.
             if (System.IO.File.Exists("Assets/KatKat/Firebase/GoogleService-Info.plist")) AddDefine(NamedBuildTarget.iOS, OnlineDefine);
-            Debug.Log("[KatKat] AdMob ayarları uygulandı (iOS gerçek, Android test kimliği); KATKAT_ONLINE yalnız iOS");
+            bool android = System.IO.File.Exists("Assets/KatKat/Firebase/google-services.json") && AssetDatabase.IsValidFolder("Assets/GooglePlayGames");
+            if (android) { AddDefine(NamedBuildTarget.Android, OnlineDefine); PlayGamesSetup.Apply(); }
+            Debug.Log("[KatKat] AdMob ayarları uygulandı (iOS gerçek, Android test kimliği); KATKAT_ONLINE iOS" + (android ? " + Android" : ""));
         }
 
         public const string OnlineDefine = "KATKAT_ONLINE";

@@ -26,9 +26,7 @@ namespace KatKat.Game.Online
                 if (t.Result == DependencyStatus.Available)
                 {
                     GameController.LeaderboardProvider = new FirestoreLeaderboard(() => account.PlayerName);
-#if UNITY_IOS
-                    GameAnalytics.Sink = new FirebaseAnalyticsSink(); // 2026-11-09: oyun olayları (yalnız iOS; Android Firebase henüz yok)
-#endif
+                    GameAnalytics.Sink = new FirebaseAnalyticsSink(); // oyun olayları (iOS 2026-11-09, Android 2026-11-10)
                 }
                 else Debug.LogWarning("KatKat: Firebase kullanılamıyor: " + t.Result);
             });
