@@ -13,23 +13,29 @@ namespace KatKat.View
     /// </summary>
     public sealed class PeelSequence
     {
-        public const float Slow = 1.4f;
-        public const float AnticipationEnd = 90f * Slow;
-        public const float LiftStart = 50f * Slow;
-        public const float LiftEnd = 160f * Slow;
-        public const float PeelEnd = 410f * Slow;
-        public const float BounceStart = 360f * Slow;
-        public const float BounceEnd = 560f * Slow;
-        public const float ReleaseStart = 400f * Slow;
-        public const float ReleaseEnd = 640f * Slow;
+        /// <summary>
+        /// Genel süre çarpanı. vr1 P1 prototipi (04_ANIMASYON_GORSEL_SES "Animasyon tablosu", taslak): anahtar açıkken 0,6
+        /// (soyma ~246 ms, okunur an 180 ms); kapalıyken eski 1,4 (soyma 574 ms, okunur an 420 ms). Sıra ve oranlar aynı.
+        /// </summary>
+        public static float Slow => KatKat.UI.Vr1Proto.On ? 0.6f : 1.4f;
+        /// <summary>Dokunuş sıkışması: prototipte en az 1 − 0,04 (tablo: 1 → 0,96 → 1), eskisi 0,94.</summary>
+        public static float SquashDepth => KatKat.UI.Vr1Proto.On ? 0.04f : 0.06f;
+        public static float AnticipationEnd => 90f * Slow;
+        public static float LiftStart => 50f * Slow;
+        public static float LiftEnd => 160f * Slow;
+        public static float PeelEnd => 410f * Slow;
+        public static float BounceStart => 360f * Slow;
+        public static float BounceEnd => 560f * Slow;
+        public static float ReleaseStart => 400f * Slow;
+        public static float ReleaseEnd => 640f * Slow;
         /// <summary>Alt renk okunur hâle geldiği an: zincirin sonraki dalgası buradan başlayabilir.</summary>
-        public const float ReadableAt = 300f * Slow;
-        public const float Duration = ReleaseEnd;
+        public static float ReadableAt => 300f * Slow;
+        public static float Duration => ReleaseEnd;
 
         /// <summary>Kırılma anı: çatlak tamamlanır, yüz parçalara ayrılır.</summary>
-        public const float BreakAt = AnticipationEnd;
+        public static float BreakAt => AnticipationEnd;
         /// <summary>Parçaların dağılma sonu / hedefe uçuş başlangıcı.</summary>
-        public const float HomeStart = 300f * Slow;
+        public static float HomeStart => 300f * Slow;
         public const int ShardCount = 9, DustCount = 4;
 
         private readonly StackView _stack;
@@ -103,7 +109,7 @@ namespace KatKat.View
             var body = Vector2.one;
             if (ms < AnticipationEnd)
             {
-                float k = Mathf.Sin(Mathf.PI * ms / AnticipationEnd) * 0.06f;
+                float k = Mathf.Sin(Mathf.PI * ms / AnticipationEnd) * SquashDepth;
                 body = new Vector2(1f + k * 0.55f, 1f - k);
             }
             else if (ms >= BounceStart && ms < BounceEnd)

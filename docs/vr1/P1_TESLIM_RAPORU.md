@@ -74,6 +74,26 @@ powershell -ExecutionPolicy Bypass -File tools/unity.ps1 capture-vr1-p1
 - Evre görünümü haritadaki kartla aynı kuralı kullanır. Son hamle kazandırınca kısa çatlak ışığı ve `ice-crack` sesi; tam kırılma ve vitrin haritada.
 - Ekranlar: `p1_09_tahta_ortasi_buz.png` (bölüm 123), `p1_10_tahta_ortasi_buz_b.png` (bölüm 303).
 
+### Animasyon süreleri (04 "Animasyon tablosu", 2026-11-11 ek; taslak)
+
+Anahtar açıkken geçerli. Kapalıyken eski süreler aynen kalır. Motor sırası ve sonuç değişmez; yalnız oynatma süreleri kısalır.
+
+| An | Tablo | Eski | Prototip | Yer |
+|---|---|---|---|---|
+| Dokunuş sıkışması | 90 ms, 1 → 0,96 → 1 | 126 ms, 0,94 | 54 ms, 0,96 | `PeelSequence.AnticipationEnd`, `SquashDepth` |
+| Üst katman soyma | 220 ms | 574 ms (bitiş 896) | 246 ms (bitiş 384) | `PeelSequence.Slow` 1,4 → 0,6 |
+| Alt rengin okunur olduğu an | — | 420 ms | 180 ms | `PeelSequence.ReadableAt` |
+| Zincir dalga arası | 100 ms | 420 ms, en az 300 | okunur an + 100 ms (280), en az +80 | `BoardView.First/MinChainInterval` |
+| Özel taşın tepsiye uçuşu | 420 ms | 500 ms | 420 ms | `BoardView.SpecialFlyMs` |
+| Roket | öncü 120 ms + uçuş 350–600 ms | 260 ms + 100 ms/hücre | 120 ms + 60 ms/hücre (9 hücre ≈ 660 ms) | `SpecialLead`, `RocketCellMs` |
+| Altın Rulo | toplam 500–800 ms | öncü 260 ms + 55 ms/hücre | öncü 120 ms + 45 ms/hücre | `SpecialLead`, `RainbowCellMs` |
+| Hedef tamamlanma | 240 ms | 250 ms | değişmedi | `GoalChip` |
+| Yıldız kutlaması | 1100 ms | 1050 ms | değişmedi | `ResultPanel` |
+
+- Dokunuş sıkışması tablodan kısa kaldı: sıkışma, soymanın ilk evresiyle aynı zaman çizgisinde. 90 ms'ye çıkarmak için soyma sırasının yeniden düzenlenmesi gerekir.
+- Ölçüm (editör, gerçek zaman): bölüm 2'nin ilk hamlesi eskiden 1418 ms, prototipte 715 ms sürdü ve iki durumda tahta birebir aynıydı (`Vr1FlowTests.AnimationTable_ShorterPlayback_SameResult`). Cihaz kare süresi ölçülmedi.
+- Karar süresi P0'dan beri animasyondan ayrı sayıldığı için bu değişiklik ZPE'yi etkilemez.
+
 ### İkonlar (04)
 - Alt menüde Harita ve Günlük için paketteki adaylar kullanıldı (`Resources/Vr1/nav-map.png`, `nav-daily.png`). Günlük ikonu güneşsiz (v2, beğenilen).
 - Kullanıcı isteğiyle (2026-11-11: "iconlar büyük olsun ve alanı da taşsınlar") prototipte üç ikon da büyük ve menünün üst kenarından yaklaşık 40 birim taşıyor. Harita ve Günlük 168×150 (saydam pay nedeniyle), Taşlar 132×132; yazılar yerinde. Anahtar kapalıyken 88×88.
@@ -105,7 +125,6 @@ powershell -ExecutionPolicy Bypass -File tools/unity.ps1 capture-vr1-p1
 4 yeni anahtar, 9 dilde: `vr1.can.unlock`, `vr1.summary`, `vr1.summary.stars`, `vr1.replay`.
 
 ## Uygulanmayanlar
-- **Animasyon süre tablosu** (dokunuş 90 ms, soyma 220 ms, zincir aralığı 100 ms, roket, rulo, kutlama): oyun içi oynatmaya uygulanmadı. Mevcut süreler aynı. Ayrı bir adım olarak, önce/sonra kaydıyla yapılmalı.
 - **Sonuç kartında buz:** gösterilmiyor. İlerleme haritada ve (ortası boşsa) tahtada görünür.
 - **Uygulama kapanınca bekleyen sunumun kalıcı olması (`pendingPresentation`):** yapılmadı. Taş kayda yazılıyor, ama uygulama sunumdan önce kapanırsa vitrin bir sonraki açılışta gösterilmez (eski davranış).
 - **Azaltılmış hareket seçeneği:** oyunda böyle bir ayar yok, eklenmedi. Kırılma sırasında ekran sarsılmıyor, yalnız kabuk titriyor.
@@ -142,5 +161,5 @@ powershell -ExecutionPolicy Bypass -File tools/unity.ps1 capture-vr1-p1
 - Harita ikonu adayının kabulü (Günlük ikonu beğenilmişti).
 - Seslerin cihazda dinlenip kabulü.
 - Prototipin canlıda varsayılan açık olup olmayacağı.
-- Animasyon süre tablosunun uygulanması (ayrı adım).
+- Animasyon sürelerinin cihazda hissedilerek kabulü (prototipte uygulandı).
 - P2: 12 bölümlük pilot katalog.

@@ -13,12 +13,20 @@ namespace KatKat.View
     {
         public const float FaceRatio = 0.95f;
         // v5: dalgalar arası nefes uzadı (kullanıcı: animasyonları yavaşlat); domino yine hızlanır.
-        public const float FirstChainInterval = 420f;
-        public const float MinChainInterval = 300f;
+        // vr1 P1 prototipi (04 tablo: "zincir dalga arası 100 ms", taslak): dalga, önceki dalganın alt rengi okunur olduktan
+        // 100 ms sonra (en az 80 ms); motor sırası aynı. Anahtar kapalıyken eski 420 / 300 ms.
+        public static float FirstChainInterval => KatKat.UI.Vr1Proto.On ? PeelSequence.ReadableAt + 100f : 420f;
+        public static float MinChainInterval => KatKat.UI.Vr1Proto.On ? PeelSequence.ReadableAt + 80f : 300f;
         /// <summary>Özel taş: ateşleme ile ilk soyulma arası ve hücre başına süpürme gecikmesi (ms).</summary>
         // Kullanıcı (2026-11-08): roket "kullanıldığı an daha büyük ve belirgin olsun, ikiye bölünüp uçtuğunda görülsün,
         // hızlarını düşürelim": öncü süre 140→260 ms (simge büyüyüp parlar), hücre başına 60→100 ms.
-        public const float SpecialLead = 260f, RocketCellMs = 100f, RainbowCellMs = 55f;
+        // vr1 P1 prototipi (04 tablo: roket öncü 120 ms + uçuş 350–600 ms; rulo toplam 500–800 ms): öncü 120, roket 60 ms/hücre,
+        // rulo 45 ms/hücre. Anahtar kapalıyken eski 260 / 100 / 55.
+        public static float SpecialLead => KatKat.UI.Vr1Proto.On ? 120f : 260f;
+        public static float RocketCellMs => KatKat.UI.Vr1Proto.On ? 60f : 100f;
+        public static float RainbowCellMs => KatKat.UI.Vr1Proto.On ? 45f : 55f;
+        /// <summary>Doğan özel taşın tepsiye uçuşu: prototipte 420 ms (tablo), eskisi 500 ms.</summary>
+        public static float SpecialFlyMs => KatKat.UI.Vr1Proto.On ? 420f : StarFlight + 120f;
 
         private readonly List<StackView> _stacks = new List<StackView>();
         private readonly List<TimedAction> _timeline = new List<TimedAction>();
@@ -556,7 +564,7 @@ namespace KatKat.View
         }
 
         /// <summary>Komşu soyulma kalkarken ataş hasarı görünür (köşe kalkışının sonu).</summary>
-        public const float ClipHitAt = PeelSequence.LiftEnd + 20f;
+        public static float ClipHitAt => PeelSequence.LiftEnd + 20f;
         /// <summary>Yıldız, son katman okunur hâle gelince tabandan kalkar ve hedefe uçar.</summary>
         public const float StarRiseAt = 240f;
         public const float StarFlight = 380f;
@@ -794,7 +802,7 @@ namespace KatKat.View
             go.transform.rotation = Quaternion.Euler(0f, 0f, SpecialArt.Angle(r.SpecialCreated));
             go.transform.localScale = Vector3.one * (_pitch * 0.9f / Mathf.Max(sr.sprite.bounds.size.x, sr.sprite.bounds.size.y));
             if (r.SpecialToTray && TrayTarget != null)
-                _fx.Add(new Fx { Kind = FxKind.Fly, T = go.transform, R = sr, Owned = true, From = from, To = TrayTarget(), BaseScale = go.transform.localScale, Dur = StarFlight + 120f });
+                _fx.Add(new Fx { Kind = FxKind.Fly, T = go.transform, R = sr, Owned = true, From = from, To = TrayTarget(), BaseScale = go.transform.localScale, Dur = SpecialFlyMs });
             else
                 _fx.Add(new Fx { Kind = FxKind.Burst, T = go.transform, R = sr, Owned = true, BaseScale = go.transform.localScale, Dur = 360f });
         }

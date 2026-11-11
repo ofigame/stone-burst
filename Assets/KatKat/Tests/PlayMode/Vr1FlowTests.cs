@@ -73,6 +73,37 @@ namespace KatKat.Tests
             Assert.AreEqual(_gc.SaveService.Data.TotalStars, _gc.SaveService.Data.meta.mapSeenStars, "görülme işareti yine güncellenir");
         }
 
+        /// <summary>Anahtar kapalı/açık gerçek süreli tek hamle (kayıtlı çözümün ilk adımı) oynatma süresi.</summary>
+        private IEnumerator TimeFirstMove(int level, bool proto, System.Action<float> result)
+        {
+            Vr1Proto.Override = proto;
+            _gc.StartLevel(level);
+            _gc.Board.Director.TimeScale = 1f;
+            yield return null;
+            var before = _gc.Session.State.Clone();
+            float t0 = Time.realtimeSinceStartup;
+            _gc.PlayStep(_gc.CurrentLevel.Solution[0]);
+            while (_gc.CurrentPhase == GameController.Phase.Animating && Time.realtimeSinceStartup - t0 < 15f) yield return null;
+            result(Time.realtimeSinceStartup - t0);
+        }
+
+        /// <summary>
+        /// 04 animasyon tablosu (taslak): prototipte hamle oynatması kısalır; motor sonucu aynıdır (süre ZPE karar süresine
+        /// zaten girmez, P0). Ölçüm editörde, cihaz kare süresi değildir.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator AnimationTable_ShorterPlayback_SameResult()
+        {
+            float off = 0f, on = 0f;
+            yield return TimeFirstMove(1, false, t => off = t);
+            var stateOff = _gc.Session.State.Clone();
+            yield return TimeFirstMove(1, true, t => on = t);
+            var stateOn = _gc.Session.State.Clone();
+            Debug.Log($"[KatKat] vr1 animasyon: ilk hamle eski {off * 1000f:0} ms, prototip {on * 1000f:0} ms");
+            Assert.IsTrue(stateOff.ContentEquals(stateOn), "aynı komut aynı sonuç");
+            Assert.Less(on, off * 0.75f, "prototip oynatma belirgin kısa");
+        }
+
         /// <summary>C05: ortası boş tahtada buzlu taş; hücre örtmez, süs gizlenir; boşluksuz tahtada ve anahtar kapalıyken yok.</summary>
         [UnityTest]
         public IEnumerator CenterIce_OnlyInInteriorHole()

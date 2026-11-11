@@ -15,7 +15,18 @@ namespace KatKat.UI
         /// <summary>null: kayıtlı tercih (varsayılan kapalı); true/false: zorla.</summary>
         public static bool? Override;
 
-        public static bool On => Override ?? PlayerPrefs.GetInt(PrefKey, 0) == 1;
+        private static bool? _pref;
+
+        /// <summary>Animasyon kodu her karede okur: tercih bir kez okunup bellekte tutulur.</summary>
+        public static bool On => Override ?? (_pref ??= PlayerPrefs.GetInt(PrefKey, 0) == 1);
+
+        /// <summary>Kayıtlı tercihi değiştirir (geliştirici menüsü).</summary>
+        public static void SetPref(bool on)
+        {
+            PlayerPrefs.SetInt(PrefKey, on ? 1 : 0);
+            PlayerPrefs.Save();
+            _pref = on;
+        }
 
         /// <summary>Prototip sesi çal (GameController bağlar; ses kapalıysa sessiz).</summary>
         public static System.Action<string> Sound;

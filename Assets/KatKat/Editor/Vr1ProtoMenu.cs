@@ -13,8 +13,7 @@ namespace KatKat.EditorTools
         private static void Toggle()
         {
             bool on = !Vr1Proto.On;
-            PlayerPrefs.SetInt(Vr1Proto.PrefKey, on ? 1 : 0);
-            PlayerPrefs.Save();
+            Vr1Proto.SetPref(on);
             Debug.Log("[KatKat] vr1 prototipi " + (on ? "AÇIK" : "kapalı"));
         }
 

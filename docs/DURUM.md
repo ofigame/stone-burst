@@ -4,6 +4,7 @@ Son güncelleme: 2026-11-09. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
 
 ## Şu an
 
+- **2026-11-11, vr1 P1 animasyon süreleri** (prototip anahtarı): soyma 574 → 246 ms, zincir, roket, rulo ve tepsiye uçuş tabloya göre kısaldı; ilk hamle 1418 → 715 ms (editör). Testler: EditMode 217/219 (2 atlandı), PlayMode 68/69 (1 atlandı). Cihazda hissedilmedi.
 - **2026-11-11, alt menü ve P1 devamı:** "Harita" sekmesi Yolculuk oldu (9 dil). Seçili ikon büyüyüp küçülüyor. Günlük açıkken Günlük sekmesi seçili. Prototipte tahta ortasında buzlu taş var (305 bölüm). Testler: EditMode 217/219 (2 atlandı), PlayMode 67/68 (1 atlandı), loc-check TAMAM. Cihazda denenmedi.
 - **2026-11-11, vr1 paketi P1 prototipi** (rapor: `docs/vr1/P1_TESLIM_RAPORU.md`, ekranlar `docs/vr1/p1_inceleme/`):
   - Buzlu koleksiyon taşı, haritaya dönüş ödül akışı, taş açılışında kabuk kırılması, aday Harita/Günlük ikonları ve 7 prototip sesi eklendi.
