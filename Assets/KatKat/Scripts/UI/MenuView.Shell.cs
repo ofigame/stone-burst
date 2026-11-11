@@ -774,9 +774,28 @@ namespace KatKat.UI
         /// (0 eski ana sayfa, 2 ayarlar) hiçbiri seçili değil. Seçili sekmeye basmak sayfayı yeniden kurmaz.
         /// Ödüller için doğrulanmış hedef ekran yok: sekme görünür, basınca "yakında" bildirimi (ekonomi yok).
         /// </summary>
+        // Son kurulan alt menü (günlük modalı açılınca seçili sekmeyi değiştirmek için yeniden kurulur).
+        private RectTransform _tabsHolder, _tabsPage;
+        private int _tabsActive;
+        private Action _tabsHome, _tabsLevels, _tabsSettings;
+
+        /// <summary>
+        /// Kullanıcı (2026-11-11: "günlük modalı açıksa günlük menüsü seçili olsun"): alt menü <paramref name="active"/> seçili
+        /// olarak yeniden kurulur. <paramref name="onTop"/>: modalın üstünde (karartmanın dışında, dokunulabilir).
+        /// </summary>
+        private void RetargetTabs(int active, Action levels, bool onTop)
+        {
+            if (_tabsHolder == null || _tabsPage == null) return;
+            int idx = _tabsHolder.GetSiblingIndex();
+            UiFactory.Kill(_tabsHolder.gameObject);
+            Tabs(_tabsPage, active, _tabsHome, levels, _tabsSettings);
+            if (onTop) _tabsHolder.SetAsLastSibling(); else _tabsHolder.SetSiblingIndex(idx);
+        }
+
         private void Tabs(RectTransform page, int active, Action home, Action levels, Action settings)
         {
             var holder = UiFactory.Rect("Tabs", page);
+            _tabsHolder = holder; _tabsPage = page; _tabsActive = active; _tabsHome = home; _tabsLevels = levels; _tabsSettings = settings;
             holder.anchorMin = holder.anchorMax = new Vector2(0.5f, 0f);
             holder.pivot = new Vector2(0.5f, 0f);
             holder.sizeDelta = new Vector2(1080f, ShellBarH + ShellBarBleed);

@@ -218,6 +218,7 @@ namespace KatKat.UI
                 ic.transform.SetAsLastSibling();
             }
             else UiFactory.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -52f), new Vector2(88f, 88f));
+            if (it.On) ic.gameObject.AddComponent<IconBreath>(); // seçili ikon büyüyüp küçülür (2026-11-11)
             // Yazı (16, 108, 264, 48) nav 32/800; seçili kapsül (28, 100, 240, 64) tabSelected, yazı onTeal.
             if (it.On)
             {

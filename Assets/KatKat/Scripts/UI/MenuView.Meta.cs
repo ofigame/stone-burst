@@ -88,6 +88,7 @@ namespace KatKat.UI
             var root = UiFactory.Rect("DailyModal", _page);
             UiFactory.Stretch(root, -200f, -200f, -400f, -400f);
             _dailyModal = root;
+            DailyTabsOn();
             var dim = UiFactory.SpriteButton("Dim", root, UiArt.Box, new Vector2(10f, 10f), CloseDaily);
             dim.GetComponent<Image>().color = new Color(0.10f, 0.06f, 0.18f, 0.55f);
             UiFactory.Stretch((RectTransform)dim.transform);
@@ -209,6 +210,25 @@ namespace KatKat.UI
         }
 
         private RectTransform _dailyModal;
+        private int _dailyPrevTab = -1;
+        private Action _dailyPrevLevels;
+
+        /// <summary>Günlük modalı açıldı: alt menüde Günlük seçili, menü modalın üstünde; Harita sekmesi modalı kapatır.</summary>
+        private void DailyTabsOn()
+        {
+            if (_tabsHolder == null || _tabsActive == TabDaily) return;
+            _dailyPrevTab = _tabsActive;
+            _dailyPrevLevels = _tabsLevels;
+            RetargetTabs(TabDaily, _tabsActive == 1 ? (Action)CloseDaily : _tabsLevels, true);
+        }
+
+        private void DailyTabsOff()
+        {
+            if (_dailyPrevTab < 0) return;
+            int prev = _dailyPrevTab;
+            _dailyPrevTab = -1;
+            if (_tabsActive == TabDaily) RetargetTabs(prev, _dailyPrevLevels, false);
+        }
 
         /// <summary>Günlük modal açık mı (testler için).</summary>
         public bool IsDailyShown => _dailyModal != null;
@@ -217,6 +237,7 @@ namespace KatKat.UI
         {
             if (_dailyModal != null) UiFactory.Kill(_dailyModal.gameObject);
             _dailyModal = null;
+            DailyTabsOff();
         }
 
 

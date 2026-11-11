@@ -73,6 +73,7 @@ namespace KatKat.UI
             var root = UiFactory.Rect("DailyModal", _page);
             UiFactory.Stretch(root, -200f, -200f, -400f, -400f);
             _dailyModal = root;
+            DailyTabsOn(); // kullanıcı (2026-11-11): günlük açıkken Günlük sekmesi seçili
             Ui1.Dimmer(root, CloseDaily);
 
             // yerlesim 02: panel 929×1267, üst y 394 (merkez −67); tarih 432×123; kapat sağ üst; sandık 324×326; düğme 734×173.

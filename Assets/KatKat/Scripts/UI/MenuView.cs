@@ -88,6 +88,8 @@ namespace KatKat.UI
             _ret = _retMascot = _retArrow = null;
             _map = null;
             _dailyModal = null;
+            _dailyPrevTab = -1; // yeni sayfa kendi alt menüsünü kurar
+            _tabsHolder = null;
             _zpeModal = null;
             _heroBase = HeroY;
             _startCard = null;
