@@ -166,4 +166,4 @@ Yerleşik tarayıcı yerel dosya seçemiyor. Ayrıca beyanları kullanıcı işa
     - işletim sistemi, IP adresi, ağ türü, cihaz modeli/sistem parametreleri.
 - Hata bandı kalktı.
 - Telif kanıtı zorunlu görünmüyor (Çin hariç).
-- Sonraki adım kullanıcıda: Submit (incelemeye gönder).
+- **2026-11-12: Kullanıcı incelemeye gönderdi.** Durum "Reviewing" (1.0.0). Huawei önce otomatik kontrol yapıyor; sorun bulursa birkaç saat içinde reddediyor, sonuç "report page"de.

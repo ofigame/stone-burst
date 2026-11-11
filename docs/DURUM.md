@@ -4,7 +4,7 @@ Son güncelleme: 2026-11-11. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
 
 ## Şu an
 
-- **2026-11-11, Huawei AppGallery sürümü** (`docs/v13/APPGALLERY.md`):
+- **2026-11-12: AppGallery 1.0.0 incelemede** (Huawei Ads kapalı, yalnız Unity Ads). **2026-11-11, Huawei AppGallery sürümü** (`docs/v13/APPGALLERY.md`):
   - Yeni derleme: `tools/unity.ps1 build-android-appgallery`. İmzalı APK, Google servisleri yok, reklam Huawei Ads (şimdilik test birimleri). Hesap/bulut kaydı ve çevrimiçi sıralama bu sürümde kapalı.
   - AppGallery Connect'te uygulama kaydı açıldı (kimlik 119766511).
   - APK doğrulandı: Google sınıfları yok, Huawei Ads ve köprü var, imza OFIGAME. Google Play APK'sı da yeniden derlendi; içinde Huawei kodu yok.
