@@ -26,6 +26,8 @@ namespace KatKat.EditorTools
         public const string HuaweiRepo = "https://developer.huawei.com/repo/";
         public const string KotlinBom = "org.jetbrains.kotlin:kotlin-bom:1.8.22";
         public const string BridgePath = "Assets/Plugins/Android/HwAdsBridge.java";
+        public const string UnityBridgePath = "Assets/Plugins/Android/UnityAdsBridge.java";
+        private static readonly string[] Bridges = { BridgePath, UnityBridgePath };
 
         /// <summary>Bu derlemede Android'den çıkarılan Google eklentileri.</summary>
         private static readonly string[] GooglePlugins =
@@ -41,7 +43,7 @@ namespace KatKat.EditorTools
         private static readonly string[] StripDeps =
         {
             "com.google.android.gms:", "com.google.firebase:", "com.google.android.ump:", "com.google.ads.mediation:",
-            "com.unity3d.ads:", "googlemobileads-unity", "gpgs-plugin-support",
+            "googlemobileads-unity", "gpgs-plugin-support", // com.unity3d.ads kalır: doğrudan Unity Ads (2026-11-12)
             "GoogleMobileAdsPlugin", "GooglePlayGamesManifest", "FirebaseApp",
         };
 
@@ -63,7 +65,7 @@ namespace KatKat.EditorTools
             PlayerSettings.SetScriptingDefineSymbols(target, string.Join(";", defs));
             _pluginState = new Dictionary<string, bool>();
             foreach (var p in GooglePlugins) SetAndroid(p, false);
-            SetAndroid(BridgePath, true);
+            foreach (var b in Bridges) SetAndroid(b, true);
             AssetDatabase.SaveAssets();
         }
 
@@ -98,10 +100,13 @@ namespace KatKat.EditorTools
         /// <summary>Google Play derlemesinde köprü dosyası Android'e girmesin (Huawei kütüphanesi yokken derlenemez).</summary>
         public static void EnsureBridgeOffForGoogle()
         {
-            var imp = AssetImporter.GetAtPath(BridgePath) as PluginImporter;
-            if (imp == null || !imp.GetCompatibleWithPlatform(BuildTarget.Android)) return;
-            imp.SetCompatibleWithPlatform(BuildTarget.Android, false);
-            imp.SaveAndReimport();
+            foreach (var b in Bridges)
+            {
+                var imp = AssetImporter.GetAtPath(b) as PluginImporter;
+                if (imp == null || !imp.GetCompatibleWithPlatform(BuildTarget.Android)) continue;
+                imp.SetCompatibleWithPlatform(BuildTarget.Android, false);
+                imp.SaveAndReimport();
+            }
         }
 
         /// <summary>unityLibrary/build.gradle: Google bağımlılıklarını çıkar, Huawei Ads ekle (saf metin; test edilebilir).</summary>

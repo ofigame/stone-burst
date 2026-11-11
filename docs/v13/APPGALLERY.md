@@ -108,3 +108,22 @@ Yerleşik tarayıcı yerel dosya seçemiyor. Ayrıca beyanları kullanıcı işa
    - Eski metinlerin yedeği arşivde: `site_gizlilik_2026-11-12`.
    - Kalan: app-ads.txt satırı (Huawei Ads hesabı açılınca).
 9. **Submit** (incelemeye gönder).
+
+## Unity Ads (doğrudan; 2026-11-12, kullanıcı: "app gallery içinde unity ads aktif olsun", "Doğrudan deneyelim")
+
+- **Akış:** Önce Huawei Ads; Huawei'de hazır reklam yoksa Unity Ads; ikisinde de yoksa "reklam bulunamadı".
+- **Kod:**
+  - Unity tarafı: `HuaweiAdsNetwork.cs`.
+  - Java köprüsü: `Assets/Plugins/Android/UnityAdsBridge.java`. Yalnız AppGallery derlemesinde açık.
+  - Gradle'da `com.unity3d.ads:unity-ads` artık kalıyor.
+- **Kimlikler:** Unity oyun kimliği `800434959` ("Stone Burst Android"), reklam yerleri `BP_Rewarded_Android` ve `BP_Interstitial_Android`. Bunlar Google Play'de AdMob'un kullandığı yerlerle aynı; Unity aynı Android uygulamasına ikinci uygulama açtırmıyor.
+- **Rıza:** Unity'ye GDPR ve CCPA rızası "hayır" bildiriliyor (`gdpr.consent`, `privacy.consent` false), yani yalnız kişiselleştirilmemiş reklam.
+- **Risk:**
+  - Unity'nin yeni paneli "yalnız arabuluculuk kullananları destekliyor" ve yalnız teklifli (`BP_`) yer açıyor.
+  - Doğrudan SDK ile bu yerlerden reklam gelip gelmediği belgelerden doğrulanamadı; Huawei cihazda denenmeli.
+  - Gelmezse Huawei Ads tek başına çalışmaya devam eder.
+- **APK doğrulaması:**
+  - Unity Ads ve iki köprü içeride.
+  - AdMob, Play Games, UMP ve arabulucu adaptörü yok.
+  - Unity Ads kendi bağımlılığı olarak Google Play Hizmetleri'nin temel parçasını (`gms.common`, `GoogleApiActivity`) ve `AD_ID` iznini getiriyor. Bunlar GMS'siz cihazda çalışmaz ama oyunu durdurmaz.
+- **Gizlilik politikası:** AppGallery bölümüne Unity Ads eklenmeli (sitede şu an "Huawei Ads" yazıyor).

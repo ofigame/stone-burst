@@ -17,6 +17,10 @@ namespace KatKat.Game.Ads
         public const bool UsingTestIds = true;
         public const string Rewarded = "testx9dtjwj8hp";      // Huawei test: ödüllü video
         public const string Interstitial = "teste9ih9j0rc3";  // Huawei test: geçiş (görsel)
+        // Doğrudan Unity Ads (Huawei'de reklam yoksa yedek; 2026-11-12). "Stone Burst Android" uygulaması, gerçek kimlikler.
+        public const string UnityGameId = "800434959";
+        public const string UnityRewarded = "BP_Rewarded_Android";
+        public const string UnityInterstitial = "BP_Interstitial_Android";
 #elif UNITY_IOS
         public const bool UsingTestIds = false;
         public const string Rewarded = "ca-app-pub-2558895513508689/3403938167";      // stoneburst_rewarded

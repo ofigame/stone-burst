@@ -40,7 +40,7 @@ namespace KatKat.Tests
             StringAssert.DoesNotContain("com.google.firebase", o);
             StringAssert.DoesNotContain("user-messaging-platform", o);
             StringAssert.DoesNotContain("com.google.ads.mediation", o);
-            StringAssert.DoesNotContain("unity-ads", o);
+            StringAssert.Contains("com.unity3d.ads:unity-ads", o, "doğrudan Unity Ads kalır (2026-11-12)");
             StringAssert.DoesNotContain("googlemobileads-unity", o);
             StringAssert.DoesNotContain("GoogleMobileAdsPlugin.androidlib", o);
             StringAssert.Contains("androidx.fragment:fragment", o, "Google dışı bağımlılık kalır");
