@@ -53,6 +53,18 @@ namespace KatKat.EditorTools
             finally { Out = "../v13/"; _only = null; }
         }
 
+        /// <summary>vr1 belgeleri (kullanıcı, 2026-11-11: her ekranı anlatan belge): aynı ekranlar docs/vr1/ekranlar/.</summary>
+        public static void RunVr1()
+        {
+            Out = "../vr1/ekranlar/";
+            try
+            {
+                Run();
+                Extras();
+            }
+            finally { Out = "../v13/"; }
+        }
+
         /// <summary>
         /// Varlık kullanım taraması (ui3, APK küçültme): 35 ekran + her mekanik bloğundan bir bölümün çözümü sonuna kadar +
         /// her bölgenin haritası (ilerleme 1, 120, 220 → sahil/bahçe/çöl) + koleksiyon sonuna kadar kaydırma + her taşın
