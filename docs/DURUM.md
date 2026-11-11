@@ -4,6 +4,12 @@ Son güncelleme: 2026-11-11. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
 
 ## Şu an
 
+- **2026-11-11, cihaz hatası düzeltildi:** Kayıp kartında "+hamle" reklamı bulunamayınca (ya da iptal edilince) kart kilitli kalıyordu; hiçbir düğme çalışmıyordu.
+  - Neden: kartın çift dokunuş koruması bütün düğmeleri kilitliyor, sonuçsuz dönen reklamdan sonra kilit kalkmıyordu.
+  - Şimdi kart açık kalıyor, düğmeler yeniden basılabiliyor. Reklam tekrar denenebilir; "Tekrar dene" ve "Geri al" çalışır.
+  - Test: `LossCard_AdNoFill_CardStaysUsable`. PlayMode 72/73 (1 atlandı).
+  - Telefonda yeniden denenmedi.
+
 - **2026-11-11, vr1 canlıda + tahta aileleri (levels-v14):**
   - vr1 paketinin bütün kararları canlı oyunda:
     - prototip varsayılan açık; pilot bölümler yalnız deneme derlemesinde;

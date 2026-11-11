@@ -319,6 +319,40 @@ namespace KatKat.Tests
             AssertViewMatchesState();
         }
 
+        /// <summary>2026-11-11 cihaz hatası: kayıp kartında reklam bulunamayınca kart kilitli kalıyordu (bütün düğmeler
+        /// ölü). Gerçek kart düğmesinden basılır: reklam yok/iptal → kart açık, düğmeler yeniden basılabilir, yeniden reklam çalışır.</summary>
+        [UnityTest]
+        public IEnumerator LossCard_AdNoFill_CardStaysUsable()
+        {
+            _gc.StartLevel(3);
+            _gc.OnCellPressed(0, 0);
+            yield return WaitStable();
+            var next = LevelSolver.Moves(_gc.Session.State);
+            _gc.OnCellPressed(next[0].X, next[0].Y);
+            yield return WaitStable();
+            Assert.AreEqual(GameStatus.LostOutOfMoves, _gc.Session.State.Status);
+            Assert.IsTrue(_gc.ExtraMovesOffered);
+            yield return new WaitForSeconds(1f); // kart açılış animasyonu
+
+            GameController.FakeAds.Next = KatKat.Meta.AdOutcome.Failed;
+            _gc.Hud.Panel.Press(0);
+            yield return null;
+            Assert.AreEqual(GameStatus.LostOutOfMoves, _gc.Session.State.Status, "reklam yok: ödül yok");
+            Assert.IsTrue(_gc.Hud.PanelOpen, "kayıp kartı açık kalır");
+            Assert.IsTrue(_gc.Hud.PanelUnlocked, "kart düğmeleri yeniden basılabilir (kilit kalkar)");
+
+            GameController.FakeAds.Next = KatKat.Meta.AdOutcome.Cancelled;
+            _gc.Hud.Panel.Press(0);
+            yield return null;
+            Assert.IsTrue(_gc.Hud.PanelUnlocked, "iptalde de kilit kalkar");
+
+            GameController.FakeAds.Next = KatKat.Meta.AdOutcome.Rewarded;
+            _gc.Hud.Panel.Press(0);
+            yield return null;
+            Assert.AreEqual(GameStatus.Idle, _gc.Session.State.Status, "yeniden denenen reklam ödülü verdi");
+            Assert.AreEqual(1, _gc.Session.State.MovesLeft);
+        }
+
         [UnityTest]
         public IEnumerator V12_LossCard_AdExtraMoves_OncePerLevel_NotCountedInZpe()
         {

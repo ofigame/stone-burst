@@ -98,6 +98,8 @@ namespace KatKat.Game
                     return;
                 }
                 if (o == AdOutcome.Failed) _hud.ShowToast(Loc.T("ad.nofill"), 2.4f);
+                // Reklam yok/iptal: kart açık kalır, düğmeler yeniden basılabilir (tekrar dene, geri al, yeniden reklam).
+                if (CurrentPhase == Phase.Ended) _hud.PanelUnlock();
             });
         }
 

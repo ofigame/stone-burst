@@ -563,6 +563,19 @@ namespace KatKat.UI
             t.enableAutoSizing = true; t.fontSizeMax = 50; t.fontSizeMin = 24;
         }
 
+        /// <summary>Düğme kilidini kaldırır: kart açık kalan bir eylem sonuçsuz dönünce (reklam bulunamadı/iptal)
+        /// düğmeler yeniden basılabilir (2026-11-11 cihaz hatası: kayıp kartı kilitli kalıyordu).</summary>
+        public void Unlock()
+        {
+            _acted = false;
+            if (_buttonsGroup == null) return;
+            _buttonsGroup.interactable = true;
+            _buttonsGroup.blocksRaycasts = true;
+        }
+
+        /// <summary>Test: kart düğmeleri basılabilir mi.</summary>
+        public bool Unlocked => !_acted && _buttonsGroup != null && _buttonsGroup.interactable;
+
         /// <summary>ui1/14: sağ üst kapat (duraklatmada "devam" ile aynı eylem).</summary>
         public void AddClose(Action act)
         {

@@ -1145,6 +1145,10 @@ namespace KatKat.UI
         public void PanelGoals(IList<GoalState> goals) => _panel?.SetGoalSummary(goals);
         /// <summary>ui1/14: kartın sağ üst kapat düğmesi.</summary>
         public void PanelClose(System.Action act) => _panel?.AddClose(act);
+        /// <summary>Açık kartın düğme kilidini kaldırır (sonuçsuz dönen reklam).</summary>
+        public void PanelUnlock() => _panel?.Unlock();
+        /// <summary>Test: açık kartın düğmeleri basılabilir mi.</summary>
+        public bool PanelUnlocked => _panel != null && _panel.Unlocked;
 
         public void ShowPanel(string title, string subtitle, params PanelButton[] buttons)
         {
