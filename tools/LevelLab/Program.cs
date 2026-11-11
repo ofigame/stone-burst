@@ -46,6 +46,7 @@ static partial class Program
             case "index": return WriteLevelIndex();
             case "zperef": return ZpeRef(args);
             case "trial": return Trial(args);
+            case "pilot": return Pilot(args);
             case "v8": return V8(args);
             case "audit": return Audit(args);
             case "fairfix": return FairFix(args);

@@ -35,6 +35,11 @@ namespace KatKat.Core
         /// <summary>M11: basılan düğmeler ve etkinleşen geçit hücreleri.</summary>
         public readonly List<Coord> ButtonPresses = new List<Coord>();
         public readonly List<Coord> GateOpens = new List<Coord>();
+        /// <summary>vr1 P3: bu dalgada zincir mührü açıldı.</summary>
+        public bool SealOpened;
+        /// <summary>vr1 P3: bu dalgada aşama tamamlandı; dalga sonrası etkin aşama.</summary>
+        public bool StageAdvanced;
+        public int StageAfter;
         /// <summary>Bu dalganın kazandırdığı puan.</summary>
         public int Score;
 

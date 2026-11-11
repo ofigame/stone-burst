@@ -34,5 +34,7 @@ namespace KatKat.Levels
         public readonly List<GoalData> Goals = new List<GoalData>();
         public readonly List<CellData> Cells = new List<CellData>();
         public readonly List<StepData> Solution = new List<StepData>();
+        /// <summary>vr1 P3 zincir mührü: {wave, gate}; 0 = yok. Ana katalogda kullanılmaz (pilot içerik).</summary>
+        public int SealWave, SealGate;
     }
 }

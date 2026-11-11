@@ -19,6 +19,13 @@ namespace KatKat.Game
     {
         public const int TrialCount = 10;
         private readonly LevelData[] _trials = new LevelData[TrialCount];
+        /// <summary>vr1 P2/P3 pilot kataloğu (Resources/Pilot, LevelLab pilot): deneme seti akışıyla oynanır; ana ilerlemeye,
+        /// yıldızlara, ZPE'ye ve sıralamaya yazılmaz. Yalnız prototip anahtarı açıkken haritadan açılır.</summary>
+        public const int PilotCount = 12;
+        private readonly LevelData[] _pilots = new LevelData[PilotCount];
+        private bool _pilot;
+        public bool InPilot => _pilot;
+        private int SetCount => _pilot ? PilotCount : TrialCount;
         private int _trialIndex = -1;
         private int _trialLosses;
         private bool _trialHint;
@@ -28,23 +35,29 @@ namespace KatKat.Game
 
         public LevelData Trial(int i)
         {
-            if (i < 0 || i >= TrialCount) return null;
-            if (_trials[i] != null) return _trials[i];
-            var asset = Resources.Load<TextAsset>($"Trial/trial_{i + 1:00}");
+            var set = _pilot ? _pilots : _trials;
+            if (i < 0 || i >= set.Length) return null;
+            if (set[i] != null) return set[i];
+            var asset = Resources.Load<TextAsset>(_pilot ? $"Pilot/pilot_{i + 1:00}" : $"Trial/trial_{i + 1:00}");
             if (asset == null) return null;
-            try { _trials[i] = LevelParser.Parse(asset.text, asset.name); }
+            try { set[i] = LevelParser.Parse(asset.text, asset.name); }
             catch (FormatException e) { Debug.LogError("[KatKat] Deneme bölümü okunamadı: " + e.Message); }
-            return _trials[i];
+            return set[i];
         }
 
         public bool TrialDone(int i) => Trial(i) is LevelData d && _save.Data.meta.trialDone.Contains(d.Id);
 
         /// <summary>Haritadaki Deneme düğmesi: deneme listesi (modal).</summary>
-        public void ShowTrials()
+        public void ShowTrials() { _pilot = false; ShowSet(); }
+
+        /// <summary>vr1 pilot listesi (prototip; haritadaki Pilot düğmesi).</summary>
+        public void ShowPilots() { _pilot = true; ShowSet(); }
+
+        private void ShowSet()
         {
             _bgPick = -1; // ui3: menüden yeni girişte oyun zemini yeniden seçilir
             var items = new List<MenuView.TrialItem>();
-            for (int i = 0; i < TrialCount; i++)
+            for (int i = 0; i < SetCount; i++)
             {
                 var d = Trial(i);
                 if (d == null) continue;
@@ -53,6 +66,7 @@ namespace KatKat.Game
                     Index = i, Title = TrialTitle(d), Intro = Loc.T("trial.intro." + d.TrialType), Rules = new List<string>(d.Rules), Done = TrialDone(i), Boss = d.TrialType == "boss",
                 });
             }
+            _menu.TrialListPilot = _pilot;
             _menu.ShowTrials(items, StartTrial);
         }
 
@@ -76,7 +90,8 @@ namespace KatKat.Game
         private void TrialAfterBegin()
         {
             var d = _level;
-            _hud.SetLevel(Loc.Upper(Loc.T("trial.tag")) + " " + (_trialIndex + 1), _session.State.MovesLeft, _session.State.Goals, _session.State.RollEnabled, _trialIndex + 1);
+            _hud.SetLevel(Loc.Upper(Loc.T(_pilot ? "vr1.pilot.tag" : "trial.tag")) + " " + (_trialIndex + 1), _session.State.MovesLeft, _session.State.Goals, _session.State.RollEnabled, _trialIndex + 1);
+            _hud.SetGoalStages(_session.State.Goals, _session.State.ActiveStage);
             var rules = RuleLines(d);
             _hud.SetRuleIcons(rules);
             _hud.ShowRuleCard(TrialTitle(d), Loc.T("trial.intro." + d.TrialType), rules, () => { if (_trialHint) ShowTrialHint(); });
@@ -94,6 +109,12 @@ namespace KatKat.Game
                 if (r == "exact") text = Loc.F("trial.rule.exact", d.MoveLimit);
                 list.Add(new HudView.RuleLine { Rule = r, Text = text });
             }
+            // vr1 P3 (pilot): yeni kurallar kural satırında açıkça (05: "Bu varsayımları oyuncu kural kartında açıkla").
+            bool staged = false;
+            foreach (var g in d.Goals) if (g.Stage != 0) staged = true;
+            if (staged) list.Add(new HudView.RuleLine { Rule = "stages", Text = Loc.T("vr1.rule.stages") });
+            if (d.SealWave > 0) list.Add(new HudView.RuleLine { Rule = "seal", Text = Loc.F("vr1.rule.seal", d.SealWave) });
+            if (d.Cells.Exists(c => c.Area != 0)) list.Add(new HudView.RuleLine { Rule = "areas", Text = Loc.T("vr1.rule.areas") });
             return list;
         }
 
@@ -116,11 +137,11 @@ namespace KatKat.Game
             if (!_save.Data.meta.trialDone.Contains(_level.Id)) { _save.Data.meta.trialDone.Add(_level.Id); _save.Save(); }
             _sound.PlayReward();
             Haptics.Medium();
-            bool hasNext = _trialIndex + 1 < TrialCount && Trial(_trialIndex + 1) != null;
-            _hud.ShowPanel(Loc.T("trial.won.title"), Loc.F("trial.won.body", _trialIndex + 1, TrialCount),
+            bool hasNext = _trialIndex + 1 < SetCount && Trial(_trialIndex + 1) != null;
+            _hud.ShowPanel(Loc.T("trial.won.title"), Loc.F("trial.won.body", _trialIndex + 1, SetCount),
                 new HudView.PanelButton(hasNext ? Loc.T("trial.next") : Loc.T("trial.list"), UiIcon.Play, true,
-                    () => { if (hasNext) StartTrial(_trialIndex + 1); else { ShowLevels(); ShowTrials(); } }),
-                new HudView.PanelButton(Loc.T("trial.list"), UiIcon.Menu, false, () => { ShowLevels(); ShowTrials(); }));
+                    () => { if (hasNext) StartTrial(_trialIndex + 1); else { ShowLevels(); ShowSet(); } }),
+                new HudView.PanelButton(Loc.T("trial.list"), UiIcon.Menu, false, () => { ShowLevels(); ShowSet(); }));
         }
 
         private void ShowTrialLost(GameStatus status)
@@ -137,7 +158,7 @@ namespace KatKat.Game
             // İki kayıptan sonra istenirse ipucu (yalnız bir sonraki hamle; çözüm söylenmez).
             if (_trialLosses >= 2)
                 buttons.Add(new HudView.PanelButton(Loc.T("trial.hint"), UiIcon.Play, false, () => { _trialHint = true; Restart(); OutcomeAssist(AssistFlags.Guidance); ShowTrialHint(); }));
-            buttons.Add(new HudView.PanelButton(Loc.T("trial.list"), UiIcon.Menu, false, () => { ShowLevels(); ShowTrials(); }));
+            buttons.Add(new HudView.PanelButton(Loc.T("trial.list"), UiIcon.Menu, false, () => { ShowLevels(); ShowSet(); }));
             _hud.ShowPanel(title, body, buttons.ToArray());
         }
 

@@ -128,6 +128,7 @@ namespace KatKat.UI
             // 4) Sütunlar: ZPE, Sıralama, kilitli taş (mevcut eylemler).
             BuildZpeBadge(shell);
             BuildRankButton(shell);
+            BuildPilotButton(shell); // vr1 pilot (prototip)
             BuildStarGoal(shell);
 
             // 5) Yıldız kapsülü (700, 56, 208, 88) ve ayarlar (936, 52, 96, 96).

@@ -58,11 +58,11 @@ namespace KatKat.UI
             float h = 250f + items.Count * (rowH + 10f);
             var card = WhiteCapsule("Card", root, new Color32(0xF7, 0xFB, 0xFF, 0xFF), new Vector2(0.5f, 0.5f), new Vector2(0f, 30f), new Vector2(940f, h), 8f);
             card.raycastTarget = true;
-            var title = UiFactory.Title("Title", card.transform, Loc.T("trial.list.title"), 52, V11Navy, Color.white);
+            var title = UiFactory.Title("Title", card.transform, Loc.T(TrialListPilot ? "vr1.pilot.list.title" : "trial.list.title"), 52, V11Navy, Color.white);
             title.raycastTarget = false;
             UiFactory.Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -66f), new Vector2(760f, 70f));
             FitText(title, 32);
-            var sub = UiFactory.Text("Sub", card.transform, Loc.T("trial.list.sub"), 28, new Color32(0x50, 0x67, 0x7A, 0xFF), TextAnchor.MiddleCenter, FontStyle.Normal);
+            var sub = UiFactory.Text("Sub", card.transform, Loc.T(TrialListPilot ? "vr1.pilot.list.sub" : "trial.list.sub"), 28, new Color32(0x50, 0x67, 0x7A, 0xFF), TextAnchor.MiddleCenter, FontStyle.Normal);
             sub.raycastTarget = false;
             UiFactory.Place(sub.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -130f), new Vector2(820f, 60f));
             sub.enableAutoSizing = true; sub.fontSizeMin = 20; sub.fontSizeMax = 28;

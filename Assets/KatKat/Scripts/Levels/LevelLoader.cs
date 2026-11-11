@@ -42,6 +42,7 @@ namespace KatKat.Levels
                 cell.LinkHits = c.LinkHits;
                 cell.ButtonGate = c.ButtonGate;
                 cell.Protected = c.Protected;
+                cell.Area = c.Area;
                 if (c.GateId > 0)
                 {
                     cell.GateId = c.GateId;
@@ -63,11 +64,13 @@ namespace KatKat.Levels
                 SpecialsEnabled = d.SpecialsEnabled,
                 StarThresholds = d.StarThresholds,
                 PaintLeft = d.Paint,
+                SealWave = d.SealWave,
+                SealGate = d.SealGate,
                 Status = GameStatus.Idle,
             };
             foreach (var g in d.Goals)
             {
-                var gs = new GoalState { Amount = g.Amount };
+                var gs = new GoalState { Amount = g.Amount, Stage = g.Stage };
                 if (g.Type == "collectColor")
                 {
                     gs.Type = GoalType.CollectColor;

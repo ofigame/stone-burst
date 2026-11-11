@@ -59,7 +59,7 @@ namespace KatKat.Levels
             foreach (var g in List(o, "goals", where))
             {
                 var go = AsObj(g, where, "goals");
-                d.Goals.Add(new GoalData { Type = Str(go, "type", where), Color = OptStr(go, "color") ?? "", Kind = OptStr(go, "kind") ?? "", Amount = Int(go, "amount", where) });
+                d.Goals.Add(new GoalData { Type = Str(go, "type", where), Color = OptStr(go, "color") ?? "", Kind = OptStr(go, "kind") ?? "", Amount = Int(go, "amount", where), Stage = go.ContainsKey("stage") ? Int(go, "stage", where) : 0 });
             }
             foreach (var c in List(o, "cells", where))
             {
@@ -127,9 +127,16 @@ namespace KatKat.Levels
                     cell.GateId = Int(co, "gate", where);
                     foreach (var gl in List(co, "gateLayers", where)) cell.GateLayers.Add(gl as string ?? throw new FormatException($"{where}: geçit katmanı metin olmalı"));
                 }
+                if (co.ContainsKey("area")) cell.Area = Int(co, "area", where); // vr1 P3
                 d.Cells.Add(cell);
             }
             if (o.ContainsKey("paint")) d.Paint = Int(o, "paint", where);
+            if (o.TryGetValue("seal", out var sv) && sv != null) // vr1 P3 zincir mührü
+            {
+                var so2 = AsObj(sv, where, "seal");
+                d.SealWave = Int(so2, "wave", where);
+                d.SealGate = Int(so2, "gate", where);
+            }
             if (o.ContainsKey("solution"))
             {
                 foreach (var s in List(o, "solution", where))

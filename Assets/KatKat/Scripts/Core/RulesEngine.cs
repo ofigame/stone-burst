@@ -182,14 +182,23 @@ namespace KatKat.Core
         /// Tepsi taşının (x, y) hedefinde etkisi var mı: roket satırında/sütununda soyulacak ya da vurulacak bir şey;
         /// Altın Rulo için hedef örtüsüz dolu yığın (rengi toplanır).
         /// </summary>
+        /// <summary>vr1 P3: tahta iki alana bölünmüş mü (herhangi bir hücrenin alanı 0 değil).</summary>
+        public static bool HasAreas(BoardState board)
+        {
+            for (int i = 0; i < board.Count; i++) if (board[i].Area != 0) return true;
+            return false;
+        }
+
         public static bool TrayHasEffect(BoardState board, SpecialKind kind, int x, int y)
         {
             var c = board[x, y];
             if (!c.Active) return false;
             if (kind == SpecialKind.Rainbow) return c.IsSelectable;
+            bool areas = HasAreas(board);
             for (int k = 0; k < (kind == SpecialKind.RocketRow ? board.Width : board.Height); k++)
             {
                 var o = kind == SpecialKind.RocketRow ? board[k, y] : board[x, k];
+                if (areas && o.Area != c.Area) continue;
                 if (o.Active && (o.Layers.Count > 0 || o.HasCover || o.HasSpecial)) return true;
             }
             return false;
@@ -459,6 +468,7 @@ namespace KatKat.Core
                     var color = aRain ? p.Color : p.ComboColor;
                     var targets = new List<int>();
                     ColorCells(color, targets);
+                    if (HasAreas(_board)) { int ta = _board[p.Cell].Area; targets.RemoveAll(t => _board[t].Area != ta); }
                     int n = 0;
                     foreach (var t in targets)
                     {
@@ -469,6 +479,8 @@ namespace KatKat.Core
                     return peel; // bu dalga yalnızca dönüşümdür; roketler sırayla ateşlenir.
                 }
 
+                // vr1 P3 iki alan: roket ve Altın Rulo yalnız ateşlendiği hücrenin alanında işler.
+                if (HasAreas(_board)) { int a = _board[p.Cell].Area; area.RemoveAll(i => _board[i].Area != a); }
                 var seen = new HashSet<int>();
                 foreach (var i in area)
                 {
@@ -659,18 +671,33 @@ namespace KatKat.Core
                     int gate = c.ButtonGate;
                     c.ButtonGate = 0;
                     pw.ButtonPresses.Add(new Coord(board.X(i), board.Y(i)));
-                    for (int j = 0; j < board.Count; j++)
-                    {
-                        var g = board[j];
-                        if (g.GateId != gate || g.Active) continue;
-                        g.Active = true;
-                        g.Layers.AddRange(g.GateLayers);
-                        g.GateLayers.Clear();
-                        g.GateId = 0;
-                        pw.GateOpens.Add(new Coord(board.X(j), board.Y(j)));
-                    }
+                    OpenGate(gate, pw);
                     score += Scoring.Envelope;
                 }
+
+                // vr1 P3 zincir mührü: bu hamlenin otomatik zincir derinliği mühür derinliğine ulaşınca bağlı geçit açılır
+                // (doğrudan dokunuş derinlik 0; mührün komşuluk şartı yok). Açılan hücreler bu dalgada soyulmaz.
+                if (_state.SealWave > 0 && !_state.SealOpen && kind == WaveKind.Chain)
+                {
+                    int depth = 1;
+                    foreach (var w in _result.Waves) if (w.Kind == WaveKind.Chain) depth++;
+                    if (depth >= _state.SealWave)
+                    {
+                        _state.SealOpen = true;
+                        pw.SealOpened = true;
+                        OpenGate(_state.SealGate, pw);
+                        score += Scoring.Envelope;
+                    }
+                }
+
+                // vr1 P3 aşamalı hedef: etkin aşama dalga sonunda tamamlandıysa sonrakine geçilir (fazla aktarılmaz).
+                if (_state.ActiveStage < _state.StageCount - 1)
+                {
+                    bool done = true;
+                    foreach (var g in _state.Goals) if (g.Stage == _state.ActiveStage && !g.IsComplete) { done = false; break; }
+                    if (done) { _state.ActiveStage++; pw.StageAdvanced = true; }
+                }
+                pw.StageAfter = _state.ActiveStage;
 
                 _state.Score += score;
                 pw.Score = score;
@@ -678,6 +705,23 @@ namespace KatKat.Core
                 for (int g = 0; g < _state.Goals.Count; g++) pw.GoalProgressAfter[g] = _state.Goals[g].Progress;
                 _result.Waves.Add(pw);
                 return pw;
+            }
+
+            /// <summary>Geçidi açar (düğme ya da mühür): bekleyen hücreler katmanlarıyla etkinleşir.</summary>
+            private void OpenGate(int gate, PeelWave pw)
+            {
+                if (gate <= 0) return;
+                var board = _state.Board;
+                for (int j = 0; j < board.Count; j++)
+                {
+                    var g = board[j];
+                    if (g.GateId != gate || g.Active) continue;
+                    g.Active = true;
+                    g.Layers.AddRange(g.GateLayers);
+                    g.GateLayers.Clear();
+                    g.GateId = 0;
+                    pw.GateOpens.Add(new Coord(board.X(j), board.Y(j)));
+                }
             }
 
             /// <summary>
@@ -796,13 +840,13 @@ namespace KatKat.Core
         private static void AddToken(LevelState state, GoalType type)
         {
             foreach (var g in state.Goals)
-                if (g.Type == type) g.Progress++;
+                if (g.Type == type && g.Stage == state.ActiveStage) g.Progress++;
         }
 
         private static void AddEnvelope(LevelState state)
         {
             foreach (var g in state.Goals)
-                if (g.Type == GoalType.CollectEnvelopes) g.Progress++;
+                if (g.Type == GoalType.CollectEnvelopes && g.Stage == state.ActiveStage) g.Progress++;
         }
 
         private static void AddGoal(LevelState state, LayerColor color, bool chain = false)
@@ -810,15 +854,15 @@ namespace KatKat.Core
             // v12 deneme: zincir hedefi yalnız domino dalgasıyla soyulan katmanları sayar.
             if (chain)
                 foreach (var g in state.Goals)
-                    if (g.Type == GoalType.CollectChain && g.Color == color) g.Progress++;
+                    if (g.Type == GoalType.CollectChain && g.Color == color && g.Stage == state.ActiveStage) g.Progress++;
             foreach (var g in state.Goals)
-                if (g.Type == GoalType.CollectColor && g.Color == color) g.Progress++;
+                if (g.Type == GoalType.CollectColor && g.Color == color && g.Stage == state.ActiveStage) g.Progress++;
         }
 
         private static void AddStar(LevelState state)
         {
             foreach (var g in state.Goals)
-                if (g.Type == GoalType.CollectStars) g.Progress++;
+                if (g.Type == GoalType.CollectStars && g.Stage == state.ActiveStage) g.Progress++;
         }
     }
 }

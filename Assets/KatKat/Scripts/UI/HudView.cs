@@ -959,6 +959,24 @@ namespace KatKat.UI
             for (int i = 0; i < goals.Count && i < _chips.Count; i++) _chips[i].Set(goals[i].Progress, false);
         }
 
+        /// <summary>
+        /// vr1 P3 aşamalı hedef: bütün aşamalar görünür; etkin aşamanın hedefleri tam, sonraki aşamalar soluk (%38),
+        /// tamamlanmış önceki aşamalar hafif soluk (%70). Tek aşamalı bölümde hiçbir şey değişmez.
+        /// </summary>
+        public void SetGoalStages(IList<GoalState> goals, int active)
+        {
+            bool staged = false;
+            foreach (var g in goals) if (g.Stage != 0) staged = true;
+            for (int i = 0; i < goals.Count && i < _chips.Count; i++)
+            {
+                if (!_chips[i].Root.TryGetComponent<CanvasGroup>(out var cg)) cg = _chips[i].Root.gameObject.AddComponent<CanvasGroup>();
+                cg.alpha = !staged || goals[i].Stage == active ? 1f : goals[i].Stage > active ? 0.38f : 0.7f;
+            }
+        }
+
+        /// <summary>Testler: hedef çipinin saydamlığı.</summary>
+        public float GoalChipAlpha(int i) => i >= 0 && i < _chips.Count && _chips[i].Root.TryGetComponent<CanvasGroup>(out var cg) ? cg.alpha : 1f;
+
         /// <param name="restart">Yeniden başlat artık duraklatma kartında; imza geriye uyum için korunur.</param>
         // Pasif durum (v3 §7): bulanıklık veya düşük alfa yok; doygunluk/kontrast azalır, geometrik kenar net kalır.
         private static readonly Color PassiveBase = new Color(0.96f, 0.92f, 0.86f, 1f);

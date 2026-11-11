@@ -9,5 +9,7 @@ namespace KatKat.Levels
         /// <summary>collectToken için tür: "envelope".</summary>
         public string Kind;
         public int Amount;
+        /// <summary>vr1 P3 aşamalı hedef: aşama (0 tabanlı; yoksa 0).</summary>
+        public int Stage;
     }
 }

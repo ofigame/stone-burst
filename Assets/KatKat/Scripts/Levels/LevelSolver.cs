@@ -75,15 +75,31 @@ namespace KatKat.Levels
                 var b = s.Board;
                 if (kind == SpecialKind.RocketRow)
                 {
+                    // vr1 P3: alan başına ilk etkin hücre (iki alanlı tahtada roket yalnız kendi alanında işler); tek alanlı
+                    // tahtada eskisi gibi satırın ilk etkin hücresi (aday sırası değişmez).
                     for (int y = 0; y < b.Height; y++)
+                    {
+                        int areas = 0;
                         for (int x = 0; x < b.Width; x++)
-                            if (b[x, y].Active) { if (RulesEngine.TrayHasEffect(b, kind, x, y)) list.Add(Command.UseSpecial(slot, x, y)); break; }
+                        {
+                            if (!b[x, y].Active || (areas & (1 << b[x, y].Area)) != 0) continue;
+                            areas |= 1 << b[x, y].Area;
+                            if (RulesEngine.TrayHasEffect(b, kind, x, y)) list.Add(Command.UseSpecial(slot, x, y));
+                        }
+                    }
                 }
                 else if (kind == SpecialKind.RocketColumn)
                 {
                     for (int x = 0; x < b.Width; x++)
+                    {
+                        int areas = 0;
                         for (int y = 0; y < b.Height; y++)
-                            if (b[x, y].Active) { if (RulesEngine.TrayHasEffect(b, kind, x, y)) list.Add(Command.UseSpecial(slot, x, y)); break; }
+                        {
+                            if (!b[x, y].Active || (areas & (1 << b[x, y].Area)) != 0) continue;
+                            areas |= 1 << b[x, y].Area;
+                            if (RulesEngine.TrayHasEffect(b, kind, x, y)) list.Add(Command.UseSpecial(slot, x, y));
+                        }
+                    }
                 }
                 else
                 {
@@ -91,8 +107,10 @@ namespace KatKat.Levels
                     for (int i = 0; i < b.Count; i++)
                     {
                         var c = b[i];
-                        if (!c.IsSelectable || (colors & CellState.Bit(c.Top)) != 0) continue;
-                        colors |= CellState.Bit(c.Top);
+                        if (!c.IsSelectable) continue;
+                        int key = CellState.Bit(c.Top) << (4 * c.Area); // vr1 P3: renk başına, alan başına
+                        if ((colors & key) != 0) continue;
+                        colors |= key;
                         list.Add(Command.UseSpecial(slot, b.X(i), b.Y(i)));
                     }
                 }
@@ -133,6 +151,8 @@ namespace KatKat.Levels
         {
             var sb = new StringBuilder();
             sb.Append(s.MovesLeft).Append('p').Append(s.PaintLeft).Append('|').Append(s.RollSlotFull ? 'R' : '-').Append('|');
+            // vr1 P3: aşama ve mühür durumu (eski bölümlerde yazılmaz: anahtar değişmez).
+            if (s.ActiveStage != 0 || s.SealWave != 0) sb.Append('a').Append(s.ActiveStage).Append(s.SealOpen ? 'S' : 's').Append('|');
             foreach (var g in s.Goals) sb.Append(g.DisplayProgress).Append(',');
             sb.Append('|');
             foreach (var t in s.Tray) sb.Append((int)t);

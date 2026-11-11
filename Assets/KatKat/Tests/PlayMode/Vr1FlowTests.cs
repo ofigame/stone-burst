@@ -73,6 +73,45 @@ namespace KatKat.Tests
             Assert.AreEqual(_gc.SaveService.Data.TotalStars, _gc.SaveService.Data.meta.mapSeenStars, "görülme işareti yine güncellenir");
         }
 
+        private IEnumerator WaitStable()
+        {
+            float limit = Time.realtimeSinceStartup + 20f;
+            while ((_gc.CurrentPhase == GameController.Phase.Animating || _gc.IsCelebrating) && Time.realtimeSinceStartup < limit) yield return null;
+        }
+
+        /// <summary>
+        /// vr1 P2/P3 pilot: haritada Pilot düğmesi (yalnız prototip); aşamalı pilot bölüm kayıtlı çözümle kazanılır,
+        /// etkin olmayan aşamanın hedefi soluk görünür, ana ilerleme/yıldız değişmez.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator Pilot_StagedLevel_SavedSolutionWins_MainProgressUntouched()
+        {
+            Vr1Proto.Override = false;
+            _gc.ShowLevels();
+            yield return null;
+            Assert.IsNull(Find("PilotButton"), "anahtar kapalıyken pilot yok");
+            Vr1Proto.Override = true;
+            _gc.ShowLevels();
+            yield return null;
+            Assert.IsNotNull(Find("PilotButton"));
+            int completed = _gc.SaveService.Data.completed.Count, stars = _gc.SaveService.Data.TotalStars;
+            _gc.ShowPilots();
+            _gc.StartTrial(4); // pilot_05 aşamalı hedef
+            yield return null;
+            Assert.IsTrue(_gc.InPilot);
+            Assert.AreEqual("pilot_stages", _gc.CurrentLevel.TrialType);
+            Assert.Less(_gc.Hud.GoalChipAlpha(1), 1f, "sonraki aşama soluk");
+            _gc.Board.Director.TimeScale = 10f;
+            foreach (var step in _gc.CurrentLevel.Solution)
+            {
+                _gc.PlayStep(step);
+                yield return WaitStable();
+            }
+            Assert.AreEqual(KatKat.Core.GameStatus.Won, _gc.Session.State.Status);
+            Assert.AreEqual(completed, _gc.SaveService.Data.completed.Count, "ana ilerleme değişmez");
+            Assert.AreEqual(stars, _gc.SaveService.Data.TotalStars, "yıldız değişmez");
+        }
+
         /// <summary>C03: taş kazanıldı, uygulama sunumdan önce kapandı → sonraki açılışta vitrin bir kez; taş ikinci kez verilmez.</summary>
         [UnityTest]
         public IEnumerator PendingReveal_SurvivesRestart_ShownOnce()

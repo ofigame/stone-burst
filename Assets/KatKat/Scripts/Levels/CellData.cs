@@ -32,6 +32,8 @@ namespace KatKat.Levels
         public bool Protected;
         /// <summary>M11 geçit hücresi: active=false, gate, gateLayers (açılınca bu katmanlarla etkinleşir).</summary>
         public int GateId;
+        /// <summary>vr1 P3 iki alan: hücrenin alanı (0/1; yoksa 0).</summary>
+        public int Area;
         public readonly List<string> GateLayers = new List<string>();
 
         public int CoverCount => (ClipHitsRemaining > 0 ? 1 : 0) + (IceHits > 0 ? 1 : 0) + (LockRemaining > 0 || !string.IsNullOrEmpty(LockColor) ? 1 : 0)

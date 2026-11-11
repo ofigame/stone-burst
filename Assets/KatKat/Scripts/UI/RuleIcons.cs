@@ -24,6 +24,7 @@ namespace KatKat.UI
             {
                 "protect" => Crystal,
                 "chainOnly" => Chain,
+                "seal" => Chain, // vr1 P3 zincir mührü
                 "noSpecials" => NoSpecials,
                 "exact" => Target,
                 "scarce" => Scarce,

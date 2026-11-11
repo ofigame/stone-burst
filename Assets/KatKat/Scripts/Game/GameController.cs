@@ -151,6 +151,7 @@ namespace KatKat.Game
             _catalog = LevelCatalog.Load();
             SetupMeta();
             _menu.DailyPressed = ShowDaily;
+            _menu.PilotPressed = ShowPilots; // vr1 pilot katalog (yalnız prototip anahtarı açıkken görünür)
             _menu.CollectionPressed = ShowCollection;
             // v10 taş vitrini: koleksiyonda kazanılmış karta dokununca ve taş kazanılınca (3D model ya da büyük PNG).
             _showcase = KatKat.UI.StoneShowcase.Create(cam, transform);
@@ -631,6 +632,9 @@ namespace KatKat.Game
                 wave =>
                 {
                     if (wave.StarsCollected > 0 || wave.EnvelopeOpens.Count > 0) _sound.Play(Sfx.Star);
+                    // vr1 P3: aşama tamamlandı → sonraki aşama öne çıkar; mühür açıldı bildirimi.
+                    if (wave.StageAdvanced) { _hud.SetGoalStages(_session.State.Goals, wave.StageAfter); _hud.ShowToast(Loc.F("vr1.stage.next", wave.StageAfter + 1, _session.State.StageCount), 2.2f); }
+                    if (wave.SealOpened) _hud.ShowToast(Loc.T("vr1.seal.open"), 2.2f);
                     scoreShown += wave.Score;
                     _hud.SetScore(scoreShown, _session.State.StarThresholds, true);
                     // HUD hedefi görsel dalga tamamlandığında gösterir; mantıkta yeniden artırılmaz.
@@ -856,6 +860,7 @@ namespace KatKat.Game
             OutcomeMoves(s); // kutlama kalan hamleleri harcamadan önce
             _board.Sync(s);
             _hud.SetGoalsImmediate(s.Goals);
+            _hud.SetGoalStages(s.Goals, s.ActiveStage); // vr1 P3 (tek aşamalıda etkisiz)
             _hud.SetMoves(s.MovesLeft);
             _hud.SetTray(s.Tray, _traySlot = -1);
             if (s.Status == GameStatus.Idle && s.MovesLeft <= 0 && s.Tray.Count > 0)
@@ -987,6 +992,7 @@ namespace KatKat.Game
             _board.Sync(s);
             _hud.SetMoves(s.MovesLeft);
             _hud.SetGoalsImmediate(s.Goals);
+            _hud.SetGoalStages(s.Goals, s.ActiveStage); // vr1 P3 (tek aşamalıda etkisiz)
             _hud.SetScore(s.Score, s.StarThresholds, false);
             _paintMode = false;
             _hud.HidePalette();

@@ -18,7 +18,7 @@ namespace KatKat.Levels
         public static readonly ValidationScope SecondStage = new ValidationScope { AllowedSizes = new[] { 4, 5, 6 }, MaxLayers = 4, AllowClips = true, AllowStars = true };
 
         /// <summary>schemaVersion 2'de geçerli yetenek adları (Premium-v2 rehberi §12).</summary>
-        public static readonly string[] KnownCapabilities = { "clip", "star", "ice", "colorLock", "envelope", "rotor", "specials", "sponge", "linkedClip", "gate", "paint" };
+        public static readonly string[] KnownCapabilities = { "clip", "star", "ice", "colorLock", "envelope", "rotor", "specials", "sponge", "linkedClip", "gate", "paint", "stages", "seal", "areas" }; // vr1 P3: stages/seal/areas yalnız pilot katalog
 
         /// <summary>
         /// schemaVersion 1: belge Bölüm 15 — ilk 20 bölümde ataş, yıldız, 6x6 ve dört katman yok (kimlik "level_###").
@@ -53,6 +53,19 @@ namespace KatKat.Levels
             foreach (var cap in d.Capabilities)
                 if (Array.IndexOf(KnownCapabilities, cap) < 0) e.Add($"{id}: bilinmeyen yetenek '{cap}'");
             if (string.IsNullOrEmpty(d.Id)) e.Add("id boş");
+            // vr1 P3 yenilikleri yalnız yetenekle (özellik anahtarı) ve tutarlı veriyle.
+            int maxStage = 0;
+            foreach (var g in d.Goals) { if (g.Stage < 0) e.Add($"{id}: hedef aşaması negatif"); if (g.Stage > maxStage) maxStage = g.Stage; }
+            if (maxStage > 0 && !d.Capabilities.Contains("stages")) e.Add($"{id}: aşamalı hedef için stages yeteneği gerekli");
+            for (int st = 0; st <= maxStage; st++) if (!d.Goals.Exists(g => g.Stage == st)) e.Add($"{id}: aşama {st} için hedef yok");
+            if (d.SealWave != 0)
+            {
+                if (!d.Capabilities.Contains("seal")) e.Add($"{id}: zincir mührü için seal yeteneği gerekli");
+                if (d.SealWave < 1 || d.SealWave > 3) e.Add($"{id}: mühür dalgası 1-3 olmalı");
+                if (!d.Cells.Exists(c => c.GateId == d.SealGate)) e.Add($"{id}: mühür geçidi {d.SealGate} için hücre yok");
+            }
+            if (d.Cells.Exists(c => c.Area != 0) && !d.Capabilities.Contains("areas")) e.Add($"{id}: iki alan için areas yeteneği gerekli");
+            if (d.Cells.Exists(c => c.Area < 0 || c.Area > 1)) e.Add($"{id}: alan 0 ya da 1 olmalı");
             // v5 (özel taşlı bölümler): dikdörtgen tahta 5–8 genişlik, 5–9 yükseklik (taşlar küçülür, tahta alanı aynı).
             bool v5Board = (d.SpecialsEnabled || !string.IsNullOrEmpty(d.TrialType)) && d.Width >= 5 && d.Width <= 8 && d.Height >= 5 && d.Height <= 9; // v12 deneme: dikdörtgen
             if (!v5Board && (d.Width != d.Height || Array.IndexOf(scope.AllowedSizes, d.Width) < 0))
@@ -75,7 +88,7 @@ namespace KatKat.Levels
                     if (c.GateId > 0)
                     {
                         if (c.GateLayers.Count == 0) e.Add($"{at} geçit hücresi boş olamaz");
-                        if (!d.Cells.Exists(b => b.ButtonGate == c.GateId)) e.Add($"{at} geçit {c.GateId} için düğme yok");
+                        if (!d.Cells.Exists(b => b.ButtonGate == c.GateId) && !(d.SealWave > 0 && d.SealGate == c.GateId)) e.Add($"{at} geçit {c.GateId} için düğme ya da mühür yok");
                         foreach (var l in c.GateLayers)
                             if (ColorIds.TryParse(l, out var gc)) colorTotals[(int)gc]++;
                     }
@@ -145,7 +158,7 @@ namespace KatKat.Levels
             foreach (var g in d.Goals)
             {
                 if (g.Amount <= 0) e.Add($"{id}: hedef miktarı pozitif olmalı ({g.Type} {g.Color})");
-                if (!goalKeys.Add(g.Type + ":" + g.Color + ":" + g.Kind)) e.Add($"{id}: yinelenen hedef {g.Type} {g.Color}{g.Kind}");
+                if (!goalKeys.Add(g.Type + ":" + g.Color + ":" + g.Kind + ":" + g.Stage)) e.Add($"{id}: yinelenen hedef {g.Type} {g.Color}{g.Kind}");
                 if (g.Type == "collectColor")
                 {
                     if (!ColorIds.TryParse(g.Color, out var col)) e.Add($"{id}: hedefte bilinmeyen renk '{g.Color}'");

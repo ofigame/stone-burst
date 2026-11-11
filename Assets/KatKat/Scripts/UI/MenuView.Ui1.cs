@@ -432,11 +432,11 @@ namespace KatKat.UI
             var body = UiFactory.Rect("Body", root);
             UiFactory.Stretch(body, 200f, 200f, 400f, 400f); // güvenli alan içi
             Ui1TopBar(body, CloseTrials, null); // yerlesim 09: üst satır haritayla aynı; başlık 821×154 (y 250), açıklama 821×115
-            Ui1.Ribbon(body, Loc.T("trial.list.title"), new Vector2(0.5f, 1f), new Vector2(0f, -250f), new Vector2(821f, 154f), 60);
+            Ui1.Ribbon(body, Loc.T(TrialListPilot ? "vr1.pilot.list.title" : "trial.list.title"), new Vector2(0.5f, 1f), new Vector2(0f, -250f), new Vector2(821f, 154f), 60);
             var sub = Ui1.Decor("SubPlate", body, "header-ivory");
             sub.preserveAspect = false;
             UiFactory.Place(sub.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -390f), new Vector2(860f, 125f));
-            var st = Ui1.Label("Sub", sub.transform, Loc.T("trial.list.sub"), 34, Ui1.Navy, false);
+            var st = Ui1.Label("Sub", sub.transform, Loc.T(TrialListPilot ? "vr1.pilot.list.sub" : "trial.list.sub"), 34, Ui1.Navy, false);
             UiFactory.Stretch(st.rectTransform, 80, 80, 14, 20);
             st.enableAutoSizing = true; st.fontSizeMax = 34; st.fontSizeMin = 20;
 

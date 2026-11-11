@@ -105,6 +105,15 @@ namespace KatKat.EditorTools
                 Shot("p1_13_ipucu_onay_karti", gc => { Progress(gc, 40); gc.StartLevel(40); gc.PressHintForTest(); gc.CompleteHintJobForTest(); Panels(gc); });
                 Shot("p1_14_ipucu_grup_cercevesi", gc => { Progress(gc, 40); gc.StartLevel(40); gc.PressHintForTest(); gc.CompleteHintJobForTest(); gc.ConfirmHintAdForTest(); });
                 Shot("p1_15_ayarlar_azaltilmis_hareket", gc => { Progress(gc, 12); Call(gc, "ShowSettings"); });
+                Vr1Proto.Override = true;
+                Shot("p2_01_harita_pilot_dugmesi", gc => { Progress(gc, 12); gc.ShowLevels(); });
+                Shot("p2_02_pilot_listesi", gc => { Progress(gc, 12); gc.ShowLevels(); gc.ShowPilots(); });
+                for (int pi = 0; pi < GameController.PilotCount; pi++)
+                {
+                    int k = pi;
+                    Shot($"p2_p{k + 1:00}_pilot", gc => { Progress(gc, 12); gc.ShowLevels(); gc.ShowPilots(); gc.StartTrial(k); gc.Hud.HideRuleCard(false); });
+                }
+                Shot("p2_kural_karti_asama", gc => { Progress(gc, 12); gc.ShowLevels(); gc.ShowPilots(); gc.StartTrial(4); Panels(gc); });
                 GameController.DevLeaderboardSample = false;
             }
             finally
