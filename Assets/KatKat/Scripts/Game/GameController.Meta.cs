@@ -286,14 +286,14 @@ namespace KatKat.Game
         }
 
         /// <summary>Kazanılan taş bildirimi: kazanç kartından sonraki ilk ekranda (harita ya da sonraki bölüm) bir kez.</summary>
-        private void FlushStoneToasts(bool inGame)
+        private void FlushStoneToasts(bool inGame, Action done = null)
         {
-            if (_pendingStoneToasts.Count == 0) return;
+            if (_pendingStoneToasts.Count == 0) { done?.Invoke(); return; }
             // v10 (kullanıcı): kazanılan taş ekrana vitrinle çıkar (3D model varsa döner, yoksa büyük görsel); birden
             // fazlaysa kapatınca sıradaki gelir.
             var s = _pendingStoneToasts[0];
             _pendingStoneToasts.RemoveAt(0);
-            ShowStone(s.StoneId, true, () => FlushStoneToasts(inGame));
+            ShowStone(s.StoneId, true, () => FlushStoneToasts(inGame, done));
         }
 
         /// <summary>
@@ -312,29 +312,8 @@ namespace KatKat.Game
         /// Ana sayfa yıldız çubuğu: sıradaki kazanılmamış yıldız eşiği taşı (toplam yıldız eşiğine göre sıralı). Önceki
         /// eşikten (ya da 0) bu eşiğe dolum; renk taşın ışıltı rengi. Bütün yıldız taşları alınmışsa çubuk yok.
         /// </summary>
-        public MenuView.StarGoalInfo NextStarGoal()
-        {
-            var info = new MenuView.StarGoalInfo();
-            if (_stones == null) return info;
-            int stars = _save.Data.TotalStars;
-            var list = _stones.Stones.FindAll(s => s.Category == StoneCategory.StarStone && s.UnlockType == StoneUnlock.StarsTotal);
-            list.Sort((a, b) => a.UnlockValue.CompareTo(b.UnlockValue));
-            int from = 0;
-            foreach (var s in list)
-            {
-                if (_save.Data.meta.stones.Contains(s.StoneId) || stars >= s.UnlockValue) { from = s.UnlockValue; continue; }
-                info.Has = true;
-                info.Stars = stars;
-                info.From = from;
-                info.To = s.UnlockValue;
-                // Kullanıcı (2026-11-08): kilidi açılmayı bekleyen taş yoğun bulanık (koleksiyondaki kilitli kartla aynı kaynak).
-                KatKat.View.ResourceUsage.Note("Collection/stones_blur/" + s.StoneId);
-            info.StoneSprite = Resources.Load<Sprite>("Collection/stones_blur/" + s.StoneId) ?? StoneSprite(s);
-                info.Glow = GlowColor(s);
-                break;
-            }
-            return info;
-        }
+        public MenuView.StarGoalInfo NextStarGoal() =>
+            _stones == null ? new MenuView.StarGoalInfo() : GoalInfo(CollectionProgress.NextStarGoal(_stones, _save.Data.meta.stones, _save.Data.TotalStars));
 
         /// <summary>Işıltı rengi: katalogdaki "glow"; yoksa vurguya göre (sıcak altın / soğuk turkuaz).</summary>
         public static Color GlowColor(StoneDefinition s)

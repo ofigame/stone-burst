@@ -4,6 +4,10 @@ Son güncelleme: 2026-11-09. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
 
 ## Şu an
 
+- **2026-11-11, vr1 paketi P1 prototipi** (rapor: `docs/vr1/P1_TESLIM_RAPORU.md`, ekranlar `docs/vr1/p1_inceleme/`):
+  - Buzlu koleksiyon taşı, haritaya dönüş ödül akışı, taş açılışında kabuk kırılması, aday Harita/Günlük ikonları ve 7 prototip sesi eklendi.
+  - Hepsi varsayılan kapalı anahtarın arkasında; oyunun canlı görünümü değişmedi.
+  - Testler: EditMode 216/217 (1 atlandı), PlayMode 64/65 (1 atlandı), loc-check TAMAM. Cihazda denenmedi, sesler dinlenmedi.
 - **2026-11-11, vr1 paketi P0** (rapor: `docs/vr1/P0_TESLIM_RAPORU.md`):
   - Reklamlı ipucu artık yalnız doğrulanmış çözüm yolunun ilk komutunu öneriyor (bütün komut türleri). Plan yoksa reklam açılmıyor; bedel yalnız teslimde işleniyor.
   - ZPE hız bileşeni yalnız karar süresini kullanıyor (animasyon ve öğretici ayrı).

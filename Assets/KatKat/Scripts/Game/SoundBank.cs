@@ -82,6 +82,23 @@ namespace KatKat.Game
             return b;
         }
 
+        /// <summary>vr1 P1 prototip sesleri (Resources/Audio/Vr1; sentez prototipi, cihazda dinlenip miks onayı bekliyor).</summary>
+        private readonly System.Collections.Generic.Dictionary<string, AudioClip> _vr1 = new System.Collections.Generic.Dictionary<string, AudioClip>();
+        /// <summary>SFX kazancı taslağı (04_ANIMASYON_GORSEL_SES): 0,65; mevcut miksle dinlenerek ayarlanacak.</summary>
+        public const float Vr1Gain = 0.65f;
+
+        public void PlayVr1(string name)
+        {
+            if (!_enabled || string.IsNullOrEmpty(name)) return;
+            if (!_vr1.TryGetValue(name, out var clip))
+            {
+                clip = Resources.Load<AudioClip>("Audio/Vr1/" + name);
+                if (clip != null && clip.loadState == AudioDataLoadState.Unloaded) clip.LoadAudioData();
+                _vr1[name] = clip;
+            }
+            if (clip != null) PlayClip(clip, 1f, Vr1Gain);
+        }
+
         /// <summary>v10: normal bölüm zafer/ödül kartı ilk gösterilirken bir kez (WAV yoksa eski zafer sesi).</summary>
         public void PlayReward()
         {

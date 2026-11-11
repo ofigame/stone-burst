@@ -42,6 +42,10 @@ namespace KatKat.Meta
         /// <summary>Uygulama içi puan isteği (2026-11-09): kaç kez istendi, son istek (Unix sn).</summary>
         public int reviewAsks;
         public long reviewLast;
+        /// <summary>vr1 P1 (03_KOLEKSIYON_ODUL "Haritaya dönüş"): haritanın en son gösterdiği toplam yıldız ve tamamlanan bölüm
+        /// sayısı. Haritaya dönüşte aradaki net fark bir kez özetlenir; -1 = henüz yok (eski kayıt: fark gösterilmez).</summary>
+        public int mapSeenStars = -1;
+        public int mapSeenLevels = -1;
 
         public void Sanitize()
         {

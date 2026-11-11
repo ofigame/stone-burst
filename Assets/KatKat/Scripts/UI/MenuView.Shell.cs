@@ -315,6 +315,10 @@ namespace KatKat.UI
             public int Stars, From, To;
             public Sprite StoneSprite;
             public Color Glow;
+            /// <summary>vr1 P1: buzlu taş (asıl, bulanık olmayan görsel) ve ilerleme p (0..1, kazanılmadıkça &lt;1).</summary>
+            public Sprite SharpSprite;
+            public float P;
+            public bool Ice;
         }
 
         /// <summary>Sıradaki yıldız taşı hedefi (GameController ShowLevels öncesi doldurur; Has=false ise çubuk yok).</summary>
@@ -328,6 +332,7 @@ namespace KatKat.UI
         private void BuildStarGoal(RectTransform shell)
         {
             var g = NextStarGoal;
+            Vr1Fx = null;
             if (!g.Has) return;
 
             const float W = 190f, H = 262f;
@@ -341,6 +346,10 @@ namespace KatKat.UI
             b.onClick.AddListener(() => CollectionPressed?.Invoke());
             PressFeedback.Attach(b, null);
 
+            Vr1IceRefs iceRefs = null;
+            if (g.Ice) BuildIceStone(card, g, out iceRefs);
+            else
+            {
             // Buzlu çerçeve: koyu cam zemin + taş (soluk) + buz kabuğu + kilit.
             var glass = UiFactory.Image("Glass", card, UiArt.Box, UseV11 ? new Color32(0x2C, 0x7F, 0xC8, 0xC0) : new Color32(0x3A, 0x55, 0xA8, 0xB0), true);
             glass.raycastTarget = false;
@@ -365,15 +374,17 @@ namespace KatKat.UI
             lk.preserveAspect = true;
             // Kullanıcı (2026-11-08): kilit buzlu çerçevenin tam ortasında (çerçeve merkezi −88).
             UiFactory.Place(lk.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -88f), new Vector2(64f, 64f));
+            }
 
             // Seviye durumu: taşın renginde dolum + sayı.
             var track = UseV11
                 ? WhiteCapsule("Track", card, new Color32(0x12, 0x3E, 0x82, 0xF2), new Vector2(0.5f, 0f), new Vector2(0f, 38f), new Vector2(178f, 50f), 5f)
                 : GoldCapsule("Track", card, new Color32(0x3E, 0x22, 0x6E, 0xF2), new Vector2(0.5f, 0f), new Vector2(0f, 38f), new Vector2(178f, 50f), 5f);
             float k = g.To > g.From ? Mathf.Clamp01((g.Stars - g.From) / (float)(g.To - g.From)) : 1f;
-            if (k > 0.01f)
+            if (k > 0.01f || iceRefs != null)
             {
                 var fill = UiFactory.Image("Fill", track.transform, UiArt.Box, g.Glow, true);
+                if (iceRefs != null) iceRefs.Fill = fill.rectTransform;
                 fill.raycastTarget = false;
                 var fr = fill.rectTransform;
                 fr.anchorMin = new Vector2(0f, 0f); fr.anchorMax = new Vector2(k, 1f);
@@ -390,6 +401,7 @@ namespace KatKat.UI
             n.raycastTarget = false;
             UiFactory.Stretch(n.rectTransform, 26, 8, 0, 2);
             FitText(n, 16);
+            if (iceRefs != null) { iceRefs.Count = n; StartVr1Return(iceRefs, shell); }
         }
 
         // ---- v10 P5: ZPE (Zekâ Performans Endeksi; IQ değildir) ana sayfa kapsülü ve istatistik paneli -----------
@@ -811,8 +823,8 @@ namespace KatKat.UI
             bool mapOn = active == 1;
             var items = new[]
             {
-                new TabItem { Label = Loc.T("ui.map"), Icon = MapIcon(), On = mapOn, Act = mapOn ? null : levels },
-                new TabItem { Label = Loc.T("daily.short"), Icon = CalendarIcon(), On = active == TabDaily, Act = active == TabDaily ? null : (Action)(() => DailyPressed?.Invoke()) },
+                new TabItem { Label = Loc.T("ui.map"), Icon = Vr1Proto.On && Vr1Proto.NavMap ? Vr1Proto.NavMap : MapIcon(), On = mapOn, Act = mapOn ? null : levels },
+                new TabItem { Label = Loc.T("daily.short"), Icon = Vr1Proto.On && Vr1Proto.NavDaily ? Vr1Proto.NavDaily : CalendarIcon(), On = active == TabDaily, Act = active == TabDaily ? null : (Action)(() => DailyPressed?.Invoke()) },
                 new TabItem { Label = Loc.T("collection.short"), Icon = V11("icon-stones") ?? ShellArt("icon-crystal") ?? CrystalIconTemp(), On = active == TabCollection, Act = active == TabCollection ? null : (Action)(() => CollectionPressed?.Invoke()) },
             };
             BuildTabBarV11(holder, baseY, items);

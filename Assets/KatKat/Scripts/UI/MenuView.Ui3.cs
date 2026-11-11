@@ -197,6 +197,7 @@ namespace KatKat.UI
         {
             // Öğe 296×176, menünün üstünden 16 aşağıda: merkez y = baseY + 208 − 16 − 88.
             var hit = UiFactory.SpriteButton(it.Label, bar, null, new Vector2(w, 176f), it.Act);
+            if (it.Act != null) hit.onClick.AddListener(() => Vr1Proto.Play("ui-stone-tap")); // vr1 P1 prototip sesi (anahtar kapalıyken sessiz)
             hit.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
             UiFactory.Place((RectTransform)hit.transform, new Vector2(0.5f, 0f), new Vector2(x, baseY + 104f), new Vector2(w, 176f));
             if (it.On)
@@ -208,7 +209,7 @@ namespace KatKat.UI
             // Simge (104, 8, 88, 88) → merkez öğe üstünden 52 aşağı.
             var ic = Decor("Icon", hit.transform, it.Icon);
             ic.preserveAspect = true;
-            UiFactory.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -52f), new Vector2(88f, 88f));
+            UiFactory.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -52f), Vr1Proto.On && it.Icon != null && (it.Icon == Vr1Proto.NavMap || it.Icon == Vr1Proto.NavDaily) ? new Vector2(112f, 100f) : new Vector2(88f, 88f)); // vr1 aday ikonlarında saydam pay var
             // Yazı (16, 108, 264, 48) nav 32/800; seçili kapsül (28, 100, 240, 64) tabSelected, yazı onTeal.
             if (it.On)
             {

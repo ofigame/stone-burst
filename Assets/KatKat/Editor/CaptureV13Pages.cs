@@ -66,6 +66,74 @@ namespace KatKat.EditorTools
         }
 
         /// <summary>
+        /// vr1 P1 inceleme ekranları (docs/vr1/p1_inceleme/): prototip anahtarı kapalı/açık harita, buz evreleri 0–3,
+        /// haritaya dönüş (yıldız uçuşu ortası ve sonu), taş açılışında kabuk kırılması ve vitrin, bölüm başı bilgisi.
+        /// </summary>
+        public static void RunVr1P1()
+        {
+            Out = "../vr1/p1_inceleme/";
+            Directory.CreateDirectory(Path.Combine(PeelCapture.OutDir, Out));
+            EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            var keepLang = Loc.Code;
+            Loc.Set(CapLang, false);
+            GameController.ToursOverride = false;
+            GameController.ClockOverride = new FixedDayClock { DayId = "2026-11-08" };
+            try
+            {
+                Vr1Proto.Override = false;
+                Shot("p1_01_harita_prototip_kapali", gc => { Progress(gc, 12); gc.ShowLevels(); });
+                Vr1Proto.Override = true;
+                // Evreler: ilk yıldız taşı hedefinde toplam yıldız → p ≈ 0,08 / 0,33 / 0,58 / 0,92.
+                int[] totals = { 5, 20, 35, 55 };
+                for (int e = 0; e < totals.Length; e++)
+                {
+                    int total = totals[e];
+                    Shot($"p1_02_buz_evre{e}", gc => { Progress(gc, 2); TopUp(gc, total); Seen(gc); gc.ShowLevels(); });
+                }
+                Shot("p1_03_donus_ucus", gc => { Progress(gc, 12); Seen(gc, -6, -2); gc.ShowLevels(); gc.Menu.Vr1Fx?.Advance(420f); });
+                Shot("p1_04_donus_sonu", gc => { Progress(gc, 12); Seen(gc, -6, -2); gc.ShowLevels(); gc.Menu.Vr1Fx?.Advance(1800f); });
+                Shot("p1_05_acilis_kirilma", gc => { Unlock(gc); gc.ShowLevels(); gc.Menu.Vr1Fx?.Advance(1600f); });
+                Shot("p1_06_acilis_vitrin", gc => { Unlock(gc); gc.ShowLevels(); gc.Menu.Vr1Fx?.Advance(3500f); gc.Showcase.Advance(1500f); });
+                Shot("p1_07_bolum_basi_bilgi", gc => { Progress(gc, 12); TopUp(gc, 58); Seen(gc); gc.StartLevel(12); });
+            }
+            finally
+            {
+                Vr1Proto.Override = null;
+                GameController.ToursOverride = null;
+                GameController.ClockOverride = null;
+                Out = "../v13/";
+                Loc.Set(keepLang, false);
+            }
+        }
+
+        /// <summary>Toplam yıldızı günlük yıldızla <paramref name="total"/>'a tamamlar.</summary>
+        private static void TopUp(GameController gc, int total)
+        {
+            var d = gc.SaveService.Data;
+            d.meta.dailyStars = 0;
+            d.meta.dailyStars = Math.Max(0, total - d.TotalStars);
+        }
+
+        /// <summary>Haritanın son gördüğü değerler: bugünkü + fark (dönüş animasyonu için negatif).</summary>
+        private static void Seen(GameController gc, int stars = 0, int levels = 0)
+        {
+            var d = gc.SaveService.Data;
+            d.meta.mapSeenStars = d.TotalStars + stars;
+            d.meta.mapSeenLevels = d.completed.Count + levels;
+        }
+
+        /// <summary>58 yıldızda görülmüş harita, sonra 61 yıldız: 60 eşikli taş bu dönüşte açılır.</summary>
+        private static void Unlock(GameController gc)
+        {
+            Progress(gc, 12);
+            Own(gc);
+            TopUp(gc, 58);
+            Seen(gc);
+            TopUp(gc, 61);
+            Call(gc, "CheckStoneUnlocks");
+        }
+
+        /// <summary>
         /// Varlık kullanım taraması (ui3, APK küçültme): 35 ekran + her mekanik bloğundan bir bölümün çözümü sonuna kadar +
         /// her bölgenin haritası (ilerleme 1, 120, 220 → sahil/bahçe/çöl) + koleksiyon sonuna kadar kaydırma + her taşın
         /// vitrini. Resources'tan istenen yollar Logs/resource_usage_ui3.txt.

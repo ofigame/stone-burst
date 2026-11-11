@@ -129,6 +129,7 @@ namespace KatKat.Game
             _board.ScoreTarget = _hud.ScoreTarget;
             _board.IsGoalColor = _hud.IsGoalColor;
             _sound = SoundBank.Create(transform);
+            SetupVr1();
             _sound.Enabled = save.Data.sound;
             _music = MenuMusic.Create(transform);
             _music.Enabled = save.Data.sound;
@@ -202,12 +203,12 @@ namespace KatKat.Game
             AbandonDailyIfOpen();
             _hud.HidePanel();
             SetPhase(Phase.Loading);
-            _menu.NextStarGoal = NextStarGoal();
+            bool revealPending = PrepareMapGoal(); // vr1 P1: dönüş özeti ve (anahtar açıksa) buzlu taş
             var zpe = CurrentZpe();
             _menu.ZpeBadge = new MenuView.ZpeBadgeInfo { Has = true, Calibrating = zpe.Calibrating, Score = zpe.Score, Count = zpe.Count, Min = zpe.MinLevels };
             _menu.ShowLevels(_catalog.Count, ContinueIndex, i => _save.Data.IsCompleted(_catalog.IdAt(i)), ShowHome, -1, ShowSettings);
             _music.Enter();
-            FlushStoneToasts(false);
+            if (!revealPending) FlushStoneToasts(false); // açılan taş: önce kabuk kırılır, vitrin sonra (vr1 P1)
             CloudRetry();
         }
 
@@ -335,6 +336,7 @@ namespace KatKat.Game
             RefreshHint();
             if (normal) MainRulesBegin(); // v8: kural simgeleri, tür tanıtım / patron kartı
             SetPhase(Phase.Idle);
+            Vr1LevelStart();
             AfterBegin();
         }
 
@@ -602,6 +604,7 @@ namespace KatKat.Game
                     foreach (var h in wave.LockHits) opened |= h.RemainingAfter == 0;
                     opened |= wave.EnvelopeOpens.Count > 0;
                     if (opened) _sound.Play(Sfx.ClipOpen, 0, 0.8f);
+                    if (wave.GateOpens.Count > 0) KatKat.UI.Vr1Proto.Play("gate-open");
                     // Dalga başına tek ana ses. v10: dört vuruşlu zincir WAV'ı hamlenin ilk zincir dalgasında bir kez
                     // (sonrakilerde üst üste binmez, perde yükseltmesi yok); WAV yoksa eski kademeli sentez.
                     if (wave.Kind == WaveKind.Chain)
@@ -649,7 +652,10 @@ namespace KatKat.Game
                 return;
             }
             if (wave.Index == 0 && r.SpecialCreated != SpecialKind.None)
+            {
+                KatKat.UI.Vr1Proto.Play("special-charge");
                 _hud.ShowPraise(r.SpecialCreated == SpecialKind.Rainbow ? Loc.T("praise.rainbow") : Loc.T("praise.rocket"), 1);
+            }
             if (wave.Kind != WaveKind.Chain) return;
             string[] words = { Loc.T("praise.1"), Loc.T("praise.2"), Loc.T("praise.3"), Loc.T("praise.4") };
             int k = Mathf.Clamp(wave.Index - 1, 0, words.Length - 1);
@@ -886,6 +892,7 @@ namespace KatKat.Game
                 _interstitial?.LevelCompleted(_levelIndex + 1);
             }
             if (_sessionKind == KatKat.Meta.SessionKind.Normal) CheckStoneUnlocks();
+            if (_sessionKind == KatKat.Meta.SessionKind.Normal) _winsSinceMap++;
             TourOnWon();
             HeartOnWon();
             EndPlaceOffer();
