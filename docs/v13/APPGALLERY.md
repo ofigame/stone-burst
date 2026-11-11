@@ -101,5 +101,5 @@ Yerleşik tarayıcı yerel dosya seçemiyor. Ayrıca beyanları kullanıcı işa
 5. **Privacy tags:** kişisel veri toplanıyor mu sorusu. Huawei Ads reklam kimliği kullanır.
 6. **Yapay zeka beyanı.**
 7. **Telif kanıtı (Proof of copyright):** zorunlu alan.
-8. **Gizlilik politikası:** Huawei Ads bölümü eklenmeli. Şu an yalnız Google AdMob, Firebase ve Play Games anılıyor.
+8. **Gizlilik politikası:** Huawei Ads bölümü eklenmeli; taslak `docs/v13/GIZLILIK_HUAWEI_TASLAK.md` (TR + EN). Şu an yalnız Google AdMob, Firebase ve Play Games anılıyor.
 9. **Submit** (incelemeye gönder).
