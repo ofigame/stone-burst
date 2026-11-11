@@ -64,14 +64,21 @@ namespace KatKat.Game
 
         public bool MainHintOffered => _level != null && _lossLevelId == _level.Id && _levelLosses >= 2;
 
-        /// <summary>İpucu: kayıtlı çözümün ilk adımı (bölüm baştan başladığı için geçerli); yalnız dokunuş gösterilir.</summary>
+        /// <summary>
+        /// İpucu: kayıtlı çözümün ilk adımı (bölüm baştan başladığı için geçerli). vr1 P0 (01_IPUCU H05): kayıtlı yol mevcut
+        /// tahtada yeniden yürütülüp doğrulanır ve bütün komut türleri (tepsi, döndürme, boya, rulo) ücretli ipucuyla aynı
+        /// görselleştiriciyle gösterilir. Bedelsizdir; ilk kabul edilen hamlede söner.
+        /// </summary>
         private void ShowMainHint()
         {
             if (_session == null || _level.Solution.Count == 0) return;
-            var step = _level.Solution[0];
-            if (step.Type == "tap") _hint.Show(_board.CellCenter(step.X, step.Y), _board.Pitch);
-            else _hint.Hide();
-            _hud.ShowToast(Loc.T("trial.hint.toast"), 2.4f);
+            var saved = new List<Command>();
+            try { foreach (var st in _level.Solution) saved.Add(LevelLoader.ToCommand(st)); }
+            catch (System.FormatException) { return; }
+            var plan = HintPlanner.Plan(_session.State, 0, 0, new[] { saved });
+            _freePlan = plan.IsVerified ? plan : null;
+            RefreshHint();
+            if (_freePlan != null) _hud.ShowToast(Loc.T("trial.hint.toast"), 2.4f);
         }
     }
 }

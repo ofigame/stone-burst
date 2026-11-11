@@ -28,10 +28,33 @@ namespace KatKat.Meta
         public int movesUsed;
         public int moveLimit;
         public int moveBonus;
+        /// <summary>Çözüm süresi (sn). <see cref="timeVer"/> 2: yalnız karar süresi; 0: eski kayıt (animasyon dahil).</summary>
         public float seconds;
         public int algo;
+        /// <summary>Süre ölçüm sürümü (<see cref="SessionOutcome.TimeMeasureVersion"/>); eski kayıtta 0. Eski kayıtların
+        /// süresi geriye dönük düzeltilemez (ayrılmış süre eskide yok).</summary>
+        public int timeVer;
+        /// <summary>Bilgi (ZPE hesabına girmez): animasyon ve zorunlu öğretici süresi.</summary>
+        public float animSeconds, tutorialSeconds;
         /// <summary>UTC unix saniyesi.</summary>
         public long time;
+
+        /// <summary>Oturum sonucundan ZPE kaydı: hız bileşeni karar süresini kullanır.</summary>
+        public static ZpeRecord From(SessionOutcome o, long time) => new ZpeRecord
+        {
+            levelId = o.LevelId,
+            success = o.Success,
+            firstAttempt = o.FirstAttempt,
+            assisted = o.Assisted,
+            movesUsed = o.MovesUsed,
+            moveLimit = o.MoveLimit,
+            moveBonus = o.MoveBonus,
+            seconds = (float)o.DecisionSeconds,
+            timeVer = SessionOutcome.TimeMeasureVersion,
+            animSeconds = (float)o.AnimationSeconds,
+            tutorialSeconds = (float)o.TutorialSeconds,
+            time = time,
+        };
     }
 
     public sealed class ZpeLevelRef

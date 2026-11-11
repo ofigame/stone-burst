@@ -132,18 +132,8 @@ namespace KatKat.Game
             var before = CurrentZpe();
             _zpeBefore = before.Calibrating ? -1 : before.Score;
             _zpeLastOutcome = o;
-            Zpe.Add(_save.Data.meta, _zpeLast = new ZpeRecord
-            {
-                levelId = o.LevelId,
-                success = o.Success,
-                firstAttempt = o.FirstAttempt,
-                assisted = o.Assisted,
-                movesUsed = o.MovesUsed,
-                moveLimit = o.MoveLimit,
-                moveBonus = o.MoveBonus,
-                seconds = (float)o.ActiveSeconds,
-                time = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
-            }, ZpeRef, _zpeConfig ?? new ZpeConfig());
+            // vr1 P0 (02_ZPE): hız bileşeni yalnız karar süresinden (animasyon/öğretici/reklam/modal hariç).
+            Zpe.Add(_save.Data.meta, _zpeLast = ZpeRecord.From(o, DateTimeOffset.UtcNow.ToUnixTimeSeconds()), ZpeRef, _zpeConfig ?? new ZpeConfig());
             _save.Save();
         }
 
@@ -179,12 +169,26 @@ namespace KatKat.Game
             return d == 0 ? null : Loc.F("zpe.change", z.Score, (d > 0 ? "+" : "") + d);
         }
 
-        private void OutcomeTick(float dt)
+        /// <summary>Uygulama odağı (bildirim perdesi, tam ekran reklam): odak yokken süre sayılmaz.</summary>
+        private bool _appFocused = true;
+
+        private void OnApplicationFocus(bool focus) => _appFocused = focus;
+
+        /// <summary>
+        /// vr1 P0 (02_ZPE): süre üç sayaca ayrılır. Karar: oyuncu girdi verebilirken (Idle/Targeting). Animasyon: hamle
+        /// oynatması. Öğretici: zorunlu tur. Duraklatma/modal, menü, reklam, odak kaybı ve ipucu hazırlığı sayılmaz.
+        /// </summary>
+        private PlayTime OutcomeTimeKind()
         {
-            if (_outcome == null || _outcome.Finished || _menu == null || _menu.IsOpen || _hud.PanelOpen) return;
-            if (CurrentPhase == Phase.Idle || CurrentPhase == Phase.Animating || CurrentPhase == Phase.Targeting)
-                _outcome.ActiveSeconds += Mathf.Min(dt, 0.5f); // arka plandan dönüşteki büyük kare süresi sayılmaz
+            if (_outcome == null || _outcome.Finished || _menu == null || _menu.IsOpen || _hud.PanelOpen || !_appFocused) return PlayTime.None;
+            if (_adScreen != null && _adScreen.IsOpen) return PlayTime.None;
+            if (_hintStage != HintStage.Idle) return PlayTime.None;
+            if (CurrentPhase == Phase.Animating) return PlayTime.Animation;
+            if (CurrentPhase != Phase.Idle && CurrentPhase != Phase.Targeting) return PlayTime.None;
+            return _tourOn ? PlayTime.Tutorial : PlayTime.Decision;
         }
+
+        private void OutcomeTick(float dt) => _outcome?.Tick(OutcomeTimeKind(), dt);
 
         // ---- B: koleksiyon ve günlük bulmaca ------------------------------------------------------------------
 

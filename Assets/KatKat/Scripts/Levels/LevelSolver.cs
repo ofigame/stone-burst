@@ -126,6 +126,9 @@ namespace KatKat.Levels
             return list;
         }
 
+        /// <summary>Durum anahtarı (ipucu eşdeğerliği de kullanır): puan hariç bütün mantıksal durum.</summary>
+        public static string StateKey(LevelState s) => Key(s);
+
         private static string Key(LevelState s)
         {
             var sb = new StringBuilder();

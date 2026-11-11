@@ -4,6 +4,14 @@ Son güncelleme: 2026-11-09. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
 
 ## Şu an
 
+- **2026-11-11, vr1 paketi P0** (rapor: `docs/vr1/P0_TESLIM_RAPORU.md`):
+  - Reklamlı ipucu artık yalnız doğrulanmış çözüm yolunun ilk komutunu öneriyor (bütün komut türleri). Plan yoksa reklam açılmıyor; bedel yalnız teslimde işleniyor.
+  - ZPE hız bileşeni yalnız karar süresini kullanıyor (animasyon ve öğretici ayrı).
+  - Yeniden başlatmada ipucu bedelinin taşınması hatası düzeltildi.
+  - Testler: EditMode 211/212 geçti (1 elle çalıştırılan test atlandı), loc-check TAMAM. PlayMode 60/62: 1 atlandı, 1 eski koleksiyon testi başarısızdı; test güncellendi ve DailyFlowTests 4/4 geçti. Tam PlayMode bundan sonra yeniden koşulmadı.
+  - Cihazda denenmedi, derlenmedi.
+  - P1–P3 başlamadı. Açık ürün kararlarına (ZPE ağırlıkları, ipucu bedeli, günlük ücretsiz giriş) dokunulmadı.
+
 - **2026-11-08 (gece), zincir kuralı v13** (kullanıcı: "Altından birlikte çıkan 3+ aynı renk patlar"):
   - 1000 bölüm, 240 günlük ve deneme seti yeni kurala uyarlandı; tahtalar korundu. Rapor: `docs/v13/ZINCIR_RAPOR.md`.
   - report, stres, Core ve EditMode testleri, PlayMode 48/48 geçti.

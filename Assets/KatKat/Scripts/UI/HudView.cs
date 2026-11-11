@@ -1228,6 +1228,7 @@ namespace KatKat.UI
             TickVeil(Time.unscaledDeltaTime);
             TickScore(Time.unscaledDeltaTime);
             TickPraise(Time.unscaledDeltaTime);
+            TickHintMark();
             if (_targeting)
             {
                 // Satır seçme modunda altın hale düşük genlikle ~1.8 s periyotla nabız atar (v3 §7).

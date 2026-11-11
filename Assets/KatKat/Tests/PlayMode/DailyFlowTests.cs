@@ -187,7 +187,7 @@ namespace KatKat.Tests
 
         /// <summary>v10 P2.6: koleksiyon 22 öğeyi kategorilerle gösterir; görseller gerçek sprite; kilitli hazinenin adı gizli.</summary>
         [Test]
-        public void Collection_Shows22Items_WithRealArt()
+        public void Collection_Shows12Items_WithRealArt_TreasuresHidden()
         {
             foreach (var s in _gc.Stones.Stones)
             {
@@ -198,13 +198,12 @@ namespace KatKat.Tests
             var cells = new List<GameObject>();
             foreach (var rt in Object.FindObjectsByType<RectTransform>(FindObjectsSortMode.None))
                 if (rt.gameObject.activeInHierarchy && rt.name.StartsWith("Item_")) cells.Add(rt.gameObject);
-            Assert.AreEqual(22, cells.Count);
+            // 2026-11-11: hazine bulma bölümlere bağlı olmadığından bulunmamış Gizli Hazineler gösterilmez (10 yıldız + 2 efsane).
+            Assert.AreEqual(12, cells.Count);
             var tide = cells.Find(c => c.name == "Item_stone_tide");
             Assert.AreEqual("stone_tide", tide.transform.Find("Icon").GetComponent<Image>().sprite.name, "Gelgit Taşı gerçek görselle");
-            var ruby = cells.Find(c => c.name == "Item_treasure_ruby_cup");
-            var tmp = ruby.transform.Find("NamePill/Name").GetComponent("TextMeshProUGUI");
-            Assert.AreEqual("???", (string)tmp.GetType().GetProperty("text").GetValue(tmp), "bulunmamış hazinenin adı gizli");
-            Assert.AreEqual(2, Object.FindObjectsByType<RectTransform>(FindObjectsSortMode.None).Count(r => r.gameObject.activeInHierarchy && r.name == "Section"), "ilk kategori sabit kapsülde, diğer ikisi içerikte");
+            Assert.IsNull(cells.Find(c => c.name == "Item_treasure_ruby_cup"), "bulunmamış hazine gösterilmez");
+            Assert.AreEqual(1, Object.FindObjectsByType<RectTransform>(FindObjectsSortMode.None).Count(r => r.gameObject.activeInHierarchy && r.name == "Section"), "ilk kategori sabit kapsülde, efsaneler içerikte");
             Assert.IsNotNull(GameObject.Find("CategoryCapsule"), "sabit kategori kapsülü");
         }
 

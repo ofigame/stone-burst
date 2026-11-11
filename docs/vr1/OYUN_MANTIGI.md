@@ -432,13 +432,24 @@ Kaynak: `S/Levels/Meta/Hearts.cs`, `S/Game/GameController.Hearts.cs`.
 
 | Yardım | Bedel | Sınır | Ne yapar |
 |---|---|---|---|
-| **Reklamlı ipucu** (ampul) | Ödüllü reklam + o bölümden kazanılan yıldız −1 (en az 1) | Yalnız normal bölüm, deneme başına 1 | Sıradaki iyi hamleyi parlatır. Önce sınırlı bir çözücü (40.000 durum) dener. Bulamazsa hedefe en çok katkı yapan dokunuşu seçer. |
-| **Kayıp sonrası ipucu** | Ücretsiz | Aynı bölümde 2. kayıptan sonra | Bölüm baştan başlar, kayıtlı çözümün ilk dokunuşu gösterilir |
+| **Reklamlı ipucu** (ampul) | Ödüllü reklam + o bölümden kazanılan yıldız −1 (en az 1). Bedel yalnız öneri teslim edilince işlenir. | Yalnız normal bölüm, deneme başına 1 (yeniden başlatma yeni denemedir) | 2026-11-11'den beri doğrulanmış çözüm yolunun ilk komutunu gösterir (dokunuş, tepsi, döndürme, boya, rulo). Plan bulunamazsa reklam açılmaz, hak kullanılmaz. Ayrıntı aşağıda. |
+| **Kayıp sonrası ipucu** | Ücretsiz | Aynı bölümde 2. kayıptan sonra | Bölüm baştan başlar; kayıtlı çözümün ilk adımı (her komut türü) doğrulanıp gösterilir |
 | **Deneme ipucu** | Ücretsiz | Denemede 2 kayıptan sonra | Çözücü (300.000 durum) sıradaki hamleyi gösterir |
 | **Öğretici halka** | — | Bölüm 1, 2, 11, 21, 41, 61, 121, 201, 301 | Kayıtlı çözümün ilk adımı |
 | **Katman görünümü** | Ücretsiz | Her zaman | Yığına 0,42 sn basılı tutunca bütün katmanlar görünür |
 | **Geri al** | Ücretsiz | Tek adım | Bkz. §3.6 |
 | **+1 hamle ve taş** | Ödüllü reklam | Bölüm başına 1 | Bkz. §16 |
+
+**Reklamlı ipucu akışı (2026-11-11, vr1 P0):**
+1. Hazırlanıyor: tahta kopyasında arka planda çalışır. Önce kayıtlı çözüm denenir, sonra en-iyi-önce arama yapılır (40.000 durum + 750 ms).
+2. Plan yoksa "güvenilir ipucu hazırlanamadı, hakkın kullanılmadı" yazar; reklam açılmaz.
+3. Plan varsa reklam açılır.
+4. Ödül gelince plan yeniden doğrulanır.
+5. Teslim: bedel bu adımda işlenir.
+
+Başka hamle ya da geri almadan sonra plan aynı hakla ücretsiz yeniden çözülür. Öneri uygulanınca hak biter. Kaynak: `S/Levels/HintPlanner.cs`, `S/Game/GameController.Hint.cs`.
+
+Masaüstü ölçümü (oyun ortasında 100 durum): eski çözücü 56'sında dokunuş önerisi bulabiliyordu, yeni planlayıcı 99'unda doğrulanmış yol buldu. Ortalama 51 ms, en çok 752 ms. Cihaz süresi ölçülmedi.
 
 **Yardımların etkisi:**
 - Reklam yardımı alan oturum (reklamlı ipucu, +1 hamle) **ZPE'ye hiç yazılmaz**, kazandığı yıldız da **sıralama yıldızına sayılmaz**.
@@ -499,7 +510,7 @@ En az 15 tamamlanmış bölüm, yardımsız 3 yıldızlı bir galibiyetten sonra
 | Hamle verimi | %35 | Kayıtlı çözüm adımı kadar ya da daha az hamle = 1. Limite yaklaştıkça doğrusal düşer. |
 | Zorluğa göre başarı | %25 | 0,35 + 0,65 × (1 − botun kazanma oranı) |
 | İlk denemede başarı | %20 | İlk denemeyse 1, değilse 0,4 |
-| Çözüm hızı | %10 | min(1, (6 + 4 × adım) / saniye) |
+| Çözüm hızı | %10 | min(1, (6 + 4 × adım) / saniye). 2026-11-11'den beri saniye = yalnız **karar süresi** (aşağıda) |
 | Yardımsız bitirme | %10 | Yardımsızsa 1, değilse 0,3 |
 
 **Endeks:**
@@ -508,6 +519,14 @@ En az 15 tamamlanmış bölüm, yardımsız 3 yıldızlı bir galibiyetten sonra
 - Eğilim (son 10 bölüm ile önceki 10 bölümün farkı) en az 20 kayıttan sonra hesaplanır.
 - Bölüm sonunda "ZPE x (±d)" gösterilir.
 - Kayıp kartından geri alınıp sürdürülen oturum çift sayılmaz: önceki kayıt geri çekilir.
+
+**Süre ölçümü (2026-11-11, vr1 P0, `timeVer` 2):**
+- Süre üç sayaca ayrılır.
+- Karar süresi yalnız oyuncu girdi verebilirken artar: tahta durgunken ya da rulo satırı seçilirken. Hız bileşeni yalnız bu süreyi kullanır.
+- Hamle, zincir ve özel taş animasyonu ile zorunlu öğretici turu ayrı sayılır; ZPE'ye girmez.
+- Hiç sayılmayanlar: duraklatma ve diğer kartlar, menü, reklam ekranı, uygulamanın odak kaybı ya da arka planda olması, ipucu hazırlığı.
+- Eski kayıtların süresi (animasyon dahil, `timeVer` 0) geriye dönük düzeltilemez; olduğu gibi kalır.
+- Ağırlıklar ve endeks formülü değişmedi.
 
 Kaynak: `S/Levels/Meta/Zpe.cs`, `R/Zpe/zpe_config.json`, `R/Zpe/level_ref.json`.
 

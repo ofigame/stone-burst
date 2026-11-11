@@ -591,12 +591,28 @@ namespace KatKat.Tests
             AssertViewMatchesState();
         }
 
+        /// <summary>Bir komutu oyuncu girdisi gibi uygular (tepsi: yuva → hücre; boya ve rulo: PlayStep).</summary>
+        private void ApplyAsPlayer(Command c)
+        {
+            switch (c.Type)
+            {
+                case CommandType.Tap: _gc.OnCellPressed(c.X, c.Y); break;
+                case CommandType.Rotate: _gc.OnRotorPressed(c.X, c.Y); break;
+                case CommandType.UseSpecial: _gc.PressTraySlot(c.Slot); _gc.OnCellPressed(c.X, c.Y); break;
+                default:
+                    _gc.PlayStep(new StepData { Type = c.Type == CommandType.Paint ? "paint" : "roll", X = c.X, Y = c.Y, Row = c.Row,
+                        Color = c.Type == CommandType.Paint ? ColorIds.ToId(c.Color) : null });
+                    break;
+            }
+        }
+
         /// <summary>
-        /// Kullanıcı (2026-11-09): "ipucunu aldığımda o ipucuna tekrar tekrar bakabilmem lazım". Reklamlı ipucu başka
-        /// hamleden sonra da kalır, düğme reklamsız yeniden gösterir; önerilen taş oynanınca hak biter.
+        /// Kullanıcı (2026-11-09): "ipucunu aldığımda o ipucuna tekrar tekrar bakabilmem lazım". vr1 P0 (01_IPUCU): öneri
+        /// doğrulanmış plandır; başka hamleden sonra aynı hakla ücretsiz yeniden çözülür, düğme reklamsız yeniden gösterir;
+        /// önerilen komut uygulanınca hak biter.
         /// </summary>
         [UnityTest]
-        public IEnumerator PaidHint_StaysUntilHintedTileIsPlayed_ButtonShowsItAgain()
+        public IEnumerator PaidHint_VerifiedPlan_StaysUntilApplied_OtherMoveReplansFree()
         {
             _gc.StartLevel(40);
             _gc.Board.Director.TimeScale = Speed;
@@ -605,44 +621,152 @@ namespace KatKat.Tests
             fake.Next = KatKat.Meta.AdOutcome.Rewarded;
             int shown = fake.Shown;
             _gc.PressHintForTest();
+            Assert.IsTrue(_gc.HintPreparing, "plan arka planda hazırlanır");
+            Assert.AreEqual(shown, fake.Shown, "plan hazır olmadan reklam yok");
+            _gc.CompleteHintJobForTest();
             Assert.AreEqual(shown + 1, fake.Shown, "reklam bir kez");
-            Assert.IsTrue(_gc.PaidHintCell.HasValue, "ipucu hücresi");
-            Assert.IsTrue(_gc.HintRingVisible, "halka görünür");
-            var hint = _gc.PaidHintCell.Value;
+            Assert.IsTrue(_gc.PaidHintUsed, "öneri teslim edildi: bedel işlendi");
+            Assert.IsTrue(_gc.PaidHintCommand.HasValue, "ipucu komutu");
+            Assert.IsTrue(_gc.HintRingVisible || _gc.Hud.HintMarkTarget != KatKat.UI.HudView.HintUi.None, "öneri görünür");
 
-            // Başka bir dokunuş: ipucu kalır.
+            // Planın beklediği sonuca ulaşmayan başka bir dokunuş: plan düşer, aynı hakla ücretsiz yeniden çözülür.
+            var expected = _gc.Session.State.Clone();
+            RulesEngine.TryApply(expected, _gc.PaidHintCommand.Value);
+            string expectedKey = LevelSolver.StateKey(expected);
             Command? other = null;
             foreach (var c in LevelSolver.Moves(_gc.Session.State))
             {
-                if (c.Type != CommandType.Tap || (c.X == hint.X && c.Y == hint.Y)) continue;
+                if (c.Type != CommandType.Tap) continue;
                 var probe = _gc.Session.State.Clone();
-                if (RulesEngine.TryApply(probe, c).Accepted && !probe.IsTerminal) { other = c; break; }
+                if (RulesEngine.TryApply(probe, c).Accepted && !probe.IsTerminal && LevelSolver.StateKey(probe) != expectedKey) { other = c; break; }
             }
             Assert.IsTrue(other.HasValue, "ipucu dışında oynanabilir dokunuş");
             _gc.OnCellPressed(other.Value.X, other.Value.Y);
             yield return WaitStable();
+            _gc.CompleteHintJobForTest();
             Assert.AreEqual(GameController.Phase.Idle, _gc.CurrentPhase);
-            Assert.IsTrue(_gc.PaidHintCell.HasValue, "başka hamleden sonra ipucu sürüyor");
-            Assert.IsTrue(_gc.HintRingVisible, "tahta durunca halka yeniden görünür");
-
-            // Düğme: reklamsız yeniden gösterir.
+            Assert.IsFalse(_gc.HintConsumed, "başka hamle hakkı bitirmez");
+            Assert.AreEqual(shown + 1, fake.Shown, "yeniden çözüm reklamsız");
+            if (!_gc.PaidHintCommand.HasValue)
+            {
+                Assert.IsTrue(_gc.HintCreditOpen, "plan bulunamazsa hak durur (tahmin gösterilmez)");
+                yield break;
+            }
+            Assert.IsTrue(_gc.HintRingVisible || _gc.Hud.HintMarkTarget != KatKat.UI.HudView.HintUi.None, "yeni plan görünür");
             _gc.PressHintForTest();
             Assert.AreEqual(shown + 1, fake.Shown, "ikinci basışta reklam yok");
-            Assert.IsTrue(_gc.HintRingVisible);
 
-            // Önerilen taş oynanınca hak biter.
-            hint = _gc.PaidHintCell.Value;
-            _gc.OnCellPressed(hint.X, hint.Y);
+            // Önerilen komut uygulanınca hak biter.
+            ApplyAsPlayer(_gc.PaidHintCommand.Value);
             yield return WaitStable();
             yield return WaitCelebration();
-            Assert.IsFalse(_gc.PaidHintCell.HasValue, "önerilen taş oynandı");
+            Assert.IsTrue(_gc.HintConsumed, "önerilen komut uygulandı");
+            Assert.IsFalse(_gc.PaidHintCommand.HasValue);
             Assert.IsTrue(_gc.PaidHintUsed);
             if (!_gc.Session.State.IsTerminal)
             {
                 _gc.PressHintForTest();
                 Assert.AreEqual(shown + 1, fake.Shown, "hak bitince yeni reklam yok");
-                Assert.IsFalse(_gc.HintRingVisible);
+                Assert.IsFalse(_gc.HintPreparing);
             }
+        }
+
+        /// <summary>H06: reklam iptal/başarısız → yıldız bedeli, hak ve yardım bayrağı değişmez.</summary>
+        [UnityTest]
+        public IEnumerator PaidHint_AdCancelledOrFailed_ChangesNothing()
+        {
+            _gc.StartLevel(40);
+            _gc.Board.Director.TimeScale = Speed;
+            yield return WaitStable();
+            var fake = GameController.FakeAds;
+            try
+            {
+                foreach (var o in new[] { KatKat.Meta.AdOutcome.Cancelled, KatKat.Meta.AdOutcome.Failed })
+                {
+                    fake.Next = o;
+                    int shown = fake.Shown;
+                    _gc.PressHintForTest();
+                    _gc.CompleteHintJobForTest();
+                    Assert.AreEqual(shown + 1, fake.Shown, o.ToString());
+                    Assert.IsFalse(_gc.PaidHintUsed, o + ": bedel yok");
+                    Assert.IsFalse(_gc.HintCreditOpen, o + ": hak yok");
+                    Assert.IsFalse(_gc.PaidHintCommand.HasValue, o + ": öneri yok");
+                }
+            }
+            finally { fake.Next = KatKat.Meta.AdOutcome.Rewarded; }
+        }
+
+        /// <summary>H07: yinelenen ödül geri çağrısı tek teslim üretir.</summary>
+        [UnityTest]
+        public IEnumerator PaidHint_DuplicateRewardCallback_SingleGrant()
+        {
+            _gc.StartLevel(40);
+            _gc.Board.Director.TimeScale = Speed;
+            yield return WaitStable();
+            var fake = GameController.FakeAds;
+            fake.Next = KatKat.Meta.AdOutcome.Rewarded;
+            fake.DuplicateCallback = true;
+            try
+            {
+                int grants = GameController.HintGrantsForTest;
+                _gc.PressHintForTest();
+                _gc.CompleteHintJobForTest();
+                Assert.AreEqual(grants + 1, GameController.HintGrantsForTest, "tek teslim");
+                Assert.IsTrue(_gc.PaidHintUsed);
+            }
+            finally { fake.DuplicateCallback = false; }
+        }
+
+        /// <summary>H04/H06: güvenilir plan bulunamazsa reklam açılmaz; hak, yıldız ve yardım değişmez.</summary>
+        [UnityTest]
+        public IEnumerator PaidHint_NoPlan_NoAd()
+        {
+            _gc.StartLevel(40);
+            _gc.Board.Director.TimeScale = Speed;
+            yield return WaitStable();
+            // Kayıtlı çözümden sap (kayıtlı yol aday olarak doğrulanamasın): son kabul edilen dokunuş.
+            Command? dev = null;
+            foreach (var c in LevelSolver.Moves(_gc.Session.State))
+            {
+                if (c.Type != CommandType.Tap) continue;
+                var probe = _gc.Session.State.Clone();
+                if (RulesEngine.TryApply(probe, c).Accepted && !probe.IsTerminal) dev = c;
+            }
+            Assert.IsTrue(dev.HasValue);
+            _gc.OnCellPressed(dev.Value.X, dev.Value.Y);
+            yield return WaitStable();
+            int nodes = GameController.HintNodeBudget;
+            GameController.HintNodeBudget = 1;
+            try
+            {
+                var fake = GameController.FakeAds;
+                int shown = fake.Shown;
+                _gc.PressHintForTest();
+                _gc.CompleteHintJobForTest();
+                if (_gc.PaidHintCommand.HasValue) Assert.Inconclusive("1 düğümle de doğrulanmış yol bulundu");
+                Assert.AreEqual(shown, fake.Shown, "plan yoksa reklam yok");
+                Assert.IsFalse(_gc.PaidHintUsed);
+                Assert.IsFalse(_gc.HintCreditOpen);
+            }
+            finally { GameController.HintNodeBudget = nodes; }
+        }
+
+        /// <summary>Yeniden başlatma yeni denemedir: ipucu hakkı ve bedeli sıfırlanır (önceden bedel sonraki denemeye taşınıyordu).</summary>
+        [UnityTest]
+        public IEnumerator PaidHint_Restart_ResetsAttempt()
+        {
+            _gc.StartLevel(40);
+            _gc.Board.Director.TimeScale = Speed;
+            yield return WaitStable();
+            GameController.FakeAds.Next = KatKat.Meta.AdOutcome.Rewarded;
+            _gc.PressHintForTest();
+            _gc.CompleteHintJobForTest();
+            Assert.IsTrue(_gc.PaidHintUsed);
+            _gc.Restart();
+            yield return WaitStable();
+            Assert.IsFalse(_gc.PaidHintUsed, "yeni deneme: bedel yok");
+            Assert.IsFalse(_gc.HintCreditOpen);
+            Assert.IsFalse(_gc.PaidHintCommand.HasValue);
         }
 
         /// <summary>

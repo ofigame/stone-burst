@@ -48,18 +48,45 @@ namespace KatKat.Meta
         public bool Finished;
         public bool Success;
         public AssistFlags Assists;
-        /// <summary>Oyuncunun etkin süresi (duraklatma ve uygulama arka plandayken sayılmaz).</summary>
+        /// <summary>Oyuncunun etkin süresi (duraklatma ve uygulama arka plandayken sayılmaz): karar + animasyon + öğretici.</summary>
         public double ActiveSeconds;
+        /// <summary>vr1 P0 (02_ZPE): oyuncunun gerçekten girdi verebildiği karar süresi (Idle/Targeting). ZPE hız
+        /// bileşeni yalnız bunu kullanır; hamle animasyonu, reklam, modal, zorunlu öğretici ve ipucu hazırlığı girmez.</summary>
+        public double DecisionSeconds;
+        /// <summary>Hamle/zincir/özel taş oynatma süresi (ZPE dışı; telemetri).</summary>
+        public double AnimationSeconds;
+        /// <summary>Zorunlu öğretici turunda geçen süre (ZPE dışı).</summary>
+        public double TutorialSeconds;
         /// <summary>Günlük oturumda: gün + bulmaca + içerik sürümü kimliği.</summary>
         public string DailyKey;
+
+        /// <summary>Süre ölçüm sürümü: 0 = eski (animasyon dahil tek sayaç), 2 = karar süresi ayrı (2026-11-11).</summary>
+        public const int TimeMeasureVersion = 2;
+
+        /// <summary>Bir karelik süreyi doğru sayaca ekler. Büyük kare (arka plandan dönüş) en çok <see cref="MaxFrame"/> sayılır.</summary>
+        public void Tick(PlayTime kind, double dt)
+        {
+            if (Finished || kind == PlayTime.None || dt <= 0) return;
+            if (dt > MaxFrame) dt = MaxFrame;
+            ActiveSeconds += dt;
+            if (kind == PlayTime.Decision) DecisionSeconds += dt;
+            else if (kind == PlayTime.Animation) AnimationSeconds += dt;
+            else TutorialSeconds += dt;
+        }
+
+        public const double MaxFrame = 0.5;
 
         public bool Assisted => Assists != AssistFlags.None;
         public bool Has(AssistFlags f) => (Assists & f) == f;
 
         public override string ToString() =>
             $"{Kind} {LevelId} [{ContentVersion}] deneme {AttemptNumber}{(FirstAttempt ? " (ilk)" : "")} hamle {MovesUsed}/{MoveLimit}" +
-            $"{(MoveBonus > 0 ? $" (+{MoveBonus})" : "")} {(Finished ? (Success ? "başarı" : "başarısız") : "sürüyor")} yardım {Assists} süre {ActiveSeconds:0.0}s";
+            $"{(MoveBonus > 0 ? $" (+{MoveBonus})" : "")} {(Finished ? (Success ? "başarı" : "başarısız") : "sürüyor")} yardım {Assists} süre {ActiveSeconds:0.0}s (karar {DecisionSeconds:0.0}s, anim {AnimationSeconds:0.0}s, öğretici {TutorialSeconds:0.0}s)";
     }
+
+    /// <summary>Bir karelik sürenin türü (<see cref="SessionOutcome.Tick"/>). None: sayılmaz (duraklatma, modal, reklam,
+    /// odak kaybı, ipucu hazırlığı, bitiş kutlaması).</summary>
+    public enum PlayTime { None, Decision, Animation, Tutorial }
 
     /// <summary>İçerik sürüm etiketleri (sonuç modeli ve günlük durum anahtarı için).</summary>
     public static class ContentVersions

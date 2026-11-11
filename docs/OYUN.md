@@ -46,8 +46,21 @@ Veri kimlikleri (`Coral/Blue/Yellow/Purple`, `Rainbow`) eski adlarıyla kalır; 
 ### Reklamlı ipucu (2026-11-08)
 
 - Normal bölümde alt çubukta ampul düğmesi; üzerinde bedeli gösteren "−1 ★" rozeti.
-- Ödüllü reklam izlenince sıradaki önerilen dokunuş halkayla gösterilir. Hamle önerisini önce kısa bütçeli çözücü bulur; bulamazsa hedefe en çok katkı yapan dokunuş seçilir. Halka, oyuncu bir hamle yapınca söner.
-- Deneme başına 1 ipucu. Bedel: o bölümden kazanılan yıldız 1 azalır (en az 1). Reklam yardımlı oturum sayıldığı için sıralama yıldızına yazılmaz (reklam kuralı).
+- **Güvenilirlik düzeltmesi (2026-11-11, vr1 P0; `docs/vr1/claude_code_paketi_v1/belgeler/01_IPUCU.md`):**
+  - Basınca önce "İpucu hazırlanıyor…" görünür. Tahtanın kopyasında arka planda doğrulanmış bir çözüm yolu aranır: önce kayıtlı çözüm ve önceki planın kalanı, sonra hedef ilerlemesine göre en-iyi-önce arama (40.000 durum + 750 ms).
+  - Öneri, motorla yeniden yürütülüp kazanca ulaştığı doğrulanan yolun ilk komutudur. Kayba götüren ya da doğrulanamayan hamle önerilmez; tahmine geçilmez.
+- Plan bulunamazsa reklam açılmaz: "Bu konum için güvenilir ipucu hazırlanamadı. İpucu hakkın kullanılmadı." Oyun çözümsüz ilan edilmez.
+- Plan varsa ödüllü reklam açılır. Ödül gelince plan mevcut tahtada yeniden doğrulanır, sonra gösterilir.
+- Öneri her komut türünde olabilir:
+  - Dokunuş: taşta altın çerçeve.
+  - Tepsi: önce yuvada altın halka; yuva seçilince hedef hücre.
+  - Döndürme: taban düğmesi.
+  - Boya: boya düğmesi → hücre → renk yazısı.
+  - Rulo: rulo düğmesi → satır.
+- Bedel ve "reklam yardımlı" bayrağı yalnız öneri teslim edilince işlenir. Reklam iptal olur ya da başarısız olursa hiçbir şey değişmez. Yinelenen ödül tek teslim sayılır.
+- Öneri uygulanana kadar düğme reklamsız aynı öneriyi gösterir. Başka hamle ya da geri almadan sonra eski öneri gizlenir ve aynı hakla ücretsiz yeni plan çözülür. Aynı grubun başka hücresine dokunmak aynı sonucu veriyorsa öneri uygulanmış sayılır.
+- Deneme başına 1 ipucu; **yeniden başlatma yeni denemedir**. 2026-11-11'e kadar bedel yeniden başlatılan denemeye taşınıyordu, sıralama ise o denemeyi yardımsız sayıyordu.
+- Bedel: o bölümden kazanılan yıldız 1 azalır (en az 1). Reklam yardımlı oturum sıralama yıldızına ve ZPE'ye yazılmaz.
 
 ### Kalpler (2026-11-09)
 
@@ -104,7 +117,7 @@ Kural verilir, strateji verilmez. v7 tahtaları korunur; takvimdeki bölümler b
 
 - 10'luk döngü: 7. ve 8. bölüm tür bölümü, 10. bölüm patron; diğerleri normal (v7 aynen).
 - Kural simgeleri hedef kabuğunun sağında (dokununca kural cümlesi). Kural kartı yalnız türün ilk görüldüğü bölümde ve patronlarda (`meta.seenTypes`).
-- Aynı bölümde 2 kayıptan sonra kayıp kartında **İpucu**: bölüm baştan başlar, yalnız ilk doğru hamle gösterilir (ZPE'de yardımlı).
+- Aynı bölümde 2 kayıptan sonra kayıp kartında **İpucu**: bölüm baştan başlar, yalnız ilk doğru hamle gösterilir (ZPE'de yardımlı). 2026-11-11'den beri kayıtlı çözümün ilk adımı yeniden doğrulanır. Her komut türü (tepsi, döndürme, boya, rulo) reklamlı ipucuyla aynı görselle gösterilir; önceden yalnız dokunuş gösteriliyordu.
 - Yığına basılı tutunca (0,42 sn) bütün katmanlar görünür; dokunuş parmak kalkınca işler (bütün oturumlarda).
 - Günlük bulmaca (`daily-v3`): günün türü haftalık döner (kesin hamle → zincir → kristal → ters → kıt renk → saf plan → doğru an → kilit); oyuncunun grubunda açılmamış tür atlanır; her günlükte kural kartı.
 

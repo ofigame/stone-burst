@@ -357,17 +357,14 @@ namespace KatKat.Game
                 _hud.SetRoll(s.RollSlotFull, p == Phase.Targeting, (p == Phase.Idle && (s.RollSlotFull || DailyPowerReady)) || p == Phase.Targeting);
             }
             RefreshStonePower();
-            if (p == Phase.Idle && _paidHint.HasValue && _session != null)
-            {
-                PaidHintAfterMove(null); // geri al vb. sonrası önerilen dokunuş hâlâ geçerli mi
-                RefreshHint();
-            }
+            if (_session != null) HintOnPhase(p); // vr1 P0: geçersiz plan yeniden çözülür, görsel tazelenir
             if (p == Phase.Idle) TourShowCurrent();
             else if (p != Phase.Targeting) HideTour();
         }
 
         private void RefreshHint()
         {
+            _hud.HideHintMark();
             if (_hintActive && _level.Solution.Count > 0)
             {
                 var step = _level.Solution[0];
@@ -375,8 +372,7 @@ namespace KatKat.Game
                 if (step.Type == "rotate") _hint.Show(_board.CellCenter(step.X, step.Y) + _board.StackAt(step.X, step.Y).RotorLocal, _board.Pitch * 0.45f);
                 else _hint.Show(_board.CellCenter(step.X, step.Y), _board.Pitch);
             }
-            else if (_paidHint.HasValue) _hint.Show(_board.CellCenter(_paidHint.Value.X, _paidHint.Value.Y), _board.Pitch, true);
-            else _hint.Hide();
+            else if (!ShowPlanHint()) _hint.Hide();
         }
 
         // ---- Girdi ---------------------------------------------------------------------------------
@@ -385,6 +381,7 @@ namespace KatKat.Game
         {
             if (_cam == null) return;
             OutcomeTick(Time.unscaledDeltaTime);
+            HintTick();
             TrialTickPress();
             if (_screen.x != Screen.width || _screen.y != Screen.height)
             {
@@ -478,7 +475,7 @@ namespace KatKat.Game
                 return;
             }
             _hintActive = false;
-            PaidHintAfterMove(new Coord(x, y));
+            HintAfterCommand();
             _hint.Hide(); // ücretli ipucu tahta durunca (SetPhase Idle) yeniden görünür
             _sound.Play(Sfx.Tap);
             Haptics.Light();
@@ -504,7 +501,7 @@ namespace KatKat.Game
                 return;
             }
             _hintActive = false;
-            PaidHintAfterMove(null);
+            HintAfterCommand();
             _hint.Hide(); // ücretli ipucu tahta durunca (SetPhase Idle) yeniden görünür
             _sound.Play(Sfx.Tap);
             Haptics.Light();
@@ -574,6 +571,7 @@ namespace KatKat.Game
             var r = _session.Submit(Command.Roll(row));
             if (!r.Accepted) { CancelTargeting(); return; }
             _hud.HideToast();
+            HintAfterCommand();
             Play(r);
         }
 
@@ -676,6 +674,7 @@ namespace KatKat.Game
             if (_paintMode) { _paintMode = false; _hud.HidePalette(); _hud.SetPaint(_session.State.PaintLeft, false); }
             _traySlot = _traySlot == slot ? -1 : slot;
             _hud.SetTray(tray, _traySlot);
+            RefreshHint(); // ipucu: yuva seçilince hedef hücre
             if (_traySlot < 0) { _hud.HideToast(); return; }
             var kind = tray[_traySlot];
             _sound.Play(Sfx.Tap);
@@ -700,7 +699,7 @@ namespace KatKat.Game
             _hud.SetTray(_session.State.Tray, -1);
             _hud.HideToast();
             _hintActive = false;
-            PaidHintAfterMove(null);
+            HintAfterCommand();
             _hint.Hide(); // ücretli ipucu tahta durunca (SetPhase Idle) yeniden görünür
             Haptics.Medium();
             HeartOnMove();
@@ -721,6 +720,7 @@ namespace KatKat.Game
             _hud.SetPaint(_session.State.PaintLeft, _paintMode);
             if (_paintMode) _hud.ShowToast(Loc.T("toast.paint.pick"), 2.2f);
             else _hud.HideToast();
+            RefreshHint();
         }
 
         private void PickPaintCell(int x, int y)
@@ -740,6 +740,7 @@ namespace KatKat.Game
             }
             _hud.ShowPalette(b[x, y].Top, options);
             _board.ShakeCells(new[] { _paintCell });
+            HintOnPaintCell(_paintCell);
         }
 
         private void OnPaintColor(LayerColor color)
@@ -755,6 +756,7 @@ namespace KatKat.Game
             _paintMode = false;
             _hud.SetPaint(_session.State.PaintLeft, false);
             _hud.HideToast();
+            HintAfterCommand();
             _sound.Play(Sfx.Tap);
             Haptics.Light();
             Play(r);
@@ -956,6 +958,7 @@ namespace KatKat.Game
             EndPlaceOffer();
             _hud.HidePanel();
             _session.Restart();
+            ResetPaidHint(); // vr1 P0: yeniden başlatma yeni denemedir (ipucu hakkı ve bedeli denemeye bağlı)
             TourOnRestart();
             OutcomeRestart();
             ResyncAll();
@@ -993,6 +996,7 @@ namespace KatKat.Game
 
         private void OnApplicationPause(bool paused)
         {
+            _appFocused = !paused; // ZPE süresi: arka planda sayılmaz
             // Yarım soyulmuş katmanda kalmamak için animasyonu bitirip mantıksal son durumdan çiz.
             if (paused && CurrentPhase == Phase.Animating) _board.CompleteImmediately();
             if (paused && _save != null) { _cloudDirty = true; CloudAutoSave(true); }

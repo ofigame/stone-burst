@@ -50,6 +50,52 @@ namespace KatKat.UI
         /// <summary>Testler: ipucu düğmesi görünür mü.</summary>
         public bool HintButtonVisible => _hintBtn != null && _hintBtn.gameObject.activeSelf;
 
+        // ---- vr1 P0: arayüz denetimini gösteren ipucu işareti (tepsi yuvası, rulo, boya) ------------------------
+
+        /// <summary>İpucunun gösterdiği alt çubuk denetimi (tahta hücresi değil).</summary>
+        public enum HintUi { None, TraySlot, Roll, Paint }
+
+        private Image _hintMark;
+        private HintUi _hintMarkOn;
+
+        /// <summary>Altın nabız halkası denetimin üstüne (çocuk olarak) yerleşir; dokunuşu engellemez.</summary>
+        public void ShowHintMark(HintUi target, int slot = 0)
+        {
+            Button b = target == HintUi.TraySlot && slot >= 0 && slot < _traySlots.Length ? _traySlots[slot]
+                : target == HintUi.Roll ? _roll : target == HintUi.Paint ? _paint : null;
+            if (b == null || !b.gameObject.activeInHierarchy) { HideHintMark(); return; }
+            if (_hintMark == null)
+            {
+                _hintMark = UiFactory.Image("HintMark", b.transform, UiArt.Icon(UiIcon.Ring), new Color(1f, 0.80f, 0.25f, 1f));
+                _hintMark.raycastTarget = false;
+                _hintMark.preserveAspect = true;
+            }
+            _hintMark.transform.SetParent(b.transform, false);
+            var size = ((RectTransform)b.transform).rect.size;
+            float d = Mathf.Max(size.x, size.y) * 1.45f;
+            UiFactory.Place(_hintMark.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(d, d));
+            _hintMark.transform.SetAsLastSibling();
+            _hintMark.gameObject.SetActive(true);
+            _hintMarkOn = target;
+        }
+
+        public void HideHintMark()
+        {
+            if (_hintMark != null) _hintMark.gameObject.SetActive(false);
+            _hintMarkOn = HintUi.None;
+        }
+
+        /// <summary>Testler: gösterilen arayüz ipucu hedefi.</summary>
+        public HintUi HintMarkTarget => _hintMark != null && _hintMark.gameObject.activeInHierarchy ? _hintMarkOn : HintUi.None;
+
+        private void TickHintMark()
+        {
+            if (_hintMark == null || !_hintMark.gameObject.activeSelf) return;
+            float t = Time.unscaledTime * 1.6f % 1f;
+            _hintMark.transform.localScale = Vector3.one * Mathf.Lerp(0.92f, 1.12f, t);
+            _hintMark.color = new Color(1f, 0.80f, 0.25f, Mathf.Lerp(1f, 0.35f, t));
+        }
+
         /// <summary>Krem ampul glifi (128 px, 4× örnekli kenar).</summary>
         private static Sprite Bulb
         {
