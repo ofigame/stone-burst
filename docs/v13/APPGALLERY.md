@@ -55,7 +55,7 @@ APK doğrulaması (2026-11-11):
 ## Mağaza bilgileri (2026-11-12, Claude girdi, taslak kaydedildi)
 
 - **Uyumlu cihaz:** cep telefonu.
-- **Diller:** Türkçe (varsayılan), English (US), English (UK). Her dilde uygulama adı "Stone Burst".
+- **Diller:** English (US) varsayılan (kullanıcı, 2026-11-12: "varsayılan ingilizce olacak"), English (UK), Türkçe. Her dilde uygulama adı "Stone Burst".
 - **Kategori:** Oyunlar → Bulmaca ve gündelik → Bulmaca; "Casual game".
 - **Ülkeler:** 199 ülke. Çin anakarası hariç; orada oyun yayın onay numarası (ISBN) gerekiyor.
 - **Ücret:** ücretsiz. Uygulama içi satın alma işaretlenmedi.
@@ -91,11 +91,8 @@ Tam tanıtım (tr):
 
 Yerleşik tarayıcı yerel dosya seçemiyor. Ayrıca beyanları kullanıcı işaretler.
 
-1. **App information → Icon:** `docs/magaza/play/icon-512.png`.
-2. **App information → Screenshots:** 3–8 adet. Kaynaklar:
-   - Türkçe: `docs/magaza/android/tr/01..06`
-   - İngilizce: `docs/magaza/android/en/01..06`
-   - Görseller 1080×1920 ve her biri 1,5 MB'ın altında.
+1. ~~İkon~~ **Yüklendi (2026-11-12, Claude, Chrome):** üç dile `docs/magaza/play/icon-512.png`.
+2. ~~Ekran görüntüleri~~ **Yüklendi (2026-11-12):** Türkçe 6 (`android/tr`), English (US) ve English (UK) 6 (`android/en`). Yeniden yükleme sonrası üç dil de tamam. Sıra yükleme bitişine göre geldi (ilk görsel taş vitrini); istenirse konsolda sürükleyerek değiştirilir.
 3. **Version → Manage packages:** APK `Builds/Android/StoneBurst-AppGallery-1.0.0-1.apk`. Önce gerçek Huawei reklam birimleriyle yeniden derlenmeli.
 4. **İçerik derecelendirmesi:** anket.
 5. **Privacy tags:** kişisel veri toplanıyor mu sorusu. Huawei Ads reklam kimliği kullanır.
