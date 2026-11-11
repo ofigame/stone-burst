@@ -370,7 +370,8 @@ namespace KatKat.UI
             bool privacy = PrivacyOptionsVisible != null && PrivacyOptionsVisible();
             const float PanelTop = 444f, RowStep = 164f;
             // 2026-11-11: 3. satır "Azaltılmış hareket" (vr1 erişilebilirlik); dil, kayıt, gizlilik birer aşağı.
-            int rows = privacy ? 6 : 5;
+            bool save = AccountsOn; // AppGallery: hesap hizmeti yok → "İlerlemeyi kaydet" satırı yok
+            int rows = 4 + (save ? 1 : 0) + (privacy ? 1 : 0);
             float PanelH = 724f + (rows - 4) * RowStep;
             float RowY(int i) => (rows - 1) * RowStep * 0.5f - i * RowStep;
             var panel = Ui1.Card("Card", page, new Vector2(0.5f, 1f), new Vector2(0f, -(PanelTop + PanelH * 0.5f)), new Vector2(860f, PanelH));
@@ -391,13 +392,9 @@ namespace KatKat.UI
             UiFactory.Place(lt.rectTransform, new Vector2(0f, 0.5f), new Vector2(104f + 175f, 0f), new Vector2(350f, 72f));
             FitText(lt, 28);
             Ui1.Button("Pick", lrow.transform, ArabicShaper.ShapeLines(Loc.Current.NativeName) + "  ›", true, new Vector2(1f, 0.5f), new Vector2(-140f, 0f), new Vector2(280f, 88f), ShowLanguagePicker, null, 38);
-            U3Divider(c, RowY(3) - RowStep * 0.5f);
-            SaveRowUi3(c, RowY(4));
-            if (privacy)
-            {
-                U3Divider(c, RowY(4) - RowStep * 0.5f);
-                PrivacyRowUi3(c, RowY(5));
-            }
+            int next = 4;
+            if (save) { U3Divider(c, RowY(next - 1) - RowStep * 0.5f); SaveRowUi3(c, RowY(next)); next++; }
+            if (privacy) { U3Divider(c, RowY(next - 1) - RowStep * 0.5f); PrivacyRowUi3(c, RowY(next)); }
             var note = U3Text("Note", page, Loc.T("ui.settingsnote"), 28, false, Ui3.InkSecondary);
             note.textWrappingMode = TMPro.TextWrappingModes.Normal;
             UiFactory.Place(note.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -(PanelTop + PanelH + 70f)), new Vector2(860f, 90f));

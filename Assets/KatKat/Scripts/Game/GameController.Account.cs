@@ -37,7 +37,9 @@ namespace KatKat.Game
             _menu.PrivacyOptionsPressed = global::KatKat.Game.Ads.PrivacyOptions.Show;
             _menu.RankSignInPressed = SignInForRanking;
             // Toplu çalıştırmada (testler) sessiz giriş bile yapılmaz: kayıt durumu testleri etkilemesin.
-            if (!Application.isBatchMode) Account.SignIn(true, ok => { if (ok) CloudCheck(null); });
+            // AppGallery: hesap hizmeti yok → sessiz giriş (yerel test hesabı) da yapılmaz; kayıt/bulut düğmeleri gizli.
+            _menu.AccountsEnabled = () => StoreFlavor.AccountsEnabled;
+            if (!Application.isBatchMode && StoreFlavor.AccountsEnabled) Account.SignIn(true, ok => { if (ok) CloudCheck(null); });
         }
 
         private string TestTag => Account.IsTest ? " (test)" : "";

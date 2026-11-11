@@ -4,6 +4,13 @@ Son güncelleme: 2026-11-11. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
 
 ## Şu an
 
+- **2026-11-11, Huawei AppGallery sürümü** (`docs/v13/APPGALLERY.md`):
+  - Yeni derleme: `tools/unity.ps1 build-android-appgallery`. İmzalı APK, Google servisleri yok, reklam Huawei Ads (şimdilik test birimleri). Hesap/bulut kaydı ve çevrimiçi sıralama bu sürümde kapalı.
+  - AppGallery Connect'te uygulama kaydı açıldı (kimlik 119766511).
+  - APK doğrulandı: Google sınıfları yok, Huawei Ads ve köprü var, imza OFIGAME. Google Play APK'sı da yeniden derlendi; içinde Huawei kodu yok.
+  - Testler: EditMode 233/235 (2 atlandı), PlayMode 72/73 (1 atlandı).
+  - Huawei cihazda denenmedi; reklamın gerçekten geldiği doğrulanmadı.
+
 - **2026-11-11, cihaz hatası düzeltildi:** Kayıp kartında "+hamle" reklamı bulunamayınca (ya da iptal edilince) kart kilitli kalıyordu; hiçbir düğme çalışmıyordu.
   - Neden: kartın çift dokunuş koruması bütün düğmeleri kilitliyor, sonuçsuz dönen reklamdan sonra kilit kalkmıyordu.
   - Şimdi kart açık kalıyor, düğmeler yeniden basılabiliyor. Reklam tekrar denenebilir; "Tekrar dene" ve "Geri al" çalışır.

@@ -134,3 +134,9 @@ Eski ayrıntılı karar günlüğü arşivde (`KatKat_Arsiv_2026-11-06/docs/KARA
     - ZPE bölüm referansları (`level_ref.json`) yeniden üretildi.
     - Kaynak: `levels_vr1/`.
   - Rapor: `docs/vr1/YENI_TAHTALAR_RAPORU.md`.
+- 2026-11-11 (kullanıcı: "oyunumuzu App Gallery'ye de yükleyelim"; "App Gallery için reklamları, Google bağlılıklarını gözden geçir. App Gallery'ye uygun bir versiyon oluştur"): **AppGallery sürümü.**
+  - Ayrı derleme (`KATKAT_APPGALLERY`): AdMob, Play Games ve Firebase çıkarıldı; reklam Huawei Ads.
+  - Huawei Ads kişiselleştirilmemiş reklam ister; bu yüzden rıza formu yok.
+  - Hesap/bulut kaydı ve çevrimiçi sıralama bu sürümde gizli. Gerekçe: Google hesabı Huawei cihazda çalışmaz; test hesabı mağazada görünmemeli.
+  - Seçimler: aynı paket adı ve aynı yükleme anahtarı; AppGallery'de varsayılan dil Türkçe.
+  - Ayrıntı: `docs/v13/APPGALLERY.md`.

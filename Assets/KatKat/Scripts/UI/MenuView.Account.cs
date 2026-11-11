@@ -13,6 +13,9 @@ namespace KatKat.UI
         public Action SaveProgressPressed, RankSignInPressed;
         /// <summary>Sıralamada kayıt düğmesi gösterilsin mi (oyuncu girişli değilse true).</summary>
         public Func<bool> NeedsSignIn;
+        /// <summary>Hesap özellikleri (sıralama kaydı, "İlerlemeyi kaydet") var mı; AppGallery derlemesinde false.</summary>
+        public Func<bool> AccountsEnabled;
+        private bool AccountsOn => AccountsEnabled == null || AccountsEnabled();
         /// <summary>Ayarlar → "Gizlilik seçenekleri" satırı (yalnız UMP gerekli gördüğünde).</summary>
         public Func<bool> PrivacyOptionsVisible;
         public Action PrivacyOptionsPressed;

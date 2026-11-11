@@ -84,6 +84,54 @@ namespace KatKat.EditorTools
             if (Application.isBatchMode) EditorApplication.Exit(_lastOk ? 0 : 1);
         }
 
+        /// <summary>
+        /// Huawei AppGallery paketi (kullanıcı, 2026-11-11): Google servisleri olmadan, Huawei Ads ile, imzalı APK
+        /// (Play ile aynı yükleme anahtarı). Ayrıntı <see cref="AppGalleryBuild"/>. Sürüm kodu KATKAT_ANDROID_VERSION_CODE.
+        /// </summary>
+        [MenuItem("Kat Kat/Build/Android AppGallery (APK)")]
+        public static void BuildAndroidAppGallery()
+        {
+            string ks = Environment.GetEnvironmentVariable("KATKAT_ANDROID_KEYSTORE");
+            if (string.IsNullOrEmpty(ks)) ks = @"E:\OFIGAME\OYUNLAR\keys\stoneburst-upload.jks";
+            string pf = Environment.GetEnvironmentVariable("KATKAT_ANDROID_KEYPASS_FILE");
+            if (string.IsNullOrEmpty(pf)) pf = Path.Combine(Path.GetDirectoryName(ks), "stoneburst-upload-sifre.txt");
+            if (!File.Exists(ks) || !File.Exists(pf))
+            {
+                Debug.LogError("[KatKat] AppGallery derlemesi: yükleme anahtarı ya da şifre dosyası yok (" + ks + ")");
+                if (Application.isBatchMode) EditorApplication.Exit(1);
+                return;
+            }
+            int code = int.TryParse(Environment.GetEnvironmentVariable("KATKAT_ANDROID_VERSION_CODE"), out var c) && c > 0 ? c : 1;
+            string pass = File.ReadAllText(pf).Trim();
+            _beforeBuild = () =>
+            {
+                AppGalleryBuild.Begin(); // AdMobSetup.Apply'dan sonra: Google tanımlarını kaldırır
+                PlayerSettings.Android.bundleVersionCode = code;
+                PlayerSettings.Android.useCustomKeystore = true;
+                PlayerSettings.Android.keystoreName = ks;
+                PlayerSettings.Android.keystorePass = pass;
+                PlayerSettings.Android.keyaliasName = "stoneburst";
+                PlayerSettings.Android.keyaliasPass = pass;
+                EditorUserBuildSettings.buildAppBundle = false;
+            };
+            _deferExit = true;
+            try { Build(BuildTarget.Android, "Builds/Android/StoneBurst-AppGallery-" + PlayerSettings.bundleVersion + "-" + code + ".apk"); }
+            finally
+            {
+                _beforeBuild = null;
+                _deferExit = false;
+                AppGalleryBuild.End();
+                PlayerSettings.Android.useCustomKeystore = false;
+                PlayerSettings.Android.keystoreName = "";
+                PlayerSettings.Android.keystorePass = "";
+                PlayerSettings.Android.keyaliasName = "";
+                PlayerSettings.Android.keyaliasPass = "";
+                PlayerSettings.Android.bundleVersionCode = 1;
+                AssetDatabase.SaveAssets();
+            }
+            if (Application.isBatchMode) EditorApplication.Exit(_lastOk ? 0 : 1);
+        }
+
         private static Action _beforeBuild;
 
         [MenuItem("Kat Kat/Build/Windows (önizleme)")]
@@ -253,6 +301,8 @@ namespace KatKat.EditorTools
             PlayerSettings.fullScreenMode = target == BuildTarget.Android ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
             if (target == BuildTarget.iOS) PlayerSettings.fullScreenMode = FullScreenMode.FullScreenWindow;
             if (target == BuildTarget.iOS || target == BuildTarget.Android) AdMobSetup.Apply();
+            // Google Play derlemesi: Huawei köprüsü Android'e girmez (AppGallery derlemesi kendi açar).
+            if (target == BuildTarget.Android && !AppGalleryBuild.Active) AppGalleryBuild.EnsureBridgeOffForGoogle();
             ApplyIcon();
             ApplyTextureBudget();
             if (target == BuildTarget.iOS) ApplyIosTextureBudget();

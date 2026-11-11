@@ -537,7 +537,7 @@ namespace KatKat.UI
 
             // Kullanıcı (2026-11-11: "sıralama için kayıt ol yazısı hiç görünür bir yerde değil ve çok küçük, anlaşılır bir buton
             // değil"): giriş yoksa ölçüt kapsülleri yerine kartın içinde büyük birincil düğme; altında dipnot (ilerleme) kalır.
-            bool signIn = NeedsSignIn != null && NeedsSignIn();
+            bool signIn = AccountsOn && NeedsSignIn != null && NeedsSignIn();
             if (signIn)
             {
                 var sb = Ui1.Button("SignIn", card, Loc.T("acct.signin.rank"), true, new Vector2(0.5f, 0.5f), new Vector2(0f, -52f), new Vector2(860f, 74f), () => RankSignInPressed?.Invoke(), null, 38);
