@@ -136,3 +136,19 @@ Yerleşik tarayıcı yerel dosya seçemiyor. Ayrıca beyanları kullanıcı işa
 - **app-ads.txt** (`ofigame.com/app-ads.txt`): AdMob (`pub-2558895513508689`) ve Unity satırları var; hesap düzeyinde oldukları için Stone Burst'ü de kapsıyorlar.
 - **Unity "Store ID":** Google Play adresi geçersiz sayıldı; uygulama herkese açık değil. Play yayınından sonra eklenecek.
 - **AdMob mağaza bağlantısı:** Uygulama herkese açık yayımlanınca yapılacak. O zamana kadar sınırlı reklam sunumu.
+
+## Huawei Ads kapalı (2026-11-12, kullanıcı: "Huawei Ads şimdilik devre dışı olsun, çünkü resmi bir banka hesabı açmadım daha")
+
+- AppGallery sürümünde reklamı yalnız Unity Ads gösteriyor (kişiselleştirilmemiş).
+- Ayar: `AppGalleryBuild.HuaweiAdsEnabled = false`. Kapalıyken:
+  - `KATKAT_HWADS` tanımı yok;
+  - Huawei Gradle bağımlılığı ve `HwAdsBridge.java` APK'ya girmiyor.
+- APK doğrulaması:
+  - Huawei sınıfı yok, Unity Ads var.
+  - Huawei'nin eklediği izinler (QUERY_ALL_PACKAGES, REQUEST_INSTALL_PACKAGES vb.) kalktı.
+- **Açmak için:**
+  1. Petal Ads'te banka ve tüccar onayı alınır.
+  2. Gerçek birimler `AdUnits.cs`'ye yazılır.
+  3. `HuaweiAdsEnabled = true` yapılır ve `build-android-appgallery` çalıştırılır.
+- Sitedeki gizlilik metni AppGallery için hâlâ "Huawei Ads + Unity Ads" diyor. Huawei açılana kadar metin olduğundan geniş, ama yanlış yönlendirmiyor.
+- Testler: EditMode 234/236 (2 atlandı).

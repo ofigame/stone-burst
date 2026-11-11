@@ -35,7 +35,7 @@ namespace KatKat.Tests
         [Test]
         public void LibraryGradle_StripsGoogle_AddsHuaweiAds()
         {
-            var o = AppGalleryBuild.PatchLibraryGradle(LibGradle);
+            var o = AppGalleryBuild.PatchLibraryGradle(LibGradle, true);
             StringAssert.DoesNotContain("com.google.android.gms", o);
             StringAssert.DoesNotContain("com.google.firebase", o);
             StringAssert.DoesNotContain("user-messaging-platform", o);
@@ -46,7 +46,19 @@ namespace KatKat.Tests
             StringAssert.Contains("androidx.fragment:fragment", o, "Google dışı bağımlılık kalır");
             StringAssert.Contains("implementation('" + AppGalleryBuild.HuaweiAds + "')", o);
             StringAssert.Contains(AppGalleryBuild.KotlinBom, o, "Kotlin sürüm hizalama");
-            Assert.AreEqual(o, AppGalleryBuild.PatchLibraryGradle(o), "ikinci uygulama değiştirmez");
+            Assert.AreEqual(o, AppGalleryBuild.PatchLibraryGradle(o, true), "ikinci uygulama değiştirmez");
+        }
+
+        /// <summary>2026-11-12: Huawei Ads kapalıyken Huawei SDK'sı Gradle'a girmez, Unity Ads kalır; önceki derlemeden kalan satır silinir.</summary>
+        [Test]
+        public void LibraryGradle_HuaweiAdsOff_NoHuaweiDependency()
+        {
+            var withHw = AppGalleryBuild.PatchLibraryGradle(LibGradle, true);
+            var o = AppGalleryBuild.PatchLibraryGradle(withHw, false);
+            StringAssert.DoesNotContain("com.huawei.hms", o);
+            StringAssert.Contains("com.unity3d.ads:unity-ads", o);
+            StringAssert.Contains(AppGalleryBuild.KotlinBom, o);
+            StringAssert.DoesNotContain("com.google.android.gms", o);
         }
 
         [Test]

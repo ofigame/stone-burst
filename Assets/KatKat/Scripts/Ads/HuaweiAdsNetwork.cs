@@ -9,6 +9,7 @@ namespace KatKat.Game.Ads
     /// <summary>
     /// AppGallery derlemesinin reklam ağı (Google servisleri yok):
     /// - Önce Huawei Ads (ads-lite; Java köprüsü Plugins/Android/HwAdsBridge.java), kişiselleştirilmemiş reklam.
+    ///   2026-11-12: Huawei Ads kapalı (KATKAT_HWADS yok, banka hesabı bekleniyor) → yalnız Unity Ads.
     /// - Huawei'de hazır reklam yoksa doğrudan Unity Ads (Plugins/Android/UnityAdsBridge.java; kullanıcı, 2026-11-12:
     ///   "app gallery içinde unity ads aktif olsun"), GDPR/CCPA rızası "hayır" → kişiselleştirilmemiş.
     /// - İkisinde de yoksa ödüllü <see cref="AdOutcome.Failed"/> (oyun "reklam bulunamadı" der, kart açık kalır), geçiş atlanır.
@@ -33,6 +34,7 @@ namespace KatKat.Game.Ads
                     activity = player.GetStatic<AndroidJavaObject>("currentActivity");
             }
             catch (Exception e) { Debug.LogWarning("[KatKat] AppGallery reklam: etkinlik alınamadı: " + e.Message); return; }
+#if KATKAT_HWADS
             try
             {
                 net._hw = new AndroidJavaObject("com.ofigame.stoneburst.hw.HwAdsBridge", activity, new Listener(net, "com.ofigame.stoneburst.hw.HwAdsBridge$Listener"),
@@ -40,6 +42,10 @@ namespace KatKat.Game.Ads
                 net._hw.Call("init");
             }
             catch (Exception e) { net._hw = null; Debug.LogWarning("[KatKat] Huawei Ads başlatılamadı: " + e.Message); }
+#else
+            // Huawei Ads kapalı (kullanıcı, 2026-11-12: banka hesabı henüz yok). Açmak: AppGalleryBuild.HuaweiAdsEnabled = true.
+            net._hw = null;
+#endif
             try
             {
                 net._unity = new AndroidJavaObject("com.ofigame.stoneburst.hw.UnityAdsBridge", activity, new Listener(net, "com.ofigame.stoneburst.hw.UnityAdsBridge$Listener"),

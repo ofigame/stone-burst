@@ -29,6 +29,14 @@ namespace KatKat.EditorTools
         public const string UnityBridgePath = "Assets/Plugins/Android/UnityAdsBridge.java";
         private static readonly string[] Bridges = { BridgePath, UnityBridgePath };
 
+        /// <summary>
+        /// Huawei Ads açık mı. Kullanıcı (2026-11-12): "Huawei Ads şimdilik devre dışı olsun, resmi bir banka hesabı
+        /// açmadım daha". Kapalıyken Huawei SDK'sı, köprüsü ve izinleri APK'ya girmez; reklam yalnız Unity Ads.
+        /// Açmak için true yap: KATKAT_HWADS tanımı eklenir, Huawei Gradle bağımlılığı ve köprü geri gelir.
+        /// </summary>
+        public const bool HuaweiAdsEnabled = false;
+        public const string HuaweiAdsDefine = "KATKAT_HWADS";
+
         /// <summary>Bu derlemede Android'den çıkarılan Google eklentileri.</summary>
         private static readonly string[] GooglePlugins =
         {
@@ -60,12 +68,14 @@ namespace KatKat.EditorTools
             var target = NamedBuildTarget.Android;
             _definesBefore = PlayerSettings.GetScriptingDefineSymbols(target);
             var defs = _definesBefore.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
-                .Where(d => d != "KATKAT_ADMOB" && d != "KATKAT_ONLINE" && d != Define).ToList();
+                .Where(d => d != "KATKAT_ADMOB" && d != "KATKAT_ONLINE" && d != Define && d != HuaweiAdsDefine).ToList();
             defs.Add(Define);
+            if (HuaweiAdsEnabled) defs.Add(HuaweiAdsDefine);
             PlayerSettings.SetScriptingDefineSymbols(target, string.Join(";", defs));
             _pluginState = new Dictionary<string, bool>();
             foreach (var p in GooglePlugins) SetAndroid(p, false);
-            foreach (var b in Bridges) SetAndroid(b, true);
+            SetAndroid(UnityBridgePath, true);
+            SetAndroid(BridgePath, HuaweiAdsEnabled); // kapalıyken Huawei kütüphanesi yok → köprü de girmemeli
             AssetDatabase.SaveAssets();
         }
 
@@ -110,7 +120,9 @@ namespace KatKat.EditorTools
         }
 
         /// <summary>unityLibrary/build.gradle: Google bağımlılıklarını çıkar, Huawei Ads ekle (saf metin; test edilebilir).</summary>
-        public static string PatchLibraryGradle(string text)
+        public static string PatchLibraryGradle(string text) => PatchLibraryGradle(text, HuaweiAdsEnabled);
+
+        public static string PatchLibraryGradle(string text, bool huaweiAds)
         {
             var lines = text.Replace("\r\n", "\n").Split('\n').ToList();
             lines.RemoveAll(l => IsGoogleLine(l));
@@ -120,8 +132,9 @@ namespace KatKat.EditorTools
             if (i < 0) throw new InvalidOperationException("AppGallery: build.gradle'da dependencies bloğu yok");
             // Huawei Ads kotlin-stdlib-jdk7/jdk8 1.6 getiriyor; androidx kotlin-stdlib 1.8 → yinelenen sınıf hatası.
             // Bu iki eski parça dışlanır (1.8'de içerikleri kotlin-stdlib'de) ve BOM Kotlin sürümlerini hizalar.
-            lines.Insert(i + 1, "    implementation('" + HuaweiAds + "') { exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'; exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8' } // AppGallery: Huawei Ads");
-            lines.Insert(i + 2, "    implementation platform('" + KotlinBom + "') // AppGallery: Kotlin sürüm hizalama");
+            lines.Insert(i + 1, "    implementation platform('" + KotlinBom + "') // AppGallery: Kotlin sürüm hizalama");
+            if (huaweiAds)
+                lines.Insert(i + 1, "    implementation('" + HuaweiAds + "') { exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'; exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8' } // AppGallery: Huawei Ads");
             return string.Join("\n", lines);
         }
 
