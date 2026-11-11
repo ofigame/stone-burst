@@ -83,14 +83,5 @@ namespace KatKat.UI
             FitText(t, 26);
             Ui1.Button("Manage", row, Loc.T("ui.privacy.btn"), true, new Vector2(1f, 0.5f), new Vector2(-140f, 0f), new Vector2(280f, 88f), () => PrivacyOptionsPressed?.Invoke(), null, 38);
         }
-
-        /// <summary>Sıralama: kendi kartının üstünde "Sıralama için kayıt ol" (giriş yoksa).</summary>
-        private void RankSignInButton(RectTransform page)
-        {
-            if (NeedsSignIn == null || !NeedsSignIn()) return;
-            var b = Ui1.Button("SignIn", page, Loc.T("acct.signin.rank"), true, new Vector2(0.5f, 0f),
-                new Vector2(0f, RankCardBottom + RankCardH + 61f), new Vector2(600f, 60f), () => RankSignInPressed?.Invoke(), null, 30); // liste ile "SENİN SIRAN" başlığı arasındaki boşluk (üstüne binmesin, 2026-11-09)
-            b.transform.SetAsLastSibling();
-        }
     }
 }

@@ -87,8 +87,7 @@ namespace KatKat.UI
             _rankFx.Content = middle.gameObject.AddComponent<CanvasGroup>();
             RankPodium(middle, m);
             RankListPanel(middle, m);
-            RankSelfCard(page, m);
-            RankSignInButton(page);
+            RankSelfCard(page, m); // giriş yoksa kayıt düğmesi kartın içinde (2026-11-11)
         }
 
         public void CloseRanking() { _rankFx = null; }
@@ -536,14 +535,25 @@ namespace KatKat.UI
                 if (sc != null) sc.GetComponent<Text>().text = "—";
             }
 
-            Pill(card, new Vector2(-290f, -38f), $"ZPE {Num(self.Zpe)}", false);
-            Pill(card, new Vector2(0f, -38f), Loc.F("rank.level", Num(self.Level)), false);
-            Pill(card, new Vector2(290f, -38f), Num(self.Stars), true);
+            // Kullanıcı (2026-11-11: "sıralama için kayıt ol yazısı hiç görünür bir yerde değil ve çok küçük, anlaşılır bir buton
+            // değil"): giriş yoksa ölçüt kapsülleri yerine kartın içinde büyük birincil düğme; altında dipnot (ilerleme) kalır.
+            bool signIn = NeedsSignIn != null && NeedsSignIn();
+            if (signIn)
+            {
+                var sb = Ui1.Button("SignIn", card, Loc.T("acct.signin.rank"), true, new Vector2(0.5f, 0.5f), new Vector2(0f, -52f), new Vector2(860f, 74f), () => RankSignInPressed?.Invoke(), null, 38);
+                sb.transform.SetAsLastSibling();
+            }
+            else
+            {
+                Pill(card, new Vector2(-290f, -38f), $"ZPE {Num(self.Zpe)}", false);
+                Pill(card, new Vector2(0f, -38f), Loc.F("rank.level", Num(self.Level)), false);
+                Pill(card, new Vector2(290f, -38f), Num(self.Stars), true);
+            }
             string foot = !eligible ? Loc.F("rank.need", m.Completed, m.MinLevels)
                 : rank <= 0 ? Loc.T("rank.notranked") : Loc.T("rank.formula");
             var ft = UiFactory.Text("Foot", card, foot, 26, RankInk2, TextAnchor.MiddleCenter, FontStyle.Normal); // ikincil: Nunito 600
             ft.raycastTarget = false;
-            UiFactory.Place(ft.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -92f), new Vector2(820f, 34f));
+            UiFactory.Place(ft.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, signIn ? -106f : -92f), new Vector2(820f, signIn ? 28f : 34f));
             FitText(ft, 18);
         }
 
@@ -628,9 +638,13 @@ namespace KatKat.UI
             if (cup == null) return;
             var b = ShellRoundButton("RankButton", shell, cup, 132f, () => RankPressed?.Invoke());
             UiFactory.Place((RectTransform)b.transform, new Vector2(0.5f, 1f), new Vector2(-V11ColumnX, -V11ColumnZpeTop - V11LeftShift - 66f), new Vector2(132f, 132f));
-            var t = Ui3.Ready ? UiFactory.Title("RankLabel", shell, Loc.T("rank.title"), 30, Ui3.Ink, Ui3.IvoryTop) : UiFactory.Title("RankLabel", shell, Loc.T("rank.title"), 30, Color.white, V11Navy);
+            // Kullanıcı (2026-11-11: "anasayfadaki sıralama yazısı pek görünür değil, tasarımımıza uygun şekilde görünür yapalım"):
+            // ZPE puanının altındaki lacivert, beyaz kenarlı kapsülün aynısı; düğmenin parçası (kapsüle dokunmak da açar).
+            var cap = WhiteCapsule("RankLabel", b.transform, V11Navy, new Vector2(0.5f, 0f), new Vector2(0f, -32f), new Vector2(190f, 54f), 5f);
+            cap.raycastTarget = true;
+            var t = UiFactory.Title("Text", cap.transform, Loc.T("rank.title"), 32, Color.white, new Color32(0x06, 0x1A, 0x44, 0xFF));
             t.raycastTarget = false;
-            UiFactory.Place(t.rectTransform, new Vector2(0.5f, 1f), new Vector2(-V11ColumnX, -V11ColumnZpeTop - V11LeftShift - 152f), new Vector2(200f, 40f));
+            UiFactory.Stretch(t.rectTransform, 14f, 14f, 2f, 4f);
             FitText(t, 20);
         }
     }

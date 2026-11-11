@@ -98,6 +98,11 @@ namespace KatKat.EditorTools
                 Shot("p1_08_gunluk_sekme_secili", gc => { Progress(gc, 12); Own(gc); gc.ShowLevels(); gc.ShowDaily(); });
                 Shot("p1_09_tahta_ortasi_buz", gc => { Progress(gc, 122); gc.StartLevel(122); });
                 Shot("p1_10_tahta_ortasi_buz_b", gc => { Progress(gc, 300); gc.StartLevel(302); });
+                Vr1Proto.Override = false;
+                Shot("p1_11_harita_siralama_etiketi", gc => { Progress(gc, 12); gc.ShowLevels(); });
+                GameController.DevLeaderboardSample = true;
+                Shot("p1_12_siralama_kayit_dugmesi", gc => { Progress(gc, 25); gc.ShowRanking(); });
+                GameController.DevLeaderboardSample = false;
             }
             finally
             {
