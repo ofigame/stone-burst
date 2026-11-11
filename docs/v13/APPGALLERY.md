@@ -93,7 +93,7 @@ Yerleşik tarayıcı yerel dosya seçemiyor. Ayrıca beyanları kullanıcı işa
 
 1. ~~İkon~~ **Yüklendi (2026-11-12, Claude, Chrome):** üç dile `docs/magaza/play/icon-512.png`.
 2. ~~Ekran görüntüleri~~ **Yüklendi (2026-11-12):** Türkçe 6 (`android/tr`), English (US) ve English (UK) 6 (`android/en`). Yeniden yükleme sonrası üç dil de tamam. Sıra yükleme bitişine göre geldi (ilk görsel taş vitrini); istenirse konsolda sürükleyerek değiştirilir.
-3. **Version → Manage packages:** APK `Builds/Android/StoneBurst-AppGallery-1.0.0-1.apk`. Önce gerçek Huawei reklam birimleriyle yeniden derlenmeli.
+3. ~~APK~~ **Yüklendi (2026-11-12, kullanıcı):** `StoneBurst-AppGallery-1.0.0-1.apk` (1.0.0, kod 1, 121 MB; Huawei Ads kapalı, yalnız Unity Ads). Sürüm taslağına bağlandı, taslak kaydedildi.
 4. **İçerik derecelendirmesi:** anket.
 5. **Privacy tags:** kişisel veri toplanıyor mu sorusu. Huawei Ads reklam kimliği kullanır.
 6. **Yapay zeka beyanı.**
