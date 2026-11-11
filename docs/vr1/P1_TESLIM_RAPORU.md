@@ -69,7 +69,7 @@ powershell -ExecutionPolicy Bypass -File tools/unity.ps1 capture-vr1-p1
 
 ### İkonlar (04)
 - Alt menüde Harita ve Günlük için paketteki adaylar kullanıldı (`Resources/Vr1/nav-map.png`, `nav-daily.png`). Günlük ikonu güneşsiz (v2, beğenilen).
-- Saydam pay nedeniyle bu iki ikonun kutusu 112×100 (diğerleri 88).
+- Kullanıcı isteğiyle (2026-11-11: "iconlar büyük olsun ve alanı da taşsınlar") prototipte üç ikon da büyük ve menünün üst kenarından yaklaşık 40 birim taşıyor. Harita ve Günlük 168×150 (saydam pay nedeniyle), Taşlar 132×132; yazılar yerinde. Anahtar kapalıyken 88×88.
 - Taşlar, ZPE ve Sıralama ikonlarına dokunulmadı.
 
 **İçe aktarma (`Editor/Vr1AssetImporter.cs`):**

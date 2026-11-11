@@ -209,7 +209,15 @@ namespace KatKat.UI
             // Simge (104, 8, 88, 88) → merkez öğe üstünden 52 aşağı.
             var ic = Decor("Icon", hit.transform, it.Icon);
             ic.preserveAspect = true;
-            UiFactory.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -52f), Vr1Proto.On && it.Icon != null && (it.Icon == Vr1Proto.NavMap || it.Icon == Vr1Proto.NavDaily) ? new Vector2(112f, 100f) : new Vector2(88f, 88f)); // vr1 aday ikonlarında saydam pay var
+            if (Vr1Proto.On)
+            {
+                // vr1 prototipi (kullanıcı, 2026-11-11: "iconlar büyük olsun ve alanı da taşsınlar"): ikon menünün üst
+                // kenarından ~40 birim taşar; yazı yerinde kalır. Aday PNG'lerde saydam pay olduğu için kutuları daha büyük.
+                bool cand = it.Icon != null && (it.Icon == Vr1Proto.NavMap || it.Icon == Vr1Proto.NavDaily);
+                UiFactory.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -20f), cand ? new Vector2(168f, 150f) : new Vector2(132f, 132f));
+                ic.transform.SetAsLastSibling();
+            }
+            else UiFactory.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -52f), new Vector2(88f, 88f));
             // Yazı (16, 108, 264, 48) nav 32/800; seçili kapsül (28, 100, 240, 64) tabSelected, yazı onTeal.
             if (it.On)
             {
