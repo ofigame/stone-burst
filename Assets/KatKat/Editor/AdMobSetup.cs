@@ -16,7 +16,7 @@ namespace KatKat.EditorTools
     {
         public const string SettingsPath = "Assets/GoogleMobileAds/Resources/GoogleMobileAdsSettings.asset";
         public const string IosAppId = "ca-app-pub-2558895513508689~7151786494";      // Stone Burst iOS, gerçek (2026-11-09)
-        public const string AndroidAppId = "ca-app-pub-3940256099942544~3347511713";  // Google TEST: Android uygulaması AdMob'da henüz açılmadı
+        public const string AndroidAppId = "ca-app-pub-2558895513508689~5521782694";  // Stone Burst Android, gerçek (2026-11-12)
         public const string TrackingText = "Your data will be used to show you more relevant ads. The game works the same either way.";
         public const string Define = "KATKAT_ADMOB";
 
@@ -51,7 +51,7 @@ namespace KatKat.EditorTools
             if (System.IO.File.Exists("Assets/KatKat/Firebase/GoogleService-Info.plist")) AddDefine(NamedBuildTarget.iOS, OnlineDefine);
             bool android = System.IO.File.Exists("Assets/KatKat/Firebase/google-services.json") && AssetDatabase.IsValidFolder("Assets/GooglePlayGames");
             if (android) { AddDefine(NamedBuildTarget.Android, OnlineDefine); PlayGamesSetup.Apply(); }
-            Debug.Log("[KatKat] AdMob ayarları uygulandı (iOS gerçek, Android test kimliği); KATKAT_ONLINE iOS" + (android ? " + Android" : ""));
+            Debug.Log("[KatKat] AdMob ayarları uygulandı (iOS ve Android gerçek kimlikler); KATKAT_ONLINE iOS" + (android ? " + Android" : ""));
         }
 
         public const string OnlineDefine = "KATKAT_ONLINE";

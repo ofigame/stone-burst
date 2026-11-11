@@ -86,3 +86,23 @@ Tarih: 2026-11-09. Kullanıcı: "yayın için eksikleri tamamlayalım". Kararlar
   - `KATKAT_ONLINE` yalnız iOS: Game Center girişi, Firestore sıralaması, Firestore bulut kaydı açık. Android test hesabıyla kalır.
   - iOS dışa aktarımı başarılı: Firebase iOS SDK 13.1.1 Swift Package Manager ile, AdMob ve Unity Ads CocoaPods ile ekleniyor. "REVERSED_CLIENT_ID yok" uyarısı zararsız (Google ile giriş kullanılmıyor).
   - EditMode 194/194. Cihazda denenmedi.
+
+## Android reklamları: gerçek AdMob + Unity Ads (2026-11-12, kullanıcı: "androidde de unity ads'i aktif edelim")
+
+- **AdMob:**
+  - Android uygulaması "Stone Burst": `ca-app-pub-2558895513508689~5521782694`. Mağazada listelenmiyor; Play yayınından sonra mağaza bağlanmalı, o zamana kadar sınırlı reklam sunumu.
+  - Birimler:
+    - `stoneburst_rewarded`: `ca-app-pub-2558895513508689/9721541294`
+    - `stoneburst_interstitial`: `ca-app-pub-2558895513508689/6260662649`
+- **Unity:**
+  - Uygulama "Stone Burst Android" (proje Stone Burst; genel kitle, çocuklara yönelik değil). Oyun kimliği `800434959`.
+  - Teklifli yerler: `BP_Rewarded_Android`, `BP_Interstitial_Android`.
+- **AdMob uyumlulaştırma grupları (etkin):**
+  - "Stone Burst Ödüllü Android - Unity" (grup 3664556984).
+  - "Stone Burst Geçiş Android - Unity" (6552802227).
+  - Teklif: AdMob Network + Unity Ads.
+- **Oyunda:**
+  - `AdMobSetup.AndroidAppId` ve `AdUnits` Android gerçek kimlikler.
+  - Google Play APK derlendi; manifestte gerçek uygulama kimliği, Unity arabulucu adaptörü içeride.
+  - Cihazda denenmedi. Test cihazı AdMob'da tanımlanmalı; kendi reklamına tıklanmamalı.
+- **AppGallery:** Unity'nin yeni paneli "yalnız arabuluculuk kullananları destekliyor"; yeni yerler yalnız teklifli (`BP_`). Doğrudan Unity Ads entegrasyonu belirsiz; karar kullanıcıda.
