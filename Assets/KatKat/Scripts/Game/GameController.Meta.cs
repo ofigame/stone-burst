@@ -235,8 +235,22 @@ namespace KatKat.Game
                 foreach (var id in _save.Data.completed) RankStars.Record(_save.Data.meta, id, Mathf.Max(1, _save.Data.StarsFor(id)));
                 _save.Save();
             }
+            // vr1 P1: önceki oturumda kazanılıp sunumu görülmemiş taşlar yeniden sıraya (ödül yeniden verilmez).
+            foreach (var id in _save.Data.meta.pendingReveal)
+            {
+                var st = _stones.Find(id);
+                if (st != null && _save.Data.meta.stones.Contains(id) && !_pendingStoneToasts.Contains(st)) _pendingStoneToasts.Add(st);
+            }
             var granted = CollectionRules.GrantUnlocked(_save.Data.meta, _stones, UnlockCtx());
-            if (granted.Count > 0) { _save.Save(); _pendingStoneToasts.AddRange(granted); }
+            if (granted.Count > 0) QueueReveal(granted);
+        }
+
+        /// <summary>Kazanılan taşlar: kayda (sunum bekleyen) ve sıraya; tek kayıt işlemi.</summary>
+        private void QueueReveal(List<StoneDefinition> granted)
+        {
+            foreach (var s in granted) if (!_save.Data.meta.pendingReveal.Contains(s.StoneId)) _save.Data.meta.pendingReveal.Add(s.StoneId);
+            _save.Save();
+            _pendingStoneToasts.AddRange(granted);
         }
 
         private int SessionMoveBonus(LevelData level, SessionKind kind) =>
@@ -281,8 +295,7 @@ namespace KatKat.Game
         {
             var granted = CollectionRules.GrantUnlocked(_save.Data.meta, _stones, UnlockCtx());
             if (granted.Count == 0) return;
-            _save.Save();
-            _pendingStoneToasts.AddRange(granted);
+            QueueReveal(granted);
         }
 
         /// <summary>Kazanılan taş bildirimi: kazanç kartından sonraki ilk ekranda (harita ya da sonraki bölüm) bir kez.</summary>
@@ -293,7 +306,12 @@ namespace KatKat.Game
             // fazlaysa kapatınca sıradaki gelir.
             var s = _pendingStoneToasts[0];
             _pendingStoneToasts.RemoveAt(0);
-            ShowStone(s.StoneId, true, () => FlushStoneToasts(inGame, done));
+            ShowStone(s.StoneId, true, () =>
+            {
+                // Görüldü kaydı (idempotent): vitrin kapanınca bekleyen listeden çıkar.
+                if (_save.Data.meta.pendingReveal.Remove(s.StoneId)) _save.Save();
+                FlushStoneToasts(inGame, done);
+            });
         }
 
         /// <summary>

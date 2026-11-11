@@ -980,6 +980,7 @@ namespace KatKat.View
         /// <summary>Tahtanın kısa sarsıntısı (dünya birimi; sönümlü). Büyük anlar için.</summary>
         public void ShakeBoard(float amplitude, float ms)
         {
+            if (KatKat.UI.Motion.Reduced) return; // azaltılmış hareket: sarsıntı yok
             if (!_shaking) _shakeBase = transform.localPosition;
             _shaking = true;
             _shakeAmp = Mathf.Max(_shakeAmp * (1f - Mathf.Clamp01(_shakeTime / Mathf.Max(1f, _shakeDur))), amplitude * _pitch * 4f);
@@ -1322,6 +1323,68 @@ namespace KatKat.View
         public void HideRowPreview()
         {
             foreach (var m in _rowMarks) m.gameObject.SetActive(false);
+        }
+
+        // ---- vr1 P0: ipucu grubunun ince beyaz-altın sınırı (01_IPUCU "Gösterim": semboller kapanmaz) ----------
+
+        private readonly List<SpriteRenderer> _hintMarks = new List<SpriteRenderer>();
+        private static Sprite _hintFrame;
+
+        /// <summary>Önerilen dokunuşun grubunun her hücresine ince sınır (iç saydam; taş sembolü görünür kalır).</summary>
+        public void ShowHintGroup(IList<Coord> cells)
+        {
+            HideHintGroup();
+            if (cells == null) return;
+            var frame = HintFrame;
+            for (int i = 0; i < cells.Count; i++)
+            {
+                if (_hintMarks.Count <= i)
+                {
+                    var go = new GameObject("HintGroupMark");
+                    go.transform.SetParent(transform, false);
+                    _hintMarks.Add(go.AddComponent<SpriteRenderer>());
+                }
+                var m = _hintMarks[i];
+                m.gameObject.SetActive(true);
+                m.sprite = frame;
+                m.color = new Color(1f, 0.93f, 0.62f, 0.95f);
+                m.sortingOrder = 895;
+                m.transform.localPosition = CellCenter(cells[i].X, cells[i].Y) + new Vector3(0f, _pitch * 0.04f, 0f);
+                float size = _pitch * 0.96f / (frame.rect.width / frame.pixelsPerUnit);
+                m.transform.localScale = new Vector3(size, size, 1f);
+            }
+        }
+
+        public void HideHintGroup()
+        {
+            foreach (var m in _hintMarks) if (m != null) m.gameObject.SetActive(false);
+        }
+
+        /// <summary>Testler: görünen ipucu grubu işaret sayısı.</summary>
+        public int HintGroupMarks { get { int n = 0; foreach (var m in _hintMarks) if (m != null && m.gameObject.activeSelf) n++; return n; } }
+
+        /// <summary>Yuvarlak köşeli ince çerçeve (64 px, 4 px kenar, yumuşak).</summary>
+        private static Sprite HintFrame
+        {
+            get
+            {
+                if (_hintFrame) return _hintFrame;
+                const int n = 64;
+                var tex = new Texture2D(n, n, TextureFormat.RGBA32, false) { name = "hint-frame", wrapMode = TextureWrapMode.Clamp, hideFlags = HideFlags.DontSave };
+                var px = new Color32[n * n];
+                const float r = 12f, w = 4f;
+                for (int y = 0; y < n; y++)
+                for (int x = 0; x < n; x++)
+                {
+                    float fx = Mathf.Abs(x + 0.5f - n * 0.5f) - (n * 0.5f - r - 1f), fy = Mathf.Abs(y + 0.5f - n * 0.5f) - (n * 0.5f - r - 1f);
+                    float d = new Vector2(Mathf.Max(fx, 0f), Mathf.Max(fy, 0f)).magnitude + Mathf.Min(Mathf.Max(fx, fy), 0f) - r; // köşeli kutuya uzaklık
+                    float a = Mathf.Clamp01(1f - Mathf.Abs(d + w * 0.5f) / (w * 0.5f + 0.5f));
+                    px[y * n + x] = new Color32(255, 255, 255, (byte)(255f * a));
+                }
+                tex.SetPixels32(px);
+                tex.Apply();
+                return _hintFrame = Sprite.Create(tex, new Rect(0, 0, n, n), new Vector2(0.5f, 0.5f), n);
+            }
         }
 
         /// <summary>Animasyonu atlar; çağıran ardından Sync ile mantıksal son durumu çizer.</summary>

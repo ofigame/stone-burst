@@ -87,6 +87,13 @@ namespace KatKat.Game
         /// <summary>SFX kazancı taslağı (04_ANIMASYON_GORSEL_SES): 0,65; mevcut miksle dinlenerek ayarlanacak.</summary>
         public const float Vr1Gain = 0.65f;
 
+        private float _duckUntil = -1f;
+        private AudioClip _duckSkip;
+        /// <summary>−4 dB ≈ 0,63 kat.</summary>
+        public const float DuckGain = 0.63f;
+        /// <summary>Testler: kısma etkin mi.</summary>
+        public bool Ducking => Time.unscaledTime < _duckUntil;
+
         public void PlayVr1(string name)
         {
             if (!_enabled || string.IsNullOrEmpty(name)) return;
@@ -96,7 +103,12 @@ namespace KatKat.Game
                 if (clip != null && clip.loadState == AudioDataLoadState.Unloaded) clip.LoadAudioData();
                 _vr1[name] = clip;
             }
-            if (clip != null) PlayClip(clip, 1f, Vr1Gain);
+            if (clip == null) return;
+            // Kritik açılışta diğer efektler 4 dB kısılır (04 "Yeni sesler"); müzik ayrı kaynakta, değişmez.
+            if (name == "ice-shatter" || name == "collection-reveal") _duckUntil = Time.unscaledTime + clip.length;
+            _duckSkip = clip;
+            PlayClip(clip, 1f, Vr1Gain);
+            _duckSkip = null;
         }
 
         /// <summary>v10: normal bölüm zafer/ödül kartı ilk gösterilirken bir kez (WAV yoksa eski zafer sesi).</summary>
@@ -109,6 +121,7 @@ namespace KatKat.Game
         private void PlayClip(AudioClip clip, float pitch, float volume)
         {
             if (!_enabled || clip == null) return;
+            if (clip != _duckSkip && Time.unscaledTime < _duckUntil) volume *= DuckGain; // açılış sırasında diğer efektler −4 dB
             if (CaptureTap != null) { EnsureSamples(clip); CaptureTap(clip, pitch, Mathf.Clamp01(volume)); }
             var src = _sources[_next];
             _next = (_next + 1) % _sources.Length;

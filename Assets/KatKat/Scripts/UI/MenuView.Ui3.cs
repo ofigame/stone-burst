@@ -368,7 +368,8 @@ namespace KatKat.UI
             // gördüğünde, ör. AB). Satır aralığı 164; panel her satırda 164 büyür.
             bool privacy = PrivacyOptionsVisible != null && PrivacyOptionsVisible();
             const float PanelTop = 444f, RowStep = 164f;
-            int rows = privacy ? 5 : 4;
+            // 2026-11-11: 3. satır "Azaltılmış hareket" (vr1 erişilebilirlik); dil, kayıt, gizlilik birer aşağı.
+            int rows = privacy ? 6 : 5;
             float PanelH = 724f + (rows - 4) * RowStep;
             float RowY(int i) => (rows - 1) * RowStep * 0.5f - i * RowStep;
             var panel = Ui1.Card("Card", page, new Vector2(0.5f, 1f), new Vector2(0f, -(PanelTop + PanelH * 0.5f)), new Vector2(860f, PanelH));
@@ -378,8 +379,10 @@ namespace KatKat.UI
             U3Divider(c, RowY(0) - RowStep * 0.5f);
             SwitchRowUi3(c, RowY(1), "icon-vibration", Loc.T("ui.vibration"), vibration, v => VibrationChanged?.Invoke(v));
             U3Divider(c, RowY(1) - RowStep * 0.5f);
+            SwitchRowUi3(c, RowY(2), "icon-sound", Loc.T("ui.motion"), Motion.Reduced, v => MotionChanged?.Invoke(v), UiArt.Icon(UiIcon.Ring));
+            U3Divider(c, RowY(2) - RowStep * 0.5f);
             var lrow = UiFactory.Rect("Language", c);
-            UiFactory.Place(lrow, new Vector2(0.5f, 0.5f), new Vector2(0f, RowY(2)), new Vector2(748f, 132f));
+            UiFactory.Place(lrow, new Vector2(0.5f, 0.5f), new Vector2(0f, RowY(3)), new Vector2(748f, 132f));
             var lic = Ui1.Decor("Icon", lrow.transform, "icon-language");
             UiFactory.Place(lic.rectTransform, new Vector2(0f, 0.5f), new Vector2(36f, 0f), new Vector2(72f, 72f));
             var lt = U3Text("Label", lrow.transform, Loc.T("ui.language"), 38, true, Ui3.Ink, TextAnchor.MiddleLeft);
@@ -387,12 +390,12 @@ namespace KatKat.UI
             UiFactory.Place(lt.rectTransform, new Vector2(0f, 0.5f), new Vector2(104f + 175f, 0f), new Vector2(350f, 72f));
             FitText(lt, 28);
             Ui1.Button("Pick", lrow.transform, ArabicShaper.ShapeLines(Loc.Current.NativeName) + "  ›", true, new Vector2(1f, 0.5f), new Vector2(-140f, 0f), new Vector2(280f, 88f), ShowLanguagePicker, null, 38);
-            U3Divider(c, RowY(2) - RowStep * 0.5f);
-            SaveRowUi3(c, RowY(3));
+            U3Divider(c, RowY(3) - RowStep * 0.5f);
+            SaveRowUi3(c, RowY(4));
             if (privacy)
             {
-                U3Divider(c, RowY(3) - RowStep * 0.5f);
-                PrivacyRowUi3(c, RowY(4));
+                U3Divider(c, RowY(4) - RowStep * 0.5f);
+                PrivacyRowUi3(c, RowY(5));
             }
             var note = U3Text("Note", page, Loc.T("ui.settingsnote"), 28, false, Ui3.InkSecondary);
             note.textWrappingMode = TMPro.TextWrappingModes.Normal;
@@ -416,13 +419,14 @@ namespace KatKat.UI
             UiFactory.Place(d.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, y), new Vector2(748f, 2f));
         }
 
-        private void SwitchRowUi3(RectTransform card, float y, string iconKey, string label, bool initial, Action<bool> changed)
+        private void SwitchRowUi3(RectTransform card, float y, string iconKey, string label, bool initial, Action<bool> changed, Sprite iconOverride = null)
         {
             bool state = initial;
             var row = UiFactory.SpriteButton(label, card, null, new Vector2(748f, 132f), null);
             row.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
             UiFactory.Place((RectTransform)row.transform, new Vector2(0.5f, 0.5f), new Vector2(0f, y), new Vector2(748f, 132f));
             var icon = Ui1.Decor("Icon", row.transform, iconKey);
+            if (iconOverride != null) { icon.sprite = iconOverride; icon.color = Ui3.Ink; }
             UiFactory.Place(icon.rectTransform, new Vector2(0f, 0.5f), new Vector2(36f, 0f), new Vector2(72f, 72f));
             var t = U3Text("Label", row.transform, label, 38, true, Ui3.Ink, TextAnchor.MiddleLeft);
             UiFactory.Place(t.rectTransform, new Vector2(0f, 0.5f), new Vector2(104f + 198f, 0f), new Vector2(396f, 72f));

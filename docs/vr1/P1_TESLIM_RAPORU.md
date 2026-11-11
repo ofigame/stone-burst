@@ -171,3 +171,23 @@ Anahtar açıkken geçerli. Kapalıyken eski süreler aynen kalır. Motor sıras
 - Ayarlar sayfasının altındaki sürüm yazısı "vr1 prototipi AÇIK/KAPALI (dokun)" gösterir. Dokununca prototip açılır/kapanır; aynı cihazda iki görünüm karşılaştırılır.
 - Hata ayıklama anahtarıyla imzalı yerel APK; Play'e yüklenmez. Paket kimliği aynı (`com.ofigame.stoneburst`): Play kapalı testinden kurulu sürüm varsa önce kaldırılmalı. Kaldırınca yerel ilerleme silinir; Play Games'e giriş yapılmışsa buluttan geri gelir.
 - Telefona kurulmadı; denenmedi.
+
+## Kalan maddelerin tamamlanması (2026-11-11, kullanıcı: "tüm talimatları uygulayalım")
+
+| Madde | Durum | Canlı mı |
+|---|---|---|
+| İpucu: dokunuş grubunun tamamına ince beyaz-altın sınır | Yapıldı (`BoardView.ShowHintGroup`) | Canlı |
+| İpucu: kısa neden metni (yalnız motorun doğruladığı etki: bölümü bitirir / zincir başlatır / hedefe +n / roket satır-sütun / Altın Rulo / rulo / boya / döner taban) | Yapıldı, 9 dil | Canlı |
+| İpucu: bedel reklamdan önce onay kartında ("Reklam izle / Vazgeç") | Yapıldı; vazgeçmek bir şey değiştirmez | Canlı |
+| Öğretici bölümlerde satın alınan ipucunun öğretici halkasının arkasında kalması | Yeni bulunan hata, düzeltildi: ücretli öneri önce gelir | Canlı |
+| Dokunuş sıkışması 90 ms | Yapıldı (soyma çarpanından bağımsız) | Prototip |
+| Azaltılmış hareket | Ayarlar'da yeni anahtar (9 dil): tahta sarsıntısı, sürekli büyüyüp küçülme ve buz kırılma titremesi/parçacıkları kapanır; açılış 180 ms geçiş | Canlı (ayar) |
+| Açılışta diğer efektleri 4 dB kısma | Yapıldı (`SoundBank`, kırılma ve ortaya çıkış sesi süresince) | Prototip |
+| Bekleyen taş sunumunun kalıcı olması | Yapıldı (`meta.pendingReveal`): uygulama sunumdan önce kapanırsa vitrin sonraki açılışta bir kez; ödül yeniden verilmez | Canlı |
+| Sonuç kartında buzlu taş ilerlemesi | Yapıldı: ZPE rozetinin yanında "Taş adı 58/60 ★" | Prototip |
+| Taşlar ikonu: mevcut gerçek koleksiyon görseli | Yapıldı (ilk yıldız taşının görseli) | Prototip |
+| ZPE ikonu (katmanlı ustalık amblemi) | Yapılmadı: paket "gelecekte tasarlanabilir; pakette üretilmiş sayma" diyor, yeni görsel çizimi gerekir | — |
+| Sıralama kupası malzeme uyumu | Yapılmadı: aynı nedenle görsel çalışması gerekir | — |
+| İpucu süre bütçesinin cihazda ölçülmesi | Yapılamaz: cihaz gerekir | — |
+
+Testler: EditMode 217/219 (2 elle çalıştırılan atlandı), PlayMode 70/71 (1 atlandı), loc-check TAMAM. Yeni testler: ipucu onay kartı ve grup sınırı, bekleyen sunumun yeniden açılışta bir kez gösterilmesi, azaltılmış harekette parçacıksız açılış. Ekranlar: `p1_13_ipucu_onay_karti`, `p1_14_ipucu_grup_cercevesi`, `p1_15_ayarlar_azaltilmis_hareket`.

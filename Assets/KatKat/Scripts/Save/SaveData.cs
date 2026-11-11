@@ -22,6 +22,8 @@ namespace KatKat.Save
         public List<string> completed = new List<string>();
         public bool sound = true;
         public bool vibration = true;
+        /// <summary>Azaltılmış hareket (2026-11-11, vr1): sarsıntı ve sürekli büyüyüp küçülme kapalı.</summary>
+        public bool reducedMotion;
 
         /// <summary>v5: bölüm başına en iyi yıldız (paralel listeler; JsonUtility sözlük yazmaz). Eski kayıtta boş.</summary>
         public List<string> starIds = new List<string>();

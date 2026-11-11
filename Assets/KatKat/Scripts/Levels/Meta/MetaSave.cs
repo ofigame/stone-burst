@@ -46,6 +46,9 @@ namespace KatKat.Meta
         /// sayısı. Haritaya dönüşte aradaki net fark bir kez özetlenir; -1 = henüz yok (eski kayıt: fark gösterilmez).</summary>
         public int mapSeenStars = -1;
         public int mapSeenLevels = -1;
+        /// <summary>vr1 P1 (03 "pendingPresentation"): kazanılmış ama sunumu (vitrin) henüz görülmemiş taşlar. Uygulama
+        /// sunumdan önce kapanırsa sonraki açılışta yeniden gösterilir; ödül yeniden verilmez (taş zaten <see cref="stones"/>'da).</summary>
+        public List<string> pendingReveal = new List<string>();
 
         public void Sanitize()
         {
@@ -60,6 +63,7 @@ namespace KatKat.Meta
             rankStars ??= new List<string>();
             trialDone ??= new List<string>();
             seenTypes ??= new List<string>();
+            pendingReveal ??= new List<string>();
             if (zpeGames < 0 || double.IsNaN(zpeSum) || zpeSum < 0) { zpeGames = 0; zpeSum = 0; }
             if (dailyStars < 0) dailyStars = 0;
             if (heartsMissing < 0 || heartsMissing > Hearts.Max) heartsMissing = 0;

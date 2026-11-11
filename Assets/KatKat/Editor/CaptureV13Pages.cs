@@ -102,6 +102,9 @@ namespace KatKat.EditorTools
                 Shot("p1_11_harita_siralama_etiketi", gc => { Progress(gc, 12); gc.ShowLevels(); });
                 GameController.DevLeaderboardSample = true;
                 Shot("p1_12_siralama_kayit_dugmesi", gc => { Progress(gc, 25); gc.ShowRanking(); });
+                Shot("p1_13_ipucu_onay_karti", gc => { Progress(gc, 40); gc.StartLevel(40); gc.PressHintForTest(); gc.CompleteHintJobForTest(); Panels(gc); });
+                Shot("p1_14_ipucu_grup_cercevesi", gc => { Progress(gc, 40); gc.StartLevel(40); gc.PressHintForTest(); gc.CompleteHintJobForTest(); gc.ConfirmHintAdForTest(); });
+                Shot("p1_15_ayarlar_azaltilmis_hareket", gc => { Progress(gc, 12); Call(gc, "ShowSettings"); });
                 GameController.DevLeaderboardSample = false;
             }
             finally

@@ -180,7 +180,27 @@ namespace KatKat.Game
         }
 
         /// <summary>Plan hazır: ödüllü reklam. Bedel (−1 ★) düğme rozetinde reklamdan önce görünür.</summary>
+        /// <summary>
+        /// Plan hazır: bedel reklamdan ÖNCE açıkça gösterilir (01_IPUCU "Akış"): onay kartı "Reklam izle / Vazgeç".
+        /// Vazgeçmek hiçbir şeyi değiştirmez.
+        /// </summary>
         private void ShowHintAd(HintPlan plan)
+        {
+            _hintStage = HintStage.AdPending;
+            _hintConfirm = () => { _hintConfirm = null; _hud.HidePanel(); RunHintAd(plan); };
+            _hud.ShowPanel(Loc.T("trial.hint"), Loc.T("hint.confirm.body"),
+                new HudView.PanelButton(Loc.T("hint.confirm.btn"), UiIcon.Play, true, () => _hintConfirm?.Invoke(), true),
+                new HudView.PanelButton(Loc.T("hint.confirm.cancel"), null, false, () => { _hintConfirm = null; _hud.HidePanel(); _hintStage = HintStage.Idle; }));
+        }
+
+        private System.Action _hintConfirm;
+
+        /// <summary>Test: onay kartında "Reklam izle".</summary>
+        public void ConfirmHintAdForTest() => _hintConfirm?.Invoke();
+        /// <summary>Test: onay kartı açık mı.</summary>
+        public bool HintConfirmShown => _hintConfirm != null;
+
+        private void RunHintAd(HintPlan plan)
         {
             int token = ++_hintAdToken, attempt = _hintAttempt;
             bool handled = false;
@@ -215,7 +235,45 @@ namespace KatKat.Game
                 ("command", plan.Command.Type.ToString().ToLowerInvariant()));
             _hud.SetHintButton(true, false);
             RefreshHint();
-            _hud.ShowToast(first ? GotText(plan.Command) : LookText(plan.Command), 2.6f);
+            string why = HintReason(plan);
+            _hud.ShowToast((first ? GotText(plan.Command) : LookText(plan.Command)) + (why != null ? "\n" + why : ""), 3.2f);
+        }
+
+        /// <summary>Dokunulan hücrenin bağlı grubu (gösterim için; motorun grup bulucusu).</summary>
+        private static List<Coord> GroupCells(LevelState s, int x, int y)
+        {
+            var list = new List<Coord>();
+            foreach (var i in GroupFinder.Component(s.Board, x, y)) list.Add(new Coord(s.Board.X(i), s.Board.Y(i)));
+            return list;
+        }
+
+        /// <summary>
+        /// Kısa neden (01_IPUCU "Gösterim"): yalnız motorun bu komut için doğrulanabilir etkisi. Kanıtlanmayan sonraki zincir
+        /// vaat edilmez; "en iyi hamle" denmez.
+        /// </summary>
+        private string HintReason(HintPlan plan)
+        {
+            if (plan == null || !plan.IsVerified || _session == null) return null;
+            var c = plan.Command;
+            switch (c.Type)
+            {
+                case CommandType.UseSpecial:
+                    var tray = _session.State.Tray;
+                    var kind = c.Slot >= 0 && c.Slot < tray.Count ? tray[c.Slot] : SpecialKind.None;
+                    return kind == SpecialKind.RocketRow ? Loc.T("hint.why.row") : kind == SpecialKind.RocketColumn ? Loc.T("hint.why.col") : kind == SpecialKind.Rainbow ? Loc.T("hint.why.rainbow") : null;
+                case CommandType.Roll: return Loc.T("hint.why.roll");
+                case CommandType.Paint: return Loc.T("hint.why.paint");
+                case CommandType.Rotate: return Loc.T("hint.why.rotate");
+            }
+            var s = _session.State;
+            var next = s.Clone();
+            var r = RulesEngine.TryApply(next, c);
+            if (!r.Accepted) return null;
+            if (next.Status == GameStatus.Won) return Loc.T("hint.why.win");
+            foreach (var w in r.Waves) if (w.Kind == WaveKind.Chain) return Loc.T("hint.why.chain");
+            int gain = 0;
+            for (int g = 0; g < s.Goals.Count && g < next.Goals.Count; g++) gain += next.Goals[g].DisplayProgress - s.Goals[g].DisplayProgress;
+            return gain > 0 ? Loc.F("hint.why.goal", gain) : null;
         }
 
         private static string GotText(Command c) => c.Type == CommandType.Tap ? Loc.T("hint.got") : Loc.T("hint.got.other");
@@ -229,6 +287,7 @@ namespace KatKat.Game
         {
             _freePlan = null;
             _hud.HideHintMark();
+            _board.HideHintGroup();
             if (_hintPlan == null) return;
             if (HintPlanner.IsFollowed(_hintPlan, _session.State))
             {
@@ -253,7 +312,7 @@ namespace KatKat.Game
                 StartHintJob(offer: false, loud: false);
             }
             if (p == Phase.Idle || p == Phase.Targeting) RefreshHint();
-            else if (p == Phase.Animating || p == Phase.Ended) { if (!_hintActive) _hint.Hide(); _hud.HideHintMark(); }
+            else if (p == Phase.Animating || p == Phase.Ended) { if (!_hintActive) _hint.Hide(); _hud.HideHintMark(); _board.HideHintGroup(); }
         }
 
         /// <summary>Ücretli ya da ücretsiz planın ilk komutunu gösterir (tek görselleştirici; bütün komut türleri).</summary>
@@ -267,6 +326,7 @@ namespace KatKat.Game
             {
                 case CommandType.Tap:
                     _hint.Show(_board.CellCenter(c.X, c.Y), _board.Pitch, true);
+                    _board.ShowHintGroup(GroupCells(s, c.X, c.Y)); // grubun tamamına ince sınır
                     return true;
                 case CommandType.Rotate:
                     _hint.Show(_board.CellCenter(c.X, c.Y) + _board.StackAt(c.X, c.Y).RotorLocal, _board.Pitch * 0.45f, true);

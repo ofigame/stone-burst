@@ -19,6 +19,12 @@ namespace KatKat.Game
         private void SetupVr1()
         {
             Vr1Proto.Sound = n => _sound?.PlayVr1(n);
+            // Taşlar sekmesi: koleksiyonun ilk yıldız taşının asıl görseli (yeni çizim yok).
+            if (_stones != null)
+            {
+                var first = _stones.Stones.Find(s => s.Category == StoneCategory.StarStone);
+                if (first != null) Vr1Proto.NavStones = StoneSprite(first);
+            }
         }
 
         /// <summary>Taş hedefinin harita kartı verisi (sprite, ışıltı, buz ilerlemesi).</summary>
@@ -50,6 +56,7 @@ namespace KatKat.Game
         /// </summary>
         private bool PrepareMapGoal()
         {
+            if (Vr1Proto.NavStones == null) SetupVr1(); // katalog hazır olduktan sonra Taşlar ikonu
             var meta = _save.Data.meta;
             int stars = _save.Data.TotalStars, levels = _save.Data.completed.Count;
             var ret = CollectionProgress.Compare(meta.mapSeenStars, meta.mapSeenLevels, stars, levels, _winsSinceMap);
@@ -116,6 +123,20 @@ namespace KatKat.Game
             if (!g.Has) return;
             _centerIce = Vr1CenterIce.Create(_board.transform, hole, StoneSprite(_stones.Find(g.StoneId)), CollectionProgress.Progress(g), Loc.T("vr1.collection.label"));
             _centerIce.Layout(_board);
+        }
+
+        /// <summary>
+        /// Sonuç kartı rozeti (03 "Merkez boşluğu olmayan tahtalarda … aynı ilerleme haritada ve sonuçta görünür"): prototipte ZPE
+        /// metnine sıradaki koleksiyon taşı ilerlemesi eklenir ("Okyanus Taşı 58/60 ★"). Kayıt yazılmış değerlerden.
+        /// </summary>
+        private string Vr1Badge(string zpe)
+        {
+            if (!Vr1Proto.On || _stones == null) return zpe;
+            var g = CollectionProgress.NextStarGoal(_stones, _save.Data.meta.stones, _save.Data.TotalStars);
+            var s = g.Has ? _stones.Find(g.StoneId) : null;
+            if (s == null) return zpe;
+            string ice = Loc.T(s.NameKey) + " " + g.Stars + "/" + g.To + " ★";
+            return string.IsNullOrEmpty(zpe) ? ice : zpe + "  ·  " + ice;
         }
 
         /// <summary>Bölüm başı (03 "Bölüm başı"): bu denemenin en çok net yeni yıldızı eşiği geçirebiliyorsa 2 sn bilgi.</summary>

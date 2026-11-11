@@ -20,7 +20,9 @@ namespace KatKat.View
         public static float Slow => KatKat.UI.Vr1Proto.On ? 0.6f : 1.4f;
         /// <summary>Dokunuş sıkışması: prototipte en az 1 − 0,04 (tablo: 1 → 0,96 → 1), eskisi 0,94.</summary>
         public static float SquashDepth => KatKat.UI.Vr1Proto.On ? 0.04f : 0.06f;
-        public static float AnticipationEnd => 90f * Slow;
+        /// <summary>Dokunuş sıkışması süresi: prototipte tablodaki 90 ms (soyma çarpanından bağımsız; kırılma 90 ms'de, kalkış
+        /// bitişinden önce); kapalıyken eski 126 ms.</summary>
+        public static float AnticipationEnd => KatKat.UI.Vr1Proto.On ? 90f : 90f * Slow;
         public static float LiftStart => 50f * Slow;
         public static float LiftEnd => 160f * Slow;
         public static float PeelEnd => 410f * Slow;

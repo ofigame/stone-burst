@@ -43,6 +43,8 @@ namespace KatKat.UI
         private static Sprite _navMap, _navDaily, _iceRim;
         public static Sprite NavMap => _navMap ? _navMap : _navMap = Resources.Load<Sprite>("Vr1/nav-map");
         public static Sprite NavDaily => _navDaily ? _navDaily : _navDaily = Resources.Load<Sprite>("Vr1/nav-daily");
+        /// <summary>Taşlar sekmesi adayı (04: "Taşlar: mevcut gerçek koleksiyon asset'i"); GameController katalogdan atar.</summary>
+        public static Sprite NavStones;
         public static Sprite IceRim => _iceRim ? _iceRim : _iceRim = Resources.Load<Sprite>("Vr1/ice-rim");
     }
 }

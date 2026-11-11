@@ -624,7 +624,11 @@ namespace KatKat.Tests
             Assert.IsTrue(_gc.HintPreparing, "plan arka planda hazırlanır");
             Assert.AreEqual(shown, fake.Shown, "plan hazır olmadan reklam yok");
             _gc.CompleteHintJobForTest();
+            Assert.IsTrue(_gc.HintConfirmShown, "bedel reklamdan önce onay kartında");
+            Assert.AreEqual(shown, fake.Shown, "onaydan önce reklam yok");
+            _gc.ConfirmHintAdForTest();
             Assert.AreEqual(shown + 1, fake.Shown, "reklam bir kez");
+            Assert.Greater(_gc.Board.HintGroupMarks + (_gc.PaidHintCommand.Value.Type == CommandType.Tap ? 0 : 1), 0, "dokunuşta grup sınırı");
             Assert.IsTrue(_gc.PaidHintUsed, "öneri teslim edildi: bedel işlendi");
             Assert.IsTrue(_gc.PaidHintCommand.HasValue, "ipucu komutu");
             Assert.IsTrue(_gc.HintRingVisible || _gc.Hud.HintMarkTarget != KatKat.UI.HudView.HintUi.None, "öneri görünür");
@@ -643,7 +647,7 @@ namespace KatKat.Tests
             Assert.IsTrue(other.HasValue, "ipucu dışında oynanabilir dokunuş");
             _gc.OnCellPressed(other.Value.X, other.Value.Y);
             yield return WaitStable();
-            _gc.CompleteHintJobForTest();
+            _gc.CompleteHintJobForTest(); _gc.ConfirmHintAdForTest();
             Assert.AreEqual(GameController.Phase.Idle, _gc.CurrentPhase);
             Assert.IsFalse(_gc.HintConsumed, "başka hamle hakkı bitirmez");
             Assert.AreEqual(shown + 1, fake.Shown, "yeniden çözüm reklamsız");
@@ -686,7 +690,7 @@ namespace KatKat.Tests
                     fake.Next = o;
                     int shown = fake.Shown;
                     _gc.PressHintForTest();
-                    _gc.CompleteHintJobForTest();
+                    _gc.CompleteHintJobForTest(); _gc.ConfirmHintAdForTest();
                     Assert.AreEqual(shown + 1, fake.Shown, o.ToString());
                     Assert.IsFalse(_gc.PaidHintUsed, o + ": bedel yok");
                     Assert.IsFalse(_gc.HintCreditOpen, o + ": hak yok");
@@ -710,7 +714,7 @@ namespace KatKat.Tests
             {
                 int grants = GameController.HintGrantsForTest;
                 _gc.PressHintForTest();
-                _gc.CompleteHintJobForTest();
+                _gc.CompleteHintJobForTest(); _gc.ConfirmHintAdForTest();
                 Assert.AreEqual(grants + 1, GameController.HintGrantsForTest, "tek teslim");
                 Assert.IsTrue(_gc.PaidHintUsed);
             }
@@ -742,7 +746,7 @@ namespace KatKat.Tests
                 var fake = GameController.FakeAds;
                 int shown = fake.Shown;
                 _gc.PressHintForTest();
-                _gc.CompleteHintJobForTest();
+                _gc.CompleteHintJobForTest(); _gc.ConfirmHintAdForTest();
                 if (_gc.PaidHintCommand.HasValue) Assert.Inconclusive("1 düğümle de doğrulanmış yol bulundu");
                 Assert.AreEqual(shown, fake.Shown, "plan yoksa reklam yok");
                 Assert.IsFalse(_gc.PaidHintUsed);
@@ -760,7 +764,7 @@ namespace KatKat.Tests
             yield return WaitStable();
             GameController.FakeAds.Next = KatKat.Meta.AdOutcome.Rewarded;
             _gc.PressHintForTest();
-            _gc.CompleteHintJobForTest();
+            _gc.CompleteHintJobForTest(); _gc.ConfirmHintAdForTest();
             Assert.IsTrue(_gc.PaidHintUsed);
             _gc.Restart();
             yield return WaitStable();

@@ -131,6 +131,7 @@ namespace KatKat.Game
             _sound = SoundBank.Create(transform);
             SetupVr1();
             _sound.Enabled = save.Data.sound;
+            KatKat.UI.Motion.Reduced = save.Data.reducedMotion;
             _music = MenuMusic.Create(transform);
             _music.Enabled = save.Data.sound;
             _menu = MenuView.Create(cam);
@@ -139,6 +140,7 @@ namespace KatKat.Game
             // v10: tek ses ayarı hem efektleri hem müziği anında kontrol eder.
             _menu.SoundChanged += v => { _save.Data.sound = v; _sound.Enabled = v; _music.Enabled = v; _save.Save(); };
             _menu.VibrationChanged += v => { _save.Data.vibration = v; Haptics.Enabled = v; _save.Save(); if (v) Haptics.Light(); };
+            _menu.MotionChanged += v => { _save.Data.reducedMotion = v; KatKat.UI.Motion.Reduced = v; _save.Save(); };
             _menu.LanguagePicked += OnLanguagePicked;
             _menu.Hide();
             _menu.UnlockAll = TestUnlockAll;
@@ -368,6 +370,9 @@ namespace KatKat.Game
         private void RefreshHint()
         {
             _hud.HideHintMark();
+            _board.HideHintGroup();
+            // Satın alınmış ipucu öğretici halkasından önce gelir (2026-11-11: öğretici bölümlerde ücretli öneri görünmüyordu).
+            if (PlanCurrent(_hintPlan) && ShowPlanHint()) return;
             if (_hintActive && _level.Solution.Count > 0)
             {
                 var step = _level.Solution[0];
@@ -920,7 +925,7 @@ namespace KatKat.Game
                 new HudView.PanelButton(hasNext ? Loc.T("btn.continue") : Loc.T("btn.levels"), UiIcon.Play, true, () => AfterWinContinue(() => { if (hasNext) StartLevel(_levelIndex + 1); else ShowLevels(); })),
                 new HudView.PanelButton(Loc.T("btn.replay"), UiIcon.Restart, false, () => StartLevel(_levelIndex)));
             // v10 P5: bölüm sonu ZPE değişimi (normal bölüm).
-            if (_sessionKind == KatKat.Meta.SessionKind.Normal) _hud.SetResultBadge(ZpeChangeText());
+            if (_sessionKind == KatKat.Meta.SessionKind.Normal) _hud.SetResultBadge(Vr1Badge(ZpeChangeText())); // vr1 P1: buzlu taş ilerlemesi sonuçta da
         }
 
         private void ShowLost(GameStatus status)

@@ -221,6 +221,22 @@ namespace KatKat.UI
                 if (!_i.Unlocking) { _done = b >= 1f; return; }
                 float s = _t - _barStart - BarMs; // kırılma zaman çizgisi (0–1100 ms)
                 if (s < 0f) return;
+                if (Motion.Reduced)
+                {
+                    // Azaltılmış hareket: titreme ve parçacık yok; 180 ms geçişle kabuk kalkar, taş görünür.
+                    if (!_shattered) { _shattered = true; Vr1Proto.Play("ice-shatter"); }
+                    float k = Mathf.Clamp01(s / 180f);
+                    _r.Rim.color = new Color(1f, 1f, 1f, 1f - k);
+                    _r.Frost.color = new Color(0.88f, 0.95f, 1f, 0.14f * (1f - k));
+                    if (k >= 1f && !_revealed)
+                    {
+                        ApplyIceStage(_r, 1f, true);
+                        _revealed = true;
+                        _done = true;
+                        _i.AfterReveal?.Invoke();
+                    }
+                    return;
+                }
                 // 0–180: çatlak ışığı.
                 _r.Flash.color = new Color(1f, 0.97f, 0.85f, s < 180f ? s / 180f * 0.8f : Mathf.Max(0f, 0.8f - (s - 180f) / 600f));
                 // 180–400: yalnız kabuk ±2 px titrer.

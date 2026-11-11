@@ -18,6 +18,7 @@ namespace KatKat.UI
 
         public void Advance(float dt)
         {
+            if (Motion.Reduced) { transform.localScale = UnityEngine.Vector3.one; return; } // azaltılmış hareket
             _t += dt;
             float s = 1f + Amp * 0.5f * (1f - Mathf.Cos(_t * Mathf.PI * 2f / Period));
             transform.localScale = new Vector3(s, s, 1f);

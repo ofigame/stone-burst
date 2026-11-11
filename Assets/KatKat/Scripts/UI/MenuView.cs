@@ -23,7 +23,7 @@ namespace KatKat.UI
         public bool UnlockAll;
         /// <summary>v5: bölüm indeksinin en iyi yıldızı (0–3); tamamlanan düğümün altında küçük yıldızlar.</summary>
         public Func<int, int> StarsOf;
-        public event Action<bool> SoundChanged, VibrationChanged;
+        public event Action<bool> SoundChanged, VibrationChanged, MotionChanged;
 
         private Canvas _canvas;
         private RectTransform _safe;

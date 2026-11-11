@@ -676,7 +676,7 @@ namespace KatKat.UI
             _t += dt;
             if (Group != null && FadeIn) Group.alpha = Mathf.Clamp01(_t / 0.18f);
             if (Content != null && !FadeIn) Content.alpha = Mathf.Clamp01(_t / 0.16f);
-            if (Mascot == null || ReducedMotion) return;
+            if (Mascot == null || ReducedMotion || Motion.Reduced) return;
             if (!_based) { _mascotBase = Mascot.anchoredPosition; _based = true; }
             Mascot.anchoredPosition = _mascotBase + new Vector2(0f, 3f * Mathf.Sin(_t * 2f * Mathf.PI / 2.8f));
         }

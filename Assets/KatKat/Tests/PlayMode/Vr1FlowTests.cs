@@ -73,6 +73,58 @@ namespace KatKat.Tests
             Assert.AreEqual(_gc.SaveService.Data.TotalStars, _gc.SaveService.Data.meta.mapSeenStars, "görülme işareti yine güncellenir");
         }
 
+        /// <summary>C03: taş kazanıldı, uygulama sunumdan önce kapandı → sonraki açılışta vitrin bir kez; taş ikinci kez verilmez.</summary>
+        [UnityTest]
+        public IEnumerator PendingReveal_SurvivesRestart_ShownOnce()
+        {
+            var d = _gc.SaveService.Data;
+            var stone = _gc.Stones.Stones.Find(s => s.Category == StoneCategory.StarStone);
+            if (!d.meta.stones.Contains(stone.StoneId)) d.meta.stones.Add(stone.StoneId);
+            d.meta.pendingReveal.Add(stone.StoneId);
+            int owned = d.meta.stones.Count;
+            _gc.SaveService.Save();
+            // Uygulama yeniden açılır (aynı kayıt klasörü).
+            yield return SceneManager.LoadSceneAsync("Game", LoadSceneMode.Single);
+            yield return null;
+            _gc = Object.FindAnyObjectByType<GameController>();
+            yield return null;
+            Assert.IsTrue(_gc.Showcase.IsOpen, "bekleyen sunum yeniden gösterilir");
+            _gc.Showcase.Close();
+            yield return null;
+            d = _gc.SaveService.Data;
+            Assert.IsFalse(d.meta.pendingReveal.Contains(stone.StoneId), "görüldü kaydı");
+            Assert.AreEqual(owned, d.meta.stones.Count, "ödül yeniden verilmez");
+        }
+
+        /// <summary>Azaltılmış hareket: kabuk titremesi ve parçacık yok; 180 ms geçişle açılır, vitrin yine gelir.</summary>
+        [UnityTest]
+        public IEnumerator ReducedMotion_ShatterIsCrossfade()
+        {
+            Vr1Proto.Override = true;
+            KatKat.UI.Motion.Reduced = true;
+            try
+            {
+                Progress(10);
+                var d = _gc.SaveService.Data;
+                CollectionRules.GrantUnlocked(d.meta, _gc.Stones, d.IsCompleted);
+                d.meta.dailyStars = 0;
+                d.meta.dailyStars = Mathf.Max(0, 58 - d.TotalStars);
+                _gc.ShowLevels();
+                yield return null;
+                d.meta.dailyStars += 3;
+                typeof(GameController).GetMethod("CheckStoneUnlocks", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).Invoke(_gc, null);
+                _gc.ShowLevels();
+                yield return null;
+                var fx = _gc.Menu.Vr1Fx;
+                Assert.IsNotNull(fx);
+                fx.Advance(4000f);
+                Assert.IsTrue(fx.Revealed);
+                Assert.IsNull(Find("Shard"), "parçacık yok");
+                Assert.IsTrue(_gc.Showcase.IsOpen);
+            }
+            finally { KatKat.UI.Motion.Reduced = false; }
+        }
+
         /// <summary>Anahtar kapalı/açık gerçek süreli tek hamle (kayıtlı çözümün ilk adımı) oynatma süresi.</summary>
         private IEnumerator TimeFirstMove(int level, bool proto, System.Action<float> result)
         {
