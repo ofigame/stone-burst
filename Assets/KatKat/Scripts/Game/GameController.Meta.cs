@@ -238,6 +238,9 @@ namespace KatKat.Game
         private int SessionMoveBonus(LevelData level, SessionKind kind) =>
             kind == SessionKind.Normal && _daily != null ? _daily.MoveBonusFor(_save.Data.IsCompleted(level.Id)) : 0;
 
+        /// <summary>Hazine bulma bölümlere bağlı mı? Değilse Gizli Hazineler koleksiyonda gösterilmez.</summary>
+        private const bool TreasuresAvailable = false;
+
         /// <summary>v10 P2.1: kazanım koşullarının oyuncu durumu. Hazine (P2.3) henüz yok: hiçbiri sağlanmaz.</summary>
         private UnlockContext UnlockCtx() => new UnlockContext
         {
@@ -543,6 +546,9 @@ namespace KatKat.Game
                 foreach (var s in _stones.InCategory(cat))
                 {
                     bool owned = _save.Data.meta.stones.Contains(s.StoneId);
+                    // Hazine bulma (P2.3) bölümlere bağlanmadı (UnlockCtx: HasTreasure = null): kazanılamayan taşlar
+                    // koleksiyonda gösterilmez (2026-11-11). Hazine bağlanınca TreasuresAvailable açılır.
+                    if (cat == StoneCategory.HiddenTreasure && !TreasuresAvailable && !owned) continue;
                     bool hidden = !owned && cat == StoneCategory.HiddenTreasure; // hazinenin adı bulunana kadar gizli
                     items.Add(new MenuView.StoneItem
                     {

@@ -42,7 +42,7 @@ Bu belgedeki sayıların hepsi **koddan ve bölüm verisinden** (1000 bölüm JS
 - **İçerik:**
   - 1000 bölüm, 10 bölgede.
   - Her gün değişen günlük bulmaca.
-  - 22 koleksiyon taşı.
+  - 22 koleksiyon taşı (şu an 12si görünür; 10 gizli hazine bağlanmadı).
   - 10 deneme bölümü.
   - Dünya ve ülke sıralaması.
 - **Diller:** 9 dil (Türkçe kaynak; İngilizce, İspanyolca, Arapça, Almanca, İtalyanca, Fransızca, Japonca, Korece).
@@ -380,7 +380,7 @@ Toplam **22 taş**: 10 yıldız taşı, 10 gizli hazine, 2 efsanevi taş. Taş g
 | Ay Taşı | 300 yıldız | +2 hamle |
 | Galaksi Taşı | 500 yıldız | Tepsiye Altın Rulo |
 | Alev, Yaşam, Ayaz, Güneş, Kozmos | 750 / 1050 / 1400 / 1800 / 2250 yıldız | Yok |
-| Gizli hazineler (10) | Hazine bulma | Yok. **Şu an kazanılamıyor.** |
+| Gizli hazineler (10) | Hazine bulma | Yok. Hazine bulma bölümlere bağlı değil; bağlanana kadar koleksiyonda gösterilmez. |
 | Anka Kristali | Bölüm 1–500 bitince | Yok |
 | Buz Ejderhası Tacı | Bölüm 501–1000 bitince | Yok |
 
@@ -406,7 +406,7 @@ Toplam yıldız = bölüm yıldızları + günlük bulmaca yıldızları. Kaynak
 | 10 | Patron | Kristal + Zincir + Kesin | 6×7 | 5 |
 
 - 2 kayıptan sonra ücretsiz ipucu verilir: çözücü sıradaki hamleyi bulur.
-- ⚠️ Listeye açılan harita düğmesi şu anki arayüzde **kurulmuyor**, oyuncu denemelere ulaşamıyor (bkz. §23).
+- Deneme düğmesi haritadan bilerek kaldırıldı (onaylı karar, 2026-11-08: türler ana bölümlere taşındı). Liste ve bölümler kodda duruyor, şu an oyuncuya açık değil.
 
 ---
 
@@ -607,7 +607,7 @@ Bu olaylarla ölçülebilecek temel metrikler:
 | Geçiş reklamı | 11. bölümden sonra, 4 bölümde bir, ≥240 sn, oturumda ≤8 |
 | ZPE ağırlıkları | Verim %35, zorluk %25, ilk deneme %20, hız %10, yardımsız %10 |
 | Sıralama | ZPE %50 + bölüm %30 + yıldız %20, en az 20 bölüm |
-| Koleksiyon | 22 taş (10 yıldız, 10 hazine, 2 efsanevi) |
+| Koleksiyon | 22 taş (10 yıldız, 10 hazine, 2 efsanevi); hazineler şu an gizli |
 | Deneme bölümleri | 10 |
 | Dil | 9 |
 
@@ -615,13 +615,14 @@ Bu olaylarla ölçülebilecek temel metrikler:
 
 ## 23. Belgelerle çelişkiler ve açık noktalar
 
-Kod ile eski belgeler (`docs/OYUN.md`, `docs/DURUM.md`) ve oyun içi metinler karşılaştırılırken bulundu. **Hiçbiri düzeltilmedi.**
+Kod ile eski belgeler (`docs/OYUN.md`, `docs/DURUM.md`) ve oyun içi metinler karşılaştırılırken bulundu.
 
-**Oyunda görünen sorunlar**
-1. **Deneme Bölümlerine giriş yok.** Haritadaki Deneme düğmesini kuran `BuildTrialButton` (`S/UI/MenuView.Trial.cs`) hiçbir yerden çağrılmıyor.
-2. **Günlük kartta prototip notu ve "(deneme)" yazısı.** "Prototip: reklam ve gün bilgisi sahte/yerel." notu ve "Reklam izle ve gir (deneme)" düğmesi mağaza sürümünde de görünüyor.
-3. **Gizli hazine taşları kazanılamıyor.** Hazine bulma bağlı değil (`HasTreasure = null`). Koleksiyonda 10 taş hiç açılamaz.
-4. **Bağlı ataş öğretici metni yanlış.** Metin "hepsinin yanında soyma" diyor; motor "herhangi birinin yanında" kuralını uyguluyor.
+**Oyunda görünen sorunlar** (2026-11-11'de düzeltildi; şu an incelemedeki 1.0.0 derlemelerinde yok, sonraki derlemeye girer)
+1. **Günlük kartta prototip notu ve "(deneme)" yazısı:** not kaldırıldı, "(deneme)" eki 9 dilde silindi.
+2. **Gizli hazine taşları kazanılamıyordu:** hazine bulma bölümlere bağlanana kadar koleksiyonda gösterilmiyor (`TreasuresAvailable = false`). Veri (`stones.json`) duruyor.
+3. **Bağlı ataş öğretici metni:** 9 dilde "herhangi birinin yanında soyma yapman yeter" anlamına düzeltildi.
+4. **ZPE paneli alt satırı:** kart kenarına taşmıyor.
+- **Deneme Bölümleri** haritadan açılmıyor; bu bir hata değil, onaylı bir karar (KARARLAR, 2026-11-08 v8). Liste ve bölümler kodda duruyor.
 
 **Eski belgelerdeki hatalar** (`docs/OYUN.md`)
 5. "Bölüm 1–5: rulo" yazıyor. Doğrusu: 1–5'te rulo ve özel taş yok, ilk roket 6. bölümde. Rulo yalnız bölüm 296'da ve günlük bulmacalarda var.

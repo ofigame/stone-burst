@@ -47,7 +47,7 @@ Harita (ana sayfa) ──────────────┬─────�
    ├─ ZPE düğmesi → ZPE paneli                                  │
    ├─ Sıralama düğmesi → Sıralama → (i) Sıralama puanı          │
    ├─ kilitli taş rozeti → Koleksiyon                           │
-   ├─ (Deneme listesi → deneme oyunu: şu an girişi yok, bkz. §15) │
+   ├─ (Deneme listesi: haritadan kaldırıldı, karar 2026-11-08)    │
    └─ dişli → Ayarlar → Dil seçimi                              │
                                                                 │
 Günlük ──→ Günlük Bulmaca kartı → (reklam) → günlük oyun ekranı ┘
@@ -178,7 +178,7 @@ Taşlar ──→ Koleksiyon → taş vitrini (3D)
 - **Ne zaman:** alt menüde **Taşlar** sekmesine ya da haritadaki kilitli taş rozetine dokununca.
 - **Başlık:** "Yıldız Taşları" ve sayaç (örnekte **1/10**).
 - **Kartlar:** her taş bir kart. Açılmış taşın resmi görünür ve altında "✓ Koleksiyonda" yazar. Kilitli taş bulanık ve asma kilitlidir, altında açılma eşiği yazar ("60 yıldızda açılır", "150", "300"…).
-- Bu bölüm 10 **yıldız taşını** gösterir: Gelgit, Okyanus, Fırtına, Ay, Galaksi, Alev ve dört taş daha. Veride bunlara ek olarak 10 gizli hazine (şu an kazanılamıyor) ve 2 efsanevi taş vardır, toplam 22 (bkz. OYUN_MANTIGI.md §12).
+- Önce 10 **yıldız taşı** (Gelgit, Okyanus, Fırtına, Ay, Galaksi, Alev ve dört taş daha), sonra 2 **efsanevi taş** listelenir. Veride 10 gizli hazine de var; hazine bulma bölümlere bağlanana kadar koleksiyonda gösterilmez (bkz. OYUN_MANTIGI.md §12).
 
 **Taş vitrini (3D):**
 - **Ne zaman:** yeni taş kazanılınca kendiliğinden ya da koleksiyonda bir taşa dokununca.
@@ -212,7 +212,7 @@ Taşlar ──→ Koleksiyon → taş vitrini (3D)
 <img src="ekranlar/09_deneme_listesi.jpg" width="240"> <img src="ekranlar/10_deneme_kural_karti.jpg" width="240"> <img src="ekranlar/11_deneme_tahtasi.jpg" width="240">
 
 **Deneme listesi:**
-- **Ne zaman:** haritadaki Deneme düğmesiyle açılması tasarlandı; ancak bu düğme şu anki arayüzde kurulmuyor, oyuncu listeye ulaşamıyor (bkz. §15). Görsel yakalama aracıyla doğrudan açıldı.
+- **Ne zaman:** şu an oyuncuya açık değil. Bölüm türleri ana bölümlere taşınınca Deneme düğmesi haritadan kaldırıldı (onaylı karar, 2026-11-08). Liste ve 10 bölüm kodda duruyor; görsel yakalama aracıyla doğrudan açıldı.
 - Başlık "Deneme Bölümleri", altında "Yeni kurallar: kural verilir, çözüm sende. Ana bölümleri etkilemez."
 - Her satırda bir bölüm türü bulunur: simge, ad, tek cümlelik kural ve **›** düğmesi. Sıra:
   1. Tek Dokunuş
@@ -383,12 +383,15 @@ Taşlar ──→ Koleksiyon → taş vitrini (3D)
 
 ---
 
-## 15. Gözlenen sorunlar
+## 15. Gözlenen sorunlar ve düzeltmeler (2026-11-11)
 
-Yakalamalar incelenirken görülen ve **henüz düzeltilmemiş** noktalar:
+Yakalamalar incelenirken bulunanlar. Düzeltmeler bir sonraki mağaza derlemesine girer; şu an incelemedeki iOS ve Android 1.0.0 derlemelerinde **yoktur**.
 
-1. **Günlük Bulmaca kartında prototip notu.** Kartın altında "Prototip: reklam ve gün bilgisi sahte/yerel." yazıyor (`MenuView.Ui1.cs`, `daily.proto`). Not koşulsuz gösteriliyor, yani mağaza sürümünde de oyuncu görüyor.
-2. **Giriş düğmesinde "(deneme)".** Düğme metni "Reklam izle ve gir (deneme)" (İngilizcesi "Watch ad to enter (test)"). Gerçek sürümde "(deneme)" eki olmamalı (`strings.txt` → `daily.enter.ad`).
-3. **ZPE panelinin alt satırı taşıyor.** "Hesaba katılan bölüm · Başarı oranı · İlk denemede" satırı kartın kenarına değiyor (`06_zpe_istatistik.jpg`).
-4. **Deneme Bölümlerine giriş yok.** Haritadaki Deneme düğmesini kuran `MenuView.BuildTrialButton` (`MenuView.Trial.cs`) hiçbir yerden çağrılmıyor. Liste ve 10 deneme bölümü oyunda var ama oyuncu ulaşamıyor.
-5. **Bağlı ataş öğretici metni motorla uyuşmuyor.** `tut.mech.linkedClip` metni "hepsinin yanında soyma yapman gerekir" diyor. Oysa motorda gruptan herhangi birinin yanında soyma yapılınca bütün gruba hasar gidiyor.
+| # | Sorun | Durum |
+|---|---|---|
+| 1 | Günlük Bulmaca kartının altında "Prototip: reklam ve gün bilgisi sahte/yerel." notu koşulsuz görünüyordu. | **Düzeltildi:** not kaldırıldı (`MenuView.Ui1.cs`, `MenuView.Meta.cs`). |
+| 2 | Giriş düğmesi "Reklam izle ve gir (deneme)" yazıyordu (bütün dillerde "(test)" eki). | **Düzeltildi:** ek 9 dilde kaldırıldı (`daily.enter.ad`). |
+| 3 | ZPE panelinde "Hesaba katılan bölüm · Başarı oranı · İlk denemede" satırı kartın kenarına taşıyordu. | **Düzeltildi:** satır genişliği 840 → 740, yazı sığana dek küçülür. |
+| 4 | Bağlı ataş öğretici metni "hepsinin yanında soyma yapman gerekir" diyordu; motor "herhangi birinin yanında" kuralını uygular. | **Düzeltildi:** metin 9 dilde "herhangi birinin yanında soyma yapman yeter" anlamına çevrildi (`tut.mech.linkedClip`). |
+| 5 | Koleksiyonda 10 "Gizli Hazine" taşı listeleniyordu ama hazine bulma bölümlere bağlı değil, kazanılamıyordu. | **Düzeltildi:** hazine bağlanana kadar bu bölüm koleksiyonda gösterilmez (`GameController.Meta.cs`, `TreasuresAvailable`). |
+| 6 | Deneme Bölümleri listesine haritadan giriş yok. | **Sorun değil:** onaylı karar (KARARLAR, 2026-11-08 v8): türler ana bölümlere taşındı, Deneme düğmesi haritadan kaldırıldı, liste kodda duruyor. |

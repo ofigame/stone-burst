@@ -203,13 +203,9 @@ namespace KatKat.UI
                 FitText(bl, 22);
             }
 
-            // Kapat (sağ üst) ve prototip notu.
+            // Kapat (sağ üst). "Prototip" notu kaldırıldı (2026-11-11): mağaza sürümünde oyuncuya görünüyordu.
             var close = ShellRoundButton("Back", c, PremiumArt.V4("icons/back") ?? UiArt.Icon(UiIcon.Back), 92f, CloseDaily);
             UiFactory.Place((RectTransform)close.transform, new Vector2(1f, 1f), new Vector2(-20f, -20f), new Vector2(92f, 92f));
-            var note = UiFactory.Text("Proto", root, Loc.T("daily.proto"), 24, new Color(1f, 1f, 1f, 0.8f), TextAnchor.MiddleCenter, FontStyle.Normal);
-            note.raycastTarget = false;
-            UiFactory.Place(note.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 40f - H * 0.5f - 50f), new Vector2(900f, 50f));
-            FitText(note, 16);
         }
 
         private RectTransform _dailyModal;

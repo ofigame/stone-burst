@@ -157,10 +157,7 @@ namespace KatKat.UI
             if (label != null)
                 Ui1.Button(!m.Entered ? "Enter" : "Play", c, label, true, new Vector2(0.5f, 0f), new Vector2(0f, 230f), new Vector2(734f, 173f), act,
                     ad ? UiArt.Icon(UiIcon.Play) : null, 58);
-
-            var note = Ui1.Label("Proto", c, Loc.T("daily.proto"), 26, Ui1.Ink2, false);
-            UiFactory.Place(note.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 90f), new Vector2(780f, 46f));
-            FitText(note, 16);
+            // "Prototip" notu kaldırıldı (2026-11-11): mağaza sürümünde oyuncuya görünüyordu.
         }
 
         // ---- 05 Ayarlar -----------------------------------------------------------------------------------------
@@ -350,7 +347,7 @@ namespace KatKat.UI
             FitText(st, 22);
             string stats = Loc.F("zpe.stat.levels", m.Count) + "  ·  " + Loc.F("zpe.stat.win", m.WinPct) + "  ·  " + Loc.F("zpe.stat.first", m.FirstPct);
             var sl = Ui1.Label("Stat", c, stats, 28, Ui1.Ink2, false);
-            UiFactory.Place(sl.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, sy - 114f), new Vector2(840f, 46f));
+            UiFactory.Place(sl.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, sy - 114f), new Vector2(740f, 46f)); // 840 kart kenarına taşıyordu (2026-11-11)
             FitText(sl, 18);
             var note = Ui1.Label("Note", c, Loc.T("zpe.note"), 34, Ui1.Navy, true);
             UiFactory.Place(note.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 82f), new Vector2(800f, 100f));
