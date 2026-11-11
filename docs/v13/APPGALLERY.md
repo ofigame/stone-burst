@@ -152,3 +152,18 @@ Yerleşik tarayıcı yerel dosya seçemiyor. Ayrıca beyanları kullanıcı işa
   3. `HuaweiAdsEnabled = true` yapılır ve `build-android-appgallery` çalıştırılır.
 - Sitedeki gizlilik metni AppGallery için hâlâ "Huawei Ads + Unity Ads" diyor. Huawei açılana kadar metin olduğundan geniş, ama yanlış yönlendirmiyor.
 - Testler: EditMode 234/236 (2 atlandı).
+
+## Beyanlar (2026-11-12, kullanıcı: "sen doldurabiliyorsan doldur"; Claude doldurdu, taslak kaydedildi)
+
+- **Yaş derecelendirmesi:** 15 sorunun hepsine "No". Sorular: şiddet, korku, cinsellik, küfür, kaba mizah, madde, kumar, suç (3 soru), oyuncu etkileşimi, hesap/kişisel veri, konum, uygulama içi satın alma, sınırsız internet. Sonuç: **3+** (Çin 3+, Brezilya AL, diğer bölgeler 3+).
+- **Yapay zekâ beyanı:** Not involved.
+- **Gizlilik etiketleri:** kişisel veri toplanıyor = Yes (Unity Ads).
+  - Amaçlar: Advertising and marketing, Disclosure to third parties, Cross-border transfer.
+  - Her amaçta 9 veri türü:
+    - yaklaşık konum;
+    - kullanıcı kimlikleri ve diğer cihaz kimlikleri;
+    - temel uygulama bilgisi ve uygulama kullanımı (reklam etkileşimi);
+    - işletim sistemi, IP adresi, ağ türü, cihaz modeli/sistem parametreleri.
+- Hata bandı kalktı.
+- Telif kanıtı zorunlu görünmüyor (Çin hariç).
+- Sonraki adım kullanıcıda: Submit (incelemeye gönder).
