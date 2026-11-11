@@ -327,6 +327,7 @@ namespace KatKat.Game
             _hud.ShowTutorial(null);
             _hud.SetDailyLayout(_sessionKind == KatKat.Meta.SessionKind.Daily && Ui1.Ready); // ui1/17: başlık plakasına yer
             _board.Build(_session.State, _hud.BoardWorldRect(_cam));
+            Vr1CenterIceBegin(); // vr1 P1 prototipi: ortası boş tahtada buzlu koleksiyon taşı
             bool normal = _sessionKind != KatKat.Meta.SessionKind.Daily && _sessionKind != KatKat.Meta.SessionKind.Trial;
             _hud.SetRuleIcons(null);
             _hud.SetDailyHeader(null);
@@ -391,6 +392,7 @@ namespace KatKat.Game
                 if (_session != null)
                 {
                     _board.Layout(_hud.BoardWorldRect(_cam));
+                    if (_centerIce != null) _centerIce.Layout(_board);
                     if (!_board.IsPlaying) _board.Sync(_session.State);
                     RefreshHint();
                     if (_tourOn && CurrentPhase == Phase.Idle) TourShowCurrent();
@@ -861,6 +863,7 @@ namespace KatKat.Game
                 case GameStatus.Won:
                     _session.MarkVictoryRecorded();
                     SetPhase(Phase.Ended);
+                    if (_centerIce != null && _sessionKind == KatKat.Meta.SessionKind.Normal) _centerIce.Flash(); // son hamle: kısa çatlak ışığı
                     _celebrationScore = s.Score;
                     StartCelebration();
                     break;

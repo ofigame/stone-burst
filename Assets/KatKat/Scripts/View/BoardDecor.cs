@@ -175,6 +175,24 @@ namespace KatKat.View
             return sr;
         }
 
+        /// <summary>
+        /// vr1 P1: buzlu koleksiyon taşının yerleştiği boşluktaki süsü gizler (yerel konum, yarıçap). Hedef taş yoksa
+        /// çağrılmaz; süs yerinde kalır (03 "Hedef kalmadıysa mevcut merkez dekoruna dön").
+        /// </summary>
+        public int HideNear(Vector3 local, float radius)
+        {
+            int n = 0;
+            foreach (var it in _items)
+            {
+                if (it.Root == null) continue;
+                var d = (Vector2)(it.Home - local);
+                if (d.magnitude > radius) continue;
+                it.Root.gameObject.SetActive(false);
+                n++;
+            }
+            return n;
+        }
+
         public void Clear()
         {
             foreach (var it in _items) if (it.Root != null) { if (Application.isPlaying) Destroy(it.Root.gameObject); else DestroyImmediate(it.Root.gameObject); }

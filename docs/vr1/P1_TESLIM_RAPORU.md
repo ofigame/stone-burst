@@ -67,6 +67,13 @@ powershell -ExecutionPolicy Bypass -File tools/unity.ps1 capture-vr1-p1
   - Kazanım kayda vitrinden önce yazılmıştır (mevcut `CheckStoneUnlocks`); sunum taşı ikinci kez vermez. Ekran sarsılmaz, yalnız kabuk titrer.
 - Bölüm başı: bu denemede alınabilecek en çok net yeni yıldız eşiği geçirebiliyorsa 2 sn "Bu bölümde {taş} açılabilir" gösterilir. Bu bilgi dokunuşu engellemez.
 
+### Tahta ortasında buzlu taş (03 "Merkez görseli", 2026-11-11 ek)
+- `BoardHoles.Largest` iç boşluğu bulur: kenara değmeyen, geçit olmayan, tamamen boş bölge. 1000 bölümün 305'inde en az 2×2 boşluk var (130'unda 2×2, 175'inde 3×3 ve üstü); 695 bölümde yok.
+- Buzlu taş yalnız bu bölümlerde, boş karenin %78'i boyunda gösterilir. Hücre örtmez, dokunuşu engellemez. Altında küçük "Koleksiyon" etiketi (9 dil) var; güçlendirici sanılmasın diye.
+- Boşlukta zaten bulunan süs (maskot, fener, çeşme) buzlu taş varken gizlenir. Hedef taş kalmazsa süs yerinde kalır. Boşluğu olmayan tahtada yeni delik açılmaz.
+- Evre görünümü haritadaki kartla aynı kuralı kullanır. Son hamle kazandırınca kısa çatlak ışığı ve `ice-crack` sesi; tam kırılma ve vitrin haritada.
+- Ekranlar: `p1_09_tahta_ortasi_buz.png` (bölüm 123), `p1_10_tahta_ortasi_buz_b.png` (bölüm 303).
+
 ### İkonlar (04)
 - Alt menüde Harita ve Günlük için paketteki adaylar kullanıldı (`Resources/Vr1/nav-map.png`, `nav-daily.png`). Günlük ikonu güneşsiz (v2, beğenilen).
 - Kullanıcı isteğiyle (2026-11-11: "iconlar büyük olsun ve alanı da taşsınlar") prototipte üç ikon da büyük ve menünün üst kenarından yaklaşık 40 birim taşıyor. Harita ve Günlük 168×150 (saydam pay nedeniyle), Taşlar 132×132; yazılar yerinde. Anahtar kapalıyken 88×88.
@@ -99,7 +106,7 @@ powershell -ExecutionPolicy Bypass -File tools/unity.ps1 capture-vr1-p1
 
 ## Uygulanmayanlar
 - **Animasyon süre tablosu** (dokunuş 90 ms, soyma 220 ms, zincir aralığı 100 ms, roket, rulo, kutlama): oyun içi oynatmaya uygulanmadı. Mevcut süreler aynı. Ayrı bir adım olarak, önce/sonra kaydıyla yapılmalı.
-- **Tahtanın merkez boşluğunda buzlu taş** (halka tahtalar, %78 ölçü): yapılmadı. İlerleme yalnız haritada görünür. Sonuç kartında da buz gösterilmiyor.
+- **Sonuç kartında buz:** gösterilmiyor. İlerleme haritada ve (ortası boşsa) tahtada görünür.
 - **Uygulama kapanınca bekleyen sunumun kalıcı olması (`pendingPresentation`):** yapılmadı. Taş kayda yazılıyor, ama uygulama sunumdan önce kapanırsa vitrin bir sonraki açılışta gösterilmez (eski davranış).
 - **Azaltılmış hareket seçeneği:** oyunda böyle bir ayar yok, eklenmedi. Kırılma sırasında ekran sarsılmıyor, yalnız kabuk titriyor.
 - **Diğerleri:**

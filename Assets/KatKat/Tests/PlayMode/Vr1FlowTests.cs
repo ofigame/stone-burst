@@ -73,6 +73,32 @@ namespace KatKat.Tests
             Assert.AreEqual(_gc.SaveService.Data.TotalStars, _gc.SaveService.Data.meta.mapSeenStars, "görülme işareti yine güncellenir");
         }
 
+        /// <summary>C05: ortası boş tahtada buzlu taş; hücre örtmez, süs gizlenir; boşluksuz tahtada ve anahtar kapalıyken yok.</summary>
+        [UnityTest]
+        public IEnumerator CenterIce_OnlyInInteriorHole()
+        {
+            Vr1Proto.Override = true;
+            _gc.StartLevel(122);
+            yield return null;
+            var ice = _gc.CenterIce;
+            Assert.IsNotNull(ice, "level_123: iç boşluk var");
+            var h = ice.Hole;
+            var b = _gc.Session.State.Board;
+            for (int y = h.SquareY; y < h.SquareY + h.Side; y++)
+                for (int x = h.SquareX; x < h.SquareX + h.Side; x++)
+                    Assert.IsFalse(b[x, y].Active, $"({x},{y}) boş olmalı");
+            foreach (Transform d in _gc.Board.Decor.transform)
+                if ((d.localPosition - ice.transform.localPosition).magnitude < h.Side * _gc.Board.Pitch * 0.5f)
+                    Assert.IsFalse(d.gameObject.activeSelf, "boşluktaki süs gizli");
+            _gc.StartLevel(0);
+            yield return null;
+            Assert.IsNull(_gc.CenterIce, "level_001: boşluk yok, yeni delik açılmaz");
+            Vr1Proto.Override = false;
+            _gc.StartLevel(122);
+            yield return null;
+            Assert.IsNull(_gc.CenterIce, "anahtar kapalı");
+        }
+
         /// <summary>C06: haritaya dönüş özeti tek receipt; harita yeniden açılınca aynı yıldızlar tekrar uçmaz.</summary>
         [UnityTest]
         public IEnumerator ReturnSummary_ShownOnce()

@@ -96,6 +96,8 @@ namespace KatKat.EditorTools
                 Shot("p1_06_acilis_vitrin", gc => { Unlock(gc); gc.ShowLevels(); gc.Menu.Vr1Fx?.Advance(3500f); gc.Showcase.Advance(1500f); });
                 Shot("p1_07_bolum_basi_bilgi", gc => { Progress(gc, 12); TopUp(gc, 58); Seen(gc); gc.StartLevel(12); });
                 Shot("p1_08_gunluk_sekme_secili", gc => { Progress(gc, 12); Own(gc); gc.ShowLevels(); gc.ShowDaily(); });
+                Shot("p1_09_tahta_ortasi_buz", gc => { Progress(gc, 122); gc.StartLevel(122); });
+                Shot("p1_10_tahta_ortasi_buz_b", gc => { Progress(gc, 300); gc.StartLevel(302); });
             }
             finally
             {

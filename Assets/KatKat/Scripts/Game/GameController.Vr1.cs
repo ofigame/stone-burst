@@ -97,6 +97,27 @@ namespace KatKat.Game
             return unlocking;
         }
 
+        private Vr1CenterIce _centerIce;
+
+        /// <summary>Testler: tahtadaki buzlu taş (yoksa null).</summary>
+        public Vr1CenterIce CenterIce => _centerIce;
+
+        /// <summary>
+        /// Begin'den (tahta kurulduktan sonra): ortası boş tahtada (en az 2×2) sıradaki koleksiyon taşı buz içinde.
+        /// Yalnız prototip açık ve normal bölümde; boşluğu olmayan tahtada hiçbir şey eklenmez (yeni delik yok).
+        /// </summary>
+        private void Vr1CenterIceBegin()
+        {
+            if (_centerIce != null) { Destroy(_centerIce.gameObject); _centerIce = null; }
+            if (!Vr1Proto.On || _sessionKind != SessionKind.Normal || _stones == null || _session == null) return;
+            var hole = KatKat.Levels.BoardHoles.Largest(_session.State.Board);
+            if (!hole.Has || hole.Side < Vr1CenterIce.MinSide) return;
+            var g = CollectionProgress.NextStarGoal(_stones, _save.Data.meta.stones, _save.Data.TotalStars);
+            if (!g.Has) return;
+            _centerIce = Vr1CenterIce.Create(_board.transform, hole, StoneSprite(_stones.Find(g.StoneId)), CollectionProgress.Progress(g), Loc.T("vr1.collection.label"));
+            _centerIce.Layout(_board);
+        }
+
         /// <summary>Bölüm başı (03 "Bölüm başı"): bu denemenin en çok net yeni yıldızı eşiği geçirebiliyorsa 2 sn bilgi.</summary>
         private void Vr1LevelStart()
         {

@@ -54,7 +54,12 @@ Günlük ──→ Günlük Bulmaca kartı → (reklam) → günlük oyun ekran�
 Taşlar ──→ Koleksiyon → taş vitrini (3D)
 ```
 
-- Alt menüde üç sekme vardır: **Harita**, **Günlük**, **Taşlar**. Oyun ekranında alt menü görünmez.
+- Alt menüde üç sekme vardır: **Yolculuk** (2026-11-11'e kadar adı "Harita"ydı), **Günlük**, **Taşlar**. Oyun ekranında alt menü görünmez.
+- 2026-11-11 değişiklikleri:
+  - Seçili sekmenin ikonu yavaşça büyüyüp küçülür.
+  - Günlük kartı açıkken Günlük sekmesi seçili görünür ve alt menü kartın üstünde kalır.
+  - Yolculuk sekmesi Günlük kartını kapatır.
+  - Ekran görüntüleri bu değişikliklerden önce alındı.
 - Ayarlar her ana ekranın sağ üstündeki dişliyle açılır.
 - Kartların (modal) hepsi aynı kalıpla çizilir: krem kart, altın çerçeve, sağ üstte kapat (×) düğmesi, altta ana düğme (koyu turkuaz) ve ikincil düğmeler (krem).
 
