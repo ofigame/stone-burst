@@ -1,6 +1,6 @@
 # Gizlilik politikası: Huawei AppGallery eki (taslak)
 
-Tarih: 2026-11-12. Hedef sayfa: `https://ofigame.com/legal/privacy` (TR ve `?lang=en`).
+Tarih: 2026-11-12. **Siteye eklendi (2026-11-12).** Hedef sayfa: `https://ofigame.com/legal/privacy` (TR ve `?lang=en`).
 
 - Canlı metin sitenin yayınındaki sürümden alındı. Yereldeki `OfigameWeb/legal-html/privacy-*.html` eski (Stone Burst geçmiyor), o yüzden düzenleme canlı kaynakta yapılmalı.
 - Eklenecek yerler aşağıda **kalın** yazılı.

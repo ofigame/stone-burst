@@ -101,5 +101,10 @@ Yerleşik tarayıcı yerel dosya seçemiyor. Ayrıca beyanları kullanıcı işa
 5. **Privacy tags:** kişisel veri toplanıyor mu sorusu. Huawei Ads reklam kimliği kullanır.
 6. **Yapay zeka beyanı.**
 7. **Telif kanıtı (Proof of copyright):** zorunlu alan.
-8. **Gizlilik politikası:** Huawei Ads bölümü eklenmeli; taslak `docs/v13/GIZLILIK_HUAWEI_TASLAK.md` (TR + EN). Şu an yalnız Google AdMob, Firebase ve Play Games anılıyor.
+8. ~~Gizlilik politikası~~ **Yapıldı (2026-11-12, kullanıcı: "siteye ekle"):**
+   - `ofigame.com/legal/privacy` (TR + EN): 1, 2, 3 ve 6. bölümlere Huawei AppGallery ekleri (`GIZLILIK_HUAWEI_TASLAK.md`).
+   - `/legal/advertising`: Huawei Ads ortağı ve OAID satırı.
+   - Canlı sayfalar doğrulandı; "Son güncelleme" tarihi kendiliğinden değişti.
+   - Eski metinlerin yedeği arşivde: `site_gizlilik_2026-11-12`.
+   - Kalan: app-ads.txt satırı (Huawei Ads hesabı açılınca).
 9. **Submit** (incelemeye gönder).
