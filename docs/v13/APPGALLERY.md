@@ -127,3 +127,15 @@ Yerleşik tarayıcı yerel dosya seçemiyor. Ayrıca beyanları kullanıcı işa
   - AdMob, Play Games, UMP ve arabulucu adaptörü yok.
   - Unity Ads kendi bağımlılığı olarak Google Play Hizmetleri'nin temel parçasını (`gms.common`, `GoogleApiActivity`) ve `AD_ID` iznini getiriyor. Bunlar GMS'siz cihazda çalışmaz ama oyunu durdurmaz.
 - **Gizlilik politikası (2026-11-12, kullanıcı: "Evet, ekle"):** Sitede `/legal/privacy` ve `/legal/advertising` AppGallery bölümlerine Unity Ads (yedek, kişiselleştirilmemiş) ve Unity gizlilik bağlantısı eklendi; TR + EN canlıda doğrulandı.
+
+## Bağlantı durumu (2026-11-12)
+
+- **Petal Ads (Huawei Ads yayıncı paneli):**
+  - Giriş yapıldı ama panel "Merchant Service not enabled" diyor.
+  - Önce Tüccar Hizmeti'ne banka bilgileri girilmeli: kullanıcı sonra girecek. Huawei ödemeyi EUR, USD, GBP, CHF, JPY ya da HKD ile yapıyor; TL yok. 20/B istisna hesabı bir döviz hesabı olmalı.
+  - Onaydan sonra:
+    - yayıncı panelinde Stone Burst ve ödüllü + geçiş birimleri açılacak, kimlikler `AdUnits.cs`'ye yazılacak;
+    - Huawei'nin app-ads.txt satırı siteye eklenecek.
+- **app-ads.txt** (`ofigame.com/app-ads.txt`): AdMob (`pub-2558895513508689`) ve Unity satırları var; hesap düzeyinde oldukları için Stone Burst'ü de kapsıyorlar.
+- **Unity "Store ID":** Google Play adresi geçersiz sayıldı; uygulama herkese açık değil. Play yayınından sonra eklenecek.
+- **AdMob mağaza bağlantısı:** Uygulama herkese açık yayımlanınca yapılacak. O zamana kadar sınırlı reklam sunumu.
