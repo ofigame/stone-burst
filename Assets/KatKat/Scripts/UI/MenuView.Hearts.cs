@@ -42,6 +42,7 @@ namespace KatKat.UI
             heart.raycastTarget = false;
             UiFactory.Place(heart.rectTransform, new Vector2(0f, 0.5f), new Vector2(50f, 2f), new Vector2(108f, 100f));
             var n = HeartNumber(heart.transform, 50);
+            heart.gameObject.AddComponent<IconBreath>(); // kullanıcı (2026-11-11): "anasayfadaki kalp büyüyüp küçülsün" (içindeki sayıyla)
             var t = U3Text("State", cap.transform, "", 38, true, Ui3.Ink);
             UiFactory.Place(t.rectTransform, new Vector2(0f, 0.5f), new Vector2(194f, 0f), new Vector2(176f, 62f));
             var tick = cap.gameObject.AddComponent<HeartTicker>();

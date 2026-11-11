@@ -67,13 +67,21 @@ namespace KatKat.Tests
             Assert.AreEqual(map, SelectedTab(), "kapanınca Harita seçili");
         }
 
+        private static bool HasAncestor(Transform t, string name)
+        {
+            for (var p = t.parent; p != null; p = p.parent) if (p.name == name) return true;
+            return false;
+        }
+
         [UnityTest]
         public IEnumerator SelectedIcon_Breathes_OthersStatic()
         {
             _gc.ShowLevels();
             yield return null;
-            var all = Object.FindObjectsByType<IconBreath>(FindObjectsSortMode.None);
-            Assert.AreEqual(1, all.Length, "yalnız seçili ikon");
+            var all = System.Array.FindAll(Object.FindObjectsByType<IconBreath>(FindObjectsSortMode.None), b => b.GetComponentInParent<Canvas>() != null && b.transform.parent != null && b.transform.parent.parent != null && HasAncestor(b.transform, "Tabs"));
+            Assert.AreEqual(1, all.Length, "alt menüde yalnız seçili ikon");
+            var heart = System.Array.Find(Object.FindObjectsByType<IconBreath>(FindObjectsSortMode.None), b => b.name == "Heart");
+            Assert.IsNotNull(heart, "ana sayfadaki kalp büyüyüp küçülür");
             all[0].Advance(IconBreath.Period * 0.5f);
             Assert.Greater(all[0].transform.localScale.x, 1.05f);
             all[0].Advance(IconBreath.Period * 0.5f);
