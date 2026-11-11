@@ -70,6 +70,9 @@ namespace KatKat.Meta
         public double WEfficiency = 0.35, WDifficulty = 0.25, WFirstTry = 0.20, WTime = 0.10, WNoAssist = 0.10;
         /// <summary>Bileşen dökümü penceresi (son N kayıt). v11 puanı ise bütün oyunların düz ortalamasıdır.</summary>
         public int Window = 50, MinLevels = 1;
+        /// <summary>v3 (vr1 02_ZPE deney B): puan son <see cref="Window"/> farklı bölümden (bölüm başına penceredeki en iyi sonuç).
+        /// false: v2 (oynanan bütün oyunların düz ortalaması).</summary>
+        public bool Distinct;
         public double Decay = 1.0;
         public int Scale = 100;
         /// <summary>Beklenen süre = TimeBase + TimePerStep × çözüm adımı (sn); bu sürede ya da daha hızlı = 1.</summary>
@@ -92,13 +95,14 @@ namespace KatKat.Meta
                 c.WNoAssist = W("noAssist", c.WNoAssist);
             }
             c.Window = (int)D("window", c.Window);
+            c.Distinct = o.TryGetValue("distinct", out var dv) && dv is bool db && db;
             c.MinLevels = (int)D("minLevels", c.MinLevels);
             c.Decay = D("decay", c.Decay);
             c.Scale = (int)D("scale", c.Scale);
             c.TimeBase = D("timeBase", c.TimeBase);
             c.TimePerStep = D("timePerStep", c.TimePerStep);
             double sum = c.WEfficiency + c.WDifficulty + c.WFirstTry + c.WTime + c.WNoAssist;
-            if (sum <= 0) throw new FormatException("zpe_config: ağırlık toplamı 0");
+            if (sum <= 0 || c.WTime < 0) throw new FormatException("zpe_config: ağırlık toplamı 0");
             return c;
         }
     }
@@ -121,12 +125,16 @@ namespace KatKat.Meta
         public ZpeParts Average;
         public double WinRate, FirstTryRate;
         public int Algo;
+        /// <summary>v3: v2 yöntemiyle (bütün oyunların ortalaması) dondurulmuş eski puan; yoksa -1. Yeni puana karışmaz.</summary>
+        public int LegacyScore = -1;
     }
 
     public static class Zpe
     {
-        public const int AlgoVersion = 1;
-        public const int HistoryCap = 60;
+        /// <summary>2: v3 yapılandırması (hızsız, son 50 farklı bölüm). Kayıtlar ham girdi tuttuğu için yeniden hesaplanır.</summary>
+        public const int AlgoVersion = 2;
+        /// <summary>Ham geçmiş (son N kayıt): 50 farklı bölüm için tekrarlar dahil yeterli pay (eski 60).</summary>
+        public const int HistoryCap = 250;
 
         public static Dictionary<string, ZpeLevelRef> ParseRefs(string json)
         {
@@ -219,11 +227,15 @@ namespace KatKat.Meta
             if (meta == null || r == null) return;
             c ??= new ZpeConfig();
             meta.zpeHistory ??= new List<ZpeRecord>();
-            Seed(meta, refOf, c);
+            // v3: eski toplam (zpeSum/zpeGames) dondurulur; yeni bileşenlerle karıştırılmaz (02_ZPE "Kayıt geçişi").
+            if (!c.Distinct) Seed(meta, refOf, c);
             r.algo = AlgoVersion;
             meta.zpeHistory.Add(r);
-            meta.zpeSum += Score(r, refOf?.Invoke(r.levelId), c).Total;
-            meta.zpeGames++;
+            if (!c.Distinct)
+            {
+                meta.zpeSum += Score(r, refOf?.Invoke(r.levelId), c).Total;
+                meta.zpeGames++;
+            }
             while (meta.zpeHistory.Count > HistoryCap) meta.zpeHistory.RemoveAt(0);
         }
 
@@ -233,9 +245,10 @@ namespace KatKat.Meta
         /// </summary>
         public static void Retract(MetaSave meta, ZpeRecord r, Func<string, ZpeLevelRef> refOf = null, ZpeConfig c = null)
         {
-            if (meta == null || r == null || meta.zpeGames <= 0) return;
+            if (meta == null || r == null) return;
             c ??= new ZpeConfig();
             meta.zpeHistory?.Remove(r);
+            if (c.Distinct || meta.zpeGames <= 0) return; // v3: eski toplam donuk
             meta.zpeSum = Math.Max(0, meta.zpeSum - Score(r, refOf?.Invoke(r.levelId), c).Total);
             meta.zpeGames--;
             if (meta.zpeGames == 0) meta.zpeSum = 0;
@@ -256,6 +269,31 @@ namespace KatKat.Meta
         {
             if (meta == null) return Compute((IList<ZpeRecord>)null, refOf, c);
             meta.zpeHistory ??= new List<ZpeRecord>();
+            if (c.Distinct)
+            {
+                // v3: en yeniden geriye son Window farklı bölüm; her bölüm için geçmişteki en iyi sonucu.
+                var ids = new List<string>();
+                for (int i = meta.zpeHistory.Count - 1; i >= 0 && ids.Count < c.Window; i--)
+                    if (!ids.Contains(meta.zpeHistory[i].levelId)) ids.Add(meta.zpeHistory[i].levelId);
+                var chosen = new List<ZpeRecord>();
+                for (int k = ids.Count - 1; k >= 0; k--) // eskiden yeniye (Compute son kayıtları en yeni sayar)
+                {
+                    ZpeRecord best = null;
+                    double bt = -1;
+                    foreach (var r in meta.zpeHistory)
+                    {
+                        if (r.levelId != ids[k]) continue;
+                        double t = Score(r, refOf?.Invoke(r.levelId), c).Total;
+                        if (t > bt) { bt = t; best = r; }
+                    }
+                    if (best != null) chosen.Add(best);
+                }
+                var v3 = Compute(chosen, refOf, c);
+                v3.Count = chosen.Count;
+                v3.Calibrating = chosen.Count < c.MinLevels;
+                v3.LegacyScore = meta.zpeGames > 0 ? (int)Math.Round(meta.zpeSum / meta.zpeGames * c.Scale) : -1;
+                return v3;
+            }
             Seed(meta, refOf, c);
             var res = Compute(meta.zpeHistory, refOf, c);
             if (meta.zpeGames > 0)

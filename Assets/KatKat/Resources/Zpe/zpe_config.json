@@ -1,8 +1,9 @@
 {
-  "_not": "ZPE (Zekâ Performans Endeksi) yapılandırması. Oyun performans endeksidir, IQ ölçümü değildir. Ağırlıklar ana plan §7 başlangıç değerleri; gerçek oyun verisiyle ayarlanmalı. v2 (v11): puan 100 üzerinden, oynanan bütün oyunların düz ortalaması; window yalnız bileşen dökümü içindir.",
-  "version": 2,
-  "weights": { "efficiency": 0.35, "difficulty": 0.25, "firstTry": 0.20, "time": 0.10, "noAssist": 0.10 },
+  "_not": "ZPE (Zekâ Performans Endeksi) yapılandırması. Oyun performans endeksidir, IQ ölçümü değildir. v3 (vr1 paketi 02_ZPE, kullanıcı onayı 2026-11-11 \"tüm herşeyi onaylıyorum o belgedeki\"): hız bileşeni kaldırıldı (kalan ağırlıklar kendi toplamına bölünür: 0.35/0.90, 0.25/0.90, 0.20/0.90, 0.10/0.90); puan son 50 FARKLI normal bölümden, her bölümün penceredeki en iyi sonucu; aynı bölümü tekrar oynamak pencereyi doldurmaz. v2 toplamları (zpeSum/zpeGames) eski puan olarak saklanır.",
+  "version": 3,
+  "weights": { "efficiency": 0.35, "difficulty": 0.25, "firstTry": 0.20, "time": 0.0, "noAssist": 0.10 },
   "window": 50,
+  "distinct": true,
   "minLevels": 1,
   "decay": 1.0,
   "scale": 100,

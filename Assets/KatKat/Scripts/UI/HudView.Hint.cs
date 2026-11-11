@@ -26,15 +26,12 @@ namespace KatKat.UI
             var badge = UiFactory.Image("Cost", _hintBtn.transform, Ui3.Rounded(22f, Ui3.Purple, Ui3.PurpleDark, 2f, Ui3.Brass), Color.white);
             badge.type = Image.Type.Sliced;
             badge.raycastTarget = false;
-            UiFactory.Place(badge.rectTransform, new Vector2(1f, 1f), new Vector2(-4f, 6f), new Vector2(84f, 44f));
-            var t = UiFactory.Title("Text", badge.transform, "−1", 30, Ui3.OnTeal, Ui3.PurpleDark);
-            t.raycastTarget = false;
-            t.alignment = TMPro.TextAlignmentOptions.MidlineLeft;
-            UiFactory.Place(t.rectTransform, new Vector2(0f, 0.5f), new Vector2(30f, 1f), new Vector2(44f, 40f));
-            var star = UiFactory.Image("Star", badge.transform, PremiumArt.V4("icons/star") ?? ProceduralArt.StarSprite, Color.white);
-            star.preserveAspect = true;
-            star.raycastTarget = false;
-            UiFactory.Place(star.rectTransform, new Vector2(1f, 0.5f), new Vector2(-20f, 1f), new Vector2(30f, 30f));
+            // vr1 (onay 2026-11-11): yıldız bedeli kalktı; rozet yalnız reklamla açıldığını gösterir (oynat simgesi).
+            UiFactory.Place(badge.rectTransform, new Vector2(1f, 1f), new Vector2(-4f, 6f), new Vector2(52f, 44f));
+            var play = UiFactory.Image("Ad", badge.transform, UiArt.Icon(UiIcon.Play), Ui3.OnTeal);
+            play.preserveAspect = true;
+            play.raycastTarget = false;
+            UiFactory.Place(play.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(2f, 0f), new Vector2(26f, 26f));
             _hintBtn.gameObject.SetActive(false);
         }
 

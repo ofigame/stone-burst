@@ -9,7 +9,7 @@ namespace KatKat.Tests
 {
     /// <summary>
     /// v10 P0.2: kullanıcının test ettiği 1.000 bölüm dosyası bayt bayt korunur. Özetler
-    /// Tests/EditMode/Data/levels_v13.sha256 içinde; bir bölüm eklenir, silinir ya da tek bayt değişirse test düşer.
+    /// Tests/EditMode/Data/levels_v14.sha256 içinde (v14: vr1 tahta aileleri, kullanıcı onayı 2026-11-11); bir bölüm eklenir, silinir ya da tek bayt değişirse test düşer.
     /// Bilinçli güncelleme yalnız kullanıcı onayıyla, özet dosyası yeniden üretilerek yapılır.
     /// </summary>
     public class ProductionLevelChecksumTests
@@ -18,7 +18,7 @@ namespace KatKat.Tests
         {
             var levels = ProductionLevelTests.LevelsDir(); // .../Assets/KatKat/Resources/Levels
             var kat = Directory.GetParent(Directory.GetParent(levels).FullName).FullName; // .../Assets/KatKat
-            var p = Path.Combine(kat, "Tests", "EditMode", "Data", "levels_v13.sha256");
+            var p = Path.Combine(kat, "Tests", "EditMode", "Data", "levels_v14.sha256");
             Assert.IsTrue(File.Exists(p), "Özet dosyası yok: " + p);
             return p;
         }

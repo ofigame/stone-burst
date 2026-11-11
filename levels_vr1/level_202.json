@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 2,
+  "id": "level_202",
+  "capabilities": ["specials"],
+  "title": "Mavi Mühür",
+  "trialType": "compact",
+  "rules": [],
+  "width": 4,
+  "height": 4,
+  "moveLimit": 7,
+  "rollEnabled": false,
+  "startingRoll": false,
+  "stars": [457, 610],
+  "goals": [
+    { "type": "collectColor", "color": "yellow", "amount": 12 },
+    { "type": "collectColor", "color": "blue", "amount": 11 }
+  ],
+  "cells": [
+    { "x": 0, "y": 0, "active": true, "layers": ["coral", "yellow", "coral", "blue"] },
+    { "x": 1, "y": 0, "active": true, "layers": ["coral", "yellow", "coral"] },
+    { "x": 2, "y": 0, "active": true, "layers": ["coral", "blue", "coral"] },
+    { "x": 3, "y": 0, "active": true, "layers": ["blue", "blue", "blue", "blue"] },
+    { "x": 0, "y": 1, "active": true, "layers": ["blue", "yellow", "coral"] },
+    { "x": 1, "y": 1, "active": true, "layers": ["blue", "yellow", "blue", "yellow"] },
+    { "x": 2, "y": 1, "active": true, "layers": ["blue", "blue", "coral", "yellow"] },
+    { "x": 3, "y": 1, "active": true, "layers": ["coral", "blue", "coral"] },
+    { "x": 0, "y": 2, "active": true, "layers": ["coral", "yellow", "yellow"] },
+    { "x": 1, "y": 2, "active": true, "layers": ["yellow", "yellow", "yellow", "coral"] },
+    { "x": 2, "y": 2, "active": true, "layers": ["yellow", "blue", "coral", "coral"] },
+    { "x": 3, "y": 2, "active": true, "layers": ["yellow", "blue", "coral", "coral"] },
+    { "x": 0, "y": 3, "active": true, "layers": ["coral", "yellow", "yellow", "coral"] },
+    { "x": 1, "y": 3, "active": true, "layers": ["yellow", "coral", "yellow"] },
+    { "x": 2, "y": 3, "active": true, "layers": ["yellow", "blue", "blue", "coral"] },
+    { "x": 3, "y": 3, "active": true, "layers": ["yellow", "blue", "blue"] }
+  ],
+  "solution": [
+    { "type": "tap", "x": 3, "y": 1 },
+    { "type": "tap", "x": 1, "y": 1 },
+    { "type": "tap", "x": 1, "y": 0 },
+    { "type": "tap", "x": 3, "y": 0 },
+    { "type": "tap", "x": 1, "y": 0 },
+    { "type": "use", "slot": 0, "x": 0, "y": 0 },
+    { "type": "use", "slot": 2, "x": 0, "y": 3 }
+  ]
+}

@@ -257,6 +257,8 @@ namespace KatKat.Meta
         public int AttemptsLeft => Math.Max(0, AttemptsAllowed - State.attemptsUsed);
         public bool WonToday { get { Refresh(); return State.won; } }
         public bool HasMoveBonusToday => _meta.moveBonusDay == Today;
+        /// <summary>İlk günlük giriş henüz kullanılmadı (reklamsız).</summary>
+        public bool FirstEntryFree => !_meta.dailyFreeUsed;
 
         public void RequestEntry(Action<DailyEntryResult> done)
         {
@@ -264,6 +266,14 @@ namespace KatKat.Meta
             if (!Available) { done?.Invoke(DailyEntryResult.NotAvailable); return; }
             if (State.entered) { done?.Invoke(DailyEntryResult.AlreadyEntered); return; }
             if (AdFree != null && AdFree.Owned) { Grant("adFree"); done?.Invoke(DailyEntryResult.Granted); return; }
+            // vr1 (onay 2026-11-11): oyuncunun ilk günlük girişi reklamsız (alışkanlık oluşsun); sonraki günler mevcut kural.
+            if (!_meta.dailyFreeUsed)
+            {
+                _meta.dailyFreeUsed = true;
+                Grant("firstFree");
+                done?.Invoke(DailyEntryResult.GrantedNoAd);
+                return;
+            }
             if (Ads == null) { done?.Invoke(DailyEntryResult.AdFailed); return; }
             string day = Today;
             Ads.Show("daily_entry", (outcome, token) =>

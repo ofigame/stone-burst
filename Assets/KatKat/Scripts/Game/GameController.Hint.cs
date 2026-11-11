@@ -69,7 +69,8 @@ namespace KatKat.Game
         public Command? FreeHintCommand => PlanCurrent(_freePlan) ? _freePlan.Command : (Command?)null;
 
         /// <summary>Kazanılan yıldız: puan yıldızı − ipucu bedeli, en az 1.</summary>
-        private int EarnedStars => Mathf.Max(1, _session.State.Stars - (_paidHintUsed ? 1 : 0));
+        // vr1 (onay 2026-11-11): ipucunun yıldız bedeli kaldırıldı; reklam yardımlı oturum yine sıralamaya ve ZPE'ye yazılmaz.
+        private int EarnedStars => _session.State.Stars;
 
         private bool HintAllowed => _session != null && _sessionKind == SessionKind.Normal && !_session.State.IsTerminal;
 

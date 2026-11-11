@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 2,
+  "id": "level_296",
+  "capabilities": ["specials"],
+  "title": "Posta Köprüleri",
+  "trialType": "compact",
+  "rules": [],
+  "width": 4,
+  "height": 4,
+  "moveLimit": 7,
+  "rollEnabled": false,
+  "startingRoll": false,
+  "stars": [457, 610],
+  "goals": [
+    { "type": "collectColor", "color": "blue", "amount": 9 },
+    { "type": "collectColor", "color": "yellow", "amount": 9 }
+  ],
+  "cells": [
+    { "x": 0, "y": 0, "active": true, "layers": ["blue", "yellow", "coral"] },
+    { "x": 1, "y": 0, "active": true, "layers": ["blue", "coral", "coral"] },
+    { "x": 2, "y": 0, "active": true, "layers": ["blue", "coral", "yellow", "coral"] },
+    { "x": 3, "y": 0, "active": true, "layers": ["yellow", "coral", "blue"] },
+    { "x": 0, "y": 1, "active": true, "layers": ["yellow", "yellow", "blue", "coral"] },
+    { "x": 1, "y": 1, "active": true, "layers": ["yellow", "coral", "coral", "blue"] },
+    { "x": 2, "y": 1, "active": true, "layers": ["coral", "coral", "coral"] },
+    { "x": 3, "y": 1, "active": true, "layers": ["coral", "coral", "blue"] },
+    { "x": 0, "y": 2, "active": true, "layers": ["yellow", "coral", "yellow"] },
+    { "x": 1, "y": 2, "active": true, "layers": ["coral", "coral", "coral", "blue"] },
+    { "x": 2, "y": 2, "active": true, "layers": ["coral", "coral", "coral"] },
+    { "x": 3, "y": 2, "active": true, "layers": ["yellow", "coral", "blue"] },
+    { "x": 0, "y": 3, "active": true, "layers": ["yellow", "yellow", "yellow", "blue"] },
+    { "x": 1, "y": 3, "active": true, "layers": ["blue", "coral", "coral", "coral"] },
+    { "x": 2, "y": 3, "active": true, "layers": ["blue", "blue", "yellow"] },
+    { "x": 3, "y": 3, "active": true, "layers": ["yellow", "blue", "yellow"] }
+  ],
+  "solution": [
+    { "type": "tap", "x": 0, "y": 0 },
+    { "type": "tap", "x": 0, "y": 1 },
+    { "type": "tap", "x": 0, "y": 0 },
+    { "type": "use", "slot": 0, "x": 2, "y": 0 },
+    { "type": "tap", "x": 1, "y": 0 },
+    { "type": "tap", "x": 0, "y": 0 },
+    { "type": "use", "slot": 0, "x": 3, "y": 0 }
+  ]
+}

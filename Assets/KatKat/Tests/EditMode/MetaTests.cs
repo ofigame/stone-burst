@@ -76,7 +76,8 @@ namespace KatKat.Tests
 
         private sealed class Rig
         {
-            public MetaSave Meta = new MetaSave();
+            // Bu testler reklamlı girişi sınar: oyuncunun ilk (ücretsiz) girişi daha önce kullanılmış sayılır.
+            public MetaSave Meta = new MetaSave { dailyFreeUsed = true };
             public FixedDayClock Clock = new FixedDayClock { DayId = "2026-11-06" };
             public FakeRewardedAds Ads = new FakeRewardedAds();
             public FakeAdFree AdFree = new FakeAdFree();
@@ -116,6 +117,26 @@ namespace KatKat.Tests
             g.Svc.RequestEntry(x => again = x);
             Assert.AreEqual(DailyEntryResult.AlreadyEntered, again);
             Assert.AreEqual(1, g.Ads.Shown, "aynı gün ikinci giriş reklamı yok");
+        }
+
+        /// <summary>vr1 (onay 2026-11-11): oyuncunun ilk günlük girişi reklamsız; ertesi gün reklamlı (mevcut kural).</summary>
+        [Test]
+        public void Daily_FirstEverEntry_IsFree_NextDayNeedsAd()
+        {
+            var g = new Rig();
+            g.Meta.dailyFreeUsed = false;
+            g.Svc = g.New();
+            Assert.IsTrue(g.Svc.FirstEntryFree);
+            int shown = g.Ads.Shown;
+            DailyEntryResult r = DailyEntryResult.NotAvailable;
+            g.Svc.RequestEntry(x => r = x);
+            Assert.AreEqual(DailyEntryResult.GrantedNoAd, r);
+            Assert.AreEqual(shown, g.Ads.Shown, "ilk girişte reklam yok");
+            Assert.IsTrue(g.Svc.State.entered);
+            Assert.IsFalse(g.Svc.FirstEntryFree);
+            g.Clock.DayId = "2026-11-07";
+            g.Svc.RequestEntry(x => r = x);
+            Assert.AreEqual(shown + 1, g.Ads.Shown, "ertesi gün reklamlı giriş");
         }
 
         [Test]
@@ -268,7 +289,7 @@ namespace KatKat.Tests
         [Test]
         public void Stone_GrantedOnceWhenThresholdLevelCompleted()
         {
-            var meta = new MetaSave();
+            var meta = new MetaSave { dailyFreeUsed = true };
             var done = new HashSet<string>();
             Assert.IsEmpty(CollectionRules.GrantUnlocked(meta, Catalog(), done.Contains));
             done.Add("level_010");
@@ -413,7 +434,7 @@ namespace KatKat.Tests
         [Test]
         public void DailyTier_LockedForTheDay_EvenIfPlayerProgresses_NewDayRecomputes()
         {
-            var meta = new MetaSave();
+            var meta = new MetaSave { dailyFreeUsed = true };
             var clock = new FixedDayClock { DayId = "2026-01-01" };
             var idx = TierIndex();
             int reached = 35;

@@ -323,7 +323,7 @@ namespace KatKat.Tests
         public IEnumerator V12_LossCard_AdExtraMoves_OncePerLevel_NotCountedInZpe()
         {
             _gc.StartLevel(3);
-            int zpeGamesBefore = _gc.SaveService.Data.meta.zpeGames;
+            int zpeGamesBefore = /* ZPE v3: kayıtlar geçmiş listesinde; zpeGames v2 toplamıyla dondu */ (_gc.SaveService.Data.meta.zpeHistory?.Count ?? 0);
             _gc.OnCellPressed(0, 0);
             yield return WaitStable();
             var next = LevelSolver.Moves(_gc.Session.State);
@@ -331,7 +331,7 @@ namespace KatKat.Tests
             yield return WaitStable();
             Assert.AreEqual(GameStatus.LostOutOfMoves, _gc.Session.State.Status);
             Assert.IsTrue(_gc.ExtraMovesOffered, "kayıp kartında reklam teklifi (+1 hamle ve 1 taş)");
-            Assert.AreEqual(zpeGamesBefore + 1, _gc.SaveService.Data.meta.zpeGames, "kayıp ZPE'ye yazıldı");
+            Assert.AreEqual(zpeGamesBefore + 1, (_gc.SaveService.Data.meta.zpeHistory?.Count ?? 0), "kayıp ZPE'ye yazıldı");
             KatKat.Meta.FakeRewardedAds fake = GameController.FakeAds;
             fake.Next = KatKat.Meta.AdOutcome.Rewarded;
             _gc.PressExtraMovesForTest();
@@ -359,7 +359,7 @@ namespace KatKat.Tests
             Assert.IsFalse(_gc.Hud.PlaceRowVisible, "diğer taşlar kayboldu");
             Assert.AreEqual(1, _gc.Session.State.MovesLeft, "yerleştirme hamle harcamaz");
             Assert.IsTrue(_gc.LastOutcome.Has(KatKat.Meta.AssistFlags.RewardedAd));
-            Assert.AreEqual(zpeGamesBefore, _gc.SaveService.Data.meta.zpeGames, "kayıp geri çekildi; reklamlı oturum ZPE'ye girmez");
+            Assert.AreEqual(zpeGamesBefore, (_gc.SaveService.Data.meta.zpeHistory?.Count ?? 0), "kayıp geri çekildi; reklamlı oturum ZPE'ye girmez");
             Assert.IsFalse(_gc.Hud.PanelOpen);
             AssertViewMatchesState();
             // Bölüm başına bir kez: yeniden kaybedince teklif yok.
@@ -372,7 +372,7 @@ namespace KatKat.Tests
                 yield return WaitCelebration();
             }
             if (_gc.Session.State.Status == GameStatus.LostOutOfMoves) Assert.IsFalse(_gc.ExtraMovesOffered, "ikinci teklif yok");
-            Assert.AreEqual(zpeGamesBefore, _gc.SaveService.Data.meta.zpeGames, "reklamlı oturumun sonucu da ZPE'ye girmez");
+            Assert.AreEqual(zpeGamesBefore, (_gc.SaveService.Data.meta.zpeHistory?.Count ?? 0), "reklamlı oturumun sonucu da ZPE'ye girmez");
         }
 
         [UnityTest]

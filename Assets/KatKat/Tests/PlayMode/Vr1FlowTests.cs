@@ -200,10 +200,16 @@ namespace KatKat.Tests
         public IEnumerator CenterIce_OnlyInInteriorHole()
         {
             Vr1Proto.Override = true;
-            _gc.StartLevel(122);
-            yield return null;
+            // levels-v14: 123 artık "İki Alan" tahtası; iç boşluklu ilk eski tahtayı bul (101–200).
+            int idx = -1;
+            for (int i = 100; i < 200 && idx < 0; i++)
+            {
+                _gc.StartLevel(i);
+                yield return null;
+                if (_gc.CenterIce != null) idx = i;
+            }
+            Assert.GreaterOrEqual(idx, 0, "101–200 arasında iç boşluklu tahta var");
             var ice = _gc.CenterIce;
-            Assert.IsNotNull(ice, "level_123: iç boşluk var");
             var h = ice.Hole;
             var b = _gc.Session.State.Board;
             for (int y = h.SquareY; y < h.SquareY + h.Side; y++)
@@ -216,7 +222,7 @@ namespace KatKat.Tests
             yield return null;
             Assert.IsNull(_gc.CenterIce, "level_001: boşluk yok, yeni delik açılmaz");
             Vr1Proto.Override = false;
-            _gc.StartLevel(122);
+            _gc.StartLevel(idx);
             yield return null;
             Assert.IsNull(_gc.CenterIce, "anahtar kapalı");
         }

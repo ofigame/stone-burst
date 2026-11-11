@@ -12,17 +12,21 @@ namespace KatKat.UI
     {
         public const string PrefKey = "katkat.vr1proto";
 
-        /// <summary>null: kayıtlı tercih (varsayılan kapalı); true/false: zorla.</summary>
+        /// <summary>null: kayıtlı tercih (varsayılan açık); true/false: zorla.</summary>
         public static bool? Override;
 
         private static bool? _pref;
 
         /// <summary>Animasyon kodu her karede okur: tercih bir kez okunup bellekte tutulur.</summary>
-        /// <summary>Varsayılan: yalnız vr1 test derlemesinde (KATKAT_VR1PROTO) açık; mağaza derlemesinde kapalı.</summary>
-#if KATKAT_VR1PROTO
+        /// <summary>Varsayılan açık: kullanıcı cihazda inceleyip onayladı (2026-11-11: "test ettim sorun yok gayet güzel.
+        /// Tüm oyuna uygulayabiliriz" → "Prototipi canlıya aç"). Kapatma yalnız deneme derlemesindeki Ayarlar düğmesi ve editör menüsüyle.</summary>
         public const int DefaultOn = 1;
+
+        /// <summary>Pilot bölümler (12 ayrı deneme bölümü) yalnız deneme derlemesinde ve editörde; mağaza derlemesinde gizli.</summary>
+#if KATKAT_VR1PROTO || UNITY_EDITOR
+        public const bool PilotAllowed = true;
 #else
-        public const int DefaultOn = 0;
+        public const bool PilotAllowed = false;
 #endif
 
         public static bool On => Override ?? (_pref ??= PlayerPrefs.GetInt(PrefKey, DefaultOn) == 1);

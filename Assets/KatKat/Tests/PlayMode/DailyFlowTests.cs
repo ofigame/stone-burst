@@ -75,6 +75,8 @@ namespace KatKat.Tests
             Assert.AreEqual(SaveDataVersion, _gc.SaveService.Data.saveVersion, "eski kayıt yükseltildi");
             CollectionAssert.AreEqual(new[] { "stone_tide" }, meta.stones, "öğretici sonrası eşik (10) geçilmiş: taş verildi");
 
+            // 2026-11-11: oyuncunun ilk günlük girişi ücretsiz (MetaTests'te ayrı test); bu test reklamlı girişi sınar.
+            meta.dailyFreeUsed = true;
             // Reklam iptali hakkı eksiltmez.
             _gc.ShowDaily();
             GameController.FakeAds.Next = AdOutcome.Cancelled;
@@ -154,7 +156,8 @@ namespace KatKat.Tests
             Assert.IsFalse(_gc.Hud.StonePowerShown, "normal bölümde taş yuvası yok");
             Assert.AreEqual(_gc.Catalog.Levels[11].MoveLimit + 1, _gc.Session.State.MovesLeft);
             Assert.AreEqual(1, _gc.LastOutcome.MoveBonus);
-            Assert.IsTrue(_gc.LastOutcome.Has(AssistFlags.DailyMoveBonus), "yardımlı sonuç işaretli");
+            // ZPE v3 (2026-11-11): +1 hamle yalnız temel sınırı aşan hamle kullanılırsa (oturum sonunda) yardım sayılır.
+            Assert.IsFalse(_gc.LastOutcome.Has(AssistFlags.DailyMoveBonus), "açılışta henüz yardım değil");
             Assert.IsTrue(_gc.LastOutcome.FirstAttempt);
             _gc.Restart();
             Assert.AreEqual(_gc.Catalog.Levels[11].MoveLimit + 1, _gc.Session.State.MovesLeft, "aynı oturumda limit sabit");

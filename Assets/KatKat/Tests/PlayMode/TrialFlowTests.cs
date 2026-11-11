@@ -61,7 +61,7 @@ namespace KatKat.Tests
             Assert.AreEqual(GameStatus.Won, _gc.Session.State.Status);
             Assert.IsTrue(_gc.TrialDone(0), "deneme bitti olarak kaydedildi");
             Assert.AreEqual(completedBefore, _gc.SaveService.Data.completed.Count, "ana ilerleme değişmez");
-            Assert.AreEqual(0, _gc.SaveService.Data.meta.zpeGames, "ZPE'ye yazılmaz");
+            Assert.AreEqual(0, (_gc.SaveService.Data.meta.zpeHistory?.Count ?? 0), "ZPE'ye yazılmaz");
             // Katman görünümü.
             _gc.StartTrial(1);
             _gc.Hud.HideRuleCard(false);

@@ -286,6 +286,8 @@ namespace KatKat.UI
                 ("zpe.part.firsttry", m.FirstTry, UiIcon.Check), ("zpe.part.time", m.Time, UiIcon.Play),
                 ("zpe.part.noassist", m.NoAssist, UiIcon.Undo),
             };
+            // ZPE v3 (2026-11-11): hız bileşeni kaldırıldı; ağırlığı 0 iken satır gösterilmez (Time < 0).
+            parts = Array.FindAll(parts, p => p.key != "zpe.part.time" || p.v >= 0f);
             float y = -407f;
             for (int i = 0; i < parts.Length; i++)
             {

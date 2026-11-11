@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 2,
+  "id": "level_074",
+  "capabilities": ["specials"],
+  "title": "Donuk Orta",
+  "trialType": "compact",
+  "rules": [],
+  "width": 4,
+  "height": 4,
+  "moveLimit": 7,
+  "rollEnabled": false,
+  "startingRoll": false,
+  "stars": [330, 440],
+  "goals": [
+    { "type": "collectColor", "color": "yellow", "amount": 15 },
+    { "type": "collectColor", "color": "coral", "amount": 5 }
+  ],
+  "cells": [
+    { "x": 0, "y": 0, "active": true, "layers": ["yellow", "blue", "blue", "yellow"] },
+    { "x": 1, "y": 0, "active": true, "layers": ["coral", "yellow", "blue", "coral"] },
+    { "x": 2, "y": 0, "active": true, "layers": ["yellow", "blue", "blue"] },
+    { "x": 3, "y": 0, "active": true, "layers": ["blue", "coral", "blue"] },
+    { "x": 0, "y": 1, "active": true, "layers": ["yellow", "blue", "blue"] },
+    { "x": 1, "y": 1, "active": true, "layers": ["yellow", "yellow", "yellow", "yellow"] },
+    { "x": 2, "y": 1, "active": true, "layers": ["yellow", "yellow", "blue"] },
+    { "x": 3, "y": 1, "active": true, "layers": ["blue", "blue", "blue"] },
+    { "x": 0, "y": 2, "active": true, "layers": ["yellow", "blue", "yellow"] },
+    { "x": 1, "y": 2, "active": true, "layers": ["yellow", "coral", "yellow", "blue"] },
+    { "x": 2, "y": 2, "active": true, "layers": ["yellow", "coral", "yellow"] },
+    { "x": 3, "y": 2, "active": true, "layers": ["blue", "yellow", "yellow"] },
+    { "x": 0, "y": 3, "active": true, "layers": ["yellow", "blue", "yellow"] },
+    { "x": 1, "y": 3, "active": true, "layers": ["yellow", "coral", "yellow"] },
+    { "x": 2, "y": 3, "active": true, "layers": ["yellow", "coral", "coral"] },
+    { "x": 3, "y": 3, "active": true, "layers": ["yellow", "coral", "yellow"] }
+  ],
+  "solution": [
+    { "type": "tap", "x": 2, "y": 0 },
+    { "type": "tap", "x": 1, "y": 1 },
+    { "type": "use", "slot": 0, "x": 1, "y": 0 },
+    { "type": "tap", "x": 1, "y": 1 },
+    { "type": "tap", "x": 1, "y": 2 }
+  ]
+}

@@ -844,7 +844,7 @@ namespace KatKat.UI
             {
                 new TabItem { Label = Loc.T("ui.map"), Icon = Vr1Proto.On && Vr1Proto.NavMap ? Vr1Proto.NavMap : MapIcon(), On = mapOn, Act = mapOn ? null : levels },
                 new TabItem { Label = Loc.T("daily.short"), Icon = Vr1Proto.On && Vr1Proto.NavDaily ? Vr1Proto.NavDaily : CalendarIcon(), On = active == TabDaily, Act = active == TabDaily ? null : (Action)(() => DailyPressed?.Invoke()) },
-                new TabItem { Label = Loc.T("collection.short"), Icon = Vr1Proto.On && Vr1Proto.NavStones ? Vr1Proto.NavStones : V11("icon-stones") ?? ShellArt("icon-crystal") ?? CrystalIconTemp(), On = active == TabCollection, Act = active == TabCollection ? null : (Action)(() => CollectionPressed?.Invoke()) },
+                new TabItem { Label = Loc.T("collection.short"), Icon = Vr1Proto.NavStones ? Vr1Proto.NavStones : V11("icon-stones") ?? ShellArt("icon-crystal") ?? CrystalIconTemp(), On = active == TabCollection, Act = active == TabCollection ? null : (Action)(() => CollectionPressed?.Invoke()) },
             };
             BuildTabBarV11(holder, baseY, items);
         }

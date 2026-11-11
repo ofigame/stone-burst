@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 2,
+  "id": "level_120",
+  "capabilities": ["specials"],
+  "title": "Kış Bahçesi",
+  "trialType": "compact",
+  "rules": [],
+  "width": 4,
+  "height": 4,
+  "moveLimit": 8,
+  "rollEnabled": false,
+  "startingRoll": false,
+  "stars": [345, 460],
+  "goals": [
+    { "type": "collectColor", "color": "yellow", "amount": 11 },
+    { "type": "collectColor", "color": "blue", "amount": 11 }
+  ],
+  "cells": [
+    { "x": 0, "y": 0, "active": true, "layers": ["blue", "coral", "yellow"] },
+    { "x": 1, "y": 0, "active": true, "layers": ["yellow", "yellow", "yellow", "blue"] },
+    { "x": 2, "y": 0, "active": true, "layers": ["blue", "blue", "yellow"] },
+    { "x": 3, "y": 0, "active": true, "layers": ["yellow", "blue", "yellow", "coral"] },
+    { "x": 0, "y": 1, "active": true, "layers": ["blue", "coral", "blue", "coral"] },
+    { "x": 1, "y": 1, "active": true, "layers": ["yellow", "coral", "yellow"] },
+    { "x": 2, "y": 1, "active": true, "layers": ["blue", "blue", "yellow", "blue"] },
+    { "x": 3, "y": 1, "active": true, "layers": ["coral", "coral", "yellow"] },
+    { "x": 0, "y": 2, "active": true, "layers": ["blue", "coral", "blue"] },
+    { "x": 1, "y": 2, "active": true, "layers": ["yellow", "yellow", "coral", "yellow"] },
+    { "x": 2, "y": 2, "active": true, "layers": ["yellow", "yellow", "coral", "blue"] },
+    { "x": 3, "y": 2, "active": true, "layers": ["coral", "blue", "coral"] },
+    { "x": 0, "y": 3, "active": true, "layers": ["blue", "coral", "blue", "yellow"] },
+    { "x": 1, "y": 3, "active": true, "layers": ["blue", "coral", "coral", "yellow"] },
+    { "x": 2, "y": 3, "active": true, "layers": ["coral", "blue", "coral", "coral"] },
+    { "x": 3, "y": 3, "active": true, "layers": ["yellow", "blue", "coral"] }
+  ],
+  "solution": [
+    { "type": "tap", "x": 1, "y": 1 },
+    { "type": "tap", "x": 3, "y": 2 },
+    { "type": "tap", "x": 2, "y": 1 },
+    { "type": "tap", "x": 2, "y": 2 },
+    { "type": "tap", "x": 2, "y": 0 },
+    { "type": "tap", "x": 0, "y": 2 },
+    { "type": "use", "slot": 0, "x": 0, "y": 0 }
+  ]
+}

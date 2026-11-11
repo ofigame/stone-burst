@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 2,
+  "id": "level_526",
+  "capabilities": ["specials"],
+  "title": "Bölüm 526",
+  "trialType": "compact",
+  "rules": [],
+  "width": 4,
+  "height": 4,
+  "moveLimit": 7,
+  "rollEnabled": false,
+  "startingRoll": false,
+  "stars": [540, 720],
+  "goals": [
+    { "type": "collectColor", "color": "coral", "amount": 16 },
+    { "type": "collectColor", "color": "yellow", "amount": 14 }
+  ],
+  "cells": [
+    { "x": 0, "y": 0, "active": true, "layers": ["yellow", "coral", "coral", "blue"] },
+    { "x": 1, "y": 0, "active": true, "layers": ["yellow", "coral", "coral", "yellow"] },
+    { "x": 2, "y": 0, "active": true, "layers": ["yellow", "coral", "blue", "blue"] },
+    { "x": 3, "y": 0, "active": true, "layers": ["yellow", "coral", "coral"] },
+    { "x": 0, "y": 1, "active": true, "layers": ["coral", "coral", "yellow", "blue"] },
+    { "x": 1, "y": 1, "active": true, "layers": ["blue", "coral", "yellow", "blue"] },
+    { "x": 2, "y": 1, "active": true, "layers": ["coral", "coral", "blue", "yellow"] },
+    { "x": 3, "y": 1, "active": true, "layers": ["yellow", "coral", "blue", "coral"] },
+    { "x": 0, "y": 2, "active": true, "layers": ["blue", "coral", "blue"] },
+    { "x": 1, "y": 2, "active": true, "layers": ["yellow", "coral", "yellow", "blue"] },
+    { "x": 2, "y": 2, "active": true, "layers": ["yellow", "coral", "yellow", "coral"] },
+    { "x": 3, "y": 2, "active": true, "layers": ["yellow", "coral", "yellow", "blue"] },
+    { "x": 0, "y": 3, "active": true, "layers": ["blue", "coral", "blue", "blue"] },
+    { "x": 1, "y": 3, "active": true, "layers": ["blue", "coral", "blue"] },
+    { "x": 2, "y": 3, "active": true, "layers": ["yellow", "blue", "yellow"] },
+    { "x": 3, "y": 3, "active": true, "layers": ["yellow", "coral", "yellow", "blue"] }
+  ],
+  "solution": [
+    { "type": "tap", "x": 0, "y": 0 },
+    { "type": "tap", "x": 0, "y": 0 },
+    { "type": "use", "slot": 0, "x": 2, "y": 0 },
+    { "type": "tap", "x": 2, "y": 0 },
+    { "type": "tap", "x": 2, "y": 0 },
+    { "type": "tap", "x": 3, "y": 1 },
+    { "type": "tap", "x": 3, "y": 0 },
+    { "type": "use", "slot": 0, "x": 1, "y": 0 }
+  ]
+}

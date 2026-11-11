@@ -106,3 +106,31 @@ Eski ayrıntılı karar günlüğü arşivde (`KatKat_Arsiv_2026-11-06/docs/KARA
 - 2026-11-11 (kullanıcı: "Anasayfadaki kalp büyüyüp küçülsün"): Ana sayfadaki kalp (içindeki sayıyla) seçili menü ikonuyla aynı hareketle yavaşça büyüyüp küçülür (1 → 1,08, 1,6 sn). Canlı görünüm.
 - 2026-11-11 (kullanıcı: "tüm talimatları uygulayalım ve p2 p3 e geçelim"): **vr1 P0/P1 kalan maddeler.** Canlı: ipucu grup sınırı, kısa neden metni, reklamdan önce bedel onay kartı, öğretici bölümlerde ücretli ipucunun önce gelmesi (yeni bulunan hata), Ayarlar'da "Azaltılmış hareket", bekleyen taş sunumunun kalıcı olması (`meta.pendingReveal`). Prototip: dokunuş 90 ms, açılışta 4 dB kısma, sonuç kartında taş ilerlemesi, Taşlar ikonu. Açık ürün kararlarına (ZPE ağırlıkları, ipucu bedelinin kaldırılması, günlük ücretsiz giriş) dokunulmadı. Ayrıntı: `docs/vr1/P1_TESLIM_RAPORU.md`.
 - 2026-11-11 (kullanıcı: "tüm talimatları uygulayalım ve p2 p3 e geçelim"): **vr1 P2/P3.** Kural motoruna yetenek anahtarlı üç kural: aşamalı hedef (`goals[].stage`, `stages`; ilerleme yalnız etkin aşamada, dalga sonunda geçiş, fazla aktarılmaz), zincir mührü (`seal {wave 1-3, gate}`, `seal`; otomatik zincir derinliği ulaşınca mevcut geçit açılır, doğrudan dokunuş 0), iki alan (`cells[].area`, `areas`; roket ve Altın Rulo yalnız ateşlendiği alanda). Ana 1000 bölüm bu alanları taşımaz (SHA-256 testi değişmedi). 12 bölümlük ayrı pilot katalog (`Resources/Pilot`, `LevelLab pilot`; kayıtlı çözümler doğrulandı), deneme akışıyla oynanır, ana ilerlemeye/yıldıza/ZPE'ye yazılmaz; haritada yalnız prototip anahtarı açıkken "Pilot" düğmesi. Pilot mekaniklerin 1000 bölüme dağılımı açık ürün kararı olarak bırakıldı. Rapor: `docs/vr1/P2_P3_TESLIM_RAPORU.md`, üretim ölçümleri `docs/vr1/PILOT_URETIM.md`.
+- 2026-11-11 (kullanıcı: "tüm herşeyi onaylıyorum o belgedeki. Yap bitir ve gerçek oyunumuzda olsun. farklı bir apk oluşturma"; "test ettim sorun yok gayet güzel" → "Prototipi canlıya aç"): **vr1 paketinin bütün kararları canlıya.**
+  - Prototip (buzlu koleksiyon taşı, haritaya dönüş ödül akışı, Yolculuk/Günlük ikonları, sesler, animasyon süreleri, tahta ortasında buz, sonuç kartında taş ilerlemesi) varsayılan açık (`Vr1Proto.DefaultOn = 1`). Pilot düğmesi ve 12 pilot bölüm yalnız deneme derlemesinde/editörde (`PilotAllowed`).
+  - Taşlar ikonu: son kazanılan koleksiyon taşının görseli; hiç yoksa mevcut elmas.
+  - **ZPE v3** (`zpe_config.json` sürüm 3, `AlgoVersion` 2): hız bileşeni kaldırıldı (kalan ağırlıklar kendi toplamına bölünür); puan son 50 FARKLI normal bölümden, her bölümün penceredeki en iyi sonucu (aynı bölümü tekrar oynamak pencereyi doldurmaz); ham geçmiş 250 kayıt. v2 toplamı (`zpeSum/zpeGames`) silinmez, donar (`LegacyScore`). Günlük +1 hamle bonusu yalnız temel sınırı aşan hamle kullanıldıysa yardım sayılır; zorunlu öğretici (tur, öğretici halka) yardım sayılmaz. Bölüm sonunda "Bu bölüm N · ZPE x (±d)" ayrı yazılır.
+  - **İpucu yıldız bedeli kaldırıldı**; düğmede "−1 ★" yerine reklam (oynat) rozeti. Reklamlı oturum yine sıralamaya ve ZPE'ye yazılmaz.
+  - **Günlük bulmacaya ilk giriş ücretsiz** (oyuncunun ilk günlük girişi; `meta.dailyFreeUsed`); sonraki günler reklamlı giriş (bulunamazsa reklamsız) aynen.
+  - Seçimler (paket "ürün kararı" diyordu, belirtilmemişti): pencerede bölüm başına "en iyi" sonuç; ücretsiz giriş "oyuncunun ilk günlük girişi" olarak.
+- 2026-11-11 (kullanıcı: "1000 bölüme uygula yeni tahtalar yap … pilottaki iki ayrı tahta güzel, bunlardan yap. çeşit çeşit yap"; "pilottakinden daha farklı daha gelişmiş olsunlar"; "100[0] bölüm tahtalarını geliştir güncelle ve tüm testlerini yap"): **vr1 tahta aileleri ana katalogda (levels-v14).**
+  - Kapsam: 21'den sonraki sade bölümlerin her ikincisi (339 aday). 307'si yeni tahta aldı, 32'si eski hâliyle kaldı.
+  - Dokunulmayanlar: 1–20, öğretici bölümler, eski türler ve patronlar.
+  - Aileler pilotun 9'u ve gelişmiş birleşimleri:
+    - geniş, derin, iki alan, dar geçit, aşamalı, mühür;
+    - iki alan + aşama, mühürlü oda, iki alan + mühür;
+    - 200 bölümden sonra rastgele buz.
+  - Zorluk eğrisi:
+    - En kısa çözüm: 150'ye kadar 5, 300'e kadar 6, sonrası 7 adım.
+    - Hamle payı: 100'e kadar 3, 300'e kadar 2, sonrası 1.
+    - 250+ bölümde açgözlü bot kaybetmeli.
+    - 500+ bölümde ilk hamlelerin en çok %70'i kazandırabilir.
+  - Kanat ailesi ölçütleri karşılamadı; kullanılmadı.
+  - Stres kapısı: her yeni bölümde `LevelLab stress` botu 64 oyunda en az bir kez kazanmalı. Geçemeyen 7 bölüm eski hâline döndü.
+  - "Geniş Kıyı" tanıtım metni "rahat mola" yerine "seçenek çok, doğru sırayı bul" oldu: geç bölümlerde artık kolay değil.
+  - Teknik değişiklikler:
+    - `ContentVersions.Levels` = `levels-v14`.
+    - SHA-256 listesi `levels_v14.sha256`; v13 listesi arşivde (`tests_levels_v13`).
+    - ZPE bölüm referansları (`level_ref.json`) yeniden üretildi.
+    - Kaynak: `levels_vr1/`.
+  - Rapor: `docs/vr1/YENI_TAHTALAR_RAPORU.md`.

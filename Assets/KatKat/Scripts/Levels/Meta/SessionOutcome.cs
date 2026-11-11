@@ -91,7 +91,7 @@ namespace KatKat.Meta
     /// <summary>İçerik sürüm etiketleri (sonuç modeli ve günlük durum anahtarı için).</summary>
     public static class ContentVersions
     {
-        /// <summary>Ana 1.000 bölüm seti (v7 üretimi, 2026-11-06).</summary>
-        public const string Levels = "levels-v7";
+        /// <summary>Ana 1.000 bölüm seti (v14: vr1 tahta aileleri ana katalogda, 2026-11-11; önceki levels-v7).</summary>
+        public const string Levels = "levels-v14";
     }
 }

@@ -19,11 +19,22 @@ namespace KatKat.Game
         private void SetupVr1()
         {
             Vr1Proto.Sound = n => _sound?.PlayVr1(n);
-            // Taşlar sekmesi: koleksiyonun ilk yıldız taşının asıl görseli (yeni çizim yok).
-            if (_stones != null)
+            RefreshNavStones();
+        }
+
+        /// <summary>
+        /// Alt menü Taşlar ikonu (kullanıcı, 2026-11-11: "menüdeki taşlar iconu aldığımız son koleksiyon taşı olsun, eğer
+        /// koleksiyon taşımız yoksa elmas iconu olsun mevcuttaki"): kazanım sırasındaki son taşın asıl görseli; yoksa null (elmas).
+        /// </summary>
+        private void RefreshNavStones()
+        {
+            Vr1Proto.NavStones = null;
+            if (_stones == null || _save == null) return;
+            var owned = _save.Data.meta.stones;
+            for (int i = owned.Count - 1; i >= 0; i--)
             {
-                var first = _stones.Stones.Find(s => s.Category == StoneCategory.StarStone);
-                if (first != null) Vr1Proto.NavStones = StoneSprite(first);
+                var s = _stones.Find(owned[i]);
+                if (s != null) { Vr1Proto.NavStones = StoneSprite(s); return; }
             }
         }
 
@@ -56,7 +67,7 @@ namespace KatKat.Game
         /// </summary>
         private bool PrepareMapGoal()
         {
-            if (Vr1Proto.NavStones == null) SetupVr1(); // katalog hazır olduktan sonra Taşlar ikonu
+            RefreshNavStones(); // Taşlar ikonu: son kazanılan taş
             var meta = _save.Data.meta;
             int stars = _save.Data.TotalStars, levels = _save.Data.completed.Count;
             var ret = CollectionProgress.Compare(meta.mapSeenStars, meta.mapSeenLevels, stars, levels, _winsSinceMap);

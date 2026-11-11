@@ -42,7 +42,8 @@ namespace KatKat.Game
                 FirstAttempt = first,
                 AttemptNumber = kind == SessionKind.Daily && _daily != null ? Math.Max(1, _daily.State.attemptsUsed) : 1,
                 DailyKey = kind == SessionKind.Daily ? _daily?.State.Key : null,
-                Assists = bonus > 0 ? AssistFlags.DailyMoveBonus : AssistFlags.None,
+                // vr1 02_ZPE (onay 2026-11-11): günlük +1 hamle bonusu yalnız gerçekten kullanılırsa (temel sınırı aşan hamle) yardım sayılır; OutcomeFinish.
+                Assists = AssistFlags.None,
             };
             AnalyticsLevelStart();
         }
@@ -61,7 +62,7 @@ namespace KatKat.Game
             {
                 Kind = o.Kind, LevelId = o.LevelId, ContentVersion = o.ContentVersion, BaseMoveLimit = o.BaseMoveLimit,
                 MoveBonus = o.MoveBonus, FirstAttempt = false, AttemptNumber = o.AttemptNumber + 1, DailyKey = o.DailyKey,
-                Assists = o.Assists & (AssistFlags.DailyMoveBonus | AssistFlags.Guidance),
+                Assists = o.Assists & AssistFlags.Guidance, // günlük bonus kullanımı her denemede bitişte yeniden ölçülür
             };
             AnalyticsLevelStart();
         }
@@ -95,6 +96,8 @@ namespace KatKat.Game
             if (_outcome == null || _outcome.Finished) return;
             _outcome.Finished = true;
             _outcome.Success = success;
+            // Günlük bonus hamlesi gerçekten kullanıldı mı (temel sınırı aşan hamle): ancak o zaman yardım (02_ZPE).
+            if (_outcome.MoveBonus > 0 && _outcome.MovesUsed > _outcome.BaseMoveLimit) _outcome.Assists |= AssistFlags.DailyMoveBonus;
             if (!Application.isBatchMode) Debug.Log("[KatKat] Oturum sonucu: " + _outcome);
             OutcomeRecorded?.Invoke(_outcome);
             AnalyticsLevelEnd(success);
@@ -153,7 +156,7 @@ namespace KatKat.Game
                 Efficiency = (float)z.Average.Efficiency,
                 Difficulty = (float)z.Average.Difficulty,
                 FirstTry = (float)z.Average.FirstTry,
-                Time = (float)z.Average.Time,
+                Time = (_zpeConfig ?? new ZpeConfig()).WTime > 0 ? (float)z.Average.Time : -1f, // v3: hız yok → satır gizli
                 NoAssist = (float)z.Average.NoAssist,
             });
         }
@@ -164,9 +167,17 @@ namespace KatKat.Game
             var z = CurrentZpe();
             if (z.Count == 0) return null;
             if (z.Calibrating) return Loc.F("zpe.calibrating", z.Count, z.MinLevels);
-            if (_zpeBefore < 0) return Loc.F("zpe.value", z.Score);
-            int d = z.Score - _zpeBefore;
-            return d == 0 ? null : Loc.F("zpe.change", z.Score, (d > 0 ? "+" : "") + d);
+            // vr1 02_ZPE: "Bu bölüm puanı" ile "Genel endeks değişimi" ayrı etiketlenir; endeks değişmese de bölüm puanı görünür.
+            string level = _zpeLast != null && ReferenceEquals(_zpeLastOutcome, _outcome)
+                ? Loc.F("zpe.level", Mathf.RoundToInt((float)Zpe.Score(_zpeLast, ZpeRef(_zpeLast.levelId), _zpeConfig ?? new ZpeConfig()).Total * 100f)) : null;
+            string index;
+            if (_zpeBefore < 0) index = Loc.F("zpe.value", z.Score);
+            else
+            {
+                int d = z.Score - _zpeBefore;
+                index = d == 0 ? Loc.F("zpe.value", z.Score) : Loc.F("zpe.change", z.Score, (d > 0 ? "+" : "") + d);
+            }
+            return level != null ? level + "  ·  " + index : index;
         }
 
         /// <summary>Uygulama odağı (bildirim perdesi, tam ekran reklam): odak yokken süre sayılmaz.</summary>
@@ -251,6 +262,7 @@ namespace KatKat.Game
             foreach (var s in granted) if (!_save.Data.meta.pendingReveal.Contains(s.StoneId)) _save.Data.meta.pendingReveal.Add(s.StoneId);
             _save.Save();
             _pendingStoneToasts.AddRange(granted);
+            RefreshNavStones();
         }
 
         private int SessionMoveBonus(LevelData level, SessionKind kind) =>
@@ -439,7 +451,7 @@ namespace KatKat.Game
                 AttemptOpen = d.attemptOpen,
                 AttemptsLeft = _daily.AttemptsLeft,
                 AttemptsAllowed = _daily.AttemptsAllowed,
-                AdFree = FakeAdFree.Owned,
+                AdFree = FakeAdFree.Owned || _daily.FirstEntryFree, // ilk giriş ücretsiz: düğme "Ücretsiz gir"
                 BonusToday = _daily.HasMoveBonusToday,
                 StoneName = CollectionRules.ActiveStone(_save.Data.meta) is string sid ? Loc.T(_stones.Find(sid)?.NameKey ?? sid) : null,
                 StoneSprite = CollectionRules.ActiveStone(_save.Data.meta) is string sid2 ? StoneSprite(_stones.Find(sid2)) : null,

@@ -247,7 +247,24 @@ Bazı bölümler bir **tür** taşır. Tür bir kural verir ama strateji vermez.
 | **Saf Plan** | Özel taş doğmaz | `specials` kapalı | 17 | 77 |
 | **Doğru An** | Özel taşsız çözülemez | Tasarım + dar hamle | 23 | 87 |
 | **Kilit Sırası** | Renk kilitleri doğru sırayla açılmalı | Tasarım + dar hamle | 22 | 127 |
-| Normal | — | — | 705 | — |
+| Geniş Kıyı (`wide`) | "Geniş bir tahta: seçenek çok, doğru sırayı bul." | 7–8×8 tahta, iki renk hedefi | 125 | 23 |
+| Derin Kuyu (`compact`) | Küçük, derin tahta | 4×4 / 5×5, 3–4 katman | 37 | 32 |
+| İki Alan (`twin`) | Roket ve Altın Rulo yalnız kendi alanında | `areas` | 42 | 44 |
+| Dar Geçit (`bridge`) | İki yarıyı tek geçit bağlar | Maske (etkin olmayan hücreler) | 12 | 65 |
+| Aşamalı Hedef (`stages`) | Hedefler sırayla açılır | `stages` | 7 | 102 |
+| Zincir Mührü (`seal`) | Zincir derinliği mühürlü geçidi açar | `seal` + `gate` | 52 | 164 |
+| İki Alan, Sıralı Hedef (`twin_stages`) | İki alan + aşamalı hedef | `areas` + `stages` | 12 | 219 |
+| Mühürlü İki Alan (`twin_seal`) | Bir alanın bir kısmı mühürlü | `areas` + `seal` + `gate` | 19 | 373 |
+| Mühürlü Oda (`seal_room`) | İkinci oda tamamen mühürlü | `seal` + `gate` | 1 | 971 |
+| Normal | — | — | 398 | — |
+
+**vr1 tahta aileleri (2026-11-11, levels-v14):**
+- 21'den sonraki sade bölümlerin her ikincisi pilotta denenen ailelerden birine geçti. Öğretici bölümler, eski türler ve patronlar değişmedi.
+- 339 adaydan 307'si yeni tahta aldı; 32'si eski hâliyle kaldı.
+- Her bölümün kayıtlı çözümü motorla yeniden oynatılıp doğrulandı. Stres botu (`LevelLab stress 60`) her bölümü 64 oyunda en az bir kez kazandı.
+- Aile kartı, tür ilk görüldüğünde çıkar.
+- Ölçütler ve bölüm bölüm sonuçlar: `docs/vr1/YENI_TAHTALAR_RAPORU.md` (üretici: `LevelLab families`).
+- Kanat ailesi (`wing`) ölçütleri karşılamadı; ana katalogda yok.
 
 **Takvim (veriden):**
 - Tür bölümleri genellikle numarası **7 ya da 8 ile biten** bölümlerdir.
@@ -432,7 +449,7 @@ Kaynak: `S/Levels/Meta/Hearts.cs`, `S/Game/GameController.Hearts.cs`.
 
 | Yardım | Bedel | Sınır | Ne yapar |
 |---|---|---|---|
-| **Reklamlı ipucu** (ampul) | Ödüllü reklam + o bölümden kazanılan yıldız −1 (en az 1). Bedel yalnız öneri teslim edilince işlenir. | Yalnız normal bölüm, deneme başına 1 (yeniden başlatma yeni denemedir) | 2026-11-11'den beri doğrulanmış çözüm yolunun ilk komutunu gösterir (dokunuş, tepsi, döndürme, boya, rulo). Plan bulunamazsa reklam açılmaz, hak kullanılmaz. Ayrıntı aşağıda. |
+| **Reklamlı ipucu** (ampul) | Ödüllü reklam (2026-11-11: yıldız bedeli kaldırıldı). | Yalnız normal bölüm, deneme başına 1 (yeniden başlatma yeni denemedir) | 2026-11-11'den beri doğrulanmış çözüm yolunun ilk komutunu gösterir (dokunuş, tepsi, döndürme, boya, rulo). Plan bulunamazsa reklam açılmaz, hak kullanılmaz. Ayrıntı aşağıda. |
 | **Kayıp sonrası ipucu** | Ücretsiz | Aynı bölümde 2. kayıptan sonra | Bölüm baştan başlar; kayıtlı çözümün ilk adımı (her komut türü) doğrulanıp gösterilir |
 | **Deneme ipucu** | Ücretsiz | Denemede 2 kayıptan sonra | Çözücü (300.000 durum) sıradaki hamleyi gösterir |
 | **Öğretici halka** | — | Bölüm 1, 2, 11, 21, 41, 61, 121, 201, 301 | Kayıtlı çözümün ilk adımı |
@@ -507,14 +524,16 @@ En az 15 tamamlanmış bölüm, yardımsız 3 yıldızlı bir galibiyetten sonra
 
 | Bileşen | Ağırlık | Formül |
 |---|---|---|
-| Hamle verimi | %35 | Kayıtlı çözüm adımı kadar ya da daha az hamle = 1. Limite yaklaştıkça doğrusal düşer. |
-| Zorluğa göre başarı | %25 | 0,35 + 0,65 × (1 − botun kazanma oranı) |
-| İlk denemede başarı | %20 | İlk denemeyse 1, değilse 0,4 |
-| Çözüm hızı | %10 | min(1, (6 + 4 × adım) / saniye). 2026-11-11'den beri saniye = yalnız **karar süresi** (aşağıda) |
-| Yardımsız bitirme | %10 | Yardımsızsa 1, değilse 0,3 |
+| Hamle verimi | %35 → v3 %38,9 (0,35/0,90) | Kayıtlı çözüm adımı kadar ya da daha az hamle = 1. Limite yaklaştıkça doğrusal düşer. |
+| Zorluğa göre başarı | %25 → v3 %27,8 | 0,35 + 0,65 × (1 − botun kazanma oranı) |
+| İlk denemede başarı | %20 → v3 %22,2 | İlk denemeyse 1, değilse 0,4 |
+| Çözüm hızı | %10 → **v3 %0 (kaldırıldı, 2026-11-11)** | Eskiden min(1, (6 + 4 × adım) / karar saniyesi) |
+| Yardımsız bitirme | %10 → v3 %11,1 | Yardımsızsa 1, değilse 0,3 |
 
 **Endeks:**
-- Oynanan bütün oyunların düz ortalaması × 100.
+- **v3 (2026-11-11, kullanıcı onayı):** son 50 FARKLI normal bölüm; her bölümün penceredeki en iyi sonucu × 100. Aynı bölümü tekrar oynamak pencereyi doldurmaz. v2 puanı (bütün oyunların düz ortalaması) silinmez, donuk "eski puan" olarak saklanır.
+- Günlük +1 hamle bonusu yalnız gerçekten kullanılırsa (temel sınırı aşan hamle) yardım sayılır; zorunlu öğretici yardım sayılmaz.
+- Bölüm sonunda "Bu bölüm N · ZPE x (±d)" ayrı yazılır.
 - Panelde son 50 kaydın başarı oranı, ilk deneme oranı ve bileşen ortalamaları gösterilir.
 - Eğilim (son 10 bölüm ile önceki 10 bölümün farkı) en az 20 kayıttan sonra hesaplanır.
 - Bölüm sonunda "ZPE x (±d)" gösterilir.

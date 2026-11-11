@@ -81,16 +81,17 @@ namespace KatKat.Tests
         {
             var meta = new MetaSave();
             double sum = 0;
-            for (int i = 0; i < 100; i++)
+            int games = Zpe.HistoryCap + 40;
+            for (int i = 0; i < games; i++)
             {
                 var rec = i % 4 == 0 ? new ZpeRecord { levelId = "e", success = false, movesUsed = 10, moveLimit = 10 } : Win(used: 4 + i % 5);
                 sum += Zpe.Score(rec, Easy, C).Total;
                 Zpe.Add(meta, rec, _ => Easy, C);
             }
             var r = Zpe.Compute(meta, _ => Easy, C);
-            Assert.AreEqual(100, r.Count, "bütün oynanan oyunlar sayılır");
+            Assert.AreEqual(games, r.Count, "bütün oynanan oyunlar sayılır");
             Assert.AreEqual(Zpe.HistoryCap, meta.zpeHistory.Count, "ham girdi sınırlı");
-            Assert.AreEqual((int)Math.Round(sum / 100 * 100), r.Score, "düz ortalama × 100");
+            Assert.AreEqual((int)Math.Round(sum / games * 100), r.Score, "düz ortalama × 100");
         }
 
         [Test]
@@ -130,7 +131,7 @@ namespace KatKat.Tests
         public void History_CappedAndVersioned()
         {
             var meta = new MetaSave();
-            for (int i = 0; i < 70; i++) Zpe.Add(meta, Win());
+            for (int i = 0; i < Zpe.HistoryCap + 10; i++) Zpe.Add(meta, Win());
             Assert.AreEqual(Zpe.HistoryCap, meta.zpeHistory.Count);
             Assert.AreEqual(Zpe.AlgoVersion, meta.zpeHistory[0].algo);
         }
@@ -140,7 +141,9 @@ namespace KatKat.Tests
         {
             var res = Path.GetDirectoryName(ProductionLevelTests.LevelsDir());
             var cfg = ZpeConfig.Parse(File.ReadAllText(Path.Combine(res, "Zpe", "zpe_config.json")));
-            Assert.AreEqual(1.0, cfg.WEfficiency + cfg.WDifficulty + cfg.WFirstTry + cfg.WTime + cfg.WNoAssist, 1e-9);
+            // v3 (vr1 02_ZPE): hız ağırlığı 0; kalan dördü kendi toplamına (0,90) bölünerek kullanılır.
+            Assert.AreEqual(0.90, cfg.WEfficiency + cfg.WDifficulty + cfg.WFirstTry + cfg.WTime + cfg.WNoAssist, 1e-9);
+            Assert.AreEqual(0.0, cfg.WTime, 1e-9);
             var refs = Zpe.ParseRefs(File.ReadAllText(Path.Combine(res, "Zpe", "level_ref.json")));
             Assert.AreEqual(1000, refs.Count);
             foreach (var r in refs.Values)

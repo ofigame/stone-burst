@@ -33,6 +33,8 @@ static partial class Program
         public int Budget = 60000;
         /// <summary>Zincir mührü derinliği (0 = yok); geçit 1.</summary>
         public int SealWave;
+        /// <summary>Etkin sade hücreye rastgele buz (1 vuruş) olasılığı (gelişmiş aileler).</summary>
+        public double IceChance;
     }
 
     sealed class PilotMetrics
@@ -125,10 +127,10 @@ static partial class Program
             for (int x = 0; x < spec.W; x++)
             {
                 char m = spec.Mask != null ? spec.Mask[y][x] : '.';
-                var cell = new CellData { X = x, Y = y, Active = m != '#' && m != 'G' };
-                if (m == 'R') cell.Area = 1;
+                var cell = new CellData { X = x, Y = y, Active = m != '#' && m != 'G' && m != 'H' };
+                if (m == 'R' || m == 'H') cell.Area = 1;
                 int n = spec.MinLayers + rng.Next(spec.MaxLayers - spec.MinLayers + 1);
-                if (m == 'G')
+                if (m == 'G' || m == 'H')
                 {
                     cell.GateId = 1;
                     for (int l = 0; l < n; l++) cell.GateLayers.Add(ColorNames[col[x, y, l]]);
@@ -137,7 +139,7 @@ static partial class Program
                 {
                     for (int l = 0; l < n; l++) cell.Layers.Add(ColorNames[col[x, y, l]]);
                     if (m == 'B') cell.ButtonGate = 1;
-                    if (m == 'I') cell.IceHits = 1;
+                    if (m == 'I' || (spec.IceChance > 0 && (m == '.' || m == 'R') && rng.NextDouble() < spec.IceChance)) cell.IceHits = 1;
                 }
                 d.Cells.Add(cell);
             }

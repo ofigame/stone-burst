@@ -45,7 +45,7 @@ Veri kimlikleri (`Coral/Blue/Yellow/Purple`, `Rainbow`) eski adlarıyla kalır; 
 
 ### Reklamlı ipucu (2026-11-08)
 
-- Normal bölümde alt çubukta ampul düğmesi; üzerinde bedeli gösteren "−1 ★" rozeti.
+- Normal bölümde alt çubukta ampul düğmesi; üzerinde reklamla açıldığını gösteren oynat rozeti (2026-11-11 öncesi "−1 ★" bedel rozeti).
 - **Güvenilirlik düzeltmesi (2026-11-11, vr1 P0; `docs/vr1/claude_code_paketi_v1/belgeler/01_IPUCU.md`):**
   - Basınca önce "İpucu hazırlanıyor…" görünür. Tahtanın kopyasında arka planda doğrulanmış bir çözüm yolu aranır: önce kayıtlı çözüm ve önceki planın kalanı, sonra hedef ilerlemesine göre en-iyi-önce arama (40.000 durum + 750 ms).
   - Öneri, motorla yeniden yürütülüp kazanca ulaştığı doğrulanan yolun ilk komutudur. Kayba götüren ya da doğrulanamayan hamle önerilmez; tahmine geçilmez.
@@ -57,10 +57,10 @@ Veri kimlikleri (`Coral/Blue/Yellow/Purple`, `Rainbow`) eski adlarıyla kalır; 
   - Döndürme: taban düğmesi.
   - Boya: boya düğmesi → hücre → renk yazısı.
   - Rulo: rulo düğmesi → satır.
-- Bedel ve "reklam yardımlı" bayrağı yalnız öneri teslim edilince işlenir. Reklam iptal olur ya da başarısız olursa hiçbir şey değişmez. Yinelenen ödül tek teslim sayılır.
+- "Reklam yardımlı" bayrağı yalnız öneri teslim edilince işlenir. Reklam iptal olur ya da başarısız olursa hiçbir şey değişmez. Yinelenen ödül tek teslim sayılır.
 - Öneri uygulanana kadar düğme reklamsız aynı öneriyi gösterir. Başka hamle ya da geri almadan sonra eski öneri gizlenir ve aynı hakla ücretsiz yeni plan çözülür. Aynı grubun başka hücresine dokunmak aynı sonucu veriyorsa öneri uygulanmış sayılır.
 - Deneme başına 1 ipucu; **yeniden başlatma yeni denemedir**. 2026-11-11'e kadar bedel yeniden başlatılan denemeye taşınıyordu, sıralama ise o denemeyi yardımsız sayıyordu.
-- Bedel: o bölümden kazanılan yıldız 1 azalır (en az 1). Reklam yardımlı oturum sıralama yıldızına ve ZPE'ye yazılmaz.
+- **Yıldız bedeli yok** (2026-11-11, kullanıcı onayı; önceden o bölümden 1 yıldız düşüyordu). Reklam yardımlı oturum sıralama yıldızına ve ZPE'ye yazılmaz.
 
 ### Kalpler (2026-11-09)
 
@@ -116,10 +116,29 @@ Kural verilir, strateji verilmez. v7 tahtaları korunur; takvimdeki bölümler b
 | Patron | Her 10. bölüm: kurallar birleşir + kesin hamle; her 100. bölüm 3 kural | 30 |
 
 - 10'luk döngü: 7. ve 8. bölüm tür bölümü, 10. bölüm patron; diğerleri normal (v7 aynen).
+- **Tahta aileleri (vr1, 2026-11-11, `levels-v14`):** 21'den sonraki sade bölümlerin her ikincisi bir tahta ailesi taşır (307 bölüm):
+
+  | Aile | Bölüm | İlk bölüm |
+  |---|---|---|
+  | Geniş Kıyı | 125 | 23 |
+  | Derin Kuyu | 37 | 32 |
+  | İki Alan | 42 | 44 |
+  | Dar Geçit | 12 | 65 |
+  | Aşamalı Hedef | 7 | 102 |
+  | Zincir Mührü | 52 | 164 |
+  | İki Alan, Sıralı Hedef | 12 | 219 |
+  | Mühürlü İki Alan | 19 | 373 |
+  | Mühürlü Oda | 1 | 971 |
+
+  - Kurallar: aşamalı hedef, zincir mührü, iki alan (P3 kural motoru, yetenek anahtarıyla).
+  - Ailenin kartı, tür ilk görüldüğünde çıkar.
+  - 200 bölümden sonra bazı tahtalarda buz bulunur.
+  - Rapor: `docs/vr1/YENI_TAHTALAR_RAPORU.md`.
 - Kural simgeleri hedef kabuğunun sağında (dokununca kural cümlesi). Kural kartı yalnız türün ilk görüldüğü bölümde ve patronlarda (`meta.seenTypes`).
 - Aynı bölümde 2 kayıptan sonra kayıp kartında **İpucu**: bölüm baştan başlar, yalnız ilk doğru hamle gösterilir (ZPE'de yardımlı). 2026-11-11'den beri kayıtlı çözümün ilk adımı yeniden doğrulanır. Her komut türü (tepsi, döndürme, boya, rulo) reklamlı ipucuyla aynı görselle gösterilir; önceden yalnız dokunuş gösteriliyordu.
 - Yığına basılı tutunca (0,42 sn) bütün katmanlar görünür; dokunuş parmak kalkınca işler (bütün oturumlarda).
 - Günlük bulmaca (`daily-v3`): günün türü haftalık döner (kesin hamle → zincir → kristal → ters → kıt renk → saf plan → doğru an → kilit); oyuncunun grubunda açılmamış tür atlanır; her günlükte kural kartı.
+- **İlk günlük giriş ücretsiz** (2026-11-11): oyuncunun ilk günlük girişi reklamsız; sonraki günler ödüllü reklamla (reklam bulunamazsa reklamsız).
 
 ## 5. Puan ve yıldız
 

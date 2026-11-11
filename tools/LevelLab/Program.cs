@@ -47,6 +47,7 @@ static partial class Program
             case "zperef": return ZpeRef(args);
             case "trial": return Trial(args);
             case "pilot": return Pilot(args);
+            case "families": return Families(args);
             case "v8": return V8(args);
             case "audit": return Audit(args);
             case "fairfix": return FairFix(args);
@@ -91,8 +92,11 @@ static partial class Program
         foreach (var src in sources)
         {
             var d = ParseSource(src);
-            d.StarThresholds = StarThresholds(d);
             var path = Path.Combine(LevelsDir, d.Id + ".json");
+            // vr1 (2026-11-11): yeni tahta ailesine çevrilmiş bölümün kaynağı levels_vr1/ (JSON); metin kaynağı onu ezmez.
+            var vr1 = Path.Combine(VrSourceDir, d.Id + ".json");
+            if (File.Exists(vr1)) { File.Copy(vr1, path, true); continue; }
+            d.StarThresholds = StarThresholds(d);
             File.WriteAllText(path, ToJson(d), new UTF8Encoding(false));
         }
         Console.WriteLine($"build: {sources.Count} seviye → {LevelsDir}");

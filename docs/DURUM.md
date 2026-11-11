@@ -1,8 +1,24 @@
 # Stone Burst (eski adı TriKat) — Durum
 
-Son güncelleme: 2026-11-09. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
+Son güncelleme: 2026-11-11. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
 
 ## Şu an
+
+- **2026-11-11, vr1 canlıda + tahta aileleri (levels-v14):**
+  - vr1 paketinin bütün kararları canlı oyunda:
+    - prototip varsayılan açık; pilot bölümler yalnız deneme derlemesinde;
+    - Taşlar ikonu son kazanılan taş;
+    - ZPE v3 (hız yok, son 50 farklı bölüm);
+    - ipucunda yıldız bedeli yok;
+    - ilk günlük giriş ücretsiz.
+  - 1000 bölümün 307'si yeni tahta ailesi taşıyor (geniş, derin, iki alan, dar geçit, aşamalı, mühür ve birleşimleri). Rapor: `docs/vr1/YENI_TAHTALAR_RAPORU.md`.
+  - Testler:
+    - `LevelLab stress 60`: 1000/1000 (60.000 oyun, boya çıkmazı 0).
+    - CoreTests 229/229.
+    - EditMode 230/232 (2 atlandı; SHA-256 listesi v14).
+    - Tam PlayMode (`-All`): 1000 bölüm gerçek oyun akışında kazandı, 70/72. Kalan bir hata günlük testinin yeni ZPE kuralına uyarlanmasıydı; düzeltildi. Sonraki PlayMode (uzun tur hariç) 71/72 (1 atlandı).
+    - loc-check TAMAM.
+  - Ayrı APK derlenmedi (kullanıcı isteği). Cihazda ve oyuncuyla denenmedi. Zorluk ölçümleri bot ölçümüdür.
 
 - **2026-11-11, vr1 P2/P3** (rapor `docs/vr1/P2_P3_TESLIM_RAPORU.md`): aşamalı hedef, zincir mührü, iki alan kuralları (yetenek anahtarıyla); 12 pilot bölüm (prototipte haritada "Pilot"). P0/P1 kalan maddeler de tamam. Testler: CoreTests 223/223, EditMode 224/226 (2 atlandı), PlayMode 71/72 (1 atlandı), loc-check TAMAM. Cihazda ve oyuncuyla denenmedi.
 - **2026-11-11, vr1 P1 animasyon süreleri** (prototip anahtarı): soyma 574 → 246 ms, zincir, roket, rulo ve tepsiye uçuş tabloya göre kısaldı; ilk hamle 1418 → 715 ms (editör). Testler: EditMode 217/219 (2 atlandı), PlayMode 68/69 (1 atlandı). Cihazda hissedilmedi.

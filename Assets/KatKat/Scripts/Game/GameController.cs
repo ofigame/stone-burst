@@ -336,7 +336,7 @@ namespace KatKat.Game
             _hud.SetDailyHeader(null);
             _hintActive = normal && System.Array.IndexOf(HintLevels, index) >= 0 && _level.Solution.Count > 0 && (_level.Solution[0].Type == "tap" || _level.Solution[0].Type == "rotate");
             if (normal) TourBegin(index); else { _tourOn = false; HideTour(); }
-            if (_hintActive || _tourOn) OutcomeAssist(KatKat.Meta.AssistFlags.Guidance);
+            // vr1 02_ZPE: zorunlu öğretici (tur, öğretici halka) yardım sayılmaz; isteğe bağlı yardımlar (ipucu, kayıp ipucu) sayılır.
             RefreshHint();
             if (normal) MainRulesBegin(); // v8: kural simgeleri, tür tanıtım / patron kartı
             SetPhase(Phase.Idle);

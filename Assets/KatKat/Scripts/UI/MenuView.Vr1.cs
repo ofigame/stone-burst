@@ -42,7 +42,7 @@ namespace KatKat.UI
 
         private void BuildPilotButton(RectTransform shell)
         {
-            if (!Vr1Proto.On || PilotPressed == null) return;
+            if (!Vr1Proto.On || !Vr1Proto.PilotAllowed || PilotPressed == null) return;
             var b = ShellRoundButton("PilotButton", shell, RuleIcons.For("seal"), 120f, () => PilotPressed?.Invoke());
             UiFactory.Place((RectTransform)b.transform, new Vector2(0.5f, 1f), new Vector2(-V11ColumnX, -V11ColumnZpeTop - V11LeftShift - 66f - 214f), new Vector2(120f, 120f));
             var cap = WhiteCapsule("PilotLabel", b.transform, V11Navy, new Vector2(0.5f, 0f), new Vector2(0f, -30f), new Vector2(170f, 50f), 5f);
