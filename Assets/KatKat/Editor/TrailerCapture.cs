@@ -18,8 +18,10 @@ namespace KatKat.EditorTools
     /// </summary>
     public static class TrailerCapture
     {
-        private const int W = 1080, H = 1920, Fps = 30;
-        private const float Dt = 1000f / Fps;
+        private const int W = 1080, H = 1920;
+        /// <summary>Yakalama hızı (oyun zamanında kare/sn). Shorts: 30; vurucu kurgu: 90 (yavaş çekim için).</summary>
+        private static int Fps = 30;
+        private static float Dt => 1000f / Fps;
         private static string _root;
 
         /// <summary>Diller: KATKAT_TRAILER_LANGS (virgülle; varsayılan "tr,en"). Her dil Logs/trailer_&lt;dil&gt;/ altına.</summary>
@@ -113,8 +115,18 @@ namespace KatKat.EditorTools
             WriteWav(Path.Combine(logs, "punch_music.wav"), PunchMusic(32f), 2);
             WriteWav(Path.Combine(logs, "punch_whoosh.wav"), Whoosh(), 2);
             WriteWav(Path.Combine(logs, "punch_impact.wav"), Impact(), 2);
-            foreach (var l in langs) RunPunchLang(l.Trim(), Path.Combine(logs, "punch_" + l.Trim()));
+            // 2026-11-12 (kullanıcı: "taşların parçalanma anında yavaşlat ve zoom yap, ardından hızlanarak geri çekil"):
+            // kareler 90 fps oyun zamanında; kahraman an (patlama) çevresi her kare yazılır (akıcı yavaş çekim),
+            // geri kalanı her 3. kare (normal hız). Dokunuş kareleri ve yeri meta.txt'de; kurgu oradan yakınlaşır.
+            Fps = 90;
+            try { foreach (var l in langs) RunPunchLang(l.Trim(), Path.Combine(logs, "punch_" + l.Trim())); }
+            finally { Fps = 30; _dense = true; }
         }
+
+        /// <summary>Bu kare diske yazılır mı: true = her kare; false = her 3. kare (90 fps yakalamada normal hız).</summary>
+        private static bool _dense = true;
+        private static int _frameNo;
+        private static System.Text.StringBuilder _meta;
 
         private static void RunPunchLang(string lang, string root)
         {
@@ -127,13 +139,14 @@ namespace KatKat.EditorTools
             GameController.ToursOverride = false;
             try
             {
-                Scene("p1_kanca_l791", (gc, rec) => PlayRange(gc, rec, 790, 0, 1, 1.6f, 1.8f));
-                Scene("p2_temel_l122", (gc, rec) => PlayRange(gc, rec, 121, 0, 99, 1.6f, 0f));
-                Scene("p3_rulo_l480", (gc, rec) => PlayRange(gc, rec, 479, 0, 2, 1.6f, 1.2f));
-                Scene("p4_rulo_l769", (gc, rec) => PlayRange(gc, rec, 768, 2, 3, 1.6f, 1.4f));
-                Scene("p5_buz_l105", (gc, rec) => PlayRange(gc, rec, 104, 0, 4, 1.7f, 0.3f));
-                Scene("p6_zarf_l221", (gc, rec) => PlayRange(gc, rec, 220, 0, 4, 1.7f, 0.3f));
-                Scene("p7_zafer_l131", (gc, rec) => PlayRange(gc, rec, 130, 0, 99, 1.6f, 0f));
+                // Son bağımsız değişken: kahraman adım (kaydedilen ilk adıma göre; 99 = son adım; -1 yok).
+                Scene("p1_kanca_l791", (gc, rec) => PlayRange(gc, rec, 790, 0, 1, 1.6f, 2.0f, 0));
+                Scene("p2_temel_l122", (gc, rec) => PlayRange(gc, rec, 121, 0, 2, 1.6f, 0.8f, -1));
+                Scene("p3_rulo_l480", (gc, rec) => PlayRange(gc, rec, 479, 0, 2, 1.6f, 1.6f, 1));
+                Scene("p4_rulo_l769", (gc, rec) => PlayRange(gc, rec, 768, 2, 3, 1.6f, 1.8f, 0));
+                Scene("p5_buz_l105", (gc, rec) => PlayRange(gc, rec, 104, 0, 3, 1.7f, 0.5f, -1));
+                Scene("p6_zarf_l221", (gc, rec) => PlayRange(gc, rec, 220, 0, 3, 1.7f, 0.5f, -1));
+                Scene("p7_zafer_l131", (gc, rec) => PlayRange(gc, rec, 130, -2, 99, 1.6f, 0f, 99));
                 Scene("p8_harita", (gc, rec) =>
                 {
                     int cur = 236;
@@ -153,16 +166,21 @@ namespace KatKat.EditorTools
                 GameController.ToursOverride = null;
                 Loc.Set(keepLang, false);
                 SafeAreaFitter.NormalizedOverride = null;
+                _dense = true;
             }
             Debug.Log("[KatKat] Vurucu tanıtım kareleri tamam → " + _root);
         }
+
+        /// <summary>Kaydırma/animasyon için 30 fps'te tanımlı kare başına yaklaşma oranını yakalama hızına çevirir.</summary>
+        private static float PerFrame(float k30) => 1f - Mathf.Pow(1f - k30, 30f / Fps);
 
         /// <summary>
         /// Bölümü açar; [from, to) adımlarını el ile ve kayıtla oynar (öncekiler kayıtsız, hızlıca uygulanır).
         /// Bölüm kazanılırsa kutlama ve kart kaydedilir (Devam'a dokunulmaz); değilse hold sn bekler.
         /// </summary>
-        private static void PlayRange(GameController gc, Action rec, int index, int from, int to, float speed, float hold)
+        private static void PlayRange(GameController gc, Action rec, int index, int from, int to, float speed, float hold, int hero = -1)
         {
+            _dense = hero < 0 && Fps <= 30;
             // Tür/patron tanıtım kartı tahtayı örtmesin: hepsi görülmüş sayılır.
             var seen = gc.SaveService.Data.meta.seenTypes;
             foreach (var t in new[] { "aha", "bridge", "chain", "compact", "exact", "order", "protect", "pure", "resource", "reverse",
@@ -172,6 +190,8 @@ namespace KatKat.EditorTools
             gc.StartLevel(index);
             for (float t = 0; t < 400f; t += Dt) { gc.Hud.AdvanceVeil(Dt); TickAll(gc, Dt); }
             var sol = gc.CurrentLevel.Solution;
+            if (from < 0) from = Mathf.Max(0, sol.Count + from);
+            if (hero >= 0) hero = Mathf.Min(from + hero, Mathf.Min(to, sol.Count) - 1);
             gc.Board.Director.TimeScale = 4f;
             for (int s = 0; s < Mathf.Min(from, sol.Count); s++)
             {
@@ -202,15 +222,28 @@ namespace KatKat.EditorTools
                     at = CellPx(gc, gc.Session.State.Board.Width / 2, step.Row);
                 }
                 else at = CellPx(gc, step.X, step.Y);
-                TapAt(at, tick, rec, () => gc.PlayStep(step));
+                bool isHero = s == hero;
+                if (isHero && Fps > 30) _dense = true;
+                var atTop = new Vector2(at.x, H - at.y); // video pikseli, sol üst köken
+                TapAt(at, tick, rec, () =>
+                {
+                    gc.PlayStep(step);
+                    _meta?.AppendLine(FormattableString.Invariant($"{(isHero ? "hero" : "tap")} {_frameNo} {atTop.x:0} {atTop.y:0}"));
+                });
                 var away = at + new Vector2(140f, -200f);
                 int guard = 0;
                 while ((gc.CurrentPhase == GameController.Phase.Animating || gc.Board.IsPlaying) && guard++ < Fps * 8)
                 {
-                    _hand.Pos = Vector2.Lerp(_hand.Pos, away, 0.15f);
+                    _hand.Pos = Vector2.Lerp(_hand.Pos, away, PerFrame(0.15f));
                     TickAll(gc, Dt * speed); rec();
                 }
-                for (int f = 0; f < 2; f++) { TickAll(gc, Dt); rec(); }
+                for (int f = 0; f < 2 * Fps / 30; f++) { TickAll(gc, Dt); rec(); }
+                if (isHero && Fps > 30)
+                {
+                    // Hızlanarak geri çekilme bölümü de akıcı olsun: patlamadan sonra 1 sn daha her kare.
+                    for (int f = 0; f < Fps && !(gc.IsCelebrating || gc.Hud.PanelOpen); f++) { TickAll(gc, Dt * speed); rec(); }
+                    _dense = false;
+                }
                 if (gc.IsCelebrating || gc.Hud.PanelOpen) break;
             }
             _hand.Leave();
@@ -255,7 +288,7 @@ namespace KatKat.EditorTools
             {
                 float t0 = b * bar;
                 var ch = chords[b % 4];
-                bool riser = b == 7, outro = b >= Outro;
+                bool riser = b == 6, outro = b >= Outro; // 12–14 sn gerilim, 14 sn patlama (kurgudaki büyük grup)
                 // Pad (testere benzeri, yumuşak; her vuruşta "pompalama").
                 foreach (var m in ch)
                 {
@@ -316,7 +349,7 @@ namespace KatKat.EditorTools
                         Func<float, float> pl = t => (Mathf.Sin(2f * Mathf.PI * f * t) + 0.3f * Mathf.Sin(4f * Mathf.PI * f * t) * Mathf.Exp(-t * 20f)) * Mathf.Exp(-t * 11f) * Mathf.Clamp01(t / 0.002f);
                         float g = e % 4 == 0 ? 0.07f : 0.05f;
                         Add(L, te, 0.4f, pl, g); Add(R, te + 0.006f, 0.4f, pl, g * 0.85f);
-                        if (b >= 8) { float f2 = f * 2f; Func<float, float> p2 = t => Mathf.Sin(2f * Mathf.PI * f2 * t) * Mathf.Exp(-t * 14f); Add(R, te, 0.3f, p2, 0.025f); Add(L, te + 0.01f, 0.3f, p2, 0.02f); }
+                        if (b >= 7) { float f2 = f * 2f; Func<float, float> p2 = t => Mathf.Sin(2f * Mathf.PI * f2 * t) * Mathf.Exp(-t * 14f); Add(R, te, 0.3f, p2, 0.025f); Add(L, te + 0.01f, 0.3f, p2, 0.02f); }
                     }
                 }
                 // Gerilim: yükselen filtreli gürültü ve hızlanan tıkırtı.
@@ -540,7 +573,8 @@ namespace KatKat.EditorTools
         {
             var from = _hand.Pos;
             float dist = Vector2.Distance(from, target);
-            int frames = Mathf.Clamp(Mathf.RoundToInt(dist / 85f), 5, 12);
+            int k = Mathf.Max(1, Fps / 30);
+            int frames = Mathf.Clamp(Mathf.RoundToInt(dist / 85f), 5, 12) * k;
             var mid = (from + target) * 0.5f + new Vector2(0f, Mathf.Min(120f, dist * 0.15f));
             for (int f = 1; f <= frames; f++)
             {
@@ -549,10 +583,10 @@ namespace KatKat.EditorTools
                 _hand.Pos = Vector2.Lerp(a, b, t);
                 perFrame?.Invoke(); rec();
             }
-            for (int f = 1; f <= 3; f++) { _hand.Press = f / 3f; perFrame?.Invoke(); rec(); }
+            for (int f = 1; f <= 3 * k; f++) { _hand.Press = f / (3f * k); perFrame?.Invoke(); rec(); }
             onPress?.Invoke();
             _hand.Ripple(target);
-            for (int f = 3; f >= 0; f--) { _hand.Press = f / 3f; perFrame?.Invoke(); rec(); }
+            for (int f = 3 * k; f >= 0; f--) { _hand.Press = f / (3f * k); perFrame?.Invoke(); rec(); }
         }
 
         /// <summary>Hücre merkezinin video pikseli (sol alt köken).</summary>
@@ -784,6 +818,7 @@ namespace KatKat.EditorTools
         private static void Scene(string name, Action<GameController, Action> body)
         {
             SafeAreaFitter.NormalizedOverride = new Rect(0f, 0f, 1f, 1f);
+            UiAspect.Override = (float)W / H; // toplu modda ekran boyutu telefon değil: menü/harita tablet düzenine geçmesin
             var dir = Path.Combine(_root, name);
             Directory.CreateDirectory(dir);
             var camGo = new GameObject("TrailerCam");
@@ -796,7 +831,7 @@ namespace KatKat.EditorTools
             var saveDir = Path.Combine(Path.GetTempPath(), "katkat_trailer");
             if (Directory.Exists(saveDir)) Directory.Delete(saveDir, true);
             // Oyun sesleri: çalındığı karenin zamanına miksajlanır (ses aygıtı gerekmez).
-            const int Spf = SoundBank.SampleRate / Fps; // kare başına örnek
+            int Spf = SoundBank.SampleRate / Fps; // kare başına örnek (44100/90 = 490)
             var mix = new List<float>();
             int frame = 0;
             SoundBank.CaptureTap = (clip, pitch, vol) =>
@@ -837,11 +872,16 @@ namespace KatKat.EditorTools
                 tex.ReadPixels(new Rect(0, 0, W, H), 0, 0);
                 tex.Apply();
                 RenderTexture.active = prev;
-                File.WriteAllBytes(Path.Combine(dir, $"f_{frame++:00000}.png"), tex.EncodeToPNG());
+                _frameNo = frame;
+                if (_dense || frame % 3 == 0) File.WriteAllBytes(Path.Combine(dir, $"f_{frame:00000}.png"), tex.EncodeToPNG());
+                frame++;
             }
             try
             {
+                _meta = new System.Text.StringBuilder();
+                _meta.AppendLine($"fps {Fps}");
                 body(gc, Rec);
+                File.WriteAllText(Path.Combine(dir, "meta.txt"), _meta.ToString());
                 // Sahnenin sesi tam kare süresi kadar (taşan efekt kuyruğu kesilir).
                 var a = new float[frame * Spf];
                 for (int k = 0; k < a.Length && k < mix.Count; k++) a[k] = mix[k];
@@ -850,6 +890,8 @@ namespace KatKat.EditorTools
             finally
             {
                 SoundBank.CaptureTap = null;
+                _meta = null;
+                UiAspect.Override = null;
                 _hand.Destroy();
                 SoundBank.Samples.Clear();
                 Debug.Log($"[KatKat] tanıtım {name}: {frame} kare");
