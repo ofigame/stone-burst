@@ -59,6 +59,7 @@ static partial class Program
             case "chaindiag": return ChainDiag(args);
             case "fairlist": return FairList(args);
             case "chainease": return ChainEase(args);
+            case "moments": return TrailerMoments(args);
             default: Console.Error.WriteLine("komut: build | analyze [filtre] | report | index | daily"); return 2;
         }
     }

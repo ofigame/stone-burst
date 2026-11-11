@@ -100,6 +100,281 @@ namespace KatKat.EditorTools
             Debug.Log("[KatKat] Tanıtım kareleri tamam → " + _root);
         }
 
+        // ---- Vurucu kurgu (2026-11-12, Arapça tanıtım; kullanıcı: "güzel vurucu bir edit olsun") ---------------------
+        // Piyasadaki bulmaca reklamları gibi: ilk saniyede en gösterişli an, kısa kesimler, ritme oturan müzik.
+        // Anlar LevelLab "moments" ile seçildi (kayıtlı çözümde en çok zincir/Altın Rulo). Kurgu: tools/trailer-punch.ps1.
+
+        /// <summary>Dil KATKAT_TRAILER_LANGS (varsayılan "ar"). Çıktı Logs/punch_&lt;dil&gt;/, müzik ve efektler Logs/punch_*.wav.</summary>
+        [MenuItem("Kat Kat/Yakalama/Vurucu tanıtım kareleri")]
+        public static void RunPunch()
+        {
+            var langs = (Environment.GetEnvironmentVariable("KATKAT_TRAILER_LANGS") ?? "ar").Split(',');
+            var logs = Path.Combine(Directory.GetParent(Application.dataPath).FullName, "Logs");
+            WriteWav(Path.Combine(logs, "punch_music.wav"), PunchMusic(32f), 2);
+            WriteWav(Path.Combine(logs, "punch_whoosh.wav"), Whoosh(), 2);
+            WriteWav(Path.Combine(logs, "punch_impact.wav"), Impact(), 2);
+            foreach (var l in langs) RunPunchLang(l.Trim(), Path.Combine(logs, "punch_" + l.Trim()));
+        }
+
+        private static void RunPunchLang(string lang, string root)
+        {
+            _root = root;
+            if (Directory.Exists(_root)) Directory.Delete(_root, true);
+            Directory.CreateDirectory(_root);
+            EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            var keepLang = Loc.Code;
+            Loc.Set(lang, false);
+            GameController.ToursOverride = false;
+            try
+            {
+                Scene("p1_kanca_l791", (gc, rec) => PlayRange(gc, rec, 790, 0, 1, 1.6f, 1.8f));
+                Scene("p2_temel_l122", (gc, rec) => PlayRange(gc, rec, 121, 0, 99, 1.6f, 0f));
+                Scene("p3_rulo_l480", (gc, rec) => PlayRange(gc, rec, 479, 0, 2, 1.6f, 1.2f));
+                Scene("p4_rulo_l769", (gc, rec) => PlayRange(gc, rec, 768, 2, 3, 1.6f, 1.4f));
+                Scene("p5_buz_l105", (gc, rec) => PlayRange(gc, rec, 104, 0, 4, 1.7f, 0.3f));
+                Scene("p6_zarf_l221", (gc, rec) => PlayRange(gc, rec, 220, 0, 4, 1.7f, 0.3f));
+                Scene("p7_zafer_l131", (gc, rec) => PlayRange(gc, rec, 130, 0, 99, 1.6f, 0f));
+                Scene("p8_harita", (gc, rec) =>
+                {
+                    int cur = 236;
+                    gc.Menu.ShowLevels(gc.Catalog.Count, cur, i => i < cur, () => { });
+                    float yCur = gc.Menu.ScrollYForTest, yLow = Mathf.Max(0f, yCur - 16000f);
+                    int down = (int)(Fps * 3.2f);
+                    for (int f = 0; f <= down; f++)
+                    {
+                        gc.Menu.ScrollMapForTest(Mathf.Lerp(yCur, yLow, Ease(f / (float)down)));
+                        gc.Menu.Tick(Dt / 1000f); rec();
+                    }
+                    for (int f = 0; f < Fps; f++) { gc.Menu.Tick(Dt / 1000f); rec(); }
+                });
+            }
+            finally
+            {
+                GameController.ToursOverride = null;
+                Loc.Set(keepLang, false);
+                SafeAreaFitter.NormalizedOverride = null;
+            }
+            Debug.Log("[KatKat] Vurucu tanıtım kareleri tamam → " + _root);
+        }
+
+        /// <summary>
+        /// Bölümü açar; [from, to) adımlarını el ile ve kayıtla oynar (öncekiler kayıtsız, hızlıca uygulanır).
+        /// Bölüm kazanılırsa kutlama ve kart kaydedilir (Devam'a dokunulmaz); değilse hold sn bekler.
+        /// </summary>
+        private static void PlayRange(GameController gc, Action rec, int index, int from, int to, float speed, float hold)
+        {
+            // Tür/patron tanıtım kartı tahtayı örtmesin: hepsi görülmüş sayılır.
+            var seen = gc.SaveService.Data.meta.seenTypes;
+            foreach (var t in new[] { "aha", "bridge", "chain", "compact", "exact", "order", "protect", "pure", "resource", "reverse",
+                                      "scarce", "seal", "seal_room", "stages", "twin", "twin_seal", "twin_stages", "wide" })
+                if (!seen.Contains(t)) seen.Add(t);
+            seen.Add("boss@" + gc.Catalog.IdAt(index));
+            gc.StartLevel(index);
+            for (float t = 0; t < 400f; t += Dt) { gc.Hud.AdvanceVeil(Dt); TickAll(gc, Dt); }
+            var sol = gc.CurrentLevel.Solution;
+            gc.Board.Director.TimeScale = 4f;
+            for (int s = 0; s < Mathf.Min(from, sol.Count); s++)
+            {
+                gc.PlayStep(sol[s]);
+                int g = 0;
+                while ((gc.CurrentPhase == GameController.Phase.Animating || gc.Board.IsPlaying) && g++ < Fps * 20) TickAll(gc, Dt * 4f);
+                for (float t = 0; t < 1500f; t += Dt) TickAll(gc, Dt); // tepsiye uçuş ve parıltılar otursun
+            }
+            gc.Board.Director.TimeScale = speed;
+            for (int f = 0; f < Fps * 0.35f; f++) { TickAll(gc, Dt); rec(); }
+            Action tick = () => TickAll(gc, Dt);
+            _hand.Enter(new Vector2(W + 80f, 300f));
+            int end = Mathf.Min(to, sol.Count);
+            for (int s = from; s < end; s++)
+            {
+                var step = sol[s];
+                Vector2 at;
+                if (step.Type == "use")
+                {
+                    var slot = FindDeep(gc.Hud.transform, "Slot" + step.Row);
+                    if (slot != null) TapAt(UiPx(slot), tick, rec, null);
+                    at = CellPx(gc, step.X, step.Y);
+                }
+                else if (step.Type == "roll")
+                {
+                    var roll = FindDeep(gc.Hud.transform, "RollSlot");
+                    if (roll != null) TapAt(UiPx(roll), tick, rec, null);
+                    at = CellPx(gc, gc.Session.State.Board.Width / 2, step.Row);
+                }
+                else at = CellPx(gc, step.X, step.Y);
+                TapAt(at, tick, rec, () => gc.PlayStep(step));
+                var away = at + new Vector2(140f, -200f);
+                int guard = 0;
+                while ((gc.CurrentPhase == GameController.Phase.Animating || gc.Board.IsPlaying) && guard++ < Fps * 8)
+                {
+                    _hand.Pos = Vector2.Lerp(_hand.Pos, away, 0.15f);
+                    TickAll(gc, Dt * speed); rec();
+                }
+                for (int f = 0; f < 2; f++) { TickAll(gc, Dt); rec(); }
+                if (gc.IsCelebrating || gc.Hud.PanelOpen) break;
+            }
+            _hand.Leave();
+            if (!(gc.IsCelebrating || gc.Hud.PanelOpen))
+            {
+                for (int f = 0; f < Fps * hold; f++) { TickAll(gc, Dt * speed); rec(); }
+                return;
+            }
+            int g2 = 0;
+            while (!gc.Hud.PanelOpen && g2++ < Fps * 8) { TickAll(gc, Dt * speed); rec(); }
+            for (int f = 0; f < Fps * 1.6f; f++) { gc.Hud.AdvancePanel(Dt); TickAll(gc, Dt); rec(); }
+        }
+
+        /// <summary>
+        /// Vurucu müzik (koddan, telif yok): 120 BPM (vuruş 0,5 sn, ölçü 2 sn), La minör Am–F–C–G.
+        /// Ölçü 0: sert giriş (davul + bas + akor vuruşu); 1–6: dörtlük davul, el çırpma, ofbit bas, 16'lık arpej;
+        /// 7: gerilim (yükselen gürültü, davul seyrekleşir); 8–11: tam enerji; 12+: kapanış akoru ve çan, sönüş.
+        /// </summary>
+        private static float[] PunchMusic(float seconds)
+        {
+            const int Sr = SoundBank.SampleRate;
+            int n = (int)(seconds * Sr);
+            var L = new float[n]; var R = new float[n];
+            const float beat = 0.5f, bar = 2f;
+            int[][] chords = { new[] { 57, 60, 64 }, new[] { 53, 57, 60 }, new[] { 48, 52, 55 }, new[] { 55, 59, 62 } };
+            int[] bass = { 45, 41, 48, 43 };
+            float Hz(int m) => 440f * Mathf.Pow(2f, (m - 69) / 12f);
+            void Add(float[] buf, float t0, float dur, Func<float, float> voice, float gain)
+            {
+                int s0 = (int)(t0 * Sr), len = (int)(dur * Sr);
+                for (int k = 0; k < len && s0 + k < buf.Length; k++) { if (s0 + k < 0) continue; buf[s0 + k] += voice(k / (float)Sr) * gain; }
+            }
+            void Both(float t0, float dur, Func<float, float> v, float g) { Add(L, t0, dur, v, g); Add(R, t0, dur, v, g); }
+            var rnd = new System.Random(7);
+            float Noise() => (float)rnd.NextDouble() * 2f - 1f;
+            Func<float, float> kick = t => Mathf.Sin(2f * Mathf.PI * (45f * t + 90f * (1f - Mathf.Exp(-t * 28f)) / 28f)) * Mathf.Exp(-t * 7f) * Mathf.Clamp01(t / 0.002f);
+            Func<float, float> clap = t => Noise() * (Mathf.Exp(-t * 26f) + 0.5f * Mathf.Exp(-Mathf.Abs(t - 0.012f) * 200f));
+            Func<float, float> hat = t => Noise() * Mathf.Exp(-t * 90f);
+            int bars = Mathf.CeilToInt(seconds / bar);
+            const int Outro = 12;
+            for (int b = 0; b < bars; b++)
+            {
+                float t0 = b * bar;
+                var ch = chords[b % 4];
+                bool riser = b == 7, outro = b >= Outro;
+                // Pad (testere benzeri, yumuşak; her vuruşta "pompalama").
+                foreach (var m in ch)
+                {
+                    float f = Hz(m);
+                    Func<float, float> pad(float det) => t =>
+                    {
+                        float ph = f * det * t; float saw = 0f;
+                        for (int h = 1; h <= 6; h++) saw += Mathf.Sin(2f * Mathf.PI * ph * h) / h;
+                        float pump = outro ? 1f : 0.35f + 0.65f * Mathf.Clamp01((t % beat) / 0.18f);
+                        return saw * pump * Mathf.Clamp01(t / 0.02f) * Mathf.Clamp01((bar + 0.05f - t) / 0.05f);
+                    };
+                    float g = outro ? (b == Outro ? 0.05f : 0.035f) : 0.026f;
+                    float dur = outro ? bar * 2f : bar;
+                    if (outro && b > Outro) continue;
+                    Add(L, t0, dur, pad(0.997f), g); Add(R, t0, dur, pad(1.003f), g);
+                }
+                if (outro)
+                {
+                    if (b == Outro)
+                    {
+                        Both(t0, 1.2f, kick, 0.5f);
+                        Both(t0, 2.5f, t => Mathf.Sin(2f * Mathf.PI * Hz(33) * t) * Mathf.Exp(-t * 1.6f), 0.28f);
+                        foreach (var m in new[] { 81, 88, 93 })
+                        {
+                            float f = Hz(m);
+                            Func<float, float> bell = t => (Mathf.Sin(2f * Mathf.PI * f * t) + 0.4f * Mathf.Sin(2f * Mathf.PI * f * 2.76f * t)) * Mathf.Exp(-t * 1.4f);
+                            Add(L, t0, 3.5f, bell, 0.035f); Add(R, t0 + 0.015f, 3.5f, bell, 0.035f);
+                        }
+                    }
+                    continue;
+                }
+                // Davul.
+                for (int v = 0; v < 4; v++)
+                {
+                    float tv = t0 + v * beat;
+                    if (!riser || v < 2) Both(tv, 0.45f, kick, 0.55f);
+                    if (v % 2 == 1 && b >= 1 && !riser) { Add(L, tv, 0.25f, clap, 0.16f); Add(R, tv + 0.004f, 0.25f, clap, 0.16f); }
+                    if (b >= 1) { Add(L, tv + beat * 0.5f, 0.06f, hat, 0.06f); Add(R, tv + beat * 0.5f, 0.06f, hat, 0.05f); }
+                }
+                // Bas: ofbit 8'likler (kick'in arasında), kalın.
+                if (!riser)
+                    for (int e = 0; e < 8; e++)
+                    {
+                        if (e % 2 == 0 && b > 0) continue;
+                        float f = Hz(bass[b % 4]);
+                        Func<float, float> bv = t => { float s = 0f; for (int h = 1; h <= 4; h++) s += Mathf.Sin(2f * Mathf.PI * f * h * t) / (h * h); return s * Mathf.Exp(-t * 5f) * Mathf.Clamp01(t / 0.004f); };
+                        Both(t0 + e * beat * 0.5f, 0.24f, bv, 0.2f);
+                    }
+                // Arpej (16'lık pluck), ölçü 1'den itibaren; ölçü 8+ bir oktav yukarı katman.
+                if (b >= 1)
+                {
+                    int[] pat = { 0, 1, 2, 1, 0, 2, 1, 2, 0, 1, 2, 1, 2, 1, 0, 1 };
+                    for (int e = 0; e < 16; e++)
+                    {
+                        if (riser && e >= 8) break;
+                        int m = ch[pat[e]] + 12;
+                        float f = Hz(m), te = t0 + e * beat * 0.25f;
+                        Func<float, float> pl = t => (Mathf.Sin(2f * Mathf.PI * f * t) + 0.3f * Mathf.Sin(4f * Mathf.PI * f * t) * Mathf.Exp(-t * 20f)) * Mathf.Exp(-t * 11f) * Mathf.Clamp01(t / 0.002f);
+                        float g = e % 4 == 0 ? 0.07f : 0.05f;
+                        Add(L, te, 0.4f, pl, g); Add(R, te + 0.006f, 0.4f, pl, g * 0.85f);
+                        if (b >= 8) { float f2 = f * 2f; Func<float, float> p2 = t => Mathf.Sin(2f * Mathf.PI * f2 * t) * Mathf.Exp(-t * 14f); Add(R, te, 0.3f, p2, 0.025f); Add(L, te + 0.01f, 0.3f, p2, 0.02f); }
+                    }
+                }
+                // Gerilim: yükselen filtreli gürültü ve hızlanan tıkırtı.
+                if (riser)
+                {
+                    float prev = 0f;
+                    Func<float, float> rise = t => { float a = Mathf.Lerp(0.02f, 0.6f, t / bar); prev = Mathf.Lerp(prev, Noise(), a); return prev * (t / bar) * (t / bar); };
+                    Both(t0, bar, rise, 0.35f);
+                    for (int e = 0; e < 16; e++) Both(t0 + bar * 0.5f + e * beat / 8f, 0.05f, hat, 0.05f + 0.006f * e);
+                }
+            }
+            return Normalize(L, R, n);
+        }
+
+        private static float[] Normalize(float[] L, float[] R, int n)
+        {
+            var o = new float[n * 2];
+            float peak = 0f;
+            for (int k = 0; k < n; k++) peak = Mathf.Max(peak, Mathf.Abs(L[k]), Mathf.Abs(R[k]));
+            float norm = peak > 0.89f ? 0.89f / peak : 1f;
+            for (int k = 0; k < n; k++) { o[2 * k] = L[k] * norm; o[2 * k + 1] = R[k] * norm; }
+            return o;
+        }
+
+        /// <summary>Geçiş "vuuş"u (0,45 sn): gürültü, alçak geçiren süzgeç kesimi yukarı-aşağı süpürür.</summary>
+        private static float[] Whoosh()
+        {
+            const int Sr = SoundBank.SampleRate; int n = (int)(0.45f * Sr);
+            var L = new float[n]; var R = new float[n];
+            var rnd = new System.Random(3); float a = 0f, b2 = 0f;
+            for (int k = 0; k < n; k++)
+            {
+                float t = k / (float)n, env = Mathf.Sin(Mathf.PI * Mathf.Pow(t, 0.7f));
+                float cut = 0.03f + 0.35f * env;
+                float x = (float)rnd.NextDouble() * 2f - 1f;
+                a = Mathf.Lerp(a, x, cut); b2 = Mathf.Lerp(b2, a, cut);
+                L[k] = b2 * env * (1f - t * 0.6f); R[k] = b2 * env * (0.4f + t * 0.6f);
+            }
+            return Normalize(L, R, n);
+        }
+
+        /// <summary>Darbe (1,2 sn): derin düşen sinüs, kısa gürültü patlaması.</summary>
+        private static float[] Impact()
+        {
+            const int Sr = SoundBank.SampleRate; int n = (int)(1.2f * Sr);
+            var L = new float[n]; var R = new float[n];
+            var rnd = new System.Random(5); float lp = 0f;
+            for (int k = 0; k < n; k++)
+            {
+                float t = k / (float)Sr;
+                float boom = Mathf.Sin(2f * Mathf.PI * (38f * t + 120f * (1f - Mathf.Exp(-t * 18f)) / 18f)) * Mathf.Exp(-t * 3.2f);
+                lp = Mathf.Lerp(lp, (float)rnd.NextDouble() * 2f - 1f, 0.25f);
+                float crack = lp * Mathf.Exp(-t * 14f) * 0.7f;
+                L[k] = boom + crack; R[k] = boom + crack * 0.9f;
+            }
+            return Normalize(L, R, n);
+        }
+
         private static float Ease(float t) => t * t * (3f - 2f * t);
 
         // ---- Arka plan müziği (koddan; telif yok) ----------------------------------------------------------------
