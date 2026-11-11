@@ -126,4 +126,4 @@ Yerleşik tarayıcı yerel dosya seçemiyor. Ayrıca beyanları kullanıcı işa
   - Unity Ads ve iki köprü içeride.
   - AdMob, Play Games, UMP ve arabulucu adaptörü yok.
   - Unity Ads kendi bağımlılığı olarak Google Play Hizmetleri'nin temel parçasını (`gms.common`, `GoogleApiActivity`) ve `AD_ID` iznini getiriyor. Bunlar GMS'siz cihazda çalışmaz ama oyunu durdurmaz.
-- **Gizlilik politikası:** AppGallery bölümüne Unity Ads eklenmeli (sitede şu an "Huawei Ads" yazıyor).
+- **Gizlilik politikası (2026-11-12, kullanıcı: "Evet, ekle"):** Sitede `/legal/privacy` ve `/legal/advertising` AppGallery bölümlerine Unity Ads (yedek, kişiselleştirilmemiş) ve Unity gizlilik bağlantısı eklendi; TR + EN canlıda doğrulandı.
