@@ -20,6 +20,18 @@ namespace KatKat.EditorTools
         }
 
         /// <summary>
+        /// vr1 P1 cihaz deneme APK'sı (kullanıcı, 2026-11-11: "Evet, hazırla"): KATKAT_VR1PROTO tanımıyla prototip varsayılan
+        /// açık; Ayarlar'da sürüm yazısına dokununca açılıp kapanır. Hata ayıklama imzalı yerel APK; mağazaya gitmez.
+        /// </summary>
+        [MenuItem("Kat Kat/Build/Android APK (vr1 prototipi)")]
+        public static void BuildAndroidVr1()
+        {
+            _extraDefines = new[] { "KATKAT_VR1PROTO" };
+            try { Build(BuildTarget.Android, "Builds/Android/StoneBurst-vr1.apk"); }
+            finally { _extraDefines = null; }
+        }
+
+        /// <summary>
         /// Play Store paketi (kullanıcı, 2026-11-10: "play store hazırlığımızı da yapalım"): imzalı AAB.
         /// Yükleme anahtarı depoda değil: KATKAT_ANDROID_KEYSTORE (varsayılan E:\OFIGAME\OYUNLAR\keys\stoneburst-upload.jks),
         /// şifre dosyası KATKAT_ANDROID_KEYPASS_FILE (varsayılan aynı klasörde stoneburst-upload-sifre.txt), takma ad
@@ -230,6 +242,7 @@ namespace KatKat.EditorTools
         /// <summary>Mağaza derlemesi: toplu modda çıkışı çağıran yapar (önce imza ayarlarını geri alır).</summary>
         private static bool _deferExit;
         private static BuildOptions _extraOptions = BuildOptions.None;
+        private static string[] _extraDefines;
         private static bool _lastOk;
 
         private static void Build(BuildTarget target, string output)
@@ -254,6 +267,7 @@ namespace KatKat.EditorTools
                 locationPathName = output,
                 target = target,
                 options = BuildOptions.None | _extraOptions,
+                extraScriptingDefines = _extraDefines,
             });
             var s = report.summary;
             Debug.Log($"[KatKat] Build {target}: {s.result}, {s.totalSize} bayt, {s.totalTime}, hata={s.totalErrors} → {output}");

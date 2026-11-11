@@ -163,3 +163,11 @@ Anahtar açıkken geçerli. Kapalıyken eski süreler aynen kalır. Motor sıras
 - Prototipin canlıda varsayılan açık olup olmayacağı.
 - Animasyon sürelerinin cihazda hissedilerek kabulü (prototipte uygulandı).
 - P2: 12 bölümlük pilot katalog.
+
+## Cihaz deneme APK'sı (2026-11-11)
+
+- Komut: `powershell -ExecutionPolicy Bypass -File tools/unity.ps1 build-android-vr1` → `Builds/Android/StoneBurst-vr1.apk` (137,8 MB). Derleme başarılı, hata 0.
+- `KATKAT_VR1PROTO` tanımıyla derlenir: prototip varsayılan açık. Mağaza derlemelerinde bu tanım yok, prototip kapalı.
+- Ayarlar sayfasının altındaki sürüm yazısı "vr1 prototipi AÇIK/KAPALI (dokun)" gösterir. Dokununca prototip açılır/kapanır; aynı cihazda iki görünüm karşılaştırılır.
+- Hata ayıklama anahtarıyla imzalı yerel APK; Play'e yüklenmez. Paket kimliği aynı (`com.ofigame.stoneburst`): Play kapalı testinden kurulu sürüm varsa önce kaldırılmalı. Kaldırınca yerel ilerleme silinir; Play Games'e giriş yapılmışsa buluttan geri gelir.
+- Telefona kurulmadı; denenmedi.

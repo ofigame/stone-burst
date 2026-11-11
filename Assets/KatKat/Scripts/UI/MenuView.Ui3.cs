@@ -399,6 +399,13 @@ namespace KatKat.UI
             UiFactory.Place(note.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -(PanelTop + PanelH + 70f)), new Vector2(860f, 90f));
             var ver = U3Text("Version", page, "Stone Burst " + Application.version + "  ·  OFIGAME", 26, false, Ui3.InkMuted);
             UiFactory.Place(ver.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, BarBottom + BarH + 50f), new Vector2(800f, 40f));
+#if KATKAT_VR1PROTO
+            // vr1 test derlemesi (cihazda karşılaştırma): sürüm yazısına dokununca prototip açılır/kapanır. Mağazada yok.
+            ver.text = "Stone Burst " + Application.version + "  ·  vr1 prototipi " + (Vr1Proto.On ? "AÇIK" : "KAPALI") + " (dokun)";
+            ver.raycastTarget = true;
+            ver.gameObject.AddComponent<Button>().onClick.AddListener(() => { Vr1Proto.SetPref(!Vr1Proto.On); ShowSettingsUi3(sound, vibration, back, onLevels); });
+            UiFactory.Place(ver.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, BarBottom + BarH + 50f), new Vector2(980f, 70f));
+#endif
             Tabs(page, 2, back, onLevels ?? back, () => { });
         }
 

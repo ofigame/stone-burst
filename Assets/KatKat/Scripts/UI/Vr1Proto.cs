@@ -18,7 +18,14 @@ namespace KatKat.UI
         private static bool? _pref;
 
         /// <summary>Animasyon kodu her karede okur: tercih bir kez okunup bellekte tutulur.</summary>
-        public static bool On => Override ?? (_pref ??= PlayerPrefs.GetInt(PrefKey, 0) == 1);
+        /// <summary>Varsayılan: yalnız vr1 test derlemesinde (KATKAT_VR1PROTO) açık; mağaza derlemesinde kapalı.</summary>
+#if KATKAT_VR1PROTO
+        public const int DefaultOn = 1;
+#else
+        public const int DefaultOn = 0;
+#endif
+
+        public static bool On => Override ?? (_pref ??= PlayerPrefs.GetInt(PrefKey, DefaultOn) == 1);
 
         /// <summary>Kayıtlı tercihi değiştirir (geliştirici menüsü).</summary>
         public static void SetPref(bool on)
