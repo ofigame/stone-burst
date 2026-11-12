@@ -275,10 +275,10 @@ namespace KatKat.EditorTools
         {
             new Vector4(0.17f, 0.34f, 0.83f, 0.85f), // 1 tahta
             new Vector4(0.19f, 0.35f, 0.81f, 0.84f), // 2 rulo
-            new Vector4(0.08f, 0.27f, 1.00f, 0.86f), // 3 harita
+            new Vector4(0.30f, 0.33f, 0.90f, 0.83f), // 3 harita
             new Vector4(0.09f, 0.15f, 0.91f, 0.83f), // 4 zafer kartı
             new Vector4(0.20f, 0.38f, 0.80f, 0.84f), // 5 günlük tahta
-            new Vector4(0.10f, 0.27f, 0.90f, 0.66f), // 6 taş
+            new Vector4(0.26f, 0.36f, 0.74f, 0.54f), // 6 taş
         };
 
         private static Texture2D LoadPng(string path)
@@ -304,7 +304,7 @@ namespace KatKat.EditorTools
             var cam = camGo.AddComponent<Camera>();
             cam.clearFlags = CameraClearFlags.SolidColor;
             cam.backgroundColor = new Color32(0x1B, 0x18, 0x45, 0xFF);
-            cam.orthographic = false;
+            cam.orthographic = true;
             cam.fieldOfView = 50f;
             cam.nearClipPlane = 0.1f; cam.farClipPlane = 100f;
             cam.transform.position = new Vector3(0f, 0f, -10f);
@@ -328,36 +328,26 @@ namespace KatKat.EditorTools
                 float band = h * (dev.Pad ? 0.13f : 0.15f);
                 var c = HeroCrop[n - 1];
                 if (dev.Pad) { float col = h * 9f / 16f / w; c.x = 0.5f + (c.x - 0.5f) * col; c.z = 0.5f + (c.z - 0.5f) * col; }
+                // Düz, tam ekran sahne (kullanıcı 2026-11-12: eğik hâli "yamuk ve kötü"): kırpım şeridin üstündeki
+                // alanın en/boy oranına genişletilir (taşarsa kesilir), çerçevesiz.
+                float A = w / (h - band);
+                float cx = (c.x + c.z) * 0.5f * raw.width, cy = (c.y + c.w) * 0.5f * raw.height;
                 float cw = (c.z - c.x) * raw.width, ch = (c.w - c.y) * raw.height;
-                float scale = (dev.Pad ? 0.95f : 1.16f) * w / cw;
-                float maxH = (h - band) * 1.02f;
-                if (ch * scale > maxH) scale = maxH / ch;
-                float hw = cw * scale, hh = ch * scale;
-
-                // Eğik kahraman sahne: üst kenar geriye yatar, hafif dönük; gölge ve yuvarlak köşe.
-                var hero = new GameObject("Hero", typeof(RectTransform)).GetComponent<RectTransform>();
-                hero.SetParent(root.transform, false);
-                hero.anchorMin = hero.anchorMax = new Vector2(0.5f, 0f);
-                hero.pivot = new Vector2(0.5f, 0.5f);
-                hero.sizeDelta = new Vector2(hw, hh);
-                hero.anchoredPosition = new Vector2(0f, band + (h - band) * 0.5f + h * 0.01f);
-                hero.localRotation = Quaternion.Euler(22f, left ? -8f : 8f, left ? 3f : -3f);
-                float radius = hw * 0.045f;
-                var shadow = UiFactory.Image("Shadow", hero, Round(), new Color(0.03f, 0.02f, 0.12f, 0.45f), true);
-                shadow.pixelsPerUnitMultiplier = 64f / (radius * 1.6f);
-                UiFactory.Stretch(shadow.rectTransform, -radius * 0.5f, -radius * 1.4f, -radius * 0.5f, radius * 0.2f);
-                var rim = UiFactory.Image("Rim", hero, Round(), new Color(1f, 1f, 1f, 0.9f), true);
-                rim.pixelsPerUnitMultiplier = 64f / (radius * 1.12f);
-                UiFactory.Stretch(rim.rectTransform, -radius * 0.18f, -radius * 0.18f, -radius * 0.18f, -radius * 0.18f);
-                var mask = UiFactory.Image("Mask", hero, Round(), Color.white, true);
-                mask.pixelsPerUnitMultiplier = 64f / radius;
-                mask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
-                UiFactory.Stretch(mask.rectTransform, 0f, 0f, 0f, 0f);
+                if (cw / ch > A) ch = cw / A; else cw = ch * A;
+                if (cw > raw.width) { cw = raw.width; ch = cw / A; }
+                if (ch > raw.height) { ch = raw.height; cw = ch * A; }
+                cx = Mathf.Clamp(cx, cw * 0.5f, raw.width - cw * 0.5f);
+                cy = Mathf.Clamp(cy, ch * 0.5f, raw.height - ch * 0.5f);
                 var shot = new GameObject("Shot", typeof(RectTransform)).AddComponent<RawImage>();
-                shot.transform.SetParent(mask.transform, false);
+                shot.transform.SetParent(root.transform, false);
                 shot.texture = raw;
-                shot.uvRect = new Rect(c.x, 1f - c.w, c.z - c.x, c.w - c.y);
-                UiFactory.Stretch(shot.rectTransform, 0f, 0f, 0f, 0f);
+                shot.uvRect = new Rect((cx - cw * 0.5f) / raw.width, 1f - (cy + ch * 0.5f) / raw.height, cw / raw.width, ch / raw.height);
+                UiFactory.Stretch(shot.rectTransform, 0f, 0f, 0f, band);
+                var fade = new GameObject("Fade", typeof(RectTransform)).AddComponent<RawImage>();
+                fade.transform.SetParent(root.transform, false);
+                var fadeTex = Gradient(new Color(0.09f, 0.07f, 0.23f, 0f), new Color(0.09f, 0.07f, 0.23f, 0.55f));
+                fade.texture = fadeTex;
+                Place(fade.rectTransform, w * 1.02f, h * 0.07f, band);
 
                 // Alt şerit: koyu mor degrade, üstte turkuaz ışık çizgisi.
                 var bandImg = new GameObject("Band", typeof(RectTransform)).AddComponent<RawImage>();
