@@ -4,6 +4,13 @@ Son güncelleme: 2026-11-11. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
 
 ## Şu an
 
+- **2026-11-13: Form denetimi (App Store, Google Play, AppGallery; kodla karşılaştırma, hiçbir form değiştirilmedi).** Engel yok; Play'de bekleyen politika görevi 0. Bulgular:
+  1. **Hesap silme yok:** Game Center / Play Games ile "Sıralama için kayıt ol" / "İlerlemeyi kaydet" Firebase kullanıcısı ve Firestore kaydı (ad, ülke, skor) oluşturuyor; oyunda silme seçeneği yok. Apple 5.1.1(v) ret riski (orta).
+  2. Play Veri güvenliği "paylaşım yok" diyor; AdMob reklam verisi var ve iOS beyanı "Third-Party Advertising / tracking". Google'ın AdMob veri açıklama rehberine göre yeniden bakılmalı (düşük-orta).
+  3. Play "Satıcı statünüzü beyan edin": Şubat 2027'ye kadar zorunlu; yapılmazsa uygulamalar dünya genelinde kaldırılır (kullanıcı bilgisi gerekir).
+  4. Sıralamada görünen oyuncu adı App Privacy'de ayrı beyan edilmemiş (düşük).
+  5. App Review notu "Ayarlarda Gizlilik seçenekleri satırı var" diyor; satır yalnız AB'de görünür (düşük).
+  - Uyumlu: ATT (yapı 12), SKAdNetwork (AdMob eklentisi), şifreleme beyanı (ITSAppUsesNonExemptEncryption false), yaş 4+ / IARC 3+, Free Apps Agreement, Apple DSA, elle yayın seçili, AppGallery 3+ ve gizlilik etiketleri (çevrimiçi kapalı derleme).
 - **2026-11-13: ofigame.com'a Stone Burst taslak olarak eklendi** (kullanıcı: "taslak olarak kaydet"; Yönetim → Oyunlar, kayıt no 2). Ad Stone Burst, adres `/games/stone-burst`, tür Puzzle, renk #3fe6d2, ikon `docs/magaza/play/icon-512.png`, kapak `feature-1024x500.png`, 5 ekran görüntüsü (`sahne/android/en` 01–05), paket/bundle `com.ofigame.stoneburst`, TR/EN kısa tanıtım, açıklama ve özellikler ("1000 bölüm" yok). Mağaza bağlantıları boş (sitede "Yakında"). "Yayında" kapalı: herkese açık adres 404 veriyor (doğrulandı). Mağazalar açılınca bağlantılar eklenip yayına alınacak.
 
 - **2026-11-12 (gece), kullanıcı yokken:** 1.0.1 mağaza metni taslağı hazırlandı ("1000 bölüm" çıktı; Promotional Text ve ilk özellik maddesi, 6 dil): `docs/v13/MAGAZA_ACIKLAMALARI.md` başı ve `APPGALLERY.md` "1.0.1 için" notu. Hiçbir mağazaya girilmedi. Durum testi (kod değişikliği yok): EditMode 234/236 (2 atlandı), PlayMode 72/73 (1 atlandı, 50 bölüm örneklemi), loc-check TAMAM.
