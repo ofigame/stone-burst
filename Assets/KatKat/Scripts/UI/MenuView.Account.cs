@@ -94,7 +94,7 @@ namespace KatKat.UI
         public void ShowDeleteAccountConfirm()
         {
             CloseDeleteAccountConfirm();
-            const float W = 860f, H = 640f;
+            const float W = 860f, H = 690f;
             var card = U3Modal(_page, "DeleteAccountCard", W, H, CloseDeleteAccountConfirm, out var root);
             _deleteCard = root;
             var title = U3Text("Title", card, Loc.T("acct.delete.title"), 52, true, Ui3.Ink);

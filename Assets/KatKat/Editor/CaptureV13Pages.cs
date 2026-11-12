@@ -293,6 +293,8 @@ namespace KatKat.EditorTools
                 Shot("05_ayarlar", gc => { Progress(gc, 12); Call(gc, "ShowSettings"); });
                 // 2026-11-09: AB görünümü (UMP "Gizlilik seçenekleri" satırı zorunlu bölge).
                 Shot("41_ayarlar_gizlilik", gc => { Progress(gc, 12); KatKat.Game.Ads.PrivacyOptions.ForceVisible = true; try { Call(gc, "ShowSettings"); } finally { KatKat.Game.Ads.PrivacyOptions.ForceVisible = false; } });
+                // 2026-11-13: hesap silme onayı (Apple 5.1.1(v)).
+                Shot("46_hesap_sil_onay", gc => { Progress(gc, 12); Call(gc, "ShowSettings"); gc.Menu.ShowDeleteAccountConfirm(); });
                 // 2026-11-09 kalp sistemi: haritada eksik kalp + geri sayım, kalp kartı, kalp bitti kartı.
                 Shot("42_harita_kalp_sayac", gc => { Progress(gc, 30); HeartsAt(gc, 2, 7 * 60); gc.ShowLevels(); });
                 Shot("43_kalp_karti", gc => { Progress(gc, 30); HeartsAt(gc, 2, 7 * 60); gc.ShowLevels(); Invoke(gc, "ShowHeartsCard", (Action)null); });
