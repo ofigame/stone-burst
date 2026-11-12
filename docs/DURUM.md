@@ -4,6 +4,8 @@ Son güncelleme: 2026-11-11. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
 
 ## Şu an
 
+- **2026-11-13: ofigame.com'a Stone Burst taslak olarak eklendi** (kullanıcı: "taslak olarak kaydet"; Yönetim → Oyunlar, kayıt no 2). Ad Stone Burst, adres `/games/stone-burst`, tür Puzzle, renk #3fe6d2, ikon `docs/magaza/play/icon-512.png`, kapak `feature-1024x500.png`, 5 ekran görüntüsü (`sahne/android/en` 01–05), paket/bundle `com.ofigame.stoneburst`, TR/EN kısa tanıtım, açıklama ve özellikler ("1000 bölüm" yok). Mağaza bağlantıları boş (sitede "Yakında"). "Yayında" kapalı: herkese açık adres 404 veriyor (doğrulandı). Mağazalar açılınca bağlantılar eklenip yayına alınacak.
+
 - **2026-11-12 (gece), kullanıcı yokken:** 1.0.1 mağaza metni taslağı hazırlandı ("1000 bölüm" çıktı; Promotional Text ve ilk özellik maddesi, 6 dil): `docs/v13/MAGAZA_ACIKLAMALARI.md` başı ve `APPGALLERY.md` "1.0.1 için" notu. Hiçbir mağazaya girilmedi. Durum testi (kod değişikliği yok): EditMode 234/236 (2 atlandı), PlayMode 72/73 (1 atlandı, 50 bölüm örneklemi), loc-check TAMAM.
 
 - **2026-11-12: İngilizce tanıtım videosu, açılışsız** (kullanıcı: "ingilizce edit… baştaki maskotun kaybolduğu senaryo olmasın"): `Builds/Video/StoneBurst_promo_en_short.mp4` (28,5 sn, 31 MB, -14,9 LUFS) ve küçük kopyası `_kucuk.mp4` (18 MB). `tools/trailer-punch.ps1 -Lang en -NoIntro` (açılış atlanır, müziğin ilk 6 sn'si kesilir). Oyun arayüzü İngilizce çekildi; kareler kontrol edildi, ses kulakla dinlenmedi.
