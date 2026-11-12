@@ -269,12 +269,13 @@ namespace KatKat.EditorTools
         /// <summary>Kısa, büyük harf başlıklar (şerit için). Ana dili o dil olan biri kontrol etmedi.</summary>
         private static readonly Dictionary<string, string[]> SceneCaptions = new Dictionary<string, string[]>
         {
-            ["tr"] = new[] { "KATMANLARI SOY", "ALTIN RULO", "1.000 BÖLÜM", "3 YILDIZ KAZAN", "GÜNLÜK BULMACA", "TAŞLARI TOPLA" },
-            ["en"] = new[] { "PEEL THE LAYERS", "GOLDEN ROLL", "1,000 LEVELS", "EARN 3 STARS", "DAILY PUZZLE", "COLLECT STONES" },
-            ["de"] = new[] { "SCHICHTEN ABTRAGEN", "GOLDROLLE", "1.000 LEVEL", "HOL DIR 3 STERNE", "TÄGLICHES RÄTSEL", "STEINE SAMMELN" },
-            ["es"] = new[] { "¡PELA LAS CAPAS!", "ROLLO DORADO", "1.000 NIVELES", "GANA 3 ESTRELLAS", "PUZLE DIARIO", "COLECCIONA PIEDRAS" },
-            ["ar"] = new[] { "قشّر الطبقات", "اللفافة الذهبية", "1000 مرحلة", "اربح 3 نجوم", "لغز يومي", "اجمع الأحجار" },
-            ["ja"] = new[] { "レイヤーをはがそう", "ゴールドロール", "1,000ステージ", "星3つをゲット", "デイリーパズル", "石をコレクション" },
+            // Kullanıcı (2026-11-12): düşünme/plan gerektirdiğini hissettiren yazılar; "1000 bölüm" denmeyecek.
+            ["tr"] = new[] { "GÖREVİ TAMAMLA", "BİR SONRAKİ HAMLEYİ PLANLA", "YENİ BULMACALAR KEŞFET", "AKILLI OYNA,\n3 YILDIZ KAZAN", "KATMANLARI SOY", "TAŞLARI TOPLA" },
+            ["en"] = new[] { "COMPLETE THE GOAL", "PLAN YOUR NEXT MOVE", "DISCOVER NEW PUZZLES", "PLAY SMART,\nEARN 3 STARS", "PEEL THE LAYERS", "COLLECT STONES" },
+            ["de"] = new[] { "ERFÜLLE DAS ZIEL", "PLANE DEINEN NÄCHSTEN ZUG", "ENTDECKE NEUE RÄTSEL", "SPIEL KLUG,\nHOL 3 STERNE", "SCHICHTEN ABTRAGEN", "STEINE SAMMELN" },
+            ["es"] = new[] { "¡CUMPLE EL OBJETIVO!", "PLANEA TU PRÓXIMO MOVIMIENTO", "DESCUBRE NUEVOS PUZLES", "JUEGA CON CABEZA,\nGANA 3 ESTRELLAS", "¡PELA LAS CAPAS!", "COLECCIONA PIEDRAS" },
+            ["ar"] = new[] { "أكمل المهمة", "خطّط لحركتك التالية", "اكتشف ألغازا جديدة", "العب بذكاء واربح 3 نجوم", "قشّر الطبقات", "اجمع الأحجار" },
+            ["ja"] = new[] { "ゴールを達成しよう", "次の一手を考えよう", "新しいパズルを発見", "かしこく解いて星3つ", "レイヤーをはがそう", "石をコレクション" },
         };
 
         /// <summary>Ham çekimde (telefon yerleşimi) kahraman bölge, normalize, üstten: x0, y0, x1, y1.</summary>
@@ -333,28 +334,27 @@ namespace KatKat.EditorTools
                 UiFactory.Stretch(bg.rectTransform, 0f, 0f, 0f, 0f);
 
                 float band = h * (dev.Pad ? 0.13f : 0.15f);
-                var c = HeroCrop[n - 1];
-                if (dev.Pad) { float col = h * 9f / 16f / w; c.x = 0.5f + (c.x - 0.5f) * col; c.z = 0.5f + (c.z - 0.5f) * col; }
-                // Düz, tam ekran sahne (kullanıcı 2026-11-12: eğik hâli "yamuk ve kötü"): kırpım şeridin üstündeki
-                // alanın en/boy oranına genişletilir (taşarsa kesilir), çerçevesiz.
-                float under = w * 0.06f; float A = w / (h - band + under);
-                float cx = (c.x + c.z) * 0.5f * raw.width, cy = (c.y + c.w) * 0.5f * raw.height;
-                float cw = (c.z - c.x) * raw.width, ch = (c.w - c.y) * raw.height;
-                if (cw / ch > A) ch = cw / A; else cw = ch * A;
-                if (cw > raw.width) { cw = raw.width; ch = cw / A; }
-                if (ch > raw.height) { ch = raw.height; cw = ch * A; }
-                cx = Mathf.Clamp(cx, cw * 0.5f, raw.width - cw * 0.5f);
-                cy = Mathf.Clamp(cy, ch * 0.5f, raw.height - ch * 0.5f);
+                // Tam oyun ekranı (kullanıcı 2026-11-12: kırpımda kenardaki öğeler "yarıda kesilmiş ve kötü"):
+                // cihaz güvenli alanı kırpılmadan şeridin üstüne sığdırılır, yuvarlak köşeli kart; kenar boşluğunu bulanık zemin doldurur.
+                var safe = dev.Safe;
+                float cw = raw.width, ch = raw.height * safe.height;
+                float yb = band + w * 0.045f, top = h * 0.015f;
+                float availW = w * 0.95f, availH = h - yb - top;
+                float sc = Mathf.Min(availW / cw, availH / ch);
+                float dw = cw * sc, dh = ch * sc, radius = w * 0.045f;
+                float cardBottom = yb + (availH - dh) * 0.5f;
+                var cardShadow = UiFactory.Image("CardShadow", root.transform, Round(), new Color(0.04f, 0.02f, 0.14f, 0.45f), true);
+                cardShadow.pixelsPerUnitMultiplier = 64f / (radius * 1.5f);
+                Place(cardShadow.rectTransform, dw + radius * 0.6f, dh + radius * 0.6f, cardBottom - radius * 0.5f);
+                var cardMask = UiFactory.Image("CardMask", root.transform, Round(), Color.white, true);
+                cardMask.pixelsPerUnitMultiplier = 64f / radius;
+                cardMask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+                Place(cardMask.rectTransform, dw, dh, cardBottom);
                 var shot = new GameObject("Shot", typeof(RectTransform)).AddComponent<RawImage>();
-                shot.transform.SetParent(root.transform, false);
+                shot.transform.SetParent(cardMask.transform, false);
                 shot.texture = raw;
-                shot.uvRect = new Rect((cx - cw * 0.5f) / raw.width, 1f - (cy + ch * 0.5f) / raw.height, cw / raw.width, ch / raw.height);
-                UiFactory.Stretch(shot.rectTransform, 0f, 0f, 0f, band - under);
-                var fade = new GameObject("Fade", typeof(RectTransform)).AddComponent<RawImage>();
-                fade.transform.SetParent(root.transform, false);
-                var fadeTex = Gradient(new Color(0.09f, 0.07f, 0.23f, 0f), new Color(0.09f, 0.07f, 0.23f, 0.55f));
-                fade.texture = fadeTex;
-                Place(fade.rectTransform, w * 1.02f, h * 0.07f, band);
+                shot.uvRect = new Rect(0f, safe.y, 1f, safe.height);
+                UiFactory.Stretch(shot.rectTransform, 0f, 0f, 0f, 0f);
 
                 // Alt şerit: koyu mor degrade, üst kenarı çapraz (maskot tarafı yüksek), turkuaz ışık çizgisi.
                 var bandRoot = new GameObject("BandRoot", typeof(RectTransform)).GetComponent<RectTransform>();
