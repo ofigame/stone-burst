@@ -3,7 +3,7 @@
 Site: https://indiedevtest.com — ücretsiz, puanla işleyen karşılıklı test topluluğu.
 Kural: 2 başlangıç puanı + test edilen her uygulama için 1 puan; 1 puan = 1 kabul edilen testçi.
 Hedef: elde 6 kabul eden testçi var, 6 kişi daha (4 uygulama test etmek yeter); düşenlere karşı pay için 8–10.
-Kayıt ve giriş kullanıcıda (Claude hesap açmaz). Form alanları giriş yapılmadan görülemedi; aşağıdaki metin alanlara göre uyarlanacak.
+Durum (2026-11-12): kullanıcı ofigame65 hesabıyla kaydoldu; ilan yayında (0/12). Formda yalnız ad, kategori, kısa açıklama, katılma yöntemi (Google Group), opt-in bağlantısı ve grup bağlantısı vardı; kısa açıklamaya aşağıdaki tanıtım ve "neyi test etmeli" birleşik girildi. 5 ekran görüntüsü: sahne/android/en 01–05. Profil e-postası ofigame65@gmail.com.
 
 Dikkat: Play Console'da test kullanıcılarını Google Grubu'na çevirme değişikliği incelemede (2026-11-12). Onaylanmadan grup üyeleri testi göremeyebilir; ilanı onaydan sonra açmak daha güvenli.
 
