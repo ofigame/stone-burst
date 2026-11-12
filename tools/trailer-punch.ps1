@@ -5,6 +5,9 @@
 # Kalıp (piyasadaki bulmaca reklamları): ilk saniyede en gösterişli an, 2–4 sn'lik sert kesimler (vuruşta), her kesimde
 # tek kısa büyük yazı (sessiz izlemede de anlaşılır), patlamalarda hız rampası (yavaş çekim + patlama noktasına yakınlaşma
 # + hafif sarsıntı, sonra hızlanarak geri çekilme), gerilim → patlama müziği, sonda logo ve çağrı. 9:16, 1080×1920, 30 fps.
+# Açılış (2026-11-12, kullanıcı: "3d bir animasyonla başlayacak; yolunu kaybetmiş maskotumuz haritadaki yolumuz gibi bir
+# yoldan ilerliyor, bir bölümün taşının üzerine çıkıyor, zıplıyor seviniyor ve oyun başlıyor"): p0_giris, 6 sn.
+# Yalnız bir sahneyi yeniden çekmek: KATKAT_TRAILER_ONLY=p0_giris (diğer sahne klasörleri kalır).
 # Önce kareler: tools/unity.ps1 trailer-punch   (KATKAT_TRAILER_LANGS=tr,ar; Logs/punch_<dil>/<sahne>/f_*.png, sfx.wav, meta.txt)
 # Sonra:        powershell -ExecutionPolicy Bypass -File tools/trailer-punch.ps1 -Lang tr   (ya da ar)
 # Çıktı:        Builds/Video/StoneBurst_promo_<dil>.mp4
@@ -117,10 +120,13 @@ public static class SfxRemap {
 
 function Smooth([double]$t) { if ($t -le 0) { return 0.0 }; if ($t -ge 1) { return 1.0 }; return $t * $t * (3 - 2 * $t) }
 
-# Kurgu. Kesimler 0,5 sn'lik vuruşlarda; müzikte 12–14 sn gerilim, 14'te patlama, 24'te kapanış akoru (logo).
+# Kurgu. Kesimler 0,5 sn'lik vuruşlarda. Müzik: 0–6 sn açılış (müzik kutusu, zıplama, gerilim), 6'da sert giriş
+# (oyun başlar); ana müzikte 18–20 sn gerilim, 20'de patlama, 30'da kapanış akoru (logo).
 # mode hero: kahraman an (meta.txt "hero") çevresinde hız rampası; lead = patlamanın kesimdeki çıkış saniyesi.
 # slow = yavaş çekim hızı, hold = yavaş çekimde geçen kaynak süre (sn), zmax = yakınlaşma.
+# raw: açılış (3D harita yolculuğu, TrailerIntro.cs) olduğu gibi; yazı yok, kenar gölgesi, sonda beyaza parlama → p1.
 $segs = @(
+    @{ s = 'p0_giris';      d = 6.0; mode = 'raw'; at = 0.0 }
     @{ s = 'p1_kanca_l791'; d = 3.5; mode = 'hero'; lead = 0.45; slow = 0.28; hold = 0.55; zmax = 1.5;  cap = 'hook';  ca = 0.05; flash = $true }
     @{ s = 'p2_temel_l122'; d = 3.0; mode = 'normal'; at = 0.25; cap = 'core';  ca = 0.1 }
     @{ s = 'p4_rulo_l769';  d = 3.5; mode = 'hero'; lead = 1.0;  slow = 0.3;  hold = 0.5;  zmax = 1.35; cap = 'roll';  ca = 0.1 }
@@ -221,6 +227,9 @@ foreach ($g in $segs) {
     } else {
         $zexpr = "1.0+0.035*on/$n"; $shake = ''; $shakeY = ''
     }
+    if ($g.mode -eq 'raw') {
+        $vf = "format=rgba,vignette=angle=PI/6,fade=t=out:st=$(F ($g.d - 0.22)):d=0.22:color=white,format=yuv420p"
+    } else {
     $vf = "zoompan=z='max(1,$zexpr)':x='max(0,min(iw-iw/zoom,$(F $cx)-iw/zoom/2$shake))':y='max(0,min(ih-ih/zoom,$(F $cy)-ih/zoom/2$shakeY))':d=1:s=1080x1920:fps=30,format=rgba[base];" +
           "[base][1:v]overlay=0:H-h,format=yuv420p"
     $file = TextFile $g.cap $tx[$g.cap]
@@ -230,6 +239,7 @@ foreach ($g in $segs) {
     $vf += "," + (Caption $file $ca $ce $size 'h*0.84' 'white' ($g.ca -ge 0))
     if ($g.flash) { $vf += ",fade=t=in:st=0:d=0.18:color=white" }
     if ($heroOut -ge 0) { $tf = F ($heroOut / 30.0); $vf += ",eq=brightness='0.10*exp(-(t-$tf)*9)*gte(t,$tf)':eval=frame" }
+    }
 
     # Ses: kaynak efektleri aynı hız eğrisiyle, örnek düzeyinde yeniden örneklenir (bant gibi: yavaşta ses kalınlaşır,
     # hızlanmada incelir — sinematik yavaş çekim sesi). Çıkış karesi başına kaynak zamanı src[] arasında doğrusal.

@@ -974,6 +974,23 @@ namespace KatKat.UI
         /// <summary>Haritanın şu anki kaydırma konumu (ölçüm/test/tanıtım kaydı).</summary>
         public float ScrollYForTest => ScrollY;
 
+        /// <summary>
+        /// Tanıtım açılışı (2026-11-12): harita dışındaki her şeyi gizler (üst kabuk, alt menü, dönüş düğmesi, harita
+        /// maskotu); <paramref name="numbers"/> false ise düğüm numaraları da gizlenir (harita 3D zeminde ters dönebilir).
+        /// Kaydırınca yeni kurulan düğümler için yeniden çağrılır.
+        /// </summary>
+        public void IsolateMapForTrailer(bool numbers)
+        {
+            if (_map == null || _map.Viewport == null) return;
+            foreach (Transform c in _map.Viewport.parent) if (c != _map.Viewport) c.gameObject.SetActive(false);
+            if (_map.LayerPin != null) _map.LayerPin.gameObject.SetActive(false);
+            foreach (var g in _map.LayerNodes.GetComponentsInChildren<Graphic>(true)) if (g.name == "Num") g.enabled = numbers;
+        }
+
+        /// <summary>Tanıtım açılışı: i. düğümün harita içerik konumu ve y yüksekliğinde yolun ortası.</summary>
+        public static Vector2 NodePosForTrailer(int i) => NodePos(i);
+        public static float RoadXForTrailer(float y) => RoadX(y);
+
         /// <summary>Haritanın toplam yüksekliği (ölçüm/test).</summary>
         public float MapHeightForTest => _map != null ? _map.Height : 0f;
 

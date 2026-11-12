@@ -16,7 +16,7 @@ namespace KatKat.EditorTools
     /// Zaman elle ilerletilir (editör toplu modu). Çıktı: Logs/trailer/&lt;sahne&gt;/f_00000.png; birleştirme tools/trailer.ps1.
     /// Batch: -executeMethod KatKat.EditorTools.TrailerCapture.Run
     /// </summary>
-    public static class TrailerCapture
+    public static partial class TrailerCapture
     {
         private const int W = 1080, H = 1920;
         /// <summary>Yakalama hızı (oyun zamanında kare/sn). Shorts: 30; vurucu kurgu: 90 (yavaş çekim için).</summary>
@@ -112,7 +112,7 @@ namespace KatKat.EditorTools
         {
             var langs = (Environment.GetEnvironmentVariable("KATKAT_TRAILER_LANGS") ?? "ar").Split(',');
             var logs = Path.Combine(Directory.GetParent(Application.dataPath).FullName, "Logs");
-            WriteWav(Path.Combine(logs, "punch_music.wav"), PunchMusic(32f), 2);
+            WriteWav(Path.Combine(logs, "punch_music.wav"), IntroAndPunchMusic(30f), 2); // 6 sn açılış + ana müzik (açılış bitince sert giriş)
             WriteWav(Path.Combine(logs, "punch_whoosh.wav"), Whoosh(), 2);
             WriteWav(Path.Combine(logs, "punch_impact.wav"), Impact(), 2);
             // 2026-11-12 (kullanıcı: "taşların parçalanma anında yavaşlat ve zoom yap, ardından hızlanarak geri çekil"):
@@ -131,7 +131,10 @@ namespace KatKat.EditorTools
         private static void RunPunchLang(string lang, string root)
         {
             _root = root;
-            if (Directory.Exists(_root)) Directory.Delete(_root, true);
+            // KATKAT_TRAILER_ONLY=p0_giris,p8_harita → yalnız bu sahneler yeniden çekilir (diğer klasörler kalır).
+            var only = Environment.GetEnvironmentVariable("KATKAT_TRAILER_ONLY");
+            var pick = string.IsNullOrEmpty(only) ? null : new HashSet<string>(only.Split(','));
+            if (pick == null && Directory.Exists(_root)) Directory.Delete(_root, true);
             Directory.CreateDirectory(_root);
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var keepLang = Loc.Code;
@@ -139,6 +142,13 @@ namespace KatKat.EditorTools
             GameController.ToursOverride = false;
             try
             {
+                void Scene(string n, Action<GameController, Action> b) { if (pick == null || pick.Contains(n)) TrailerCapture.Scene(n, b); }
+                // Açılış (3D harita yolculuğu, 30 fps, her kare): TrailerIntro.cs.
+                if (pick == null || pick.Contains("p0_giris"))
+                {
+                    int keepFps = Fps; Fps = 30; _dense = true;
+                    try { TrailerCapture.Scene("p0_giris", IntroBody); } finally { Fps = keepFps; }
+                }
                 // Son bağımsız değişken: kahraman adım (kaydedilen ilk adıma göre; 99 = son adım; -1 yok).
                 Scene("p1_kanca_l791", (gc, rec) => PlayRange(gc, rec, 790, 0, 1, 1.6f, 2.0f, 0));
                 Scene("p2_temel_l122", (gc, rec) => PlayRange(gc, rec, 121, 0, 2, 1.6f, 0.8f, -1));
