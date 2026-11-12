@@ -1,6 +1,6 @@
 # App Review Notes (Stone Burst 1.0)
 
-App Store Connect → sürüm 1.0 → App Review Information → Notes alanına aynen yapıştırılır (2026-11-09, Claude yazdı; içerik koddan doğrulandı: ATT penceresi yok, uygulama içi satın alma yok).
+App Store Connect → sürüm 1.0 → App Review Information → Notes alanına aynen yapıştırılır (2026-11-09, Claude yazdı; içerik koddan doğrulandı: uygulama içi satın alma yok. Not 2026-11-13: ATT penceresi sonradan eklendi (bf77ffb, yapı 12); metin ATT'den söz etmiyor, çelişki yok).
 
 ```
 Stone Burst is a single-player puzzle game. No account or login is needed to play; all levels are playable offline.
