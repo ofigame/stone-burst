@@ -273,7 +273,7 @@ namespace KatKat.EditorTools
             ["tr"] = new[] { "GÖREVİ TAMAMLA", "BİR SONRAKİ HAMLEYİ PLANLA", "YENİ BULMACALAR KEŞFET", "AKILLI OYNA,\n3 YILDIZ KAZAN", "KATMANLARI SOY", "TAŞLARI TOPLA" },
             ["en"] = new[] { "COMPLETE THE GOAL", "PLAN YOUR NEXT MOVE", "DISCOVER NEW PUZZLES", "PLAY SMART,\nEARN 3 STARS", "PEEL THE LAYERS", "COLLECT STONES" },
             ["de"] = new[] { "ERFÜLLE DAS ZIEL", "PLANE DEINEN NÄCHSTEN ZUG", "ENTDECKE NEUE RÄTSEL", "SPIEL KLUG,\nHOL 3 STERNE", "SCHICHTEN ABTRAGEN", "STEINE SAMMELN" },
-            ["es"] = new[] { "¡CUMPLE EL OBJETIVO!", "PLANEA TU PRÓXIMO MOVIMIENTO", "DESCUBRE NUEVOS PUZLES", "JUEGA CON CABEZA,\nGANA 3 ESTRELLAS", "¡PELA LAS CAPAS!", "COLECCIONA PIEDRAS" },
+            ["es"] = new[] { "¡CUMPLE EL OBJETIVO!", "PLANEA TU PRÓXIMO MOVIMIENTO", "DESCUBRE NUEVOS PUZLES", "PIENSA Y GANA\n3 ESTRELLAS", "¡PELA LAS CAPAS!", "COLECCIONA PIEDRAS" },
             ["ar"] = new[] { "أكمل المهمة", "خطّط لحركتك التالية", "اكتشف ألغازا جديدة", "العب بذكاء واربح 3 نجوم", "قشّر الطبقات", "اجمع الأحجار" },
             ["ja"] = new[] { "ゴールを達成しよう", "次の一手を考えよう", "新しいパズルを発見", "かしこく解いて星3つ", "レイヤーをはがそう", "石をコレクション" },
         };
