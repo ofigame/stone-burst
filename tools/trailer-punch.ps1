@@ -11,7 +11,10 @@
 # Önce kareler: tools/unity.ps1 trailer-punch   (KATKAT_TRAILER_LANGS=tr,ar; Logs/punch_<dil>/<sahne>/f_*.png, sfx.wav, meta.txt)
 # Sonra:        powershell -ExecutionPolicy Bypass -File tools/trailer-punch.ps1 -Lang tr   (ya da ar)
 # Çıktı:        Builds/Video/StoneBurst_promo_<dil>.mp4
-param([string]$Lang = 'ar', [double]$MusicGain = 0.75, [double]$SfxGain = 1.3)
+# -NoIntro (2026-11-12, kullanıcı: "ingilizce edit… baştaki maskotun kaybolduğu senaryo olmasın"): p0_giris atlanır,
+# müzik açılış kısmı (ilk 6 sn) kesilerek ana müzikten başlar; çıktı StoneBurst_promo_<dil>_short.mp4. Kareler:
+# KATKAT_TRAILER_LANGS=en KATKAT_TRAILER_ONLY=p1_kanca_l791,...,p8_harita (açılış çekilmez).
+param([string]$Lang = 'ar', [double]$MusicGain = 0.75, [double]$SfxGain = 1.3, [switch]$NoIntro)
 
 $ErrorActionPreference = 'Stop'
 [Threading.Thread]::CurrentThread.CurrentCulture = [Globalization.CultureInfo]::InvariantCulture # filtrelerde ondalık nokta
@@ -55,6 +58,18 @@ $T = @{
         levels = '1000 bölüm'
         cta    = 'Hemen indir!'
         sub    = 'Ücretsiz bulmaca oyunu'
+    }
+    'en' = @{
+        font   = 'Assets/KatKat/Resources/Typography/Nunito-ExtraBold.ttf'
+        hook   = 'One tap…' + "`n" + 'MEGA BURST!'
+        core   = 'Tap 3 matching stones,' + "`n" + 'peel the layers'
+        roll   = 'The Golden Roll' + "`n" + 'clears a whole color!'
+        world  = 'New obstacles' + "`n" + 'in every world'
+        big    = 'Big groups…' + "`n" + 'super powers!'
+        calm   = 'No timer…' + "`n" + 'just think!'
+        levels = '1000 levels'
+        cta    = 'Play now!'
+        sub    = 'Free puzzle game'
     }
 }
 $tx = $T[$Lang]; if (-not $tx) { throw "Metin yok: $Lang" }
@@ -137,6 +152,8 @@ $segs = @(
     @{ s = 'p7_zafer_l131'; d = 4.5; mode = 'hero'; lead = 0.5;  slow = 0.35; hold = 0.35; zmax = 1.3;  cap = 'calm';  ca = 0.2; ce = 2.0; post = 2.6; calm = 1.7 }
     @{ s = 'p8_harita';     d = 2.5; mode = 'normal'; at = 0.3;  cap = 'levels'; ca = 0.25 }
 )
+$musicOff = 0.0
+if ($NoIntro) { $segs = @($segs | Where-Object { $_.s -ne 'p0_giris' }); $musicOff = 6.0 }
 
 $clips = @(); $cuts = @(); $heroes = @(); $t0 = 0.0; $k = 0
 foreach ($g in $segs) {
@@ -283,7 +300,7 @@ $cat = "$tmp/cat.mov"
 if ($LASTEXITCODE -ne 0) { throw 'ffmpeg birleştirme hatası' }
 
 $inputs = @('-i', $cat, '-i', 'Logs/punch_music.wav')
-$fc = "[0:a]volume=${SfxGain}[sfx];[1:a]atrim=0:$(F $total),volume=${MusicGain},afade=t=out:st=$(F ($total - 1.0)):d=1.0[mus];"
+$fc = "[0:a]volume=${SfxGain}[sfx];[1:a]atrim=$(F $musicOff):$(F ($musicOff + $total)),asetpts=PTS-STARTPTS,volume=${MusicGain},afade=t=out:st=$(F ($total - 1.0)):d=1.0[mus];"
 $mixes = @('[sfx]', '[mus]'); $ix = 2
 foreach ($c in $cuts) {
     if ($c -ge $t0) { continue } # son kesim kapanışa geçiş: orada darbe var
@@ -297,7 +314,7 @@ foreach ($c in (@($heroes) + @($t0))) {
     $fc += "[${ix}:a]adelay=${ms}|${ms},volume=0.75[i$ix];"; $mixes += "[i$ix]"; $ix++
 }
 $fc += ($mixes -join '') + "amix=inputs=$($mixes.Count):duration=first:normalize=0,alimiter=limit=0.95,loudnorm=I=-14:TP=-1.5:LRA=11,aresample=48000[a]"
-$final = "Builds/Video/StoneBurst_promo_$Lang.mp4"
+$final = if ($NoIntro) { "Builds/Video/StoneBurst_promo_${Lang}_short.mp4" } else { "Builds/Video/StoneBurst_promo_$Lang.mp4" }
 & $ff -y -loglevel error @inputs -filter_complex $fc -map 0:v -map '[a]' -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -r 30 -c:a aac -b:a 192k -movflags +faststart -t $total $final
 if ($LASTEXITCODE -ne 0) { throw 'ffmpeg son kurgu hatası' }
 "Video: $final ({0:0.0} sn)" -f $total
