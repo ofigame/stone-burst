@@ -57,6 +57,9 @@ namespace KatKat.EditorTools
             var langs = Env("KATKAT_STORE_LANGS", "en,tr,de,es,ar,ja");
             var onlyRaw = Environment.GetEnvironmentVariable("KATKAT_STORE_ONLY");
             var only = string.IsNullOrEmpty(onlyRaw) ? null : onlyRaw.Split(',');
+            // KATKAT_STORE_STYLE=sahne: eğik sahne + maskot + alt şerit (docs/magaza/sahne). KATKAT_STORE_RAW=1: ham çekim varsa yeniden çekme.
+            bool scene = Environment.GetEnvironmentVariable("KATKAT_STORE_STYLE") == "sahne";
+            bool reuseRaw = Environment.GetEnvironmentVariable("KATKAT_STORE_RAW") == "1";
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var keepLang = Loc.Code;
             GameController.ToursOverride = false;
@@ -78,9 +81,11 @@ namespace KatKat.EditorTools
                         {
                             if (only != null && Array.IndexOf(only, n.ToString()) < 0) return;
                             string file = n.ToString("00") + "_" + name + ".png";
+                            string rawPath = Path.Combine(PeelCapture.OutDir, dir + file);
                             GameController.BackgroundOverride = bg;
                             try
                             {
+                                if (!(reuseRaw && File.Exists(rawPath)))
                                 GameCapture.ShotPublic(dir + file, dev.W, dev.H, dev.Safe, gc =>
                                 {
                                     GameController.HeartClock = null;
@@ -90,8 +95,14 @@ namespace KatKat.EditorTools
                                 });
                             }
                             finally { GameController.BackgroundOverride = null; }
+                            if (scene)
+                            {
+                                string sc = SceneCaptions.TryGetValue(lang, out var s2) ? s2[n - 1] : SceneCaptions["en"][n - 1];
+                                ComposeScene(rawPath, Path.Combine("docs", "magaza", "sahne", dev.Name, lang, file), dev, n, sc);
+                                return;
+                            }
                             string caption = Captions.TryGetValue(lang, out var c) ? c[n - 1] : Captions["en"][n - 1];
-                            Compose(Path.Combine(PeelCapture.OutDir, dir + file), Path.Combine(outDir, file), dev.W, dev.H, caption, dev.Pad);
+                            Compose(rawPath, Path.Combine(outDir, file), dev.W, dev.H, caption, dev.Pad);
                         }
                         // 1: oyun ekranı (renkli kalabalık tahta).
                         Shot(1, "oyun", 0, gc => { CaptureV13Pages.Progress(gc, 37); gc.StartLevel(37); gc.Hud.HideRuleCard(false); });
@@ -242,6 +253,183 @@ namespace KatKat.EditorTools
                 UnityEngine.Object.DestroyImmediate(camGo);
                 UnityEngine.Object.DestroyImmediate(raw);
                 UnityEngine.Object.DestroyImmediate(grad);
+            }
+        }
+
+        // ---- Sahne kompozisyonu (kullanıcı, 2026-11-12: "mağaza görsellerimizi bu şekilde yapalım, maskotumuzu kullan") ----
+        // Tam ekran eğik oyun sahnesi, köşede onaylı maskot, altta koyu şeritte kısa büyük başlık. Ham çekimden kırpılır.
+
+        /// <summary>Kısa, büyük harf başlıklar (şerit için). Ana dili o dil olan biri kontrol etmedi.</summary>
+        private static readonly Dictionary<string, string[]> SceneCaptions = new Dictionary<string, string[]>
+        {
+            ["tr"] = new[] { "KATMANLARI SOY", "ALTIN RULO", "1.000 BÖLÜM", "3 YILDIZ KAZAN", "GÜNLÜK BULMACA", "TAŞLARI TOPLA" },
+            ["en"] = new[] { "PEEL THE LAYERS", "GOLDEN ROLL", "1,000 LEVELS", "EARN 3 STARS", "DAILY PUZZLE", "COLLECT STONES" },
+            ["de"] = new[] { "SCHICHTEN ABTRAGEN", "GOLDROLLE", "1.000 LEVEL", "HOL DIR 3 STERNE", "TÄGLICHES RÄTSEL", "STEINE SAMMELN" },
+            ["es"] = new[] { "¡PELA LAS CAPAS!", "ROLLO DORADO", "1.000 NIVELES", "GANA 3 ESTRELLAS", "PUZLE DIARIO", "COLECCIONA PIEDRAS" },
+            ["ar"] = new[] { "قشّر الطبقات", "اللفافة الذهبية", "1000 مرحلة", "اربح 3 نجوم", "لغز يومي", "اجمع الأحجار" },
+            ["ja"] = new[] { "レイヤーをはがそう", "ゴールドロール", "1,000ステージ", "星3つをゲット", "デイリーパズル", "石をコレクション" },
+        };
+
+        /// <summary>Ham çekimde (telefon yerleşimi) kahraman bölge, normalize, üstten: x0, y0, x1, y1.</summary>
+        private static readonly Vector4[] HeroCrop =
+        {
+            new Vector4(0.17f, 0.34f, 0.83f, 0.85f), // 1 tahta
+            new Vector4(0.19f, 0.35f, 0.81f, 0.84f), // 2 rulo
+            new Vector4(0.08f, 0.27f, 1.00f, 0.86f), // 3 harita
+            new Vector4(0.09f, 0.15f, 0.91f, 0.83f), // 4 zafer kartı
+            new Vector4(0.20f, 0.38f, 0.80f, 0.84f), // 5 günlük tahta
+            new Vector4(0.10f, 0.27f, 0.90f, 0.66f), // 6 taş
+        };
+
+        private static Texture2D LoadPng(string path)
+        {
+            var t = new Texture2D(2, 2, TextureFormat.RGBA32, false) { hideFlags = HideFlags.DontSave, wrapMode = TextureWrapMode.Clamp };
+            t.LoadImage(File.ReadAllBytes(path));
+            return t;
+        }
+
+        private static void ComposeScene(string rawFile, string outFile, Device dev, int n, string caption)
+        {
+            int w = dev.W, h = dev.H;
+            var raw = LoadPng(rawFile);
+            var blur = new RenderTexture(24, 42, 0) { filterMode = FilterMode.Bilinear };
+            var mid = RenderTexture.GetTemporary(96, 170, 0);
+            Graphics.Blit(raw, mid);
+            Graphics.Blit(mid, blur);
+            RenderTexture.ReleaseTemporary(mid);
+            bool left = n % 2 == 1;
+            var mascot = LoadPng(left ? "docs/gorseller/maskot/01-onayli-maskot.png" : "docs/gorseller/maskot/03-karsiya-bakan.png");
+
+            var camGo = new GameObject("ComposeCam");
+            var cam = camGo.AddComponent<Camera>();
+            cam.clearFlags = CameraClearFlags.SolidColor;
+            cam.backgroundColor = new Color32(0x1B, 0x18, 0x45, 0xFF);
+            cam.orthographic = false;
+            cam.fieldOfView = 50f;
+            cam.nearClipPlane = 0.1f; cam.farClipPlane = 100f;
+            cam.transform.position = new Vector3(0f, 0f, -10f);
+            var rt = new RenderTexture(w, h, 24, RenderTextureFormat.ARGB32) { antiAliasing = 8 };
+            cam.targetTexture = rt;
+            cam.aspect = (float)w / h;
+            var root = new GameObject("Compose", typeof(RectTransform));
+            var canvas = root.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceCamera;
+            canvas.worldCamera = cam;
+            canvas.planeDistance = 6f;
+            try
+            {
+                // Zemin: aynı çekimin bulanık, koyulaştırılmış hâli.
+                var bg = new GameObject("Bg", typeof(RectTransform)).AddComponent<RawImage>();
+                bg.transform.SetParent(root.transform, false);
+                bg.texture = blur;
+                bg.color = new Color(0.62f, 0.62f, 0.7f, 1f);
+                UiFactory.Stretch(bg.rectTransform, 0f, 0f, 0f, 0f);
+
+                float band = h * (dev.Pad ? 0.13f : 0.15f);
+                var c = HeroCrop[n - 1];
+                if (dev.Pad) { float col = h * 9f / 16f / w; c.x = 0.5f + (c.x - 0.5f) * col; c.z = 0.5f + (c.z - 0.5f) * col; }
+                float cw = (c.z - c.x) * raw.width, ch = (c.w - c.y) * raw.height;
+                float scale = (dev.Pad ? 0.95f : 1.16f) * w / cw;
+                float maxH = (h - band) * 1.02f;
+                if (ch * scale > maxH) scale = maxH / ch;
+                float hw = cw * scale, hh = ch * scale;
+
+                // Eğik kahraman sahne: üst kenar geriye yatar, hafif dönük; gölge ve yuvarlak köşe.
+                var hero = new GameObject("Hero", typeof(RectTransform)).GetComponent<RectTransform>();
+                hero.SetParent(root.transform, false);
+                hero.anchorMin = hero.anchorMax = new Vector2(0.5f, 0f);
+                hero.pivot = new Vector2(0.5f, 0.5f);
+                hero.sizeDelta = new Vector2(hw, hh);
+                hero.anchoredPosition = new Vector2(0f, band + (h - band) * 0.5f + h * 0.01f);
+                hero.localRotation = Quaternion.Euler(22f, left ? -8f : 8f, left ? 3f : -3f);
+                float radius = hw * 0.045f;
+                var shadow = UiFactory.Image("Shadow", hero, Round(), new Color(0.03f, 0.02f, 0.12f, 0.45f), true);
+                shadow.pixelsPerUnitMultiplier = 64f / (radius * 1.6f);
+                UiFactory.Stretch(shadow.rectTransform, -radius * 0.5f, -radius * 1.4f, -radius * 0.5f, radius * 0.2f);
+                var rim = UiFactory.Image("Rim", hero, Round(), new Color(1f, 1f, 1f, 0.9f), true);
+                rim.pixelsPerUnitMultiplier = 64f / (radius * 1.12f);
+                UiFactory.Stretch(rim.rectTransform, -radius * 0.18f, -radius * 0.18f, -radius * 0.18f, -radius * 0.18f);
+                var mask = UiFactory.Image("Mask", hero, Round(), Color.white, true);
+                mask.pixelsPerUnitMultiplier = 64f / radius;
+                mask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+                UiFactory.Stretch(mask.rectTransform, 0f, 0f, 0f, 0f);
+                var shot = new GameObject("Shot", typeof(RectTransform)).AddComponent<RawImage>();
+                shot.transform.SetParent(mask.transform, false);
+                shot.texture = raw;
+                shot.uvRect = new Rect(c.x, 1f - c.w, c.z - c.x, c.w - c.y);
+                UiFactory.Stretch(shot.rectTransform, 0f, 0f, 0f, 0f);
+
+                // Alt şerit: koyu mor degrade, üstte turkuaz ışık çizgisi.
+                var bandImg = new GameObject("Band", typeof(RectTransform)).AddComponent<RawImage>();
+                bandImg.transform.SetParent(root.transform, false);
+                var grad = Gradient(new Color32(0x3A, 0x2C, 0x7A, 0xFF), new Color32(0x16, 0x12, 0x3A, 0xFF));
+                bandImg.texture = grad;
+                Place(bandImg.rectTransform, w * 1.02f, band, 0f);
+                var line = UiFactory.Image("Line", root.transform, null, new Color32(0x3F, 0xE6, 0xD2, 0xFF));
+                Place(line.rectTransform, w * 1.02f, h * 0.0045f, band - h * 0.002f);
+                var glow = UiFactory.Image("Glow", root.transform, null, new Color32(0x3F, 0xE6, 0xD2, 0x40));
+                Place(glow.rectTransform, w * 1.02f, h * 0.014f, band - h * 0.007f);
+
+                // Maskot: şeridin üstünde, sahneye taşar; gölgeli.
+                float mw = Mathf.Min(h * (dev.Pad ? 0.22f : 0.23f) * mascot.width / mascot.height, w * (dev.Pad ? 0.24f : 0.34f)), mh = mw * mascot.height / mascot.width;
+                float mx = left ? w * 0.04f + mw * 0.5f : w * 0.96f - mw * 0.5f;
+                for (int pass = 0; pass < 2; pass++)
+                {
+                    var m = new GameObject(pass == 0 ? "MascotShadow" : "Mascot", typeof(RectTransform)).AddComponent<RawImage>();
+                    m.transform.SetParent(root.transform, false);
+                    m.texture = mascot;
+                    m.color = pass == 0 ? new Color(0.05f, 0.02f, 0.15f, 0.45f) : Color.white;
+                    var r = m.rectTransform;
+                    r.anchorMin = r.anchorMax = new Vector2(0f, 0f);
+                    r.pivot = new Vector2(0.5f, 0f);
+                    r.sizeDelta = new Vector2(mw, mh);
+                    r.anchoredPosition = new Vector2(mx + (pass == 0 ? w * 0.012f : 0f), h * 0.012f - (pass == 0 ? h * 0.008f : 0f));
+                    r.localRotation = Quaternion.Euler(0f, 0f, left ? 6f : -6f);
+                }
+
+                // Başlık: şeritte, maskotun karşı tarafında, beyaz, koyu kontur.
+                float tx0 = left ? w * 0.04f + mw * 1.0f : w * 0.04f, tx1 = left ? w * 0.96f : w * 0.95f - mw * 1.0f;
+                int size = dev.Pad ? 170 : 136;
+                var t = UiFactory.Text("Caption", root.transform, "", size, Color.white);
+                var tr = t.rectTransform;
+                tr.anchorMin = tr.anchorMax = new Vector2(0f, 0f);
+                tr.pivot = new Vector2(0.5f, 0.5f);
+                tr.sizeDelta = new Vector2(tx1 - tx0, band * 0.88f);
+                tr.anchoredPosition = new Vector2((tx0 + tx1) * 0.5f, band * 0.5f);
+                t.textWrappingMode = TMPro.TextWrappingModes.Normal;
+                t.lineSpacing = -18f;
+                t.enableAutoSizing = true; t.fontSizeMax = size; t.fontSizeMin = 40;
+                t.characterSpacing = 2f;
+                t.enableVertexGradient = true;
+                t.colorGradient = new TMPro.VertexGradient(Color.white, Color.white, new Color(1f, 0.93f, 0.62f), new Color(1f, 0.93f, 0.62f));
+                t.outlineWidth = 0.14f;
+                t.outlineColor = new Color32(0x10, 0x0C, 0x2E, 0xFF);
+                Loc.Set(t, caption);
+
+                Canvas.ForceUpdateCanvases();
+                cam.Render();
+                var prev = RenderTexture.active;
+                RenderTexture.active = rt;
+                var outTex = new Texture2D(w, h, TextureFormat.RGB24, false);
+                outTex.ReadPixels(new Rect(0, 0, w, h), 0, 0);
+                outTex.Apply();
+                RenderTexture.active = prev;
+                Directory.CreateDirectory(Path.GetDirectoryName(outFile));
+                File.WriteAllBytes(outFile, outTex.EncodeToPNG());
+                UnityEngine.Object.DestroyImmediate(outTex);
+                UnityEngine.Object.DestroyImmediate(grad);
+            }
+            finally
+            {
+                cam.targetTexture = null;
+                rt.Release();
+                UnityEngine.Object.DestroyImmediate(rt);
+                UnityEngine.Object.DestroyImmediate(root);
+                UnityEngine.Object.DestroyImmediate(camGo);
+                UnityEngine.Object.DestroyImmediate(raw);
+                UnityEngine.Object.DestroyImmediate(mascot);
+                blur.Release();
+                UnityEngine.Object.DestroyImmediate(blur);
             }
         }
 
