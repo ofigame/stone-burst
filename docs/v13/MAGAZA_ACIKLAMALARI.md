@@ -11,6 +11,23 @@ Bu metinleri ana dili o dil olan biri kontrol etmedi; Arapça yayından önce g�
 
 ---
 
+## 1.0.1 için değişecek satırlar (taslak, 2026-11-12; henüz girilmedi)
+
+Kullanıcı kararı: "1000 bölüm" ifadesi mağaza metinlerinden çıkacak; 1.0.1 ile güncellenecek (1.0 metinleri aşağıda olduğu gibi kalıyor). Yalnız iki satır değişir: Promotional Text ve özellik listesinin ilk maddesi. Yeni ifadeler mağaza görsellerindeki "hamleni planla" fikriyle uyumlu. Ana dili o dil olan biri kontrol etmedi.
+
+| Dil | Promotional Text (yeni) | Özellik ilk maddesi (yeni) |
+|---|---|---|
+| English | Peel colorful stone layers, trigger chain reactions and plan every move. A new daily puzzle every day! | • Handcrafted levels across sunny coasts, flower gardens and deserts |
+| Turkish | Renkli taş katmanlarını soy, zincirleme patlamalar yarat, her hamleni planla. Her gün yeni bir günlük bulmaca! | • Güneşli kıyılardan çiçek bahçelerine ve çöllere uzanan, özenle hazırlanmış bölümler |
+| German | Löse bunte Steinschichten, löse Kettenreaktionen aus und plane jeden Zug. Jeden Tag ein neues Tagesrätsel! | • Handgemachte Level an sonnigen Küsten, in Blumengärten und Wüsten |
+| Spanish | Quita capas de piedras de colores, provoca reacciones en cadena y planea cada jugada. ¡Un nuevo puzle diario cada día! | • Niveles hechos a mano en costas soleadas, jardines de flores y desiertos |
+| Arabic | انزع طبقات الأحجار الملونة، وأطلق سلاسل الانفجارات، وخطّط لكل حركة. لغز يومي جديد كل يوم! | • مراحل مصممة بعناية بين الشواطئ المشمسة وحدائق الزهور والصحارى |
+| Japanese | カラフルな石のレイヤーをはがして連鎖を起こし、一手一手を考えよう。毎日新しいデイリーパズルも登場！ | • 晴れた海岸、花畑、砂漠をめぐる手作りのステージ |
+
+Promotional Text incelemesiz değiştirilebilir (App Store); yine de karar 1.0.1 ile birlikte güncellemek. AppGallery tam tanıtımındaki madde için: `docs/v13/APPGALLERY.md` → "1.0.1 için" notu. Google Play uzun açıklaması bu iOS metinlerinden alındı (`PLAY_STORE_PLANI.md`), aynı özellik maddesi orada da değişecek.
+
+---
+
 ## English (U.S.)
 
 **Promotional Text**

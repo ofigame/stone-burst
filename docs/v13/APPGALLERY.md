@@ -87,6 +87,10 @@ Tam tanıtım (tr):
 
 İngilizce tam tanıtım aynı metnin çevirisi. en-GB'de "colour" yazımı kullanıldı.
 
+1.0.1 için (taslak, 2026-11-12; kullanıcı kararı "1000 bölüm" mağaza metninden çıkacak): ilk madde şöyle değişir.
+- tr: "• Özenle hazırlanmış bölümler; her bölümün çözülebildiği doğrulandı"
+- en-US / en-GB: "• Handcrafted levels, every one verified to be solvable"
+
 ### Kullanıcıya kalanlar
 
 Yerleşik tarayıcı yerel dosya seçemiyor. Ayrıca beyanları kullanıcı işaretler.
