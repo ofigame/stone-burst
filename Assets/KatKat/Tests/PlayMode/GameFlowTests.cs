@@ -523,6 +523,14 @@ namespace KatKat.Tests
             public void SignIn(bool silent, System.Action<bool> done) { State = AccountState.SignedIn; done?.Invoke(true); }
             public void SaveProgress(string json, System.Action<bool> done) { Cloud = json; Saves++; done?.Invoke(true); }
             public void LoadProgress(System.Action<bool, string> done) => done?.Invoke(true, Cloud);
+            public int Deletes;
+            public bool DeleteOk = true;
+            public void DeleteAccount(System.Action<bool> done)
+            {
+                Deletes++;
+                if (DeleteOk) { Cloud = null; State = AccountState.SignedOut; }
+                done?.Invoke(DeleteOk);
+            }
         }
 
         [UnityTest]
@@ -579,6 +587,53 @@ namespace KatKat.Tests
             Assert.AreEqual(1, _gc.SaveService.Data.completed.Count);
             Assert.AreEqual(1, fake.Saves, "kontrolden sonra yerel kayıt buluta gitti");
             Assert.AreEqual(1, KatKat.Save.CloudSync.Parse(fake.Cloud).completed.Count);
+        }
+
+        [UnityTest]
+        public IEnumerator DeleteAccount_SettingsRowConfirm_DeletesCloud_KeepsLocal_NoAutoReupload()
+        {
+            // 2026-11-13 (Apple 5.1.1(v)): Ayarlar → Hesabı sil → onay. Sunucu verisi silinir, yerel ilerleme kalır,
+            // silmeden sonra kayıt kendiliğinden buluta geri yazılmaz; başarısızlıkta bildirim.
+            GameController.ClearAccountDeletedForTest();
+            try
+            {
+                var fake = new FakeCloudAccount();
+                _gc.SetAccountForTest(fake);
+                _gc.SaveService.Data.completed.Add(_gc.Catalog.IdAt(0));
+                _gc.SaveService.Data.highestUnlocked = 1;
+                _gc.ShowLevels();
+                yield return null;
+                _gc.CloudSignInForTest(null);
+                Assert.AreEqual(1, fake.Saves);
+
+                _gc.ShowSettingsForCapture();
+                yield return null;
+                var row = GameObject.Find("DeleteAccount");
+                Assert.IsNotNull(row, "Ayarlar'da Hesabı sil satırı");
+                row.transform.Find("Delete").GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
+                Assert.IsTrue(_gc.Menu.DeleteConfirmShown, "önce onay penceresi");
+                Assert.AreEqual(0, fake.Deletes, "onaysız silinmez");
+                GameObject.Find("DeleteAccountCard").transform.Find("Card/Confirm").GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
+                Assert.IsFalse(_gc.Menu.DeleteConfirmShown);
+                Assert.AreEqual(1, fake.Deletes);
+                Assert.IsNull(fake.Cloud, "bulut kaydı silindi");
+                Assert.AreEqual(AccountState.SignedOut, fake.State);
+                Assert.IsTrue(GameController.AccountDeletedByPlayer, "açılışta sessiz giriş yapılmaz");
+                Assert.AreEqual(1, _gc.SaveService.Data.completed.Count, "cihazdaki ilerleme kaldı");
+                Assert.AreEqual(KatKat.UI.Loc.T("acct.deleted") + " (test)", _gc.Menu.ToastText);
+
+                _gc.SaveService.Data.completed.Add(_gc.Catalog.IdAt(1));
+                _gc.PauseForTest();
+                Assert.AreEqual(1, fake.Saves, "silmeden sonra kendiliğinden buluta yazılmadı");
+
+                // Başarısız silme: bildirim, işaret değişmez.
+                GameController.ClearAccountDeletedForTest();
+                fake.DeleteOk = false;
+                _gc.DeleteAccountForTest();
+                Assert.AreEqual(KatKat.UI.Loc.T("acct.delete.fail"), _gc.Menu.ToastText);
+                Assert.IsFalse(GameController.AccountDeletedByPlayer);
+            }
+            finally { GameController.ClearAccountDeletedForTest(); }
         }
 
         [UnityTest]

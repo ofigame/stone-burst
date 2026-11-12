@@ -75,6 +75,19 @@ namespace KatKat.Game.Online
                 done?.Invoke(true, t.Result.Exists && t.Result.TryGetValue("data", out string s) ? s : null);
             });
         }
+
+        /// <summary>Sıralama + bulut kaydı + Firebase kullanıcısı silinir; Game Center hesabı Apple'ın, kalır.</summary>
+        public void DeleteAccount(Action<bool> done)
+        {
+            OnlineAccountDeletion.Run(
+                give => GameCenterAuthProvider.GetCredentialAsync().ContinueWithOnMainThread(c =>
+                    give(c.IsFaulted || c.IsCanceled ? null : c.Result)),
+                ok =>
+                {
+                    if (ok) State = AccountState.SignedOut;
+                    done?.Invoke(ok);
+                });
+        }
     }
 }
 #endif

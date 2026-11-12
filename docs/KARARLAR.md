@@ -140,3 +140,9 @@ Eski ayrıntılı karar günlüğü arşivde (`KatKat_Arsiv_2026-11-06/docs/KARA
   - Hesap/bulut kaydı ve çevrimiçi sıralama bu sürümde gizli. Gerekçe: Google hesabı Huawei cihazda çalışmaz; test hesabı mağazada görünmemeli.
   - Seçimler: aynı paket adı ve aynı yükleme anahtarı; AppGallery'de varsayılan dil Türkçe.
   - Ayrıntı: `docs/v13/APPGALLERY.md`.
+- 2026-11-13 (kullanıcı: "Evet, ekle"; mağaza formu denetiminde bulundu): **Oyun içinden hesap silme** (Apple 5.1.1(v)). Ayarlar'da "İlerlemeyi kaydet"in altında "Hesabı sil" satırı; düğme önce onay penceresi açar (ne silinir, ne kalır, geri alınamaz; "Sil" / "Vazgeç").
+  - Silinen: Firestore `scores/{uid}` ve `saves/{uid}`, Play Games kayıtlı oyunu (Android), Firebase kullanıcısı (önce Game Center / Play Games kimliğiyle yeniden doğrulama). Game Center / Play Games hesabının kendisi Apple'ın / Google'ın, silinmez.
+  - Kalan: cihazdaki yerel ilerleme.
+  - Silmeden sonra açılışta sessiz giriş yapılmaz (`katkat.account.deleted`); oyuncu bir hesap düğmesine kendisi basınca kalkar. Böylece hesap kendiliğinden yeniden oluşmaz.
+  - 7 satır olduğunda (AB'de gizlilik satırıyla) satır aralığı 164'ten 144'e iner. AppGallery'de satır yok (hesap yok).
+  - Firestore kuralları zaten sahibine silme izni veriyordu; kural değişikliği gerekmedi. Kod: `Online/OnlineAccountDeletion.cs`, `IAccountService.DeleteAccount`.

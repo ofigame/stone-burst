@@ -26,6 +26,11 @@ namespace KatKat.Game
         void SaveProgress(string json, Action<bool> done);
         /// <summary>Buluttaki kaydı okur (yoksa null).</summary>
         void LoadProgress(Action<bool, string> done);
+        /// <summary>
+        /// Hesabı ve sunucudaki verileri kalıcı olarak siler (Apple 5.1.1(v); kullanıcı 2026-11-13): sıralama kaydı,
+        /// bulut kaydı ve Firebase kullanıcısı. Cihazdaki yerel ilerleme kalır. Başarıda oturum kapanır.
+        /// </summary>
+        void DeleteAccount(Action<bool> done);
     }
 
     /// <summary>
@@ -71,6 +76,16 @@ namespace KatKat.Game
             if (State != AccountState.SignedIn) { done?.Invoke(false, null); return; }
             string s = PlayerPrefs.GetString(CloudKey, "");
             done?.Invoke(true, string.IsNullOrEmpty(s) ? null : s);
+        }
+
+        public void DeleteAccount(Action<bool> done)
+        {
+            PlayerPrefs.DeleteKey(IdKey);
+            PlayerPrefs.DeleteKey(CloudKey);
+            PlayerPrefs.Save();
+            PlayerId = PlayerName = null;
+            State = AccountState.SignedOut;
+            done?.Invoke(true);
         }
     }
 }

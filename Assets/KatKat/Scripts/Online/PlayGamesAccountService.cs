@@ -89,6 +89,30 @@ namespace KatKat.Game.Online
                     });
                 });
         }
+
+        /// <summary>
+        /// Kayıtlı oyun (Play Games) + sıralama + Firebase kullanıcısı silinir. Play Games hesabı Google'ın, kalır.
+        /// Kayıtlı oyun açılamazsa (yoksa ya da ağ yoksa) Firebase tarafı yine silinir; sonuç Firebase adımına göre.
+        /// </summary>
+        public void DeleteAccount(Action<bool> done)
+        {
+            void DeleteFirebase() => OnlineAccountDeletion.Run(
+                give => PlayGamesPlatform.Instance.RequestServerSideAccess(false, code =>
+                    give(string.IsNullOrEmpty(code) ? null : PlayGamesAuthProvider.GetCredential(code))),
+                ok =>
+                {
+                    if (ok) State = AccountState.SignedOut;
+                    done?.Invoke(ok);
+                });
+            if (State != AccountState.SignedIn) { DeleteFirebase(); return; }
+            var sg = PlayGamesPlatform.Instance.SavedGame;
+            sg.OpenWithAutomaticConflictResolution(SaveName, DataSource.ReadNetworkOnly,
+                ConflictResolutionStrategy.UseLongestPlaytime, (status, meta) =>
+                {
+                    if (status == SavedGameRequestStatus.Success) sg.Delete(meta);
+                    DeleteFirebase();
+                });
+        }
     }
 }
 #endif

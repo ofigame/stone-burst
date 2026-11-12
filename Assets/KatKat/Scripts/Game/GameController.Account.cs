@@ -36,16 +36,44 @@ namespace KatKat.Game
             _menu.PrivacyOptionsVisible = () => global::KatKat.Game.Ads.PrivacyOptions.Required;
             _menu.PrivacyOptionsPressed = global::KatKat.Game.Ads.PrivacyOptions.Show;
             _menu.RankSignInPressed = SignInForRanking;
+            _menu.DeleteAccountPressed = DeleteAccount;
             // Toplu çalıştırmada (testler) sessiz giriş bile yapılmaz: kayıt durumu testleri etkilemesin.
             // AppGallery: hesap hizmeti yok → sessiz giriş (yerel test hesabı) da yapılmaz; kayıt/bulut düğmeleri gizli.
+            // Hesabını silen oyuncuda sessiz giriş yapılmaz (yoksa açılışta hesap kendiliğinden yeniden oluşurdu);
+            // oyuncu bir hesap düğmesine kendisi basınca yeniden açılır.
             _menu.AccountsEnabled = () => StoreFlavor.AccountsEnabled;
-            if (!Application.isBatchMode && StoreFlavor.AccountsEnabled) Account.SignIn(true, ok => { if (ok) CloudCheck(null); });
+            if (!Application.isBatchMode && StoreFlavor.AccountsEnabled && !AccountDeletedByPlayer)
+                Account.SignIn(true, ok => { if (ok) CloudCheck(null); });
+        }
+
+        // ---- Hesap silme (Apple 5.1.1(v); kullanıcı 2026-11-13) -----------------------------------------------------
+        private const string AccountDeletedKey = "katkat.account.deleted";
+
+        /// <summary>Oyuncu hesabını sildi ve o günden beri bir hesap düğmesine basmadı: sessiz giriş yok.</summary>
+        public static bool AccountDeletedByPlayer
+        {
+            get => PlayerPrefs.GetInt(AccountDeletedKey, 0) == 1;
+            private set { if (value) PlayerPrefs.SetInt(AccountDeletedKey, 1); else PlayerPrefs.DeleteKey(AccountDeletedKey); PlayerPrefs.Save(); }
+        }
+
+        /// <summary>Ayarlar → Hesabı sil → onay: sunucudaki kayıtlar ve hesap silinir; cihazdaki ilerleme kalır.</summary>
+        private void DeleteAccount()
+        {
+            Account.DeleteAccount(ok =>
+            {
+                if (!ok) { _menu.ShowToast(Loc.T("acct.delete.fail")); return; }
+                AccountDeletedByPlayer = true;
+                _cloudChecked = _cloudChecking = _cloudDirty = false;
+                _cloudPending = null;
+                _menu.ShowToast(Loc.T("acct.deleted") + TestTag);
+            });
         }
 
         private string TestTag => Account.IsTest ? " (test)" : "";
 
         private void SaveProgressToCloud()
         {
+            AccountDeletedByPlayer = false; // oyuncu hesabı kendisi istedi
             if (Account.State == AccountState.SignedIn) { CloudCheck(DoCloudSave); return; }
             Account.SignIn(false, ok =>
             {
@@ -70,6 +98,7 @@ namespace KatKat.Game
 
         private void SignInForRanking()
         {
+            AccountDeletedByPlayer = false;
             Account.SignIn(false, ok =>
             {
                 if (!ok) { _menu.ShowToast(Loc.T("acct.signin.fail")); return; }
@@ -155,6 +184,12 @@ namespace KatKat.Game
             _cloudPending = null;
             _cloudLastUpload = -999f;
         }
+
+        /// <summary>Test: Ayarlar'daki silme onayı (hesap silme akışı).</summary>
+        public void DeleteAccountForTest() => DeleteAccount();
+
+        /// <summary>Test: silme işaretini temizler (testler birbirini etkilemesin).</summary>
+        public static void ClearAccountDeletedForTest() => AccountDeletedByPlayer = false;
 
         /// <summary>Test: uygulama arka plana geçti.</summary>
         public void PauseForTest() => OnApplicationPause(true);

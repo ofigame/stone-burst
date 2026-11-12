@@ -11,6 +11,9 @@ namespace KatKat.UI
     public sealed partial class MenuView
     {
         public Action SaveProgressPressed, RankSignInPressed;
+        /// <summary>Ayarlar → "Hesabı sil" → onay penceresinde "Sil" (Apple 5.1.1(v); 2026-11-13).</summary>
+        public Action DeleteAccountPressed;
+        private RectTransform _deleteCard;
         /// <summary>Sıralamada kayıt düğmesi gösterilsin mi (oyuncu girişli değilse true).</summary>
         public Func<bool> NeedsSignIn;
         /// <summary>Hesap özellikleri (sıralama kaydı, "İlerlemeyi kaydet") var mı; AppGallery derlemesinde false.</summary>
@@ -69,6 +72,51 @@ namespace KatKat.UI
             FitText(t, 26);
             Ui1.Button("Save", row, Loc.T("acct.save.btn"), true, new Vector2(1f, 0.5f), new Vector2(-140f, 0f), new Vector2(280f, 88f), () => SaveProgressPressed?.Invoke(), null, 38);
         }
+
+        /// <summary>Ayarlar kartındaki "Hesabı sil" satırı: düğme önce onay penceresini açar.</summary>
+        private void DeleteRowUi3(RectTransform card, float y)
+        {
+            var row = UiFactory.Rect("DeleteAccount", card);
+            UiFactory.Place(row, new Vector2(0.5f, 0.5f), new Vector2(0f, y), new Vector2(748f, 132f));
+            var ic = UiFactory.Image("Icon", row, Ui3.Art("ikon-dugmesi"), Color.white);
+            ic.preserveAspect = true;
+            ic.raycastTarget = false;
+            UiFactory.Place(ic.rectTransform, new Vector2(0f, 0.5f), new Vector2(36f, 0f), new Vector2(72f, 72f));
+            var mark = U3Text("Mark", ic.transform, "×", 44, true, Ui3.OnTeal);
+            UiFactory.Stretch(mark.rectTransform);
+            var t = U3Text("Label", row, Loc.T("acct.delete"), 38, true, Ui3.Ink, TextAnchor.MiddleLeft);
+            UiFactory.Place(t.rectTransform, new Vector2(0f, 0.5f), new Vector2(104f + 170f, 0f), new Vector2(340f, 72f));
+            FitText(t, 26);
+            Ui1.Button("Delete", row, Loc.T("acct.delete.btn"), false, new Vector2(1f, 0.5f), new Vector2(-140f, 0f), new Vector2(280f, 88f), ShowDeleteAccountConfirm, null, 38);
+        }
+
+        /// <summary>Silme onayı: ne silinir, ne kalır, geri alınamaz; "Sil" ve "Vazgeç".</summary>
+        public void ShowDeleteAccountConfirm()
+        {
+            CloseDeleteAccountConfirm();
+            const float W = 860f, H = 640f;
+            var card = U3Modal(_page, "DeleteAccountCard", W, H, CloseDeleteAccountConfirm, out var root);
+            _deleteCard = root;
+            var title = U3Text("Title", card, Loc.T("acct.delete.title"), 52, true, Ui3.Ink);
+            U3In(title.rectTransform, W, 56f, 52f, 748f, 80f);
+            FitText(title, 32);
+            var info = U3Text("Info", card, Loc.T("acct.delete.info"), 32, false, Ui3.InkSecondary);
+            info.textWrappingMode = TMPro.TextWrappingModes.Normal;
+            U3In(info.rectTransform, W, 60f, 150f, 740f, 200f);
+            FitText(info, 22);
+            Ui1.Button("Confirm", card, Loc.T("acct.delete.btn"), true, new Vector2(0.5f, 1f), new Vector2(0f, -(380f + 56f)), new Vector2(748f, 112f),
+                () => { CloseDeleteAccountConfirm(); DeleteAccountPressed?.Invoke(); }, null, 42);
+            Ui1.Button("Cancel", card, Loc.T("acct.delete.cancel"), false, new Vector2(0.5f, 1f), new Vector2(0f, -(510f + 50f)), new Vector2(748f, 100f), CloseDeleteAccountConfirm, null, 38);
+        }
+
+        public void CloseDeleteAccountConfirm()
+        {
+            if (_deleteCard != null) UiFactory.Kill(_deleteCard.gameObject);
+            _deleteCard = null;
+        }
+
+        /// <summary>Testler: silme onayı açık mı.</summary>
+        public bool DeleteConfirmShown => _deleteCard != null;
 
         /// <summary>Ayarlar kartındaki "Gizlilik seçenekleri" satırı (reklam rızası; Google UMP formu).</summary>
         private void PrivacyRowUi3(RectTransform card, float y)
