@@ -105,7 +105,14 @@ namespace KatKat.EditorTools
                             Compose(rawPath, Path.Combine(outDir, file), dev.W, dev.H, caption, dev.Pad);
                         }
                         // 1: oyun ekranı (renkli kalabalık tahta).
-                        Shot(1, "oyun", 0, gc => { CaptureV13Pages.Progress(gc, 37); gc.StartLevel(37); gc.Hud.HideRuleCard(false); });
+                        // Kullanıcı (2026-11-12): "tahtalardan biri neredeyse tamamen kırılmış olsun" → 60. bölüm, çözümün son adımı kala.
+                        Shot(1, "oyun", 0, gc =>
+                        {
+                            int lv = scene ? int.Parse(Environment.GetEnvironmentVariable("KATKAT_STORE_L1") ?? "60") : 37;
+                            int left = int.Parse(Environment.GetEnvironmentVariable("KATKAT_STORE_LEFT") ?? "1");
+                            CaptureV13Pages.Progress(gc, lv); gc.StartLevel(lv); gc.Hud.HideRuleCard(false);
+                            if (scene) { gc.Board.Director.TimeScale = 50f; var sol = gc.CurrentLevel.Solution; for (int i = 0; i < sol.Count - left; i++) { gc.PlayStep(sol[i]); CaptureV13Pages.Drain(gc); } gc.Board.Director.TimeScale = 1f; for (float t = 0f; t < 4000f; t += 20f) gc.Board.Advance(20f); for (var p = GameObject.Find("Praise"); p != null; p = GameObject.Find("Praise")) UnityEngine.Object.DestroyImmediate(p); }
+                        });
                         // 2: Altın Rulo patlaması (özel taş etkisi).
                         Shot(2, "rulo", 1, gc => CaptureV13Pages.FireSpecial(gc, SpecialKind.Rainbow, 260f));
                         // 3: harita (bölge yolu).
@@ -273,12 +280,12 @@ namespace KatKat.EditorTools
         /// <summary>Ham çekimde (telefon yerleşimi) kahraman bölge, normalize, üstten: x0, y0, x1, y1.</summary>
         private static readonly Vector4[] HeroCrop =
         {
-            new Vector4(0.17f, 0.34f, 0.83f, 0.85f), // 1 tahta
-            new Vector4(0.19f, 0.35f, 0.81f, 0.84f), // 2 rulo
-            new Vector4(0.30f, 0.33f, 0.90f, 0.83f), // 3 harita
+            new Vector4(0.00f, 0.10f, 1.00f, 0.86f), // 1 tahta + görev çubuğu
+            new Vector4(0.00f, 0.10f, 1.00f, 0.86f), // 2 rulo
+            new Vector4(0.08f, 0.36f, 0.84f, 0.72f), // 3 harita (yol ortada)
             new Vector4(0.09f, 0.15f, 0.91f, 0.83f), // 4 zafer kartı
-            new Vector4(0.20f, 0.38f, 0.80f, 0.84f), // 5 günlük tahta
-            new Vector4(0.26f, 0.36f, 0.74f, 0.54f), // 6 taş
+            new Vector4(0.00f, 0.10f, 1.00f, 0.86f), // 5 günlük tahta
+            new Vector4(0.14f, 0.38f, 0.86f, 0.56f), // 6 taş
         };
 
         private static Texture2D LoadPng(string path)
@@ -330,7 +337,7 @@ namespace KatKat.EditorTools
                 if (dev.Pad) { float col = h * 9f / 16f / w; c.x = 0.5f + (c.x - 0.5f) * col; c.z = 0.5f + (c.z - 0.5f) * col; }
                 // Düz, tam ekran sahne (kullanıcı 2026-11-12: eğik hâli "yamuk ve kötü"): kırpım şeridin üstündeki
                 // alanın en/boy oranına genişletilir (taşarsa kesilir), çerçevesiz.
-                float A = w / (h - band);
+                float under = w * 0.06f; float A = w / (h - band + under);
                 float cx = (c.x + c.z) * 0.5f * raw.width, cy = (c.y + c.w) * 0.5f * raw.height;
                 float cw = (c.z - c.x) * raw.width, ch = (c.w - c.y) * raw.height;
                 if (cw / ch > A) ch = cw / A; else cw = ch * A;
@@ -342,23 +349,30 @@ namespace KatKat.EditorTools
                 shot.transform.SetParent(root.transform, false);
                 shot.texture = raw;
                 shot.uvRect = new Rect((cx - cw * 0.5f) / raw.width, 1f - (cy + ch * 0.5f) / raw.height, cw / raw.width, ch / raw.height);
-                UiFactory.Stretch(shot.rectTransform, 0f, 0f, 0f, band);
+                UiFactory.Stretch(shot.rectTransform, 0f, 0f, 0f, band - under);
                 var fade = new GameObject("Fade", typeof(RectTransform)).AddComponent<RawImage>();
                 fade.transform.SetParent(root.transform, false);
                 var fadeTex = Gradient(new Color(0.09f, 0.07f, 0.23f, 0f), new Color(0.09f, 0.07f, 0.23f, 0.55f));
                 fade.texture = fadeTex;
                 Place(fade.rectTransform, w * 1.02f, h * 0.07f, band);
 
-                // Alt şerit: koyu mor degrade, üstte turkuaz ışık çizgisi.
+                // Alt şerit: koyu mor degrade, üst kenarı çapraz (maskot tarafı yüksek), turkuaz ışık çizgisi.
+                var bandRoot = new GameObject("BandRoot", typeof(RectTransform)).GetComponent<RectTransform>();
+                bandRoot.SetParent(root.transform, false);
+                bandRoot.anchorMin = bandRoot.anchorMax = new Vector2(0.5f, 0f);
+                bandRoot.pivot = new Vector2(0.5f, 1f);
+                bandRoot.sizeDelta = new Vector2(w * 1.3f, band * 3f);
+                bandRoot.anchoredPosition = new Vector2(0f, band);
+                bandRoot.localRotation = Quaternion.Euler(0f, 0f, left ? -4f : 4f);
                 var bandImg = new GameObject("Band", typeof(RectTransform)).AddComponent<RawImage>();
-                bandImg.transform.SetParent(root.transform, false);
-                var grad = Gradient(new Color32(0x3A, 0x2C, 0x7A, 0xFF), new Color32(0x16, 0x12, 0x3A, 0xFF));
+                bandImg.transform.SetParent(bandRoot, false);
+                var grad = Gradient(new Color32(0x3A, 0x2C, 0x7A, 0xFF), new Color32(0x10, 0x0D, 0x2C, 0xFF));
                 bandImg.texture = grad;
-                Place(bandImg.rectTransform, w * 1.02f, band, 0f);
-                var line = UiFactory.Image("Line", root.transform, null, new Color32(0x3F, 0xE6, 0xD2, 0xFF));
-                Place(line.rectTransform, w * 1.02f, h * 0.0045f, band - h * 0.002f);
-                var glow = UiFactory.Image("Glow", root.transform, null, new Color32(0x3F, 0xE6, 0xD2, 0x40));
-                Place(glow.rectTransform, w * 1.02f, h * 0.014f, band - h * 0.007f);
+                UiFactory.Stretch(bandImg.rectTransform, 0f, 0f, 0f, 0f);
+                var glow = UiFactory.Image("Glow", bandRoot, null, new Color32(0x3F, 0xE6, 0xD2, 0x40));
+                UiFactory.Stretch(glow.rectTransform, 0f, 0f, -h * 0.007f, band * 3f - h * 0.007f);
+                var line = UiFactory.Image("Line", bandRoot, null, new Color32(0x3F, 0xE6, 0xD2, 0xFF));
+                UiFactory.Stretch(line.rectTransform, 0f, 0f, -h * 0.0022f, band * 3f - h * 0.0022f);
 
                 // Maskot: şeridin üstünde, sahneye taşar; gölgeli.
                 float mw = Mathf.Min(h * (dev.Pad ? 0.22f : 0.23f) * mascot.width / mascot.height, w * (dev.Pad ? 0.24f : 0.34f)), mh = mw * mascot.height / mascot.width;
@@ -386,7 +400,9 @@ namespace KatKat.EditorTools
                 tr.pivot = new Vector2(0.5f, 0.5f);
                 tr.sizeDelta = new Vector2(tx1 - tx0, band * 0.88f);
                 tr.anchoredPosition = new Vector2((tx0 + tx1) * 0.5f, band * 0.5f);
-                t.textWrappingMode = TMPro.TextWrappingModes.Normal;
+                // Japoncada kelime arası boşluk yok; satır kelime ortasından bölünmesin, tek satırda küçülsün.
+                bool cjk = false; foreach (char ch2 in caption) if (ch2 >= 0x3000 && ch2 < 0xA000) cjk = true;
+                t.textWrappingMode = cjk ? TMPro.TextWrappingModes.NoWrap : TMPro.TextWrappingModes.Normal;
                 t.lineSpacing = -18f;
                 t.enableAutoSizing = true; t.fontSizeMax = size; t.fontSizeMin = 40;
                 t.characterSpacing = 2f;
