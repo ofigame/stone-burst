@@ -21,7 +21,10 @@ namespace KatKat.EditorTools
         public const string Define = "KATKAT_ADMOB";
 
         [MenuItem("Kat Kat/Kurulum/AdMob ayarları")]
-        public static void Apply()
+        public static void Apply() => Apply(EditorUserBuildSettings.activeBuildTarget);
+
+        /// <param name="target">Derlenen hedef: Play Games kurulumu yalnız Android'de yapılır.</param>
+        public static void Apply(BuildTarget target)
         {
             if (!AssetDatabase.IsValidFolder("Assets/GoogleMobileAds")) { Debug.LogWarning("[KatKat] AdMob eklentisi yok; reklam kapalı"); return; }
             var settings = AssetDatabase.LoadAssetAtPath<ScriptableObject>(SettingsPath);
@@ -50,7 +53,13 @@ namespace KatKat.EditorTools
             // (2026-11-10: Firebase Android uygulaması ve Play Games eklentisi eklendi). Dosyalar yoksa test hesabı çalışır.
             if (System.IO.File.Exists("Assets/KatKat/Firebase/GoogleService-Info.plist")) AddDefine(NamedBuildTarget.iOS, OnlineDefine);
             bool android = System.IO.File.Exists("Assets/KatKat/Firebase/google-services.json") && AssetDatabase.IsValidFolder("Assets/GooglePlayGames");
-            if (android) { AddDefine(NamedBuildTarget.Android, OnlineDefine); PlayGamesSetup.Apply(); }
+            if (android)
+            {
+                AddDefine(NamedBuildTarget.Android, OnlineDefine);
+                // Play Games kurulumu yalnız Android derlemesinde (2026-11-14): iOS derlemesinde de çalışıyordu ve CI'da
+                // (Linux, iOS hedefi) başarısız olup iOS yapısını durdurdu (run 13). iOS'ta Play Games yok.
+                if (target == BuildTarget.Android) PlayGamesSetup.Apply();
+            }
             Debug.Log("[KatKat] AdMob ayarları uygulandı (iOS ve Android gerçek kimlikler); KATKAT_ONLINE iOS" + (android ? " + Android" : ""));
         }
 
