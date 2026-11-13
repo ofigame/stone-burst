@@ -1,8 +1,26 @@
 # Stone Burst (eski adı TriKat) — Durum
 
-Son güncelleme: 2026-11-11. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
+Son güncelleme: 2026-11-13. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
 
 ## Şu an
+- **2026-11-13: Canlı maç prototipi (ayrı mod, yalnız geliştirici girişi)** (kullanıcı: `docs/vr1/CLAUDE_CANLI_MAC.md`, "burada yapalım"; rapor `docs/vr1/canli_mac/SONUC_RAPORU.md`, karar KARARLAR.md).
+  - Yapılanlar:
+    - Unity'siz motor `Scripts/Core/Live/`: iki katman, zincirsiz, kendi tahtada puan, rakipte yalnız renk.
+    - Doğrulanmış 150 dizilimlik havuz `Resources/Live/live_pool_v1.txt` (üç açılış filtresi, açılış türleri karışık, renk/ayna/döndürme kopyaları ayıklanmış, tohumdan yeniden üretilebilir).
+    - Ölçüm botları ve tek cihazda sırayla oynanan ekran (`UI/LiveMatchScreen.cs`, editörde Kat Kat → Canlı maç → Prototipi oyna).
+  - Testler:
+    - EditMode 254/256 (2 eski atlanan; 15 yeni `LiveMatchTests`, belgenin 12 kabul kontrolü).
+    - PlayMode yalnız yeni `LiveMatchScreenTests` 1/1; tam PlayMode koşusu yapılmadı, ana oyun kodu değişmedi.
+    - loc-check TAMAM.
+    - Ekranlar `docs/vr1/canli_mac/ekranlar/` (editör yakalaması).
+  - Bot ölçümü `docs/vr1/canli_mac/OLCUM_RAPORU.md`, her dizilim iki sırayla:
+    - 6×6'da filtreler neredeyse hiç reddetmiyor (152 adaydan 150 geçti; tek saldırıdan sonra savunanın en az 13 puan hamlesi kalıyor).
+    - Saldırı az işe yarıyor: saldırgan bot açgözlüye %83–90 yeniliyor.
+    - İlk oyuncu avantajı yalnız saldırgan botta belirgin (+25 puan).
+    - Dengeli botlarda maçların yaklaşık yarısı berabere.
+  - Denenmedi: insanlarla oyun, telefon (cihaz derlemesi yok), ağlı sürüm.
+  - Ayrı not: `tools/CoreTests` (dotnet test) bu değişiklikten önce de derlenmiyordu (`AppGalleryBuildTests.cs` editör koduna başvuruyor); Unity EditMode koşusu geçerli.
+
 - **2026-11-13: Yerel bildirimler eklendi** (kullanıcı: "oyunumuza bildirimler ekleyelim"; ayrıntı KARARLAR.md). Kalpler doldu / günlük bulmaca (18:00) / 3. ve 7. gün "seni özledik"; sessiz saatler 22–09. İzin ilk kalp bitişinde oyun içi kartla sorulur; Ayarlar'da "Bildirimler" anahtarı (8 satırda aralık 128). Paket `com.unity.mobile.notifications` 2.5.0; `NotifyPlan`, `GameNotifications`, `NotificationSetup` (Android/iOS derlemesinden önce: icon_0, yeniden başlatmada planla, tam zamanlı alarm yok, iOS açılışta izin yok). 16 yeni metin, 9 dil. Testler: EditMode 239/241 (2 atlandı; 5 yeni `NotifyPlanTests`), PlayMode 75/76 (1 atlandı; yeni `Notify_AskOnceOnFirstHeartsOut_...`), son yerleşim düzeltmesinden sonra ilgili 6 test yeniden geçti, loc-check TAMAM. Yakalamalar TR+DE `docs/ui3_uygulama/47_*`, `41_*`. **Android cihazda doğrulandı** (Redmi Note 9S, `build-android-notifytest` deneme APK'sı, arka plandan 1 dk sonra deneme bildirimi): Ayarlar anahtarı → sistem izni → bildirim geldi; kullanıcı isteğiyle renkli uygulama simgesi bildirimin sağında (büyük simge icon_1 = `Art/notify-large.png`, Android'de `AndroidNotification`), küçük simge turkuaz. Denenmedi: iOS izni/derlemesi, cihazda ilk kalp bitişindeki kart (editör testi var). Deneme APK'sı kaldırıldı, Play sürümü geri yüklenecek. Mağazadaki sürümlerde yok.
 
 - **2026-11-13: Android'de "Kayıt yapılamadı" (kullanıcı: kayıt olup uygulamayı silip yeniden yükleyince "Kaydet" ve "Sıralama için kayıt ol" hata veriyor; ilerleme geri gelmiyor).** Kodda bulut geri yükleme girişe bağlı (CloudCheck); hata Play Games girişinin kendisinin başarısız olmasından (`SignInStatus != Success`). Play Console: PGS projesi "Yayınlandı", iki Android kimlik bilgisi (yükleme + Play imza SHA-1) "Yayınlandı", paket `com.ofigame.stoneburst` eşleşiyor → yapılandırmada hata bulunamadı. Telefon bağlı değil, logcat okunamadı. Yapılan: giriş hatasında Play Games durum kodu bildirime eklendi ("Kayıt yapılamadı (Canceled)" gibi) ve `[KatKat] Play Games girişi başarısız` log satırı. **Sebep bulundu (telefon USB ile bağlandı, Redmi Note 9S):** telefondaki kopya Play'den değil APK'dan kurulmuştu (`installerPackageName=com.google.android.packageinstaller`) ve **"Android Debug" anahtarıyla imzalıydı** (SHA-1 54:1A:85:…), Play Games bu anahtarı tanımadığı için giriş reddediliyordu. Kullanıcı onayıyla kaldırıldı, Play Store'dan yeniden yüklendi (yükleyici `com.android.vending`): logcat'te giriş, Play Games kayıtlı oyun okuma ve yazma başarılı; **kullanıcı: ilerleme geri geldi** (yeniden yüklemeden sonra bulut geri yükleme cihazda doğrulandı). Aynı kayıtta ayrı bir hata: `ImmersiveMode` UI runnable'ı `using` ile atılmış etkinliği kullanıyordu → her uygulamada NullReferenceException; runnable kendi etkinliğini alacak şekilde düzeltildi (yalnız Android derlemesinde derlenir; cihazda denenmedi).

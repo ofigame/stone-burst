@@ -157,3 +157,12 @@ Eski ayrıntılı karar günlüğü arşivde (`KatKat_Arsiv_2026-11-06/docs/KARA
   - Kurallar (`NotifyPlan`): sessiz saatler 22:00–09:00 (kayar 09:00'a); kalpler dolunca (5 dk'dan yakınsa yok); günlük bulmaca 18:00 (bugünkü kazanıldıysa ya da saat geçtiyse yarın); 3. ve 7. gün 18:00 "seni özledik" (sonra durur); günlük bildirime 2 saatten yakın kalp bildirimi düşer.
   - İzin: ilk kalp bitişinde bir kez oyun içi kart ("Haber verelim mi?") → "Evet" → sistem izni (Android 13+ / iOS). iOS açılışta izin istemez. Ayarlar'da "Bildirimler" anahtarı (açınca izin istenir).
   - Android: küçük simge `Art/notify-small.png` (icon_0), yeniden başlatmada yeniden planlama; tam zamanlı alarm izni YOK (Play politikası; yaklaşık zamanlama).
+
+- **2026-11-13 — Canlı maç prototipi** (kullanıcı: `docs/vr1/CLAUDE_CANLI_MAC.md` belgesi, "burada yapalım"; sonuç `docs/vr1/canli_mac/SONUC_RAPORU.md`).
+  - Ana bulmacadan ayrı mod. Motor `Scripts/Core/Live/` (Unity'siz). Ana oyunun zincir çözümü (`RulesEngine`) değişmedi.
+  - Kesin kurallar kodda sabit: iki katman, zincir yok, kenardan bağlı en az 3, 4 renk, rakipte yalnız renk değişir.
+  - Prototip varsayımları `LiveRules`'ta, standart değil: 6×6, 8 taşlık aynı el (yenilemesiz), oyuncu başına 8 tur, yasal hamle yoksa pas. Dokunarak patlatma deneme ayarı, varsayılan kapalı. Rakipte hedefte 3'lü kuran saldırı geçersiz.
+  - Havuz: `Resources/Live/live_pool_v1.txt`, üretim sürümü 1, tohum 20261113. Elle düzenlenmez; `tools/unity.ps1 live-report` ile yeniden üretilir.
+  - Eşdeğer kopyalar (renk adı, aynalama, döndürme; alt katman ve el dahil) kanonik anahtarla ayıklanır.
+  - Ekran yalnız geliştirici girişi (Kat Kat → Canlı maç → Prototipi oyna). Mağaza derlemesine girmez, metinleri yalnız Türkçe.
+  - Açık ürün kararları: el boyu, yenileme, tur, süre, rakip elinin görünürlüğü, dokunarak patlatma, eşitlik bozma, ağlı sürüm kuralları.

@@ -186,6 +186,7 @@ Bölümler `LevelLab rebuild` (v7) ile üretildi. Zorluk hamle kıtlığından d
 | `tools/LevelLab` | Bölüm aracı: `build`, `report`, `rebuild` (şekil + zorluk + çözüm), `stress` (bütün bölümlere bot oyunları + değişmez denetimi). |
 | `tools/ArtV6/prepare.ps1` | `docs/gorseller` kaynaklarını oyuna hazırlar (atlas, kırpma, harita şeridi + yol çizgisi). |
 | `tools/unity.ps1` | Unity komutları: `test-edit`, `test-play`, `build-android`, `build-windows`, yakalamalar. |
+| `Scripts/Core/Live/`, `UI/LiveMatchScreen.cs` | Canlı maç prototipi (iki oyuncu, sırayla, ayrı mod): motor, doğrulanmış tahta havuzu (`Resources/Live/live_pool_v1.txt`), botlar, tek cihaz ekranı. Ayrıntı `docs/vr1/canli_mac/SONUC_RAPORU.md`. |
 | `docs/gorseller/` | Kullanılan görsellerin kaynakları (bkz. `docs/gorseller/README.md`). |
 
 ## 9. Sık işler
@@ -197,6 +198,8 @@ Testler:                   cd tools/CoreTests ; dotnet test      ve   tools/unit
 Bölüm sınaması:            cd tools/LevelLab ; dotnet run -c Release -- stress 60
 APK:                       tools/unity.ps1 build-android   → Builds/Android/KatKat.apk
 Exe:                       tools/unity.ps1 build-windows   → Builds/Windows/KatKat.exe
+Canlı maç havuz + ölçüm:   tools/unity.ps1 live-report     → docs/vr1/canli_mac/OLCUM_RAPORU.md
+Canlı maç ekranları:       tools/unity.ps1 live-capture    (editörde: Kat Kat → Canlı maç → Prototipi oyna)
 ```
 
 Android derlemesinde görseller ASTC ile sıkıştırılır (`BuildScripts.ApplyTextureBudget`), ikon katmanları ve tam ekran (sanal tuşlar gizli, kaydırınca geçici) uygulanır.
