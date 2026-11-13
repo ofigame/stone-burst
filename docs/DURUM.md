@@ -36,8 +36,8 @@ Son güncelleme: 2026-11-13. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
     - 150'şer dizilimlik iki havuz: 6×6 oyunda, 5×5 docs'ta.
     - Ayna oyun kırıldı: Dengeli beraberlik %50 → %16 (6×6), %55 → %18 (5×5).
     - Varsayılan eşitlik kuralıyla 6×6'da %48 / %52; saldırı payı %4 → %9.
-    - Önerilen birleşim: 6×6 + farklı el + varsayılan eşitlik. Varsayılan yapılmadı, karar bekliyor.
-    - Testler: EditMode 259/261 (2 eski atlanan; 3 yeni), `LiveMatchScreenTests` 1/1. Yakalama `ekranlar/08_farkli_eller.png`.
+    - **Varsayılan yapıldı** (kullanıcı: "Evet, varsayılan yap"): prototip 6×6 + farklı el + varsayılan eşitlik kuralıyla açılır; aynı eller "El" düğmesiyle.
+    - Testler: EditMode 260/262 (2 eski atlanan; 4 yeni), `LiveMatchScreenTests` 1/1. Ekranlar 01–07 farklı elle, `08_ayni_eller.png` karşılaştırma.
   - Denenmedi: insanlarla oyun, telefon (cihaz derlemesi yok), ağlı sürüm.
   - Ayrı not: `tools/CoreTests` (dotnet test) bu değişiklikten önce de derlenmiyordu (`AppGalleryBuildTests.cs` editör koduna başvuruyor); Unity EditMode koşusu geçerli.
 

@@ -31,9 +31,9 @@ namespace KatKat.Core.Live
         /// <summary>
         /// Farklı ama denk eller (kullanıcı 2026-11-13; ayna oyunu kırmak için). Açıkken iki oyuncunun eli aynı renk
         /// sayı profilinde ama renkleri farklı (renk değişimi), açılış değeri eşit (<see cref="LiveGenerator.Validate"/>). Belgedeki
-        /// "aynı ilk el" kuralını değiştirir; deneme ayarı.
+        /// "aynı ilk el" kuralını değiştirir. Varsayılan açık (kullanıcı 2026-11-13: "Evet, varsayılan yap"; bot ölçümünde beraberlik %50 → %16).
         /// </summary>
-        public bool DifferentHands;
+        public bool DifferentHands = true;
 
         public LiveRules Clone() => (LiveRules)MemberwiseClone();
 

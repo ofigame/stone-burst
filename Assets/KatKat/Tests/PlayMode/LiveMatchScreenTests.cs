@@ -27,6 +27,7 @@ namespace KatKat.Tests
             yield return null;
             var m = screen.Match;
             Assert.IsNotNull(m, "havuz yüklenmeli ve maç başlamalı");
+            Assert.IsTrue(m.Layout.DifferentHands, "varsayılan: farklı ama denk eller");
             Assert.AreEqual(0, m.Current);
 
             var opp = LiveMoves.Opportunities(m.Boards[0], m.Hands[0])[0];

@@ -31,8 +31,8 @@ namespace KatKat.EditorTools
             var rules = new LiveRules();
             poolPath = PoolPath;
             reportPath = ReportPath;
-            // Farklı ama denk eller (kullanıcı 2026-11-13): KATKAT_LIVE_HANDS=diff. 6×6 havuzu oyuna girer (ekrandaki "El" düğmesi).
-            bool diff = Environment.GetEnvironmentVariable("KATKAT_LIVE_HANDS") == "diff";
+            // Farklı ama denk eller varsayılan (kullanıcı 2026-11-13). Aynı eller için KATKAT_LIVE_HANDS=same; iki 6×6 havuzu da oyuna girer (ekrandaki "El" düğmesi).
+            bool diff = Environment.GetEnvironmentVariable("KATKAT_LIVE_HANDS") != "same";
             rules.DifferentHands = diff;
             if (diff)
             {
@@ -228,9 +228,9 @@ namespace KatKat.EditorTools
                 while (!screen.Match.IsOver) screen.Match.Submit(LiveBots.Choose(screen.Match, LiveBotKind.Balanced, rng));
                 Shot("07_mac_sonu");
                 screen.Rules.TapReadyGroups = false;
-                // Farklı ama denk eller (havuz Resources'ta varsa).
+                // Aynı eller (varsayılan farklı ama denk olduğundan düğmeyle karşılaştırma görüntüsü).
                 screen.ToggleHands();
-                if (screen.Match != null && screen.Match.Layout.DifferentHands) Shot("08_farkli_eller");
+                if (screen.Match != null && !screen.Match.Layout.DifferentHands) Shot("08_ayni_eller");
                 screen.ToggleHands();
                 Debug.Log("[KatKat] Canlı maç ekranları → " + ShotDir);
             }

@@ -162,13 +162,13 @@ Eski ayrıntılı karar günlüğü arşivde (`KatKat_Arsiv_2026-11-06/docs/KARA
   - Ana bulmacadan ayrı mod. Motor `Scripts/Core/Live/` (Unity'siz). Ana oyunun zincir çözümü (`RulesEngine`) değişmedi.
   - Kesin kurallar kodda sabit: iki katman, zincir yok, kenardan bağlı en az 3, 4 renk, rakipte yalnız renk değişir.
   - Prototip varsayımları `LiveRules`'ta, standart değil: 6×6, 8 taşlık aynı el (yenilemesiz), oyuncu başına 8 tur, yasal hamle yoksa pas. Dokunarak patlatma deneme ayarı, varsayılan kapalı. Rakipte hedefte 3'lü kuran saldırı geçersiz.
-  - Havuz: `Resources/Live/live_pool_v1.txt`, üretim sürümü 1, tohum 20261113. Elle düzenlenmez; `tools/unity.ps1 live-report` ile yeniden üretilir.
+  - Havuz: `Resources/Live/live_pool_v1.txt` (aynı eller), üretim sürümü 1, tohum 20261113. Elle düzenlenmez; `KATKAT_LIVE_HANDS=same` ile `tools/unity.ps1 live-report` yeniden üretir (ortam değişkensiz koşu varsayılan farklı el havuzunu üretir).
   - Eşdeğer kopyalar (renk adı, aynalama, döndürme; alt katman ve el dahil) kanonik anahtarla ayıklanır.
   - Ekran yalnız geliştirici girişi (Kat Kat → Canlı maç → Prototipi oyna). Mağaza derlemesine girmez, metinleri yalnız Türkçe.
   - Açık ürün kararları: el boyu, yenileme, tur, süre, rakip elinin görünürlüğü, dokunarak patlatma, eşitlik bozma, ağlı sürüm kuralları.
   - Eşitlik bozma (kullanıcı: "Eşitlik bozma ekle"): `LiveRules.TieBreak`, prototip varsayılanı "en büyük tek grup, o da eşitse ikinci oynayan". Ölçüm: en büyük grup beraberliği az çözüyor (%50 → %49); ikinci oynayan kuralı beraberliği bitiriyor ama ikinciye %73–77 kazandırıyor. Kesin kural değil; açık ürün kararı.
-  - Farklı ama denk eller (kullanıcı: "Farklı ama denk eller"): `LiveRules.DifferentHands` deneme ayarı (ekranda "El" düğmesi), varsayılan kapalı. Belgedeki "aynı ilk el" kuralını değiştirir.
+  - Farklı ama denk eller (kullanıcı: "Farklı ama denk eller"): `LiveRules.DifferentHands` (ekranda "El" düğmesi). 2026-11-13 kullanıcı: "Evet, varsayılan yap" → **varsayılan açık**; belgedeki "aynı ilk el" kuralının yerini alır. Aynı eller düğmeyle ya da `KATKAT_LIVE_HANDS=same` ile ölçümde.
     - Denklik: ikinci el birincinin renk değişimi, renk kümesi farklı, en iyi hemen puan eşit, fırsat sayısı ±%15. Filtreler iki el için ayrı, saldırı denetimi iki yönde.
     - Havuzlar sürüm 2 (`LM2`): 6×6 `Resources/Live/live_pool_diffhands_v2.txt`, 5×5 `docs/vr1/canli_mac/havuz_5x5_farkli_el_v2.txt`.
     - Ölçüm: beraberlik %50 → %16 (Dengeli, 6×6). Varsayılan eşitlik kuralıyla %48 / %52.
-    - Bot verisine göre en dengeli birleşim: 6×6 + farklı el + varsayılan eşitlik kuralı. İnsanlarla denenmedi; varsayılan yapılmadı.
+    - Bot verisine göre en dengeli birleşim: 6×6 + farklı el + varsayılan eşitlik kuralı. İnsanlarla denenmedi; prototipin varsayılanı bu.

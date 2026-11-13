@@ -71,7 +71,7 @@ namespace KatKat.UI
         }
 
         /// <summary>Havuzu Resources'tan yükler: aynı eller Live/live_pool_v1, farklı ama denk eller Live/live_pool_diffhands_v2.</summary>
-        public static List<LiveLayout> LoadPool(bool differentHands = false)
+        public static List<LiveLayout> LoadPool(bool differentHands = true)
         {
             var ta = Resources.Load<TextAsset>(differentHands ? "Live/live_pool_diffhands_v2" : "Live/live_pool_v1");
             return ta != null ? LiveLayout.ParsePool(ta.text) : new List<LiveLayout>();

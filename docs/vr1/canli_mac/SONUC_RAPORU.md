@@ -122,7 +122,7 @@ Bu bulgular kuralları değiştirmedi. Denenebilecek yönler (karar sizin):
 - El küçültülebilir ya da renk sayısı azaltılabilir. Böylece fırsat sayısı düşer, saldırı ağırlık kazanır.
 - Filtre 3 sıkılaştırılabilir. Örneğin "savunanın en iyi hamlesi en fazla N katman düşebilir" ya da "en az 2 fırsat kalır" yerine üst sınır konabilir.
 
-Hepsi `LiveRules` ve `LiveGenerator` üzerinden denenebilir; `tools/unity.ps1 live-report` aynı tabloları yeniden üretir (yaklaşık 5 dakika).
+Hepsi `LiveRules` ve `LiveGenerator` üzerinden denenebilir; `KATKAT_LIVE_HANDS=same` ile `tools/unity.ps1 live-report` aynı tabloları yeniden üretir (yaklaşık 5 dakika).
 
 ## Denenmeyenler ve açık kararlar
 
@@ -139,7 +139,7 @@ Hepsi `LiveRules` ve `LiveGenerator` üzerinden denenebilir; `tools/unity.ps1 li
 
 - Diğer bütün ayarlar aynı: 8 taşlık el, 8 tur, 4 renk, aynı filtreler, aynı botlar ve tohumlar.
 - Havuz ayrı tutuldu: `havuz_5x5_v1.txt`, oyuna girmez. Tablolar [OLCUM_RAPORU_5x5.md](OLCUM_RAPORU_5x5.md) dosyasında.
-- Yeniden üretmek için `KATKAT_LIVE_SIZE=5` ortam değişkeniyle `tools/unity.ps1 live-report`.
+- Yeniden üretmek için `KATKAT_LIVE_HANDS=same` ve `KATKAT_LIVE_SIZE=5` ortam değişkenleriyle `tools/unity.ps1 live-report`.
 - Varsayılan prototip hâlâ 6×6.
 
 Aşağıdaki satırlarda dokunarak patlatma kapalı.
@@ -227,11 +227,11 @@ Amaç ayna oyunu kırmak. Belgedeki "ilk el iki tarafta aynı" kuralını deği�
 - **Filtreler her el için ayrı:** saldırı denetimi iki yönde yapılır. P1'in her açılış saldırısından sonra P2'nin puan hamlesi kalır, tersi de geçerli.
 
 **Havuzlar:**
-- 6×6: `Resources/Live/live_pool_diffhands_v2.txt` (oyunda seçilebilir).
+- 6×6: `Resources/Live/live_pool_diffhands_v2.txt` (prototipin varsayılanı).
 - 5×5: `docs/vr1/canli_mac/havuz_5x5_farkli_el_v2.txt`.
 - Üretim sürümü 2, kimlik öneki `LM2`. İki havuzda da 150 dizilim.
 - Sonuçta fırsat sayısı farkı her dizilimde 0 çıktı: eller açılışta tam denk.
-- Üretmek için: `KATKAT_LIVE_HANDS=diff` (ve 5×5 için ek olarak `KATKAT_LIVE_SIZE=5`) ile `tools/unity.ps1 live-report`.
+- Üretmek için: `tools/unity.ps1 live-report` (5×5 için `KATKAT_LIVE_SIZE=5`). Aynı el havuzu ve raporu için `KATKAT_LIVE_HANDS=same`.
 - Tablolar: [OLCUM_RAPORU_farkli_el.md](OLCUM_RAPORU_farkli_el.md), [OLCUM_RAPORU_farkli_el_5x5.md](OLCUM_RAPORU_farkli_el_5x5.md).
 
 Aşağıdaki tablolarda dokunarak patlatma kapalı. Hücrelerdeki biçim: ilk oynayan kazanır % / ikinci kazanır % / berabere %.
@@ -280,6 +280,6 @@ Bot verisine göre en dengeli birleşim:
 - Farklı ama denk eller.
 - Eşitlik bozma "en büyük tek grup, o da eşitse ikinci oynayan".
 
-Dengeli bot bu birleşimde %48 / %52 dağılıyor, beraberlik kalmıyor, saldırı hamlelerin yaklaşık %9'u. Bunu insanlarla denemek gerekiyor. Ekranda "El: Farklı" düğmesiyle açılır, 6×6'dır.
+Dengeli bot bu birleşimde %48 / %52 dağılıyor, beraberlik kalmıyor, saldırı hamlelerin yaklaşık %9'u. Bunu insanlarla denemek gerekiyor.
 
-Prototip varsayılanını değiştirmedim; hâlâ aynı el. İstersen varsayılanı "farklı el" yaparım.
+**Varsayılan yapıldı** (kullanıcı 2026-11-13: "Evet, varsayılan yap"): prototip artık bu birleşimle açılır. "El: Aynı" düğmesi eski kurala döner. Ekranlar 01–07 farklı elle, `ekranlar/08_ayni_eller.png` aynı elle.
