@@ -1,4 +1,4 @@
-# App Review — 4.3(a) yanıtı ve yeniden gönderim notu (taslak)
+# App Review — 4.3(a) yanıtı ve yeniden gönderim notu (gönderildi 2026-11-14)
 
 Tarih: 2026-11-13. Ret: Stone Burst iOS 1.0 (1.0.0, yapı 12), Guideline 4.3(a) Design – Spam (DURUM.md). Claude yazdı; **gönderimi kullanıcı yapar**. İçerik koddan ve OYUN.md'den doğrulandı. "Extended Review" uyarısı nedeniyle tek, eksiksiz bir gönderim hedefleniyor.
 
@@ -40,7 +40,7 @@ The fastest way to see the difference: open Map > Daily (usually a rule puzzle),
 We are happy to provide more details if helpful.
 
 Best regards,
-[Ad Soyad / Ofigame]
+The Ofigame team
 ```
 
 ## (B) App Review Notes (yeni yapı için)
