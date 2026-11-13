@@ -71,13 +71,17 @@ namespace KatKat.Game
 
         private string TestTag => Account.IsTest ? " (test)" : "";
 
+        /// <summary>"Kayıt yapılamadı" + varsa hizmetin hata kodu (kullanıcı 2026-11-13: Android'de sebebi görebilmek için).</summary>
+        private static string SignInFailText =>
+            Loc.T("acct.signin.fail") + (string.IsNullOrEmpty(AccountDiagnostics.LastSignInError) ? "" : " (" + AccountDiagnostics.LastSignInError + ")");
+
         private void SaveProgressToCloud()
         {
             AccountDeletedByPlayer = false; // oyuncu hesabı kendisi istedi
             if (Account.State == AccountState.SignedIn) { CloudCheck(DoCloudSave); return; }
             Account.SignIn(false, ok =>
             {
-                if (!ok) { _menu.ShowToast(Loc.T("acct.signin.fail")); return; }
+                if (!ok) { _menu.ShowToast(SignInFailText); return; }
                 CloudCheck(DoCloudSave);
             });
         }
@@ -101,7 +105,7 @@ namespace KatKat.Game
             AccountDeletedByPlayer = false;
             Account.SignIn(false, ok =>
             {
-                if (!ok) { _menu.ShowToast(Loc.T("acct.signin.fail")); return; }
+                if (!ok) { _menu.ShowToast(SignInFailText); return; }
                 _menu.ShowToast(Loc.F("acct.signed", Account.PlayerName));
                 if (_menu.IsRankShown) ShowRanking(_rankScope);
                 CloudCheck(null);

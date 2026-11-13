@@ -33,7 +33,14 @@ namespace KatKat.Game.Online
             State = AccountState.SigningIn;
             Action<SignInStatus> onStatus = status =>
             {
-                if (status != SignInStatus.Success) { State = AccountState.SignedOut; done?.Invoke(false); return; }
+                if (status != SignInStatus.Success)
+                {
+                    // Kullanıcı (2026-11-13): yeniden yüklemeden sonra "Kayıt yapılamadı" — sebep cihazda görünsün/logcat'e düşsün.
+                    UnityEngine.Debug.LogWarning($"[KatKat] Play Games girişi başarısız: {status} (sessiz={silent})");
+                    AccountDiagnostics.LastSignInError = status.ToString();
+                    State = AccountState.SignedOut; done?.Invoke(false); return;
+                }
+                AccountDiagnostics.LastSignInError = null;
                 PlayerName = PlayGamesPlatform.Instance.GetUserDisplayName();
                 PlayerId = PlayGamesPlatform.Instance.GetUserId();
                 LinkFirebase(ok =>

@@ -5,6 +5,12 @@ namespace KatKat.Game
 {
     public enum AccountState { SignedOut, SigningIn, SignedIn }
 
+    /// <summary>Son giriş hatasının kısa kodu (ör. Play Games "Canceled"/"InternalError"); bildirimde parantez içinde gösterilir.</summary>
+    public static class AccountDiagnostics
+    {
+        public static string LastSignInError;
+    }
+
     /// <summary>
     /// Oyuncu hesabı (kullanıcı, 2026-11-08: "sıralamanın oluşabilmesi için kullanıcı kayıtları"; plan
     /// docs/v13/KAYIT_PLANI.md). Android'de hedef Google Play Games (v2: açılışta otomatik giriş, ad ve kimlik Play'den,

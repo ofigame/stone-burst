@@ -365,6 +365,9 @@ namespace KatKat.UI
             _rankList = content;
 
             var r = m.Result;
+            // Kullanıcı (2026-11-13): "kayıt ol butonunu liste alanının içine ortasına koyalım, zaten kayıt olmadan sıralama
+            // göremiyor": giriş yoksa liste alanında açıklama + büyük birincil düğme.
+            if (AccountsOn && NeedsSignIn != null && NeedsSignIn()) { ListSignIn(viewport); return; }
             if (m.Loading) { ListMessage(viewport, Loc.T("rank.loading"), false); return; }
             if (r == null || r.Status == LeaderboardStatus.Error) { ListMessage(viewport, Loc.T("rank.error"), true); return; }
             if (r.Status == LeaderboardStatus.NotConnected) { ListMessage(viewport, Loc.T("rank.offline"), true); return; }
@@ -402,6 +405,16 @@ namespace KatKat.UI
             UiFactory.Stretch(bt.rectTransform, 30f, 30f, 0f, 4f);
             FitText(bt, 24);
             PressFeedback.Attach(b, null, 80f, 120f);
+        }
+
+        /// <summary>Giriş yokken liste alanı: ortada açıklama ve "Sıralama için kayıt ol" birincil düğmesi.</summary>
+        private void ListSignIn(RectTransform viewport)
+        {
+            var t = UiFactory.Text("Message", viewport, Loc.T("rank.signin.info"), 34, RankInk2, TextAnchor.MiddleCenter, FontStyle.Normal);
+            t.raycastTarget = false;
+            UiFactory.Place(t.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 70f), new Vector2(820f, 130f));
+            t.enableAutoSizing = true; t.fontSizeMin = 24; t.fontSizeMax = 34;
+            Ui1.Button("SignIn", viewport, Loc.T("acct.signin.rank"), true, new Vector2(0.5f, 0.5f), new Vector2(0f, -60f), new Vector2(760f, 104f), () => RankSignInPressed?.Invoke(), null, 40);
         }
 
         private void RankRow(RectTransform content, LeaderboardEntry e, int i)
@@ -535,20 +548,11 @@ namespace KatKat.UI
                 if (sc != null) sc.GetComponent<Text>().text = "—";
             }
 
-            // Kullanıcı (2026-11-11: "sıralama için kayıt ol yazısı hiç görünür bir yerde değil ve çok küçük, anlaşılır bir buton
-            // değil"): giriş yoksa ölçüt kapsülleri yerine kartın içinde büyük birincil düğme; altında dipnot (ilerleme) kalır.
-            bool signIn = AccountsOn && NeedsSignIn != null && NeedsSignIn();
-            if (signIn)
-            {
-                var sb = Ui1.Button("SignIn", card, Loc.T("acct.signin.rank"), true, new Vector2(0.5f, 0.5f), new Vector2(0f, -52f), new Vector2(860f, 74f), () => RankSignInPressed?.Invoke(), null, 38);
-                sb.transform.SetAsLastSibling();
-            }
-            else
-            {
-                Pill(card, new Vector2(-290f, -38f), $"ZPE {Num(self.Zpe)}", false);
-                Pill(card, new Vector2(0f, -38f), Loc.F("rank.level", Num(self.Level)), false);
-                Pill(card, new Vector2(290f, -38f), Num(self.Stars), true);
-            }
+            // Kayıt düğmesi 2026-11-13'ten beri liste alanının ortasında (ListSignIn); kartta her zaman ölçüt kapsülleri.
+            const bool signIn = false;
+            Pill(card, new Vector2(-290f, -38f), $"ZPE {Num(self.Zpe)}", false);
+            Pill(card, new Vector2(0f, -38f), Loc.F("rank.level", Num(self.Level)), false);
+            Pill(card, new Vector2(290f, -38f), Num(self.Stars), true);
             string foot = !eligible ? Loc.F("rank.need", m.Completed, m.MinLevels)
                 : rank <= 0 ? Loc.T("rank.notranked") : Loc.T("rank.formula");
             var ft = UiFactory.Text("Foot", card, foot, 26, RankInk2, TextAnchor.MiddleCenter, FontStyle.Normal); // ikincil: Nunito 600

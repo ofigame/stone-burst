@@ -23,6 +23,24 @@ namespace KatKat.Tests
             yield return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Game", UnityEngine.SceneManagement.LoadSceneMode.Single);
             yield return null;
             _gc = Object.FindAnyObjectByType<GameController>();
+            // Liste testleri girişli oyuncuyla (2026-11-13'ten beri girişsizken liste yerine kayıt düğmesi çıkar).
+            _gc.Menu.NeedsSignIn = () => false;
+        }
+
+        [UnityTest]
+        public IEnumerator SignedOut_ListShowsCenteredSignInButton_NoRows()
+        {
+            GameController.DevLeaderboardSample = true;
+            GameController.CountryOverride = "TR";
+            _gc.Menu.NeedsSignIn = () => true;
+            Progress(25);
+            _gc.ShowRanking();
+            yield return null;
+            Assert.IsNull(GameObject.Find("Row1"), "girişsizken satır yok");
+            var b = GameObject.Find("SignIn");
+            Assert.IsNotNull(b, "liste alanında kayıt düğmesi");
+            Assert.AreEqual("Viewport", b.transform.parent.name, "düğme liste alanında");
+            Assert.IsNotNull(Child("SelfCard", "Metric"), "kartta ölçüt kapsülleri kalır");
         }
 
         [UnityTearDown]
