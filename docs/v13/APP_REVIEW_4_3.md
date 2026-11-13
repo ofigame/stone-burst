@@ -31,13 +31,13 @@ What is unique to Stone Burst:
 
 Please note: levels 1-5 are short guided tutorials on small boards, so they look simpler than the game. The rule levels start at level 27, which a first session may not reach. The Daily tab is open from the start (the first entry is free, no ad); for a new player it is usually an Exact Moves rule puzzle with its rule card.
 
-Changes in this build [1.0.1 (yapı no)]:
+Changes in this build (1.0.0, build 14):
 - New screenshots and description that show these mechanics instead of a generic "match" pitch, and keywords without generic trending terms.
 - Removed a developer test scene from the app binary and rewrote a shared text utility, so the binary contains only Stone Burst code.
 
 The fastest way to see the difference: open Map > Daily (usually a rule puzzle), play level 2 (chain rule) and levels 6-9 (power stones), and long-press any stack to see its layers. Levels 21 and 22 introduce paperclips and color locks; level 27 is the first rule level and level 30 the first boss. The attached video (stone_burst_review.mp4, 55 s, recorded from the current build) shows layered stacks, the chain rule, the power stone tray, rule and boss levels and the daily puzzle; it ends with a still overview of the later rule levels.
 
-We are happy to provide a video or more details if helpful.
+We are happy to provide more details if helpful.
 
 Best regards,
 [Ad Soyad / Ofigame]
