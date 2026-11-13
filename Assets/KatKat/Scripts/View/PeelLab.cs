@@ -49,7 +49,7 @@ namespace KatKat.View
         public void Build(Camera cam)
         {
             _cam = cam;
-            CameraFit.Fit(_cam, DesignWidth, DesignHeight);
+            OrthoFit.Frame(_cam, new Vector2(DesignWidth, DesignHeight));
             float top = _cam.orthographicSize;
 
             _director = new GameObject("PeelDirector").AddComponent<PeelDirector>();
@@ -118,7 +118,7 @@ namespace KatKat.View
         private void Update()
         {
             if (_cam == null) return;
-            CameraFit.Fit(_cam, DesignWidth, DesignHeight);
+            OrthoFit.Frame(_cam, new Vector2(DesignWidth, DesignHeight));
 
             for (int i = 0; i < 4; i++)
             {

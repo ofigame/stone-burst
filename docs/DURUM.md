@@ -3,6 +3,16 @@
 Son güncelleme: 2026-11-13. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
 
 ## Şu an
+- **2026-11-13: App Store 1.0 (yapı 12) reddedildi — Guideline 4.3(a) Design: Spam** (Apple mesajı 2026-11-13 22:31; "benzer ikili/meta veri/konsept", "Extended Review" uyarısı: tekrar gönderimler uzun incelenir).
+  - Kullanıcı: Crate Boss yayınlanmadı, önemsiz; önemli olan foi (aynı hesap, "Waiting for Review"). Canlı mod şimdilik yok, plana girmez.
+  - foi (`E:\OFIGAME\SquashBot`) karşılaştırması: 526'ya 322 betikte yalnız 9 ad ortak, içerikler büyük ölçüde farklı; gerçek ortaklık yalnız `ArabicShaper` (ikisi de Crate Boss'tan uyarlama). Kod benzerliği reddin olası sebebi değil; tür kalabalığı ("3'lü dokun, katman soy") daha olası (tahmin, Apple belirtmiyor).
+  - Yapılanlar (kullanıcı: "ikisini de ekle, taramaya başla… ne gerekiyorsa hemen yapalım"):
+    - `UI/ArabicShaper.cs` sıfırdan yazıldı (bağlanma türü + sunum biçimi taban kodu; farklı öbek ayrıştırma). Eskisiyle 420 yerelleştirme metni + 20.000 rastgele metinde çıktı birebir aynı (dotnet karşılaştırma).
+    - `View/CameraFit.cs` → `View/OrthoFit.cs` (foi'dekiyle yalnız ad ortaktı; yalnız PeelLab kullanır).
+    - Oyuncu derlemesinden PeelLab geliştirici sahnesi çıkarıldı (`BuildScripts.DevOnlyScenes`; editör listesinde PlayMode testleri için kalır).
+  - Tarama bulguları: pilot girişi mağaza derlemesinde kapalı (`KATKAT_VR1PROTO` yok), deneme düğmesi kullanılmıyor, test reklam ekranı yalnız reklam ağı yoksa (iOS'ta AdMob var). İlk bölümler farklı mekanikleri erken tanıtıyor (2 zincir, 6 roket, 9 Altın Rulo, 21 ataş, 22 kilit); 1–5 küçük 4×4. `Resources/Pilot` ve `Resources/Live` dosyaları ikiliye giriyor ama oyunda görünmüyor.
+  - Testler: EditMode 260/262 (2 eski atlanan), `PeelLabTests` 2/2, loc-check temiz. iOS derlemesi alınmadı.
+  - Kalan: mağaza ekran görüntüleri/açıklaması ve App Review notu; yeni yapı (1.0.1) ve gönderim kullanıcıda.
 - **2026-11-13: Canlı maç prototipi (ayrı mod, yalnız geliştirici girişi)** (kullanıcı: `docs/vr1/CLAUDE_CANLI_MAC.md`, "burada yapalım"; rapor `docs/vr1/canli_mac/SONUC_RAPORU.md`, karar KARARLAR.md).
   - Yapılanlar:
     - Unity'siz motor `Scripts/Core/Live/`: iki katman, zincirsiz, kendi tahtada puan, rakipte yalnız renk.

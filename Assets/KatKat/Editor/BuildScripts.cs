@@ -13,6 +13,9 @@ namespace KatKat.EditorTools
     /// </summary>
     public static class BuildScripts
     {
+        /// <summary>Yalnız editörde/testte kullanılan sahneler; oyuncu derlemesine konmaz.</summary>
+        public static readonly string[] DevOnlyScenes = { ProjectSetup.PeelLabScene };
+
         [MenuItem("Kat Kat/Build/Android APK")]
         public static void BuildAndroid()
         {
@@ -320,7 +323,9 @@ namespace KatKat.EditorTools
             if (target == BuildTarget.iOS) ApplyIosTextureBudget();
             _beforeBuild?.Invoke(); // Play mağaza derlemesi: sürüm kodu, imza, AAB
             Directory.CreateDirectory(target == BuildTarget.iOS ? output : Path.GetDirectoryName(output));
-            var scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
+            // Geliştirici sahneleri (PeelLab soyulma laboratuvarı) oyuncu derlemesine girmez; editör listesinde PlayMode testleri için kalır
+            // (2026-11-13, App Store 4.3 reddi sonrası yayın derlemesi temizliği).
+            var scenes = EditorBuildSettings.scenes.Where(s => s.enabled && !DevOnlyScenes.Contains(s.path)).Select(s => s.path).ToArray();
             if (scenes.Length == 0) throw new InvalidOperationException("Build sahnesi yok; önce ProjectSetup.RunAll çalıştır.");
 
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
