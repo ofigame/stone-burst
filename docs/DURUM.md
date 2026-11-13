@@ -12,7 +12,11 @@ Son güncelleme: 2026-11-13. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
     - Oyuncu derlemesinden PeelLab geliştirici sahnesi çıkarıldı (`BuildScripts.DevOnlyScenes`; editör listesinde PlayMode testleri için kalır).
   - Tarama bulguları: pilot girişi mağaza derlemesinde kapalı (`KATKAT_VR1PROTO` yok), deneme düğmesi kullanılmıyor, test reklam ekranı yalnız reklam ağı yoksa (iOS'ta AdMob var). İlk bölümler farklı mekanikleri erken tanıtıyor (2 zincir, 6 roket, 9 Altın Rulo, 21 ataş, 22 kilit); 1–5 küçük 4×4. `Resources/Pilot` ve `Resources/Live` dosyaları ikiliye giriyor ama oyunda görünmüyor.
   - Testler: EditMode 260/262 (2 eski atlanan), `PeelLabTests` 2/2, loc-check temiz. iOS derlemesi alınmadı.
-  - Kalan: mağaza ekran görüntüleri/açıklaması ve App Review notu; yeni yapı (1.0.1) ve gönderim kullanıcıda.
+  - Mağaza ve inceleme hazırlığı (kullanıcı: "Evet, hazırla"):
+    - Yeni görsel seti `docs/magaza/fark/` (git dışında): sahne stili, 8 ekran (katman görünümü, zincir planı, Altın Rulo, buz/geçit 635, harita, günlük kural kartı, ZPE, 3B taş), 6 dil × iPhone 1206×2622 + iPad 2064×2752 = 96 görsel. Üretmek: `KATKAT_STORE_SET=fark tools/unity.ps1 capture-store`. Mağaza çekimlerinde pilot girişi gizlenir (önceki setlerde editörde görünüyordu). Japonca 6. başlıkta fontta olmayan 毎/変 yerine hiragana. Görsel olarak kontrol edildi.
+    - Metinler `docs/v13/MAGAZA_1_0_1_FARK.md`: 6 dilde Promotional Text, Description, Keywords; türün kalabalık anahtar kelimeleri (`match`, `blast`, `tiles`, `tap`) çıktı; "1000 bölüm" yok. Ana dili o dil olan biri kontrol etmedi.
+    - App Review: `docs/v13/APP_REVIEW_4_3.md` → (A) Resolution Center yanıtı, (B) yeni yapı için Notes. Gönderilmedi.
+  - Kalan (kullanıcı): yeni yapı 1.0.1 (bu commit'lerden sonra), App Store Connect'te metin ve görselleri değiştirme, yanıt ve yeniden gönderim.
 - **2026-11-13: Canlı maç prototipi (ayrı mod, yalnız geliştirici girişi)** (kullanıcı: `docs/vr1/CLAUDE_CANLI_MAC.md`, "burada yapalım"; rapor `docs/vr1/canli_mac/SONUC_RAPORU.md`, karar KARARLAR.md).
   - Yapılanlar:
     - Unity'siz motor `Scripts/Core/Live/`: iki katman, zincirsiz, kendi tahtada puan, rakipte yalnız renk.

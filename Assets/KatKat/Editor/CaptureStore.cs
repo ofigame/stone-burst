@@ -60,6 +60,10 @@ namespace KatKat.EditorTools
             // KATKAT_STORE_STYLE=sahne: eğik sahne + maskot + alt şerit (docs/magaza/sahne). KATKAT_STORE_RAW=1: ham çekim varsa yeniden çekme.
             bool scene = Environment.GetEnvironmentVariable("KATKAT_STORE_STYLE") == "sahne";
             bool reuseRaw = Environment.GetEnvironmentVariable("KATKAT_STORE_RAW") == "1";
+            // KATKAT_STORE_SET=fark (2026-11-13, App Store 4.3 reddi): oyunu türdeşlerinden ayıran 8 ekran, sahne stilinde
+            // → docs/magaza/fark/(cihaz)/(dil)/, ham çekim docs/magaza/ham_fark/.
+            bool fark = Environment.GetEnvironmentVariable("KATKAT_STORE_SET") == "fark";
+            if (fark) scene = true;
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var keepLang = Loc.Code;
             GameController.ToursOverride = false;
@@ -74,7 +78,7 @@ namespace KatKat.EditorTools
                     {
                         string lang = l.Trim();
                         Loc.Set(lang, false);
-                        string dir = "../magaza/ham/" + dev.Name + "/" + lang + "/";
+                        string dir = (fark ? "../magaza/ham_fark/" : "../magaza/ham/") + dev.Name + "/" + lang + "/";
                         string outDir = Path.Combine("docs", "magaza", dev.Name, lang);
                         Directory.CreateDirectory(Path.Combine(PeelCapture.OutDir, dir));
                         void Shot(int n, string name, int bg, Action<GameController> act)
@@ -91,18 +95,55 @@ namespace KatKat.EditorTools
                                     GameController.HeartClock = null;
                                     gc.SaveService.Data.meta.heartsMissing = 0;
                                     gc.SaveService.Data.meta.heartsStamp = 0;
+                                    // Mağaza derlemesinde pilot girişi yok (Vr1Proto.PilotAllowed yalnız editörde/denemede);
+                                    // editörde çekilen mağaza görselinde de görünmesin.
+                                    gc.Menu.PilotPressed = null;
                                     act(gc);
                                 });
                             }
                             finally { GameController.BackgroundOverride = null; }
                             if (scene)
                             {
-                                string sc = SceneCaptions.TryGetValue(lang, out var s2) ? s2[n - 1] : SceneCaptions["en"][n - 1];
-                                ComposeScene(rawPath, Path.Combine("docs", "magaza", "sahne", dev.Name, lang, file), dev, n, sc);
+                                var set = fark ? FarkCaptions : SceneCaptions;
+                                string sc = set.TryGetValue(lang, out var s2) ? s2[n - 1] : set["en"][n - 1];
+                                ComposeScene(rawPath, Path.Combine("docs", "magaza", fark ? "fark" : "sahne", dev.Name, lang, file), dev, n, sc);
                                 return;
                             }
                             string caption = Captions.TryGetValue(lang, out var c) ? c[n - 1] : Captions["en"][n - 1];
                             Compose(rawPath, Path.Combine(outDir, file), dev.W, dev.H, caption, dev.Pad);
+                        }
+                        if (fark)
+                        {
+                            // 1: katmanlı yığınlar + uzun basma katman görünümü (her taşın altında başka renk).
+                            Shot(1, "katman", 0, gc => { CaptureV13Pages.Progress(gc, 37); gc.StartLevel(37); gc.Hud.HideRuleCard(false); CaptureV13Pages.Peek(gc); });
+                            // 2: zincir planı: 60. bölüm, son hamle kala (onaylı sahne çekimi).
+                            Shot(2, "zincir", 1, gc =>
+                            {
+                                CaptureV13Pages.Progress(gc, 60); gc.StartLevel(60); gc.Hud.HideRuleCard(false);
+                                gc.Board.Director.TimeScale = 50f; var sol = gc.CurrentLevel.Solution;
+                                for (int i = 0; i < sol.Count - 1; i++) { gc.PlayStep(sol[i]); CaptureV13Pages.Drain(gc); }
+                                gc.Board.Director.TimeScale = 1f; for (float t = 0f; t < 4000f; t += 20f) gc.Board.Advance(20f);
+                                for (var p = GameObject.Find("Praise"); p != null; p = GameObject.Find("Praise")) UnityEngine.Object.DestroyImmediate(p);
+                            });
+                            // 3: Altın Rulo (özel taş tepside saklanır, istenince ateşlenir).
+                            Shot(3, "rulo", 2, gc => CaptureV13Pages.FireSpecial(gc, SpecialKind.Rainbow, 260f));
+                            // 4: engeller: buzlu taşlar, buzlu koleksiyon taşı ve açılacak geçit (dizin 635).
+                            int engel = int.Parse(Environment.GetEnvironmentVariable("KATKAT_STORE_ENGEL") ?? "635");
+                            Shot(4, "engel", 3, gc => { CaptureV13Pages.Progress(gc, engel); gc.StartLevel(engel); gc.Hud.HideRuleCard(false); });
+                            // 5: harita (bölgeler).
+                            Shot(5, "harita", 0, gc => { CaptureV13Pages.Progress(gc, 42); gc.ShowLevels(); });
+                            // 6: günlük kurallı bulmaca (kural kartı açık).
+                            Shot(6, "gunluk", 4, gc => { CaptureV13Pages.Progress(gc, 42); CaptureV13Pages.Own(gc); gc.ShowDaily(); gc.PressDailyEnterForTest(); gc.StartDaily(); });
+                            // 7: ZPE beceri puanı (oyuncunun kendi istatistiği).
+                            Shot(7, "zpe", 0, gc => { CaptureV13Pages.Progress(gc, 42); gc.ShowLevels(); gc.ShowZpeStats(); });
+                            // 8: 3B taş vitrini.
+                            Shot(8, "vitrin", 0, gc =>
+                            {
+                                CaptureV13Pages.Progress(gc, 42); CaptureV13Pages.Own(gc);
+                                gc.SaveService.Data.meta.stones.Add("stone_ocean");
+                                gc.ShowCollection(); gc.ShowStone("stone_ocean", true); gc.Showcase.Advance(1500f);
+                            });
+                            continue;
                         }
                         // 1: oyun ekranı (renkli kalabalık tahta).
                         // Kullanıcı (2026-11-12): "tahtalardan biri neredeyse tamamen kırılmış olsun" → 60. bölüm, çözümün son adımı kala.
@@ -276,6 +317,20 @@ namespace KatKat.EditorTools
             ["es"] = new[] { "¡CUMPLE EL OBJETIVO!", "PLANEA TU PRÓXIMO MOVIMIENTO", "DESCUBRE NUEVOS PUZLES", "PIENSA Y GANA\n3 ESTRELLAS", "¡PELA LAS CAPAS!", "COLECCIONA PIEDRAS" },
             ["ar"] = new[] { "أكمل المهمة", "خطّط لحركتك التالية", "اكتشف ألغازا جديدة", "العب بذكاء واربح 3 نجوم", "قشّر الطبقات", "اجمع الأحجار" },
             ["ja"] = new[] { "ゴールを達成しよう", "次の一手を考えよう", "新しいパズルを発見", "かしこく解いて星3つ", "レイヤーをはがそう", "石をコレクション" },
+        };
+
+        /// <summary>
+        /// "fark" seti başlıkları (2026-11-13, App Store 4.3): oyunu türdeşlerinden ayıran özellikler; "1000 bölüm" yok.
+        /// Sıra: katman, zincir, Altın Rulo, engeller, harita, günlük kural, ZPE, 3B taş. Ana dili o dil olan biri kontrol etmedi.
+        /// </summary>
+        private static readonly Dictionary<string, string[]> FarkCaptions = new Dictionary<string, string[]>
+        {
+            ["tr"] = new[] { "HER TAŞIN ALTINDA\nBAŞKA BİR RENK", "ZİNCİRLEME\nPATLAMALARI PLANLA", "ALTIN RULO\nBİR RENGİ SİLER", "BUZU KIR,\nYENİ YOLLAR AÇ", "BÖLGEDEN BÖLGEYE\nİLERLE", "HER GÜN YENİ KURALLI\nBİR BULMACA", "BECERİ PUANINI\nYÜKSELT", "3B TAŞLARI\nKOLEKSİYONUNA KAT" },
+            ["en"] = new[] { "EVERY STONE HIDES\nANOTHER COLOR", "PLAN YOUR\nCHAIN REACTIONS", "THE GOLDEN ROLL\nCLEARS A COLOR", "BREAK THE ICE,\nOPEN NEW PATHS", "JOURNEY FROM\nREGION TO REGION", "A DAILY PUZZLE\nWITH NEW RULES", "RAISE YOUR\nSKILL SCORE", "COLLECT\n3D STONES" },
+            ["de"] = new[] { "UNTER JEDEM STEIN\nEINE ANDERE FARBE", "PLANE DEINE\nKETTENREAKTIONEN", "DIE GOLDROLLE\nRÄUMT EINE FARBE AB", "BRICH DAS EIS,\nÖFFNE NEUE WEGE", "REISE VON\nREGION ZU REGION", "TÄGLICH EIN RÄTSEL\nMIT NEUEN REGELN", "STEIGERE DEINEN\nKÖNNENSWERT", "SAMMLE\n3D-STEINE" },
+            ["es"] = new[] { "CADA PIEDRA ESCONDE\nOTRO COLOR", "PLANEA TUS\nREACCIONES EN CADENA", "EL ROLLO DORADO\nBORRA UN COLOR", "ROMPE EL HIELO,\nABRE NUEVOS CAMINOS", "VIAJA DE\nREGIÓN EN REGIÓN", "UN PUZLE DIARIO\nCON REGLAS NUEVAS", "SUBE TU\nPUNTUACIÓN DE HABILIDAD", "COLECCIONA\nPIEDRAS 3D" },
+            ["ar"] = new[] { "تحت كل حجر\nلون آخر", "خطّط لسلسلة\nالانفجارات", "اللفافة الذهبية\nتمحو لونا كاملا", "اكسر الجليد\nوافتح طرقا جديدة", "تنقّل من\nمنطقة إلى أخرى", "لغز يومي\nبقواعد جديدة", "ارفع\nنقاط مهارتك", "اجمع\nأحجارا ثلاثية الأبعاد" },
+            ["ja"] = new[] { "石の下には別の色", "連鎖を計画しよう", "ゴールドロールで1色消し", "氷を割って新しい道へ", "地域から地域へ旅しよう", "まいにち新しいルールのパズル", "スキルスコアを上げよう", "3Dの石をコレクション" },
         };
 
         /// <summary>Ham çekimde (telefon yerleşimi) kahraman bölge, normalize, üstten: x0, y0, x1, y1.</summary>

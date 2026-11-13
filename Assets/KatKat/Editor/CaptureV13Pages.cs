@@ -264,7 +264,7 @@ namespace KatKat.EditorTools
         }
 
         /// <summary>En çok katmanlı yığına uzun basma görünümü.</summary>
-        private static void Peek(GameController gc)
+        internal static void Peek(GameController gc)
         {
             var b = gc.Session.State.Board;
             int bx = 0, by = 0, best = -1;
