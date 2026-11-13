@@ -179,7 +179,14 @@ namespace KatKat.Core.Live
                     if (GroupFinder.Component(board, board.X(i), board.Y(i)).Count < LiveRules.MinGroup) break;
                 }
                 l.Top[i] = board[i].Top;
-                l.Bottom[i] = (LayerColor)rng.Range(LiveRules.ColorCount);
+                if (rules.BottomDiffersFromTop)
+                {
+                    // Üstten farklı üç renkten biri (eşit olasılık).
+                    int b = rng.Range(LiveRules.ColorCount - 1);
+                    if (b >= (int)l.Top[i]) b++;
+                    l.Bottom[i] = (LayerColor)b;
+                }
+                else l.Bottom[i] = (LayerColor)rng.Range(LiveRules.ColorCount);
             }
             l.Hand = new LayerColor[rules.HandSize];
             for (int k = 0; k < rules.HandSize; k++) l.Hand[k] = (LayerColor)rng.Range(LiveRules.ColorCount);
@@ -188,11 +195,15 @@ namespace KatKat.Core.Live
                 l.GenVersion = VersionDifferentHands;
                 l.Hand2 = PickSecondHand(l, rules, rng);
             }
+            if (rules.BottomDiffersFromTop) l.GenVersion = VersionBottomDiffers;
             return l;
         }
 
         /// <summary>Farklı ama denk eller havuzunun üretim sürümü (kimlik öneki LM2).</summary>
         public const int VersionDifferentHands = 2;
+
+        /// <summary>Alt katman üstten farklı (kullanıcı 2026-11-13) havuzun üretim sürümü (kimlik öneki LM3); eller ayara göre.</summary>
+        public const int VersionBottomDiffers = 3;
 
         /// <summary>İki elin açılış değeri farkına izin: fırsat sayısında en çok %15 (en az 2) fark.</summary>
         public const double HandTolerance = 0.15;
@@ -301,6 +312,8 @@ namespace KatKat.Core.Live
             if (rules.DifferentHands != l.DifferentHands) return rules.DifferentHands ? "denk ikinci el yok" : "beklenmeyen ikinci el";
             var b = l.CreateBoard();
             for (int i = 0; i < b.Count; i++) if (b[i].Active && b[i].Layers.Count != LiveRules.LayersPerCell) return "iki katman";
+            if (rules.BottomDiffersFromTop)
+                for (int i = 0; i < l.Mask.Length; i++) if (l.Mask[i] && l.Bottom[i] == l.Top[i]) return "alt üstle aynı";
             if (LiveMoves.HasReadyGroup(b)) return "hazır 3'lü";
             if (!l.DifferentHands)
                 return TwoColorCheck(b, l.Hand) ?? DefenseCheck(b, l.Hand, l.Hand, rules);

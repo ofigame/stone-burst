@@ -164,7 +164,7 @@ Eski ayrıntılı karar günlüğü arşivde (`KatKat_Arsiv_2026-11-06/docs/KARA
   - Prototip varsayımları `LiveRules`'ta, standart değil: 6×6, 8 taşlık aynı el (yenilemesiz), oyuncu başına 8 tur, yasal hamle yoksa pas. Dokunarak patlatma deneme ayarı, varsayılan kapalı. Rakipte hedefte 3'lü kuran saldırı geçersiz.
   - Havuz: `Resources/Live/live_pool_v1.txt` (aynı eller), üretim sürümü 1, tohum 20261113. Elle düzenlenmez; `KATKAT_LIVE_HANDS=same` ile `tools/unity.ps1 live-report` yeniden üretir (ortam değişkensiz koşu varsayılan farklı el havuzunu üretir).
   - Eşdeğer kopyalar (renk adı, aynalama, döndürme; alt katman ve el dahil) kanonik anahtarla ayıklanır.
-  - Ekran yalnız geliştirici girişi (Kat Kat → Canlı maç → Prototipi oyna). Mağaza derlemesine girmez, metinleri yalnız Türkçe.
+  - (2026-11-13) Ekran yalnız geliştirici girişiydi; 2026-11-14 yeniden tasarımla anasayfadan açılır (aşağıda).
   - Açık ürün kararları: el boyu, yenileme, tur, süre, rakip elinin görünürlüğü, dokunarak patlatma, eşitlik bozma, ağlı sürüm kuralları.
   - Eşitlik bozma (kullanıcı: "Eşitlik bozma ekle"): `LiveRules.TieBreak`, prototip varsayılanı "en büyük tek grup, o da eşitse ikinci oynayan". Ölçüm: en büyük grup beraberliği az çözüyor (%50 → %49); ikinci oynayan kuralı beraberliği bitiriyor ama ikinciye %73–77 kazandırıyor. Kesin kural değil; açık ürün kararı.
   - Farklı ama denk eller (kullanıcı: "Farklı ama denk eller"): `LiveRules.DifferentHands` (ekranda "El" düğmesi). 2026-11-13 kullanıcı: "Evet, varsayılan yap" → **varsayılan açık**; belgedeki "aynı ilk el" kuralının yerini alır. Aynı eller düğmeyle ya da `KATKAT_LIVE_HANDS=same` ile ölçümde.
@@ -172,3 +172,9 @@ Eski ayrıntılı karar günlüğü arşivde (`KatKat_Arsiv_2026-11-06/docs/KARA
     - Havuzlar sürüm 2 (`LM2`): 6×6 `Resources/Live/live_pool_diffhands_v2.txt`, 5×5 `docs/vr1/canli_mac/havuz_5x5_farkli_el_v2.txt`.
     - Ölçüm: beraberlik %50 → %16 (Dengeli, 6×6). Varsayılan eşitlik kuralıyla %48 / %52.
     - Bot verisine göre en dengeli birleşim: 6×6 + farklı el + varsayılan eşitlik kuralı. İnsanlarla denenmedi; prototipin varsayılanı bu.
+- **2026-11-14 — Canlı maç yeniden tasarımı** (kullanıcı 2026-11-13: "hiç hayal ettiğim gibi değil. Tasarım mevcut tasarımımızla olacak…"; 2026-11-14: "canlı oyunu yapmaya devam edelim"). Eski prototip ekranı (`LiveMatchScreen`, `Scenes/LiveMatch.unity`) arşivde.
+  - Ekran `UI/LiveMatchView.cs`: oyunun kendi tahta görünümü (`BoardView`; iki katman, alt katman şerit olarak altta), eşit boyda iki tahta (üstte rakip, altta oyuncu), aradaki şeritte skor/sıra/tur, sırası olanın tahtasında renkli kenar (oyuncu turkuaz, rakip mercan), altta el, üstte rakibin eli küçük ve açık.
+  - Hamle: elden taş seç → kendi tahtada değiştir (3'lü olursa hemen patlar, zincir yok) ya da rakip tahtada değiştir (kullanıcı seçimi: "Elden taş koy", komşu yer değiştirme değil). **Öneri/önizleme yok**: seçimden sonra tek dokunuş hamledir. Sunum oyunun boya ve soyulma animasyonları.
+  - Alt katman üstten farklı (kullanıcı: "alt katmandaki taş dizilimi üstteki ile aynı olmayacak fakat rakiplerin tahtaları birebir aynı olacak"): `LiveRules.BottomDiffersFromTop` varsayılan açık; havuz sürüm 3 (`LM3`) `Resources/Live/live_pool_v3.txt` (farklı ama denk eller + alt≠üst). Dengeli bot, eşitlik kuralıyla %47 / %53 (`OLCUM_RAPORU_v3.md`).
+  - Giriş: anasayfada Sıralama düğmesinin altı ("Canlı Maç"; `MenuView.Live.cs`); geliştirici pilot düğmesi bir sıra aşağı. Rakip şimdilik bot (Dengeli, ~0,9 sn düşünme). Metinler 9 dilde (`live.*`; tr dışı taslak).
+  - Yeni oyuncu ilk oynar; "Yeni maç" sırayı değiştirir ve sonraki dizilime geçer. Hamle yoksa pas kendiliğinden.

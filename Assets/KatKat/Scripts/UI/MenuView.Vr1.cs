@@ -44,7 +44,7 @@ namespace KatKat.UI
         {
             if (!Vr1Proto.On || !Vr1Proto.PilotAllowed || PilotPressed == null) return;
             var b = ShellRoundButton("PilotButton", shell, RuleIcons.For("seal"), 120f, () => PilotPressed?.Invoke());
-            UiFactory.Place((RectTransform)b.transform, new Vector2(0.5f, 1f), new Vector2(-V11ColumnX, -V11ColumnZpeTop - V11LeftShift - 66f - 214f), new Vector2(120f, 120f));
+            UiFactory.Place((RectTransform)b.transform, new Vector2(0.5f, 1f), new Vector2(-V11ColumnX, -V11ColumnZpeTop - V11LeftShift - 66f - 2f * LiveButtonDrop), new Vector2(120f, 120f)); // canlı maç düğmesinin altı
             var cap = WhiteCapsule("PilotLabel", b.transform, V11Navy, new Vector2(0.5f, 0f), new Vector2(0f, -30f), new Vector2(170f, 50f), 5f);
             cap.raycastTarget = true;
             var t = UiFactory.Title("Text", cap.transform, Loc.T("vr1.pilot.button"), 30, Color.white, new Color32(0x06, 0x1A, 0x44, 0xFF));

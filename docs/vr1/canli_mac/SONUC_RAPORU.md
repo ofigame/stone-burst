@@ -283,3 +283,24 @@ Bot verisine göre en dengeli birleşim:
 Dengeli bot bu birleşimde %48 / %52 dağılıyor, beraberlik kalmıyor, saldırı hamlelerin yaklaşık %9'u. Bunu insanlarla denemek gerekiyor.
 
 **Varsayılan yapıldı** (kullanıcı 2026-11-13: "Evet, varsayılan yap"): prototip artık bu birleşimle açılır. "El: Aynı" düğmesi eski kurala döner. Ekranlar 01–07 farklı elle, `ekranlar/08_ayni_eller.png` aynı elle.
+
+---
+
+## Yeniden tasarım (2026-11-14)
+
+Kullanıcı (2026-11-13): "hiç hayal ettiğim gibi değil. Tasarım mevcut tasarımımızla olacak. 2 katman taş olacak ve mevcut tahtamız gibi altta gözükecek…". Eski prototip ekranı arşive kaldırıldı; yerine oyunun kendi görünümüyle yeni ekran.
+
+**Ekran (`UI/LiveMatchView.cs`)**
+- Oyunun tahta görünümü (`BoardView`): yığınlar, altta alt katman şeridi, zemin plakası; eşit boyda iki tahta (üstte rakip, altta sen).
+- Aradaki şeritte iki skor, sıranın kimde olduğu ve tur ("Tur 3/8"). Sırası olanın tahtasında nabız gibi atan renkli kenar (sen turkuaz, rakip mercan).
+- Altta elin (8 taş); üstte rakibin eli küçük ve açık (neyle saldırabileceği görünür).
+- Elden taş seç → bir hücreye dokun. Kendi tahtanda 3'lü olursa hemen patlar (zincir yok); rakibin tahtasında yalnız renk değişir (3'lü kuramaz). **Öneri ya da önizleme yok**; geçersiz dokunuşta kısa sallanma ve sebep yazısı.
+- Animasyonlar oyunun kendi boya ve soyulma animasyonları; puan parçacıkları skor kutusuna uçar.
+- Rakip: Dengeli bot (~0,9 sn düşünür). Hamle yoksa pas kendiliğinden. Maç sonu kartı: sonuç, skor, eşitlikte gerekçe; "Yeni maç" (sonraki dizilim, ilk oynayan değişir) ve "Ana sayfa".
+- Giriş: anasayfada Sıralama'nın altında "Canlı Maç".
+
+**Kural: alt katman üstten farklı.** Her hücrede alt renk üst renkten farklı (`LiveRules.BottomDiffersFromTop`); iki oyuncunun tahtası birebir aynı başlar. Havuz sürüm 3 (`Resources/Live/live_pool_v3.txt`, LM3, 150 dizilim). Bot ölçümü ([OLCUM_RAPORU_v3.md](OLCUM_RAPORU_v3.md)): Dengeli–Dengeli eşitlik bozmasız %46 / %36 / %18 berabere, varsayılan eşitlik kuralıyla %47 / %53; saldırı payı %10.
+
+**Ekranlar** (`ekranlar/`): 01 açılış, 02 el taşı seçili, 03 patlama sonrası sıra rakipte, 04 botun hamlesi, 05 rakibe saldırı, 06 maç sonu.
+
+**Denenmedi:** telefonda, insanlarla; ağlı (iki gerçek oyuncu) sürüm yok.

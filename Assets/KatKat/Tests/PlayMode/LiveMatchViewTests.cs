@@ -1,0 +1,138 @@
+using System.Collections;
+using System.Linq;
+using KatKat.Core;
+using KatKat.Core.Live;
+using KatKat.Game;
+using KatKat.UI;
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
+
+namespace KatKat.Tests
+{
+    /// <summary>
+    /// Canlı maç ekranı (kullanıcı 2026-11-13 tasarımı): anasayfa girişi, oyunun tahta görünümü, eşit iki tahta,
+    /// öneri/önizleme yok, zincirsiz otomatik patlama, sıra bota geçer, bot oynar, çıkış haritaya döner.
+    /// </summary>
+    public sealed class LiveMatchViewTests
+    {
+        private GameController _gc;
+
+        [UnitySetUp]
+        public IEnumerator LoadGame()
+        {
+            GameController.RequestedLevel = -1;
+            GameController.SaveDirectoryOverride = System.IO.Path.Combine(Application.temporaryCachePath, "katkat_live_test");
+            if (System.IO.Directory.Exists(GameController.SaveDirectoryOverride)) System.IO.Directory.Delete(GameController.SaveDirectoryOverride, true);
+            yield return SceneManager.LoadSceneAsync("Game", LoadSceneMode.Single);
+            yield return null;
+            _gc = Object.FindAnyObjectByType<GameController>();
+            Assert.IsNotNull(_gc);
+        }
+
+        [UnityTearDown]
+        public IEnumerator TearDown()
+        {
+            GameController.SaveDirectoryOverride = null;
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator HomeButton_OpensLive_MoveAppliesWithoutPreview_BotReplies_ExitReturnsHome()
+        {
+            _gc.ShowLevels();
+            yield return null;
+            Assert.IsNotNull(_gc.Menu.LivePressed, "anasayfada canlı maç girişi bağlı");
+            Assert.IsNotNull(GameObject.Find("LiveButton"), "Sıralama altındaki düğme kuruldu");
+            _gc.Menu.LivePressed();
+            yield return null;
+            var v = _gc.Live;
+            Assert.IsNotNull(v, "canlı maç açıldı");
+            Assert.IsTrue(_gc.LiveOpen);
+            var m = v.Match;
+            Assert.IsNotNull(m, "havuz yüklendi, maç başladı");
+            StringAssert.StartsWith("LM3-", m.Layout.Id, "varsayılan havuz v3");
+            v.BotDelay = 0f;
+
+            // İki tahta birebir aynı başlar; alt katman üstten farklı; iki tahta aynı boyda.
+            for (int i = 0; i < m.Boards[0].Count; i++)
+            {
+                CollectionAssert.AreEqual(m.Boards[0][i].Layers, m.Boards[1][i].Layers);
+                if (m.Boards[0][i].Active) Assert.AreNotEqual(m.Boards[0][i].Layers[0], m.Boards[0][i].Layers[1]);
+            }
+            Assert.AreEqual(v.BoardOf(0).Pitch, v.BoardOf(1).Pitch, 1e-4f, "eşit tahta boyutu");
+            Assert.AreEqual(LiveMatchView.Human, m.Current);
+
+            // En iyi puan hamlesi: el taşı seç, hücreye bir kez dokun → hemen uygulanır (önizleme/onay yok).
+            var best = m.LegalMoves(0).Where(x => x.Side == LiveSide.Own).OrderByDescending(x => x.Gain).First();
+            Assert.Greater(best.Gain, 0);
+            v.SelectSlot(best.Slot);
+            Assert.AreEqual(best.Slot, v.Selected);
+            Assert.AreEqual(0, m.Scores[0], "seçim tek başına bir şey değiştirmez");
+            var b0 = m.Boards[0];
+            int handBefore = m.Hands[0].Count;
+            v.TapCell(LiveSide.Own, b0.X(best.Target), b0.Y(best.Target));
+            Assert.AreEqual(best.Gain, m.Scores[0], "tek dokunuşla puan");
+            Assert.AreEqual(handBefore - 1, m.Hands[0].Count);
+            Assert.AreEqual(-1, v.Selected);
+            Assert.AreEqual(LiveMatchView.Bot, m.Current, "sıra rakipte");
+            v.CompleteAnimations();
+
+            // Bot sırası: Update bekleme süresinden sonra oynar.
+            float limit = Time.realtimeSinceStartup + 10f;
+            while (m.Current == LiveMatchView.Bot && Time.realtimeSinceStartup < limit) yield return null;
+            Assert.AreEqual(LiveMatchView.Human, m.Current, "bot oynadı");
+            Assert.AreEqual(1, m.TurnsUsed[1]);
+            v.CompleteAnimations();
+
+            // Geçersiz hamle: seçimsiz dokunuş ve rakipte aynı renk → durum değişmez, mesaj verilir.
+            int score = m.Scores[0];
+            var b1 = m.Boards[1];
+            int cell = System.Array.FindIndex(m.Layout.Mask, x => x);
+            v.TapCell(LiveSide.Opponent, b1.X(cell), b1.Y(cell));
+            Assert.AreEqual(LiveMatchView.Human, m.Current, "seçimsiz dokunuş yok sayılır");
+            int same = m.Hands[0].IndexOf(b1[cell].Top);
+            if (same >= 0)
+            {
+                v.SelectSlot(same);
+                v.TapCell(LiveSide.Opponent, b1.X(cell), b1.Y(cell));
+                Assert.AreEqual(LiveMatchView.Human, m.Current, "aynı renge değiştirme reddedilir");
+                Assert.AreEqual(score, m.Scores[0]);
+                Assert.IsFalse(string.IsNullOrEmpty(v.Message));
+            }
+
+            // Çıkış: harita geri gelir.
+            _gc.CloseLive();
+            yield return null;
+            Assert.IsFalse(_gc.LiveOpen);
+            Assert.IsTrue(_gc.Menu.IsMapShown, "çıkınca harita");
+        }
+
+        [UnityTest]
+        public IEnumerator FullMatch_AgainstBot_EndsWithResultCard()
+        {
+            _gc.ShowLive();
+            yield return null;
+            var v = _gc.Live;
+            v.BotDelay = 0f;
+            var rng = new LiveGenerator.Rng(3);
+            for (int k = 0; k < 60 && !v.Match.IsOver; k++)
+            {
+                var m = v.Match;
+                if (m.Current == LiveMatchView.Bot) { v.BotMove(); v.CompleteAnimations(); continue; }
+                var cmd = LiveBots.Choose(m, LiveBotKind.Greedy, rng);
+                if (cmd.Type != LiveCommandType.Swap) { m.Submit(LiveCommand.Pass(0, m.NextSeq(0))); v.Refresh(); continue; }
+                v.SelectSlot(cmd.HandSlot);
+                v.TapCell(cmd.Side, cmd.X, cmd.Y);
+                v.CompleteAnimations();
+            }
+            Assert.IsTrue(v.Match.IsOver, "8 tur sonunda maç biter");
+            Assert.IsTrue(v.EndShown, "sonuç kartı");
+            Assert.AreEqual(8, v.Match.TurnsUsed[0]);
+            Assert.AreEqual(8, v.Match.TurnsUsed[1]);
+            _gc.CloseLive();
+            yield return null;
+        }
+    }
+}

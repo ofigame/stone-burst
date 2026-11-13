@@ -429,3 +429,36 @@ ad.place.offer	Reklam izle: +{0} hamle ve 1 taş	Watch ad: +{0} move and 1 stone
 place.pick	Bir taş seç	Pick a stone	Elige una piedra	اختر حجرًا	Wähle einen Stein	Scegli una pietra	Choisis une pierre	ストーンをえらんで	돌을 고르세요
 place.where	Koyacağın yere dokun	Tap where to place it	Toca dónde colocarla	المس مكان وضعه	Tippe, wo er hin soll	Tocca dove metterla	Touche l'endroit où la poser	おくばしょをタップ	놓을 곳을 누르세요
 place.bad	Buraya konamaz	Can't place it here	No se puede aquí	لا يمكن وضعه هنا	Hier nicht möglich	Non si può qui	Impossible ici	ここにはおけない	여기에는 놓을 수 없어요
+# Canlı maç (2026-11-14; tr dışındakiler taslak)
+live.button	Canlı Maç	Live Match	Partida	مباراة	Live-Match	Sfida	Duel	たいせん	대전
+live.title	Canlı Maç	Live Match	Partida en vivo	مباراة مباشرة	Live-Match	Sfida dal vivo	Duel en direct	たいせん	실시간 대전
+live.bot	Rakip	Rival	Rival	المنافس	Gegner	Rivale	Rival	あいて	상대
+live.you	Sen	You	Tú	أنت	Du	Tu	Toi	あなた	나
+live.nopool	Tahta yüklenemedi	Boards could not be loaded	No se pudieron cargar los tableros	تعذّر تحميل الألواح	Bretter konnten nicht geladen werden	Impossibile caricare i tabelloni	Impossible de charger les plateaux	ボードをよみこめません	보드를 불러올 수 없어요
+live.pick	Elinden bir taş seç	Pick a stone from your hand	Elige una piedra de tu mano	اختر حجرًا من يدك	Wähle einen Stein aus deiner Hand	Scegli una pietra dalla tua mano	Choisis une pierre dans ta main	てもちの石をえらぼう	손에서 돌을 골라요
+live.where	Kendi tahtana koy ya da rakibe saldır	Place it on your board or attack your rival	Colócala en tu tablero o ataca a tu rival	ضعه على لوحتك أو هاجم منافسك	Leg ihn auf dein Brett oder greife an	Mettila sul tuo tabellone o attacca	Pose-la sur ton plateau ou attaque	じぶんのボードにおくか、あいてをこうげき	내 보드에 놓거나 상대를 공격해요
+live.rej.same	Bu taş zaten aynı renk	That stone is already this color	Esa piedra ya es de ese color	هذا الحجر بنفس اللون بالفعل	Der Stein hat schon diese Farbe	Quella pietra è già di questo colore	Cette pierre a déjà cette couleur	その石はもうおなじいろ	이미 같은 색이에요
+live.rej.group	Rakibin tahtasında 3'lü kuramazsın	You can't make a group of 3 on your rival's board	No puedes formar un grupo de 3 en el tablero rival	لا يمكنك تكوين مجموعة من 3 على لوحة المنافس	Auf dem gegnerischen Brett darfst du keine 3er-Gruppe bilden	Non puoi formare un gruppo da 3 sul tabellone avversario	Tu ne peux pas former un groupe de 3 chez ton rival	あいてのボードで3つそろえることはできません	상대 보드에서는 3개를 만들 수 없어요
+live.rej.empty	Burada taş yok	There is no stone here	Aquí no hay piedra	لا يوجد حجر هنا	Hier ist kein Stein	Qui non c'è una pietra	Il n'y a pas de pierre ici	ここに石はありません	여기에는 돌이 없어요
+live.rej.other	Bu hamle şimdi yapılamaz	That move isn't possible now	Ese movimiento no es posible ahora	لا يمكن القيام بهذه الحركة الآن	Dieser Zug geht jetzt nicht	Questa mossa ora non è possibile	Ce coup n'est pas possible	いまはそのてはうてません	지금은 그 수를 둘 수 없어요
+live.attack.you	Rakibin tahtasına taş koydun	You changed a stone on your rival's board	Cambiaste una piedra del tablero rival	غيّرت حجرًا على لوحة المنافس	Du hast einen Stein beim Gegner geändert	Hai cambiato una pietra dell'avversario	Tu as changé une pierre chez ton rival	あいてのボードの石をかえた	상대 보드의 돌을 바꿨어요
+live.attack.bot	Rakip senin tahtana taş koydu	Your rival changed a stone on your board	Tu rival cambió una piedra de tu tablero	غيّر منافسك حجرًا على لوحتك	Der Gegner hat einen Stein bei dir geändert	L'avversario ha cambiato una tua pietra	Ton rival a changé une de tes pierres	あいてがあなたのボードの石をかえた	상대가 내 보드의 돌을 바꿨어요
+live.score.you	+{0} puan!	+{0} points!	¡+{0} puntos!	+{0} نقاط!	+{0} Punkte!	+{0} punti!	+{0} points !	+{0} ポイント!	+{0}점!
+live.score.bot	Rakip +{0} puan aldı	Rival scored +{0}	El rival sumó +{0}	سجّل المنافس +{0}	Gegner +{0} Punkte	L'avversario fa +{0}	Le rival marque +{0}	あいて +{0} ポイント	상대 +{0}점
+live.prep.you	Taşı yerleştirdin, sonraki hamleyi hazırla	Stone placed, set up your next move	Piedra colocada, prepara tu siguiente jugada	وُضع الحجر، جهّز حركتك التالية	Stein gesetzt, bereite den nächsten Zug vor	Pietra messa, prepara la prossima mossa	Pierre posée, prépare ton prochain coup	石をおいた。つぎのてをじゅんびしよう	돌을 놓았어요. 다음 수를 준비해요
+live.prep.bot	Rakip kendi tahtasına taş koydu	Your rival placed a stone on its board	Tu rival colocó una piedra en su tablero	وضع منافسك حجرًا على لوحته	Der Gegner hat einen Stein gesetzt	L'avversario ha messo una pietra	Ton rival a posé une pierre	あいてがじぶんのボードに石をおいた	상대가 자기 보드에 돌을 놓았어요
+live.bot.thinking	Rakip düşünüyor…	Your rival is thinking…	Tu rival está pensando…	منافسك يفكّر…	Der Gegner überlegt…	L'avversario sta pensando…	Ton rival réfléchit…	あいてがかんがえ中…	상대가 생각 중…
+live.pass.you	Yapabileceğin hamle yok, sıra geçiyor	No move left, your turn passes	No te quedan jugadas, pasas turno	لا توجد حركة، يمر دورك	Kein Zug möglich, du passt	Nessuna mossa, passi il turno	Aucun coup possible, tu passes	うてるてがないのでパス	둘 수 있는 수가 없어 넘어가요
+live.pass.bot	Rakip pas geçti	Your rival passed	Tu rival pasó	منافسك مرّر دوره	Der Gegner passt	L'avversario passa	Ton rival passe	あいてはパス	상대가 넘겼어요
+live.over	Maç bitti	Match over	Fin de la partida	انتهت المباراة	Match vorbei	Partita finita	Partie terminée	しあいしゅうりょう	경기 종료
+live.turn.you	Sıra sende	Your turn	Tu turno	دورك	Du bist dran	Tocca a te	À toi	あなたのばん	내 차례
+live.turn.bot	Sıra rakipte	Rival's turn	Turno del rival	دور المنافس	Gegner ist dran	Tocca all'avversario	Au rival	あいてのばん	상대 차례
+live.round	Tur {0}/{1}	Turn {0}/{1}	Turno {0}/{1}	الدور {0}/{1}	Runde {0}/{1}	Turno {0}/{1}	Tour {0}/{1}	ターン {0}/{1}	턴 {0}/{1}
+live.win	Kazandın!	You win!	¡Ganaste!	فزت!	Gewonnen!	Hai vinto!	Gagné !	かち!	승리!
+live.lose	Rakip kazandı	Your rival wins	Gana tu rival	فاز منافسك	Der Gegner gewinnt	Vince l'avversario	Ton rival gagne	あいてのかち	상대 승리
+live.draw	Berabere	Draw	Empate	تعادل	Unentschieden	Pareggio	Égalité	ひきわけ	무승부
+live.final	Sen {0} – {1} Rakip	You {0} – {1} Rival	Tú {0} – {1} Rival	أنت {0} – {1} المنافس	Du {0} – {1} Gegner	Tu {0} – {1} Rivale	Toi {0} – {1} Rival	あなた {0} – {1} あいて	나 {0} – {1} 상대
+live.tie.biggest	Puan eşit; en büyük tek grup: {0} – {1}	Tied score; biggest single group: {0} – {1}	Empate a puntos; mayor grupo: {0} – {1}	تعادل في النقاط؛ أكبر مجموعة: {0} – {1}	Punktgleich; größte Gruppe: {0} – {1}	Parità; gruppo più grande: {0} – {1}	Égalité ; plus grand groupe : {0} – {1}	おなじてん。いちばん大きいグループ: {0} – {1}	동점; 가장 큰 그룹: {0} – {1}
+live.tie.second	Puan ve en büyük grup eşit; ikinci oynayan kazanır	Score and biggest group tied; the second player wins	Empate total; gana quien jugó segundo	تعادل كامل؛ يفوز من لعب ثانيًا	Alles gleich; wer als Zweiter spielte, gewinnt	Tutto pari; vince chi ha giocato per secondo	Égalité totale ; le second joueur gagne	ぜんぶおなじ。2ばんめのひとのかち	모두 동점; 두 번째로 둔 사람이 이겨요
+live.again	Yeni maç	New match	Nueva partida	مباراة جديدة	Neues Match	Nuova sfida	Nouvelle partie	もういちど	새 경기
+live.home	Ana sayfa	Home	Inicio	الرئيسية	Start	Home	Accueil	ホーム	홈

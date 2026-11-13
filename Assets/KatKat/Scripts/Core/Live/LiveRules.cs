@@ -35,6 +35,13 @@ namespace KatKat.Core.Live
         /// </summary>
         public bool DifferentHands = true;
 
+        /// <summary>
+        /// Alt katman üsttekinden farklı (kullanıcı 2026-11-13: "alt katmandaki taş dizilimi üstteki ile aynı olmayacak"): her hücrede
+        /// alt renk üst renkten farklıdır; soyulan taşın altından hep başka bir renk çıkar. Varsayılan açık; kapalıyken eski
+        /// (v1/v2) havuzlar aynen yeniden üretilir.
+        /// </summary>
+        public bool BottomDiffersFromTop = true;
+
         public LiveRules Clone() => (LiveRules)MemberwiseClone();
 
         public static string TieBreakName(LiveTieBreak t) => t switch
@@ -47,7 +54,7 @@ namespace KatKat.Core.Live
 
         public override string ToString() =>
             $"tahta {Width}x{Height}, el {HandSize} (yenilemesiz), tur {TurnsPerPlayer}/oyuncu, dokunarak patlatma {(TapReadyGroups ? "açık" : "kapalı")}, " +
-            $"rakipte 3'lü kuran saldırı {(ForbidAttackGroup ? "geçersiz" : "serbest")}, eşitlik bozma: {TieBreakName(TieBreak)}, eller {(DifferentHands ? "farklı ama denk" : "aynı")}, zincir yok, 2 katman";
+            $"rakipte 3'lü kuran saldırı {(ForbidAttackGroup ? "geçersiz" : "serbest")}, eşitlik bozma: {TieBreakName(TieBreak)}, eller {(DifferentHands ? "farklı ama denk" : "aynı")}, alt katman {(BottomDiffersFromTop ? "üstten farklı" : "serbest")}, zincir yok, 2 katman";
     }
 
     /// <summary>

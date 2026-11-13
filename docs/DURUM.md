@@ -1,10 +1,15 @@
 # Stone Burst (eski adı TriKat) — Durum
 
-Son güncelleme: 2026-11-13. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
+Son güncelleme: 2026-11-14. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
 
 ## Şu an
+- **2026-11-14: Canlı maç yeniden tasarımı** (kullanıcı 2026-11-13 istekleri; 2026-11-14 "canlı oyunu yapmaya devam edelim"; karar KARARLAR.md).
+  - Yeni ekran `UI/LiveMatchView.cs` + `Game/GameController.Live.cs` + anasayfa girişi `UI/MenuView.Live.cs` (Sıralama altı "Canlı Maç"; pilot düğmesi bir sıra aşağı). Oyunun `BoardView` tahtası; eşit iki tahta, arada skor/sıra şeridi, sırası olanda renkli kenar, öneri/önizleme yok, rakip bot.
+  - Motor: `LiveRules.BottomDiffersFromTop` (varsayılan açık), havuz `Resources/Live/live_pool_v3.txt` (LM3, 150 dizilim), ölçüm `docs/vr1/canli_mac/OLCUM_RAPORU_v3.md` (Dengeli %47/%53). Eski v1/v2 havuzları ve testleri kural kapalıyla aynen geçiyor.
+  - Eski prototip ekranı, testi ve sahnesi arşivde (`KatKat_Arsiv_2026-11-06`). Ekranlar `docs/vr1/canli_mac/ekranlar/` 01–06 (`tools/unity.ps1 live-capture`).
+  - Testler: EditMode 261/263 (2 eski atlanan), `LiveMatchViewTests` 2/2, loc-check TAMAM (32 yeni `live.*` anahtarı, 9 dil; tr dışı taslak). Tüm PlayMode koşusu: (aşağıda sonuç). Telefonda denenmedi; yeni yapı alınmadı (App Store'daki yapı 14 bu ekranı içermiyor).
 - **2026-11-13: App Store 1.0 (yapı 12) reddedildi — Guideline 4.3(a) Design: Spam** (Apple mesajı 2026-11-13 22:31; "benzer ikili/meta veri/konsept", "Extended Review" uyarısı: tekrar gönderimler uzun incelenir).
-  - Kullanıcı: Crate Boss yayınlanmadı, önemsiz; önemli olan foi (aynı hesap, "Waiting for Review"). Canlı mod şimdilik yok, plana girmez.
+  - Kullanıcı: Crate Boss yayınlanmadı, önemsiz; önemli olan foi (aynı hesap, "Waiting for Review"). Canlı mod 4.3 planına girmedi (2026-11-14 ayrıca yeniden açıldı).
   - foi (`E:\OFIGAME\SquashBot`) karşılaştırması: 526'ya 322 betikte yalnız 9 ad ortak, içerikler büyük ölçüde farklı; gerçek ortaklık yalnız `ArabicShaper` (ikisi de Crate Boss'tan uyarlama). Kod benzerliği reddin olası sebebi değil; tür kalabalığı ("3'lü dokun, katman soy") daha olası (tahmin, Apple belirtmiyor).
   - Yapılanlar (kullanıcı: "ikisini de ekle, taramaya başla… ne gerekiyorsa hemen yapalım"):
     - `UI/ArabicShaper.cs` sıfırdan yazıldı (bağlanma türü + sunum biçimi taban kodu; farklı öbek ayrıştırma). Eskisiyle 420 yerelleştirme metni + 20.000 rastgele metinde çıktı birebir aynı (dotnet karşılaştırma).

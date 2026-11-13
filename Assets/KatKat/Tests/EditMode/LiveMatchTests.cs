@@ -38,9 +38,9 @@ namespace KatKat.Tests
         private static readonly string[] Bottom = { "PPPC", "CCCC", "BBB." };
         private const string Hand = "CBPYCBPY";
 
-        private static LiveRules Rules(bool tap = false) => new LiveRules { Width = 4, Height = 3, TapReadyGroups = tap, DifferentHands = false };
+        private static LiveRules Rules(bool tap = false) => new LiveRules { Width = 4, Height = 3, TapReadyGroups = tap, DifferentHands = false, BottomDiffersFromTop = false };
         /// <summary>Aynı eller havuzu (live_pool_v1) için kurallar; varsayılan artık farklı ama denk eller.</summary>
-        private static LiveRules SameHands() => new LiveRules { DifferentHands = false };
+        private static LiveRules SameHands() => new LiveRules { DifferentHands = false, BottomDiffersFromTop = false };
 
         private static string Snapshot(LiveMatch m)
         {
@@ -258,7 +258,7 @@ namespace KatKat.Tests
                     for (int k = 0; k < 10; k++)
                     {
                         var l = pool[k];
-                        var rules = new LiveRules { TapReadyGroups = tap, DifferentHands = false };
+                        var rules = new LiveRules { TapReadyGroups = tap, DifferentHands = false, BottomDiffersFromTop = false };
                         int initial = l.CreateBoard().TotalLayers();
                         var m = LiveSim.Play(l, rules, k % 2, new[] { kind, kind }, 77 + k);
                         Assert.IsTrue(m.IsOver);
@@ -328,7 +328,7 @@ namespace KatKat.Tests
         {
             // Tek hücreli tahta + tek renk el: kendi tahtada aynı renk, rakipte aynı renk → yasal hamle yok.
             var l = Make(new[] { "C" }, new[] { "B" }, "C");
-            var rules = new LiveRules { Width = 1, Height = 1, HandSize = 1, TurnsPerPlayer = 1, DifferentHands = false };
+            var rules = new LiveRules { Width = 1, Height = 1, HandSize = 1, TurnsPerPlayer = 1, DifferentHands = false, BottomDiffersFromTop = false };
             var m = new LiveMatch(l, rules);
             Assert.IsFalse(m.HasLegalMove(0));
             var r = m.Submit(LiveCommand.Pass(0, 1));
@@ -381,16 +381,50 @@ namespace KatKat.Tests
 
         private static string DiffPoolPath => Path.Combine(Path.GetDirectoryName(PoolPath), "live_pool_diffhands_v2.txt");
 
+        private static string V3PoolPath => Path.Combine(Path.GetDirectoryName(PoolPath), "live_pool_v3.txt");
+
         [Test]
-        public void Default_IsDifferentHands_6x6_DefaultTieBreak()
+        public void Default_IsDifferentHands_BottomDiffers_6x6_DefaultTieBreak()
         {
             var r = new LiveRules();
             Assert.IsTrue(r.DifferentHands);
+            Assert.IsTrue(r.BottomDiffersFromTop);
             Assert.AreEqual(6, r.Width);
             Assert.AreEqual(6, r.Height);
             Assert.AreEqual(LiveTieBreak.BiggestGroupThenSecond, r.TieBreak);
-            foreach (var l in LiveLayout.ParsePool(File.ReadAllText(DiffPoolPath)).Take(20))
+            foreach (var l in LiveLayout.ParsePool(File.ReadAllText(V3PoolPath)).Take(20))
                 Assert.IsNull(LiveGenerator.Validate(l, r), l.Id);
+        }
+
+        /// <summary>Kullanıcı (2026-11-13): "alt katmandaki taş dizilimi üstteki ile aynı olmayacak, rakiplerin tahtaları birebir aynı".</summary>
+        [Test]
+        public void V3Pool_BottomDiffersInEveryCell_AllValid_Reproducible_BoardsIdentical()
+        {
+            var rules = new LiveRules();
+            var text = File.ReadAllText(V3PoolPath);
+            var pool = LiveLayout.ParsePool(text);
+            Assert.GreaterOrEqual(pool.Count, 100);
+            foreach (var l in pool)
+            {
+                Assert.AreEqual(LiveGenerator.VersionBottomDiffers, l.GenVersion, l.Id);
+                StringAssert.StartsWith("LM3-", l.Id);
+                for (int i = 0; i < l.Mask.Length; i++)
+                    if (l.Mask[i]) Assert.AreNotEqual(l.Top[i], l.Bottom[i], $"{l.Id} hücre {i}");
+                Assert.IsNull(LiveGenerator.Validate(l, rules), l.Id);
+                var m = new LiveMatch(l, rules);
+                for (int i = 0; i < m.Boards[0].Count; i++)
+                    CollectionAssert.AreEqual(m.Boards[0][i].Layers, m.Boards[1][i].Layers, $"{l.Id} iki tahta aynı başlar");
+            }
+            var header = text.Split('\n').First(s => s.StartsWith("# gen="));
+            long seed = long.Parse(header.Split(' ').First(s => s.StartsWith("seed=")).Substring(5));
+            var again = LiveGenerator.BuildPool(6, seed, rules);
+            for (int i = 0; i < again.Count; i++) Assert.AreEqual(pool[i].ToLine(), again[i].ToLine(), "dizilim " + i);
+
+            // Kural kapalıyken üst = alt olan hücreye izin; açıkken ret.
+            var bad = LiveLayout.Parse(pool[0].ToLine());
+            int c = System.Array.FindIndex(bad.Mask, x => x);
+            bad.Bottom[c] = bad.Top[c];
+            Assert.AreEqual("alt üstle aynı", LiveGenerator.Validate(bad, rules));
         }
 
         [Test]
@@ -403,7 +437,7 @@ namespace KatKat.Tests
             var back = LiveLayout.Parse(l.ToLine());
             Assert.IsTrue(back.DifferentHands);
             CollectionAssert.AreEqual(l.Hand2, back.Hand2);
-            var m = new LiveMatch(back, new LiveRules { DifferentHands = true });
+            var m = new LiveMatch(back, new LiveRules { DifferentHands = true, BottomDiffersFromTop = false });
             CollectionAssert.AreEqual(l.Hand, m.Hands[0]);
             CollectionAssert.AreEqual(l.Hand2, m.Hands[1]);
             CollectionAssert.AreEqual(l.Hand2, m.Record.Hand2);
@@ -417,7 +451,7 @@ namespace KatKat.Tests
         [Test]
         public void DifferentHands_Validate_RejectsIdenticalOrUnequalHands()
         {
-            var rules = new LiveRules { DifferentHands = true };
+            var rules = new LiveRules { DifferentHands = true, BottomDiffersFromTop = false };
             var l = LiveLayout.ParsePool(File.ReadAllText(DiffPoolPath))[0];
             Assert.IsNull(LiveGenerator.Validate(l, rules));
             var copy = LiveLayout.Parse(l.ToLine());
@@ -431,7 +465,7 @@ namespace KatKat.Tests
         [Test]
         public void DifferentHandsPool_AllValid_Equivalent_Distinct_Reproducible()
         {
-            var rules = new LiveRules { DifferentHands = true };
+            var rules = new LiveRules { DifferentHands = true, BottomDiffersFromTop = false };
             var text = File.ReadAllText(DiffPoolPath);
             var pool = LiveLayout.ParsePool(text);
             Assert.Greater(pool.Count, 0);

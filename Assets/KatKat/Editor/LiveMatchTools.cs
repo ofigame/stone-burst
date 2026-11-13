@@ -26,24 +26,35 @@ namespace KatKat.EditorTools
         /// Deneme boyu (kullanıcı 2026-11-13: "5×5 dene"): KATKAT_LIVE_SIZE=N ise N×N kurallarla ayrı havuz
         /// (docs/vr1/canli_mac/havuz_NxN_v1.txt, oyuna girmez) ve ayrı rapor (OLCUM_RAPORU_NxN.md). Boşsa varsayılan 6×6.
         /// </summary>
+        /// <summary>Varsayılan havuz (2026-11-14): farklı ama denk eller + alt katman üstten farklı (LM3); oyun bunu yükler.</summary>
+        public const string PoolV3Path = "Assets/KatKat/Resources/Live/live_pool_v3.txt";
+
+        /// <summary>Havuz sürümü: KATKAT_LIVE_POOL=v1|v2|v3 (varsayılan v3). Eski ad KATKAT_LIVE_HANDS=same → v1.</summary>
+        private static string PoolVariant()
+        {
+            var v = Environment.GetEnvironmentVariable("KATKAT_LIVE_POOL");
+            if (string.IsNullOrEmpty(v) && Environment.GetEnvironmentVariable("KATKAT_LIVE_HANDS") == "same") v = "v1";
+            return v == "v1" || v == "v2" ? v : "v3";
+        }
+
+        private static int GenOf(LiveRules r) =>
+            r.BottomDiffersFromTop ? LiveGenerator.VersionBottomDiffers : r.DifferentHands ? LiveGenerator.VersionDifferentHands : LiveGenerator.Version;
+
         private static LiveRules Variant(out string poolPath, out string reportPath)
         {
             var rules = new LiveRules();
-            poolPath = PoolPath;
-            reportPath = ReportPath;
-            // Farklı ama denk eller varsayılan (kullanıcı 2026-11-13). Aynı eller için KATKAT_LIVE_HANDS=same; iki 6×6 havuzu da oyuna girer (ekrandaki "El" düğmesi).
-            bool diff = Environment.GetEnvironmentVariable("KATKAT_LIVE_HANDS") != "same";
-            rules.DifferentHands = diff;
-            if (diff)
-            {
-                poolPath = DiffPoolPath;
-                reportPath = "docs/vr1/canli_mac/OLCUM_RAPORU_farkli_el.md";
-            }
+            string v = PoolVariant();
+            // v1: aynı eller, alt serbest · v2: farklı ama denk eller, alt serbest · v3 (varsayılan): farklı eller + alt üstten farklı.
+            rules.DifferentHands = v != "v1";
+            rules.BottomDiffersFromTop = v == "v3";
+            poolPath = v == "v1" ? PoolPath : v == "v2" ? DiffPoolPath : PoolV3Path;
+            reportPath = v == "v1" ? ReportPath : v == "v2" ? "docs/vr1/canli_mac/OLCUM_RAPORU_farkli_el.md" : "docs/vr1/canli_mac/OLCUM_RAPORU_v3.md";
             if (int.TryParse(Environment.GetEnvironmentVariable("KATKAT_LIVE_SIZE"), out int n) && n >= 3 && n != rules.Width)
             {
                 rules.Width = rules.Height = n;
-                string tag = diff ? "_farkli_el" : "";
-                poolPath = $"docs/vr1/canli_mac/havuz_{n}x{n}{tag}_v{(diff ? 2 : 1)}.txt";
+                string tag = v == "v1" ? "" : v == "v2" ? "_farkli_el" : "_alt_farkli";
+                int gen = GenOf(rules);
+                poolPath = $"docs/vr1/canli_mac/havuz_{n}x{n}{tag}_v{gen}.txt";
                 reportPath = $"docs/vr1/canli_mac/OLCUM_RAPORU{tag}_{n}x{n}.md";
             }
             return rules;
@@ -59,7 +70,7 @@ namespace KatKat.EditorTools
             sw.Stop();
             var sb = new StringBuilder();
             sb.Append("# Stone Burst canlı maç doğrulanmış tahta havuzu. Elle düzenleme: LiveMatchTools.GeneratePool ile yeniden üret.\n");
-            sb.Append($"# gen={(rules.DifferentHands ? LiveGenerator.VersionDifferentHands : LiveGenerator.Version)} seed={PoolSeed} count={pool.Count} kurallar=[{rules}]\n");
+            sb.Append($"# gen={GenOf(rules)} seed={PoolSeed} count={pool.Count} kurallar=[{rules}]\n");
             sb.Append("# id|gen|seed|W|H|maske|alt|üst|el|türler[|P2 eli]  (renk: 0 mercan, 1 turkuaz, 2 inci, 3 mor; . etkin değil)\n");
             foreach (var l in pool) sb.Append(l.ToLine()).Append('\n');
             Directory.CreateDirectory(Path.GetDirectoryName(PoolPath));
@@ -85,7 +96,7 @@ namespace KatKat.EditorTools
             var sw = Stopwatch.StartNew();
             var sb = new StringBuilder();
             sb.Append("# Canlı maç ölçüm raporu (botlar)\n\n");
-            sb.Append($"Üretildi: {DateTime.Now:yyyy-MM-dd HH:mm} · `LiveMatchTools.RunReport` (tools/unity.ps1 live-report) · havuz `{PoolPath}` (gen {(baseRules.DifferentHands ? LiveGenerator.VersionDifferentHands : LiveGenerator.Version)}, tohum {PoolSeed})\n\n");
+            sb.Append($"Üretildi: {DateTime.Now:yyyy-MM-dd HH:mm} · `LiveMatchTools.RunReport` (tools/unity.ps1 live-report) · havuz `{PoolPath}` (gen {GenOf(baseRules)}, tohum {PoolSeed})\n\n");
             sb.Append("Bu sayılar **bot** maçlarıdır, gerçek oyuncu davranışı değildir. Kuralların kaba dengesini ve açık ayarların etkisini karşılaştırmak içindir.\n\n");
             sb.Append("## Kurallar\n\n- ").Append(baseRules).Append("\n- Dokunarak patlatma her ölçümde açık ve kapalı ayrı çalıştırıldı.\n\n");
             sb.Append("## Havuz çeşitliliği\n\n");
@@ -130,31 +141,9 @@ namespace KatKat.EditorTools
             Debug.Log("[KatKat] Canlı maç ölçüm raporu → " + ReportPath);
         }
 
-        public const string ScenePath = "Assets/KatKat/Scenes/LiveMatch.unity";
         public const string ShotDir = "docs/vr1/canli_mac/ekranlar";
 
-        /// <summary>Tek cihaz prototipi: LiveMatch sahnesini (yoksa kurar) açar ve oynatır. Mağaza derlemesinde sahne yok.</summary>
-        [MenuItem("Kat Kat/Canlı maç/Prototipi oyna")]
-        public static void Play()
-        {
-            if (!UnityEditor.SceneManagement.EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
-            if (!File.Exists(ScenePath))
-            {
-                var scene = UnityEditor.SceneManagement.EditorSceneManager.NewScene(UnityEditor.SceneManagement.NewSceneSetup.EmptyScene);
-                var camGo = new UnityEngine.GameObject("Main Camera");
-                camGo.tag = "MainCamera";
-                var cam = camGo.AddComponent<UnityEngine.Camera>();
-                cam.clearFlags = UnityEngine.CameraClearFlags.SolidColor;
-                cam.backgroundColor = new UnityEngine.Color32(0x16, 0x2A, 0x33, 0xFF);
-                cam.orthographic = true;
-                new UnityEngine.GameObject("LiveMatch").AddComponent<KatKat.UI.LiveMatchScreen>();
-                UnityEditor.SceneManagement.EditorSceneManager.SaveScene(scene, ScenePath);
-            }
-            else UnityEditor.SceneManagement.EditorSceneManager.OpenScene(ScenePath);
-            EditorApplication.EnterPlaymode();
-        }
-
-        /// <summary>Prototip ekran görüntüleri (toplu): açılış, el seçili, puan önizleme, saldırı önizleme, dokunma açık, maç sonu.</summary>
+        /// <summary>Canlı maç ekran görüntüleri (toplu).</summary>
         public static void CaptureBatch()
         {
             int code = 0;
@@ -163,30 +152,35 @@ namespace KatKat.EditorTools
             EditorApplication.Exit(code);
         }
 
+        /// <summary>
+        /// 2026-11-14 yeni ekran (<see cref="KatKat.UI.LiveMatchView"/>, oyunun tahta görünümüyle): açılış, el taşı seçili,
+        /// kendi tahtada patlama sonrası, botun hamlesi, rakibe saldırı, maç sonu. Oyuncu tarafını Greedy bot oynar.
+        /// </summary>
         [MenuItem("Kat Kat/Canlı maç/Ekran görüntüleri")]
         public static void Capture()
         {
             const int w = 1080, h = 1920;
             KatKat.UI.UiAspect.Override = (float)w / h;
+            KatKat.UI.SafeAreaFitter.NormalizedOverride = new UnityEngine.Rect(0f, 0f, 1f, 1f);
             var camGo = new UnityEngine.GameObject("LiveCam");
             var cam = camGo.AddComponent<UnityEngine.Camera>();
             cam.clearFlags = UnityEngine.CameraClearFlags.SolidColor;
             cam.backgroundColor = UnityEngine.Color.black;
-            cam.orthographic = true;
             cam.transform.position = new UnityEngine.Vector3(0, 0, -10);
             var rt = new UnityEngine.RenderTexture(w, h, 24, UnityEngine.RenderTextureFormat.ARGB32) { antiAliasing = 4 };
             cam.targetTexture = rt;
             cam.aspect = (float)w / h;
-            var go = new UnityEngine.GameObject("LiveMatchCapture");
+            KatKat.UI.LiveMatchView view = null;
             try
             {
-                var screen = go.AddComponent<KatKat.UI.LiveMatchScreen>();
-                screen.Build(cam);
-                go.GetComponentInChildren<UnityEngine.Canvas>().scaleFactor = 1f;
+                view = KatKat.UI.LiveMatchView.Create(cam, null);
+                view.BotDelay = 0f;
+                foreach (var c in view.GetComponentsInChildren<UnityEngine.Canvas>(true)) if (c.isRootCanvas) c.scaleFactor = 1f;
                 Directory.CreateDirectory(ShotDir);
+                foreach (var old in Directory.GetFiles(ShotDir, "*.png")) File.Delete(old);
                 void Shot(string name)
                 {
-                    screen.Refresh();
+                    view.Refresh();
                     UnityEngine.Canvas.ForceUpdateCanvases();
                     cam.Render();
                     var prev = UnityEngine.RenderTexture.active;
@@ -198,46 +192,56 @@ namespace KatKat.EditorTools
                     File.WriteAllBytes(Path.Combine(ShotDir, name + ".png"), tex.EncodeToPNG());
                     UnityEngine.Object.DestroyImmediate(tex);
                 }
+                var rng = new LiveGenerator.Rng(7);
+                void HumanMove(bool preferAttack)
+                {
+                    var m = view.Match;
+                    var moves = m.LegalMoves(KatKat.UI.LiveMatchView.Human);
+                    LiveMove pick = default; bool found = false;
+                    foreach (var mv in moves)
+                    {
+                        if (preferAttack && mv.Side != LiveSide.Opponent) continue;
+                        if (!found || mv.Gain > pick.Gain) { pick = mv; found = true; }
+                    }
+                    if (!found) { var cmd = LiveBots.Choose(m, LiveBotKind.Greedy, rng); if (cmd.Type != LiveCommandType.Swap) { m.Submit(LiveCommand.Pass(0, m.NextSeq(0))); return; } view.SelectSlot(cmd.HandSlot); view.TapCell(cmd.Side, cmd.X, cmd.Y); }
+                    else
+                    {
+                        var b = m.Boards[pick.Side == LiveSide.Own ? 0 : 1];
+                        view.SelectSlot(pick.Slot);
+                        view.TapCell(pick.Side, b.X(pick.Target), b.Y(pick.Target));
+                    }
+                    view.CompleteAnimations();
+                }
 
-                screen.NewMatch(0, 0);
+                view.NewMatch(0, 0);
                 Shot("01_acilis");
-                var m = screen.Match;
-                var opps = LiveMoves.Opportunities(m.Boards[0], m.Hands[0]);
-                var best = opps[0];
-                foreach (var o in opps) if (o.Group.Count > best.Group.Count) best = o;
-                int slot = m.Hands[0].IndexOf(best.Color);
-                screen.SelectSlot(slot);
-                Shot("02_el_secili");
-                screen.TapCell(LiveSide.Own, best.Target);
-                Shot("03_puan_onizleme");
-                screen.TapCell(LiveSide.Own, best.Target); // onay: P1 puan alır, sıra P2
-                Shot("04_puan_sonrasi_sira_p2");
-                var m2 = screen.Match;
-                var mv = m2.LegalMoves(m2.Current).Find(x => x.Side == LiveSide.Opponent);
-                screen.SelectSlot(mv.Slot);
-                screen.TapCell(LiveSide.Opponent, mv.Target);
-                Shot("05_saldiri_onizleme");
-
-                // Dokunma açık: botlarla hazır grup çıkana kadar oyna.
-                screen.Rules.TapReadyGroups = true;
-                screen.NewMatch(3, 0);
-                var rng = new LiveGenerator.Rng(5);
-                for (int k = 0; k < 10 && !LiveMoves.HasReadyGroup(screen.Match.Boards[screen.Match.Current]); k++)
-                    screen.Match.Submit(LiveBots.Choose(screen.Match, LiveBotKind.Greedy, rng));
-                Shot("06_dokunma_acik_hazir_grup");
-                while (!screen.Match.IsOver) screen.Match.Submit(LiveBots.Choose(screen.Match, LiveBotKind.Balanced, rng));
-                Shot("07_mac_sonu");
-                screen.Rules.TapReadyGroups = false;
-                // Aynı eller (varsayılan farklı ama denk olduğundan düğmeyle karşılaştırma görüntüsü).
-                screen.ToggleHands();
-                if (screen.Match != null && !screen.Match.Layout.DifferentHands) Shot("08_ayni_eller");
-                screen.ToggleHands();
+                var m0 = view.Match;
+                var best = default(LiveMove); bool any = false;
+                foreach (var mv in m0.LegalMoves(0)) if (!any || mv.Gain > best.Gain) { best = mv; any = true; }
+                view.SelectSlot(best.Slot);
+                Shot("02_el_tasi_secili");
+                var b0 = m0.Boards[0];
+                view.TapCell(LiveSide.Own, b0.X(best.Target), b0.Y(best.Target));
+                view.CompleteAnimations();
+                Shot("03_patlama_sonrasi_sira_rakipte");
+                view.BotMove();
+                view.CompleteAnimations();
+                Shot("04_botun_hamlesi");
+                HumanMove(true);
+                Shot("05_rakibe_saldiri");
+                for (int k = 0; k < 40 && !view.Match.IsOver; k++)
+                {
+                    if (view.Match.Current == 1) { view.BotMove(); view.CompleteAnimations(); }
+                    else HumanMove(false);
+                }
+                Shot("06_mac_sonu");
                 Debug.Log("[KatKat] Canlı maç ekranları → " + ShotDir);
             }
             finally
             {
                 KatKat.UI.UiAspect.Override = null;
-                UnityEngine.Object.DestroyImmediate(go);
+                KatKat.UI.SafeAreaFitter.NormalizedOverride = null;
+                if (view != null) UnityEngine.Object.DestroyImmediate(view.gameObject);
                 UnityEngine.Object.DestroyImmediate(camGo);
                 rt.Release();
             }
