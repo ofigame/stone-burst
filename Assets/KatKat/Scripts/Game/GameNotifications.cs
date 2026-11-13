@@ -105,7 +105,22 @@ namespace KatKat.Game
             foreach (var p in plan)
             {
                 ScheduledForTest.Add(p);
-#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR
+                // Android: renkli uygulama simgesi büyük simge olarak (kullanıcı 2026-11-13: "bildirim ekranında uygulamanın
+                // iconu görünsün"); durum çubuğu simgesi beyaz siluet, oyun turkuazına boyanır.
+                try
+                {
+                    var an = new Unity.Notifications.Android.AndroidNotification(Title(p.Kind), Body(p.Kind), p.At)
+                    {
+                        SmallIcon = "icon_0",
+                        LargeIcon = "icon_1",
+                        Color = new Color32(0x1F, 0x78, 0x7C, 0xFF),
+                        IntentData = p.Kind.ToString(),
+                    };
+                    Unity.Notifications.Android.AndroidNotificationCenter.SendNotificationWithExplicitID(an, AndroidChannel, (int)p.Kind);
+                }
+                catch (Exception e) { Debug.LogWarning("[KatKat] Bildirim planlanamadı: " + p + " " + e.Message); }
+#elif UNITY_IOS && !UNITY_EDITOR
                 try
                 {
                     var n = new Notification

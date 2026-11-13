@@ -13,6 +13,22 @@ namespace KatKat.EditorTools
     public static class NotificationSetup
     {
         public const string SmallIconPath = "Assets/KatKat/Art/notify-small.png";
+        /// <summary>Bildirimin sağındaki renkli simge (icon_1) = uygulama simgesi 256 px.</summary>
+        public const string LargeIconPath = "Assets/KatKat/Art/notify-large.png";
+
+        private static Texture2D Readable(string path)
+        {
+            var imp = AssetImporter.GetAtPath(path) as TextureImporter;
+            if (imp != null && (!imp.isReadable || imp.textureCompression != TextureImporterCompression.Uncompressed || imp.mipmapEnabled))
+            {
+                imp.textureType = TextureImporterType.Default;
+                imp.isReadable = true;
+                imp.mipmapEnabled = false;
+                imp.textureCompression = TextureImporterCompression.Uncompressed;
+                imp.SaveAndReimport();
+            }
+            return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+        }
 
         [MenuItem("Kat Kat/Build/Bildirim ayarlarını uygula")]
         public static void Apply()
@@ -33,6 +49,9 @@ namespace KatKat.EditorTools
             {
                 NotificationSettings.AndroidSettings.ClearDrawableResources();
                 NotificationSettings.AndroidSettings.AddDrawableResource("icon_0", tex, NotificationIconType.Small);
+                var large = Readable(LargeIconPath);
+                if (large != null) NotificationSettings.AndroidSettings.AddDrawableResource("icon_1", large, NotificationIconType.Large);
+                else Debug.LogWarning("[KatKat] Büyük bildirim simgesi yok: " + LargeIconPath);
             }
             NotificationSettings.AndroidSettings.RescheduleOnDeviceRestart = true;
             // Google Play: SCHEDULE_EXACT_ALARM / USE_EXACT_ALARM yalnız alarm/takvim uygulamalarına; yaklaşık zamanlama yeter.

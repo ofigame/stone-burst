@@ -92,7 +92,12 @@ namespace KatKat.Game
             var local = DateTimeOffset.FromUnixTimeSeconds(now).LocalDateTime;
             var full = NotifyPlan.HeartsFullUnix(_save.Data.meta, now);
             DateTime? fullLocal = full.HasValue ? DateTimeOffset.FromUnixTimeSeconds(full.Value).LocalDateTime : (DateTime?)null;
-            GameNotifications.Schedule(NotifyPlan.Build(local, fullLocal, _daily != null && _daily.WonToday));
+            var plan = NotifyPlan.Build(local, fullLocal, _daily != null && _daily.WonToday);
+#if KATKAT_NOTIFY_TEST
+            // Yalnız cihaz deneme APK'sı (BuildAndroidNotifyTest): 1 dk sonra "kalpler doldu" metniyle deneme bildirimi.
+            plan.Insert(0, new PlannedNotify { Kind = NotifyKind.HeartsFull, At = local.AddMinutes(1) });
+#endif
+            GameNotifications.Schedule(plan);
         }
 
         /// <summary>Test: arka plana geçiş / öne geliş.</summary>

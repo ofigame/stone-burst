@@ -20,6 +20,18 @@ namespace KatKat.EditorTools
         }
 
         /// <summary>
+        /// Bildirim cihaz denemesi (2026-11-13): KATKAT_NOTIFY_TEST ile arka plana geçince 1 dk sonra deneme bildirimi.
+        /// Hata ayıklama imzalı yerel APK (Play Games girişi bu imzayla çalışmaz); mağazaya gitmez.
+        /// </summary>
+        [MenuItem("Kat Kat/Build/Android APK (bildirim denemesi)")]
+        public static void BuildAndroidNotifyTest()
+        {
+            _extraDefines = new[] { "KATKAT_NOTIFY_TEST" };
+            try { Build(BuildTarget.Android, "Builds/Android/StoneBurst-notifytest.apk"); }
+            finally { _extraDefines = null; }
+        }
+
+        /// <summary>
         /// vr1 P1 cihaz deneme APK'sı (kullanıcı, 2026-11-11: "Evet, hazırla"): KATKAT_VR1PROTO tanımıyla prototip varsayılan
         /// açık; Ayarlar'da sürüm yazısına dokununca açılıp kapanır. Hata ayıklama imzalı yerel APK; mağazaya gitmez.
         /// </summary>
