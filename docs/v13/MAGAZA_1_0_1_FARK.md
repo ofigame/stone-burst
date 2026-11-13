@@ -24,7 +24,7 @@ Sahne stili (kullanıcı onaylı 2026-11-12 stili: maskot + mor şerit), 8 ekran
 | 07 | ZPE beceri endeksi | RAISE YOUR SKILL SCORE |
 | 08 | 3B taş vitrini | COLLECT 3D STONES |
 
-Yükleme: App Store Connect → dil → Previews and Screenshots → "iPhone with Dynamic Island (medium display)" sekmesine `fark/iphone/(dil)`, "iPad 13\" display" sekmesine `fark/ipad/(dil)`; eski 6 görsel silinir, yeni 8'i 01–08 sırasıyla. Spanish (Spain) için `es`. Üretmek: `KATKAT_STORE_SET=fark tools/unity.ps1 capture-store` (pilot girişi çekimde gizlenir).
+**Yüklendi (2026-11-13/14, Claude, Chrome; ASC verisinden doğrulandı: 6 dil × iPhone/iPad × 8 görsel, metinler kayıtlı).** Yükleme yolu: App Store Connect → dil → Previews and Screenshots → "iPhone with Dynamic Island (medium display)" sekmesine `fark/iphone/(dil)`, "iPad 13\" display" sekmesine `fark/ipad/(dil)`; eski 6 görsel silinir, yeni 8'i 01–08 sırasıyla. Spanish (Spain) için `es`. Üretmek: `KATKAT_STORE_SET=fark tools/unity.ps1 capture-store` (pilot girişi çekimde gizlenir).
 
 ---
 
