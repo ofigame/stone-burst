@@ -334,7 +334,9 @@ namespace KatKat.UI
             if (Match.IsOver)
             {
                 int w = Match.Winner;
+                var tie = Match.TieReason();
                 _endText.text = $"Oyuncu 1: {Match.Scores[0]}   Oyuncu 2: {Match.Scores[1]}\n" + (w < 0 ? "Berabere" : $"Kazanan: Oyuncu {w + 1}") +
+                                (tie != null ? $"\n<size=28>{tie}</size>" : "") +
                                 $"\n<size=28>Dizilim {lay.Id} · ilk oynayan Oyuncu {_first + 1}</size>";
             }
         }

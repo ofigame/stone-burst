@@ -179,3 +179,39 @@ Aşağıdaki satırlarda dokunarak patlatma kapalı.
   - İkinci oynayana yarım puan.
 - **Eli küçültme.** 6 taş ve 6 tur: fırsat ve hazırlık dengesini daha da sıkılaştırır.
 - **Saldırıya küçük ödül.** Örneğin rakipte değişen taş ele döner. Bu belgedeki "eski üst taş ele dönmez" kuralını değiştirir, ürün kararıdır.
+
+## Eşitlik bozma (kullanıcı 2026-11-13: "Eşitlik bozma ekle")
+
+`LiveRules.TieBreak` ayarı eklendi. Dört kural var:
+- **Yok:** eşit puan berabere.
+- **En büyük tek grup:** maçta tek hamlede en çok katman soyan kazanır; o da eşitse berabere.
+- **İkinci oynayan:** eşit puanda ikinci oynayan kazanır.
+- **En büyük tek grup, o da eşitse ikinci oynayan:** prototipin varsayılanı. Beraberlik kalmaz.
+
+Uygulama:
+- Ekran maç sonunda gerekçeyi yazar, örneğin "puan eşit; en büyük tek grup 5–4".
+- Maç kaydına kazanan da yazılır.
+- Botlar kuralı hesaba katmaz. Her maç bir kez oynanır ve sonucu dört kurala göre ayrı okunur.
+- Tablolar: [OLCUM_RAPORU.md](OLCUM_RAPORU.md) ve [OLCUM_RAPORU_5x5.md](OLCUM_RAPORU_5x5.md), "Eşitlik bozma kurallarına göre" başlıkları.
+
+Aşağıdaki tablo dokunarak patlatma kapalı, iki tarafta aynı bot. Hücrelerdeki biçim: ilk oynayan kazanır % / ikinci kazanır % / berabere %.
+
+| Bot, tahta | Yok | En büyük tek grup | İkinci oynayan | Grup, sonra ikinci |
+|---|---|---|---|---|
+| Greedy 6×6 | 37 / 42 / 20 | 39 / 43 / 19 | 37 / 63 / 0 | 39 / 61 / 0 |
+| Dengeli 6×6 | 26 / 24 / 50 | 27 / 24 / 49 | 26 / 74 / 0 | 27 / 73 / 0 |
+| Greedy 5×5 | 32 / 35 / 33 | 33 / 37 / 30 | 32 / 68 / 0 | 33 / 67 / 0 |
+| Dengeli 5×5 | 23 / 22 / 55 | 25 / 22 / 53 | 23 / 77 / 0 | 25 / 75 / 0 |
+
+### Yorum
+
+1. **"En büyük tek grup" beraberliği çok az çözüyor** (Dengeli botta %50 → %49).
+   - Eşit biten maçlarda iki taraf aynı tahtada aynı elle genelde aynı büyüklükte grupları buluyor, yani en büyük grup da eşit çıkıyor.
+   - Beraberliğin asıl nedeni şu: tahtalar ve eller bire bir aynı ve taraflar az etkileşiyor (saldırı nadir). İki iyi oyuncu benzer en iyi yolu bulunca maç ayna gibi oynanıyor.
+2. **"İkinci oynayan" bütün beraberlikleri bitiriyor ama adil değil.** Dengeli botta ikinci oynayan maçların %73–77'sini kazanıyor; eşitlik bozmasız tabloda fark yalnız +2 puandı. Kural bu oyun düzeninde kazananı çoğu zaman sıraya bırakıyor.
+3. **Yalnız puana bakan bir eşitlik kuralı yetmiyor.** Ayna oyunda puan, en büyük grup ve kalan el de eşit çıkar; ayna maçı yalnız sıraya bağlı bir kural ayırabilir. Asıl çözüm aynalığı kırmaktır.
+   - Saldırıyı daha değerli kılmak; 5×5 bu yönde küçük bir adımdı.
+   - Taraflara farklı ama denk eller vermek. Belgedeki "aynı ilk el" kuralını değiştirir, ürün kararıdır.
+   - İlk oynayana küçük bir dezavantaj vermek, örneğin bir tur eksik. Bu da sıraya bağlıdır ama denetlenebilir.
+
+Varsayılan prototipte "en büyük tek grup, o da eşitse ikinci oynayan" duruyor. Yukarıdaki nedenle bu kural kesin karar değildir.

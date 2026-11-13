@@ -91,6 +91,7 @@ namespace KatKat.EditorTools
             sb.Append("- **İlk oyuncu avantajı** = ilk oynayanın kazanma yüzdesi − ikinci oynayanınki (beraberlik ayrı). Puan farkı da ortalama olarak verilir.\n");
             sb.Append("- **Maç süresi** = maç başına kabul edilen hamle (her oyuncu 8, toplam 16; pas dahil). Gerçek saniye için prototip ekranı her hamlenin süresini maç kaydına yazar (`LiveRecord.ElapsedMs`); bu süre ancak insanlarla yapılan yerel denemelerde ölçülebilir.\n");
             sb.Append("- **Saldırı tercihi** = kabul edilen hamlelerin türü (puan, hazırlık, saldırı, dokunma, pas) ve saldırının rakibin o anki en iyi hemen puanını ortalama kaç katman düşürdüğü.\n");
+            sb.Append("- **Eşitlik bozma**: botlar kuralı hesaba katmaz; her maç bir kez oynanır ve sonucu dört kurala göre ayrı okunur (yok, en büyük tek grup, ikinci oynayan, önce en büyük grup sonra ikinci oynayan).\n");
             sb.Append("- Botlar: Random (rastgele yasal hamle), Greedy (en çok puan; yoksa sonraki tura en iyi hazırlık; bilerek saldırmaz), Aggressive (rakibin en iyi puanı kendisininkinden küçük değilse onu en çok düşüren saldırı), Balanced (kazanç − rakibin ardından en iyisi + 0,5 × kendi sonraki en iyisi).\n\n");
             var kinds = new[] { LiveBotKind.Random, LiveBotKind.Greedy, LiveBotKind.Aggressive, LiveBotKind.Balanced };
             foreach (bool tap in new[] { false, true })
@@ -98,12 +99,18 @@ namespace KatKat.EditorTools
                 var rules = baseRules.Clone();
                 rules.TapReadyGroups = tap;
                 sb.Append($"## Dokunarak patlatma {(tap ? "AÇIK" : "KAPALI")}\n\n");
+                var runs = new System.Collections.Generic.List<LiveSim.Summary>();
+                foreach (var k in kinds) runs.Add(LiveSim.Run(pool, rules, k, k, 1000 + (tap ? 7 : 0)));
+                runs.Add(LiveSim.Run(pool, rules, LiveBotKind.Aggressive, LiveBotKind.Greedy, 2000));
+                runs.Add(LiveSim.Run(pool, rules, LiveBotKind.Greedy, LiveBotKind.Aggressive, 3000));
+                runs.Add(LiveSim.Run(pool, rules, LiveBotKind.Balanced, LiveBotKind.Greedy, 4000));
+                runs.Add(LiveSim.Run(pool, rules, LiveBotKind.Greedy, LiveBotKind.Balanced, 5000));
+                sb.Append("Kazanma sütunları ham puanla (eşitlik bozmasız).\n\n");
                 sb.Append(LiveSim.Summary.MarkdownHeader).Append('\n');
-                foreach (var k in kinds) sb.Append(LiveSim.Run(pool, rules, k, k, 1000 + (tap ? 7 : 0)).ToMarkdownRow()).Append('\n');
-                sb.Append(LiveSim.Run(pool, rules, LiveBotKind.Aggressive, LiveBotKind.Greedy, 2000).ToMarkdownRow()).Append('\n');
-                sb.Append(LiveSim.Run(pool, rules, LiveBotKind.Greedy, LiveBotKind.Aggressive, 3000).ToMarkdownRow()).Append('\n');
-                sb.Append(LiveSim.Run(pool, rules, LiveBotKind.Balanced, LiveBotKind.Greedy, 4000).ToMarkdownRow()).Append('\n');
-                sb.Append(LiveSim.Run(pool, rules, LiveBotKind.Greedy, LiveBotKind.Balanced, 5000).ToMarkdownRow()).Append('\n');
+                foreach (var r in runs) sb.Append(r.ToMarkdownRow()).Append('\n');
+                sb.Append("\n### Eşitlik bozma kurallarına göre aynı maçlar (ilk kazanır % / ikinci kazanır % / berabere %)\n\n");
+                sb.Append(LiveSim.Summary.TieHeader()).Append('\n');
+                foreach (var r in runs) sb.Append(r.ToTieRow()).Append('\n');
                 sb.Append('\n');
             }
             sw.Stop();

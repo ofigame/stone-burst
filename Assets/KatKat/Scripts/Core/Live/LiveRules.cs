@@ -25,10 +25,29 @@ namespace KatKat.Core.Live
         /// <summary>İlk prototip: rakipte hedef hücrede yeni 3'lü kuran saldırı geçersiz.</summary>
         public bool ForbidAttackGroup = true;
 
+        /// <summary>Eşit puanda karar (kullanıcı 2026-11-13: "Eşitlik bozma ekle"). Açık ürün kararı; ölçümle karşılaştırılır.</summary>
+        public LiveTieBreak TieBreak = LiveTieBreak.BiggestGroupThenSecond;
+
         public LiveRules Clone() => (LiveRules)MemberwiseClone();
+
+        public static string TieBreakName(LiveTieBreak t) => t switch
+        {
+            LiveTieBreak.None => "yok (berabere)",
+            LiveTieBreak.BiggestGroup => "en büyük tek grup",
+            LiveTieBreak.SecondMover => "ikinci oynayan",
+            _ => "en büyük tek grup, o da eşitse ikinci oynayan",
+        };
 
         public override string ToString() =>
             $"tahta {Width}x{Height}, el {HandSize} (yenilemesiz), tur {TurnsPerPlayer}/oyuncu, dokunarak patlatma {(TapReadyGroups ? "açık" : "kapalı")}, " +
-            $"rakipte 3'lü kuran saldırı {(ForbidAttackGroup ? "geçersiz" : "serbest")}, zincir yok, 2 katman";
+            $"rakipte 3'lü kuran saldırı {(ForbidAttackGroup ? "geçersiz" : "serbest")}, eşitlik bozma: {TieBreakName(TieBreak)}, zincir yok, 2 katman";
     }
+
+    /// <summary>
+    /// Eşit puanda kazanan.
+    /// None: berabere. BiggestGroup: maçtaki en büyük tek soyma (bir hamlede alınan puan) büyük olan; o da eşitse berabere.
+    /// SecondMover: ikinci oynayan (ilk oynama avantajını dengeler). BiggestGroupThenSecond: önce en büyük grup, eşitse ikinci
+    /// oynayan; beraberlik kalmaz.
+    /// </summary>
+    public enum LiveTieBreak { None, BiggestGroup, SecondMover, BiggestGroupThenSecond }
 }

@@ -264,7 +264,14 @@ namespace KatKat.Tests
                         Assert.AreEqual(rules.TurnsPerPlayer, m.TurnsUsed[1]);
                         for (int p = 0; p < 2; p++) Assert.AreEqual(initial - m.Boards[p].TotalLayers(), m.Scores[p], "puan = soyulan katman");
                         int expect = m.Scores[0] == m.Scores[1] ? -1 : (m.Scores[0] > m.Scores[1] ? 0 : 1);
-                        Assert.AreEqual(expect, m.Winner);
+                        Assert.AreEqual(expect, m.WinnerBy(LiveTieBreak.None));
+                        // Varsayılan eşitlik bozma: beraberlik kalmaz; puan farkı varsa kural etkisiz.
+                        Assert.AreNotEqual(-1, m.Winner);
+                        if (expect != -1) Assert.AreEqual(expect, m.Winner);
+                        Assert.AreEqual(m.Winner, m.Record.Winner);
+                        // En büyük tek soyma, kayıttaki en büyük kazançtır.
+                        for (int p = 0; p < 2; p++)
+                            Assert.AreEqual(m.Record.Moves.Where(e => e.Command.Player == p).Select(e => e.Gained).DefaultIfEmpty(0).Max(), m.BestMove[p]);
                         Assert.AreEqual(16, m.Record.Moves.Count);
                         Assert.AreEqual(l.Id, m.Record.LayoutId);
                         Assert.AreEqual(k % 2, m.Record.FirstPlayer);
@@ -272,6 +279,46 @@ namespace KatKat.Tests
                         // Alternation: ilk oyuncudan başlayarak sırayla.
                         for (int i = 0; i < 16; i++) Assert.AreEqual((k % 2 + i) % 2, m.Record.Moves[i].Command.Player);
                     }
+        }
+
+        [Test]
+        public void TieBreak_Rules()
+        {
+            // Puan farkı varsa her kuralda puan kazanır.
+            foreach (var rule in LiveSim.TieRules)
+                Assert.AreEqual(1, LiveMatch.Decide(new[] { 20, 21 }, new[] { 9, 3 }, 0, rule));
+            // Eşit puan, farklı en büyük grup.
+            var s = new[] { 20, 20 };
+            var b = new[] { 5, 4 };
+            Assert.AreEqual(-1, LiveMatch.Decide(s, b, 0, LiveTieBreak.None));
+            Assert.AreEqual(0, LiveMatch.Decide(s, b, 0, LiveTieBreak.BiggestGroup));
+            Assert.AreEqual(1, LiveMatch.Decide(s, b, 0, LiveTieBreak.SecondMover));
+            Assert.AreEqual(0, LiveMatch.Decide(s, b, 0, LiveTieBreak.BiggestGroupThenSecond));
+            // Eşit puan, eşit en büyük grup: ikinci oynayan (ilk P2 ise P1).
+            var e = new[] { 4, 4 };
+            Assert.AreEqual(-1, LiveMatch.Decide(s, e, 0, LiveTieBreak.BiggestGroup));
+            Assert.AreEqual(1, LiveMatch.Decide(s, e, 0, LiveTieBreak.BiggestGroupThenSecond));
+            Assert.AreEqual(0, LiveMatch.Decide(s, e, 1, LiveTieBreak.BiggestGroupThenSecond));
+            Assert.AreEqual(0, LiveMatch.Decide(s, e, 1, LiveTieBreak.SecondMover));
+        }
+
+        [Test]
+        public void TieBreak_InRealMatch_UsesBiggestSingleMove()
+        {
+            // P1 bir hamlede 3 (mercan), P2 aynı tahtada aynı hamle: 3–3, en büyük grup 3–3 → varsayılan kuralda ikinci oynayan (P2).
+            var rules = Rules();
+            rules.TurnsPerPlayer = 1;
+            var m = new LiveMatch(Make(Top, Bottom, Hand), rules);
+            Swap(m, 0, LayerColor.Coral, LiveSide.Own, 2, 0);
+            Swap(m, 1, LayerColor.Coral, LiveSide.Own, 2, 0);
+            Assert.IsTrue(m.IsOver);
+            Assert.AreEqual(3, m.Scores[0]);
+            Assert.AreEqual(3, m.Scores[1]);
+            Assert.AreEqual(-1, m.WinnerBy(LiveTieBreak.None));
+            Assert.AreEqual(-1, m.WinnerBy(LiveTieBreak.BiggestGroup));
+            Assert.AreEqual(1, m.Winner);
+            Assert.IsNotNull(m.TieReason());
+            StringAssert.Contains("kazanan=P2", m.Record.ToText());
         }
 
         [Test]

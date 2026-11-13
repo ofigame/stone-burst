@@ -25,6 +25,12 @@ Son güncelleme: 2026-11-13. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
     - Beraberlik arttı (Greedy %20 → %33, Dengeli %50 → %55).
     - Filtre 3 yine bağlayıcı değil (saldırı sonrası en az 6 puan hamlesi).
     - Karar bekleyen: tahta boyu, eşitlik bozma, el boyu.
+  - **Eşitlik bozma** (kullanıcı: "Eşitlik bozma ekle"; `LiveRules.TieBreak`, rapor `SONUC_RAPORU.md` sonu):
+    - Dört kural var; prototip varsayılanı "en büyük tek grup, o da eşitse ikinci oynayan". Ekran gerekçeyi gösterir.
+    - Ölçüm: en büyük grup beraberliği az çözüyor (%50 → %49). İkinci oynayan beraberliği bitiriyor ama ikinciye %73–77 kazandırıyor.
+    - Neden: aynı tahta + aynı el + az etkileşim → ayna oyun.
+    - Testler: EditMode 256/258 (2 eski atlanan; 2 yeni eşitlik testi).
+    - Karar bekliyor.
   - Denenmedi: insanlarla oyun, telefon (cihaz derlemesi yok), ağlı sürüm.
   - Ayrı not: `tools/CoreTests` (dotnet test) bu değişiklikten önce de derlenmiyordu (`AppGalleryBuildTests.cs` editör koduna başvuruyor); Unity EditMode koşusu geçerli.
 

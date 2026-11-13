@@ -134,10 +134,35 @@ namespace KatKat.Core.Live
     /// </summary>
     public static class LiveSim
     {
+        public static readonly LiveTieBreak[] TieRules =
+            { LiveTieBreak.None, LiveTieBreak.BiggestGroup, LiveTieBreak.SecondMover, LiveTieBreak.BiggestGroupThenSecond };
+
         public sealed class Summary
         {
             public string Label = "";
             public int Matches, FirstWins, SecondWins, Draws;
+            public readonly int[] FirstWinsBy = new int[4], SecondWinsBy = new int[4], DrawsBy = new int[4];
+
+            /// <summary>Eşitlik bozma tablosu satırı: her kural için ilk / ikinci / berabere yüzdesi.</summary>
+            public string ToTieRow()
+            {
+                var sb = new StringBuilder("| ").Append(Label).Append(" |");
+                for (int t = 0; t < TieRules.Length; t++)
+                {
+                    double n = Math.Max(1, Matches);
+                    sb.Append($" {100 * FirstWinsBy[t] / n:0.0} / {100 * SecondWinsBy[t] / n:0.0} / {100 * DrawsBy[t] / n:0.0} |");
+                }
+                return sb.ToString();
+            }
+
+            public static string TieHeader()
+            {
+                var sb = new StringBuilder("| Eşleşme |");
+                foreach (var t in TieRules) sb.Append(' ').Append(LiveRules.TieBreakName(t)).Append(" |");
+                sb.Append("\n|---|");
+                foreach (var _ in TieRules) sb.Append("---|");
+                return sb.ToString();
+            }
             public long FirstScore, SecondScore;
             public long Turns, Passes;
             public readonly long[] Kinds = new long[5];
@@ -199,9 +224,19 @@ namespace KatKat.Core.Live
                 s.FirstScore += m.Scores[first];
                 s.SecondScore += m.Scores[second];
                 s.MaxScore = Math.Max(s.MaxScore, Math.Max(m.Scores[0], m.Scores[1]));
-                if (m.Winner == -1) s.Draws++;
-                else if (m.Winner == first) s.FirstWins++;
+                // Ana sütunlar ham puanla (eşitlik bozmasız) — önceki tablolarla karşılaştırılabilir.
+                int raw = m.WinnerBy(LiveTieBreak.None);
+                if (raw == -1) s.Draws++;
+                else if (raw == first) s.FirstWins++;
                 else s.SecondWins++;
+                // Aynı maç her eşitlik kuralına göre (botlar kuralı hesaba katmaz; kural yalnız sonucu okur).
+                for (int t = 0; t < TieRules.Length; t++)
+                {
+                    int w = m.WinnerBy(TieRules[t]);
+                    if (w == -1) s.DrawsBy[t]++;
+                    else if (w == first) s.FirstWinsBy[t]++;
+                    else s.SecondWinsBy[t]++;
+                }
             }
             return m;
         }

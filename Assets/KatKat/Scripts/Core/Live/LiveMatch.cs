@@ -69,7 +69,34 @@ namespace KatKat.Core.Live
         public int NextSeq(int p) => _lastSeq[p] + 1;
 
         /// <summary>-1 berabere, yoksa kazanan oyuncu (yalnız maç bitince anlamlı).</summary>
-        public int Winner => Scores[0] == Scores[1] ? -1 : (Scores[0] > Scores[1] ? 0 : 1);
+        public int Winner => WinnerBy(Rules.TieBreak);
+
+        /// <summary>Oyuncunun maçtaki en büyük tek soyması (bir hamlede alınan puan).</summary>
+        public readonly int[] BestMove = new int[2];
+
+        /// <summary>-1 berabere, yoksa kazanan; eşitlikte verilen kurala göre (ölçüm aynı maçı her kurala göre okur).</summary>
+        public int WinnerBy(LiveTieBreak rule) => Decide(Scores, BestMove, FirstPlayer, rule);
+
+        /// <summary>Kazanan kararı (saf işlev; test edilir).</summary>
+        public static int Decide(int[] scores, int[] best, int first, LiveTieBreak rule)
+        {
+            if (scores[0] != scores[1]) return scores[0] > scores[1] ? 0 : 1;
+            if ((rule == LiveTieBreak.BiggestGroup || rule == LiveTieBreak.BiggestGroupThenSecond) && best[0] != best[1])
+                return best[0] > best[1] ? 0 : 1;
+            if (rule == LiveTieBreak.SecondMover || rule == LiveTieBreak.BiggestGroupThenSecond) return 1 - first;
+            return -1;
+        }
+
+        /// <summary>Eşit puanda kazananı belirleyen gerekçe (ekran için); eşit değilse null.</summary>
+        public string TieReason()
+        {
+            if (Scores[0] != Scores[1]) return null;
+            var r = Rules.TieBreak;
+            if ((r == LiveTieBreak.BiggestGroup || r == LiveTieBreak.BiggestGroupThenSecond) && BestMove[0] != BestMove[1])
+                return $"puan eşit; en büyük tek grup {BestMove[0]}–{BestMove[1]}";
+            if (r == LiveTieBreak.SecondMover || r == LiveTieBreak.BiggestGroupThenSecond) return "puan ve en büyük grup eşit; ikinci oynayan kazanır";
+            return null;
+        }
 
         public BoardState TargetBoard(int player, LiveSide side) => Boards[side == LiveSide.Own ? player : Opponent(player)];
 
@@ -112,10 +139,16 @@ namespace KatKat.Core.Live
                     break;
             }
             Scores[p] += r.Gained;
+            if (r.Gained > BestMove[p]) BestMove[p] = r.Gained;
             TurnsUsed[p]++;
             Record.Moves.Add(new LiveRecord.Entry { Command = cmd, Kind = r.Kind, Gained = r.Gained, ElapsedMs = elapsedMs });
             AdvanceTurn();
-            if (IsOver) { Record.FinalScores[0] = Scores[0]; Record.FinalScores[1] = Scores[1]; }
+            if (IsOver)
+            {
+                Record.FinalScores[0] = Scores[0];
+                Record.FinalScores[1] = Scores[1];
+                Record.Winner = Winner;
+            }
             return r;
         }
 
@@ -233,6 +266,8 @@ namespace KatKat.Core.Live
         public readonly List<LayerColor> Hand = new List<LayerColor>();
         public readonly List<Entry> Moves = new List<Entry>();
         public readonly int[] FinalScores = new int[2];
+        /// <summary>-1 berabere; eşitlik bozma kuralı uygulanmış sonuç.</summary>
+        public int Winner = -1;
 
         public string ToText()
         {
@@ -241,7 +276,8 @@ namespace KatKat.Core.Live
             foreach (var h in Hand) sb.Append((int)h);
             sb.Append(" kurallar=[").Append(Rules).Append("]\n");
             foreach (var e in Moves) sb.Append(e.Command).Append(" → ").Append(e.Kind).Append(" +").Append(e.Gained).Append(" ").Append(e.ElapsedMs).Append("ms\n");
-            sb.Append("sonuç P1=").Append(FinalScores[0]).Append(" P2=").Append(FinalScores[1]).Append('\n');
+            sb.Append("sonuç P1=").Append(FinalScores[0]).Append(" P2=").Append(FinalScores[1])
+              .Append(" kazanan=").Append(Winner < 0 ? "berabere" : "P" + (Winner + 1)).Append('\n');
             return sb.ToString();
         }
     }

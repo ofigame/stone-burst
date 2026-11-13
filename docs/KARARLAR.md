@@ -166,3 +166,4 @@ Eski ayrıntılı karar günlüğü arşivde (`KatKat_Arsiv_2026-11-06/docs/KARA
   - Eşdeğer kopyalar (renk adı, aynalama, döndürme; alt katman ve el dahil) kanonik anahtarla ayıklanır.
   - Ekran yalnız geliştirici girişi (Kat Kat → Canlı maç → Prototipi oyna). Mağaza derlemesine girmez, metinleri yalnız Türkçe.
   - Açık ürün kararları: el boyu, yenileme, tur, süre, rakip elinin görünürlüğü, dokunarak patlatma, eşitlik bozma, ağlı sürüm kuralları.
+  - Eşitlik bozma (kullanıcı: "Eşitlik bozma ekle"): `LiveRules.TieBreak`, prototip varsayılanı "en büyük tek grup, o da eşitse ikinci oynayan". Ölçüm: en büyük grup beraberliği az çözüyor (%50 → %49); ikinci oynayan kuralı beraberliği bitiriyor ama ikinciye %73–77 kazandırıyor. Kesin kural değil; açık ürün kararı.
