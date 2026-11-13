@@ -49,7 +49,7 @@ namespace KatKat.UI
         private CellUi[] _own, _opp;
         private Image[] _hand, _oppHand;
         private Image[] _handFrame;
-        private TMP_Text _title, _oppHeader, _ownHeader, _status, _msg, _tapLabel;
+        private TMP_Text _handsLabel, _title, _oppHeader, _ownHeader, _status, _msg, _tapLabel;
         private Button _passBtn;
         private GameObject _endPanel;
         private TMP_Text _endText;
@@ -70,10 +70,10 @@ namespace KatKat.UI
             if (Match == null) NewMatch(0, 0);
         }
 
-        /// <summary>Havuzu Resources'tan yükler (Live/live_pool_v1).</summary>
-        public static List<LiveLayout> LoadPool()
+        /// <summary>Havuzu Resources'tan yükler: aynı eller Live/live_pool_v1, farklı ama denk eller Live/live_pool_diffhands_v2.</summary>
+        public static List<LiveLayout> LoadPool(bool differentHands = false)
         {
-            var ta = Resources.Load<TextAsset>("Live/live_pool_v1");
+            var ta = Resources.Load<TextAsset>(differentHands ? "Live/live_pool_diffhands_v2" : "Live/live_pool_v1");
             return ta != null ? LiveLayout.ParsePool(ta.text) : new List<LiveLayout>();
         }
 
@@ -82,7 +82,7 @@ namespace KatKat.UI
         /// <summary>Tuvali kurar. cam null: ekran üstü; yakalama aracı kamera verir.</summary>
         public void Build(Camera cam)
         {
-            Pool ??= LoadPool();
+            Pool ??= LoadPool(Rules.DifferentHands);
             var canvasGo = new GameObject("LiveMatchCanvas", typeof(RectTransform));
             canvasGo.transform.SetParent(transform, false);
             var canvas = canvasGo.AddComponent<Canvas>();
@@ -112,9 +112,10 @@ namespace KatKat.UI
             float y = 24f;
             _title = Label(_root, "Title", "Canlı maç · prototip", 34, new Vector2(0, y), new Vector2(1000, 50), TextAlignmentOptions.Center);
             y += 58f;
-            Button(_root, "NewLayout", "Sonraki dizilim", new Vector2(-350, y), new Vector2(320, 76), () => NewMatch(PoolIndex + 1, 0));
-            Button(_root, "Flip", "Aynısı, sıra ters", new Vector2(0, y), new Vector2(320, 76), () => NewMatch(PoolIndex, 1 - _first));
-            _tapLabel = Button(_root, "TapToggle", "", new Vector2(350, y), new Vector2(320, 76), ToggleTap).GetComponentInChildren<TMP_Text>();
+            Button(_root, "NewLayout", "Sonraki dizilim", new Vector2(-402, y), new Vector2(256, 76), () => NewMatch(PoolIndex + 1, 0));
+            Button(_root, "Flip", "Aynısı, sıra ters", new Vector2(-134, y), new Vector2(256, 76), () => NewMatch(PoolIndex, 1 - _first));
+            _handsLabel = Button(_root, "HandsToggle", "", new Vector2(134, y), new Vector2(256, 76), ToggleHands).GetComponentInChildren<TMP_Text>();
+            _tapLabel = Button(_root, "TapToggle", "", new Vector2(402, y), new Vector2(256, 76), ToggleTap).GetComponentInChildren<TMP_Text>();
             y += 96f;
 
             _oppHeader = Label(_root, "OppHeader", "", 32, new Vector2(0, y), new Vector2(1000, 46), TextAlignmentOptions.Center);
@@ -160,6 +161,16 @@ namespace KatKat.UI
             ClearSelection();
             _message = "El taşı seç.";
             _moveClock.Restart();
+            Refresh();
+        }
+
+        /// <summary>El modu: aynı eller ↔ farklı ama denk eller (ayrı havuz; dizilim sırası baştan).</summary>
+        public void ToggleHands()
+        {
+            Rules.DifferentHands = !Rules.DifferentHands;
+            Pool = LoadPool(Rules.DifferentHands);
+            NewMatch(0, 0);
+            _message = Rules.DifferentHands ? "Eller farklı ama denk (aynı renk sayıları, eşit açılış değeri)." : "Eller aynı.";
             Refresh();
         }
 
@@ -269,6 +280,7 @@ namespace KatKat.UI
         {
             if (_root == null) return;
             _tapLabel.text = "Dokunma: " + (Rules.TapReadyGroups ? "Açık" : "Kapalı");
+            _handsLabel.text = "El: " + (Rules.DifferentHands ? "Farklı" : "Aynı");
             if (Match == null) { _msg.text = _message; return; }
             int p = Match.Current, o = Match.Opponent(p);
             var lay = Match.Layout;
@@ -522,6 +534,9 @@ namespace KatKat.UI
             var b = img.gameObject.AddComponent<Button>();
             b.onClick.AddListener(onClick);
             var t = Label(img.transform, "Text", text, 30, Vector2.zero, Vector2.zero, TextAlignmentOptions.Center);
+            t.enableAutoSizing = true;
+            t.fontSizeMin = 20;
+            t.fontSizeMax = 30;
             Stretch(t.rectTransform, 6f);
             return b;
         }

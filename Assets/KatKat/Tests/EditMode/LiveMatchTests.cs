@@ -377,6 +377,70 @@ namespace KatKat.Tests
             foreach (var t in LiveOpening.All) Assert.IsTrue(stored.Any(l => l.HasTag(t)), "tür " + t);
         }
 
+        private static string DiffPoolPath => Path.Combine(Path.GetDirectoryName(PoolPath), "live_pool_diffhands_v2.txt");
+
+        [Test]
+        public void DifferentHands_LayoutRoundTrip_EachPlayerGetsOwnHand()
+        {
+            var l = LiveLayout.ParsePool(File.ReadAllText(PoolPath))[0];
+            Assert.IsFalse(l.DifferentHands);
+            Assert.AreEqual(l.ToLine(), LiveLayout.Parse(l.ToLine()).ToLine(), "aynı elli satır değişmez");
+            l.Hand2 = l.Hand.Select(c => (LayerColor)(((int)c + 1) % 4)).ToArray();
+            var back = LiveLayout.Parse(l.ToLine());
+            Assert.IsTrue(back.DifferentHands);
+            CollectionAssert.AreEqual(l.Hand2, back.Hand2);
+            var m = new LiveMatch(back, new LiveRules { DifferentHands = true });
+            CollectionAssert.AreEqual(l.Hand, m.Hands[0]);
+            CollectionAssert.AreEqual(l.Hand2, m.Hands[1]);
+            CollectionAssert.AreEqual(l.Hand2, m.Record.Hand2);
+            StringAssert.Contains(" el2=", m.Record.ToText());
+            // İkinci el kanonik anahtara girer.
+            var same = LiveLayout.Parse(l.ToLine());
+            same.Hand2 = null;
+            Assert.AreNotEqual(LiveGenerator.CanonicalKey(same), LiveGenerator.CanonicalKey(back));
+        }
+
+        [Test]
+        public void DifferentHands_Validate_RejectsIdenticalOrUnequalHands()
+        {
+            var rules = new LiveRules { DifferentHands = true };
+            var l = LiveLayout.ParsePool(File.ReadAllText(DiffPoolPath))[0];
+            Assert.IsNull(LiveGenerator.Validate(l, rules));
+            var copy = LiveLayout.Parse(l.ToLine());
+            copy.Hand2 = (LayerColor[])copy.Hand.Clone();
+            Assert.AreEqual("eller aynı", LiveGenerator.Validate(copy, rules));
+            copy.Hand2 = Enumerable.Repeat(LayerColor.Coral, copy.Hand.Length).ToArray();
+            Assert.IsNotNull(LiveGenerator.Validate(copy, rules));
+            Assert.AreEqual("beklenmeyen ikinci el", LiveGenerator.Validate(l, new LiveRules()));
+        }
+
+        [Test]
+        public void DifferentHandsPool_AllValid_Equivalent_Distinct_Reproducible()
+        {
+            var rules = new LiveRules { DifferentHands = true };
+            var text = File.ReadAllText(DiffPoolPath);
+            var pool = LiveLayout.ParsePool(text);
+            Assert.Greater(pool.Count, 0);
+            foreach (var l in pool)
+            {
+                Assert.IsTrue(l.DifferentHands, l.Id);
+                Assert.AreEqual(LiveGenerator.VersionDifferentHands, l.GenVersion);
+                StringAssert.StartsWith("LM2-", l.Id);
+                Assert.IsNull(LiveGenerator.Validate(l, rules), l.Id);
+                Assert.IsFalse(LiveGenerator.SameMultiset(l.Hand, l.Hand2), l.Id);
+                var b = l.CreateBoard();
+                Assert.AreEqual(LiveGenerator.HandValue(b, l.Hand).Best, LiveGenerator.HandValue(b, l.Hand2).Best, l.Id);
+            }
+            Assert.AreEqual(pool.Count, pool.Select(LiveGenerator.CanonicalKey).Distinct().Count());
+            var header = text.Split('\n').First(s => s.StartsWith("# gen="));
+            long seed = long.Parse(header.Split(' ').First(s => s.StartsWith("seed=")).Substring(5));
+            var again = LiveGenerator.BuildPool(8, seed, rules);
+            for (int i = 0; i < again.Count; i++) Assert.AreEqual(pool[i].ToLine(), again[i].ToLine(), "dizilim " + i);
+            // Botlar farklı ellerle tam maç oynar.
+            var m = LiveSim.Play(pool[0], rules, 0, new[] { LiveBotKind.Balanced, LiveBotKind.Balanced }, 3);
+            Assert.IsTrue(m.IsOver);
+        }
+
         private static bool SameMask(LiveLayout a, LiveLayout b)
         {
             for (int i = 0; i < a.Count; i++) if (a.Mask[i] != b.Mask[i]) return false;

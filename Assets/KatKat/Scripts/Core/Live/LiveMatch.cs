@@ -58,10 +58,11 @@ namespace KatKat.Core.Live
             for (int p = 0; p < 2; p++)
             {
                 Boards[p] = layout.CreateBoard();
-                Hands[p] = layout.CreateHand();
+                Hands[p] = layout.CreateHand(p);
             }
             Record = new LiveRecord { LayoutId = layout.Id, GenVersion = layout.GenVersion, FirstPlayer = firstPlayer, Rules = Rules.ToString() };
             Record.Hand.AddRange(layout.Hand);
+            if (layout.Hand2 != null) { Record.Hand2 = new List<LayerColor>(layout.Hand2); }
         }
 
         public bool IsOver => TurnsUsed[0] >= Rules.TurnsPerPlayer && TurnsUsed[1] >= Rules.TurnsPerPlayer;
@@ -264,6 +265,8 @@ namespace KatKat.Core.Live
         public int FirstPlayer;
         public string Rules = "";
         public readonly List<LayerColor> Hand = new List<LayerColor>();
+        /// <summary>Farklı ama denk eller: P2 eli; null ise P2 de Hand ile başladı.</summary>
+        public List<LayerColor> Hand2;
         public readonly List<Entry> Moves = new List<Entry>();
         public readonly int[] FinalScores = new int[2];
         /// <summary>-1 berabere; eşitlik bozma kuralı uygulanmış sonuç.</summary>
@@ -274,6 +277,7 @@ namespace KatKat.Core.Live
             var sb = new StringBuilder();
             sb.Append("dizilim=").Append(LayoutId).Append(" gen=").Append(GenVersion).Append(" ilk=P").Append(FirstPlayer + 1).Append(" el=");
             foreach (var h in Hand) sb.Append((int)h);
+            if (Hand2 != null) { sb.Append(" el2="); foreach (var h in Hand2) sb.Append((int)h); }
             sb.Append(" kurallar=[").Append(Rules).Append("]\n");
             foreach (var e in Moves) sb.Append(e.Command).Append(" → ").Append(e.Kind).Append(" +").Append(e.Gained).Append(" ").Append(e.ElapsedMs).Append("ms\n");
             sb.Append("sonuç P1=").Append(FinalScores[0]).Append(" P2=").Append(FinalScores[1])

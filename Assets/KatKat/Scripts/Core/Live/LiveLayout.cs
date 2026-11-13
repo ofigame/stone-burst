@@ -7,7 +7,7 @@ namespace KatKat.Core.Live
     /// <summary>
     /// Ortak başlangıç dizilimi: hücre maskesi, alt ve üst renk, ilk el. İki oyuncunun tahtası ve eli bundan bire bir aynı
     /// kurulur. Metin satırı (havuz dosyası):
-    /// <c>id|gen|seed|W|H|maske(1/0)|alt(0-3, etkin değilse .)|üst|el|türler</c>.
+    /// <c>id|gen|seed|W|H|maske(1/0)|alt(0-3, etkin değilse .)|üst|el|türler[|ikinci el]</c>.
     /// </summary>
     public sealed class LiveLayout
     {
@@ -18,6 +18,8 @@ namespace KatKat.Core.Live
         public bool[] Mask;
         public LayerColor[] Bottom, Top;
         public LayerColor[] Hand;
+        /// <summary>Farklı ama denk eller (kullanıcı 2026-11-13): ikinci oyuncunun eli; null ise iki el aynı (Hand).</summary>
+        public LayerColor[] Hand2;
         /// <summary>Açılış türleri (<see cref="LiveOpening"/> etiketleri, virgülle).</summary>
         public string Tags = "";
 
@@ -38,7 +40,9 @@ namespace KatKat.Core.Live
             return b;
         }
 
-        public List<LayerColor> CreateHand() => new List<LayerColor>(Hand);
+        public List<LayerColor> CreateHand(int player = 0) => new List<LayerColor>(player == 1 && Hand2 != null ? Hand2 : Hand);
+
+        public bool DifferentHands => Hand2 != null;
 
         public string ToLine()
         {
@@ -53,6 +57,7 @@ namespace KatKat.Core.Live
             sb.Append('|');
             foreach (var h in Hand) sb.Append((char)('0' + (int)h));
             sb.Append('|').Append(Tags);
+            if (Hand2 != null) { sb.Append('|'); foreach (var h in Hand2) sb.Append((char)('0' + (int)h)); }
             return sb.ToString();
         }
 
@@ -79,6 +84,11 @@ namespace KatKat.Core.Live
             }
             l.Hand = new LayerColor[p[8].Length];
             for (int i = 0; i < p[8].Length; i++) l.Hand[i] = (LayerColor)(p[8][i] - '0');
+            if (p.Length > 10 && p[10].Length > 0)
+            {
+                l.Hand2 = new LayerColor[p[10].Length];
+                for (int i = 0; i < p[10].Length; i++) l.Hand2[i] = (LayerColor)(p[10][i] - '0');
+            }
             return l;
         }
 

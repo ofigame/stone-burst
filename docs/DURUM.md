@@ -31,6 +31,13 @@ Son güncelleme: 2026-11-13. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
     - Neden: aynı tahta + aynı el + az etkileşim → ayna oyun.
     - Testler: EditMode 256/258 (2 eski atlanan; 2 yeni eşitlik testi).
     - Karar bekliyor.
+  - **Farklı ama denk eller** (kullanıcı: "Farklı ama denk eller"; `LiveRules.DifferentHands`, ekranda "El: Aynı/Farklı"; rapor `SONUC_RAPORU.md` sonu):
+    - Denklik: ikinci el renk değişimi, aynı açılış değeri.
+    - 150'şer dizilimlik iki havuz: 6×6 oyunda, 5×5 docs'ta.
+    - Ayna oyun kırıldı: Dengeli beraberlik %50 → %16 (6×6), %55 → %18 (5×5).
+    - Varsayılan eşitlik kuralıyla 6×6'da %48 / %52; saldırı payı %4 → %9.
+    - Önerilen birleşim: 6×6 + farklı el + varsayılan eşitlik. Varsayılan yapılmadı, karar bekliyor.
+    - Testler: EditMode 259/261 (2 eski atlanan; 3 yeni), `LiveMatchScreenTests` 1/1. Yakalama `ekranlar/08_farkli_eller.png`.
   - Denenmedi: insanlarla oyun, telefon (cihaz derlemesi yok), ağlı sürüm.
   - Ayrı not: `tools/CoreTests` (dotnet test) bu değişiklikten önce de derlenmiyordu (`AppGalleryBuildTests.cs` editör koduna başvuruyor); Unity EditMode koşusu geçerli.
 

@@ -277,6 +277,24 @@ namespace KatKat.Core.Live
             }
             int n = Math.Max(1, pool.Count);
             sb.Append("- Dizilim: ").Append(pool.Count).Append('\n');
+            int diffCount = 0;
+            double oppDiff = 0, tgtDiff = 0, oppMean = 0;
+            int maxOppDiff = 0;
+            foreach (var l in pool)
+            {
+                if (!l.DifferentHands) continue;
+                diffCount++;
+                var b = l.CreateBoard();
+                var v1 = LiveGenerator.HandValue(b, l.Hand);
+                var v2 = LiveGenerator.HandValue(b, l.Hand2);
+                int d = Math.Abs(v1.Opportunities - v2.Opportunities);
+                oppDiff += d;
+                maxOppDiff = Math.Max(maxOppDiff, d);
+                tgtDiff += Math.Abs(v1.Targets - v2.Targets);
+                oppMean += (v1.Opportunities + v2.Opportunities) / 2.0;
+            }
+            if (diffCount > 0)
+                sb.Append($"- Farklı ama denk eller: {diffCount} dizilim; iki elin en iyi hemen puanı hepsinde eşit; fırsat sayısı farkı ortalama {oppDiff / diffCount:0.00} (en çok {maxOppDiff}; ortalama fırsat {oppMean / diffCount:0.0}); hedef hücre farkı ortalama {tgtDiff / diffCount:0.00}\n");
             sb.Append($"- Açılışta geçerli hedef hücresi (ortalama): {tg / n:0.0}; fırsat (renk+hedef): {opps / n:0.0}; fırsatlı renk: {colors / n:0.00}; en büyük grup ort.: {maxG / n:0.00}\n");
             sb.Append($"- Yasal açılış saldırısı (ortalama): {attacks / n:0.0}; tek saldırıdan sonra savunanın puan hamlesi: en az {minDef}, ortalama {meanDef / n:0.0}\n");
             sb.Append("- Grup büyüklüğü dağılımı (bütün fırsatlar): ");

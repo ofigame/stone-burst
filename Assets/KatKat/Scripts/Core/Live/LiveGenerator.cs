@@ -183,34 +183,143 @@ namespace KatKat.Core.Live
             }
             l.Hand = new LayerColor[rules.HandSize];
             for (int k = 0; k < rules.HandSize; k++) l.Hand[k] = (LayerColor)rng.Range(LiveRules.ColorCount);
+            if (rules.DifferentHands)
+            {
+                l.GenVersion = VersionDifferentHands;
+                l.Hand2 = PickSecondHand(l, rules, rng);
+            }
             return l;
         }
 
-        /// <summary>Filtre sonucu; null ise geçerli, değilse ret nedeni.</summary>
-        public static string Validate(LiveLayout l, LiveRules rules)
+        /// <summary>Farklı ama denk eller havuzunun üretim sürümü (kimlik öneki LM2).</summary>
+        public const int VersionDifferentHands = 2;
+
+        /// <summary>İki elin açılış değeri farkına izin: fırsat sayısında en çok %15 (en az 2) fark.</summary>
+        public const double HandTolerance = 0.15;
+
+        private static readonly int[][] Perms = BuildPerms();
+
+        private static int[][] BuildPerms()
         {
-            if (l.Width != rules.Width || l.Height != rules.Height) return "boyut";
-            if (l.Hand == null || l.Hand.Length != rules.HandSize) return "el boyu";
+            var list = new List<int[]>();
+            for (int a = 0; a < 4; a++)
+            for (int b = 0; b < 4; b++)
+            for (int c = 0; c < 4; c++)
+            for (int d = 0; d < 4; d++)
+                if (a != b && a != c && a != d && b != c && b != d && c != d) list.Add(new[] { a, b, c, d });
+            return list.ToArray();
+        }
+
+        /// <summary>
+        /// İkinci el = birinci elin renk değişimi (aynı renk sayı profili: "malzeme" eşit). Renk çoklu kümesi birinciden farklı
+        /// olan değişimler arasından açılış değeri birinciye en yakın olan seçilir (eşitlikte tohumlu rastgele). Uygun yoksa null
+        /// (Validate reddeder).
+        /// </summary>
+        private static LayerColor[] PickSecondHand(LiveLayout l, LiveRules rules, Rng rng)
+        {
             var b = l.CreateBoard();
-            for (int i = 0; i < b.Count; i++) if (b[i].Active && b[i].Layers.Count != LiveRules.LayersPerCell) return "iki katman";
-            if (LiveMoves.HasReadyGroup(b)) return "hazır 3'lü";
-            var opps = LiveMoves.Opportunities(b, l.Hand);
-            bool two = false;
-            for (int a = 0; a < opps.Count && !two; a++)
-                for (int c = a + 1; c < opps.Count && !two; c++)
-                    if (opps[a].Color != opps[c].Color && opps[a].Target != opps[c].Target) two = true;
-            if (!two) return "iki renkli fırsat yok";
-            foreach (var c in LiveMoves.DistinctColors(l.Hand))
+            var a = HandValue(b, l.Hand);
+            LayerColor[] best = null;
+            int bestDiff = int.MaxValue, ties = 0;
+            foreach (var perm in Perms)
+            {
+                var h = new LayerColor[l.Hand.Length];
+                for (int i = 0; i < h.Length; i++) h[i] = (LayerColor)perm[(int)l.Hand[i]];
+                if (SameMultiset(h, l.Hand)) continue;
+                var v = HandValue(b, h);
+                if (v.Best != a.Best) continue;
+                int diff = Math.Abs(v.Opportunities - a.Opportunities);
+                if (diff < bestDiff) { bestDiff = diff; best = h; ties = 1; }
+                else if (diff == bestDiff && rng.Range(++ties) == 0) best = h;
+            }
+            return best;
+        }
+
+        public struct Value
+        {
+            public int Opportunities, Targets, Best;
+        }
+
+        /// <summary>Açılış değeri: fırsat (renk + hedef) sayısı, hedef hücre sayısı, en iyi hemen puan.</summary>
+        public static Value HandValue(BoardState b, IList<LayerColor> hand)
+        {
+            var v = new Value();
+            var targets = new HashSet<int>();
+            foreach (var o in LiveMoves.Opportunities(b, hand))
+            {
+                v.Opportunities++;
+                targets.Add(o.Target);
+                if (o.Group.Count > v.Best) v.Best = o.Group.Count;
+            }
+            v.Targets = targets.Count;
+            return v;
+        }
+
+        public static bool SameMultiset(IList<LayerColor> x, IList<LayerColor> y)
+        {
+            var n = new int[4];
+            foreach (var c in x) n[(int)c]++;
+            foreach (var c in y) n[(int)c]--;
+            foreach (var k in n) if (k != 0) return false;
+            return true;
+        }
+
+        private static string TwoColorCheck(BoardState b, IList<LayerColor> hand)
+        {
+            var opps = LiveMoves.Opportunities(b, hand);
+            for (int a = 0; a < opps.Count; a++)
+                for (int c = a + 1; c < opps.Count; c++)
+                    if (opps[a].Color != opps[c].Color && opps[a].Target != opps[c].Target) return null;
+            return "iki renkli fırsat yok";
+        }
+
+        /// <summary>Saldıranın her yasal açılış saldırısından sonra savunanın en az bir puan hamlesi kalır.</summary>
+        private static string DefenseCheck(BoardState b, IList<LayerColor> attacker, IList<LayerColor> defender, LiveRules rules)
+        {
+            foreach (var c in LiveMoves.DistinctColors(attacker))
                 for (int i = 0; i < b.Count; i++)
                 {
                     if (LiveMoves.CheckAttack(b, i, c, rules) != LiveReject.None) continue;
                     var top = b[i].Top;
                     LiveMoves.ApplyAttack(b, i, c);
-                    bool ok = LiveMoves.Opportunities(b, l.Hand).Count > 0;
+                    bool ok = LiveMoves.Opportunities(b, defender).Count > 0;
                     LiveMoves.ApplyAttack(b, i, top);
                     if (!ok) return "saldırı sonrası savunma yok";
                 }
             return null;
+        }
+
+        /// <summary>
+        /// Filtre sonucu; null ise geçerli, değilse ret nedeni. Farklı ellerde filtreler her el için ayrı (saldırı denetimi iki
+        /// yönde) ve denklik: aynı renk sayı profili, farklı renk kümesi, eşit en iyi hemen puan, fırsat sayısı farkı en çok %15
+        /// (en az 2).
+        /// </summary>
+        public static string Validate(LiveLayout l, LiveRules rules)
+        {
+            if (l.Width != rules.Width || l.Height != rules.Height) return "boyut";
+            if (l.Hand == null || l.Hand.Length != rules.HandSize) return "el boyu";
+            if (rules.DifferentHands != l.DifferentHands) return rules.DifferentHands ? "denk ikinci el yok" : "beklenmeyen ikinci el";
+            var b = l.CreateBoard();
+            for (int i = 0; i < b.Count; i++) if (b[i].Active && b[i].Layers.Count != LiveRules.LayersPerCell) return "iki katman";
+            if (LiveMoves.HasReadyGroup(b)) return "hazır 3'lü";
+            if (!l.DifferentHands)
+                return TwoColorCheck(b, l.Hand) ?? DefenseCheck(b, l.Hand, l.Hand, rules);
+            var h2 = l.Hand2;
+            if (h2.Length != l.Hand.Length) return "el boyu";
+            if (SameMultiset(h2, l.Hand)) return "eller aynı";
+            var c1 = new int[4];
+            var c2 = new int[4];
+            foreach (var c in l.Hand) c1[(int)c]++;
+            foreach (var c in h2) c2[(int)c]++;
+            Array.Sort(c1);
+            Array.Sort(c2);
+            for (int k = 0; k < 4; k++) if (c1[k] != c2[k]) return "renk sayı profili farklı";
+            var v1 = HandValue(b, l.Hand);
+            var v2 = HandValue(b, h2);
+            if (v1.Best != v2.Best) return "en iyi puan farklı";
+            if (Math.Abs(v1.Opportunities - v2.Opportunities) > Math.Max(2, HandTolerance * Math.Max(v1.Opportunities, v2.Opportunities))) return "açılış değeri farklı";
+            return TwoColorCheck(b, l.Hand) ?? TwoColorCheck(b, h2)
+                ?? DefenseCheck(b, l.Hand, h2, rules) ?? DefenseCheck(b, h2, l.Hand, rules);
         }
 
         // ---- Eşdeğer kopyalar (renk adı değişimi, aynalama, döndürme) ----------------------------------------------
@@ -259,17 +368,30 @@ namespace KatKat.Core.Live
                 var hand = new int[4];
                 for (int c = 0; c < 4; c++) if (counts[c] > 0) hand[rename[c]] = counts[c];
                 for (int c = 0; c < 4; c++) sb.Append(hand[c]);
+                if (l.Hand2 != null)
+                {
+                    // İkinci el (P2): aynı adlandırmayla renk sayıları.
+                    var c2 = new int[4];
+                    foreach (var c in l.Hand2) c2[(int)c]++;
+                    var order2 = new List<int> { 0, 1, 2, 3 };
+                    order2.Sort((a, b) => c2[b].CompareTo(c2[a]));
+                    foreach (int c in order2) if (c2[c] > 0) Name((LayerColor)c);
+                    var hand2 = new int[4];
+                    for (int c = 0; c < 4; c++) if (c2[c] > 0) hand2[rename[c]] = c2[c];
+                    sb.Append('/');
+                    for (int c = 0; c < 4; c++) sb.Append(hand2[c]);
+                }
                 var key = sb.ToString();
                 if (best == null || string.CompareOrdinal(key, best) < 0) best = key;
             }
             return w + "x" + h + ":" + best;
         }
 
-        public static string IdFor(string key)
+        public static string IdFor(string key, int version = Version)
         {
             uint hsh = 2166136261;
             foreach (char c in key) { hsh ^= c; hsh *= 16777619; }
-            return "LM" + Version + "-" + hsh.ToString("x8");
+            return "LM" + version + "-" + hsh.ToString("x8");
         }
 
         /// <summary>Üretim istatistiği (rapor).</summary>
@@ -306,7 +428,7 @@ namespace KatKat.Core.Live
                 if (!rep.Tags.Contains(want)) { stats.WrongTag++; continue; }
                 var key = CanonicalKey(l);
                 if (!keys.Add(key)) { stats.Duplicates++; continue; }
-                l.Id = IdFor(key);
+                l.Id = IdFor(key, l.GenVersion);
                 l.Tags = string.Join(",", rep.Tags);
                 pool.Add(l);
                 stats.Accepted++;

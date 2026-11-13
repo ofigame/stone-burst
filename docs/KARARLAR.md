@@ -167,3 +167,8 @@ Eski ayrıntılı karar günlüğü arşivde (`KatKat_Arsiv_2026-11-06/docs/KARA
   - Ekran yalnız geliştirici girişi (Kat Kat → Canlı maç → Prototipi oyna). Mağaza derlemesine girmez, metinleri yalnız Türkçe.
   - Açık ürün kararları: el boyu, yenileme, tur, süre, rakip elinin görünürlüğü, dokunarak patlatma, eşitlik bozma, ağlı sürüm kuralları.
   - Eşitlik bozma (kullanıcı: "Eşitlik bozma ekle"): `LiveRules.TieBreak`, prototip varsayılanı "en büyük tek grup, o da eşitse ikinci oynayan". Ölçüm: en büyük grup beraberliği az çözüyor (%50 → %49); ikinci oynayan kuralı beraberliği bitiriyor ama ikinciye %73–77 kazandırıyor. Kesin kural değil; açık ürün kararı.
+  - Farklı ama denk eller (kullanıcı: "Farklı ama denk eller"): `LiveRules.DifferentHands` deneme ayarı (ekranda "El" düğmesi), varsayılan kapalı. Belgedeki "aynı ilk el" kuralını değiştirir.
+    - Denklik: ikinci el birincinin renk değişimi, renk kümesi farklı, en iyi hemen puan eşit, fırsat sayısı ±%15. Filtreler iki el için ayrı, saldırı denetimi iki yönde.
+    - Havuzlar sürüm 2 (`LM2`): 6×6 `Resources/Live/live_pool_diffhands_v2.txt`, 5×5 `docs/vr1/canli_mac/havuz_5x5_farkli_el_v2.txt`.
+    - Ölçüm: beraberlik %50 → %16 (Dengeli, 6×6). Varsayılan eşitlik kuralıyla %48 / %52.
+    - Bot verisine göre en dengeli birleşim: 6×6 + farklı el + varsayılan eşitlik kuralı. İnsanlarla denenmedi; varsayılan yapılmadı.

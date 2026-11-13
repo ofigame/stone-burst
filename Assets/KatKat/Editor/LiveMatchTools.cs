@@ -18,6 +18,7 @@ namespace KatKat.EditorTools
     {
         public const string PoolPath = "Assets/KatKat/Resources/Live/live_pool_v1.txt";
         public const string ReportPath = "docs/vr1/canli_mac/OLCUM_RAPORU.md";
+        public const string DiffPoolPath = "Assets/KatKat/Resources/Live/live_pool_diffhands_v2.txt";
         public const long PoolSeed = 20261113;
         public const int PoolCount = 150;
 
@@ -30,11 +31,20 @@ namespace KatKat.EditorTools
             var rules = new LiveRules();
             poolPath = PoolPath;
             reportPath = ReportPath;
+            // Farklı ama denk eller (kullanıcı 2026-11-13): KATKAT_LIVE_HANDS=diff. 6×6 havuzu oyuna girer (ekrandaki "El" düğmesi).
+            bool diff = Environment.GetEnvironmentVariable("KATKAT_LIVE_HANDS") == "diff";
+            rules.DifferentHands = diff;
+            if (diff)
+            {
+                poolPath = DiffPoolPath;
+                reportPath = "docs/vr1/canli_mac/OLCUM_RAPORU_farkli_el.md";
+            }
             if (int.TryParse(Environment.GetEnvironmentVariable("KATKAT_LIVE_SIZE"), out int n) && n >= 3 && n != rules.Width)
             {
                 rules.Width = rules.Height = n;
-                poolPath = $"docs/vr1/canli_mac/havuz_{n}x{n}_v1.txt";
-                reportPath = $"docs/vr1/canli_mac/OLCUM_RAPORU_{n}x{n}.md";
+                string tag = diff ? "_farkli_el" : "";
+                poolPath = $"docs/vr1/canli_mac/havuz_{n}x{n}{tag}_v{(diff ? 2 : 1)}.txt";
+                reportPath = $"docs/vr1/canli_mac/OLCUM_RAPORU{tag}_{n}x{n}.md";
             }
             return rules;
         }
@@ -49,8 +59,8 @@ namespace KatKat.EditorTools
             sw.Stop();
             var sb = new StringBuilder();
             sb.Append("# Stone Burst canlı maç doğrulanmış tahta havuzu. Elle düzenleme: LiveMatchTools.GeneratePool ile yeniden üret.\n");
-            sb.Append($"# gen={LiveGenerator.Version} seed={PoolSeed} count={pool.Count} kurallar=[{rules}]\n");
-            sb.Append("# id|gen|seed|W|H|maske|alt|üst|el|türler  (renk: 0 mercan, 1 turkuaz, 2 inci, 3 mor; . etkin değil)\n");
+            sb.Append($"# gen={(rules.DifferentHands ? LiveGenerator.VersionDifferentHands : LiveGenerator.Version)} seed={PoolSeed} count={pool.Count} kurallar=[{rules}]\n");
+            sb.Append("# id|gen|seed|W|H|maske|alt|üst|el|türler[|P2 eli]  (renk: 0 mercan, 1 turkuaz, 2 inci, 3 mor; . etkin değil)\n");
             foreach (var l in pool) sb.Append(l.ToLine()).Append('\n');
             Directory.CreateDirectory(Path.GetDirectoryName(PoolPath));
             File.WriteAllText(PoolPath, sb.ToString(), new UTF8Encoding(false));
@@ -75,7 +85,7 @@ namespace KatKat.EditorTools
             var sw = Stopwatch.StartNew();
             var sb = new StringBuilder();
             sb.Append("# Canlı maç ölçüm raporu (botlar)\n\n");
-            sb.Append($"Üretildi: {DateTime.Now:yyyy-MM-dd HH:mm} · `LiveMatchTools.RunReport` (tools/unity.ps1 live-report) · havuz `{PoolPath}` (gen {LiveGenerator.Version}, tohum {PoolSeed})\n\n");
+            sb.Append($"Üretildi: {DateTime.Now:yyyy-MM-dd HH:mm} · `LiveMatchTools.RunReport` (tools/unity.ps1 live-report) · havuz `{PoolPath}` (gen {(baseRules.DifferentHands ? LiveGenerator.VersionDifferentHands : LiveGenerator.Version)}, tohum {PoolSeed})\n\n");
             sb.Append("Bu sayılar **bot** maçlarıdır, gerçek oyuncu davranışı değildir. Kuralların kaba dengesini ve açık ayarların etkisini karşılaştırmak içindir.\n\n");
             sb.Append("## Kurallar\n\n- ").Append(baseRules).Append("\n- Dokunarak patlatma her ölçümde açık ve kapalı ayrı çalıştırıldı.\n\n");
             sb.Append("## Havuz çeşitliliği\n\n");
@@ -218,6 +228,10 @@ namespace KatKat.EditorTools
                 while (!screen.Match.IsOver) screen.Match.Submit(LiveBots.Choose(screen.Match, LiveBotKind.Balanced, rng));
                 Shot("07_mac_sonu");
                 screen.Rules.TapReadyGroups = false;
+                // Farklı ama denk eller (havuz Resources'ta varsa).
+                screen.ToggleHands();
+                if (screen.Match != null && screen.Match.Layout.DifferentHands) Shot("08_farkli_eller");
+                screen.ToggleHands();
                 Debug.Log("[KatKat] Canlı maç ekranları → " + ShotDir);
             }
             finally

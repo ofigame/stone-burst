@@ -215,3 +215,71 @@ Aşağıdaki tablo dokunarak patlatma kapalı, iki tarafta aynı bot. Hücrelerd
    - İlk oynayana küçük bir dezavantaj vermek, örneğin bir tur eksik. Bu da sıraya bağlıdır ama denetlenebilir.
 
 Varsayılan prototipte "en büyük tek grup, o da eşitse ikinci oynayan" duruyor. Yukarıdaki nedenle bu kural kesin karar değildir.
+
+## Deneme: farklı ama denk eller (kullanıcı 2026-11-13: "Farklı ama denk eller")
+
+Amaç ayna oyunu kırmak. Belgedeki "ilk el iki tarafta aynı" kuralını değiştirir. Deneme ayarı: `LiveRules.DifferentHands`; ekranda "El: Aynı/Farklı" düğmesi.
+
+**Denklik tanımı** (`LiveGenerator.Validate`):
+- **Aynı renk sayı profili:** ikinci el birincinin renk değişimidir. Örneğin P1'de 4 mercan + 2 turkuaz + 1 inci + 1 mor, P2'de 4 turkuaz + 2 mercan + 1 inci + 1 mor. Taş "malzemesi" eşit.
+- **Renk kümesi farklı:** iki el aynı renk çoklu kümesi olamaz.
+- **Açılış değeri eşit:** en iyi hemen puan aynı, fırsat (renk + hedef) sayısı farkı en çok %15 (en az 2). Uygun değişimler arasından değeri en yakın olan seçilir.
+- **Filtreler her el için ayrı:** saldırı denetimi iki yönde yapılır. P1'in her açılış saldırısından sonra P2'nin puan hamlesi kalır, tersi de geçerli.
+
+**Havuzlar:**
+- 6×6: `Resources/Live/live_pool_diffhands_v2.txt` (oyunda seçilebilir).
+- 5×5: `docs/vr1/canli_mac/havuz_5x5_farkli_el_v2.txt`.
+- Üretim sürümü 2, kimlik öneki `LM2`. İki havuzda da 150 dizilim.
+- Sonuçta fırsat sayısı farkı her dizilimde 0 çıktı: eller açılışta tam denk.
+- Üretmek için: `KATKAT_LIVE_HANDS=diff` (ve 5×5 için ek olarak `KATKAT_LIVE_SIZE=5`) ile `tools/unity.ps1 live-report`.
+- Tablolar: [OLCUM_RAPORU_farkli_el.md](OLCUM_RAPORU_farkli_el.md), [OLCUM_RAPORU_farkli_el_5x5.md](OLCUM_RAPORU_farkli_el_5x5.md).
+
+Aşağıdaki tablolarda dokunarak patlatma kapalı. Hücrelerdeki biçim: ilk oynayan kazanır % / ikinci kazanır % / berabere %.
+
+**Beraberlik ve sıra etkisi (eşitlik bozmasız):**
+
+| Bot | 6×6 aynı el | 6×6 farklı el | 5×5 aynı el | 5×5 farklı el |
+|---|---|---|---|---|
+| Greedy | 37 / 42 / 20 | 44 / 46 / 11 | 32 / 35 / 33 | 40 / 47 / 13 |
+| Dengeli | 26 / 24 / 50 | 46 / 37 / 16 | 23 / 22 / 55 | 43 / 39 / 18 |
+| Random | 47 / 44 / 9 | 48 / 45 / 8 | 47 / 46 / 7 | 48 / 42 / 10 |
+
+**Varsayılan eşitlik bozmayla** (en büyük grup, sonra ikinci oynayan):
+
+| Bot | 6×6 aynı el | 6×6 farklı el | 5×5 aynı el | 5×5 farklı el |
+|---|---|---|---|---|
+| Greedy | 39 / 61 | 44 / 56 | 33 / 67 | 41 / 59 |
+| Dengeli | 27 / 73 | 48 / 52 | 25 / 75 | 44 / 56 |
+
+**Saldırı** (dengeli botun hamle payı / bir saldırının rakibin en iyi puanını düşürdüğü):
+
+| Tahta | Aynı el | Farklı el |
+|---|---|---|
+| 6×6 | %4,3 / 1,3 | %8,9 / 2,2 |
+| 5×5 | %11,3 / 1,9 | %16,3 / 2,2 |
+
+Saldırgan bot yine Greedy'e yeniliyor: Greedy %78–84 kazanıyor.
+
+### Yorum
+
+1. **Ayna oyun kırıldı.** Dengeli botlarda beraberlik %50 → %16 (6×6) ve %55 → %18 (5×5) düştü. Greedy'de %20 → %11 ve %33 → %13. Asıl sorunun aynı el olduğu doğrulandı.
+2. **Eşitlik bozma artık adil.**
+   - 6×6 farklı el + varsayılan kural: ikinci oynayan dengeli botta %52, Greedy'de %56. Aynı elde %73 ve %61'di.
+   - 5×5'te ikinci oynayan %56–59 alıyor; 6×6 daha dengeli.
+3. **Etkileşim arttı.** Eller farklı olunca rakibin hangi renge ihtiyaç duyduğu ayrışıyor, saldırı daha hedefli oluyor. Dengeli bot iki kat sık saldırıyor ve her saldırı rakibe daha çok zarar veriyor.
+4. **İlk oynayan avantajı:**
+   - Eşitlik bozmasız: dengeli botta 6×6'da +9, 5×5'te +4 puan; bu kez ilk oynayan lehine. Önceden beraberliğe giden maçlar artık çoğunlukla ilk oynayana gidiyor.
+   - Eşitlik kuralı bunu dengeliyor: 6×6'da −5.
+   - Saldırgan botta avantaj büyük kalıyor (+24 ile +26 arası), ama bu bot zaten kötü oynuyor.
+5. **Denklik ölçüsü yalnız açılışı kapsıyor.** İki elin fırsat sayısı ve en iyi puanı açılışta eşit. İlerleyen turlarda hangi rengin daha değerli olacağı oyuna bağlı. Bot verisinde farklı elle büyük bir taraf avantajı görünmüyor, ama bunu ayrıca ölçmedim (P1 eli / P2 eli kazanma oranı).
+
+### Öneri (karar sizin)
+
+Bot verisine göre en dengeli birleşim:
+- 6×6 tahta.
+- Farklı ama denk eller.
+- Eşitlik bozma "en büyük tek grup, o da eşitse ikinci oynayan".
+
+Dengeli bot bu birleşimde %48 / %52 dağılıyor, beraberlik kalmıyor, saldırı hamlelerin yaklaşık %9'u. Bunu insanlarla denemek gerekiyor. Ekranda "El: Farklı" düğmesiyle açılır, 6×6'dır.
+
+Prototip varsayılanını değiştirmedim; hâlâ aynı el. İstersen varsayılanı "farklı el" yaparım.
