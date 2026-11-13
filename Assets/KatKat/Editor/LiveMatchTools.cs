@@ -21,10 +21,28 @@ namespace KatKat.EditorTools
         public const long PoolSeed = 20261113;
         public const int PoolCount = 150;
 
+        /// <summary>
+        /// Deneme boyu (kullanıcı 2026-11-13: "5×5 dene"): KATKAT_LIVE_SIZE=N ise N×N kurallarla ayrı havuz
+        /// (docs/vr1/canli_mac/havuz_NxN_v1.txt, oyuna girmez) ve ayrı rapor (OLCUM_RAPORU_NxN.md). Boşsa varsayılan 6×6.
+        /// </summary>
+        private static LiveRules Variant(out string poolPath, out string reportPath)
+        {
+            var rules = new LiveRules();
+            poolPath = PoolPath;
+            reportPath = ReportPath;
+            if (int.TryParse(Environment.GetEnvironmentVariable("KATKAT_LIVE_SIZE"), out int n) && n >= 3 && n != rules.Width)
+            {
+                rules.Width = rules.Height = n;
+                poolPath = $"docs/vr1/canli_mac/havuz_{n}x{n}_v1.txt";
+                reportPath = $"docs/vr1/canli_mac/OLCUM_RAPORU_{n}x{n}.md";
+            }
+            return rules;
+        }
+
         [MenuItem("Kat Kat/Canlı maç/Havuzu üret")]
         public static void GeneratePool()
         {
-            var rules = new LiveRules();
+            var rules = Variant(out var PoolPath, out _);
             var stats = new LiveGenerator.Stats();
             var sw = Stopwatch.StartNew();
             var pool = LiveGenerator.BuildPool(PoolCount, PoolSeed, rules, stats);
@@ -36,7 +54,7 @@ namespace KatKat.EditorTools
             foreach (var l in pool) sb.Append(l.ToLine()).Append('\n');
             Directory.CreateDirectory(Path.GetDirectoryName(PoolPath));
             File.WriteAllText(PoolPath, sb.ToString(), new UTF8Encoding(false));
-            AssetDatabase.ImportAsset(PoolPath);
+            if (PoolPath.StartsWith("Assets/")) AssetDatabase.ImportAsset(PoolPath);
             var rej = new StringBuilder();
             foreach (var kv in stats.Rejects) rej.Append(kv.Key).Append('=').Append(kv.Value).Append(' ');
             Debug.Log($"[KatKat] Canlı maç havuzu: {pool.Count} dizilim, {stats.Tried} aday, tür uymadı {stats.WrongTag}, eşdeğer kopya {stats.Duplicates}, " +
@@ -48,19 +66,17 @@ namespace KatKat.EditorTools
         private static LiveGenerator.Stats _lastStats;
         private static long _lastMs;
 
-        public static System.Collections.Generic.List<LiveLayout> LoadPool() => LiveLayout.ParsePool(File.ReadAllText(PoolPath));
-
         [MenuItem("Kat Kat/Canlı maç/Ölçüm raporu")]
         public static void RunReport()
         {
+            var baseRules = Variant(out var PoolPath, out var ReportPath);
             if (!File.Exists(PoolPath)) GeneratePool();
-            var pool = LoadPool();
+            var pool = LiveLayout.ParsePool(File.ReadAllText(PoolPath));
             var sw = Stopwatch.StartNew();
             var sb = new StringBuilder();
             sb.Append("# Canlı maç ölçüm raporu (botlar)\n\n");
             sb.Append($"Üretildi: {DateTime.Now:yyyy-MM-dd HH:mm} · `LiveMatchTools.RunReport` (tools/unity.ps1 live-report) · havuz `{PoolPath}` (gen {LiveGenerator.Version}, tohum {PoolSeed})\n\n");
             sb.Append("Bu sayılar **bot** maçlarıdır, gerçek oyuncu davranışı değildir. Kuralların kaba dengesini ve açık ayarların etkisini karşılaştırmak içindir.\n\n");
-            var baseRules = new LiveRules();
             sb.Append("## Kurallar\n\n- ").Append(baseRules).Append("\n- Dokunarak patlatma her ölçümde açık ve kapalı ayrı çalıştırıldı.\n\n");
             sb.Append("## Havuz çeşitliliği\n\n");
             if (_lastStats != null)

@@ -18,6 +18,13 @@ Son güncelleme: 2026-11-13. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: 
     - Saldırı az işe yarıyor: saldırgan bot açgözlüye %83–90 yeniliyor.
     - İlk oyuncu avantajı yalnız saldırgan botta belirgin (+25 puan).
     - Dengeli botlarda maçların yaklaşık yarısı berabere.
+  - **5×5 denemesi** (kullanıcı: "5×5 dene"; ayrı havuz `docs/vr1/canli_mac/havuz_5x5_v1.txt`, tablolar `OLCUM_RAPORU_5x5.md`, karşılaştırma `SONUC_RAPORU.md` sonu; varsayılan hâlâ 6×6):
+    - Fırsat 37,8 → 23,8.
+    - Dengeli botun saldırı payı %4 → %11, hazırlık payı ikiye katlandı.
+    - Saldırgan bot yine kaybediyor (Greedy %81–85 kazanıyor).
+    - Beraberlik arttı (Greedy %20 → %33, Dengeli %50 → %55).
+    - Filtre 3 yine bağlayıcı değil (saldırı sonrası en az 6 puan hamlesi).
+    - Karar bekleyen: tahta boyu, eşitlik bozma, el boyu.
   - Denenmedi: insanlarla oyun, telefon (cihaz derlemesi yok), ağlı sürüm.
   - Ayrı not: `tools/CoreTests` (dotnet test) bu değişiklikten önce de derlenmiyordu (`AppGalleryBuildTests.cs` editör koduna başvuruyor); Unity EditMode koşusu geçerli.
 

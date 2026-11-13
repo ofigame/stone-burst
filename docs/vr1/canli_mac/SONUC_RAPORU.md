@@ -134,3 +134,48 @@ Hepsi `LiveRules` ve `LiveGenerator` üzerinden denenebilir; `tools/unity.ps1 li
   - Eşitlik bozma.
   - Ağlı sürümün kopma, yeniden bağlanma ve zaman aşımı kuralları.
 - **Ağlı sürüme hazırlık:** komutlarda artan sıra numarası var. Aynı ya da eski numara ikinci kez işlenmez, test edildi. Sunucunun tahtayı ve eli belirlemesi, komutu denetleyip iki tarafa göndermesi henüz yok.
+
+## Deneme: 5×5 tahta (kullanıcı 2026-11-13: "5×5 dene")
+
+- Diğer bütün ayarlar aynı: 8 taşlık el, 8 tur, 4 renk, aynı filtreler, aynı botlar ve tohumlar.
+- Havuz ayrı tutuldu: `havuz_5x5_v1.txt`, oyuna girmez. Tablolar [OLCUM_RAPORU_5x5.md](OLCUM_RAPORU_5x5.md) dosyasında.
+- Yeniden üretmek için `KATKAT_LIVE_SIZE=5` ortam değişkeniyle `tools/unity.ps1 live-report`.
+- Varsayılan prototip hâlâ 6×6.
+
+Aşağıdaki satırlarda dokunarak patlatma kapalı.
+
+| Ölçü | 6×6 | 5×5 |
+|---|---|---|
+| Filtrelerden geçen aday | 150 / 152 | 150 / 177 (26 tür uymadı, 1 iki renkli fırsat yok) |
+| Açılışta fırsat (renk + hedef), ortalama | 37,8 | 23,8 |
+| Tek saldırıdan sonra savunanın puan hamlesi: en az / ortalama | 13 / 37,8 | 6 / 23,7 |
+| Dengeli bot: saldırı payı | %4,3 | %11,3 |
+| Dengeli bot: bir saldırı rakibin en iyi puanını düşürdü | 1,34 | 1,89 |
+| Yalnız puan toplayan bot (Greedy) saldırgana karşı kazanır | %83–90 | %81–85 |
+| Dengeli bot Greedy'e karşı kazanır | %75 | %67–69 |
+| Beraberlik: Greedy / Dengeli | %20 / %50 | %33 / %55 |
+| İlk oynayanın avantajı: Random / Greedy / Saldırgan / Dengeli | +3 / −5 / +25 / +2 | +1 / −4 / +17 / +2 |
+| Maç başına ortalama puan (Greedy) | 35,2 | 29,1 |
+| Greedy'nin hazırlık hamlesi payı | %8,6 | %18,0 |
+
+"Fırsat konumu" satırı 5×5'te satırları eşit bölmüyor (üçte birlere 2-2-1 satır düşüyor). O satır iki boy arasında karşılaştırılmamalı.
+
+### Yorum
+
+1. **Saldırı daha anlamlı ama hâlâ tek başına kazandırmıyor.**
+   - Dengeli bot 5×5'te 2,6 kat daha sık saldırıyor ve saldırı rakibe daha çok zarar veriyor.
+   - Yalnız saldıran bot ise yine büyük farkla yeniliyor.
+   - Puan alıp gerektiğinde saldırmak en iyisi; 6×6'da saldırı neredeyse hiç gerekmiyordu.
+2. **Planlama arttı.** Fırsatlar azalınca hazırlık hamlesi payı ikiye katlandı (%8,6 → %18). Belgenin "plan yaparak" hedefine daha yakın.
+3. **Filtre 3 hâlâ bağlayıcı değil.** Saldırıdan sonra savunanın en az 6 puan hamlesi kalıyor. Filtreler 177 adaydan yalnız 1'ini reddetti.
+4. **Beraberlik daha da arttı** (Greedy %20 → %33). Puanlar küçülüp birbirine yaklaşınca eşitlik sıklaşıyor. 5×5'e geçilirse eşitlik bozma kuralı daha gerekli olur.
+5. **İlk oynayan avantajı** saldırgan botta azaldı (+25 → +17); diğerlerinde gürültü düzeyinde.
+
+### Sonraki denemeler (karar sizin)
+
+- **Eşitlik bozma** örnekleri:
+  - En büyük tek grup.
+  - Rakip tahtada kalan katman.
+  - İkinci oynayana yarım puan.
+- **Eli küçültme.** 6 taş ve 6 tur: fırsat ve hazırlık dengesini daha da sıkılaştırır.
+- **Saldırıya küçük ödül.** Örneğin rakipte değişen taş ele döner. Bu belgedeki "eski üst taş ele dönmez" kuralını değiştirir, ürün kararıdır.
