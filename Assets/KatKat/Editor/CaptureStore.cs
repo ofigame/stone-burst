@@ -64,6 +64,9 @@ namespace KatKat.EditorTools
             // → docs/magaza/fark/(cihaz)/(dil)/, ham çekim docs/magaza/ham_fark/.
             bool fark = Environment.GetEnvironmentVariable("KATKAT_STORE_SET") == "fark";
             if (fark) scene = true;
+            // KATKAT_STORE_SET=review (2026-11-14): App Review "Attachment" için ilerideki kurallı bölümler (kural kartı, patron,
+            // kurallı tahta); yalnız ham çekim → docs/magaza/ham_review/(cihaz)/(dil)/. Birleştirme tools/review_sheet.ps1.
+            bool review = Environment.GetEnvironmentVariable("KATKAT_STORE_SET") == "review";
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var keepLang = Loc.Code;
             GameController.ToursOverride = false;
@@ -78,7 +81,7 @@ namespace KatKat.EditorTools
                     {
                         string lang = l.Trim();
                         Loc.Set(lang, false);
-                        string dir = (fark ? "../magaza/ham_fark/" : "../magaza/ham/") + dev.Name + "/" + lang + "/";
+                        string dir = (review ? "../magaza/ham_review/" : fark ? "../magaza/ham_fark/" : "../magaza/ham/") + dev.Name + "/" + lang + "/";
                         string outDir = Path.Combine("docs", "magaza", dev.Name, lang);
                         Directory.CreateDirectory(Path.Combine(PeelCapture.OutDir, dir));
                         void Shot(int n, string name, int bg, Action<GameController> act)
@@ -102,6 +105,7 @@ namespace KatKat.EditorTools
                                 });
                             }
                             finally { GameController.BackgroundOverride = null; }
+                            if (review) return;
                             if (scene)
                             {
                                 var set = fark ? FarkCaptions : SceneCaptions;
@@ -111,6 +115,22 @@ namespace KatKat.EditorTools
                             }
                             string caption = Captions.TryGetValue(lang, out var c) ? c[n - 1] : Captions["en"][n - 1];
                             Compose(rawPath, Path.Combine(outDir, file), dev.W, dev.H, caption, dev.Pad);
+                        }
+                        if (review)
+                        {
+                            // Dizin 0 tabanlı (StartLevel(26) = 27. bölüm). Kural kartı türün ilk görüldüğü bölümde ve patronda açılır.
+                            void Card(int n, string name, int index) =>
+                                Shot(n, name, n % 5, gc => { CaptureV13Pages.Progress(gc, index); gc.StartLevel(index); });
+                            Card(1, "exact_27", 26);
+                            Card(2, "boss_30", 29);
+                            Card(3, "reverse_37", 36);
+                            Card(4, "chain_47", 46);
+                            Card(5, "protect_68", 67);
+                            Card(6, "pure_77", 76);
+                            Card(7, "moment_87", 86);
+                            // 8: kurallı tahta (kart kapalı) + uzun basma katman görünümü.
+                            Shot(8, "board_27", 0, gc => { CaptureV13Pages.Progress(gc, 26); gc.StartLevel(26); gc.Hud.HideRuleCard(false); CaptureV13Pages.Peek(gc); });
+                            continue;
                         }
                         if (fark)
                         {
