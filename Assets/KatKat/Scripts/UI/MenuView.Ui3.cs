@@ -373,8 +373,9 @@ namespace KatKat.UI
             // 2026-11-13: "Hesabı sil" satırı kaydın altında (Apple 5.1.1(v)); 7 satırda aralık 144'e iner ki panel,
             // not ve sürüm yazısı alt menünün üstünde kalsın (panel = satır × aralık + 68; 4 satır = 724).
             bool save = AccountsOn; // AppGallery: hesap hizmeti yok → "İlerlemeyi kaydet" ve "Hesabı sil" satırı yok
-            int rows = 4 + (save ? 2 : 0) + (privacy ? 1 : 0);
-            float RowStep = rows >= 7 ? 144f : 164f;
+            // 2026-11-13: "Bildirimler" anahtarı dilin altında (5. satır); 8 satırda aralık 128.
+            int rows = 5 + (save ? 2 : 0) + (privacy ? 1 : 0);
+            float RowStep = rows >= 8 ? 128f : rows >= 7 ? 144f : 164f;
             float PanelH = rows * RowStep + 68f;
             float RowY(int i) => (rows - 1) * RowStep * 0.5f - i * RowStep;
             var panel = Ui1.Card("Card", page, new Vector2(0.5f, 1f), new Vector2(0f, -(PanelTop + PanelH * 0.5f)), new Vector2(860f, PanelH));
@@ -395,7 +396,9 @@ namespace KatKat.UI
             UiFactory.Place(lt.rectTransform, new Vector2(0f, 0.5f), new Vector2(104f + 175f, 0f), new Vector2(350f, 72f));
             FitText(lt, 28);
             Ui1.Button("Pick", lrow.transform, ArabicShaper.ShapeLines(Loc.Current.NativeName) + "  ›", true, new Vector2(1f, 0.5f), new Vector2(-140f, 0f), new Vector2(280f, 88f), ShowLanguagePicker, null, 38);
-            int next = 4;
+            U3Divider(c, RowY(3) - RowStep * 0.5f);
+            SwitchRowUi3(c, RowY(4), "icon-sound", Loc.T("ui.notify"), NotifyEnabled != null && NotifyEnabled(), v => NotifyChanged?.Invoke(v), HeartSprite(), true);
+            int next = 5;
             if (save)
             {
                 U3Divider(c, RowY(next - 1) - RowStep * 0.5f); SaveRowUi3(c, RowY(next)); next++;
@@ -424,14 +427,14 @@ namespace KatKat.UI
             UiFactory.Place(d.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, y), new Vector2(748f, 2f));
         }
 
-        private void SwitchRowUi3(RectTransform card, float y, string iconKey, string label, bool initial, Action<bool> changed, Sprite iconOverride = null)
+        private void SwitchRowUi3(RectTransform card, float y, string iconKey, string label, bool initial, Action<bool> changed, Sprite iconOverride = null, bool keepIconColor = false)
         {
             bool state = initial;
             var row = UiFactory.SpriteButton(label, card, null, new Vector2(748f, 132f), null);
             row.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
             UiFactory.Place((RectTransform)row.transform, new Vector2(0.5f, 0.5f), new Vector2(0f, y), new Vector2(748f, 132f));
             var icon = Ui1.Decor("Icon", row.transform, iconKey);
-            if (iconOverride != null) { icon.sprite = iconOverride; icon.color = Ui3.Ink; }
+            if (iconOverride != null) { icon.sprite = iconOverride; icon.color = keepIconColor ? Color.white : Ui3.Ink; icon.preserveAspect = true; }
             UiFactory.Place(icon.rectTransform, new Vector2(0f, 0.5f), new Vector2(36f, 0f), new Vector2(72f, 72f));
             var t = U3Text("Label", row.transform, label, 38, true, Ui3.Ink, TextAnchor.MiddleLeft);
             UiFactory.Place(t.rectTransform, new Vector2(0f, 0.5f), new Vector2(104f + 198f, 0f), new Vector2(396f, 72f));

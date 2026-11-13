@@ -141,6 +141,20 @@ namespace KatKat.Game
             _menu.SoundChanged += v => { _save.Data.sound = v; _sound.Enabled = v; _music.Enabled = v; _save.Save(); };
             _menu.VibrationChanged += v => { _save.Data.vibration = v; Haptics.Enabled = v; _save.Save(); if (v) Haptics.Light(); };
             _menu.MotionChanged += v => { _save.Data.reducedMotion = v; KatKat.UI.Motion.Reduced = v; _save.Save(); };
+            // Bildirimler (2026-11-13): açınca sistem izni istenir; izin yoksa kapalı kalır ve oyuncuya söylenir.
+            _menu.NotifyEnabled = () => GameNotifications.Enabled;
+            _menu.NotifyChanged += v =>
+            {
+                GameNotifications.Asked = true;
+                if (!v) { GameNotifications.Enabled = false; GameNotifications.CancelAll(); GameAnalytics.Log("notify_off"); return; }
+                StartCoroutine(GameNotifications.RequestPermission(ok =>
+                {
+                    GameNotifications.Enabled = ok;
+                    GameAnalytics.Log("notify_permission", ("granted", ok ? 1 : 0));
+                    _menu.ShowToast(Loc.T(ok ? "notify.on" : "notify.denied"), 2.8f);
+                }));
+            };
+            GameNotifications.CancelAll(); // açılış: önceki planı temizle (oyun açıkken bildirim yok)
             _menu.LanguagePicked += OnLanguagePicked;
             _menu.Hide();
             _menu.UnlockAll = TestUnlockAll;
@@ -1021,6 +1035,9 @@ namespace KatKat.Game
             // Yarım soyulmuş katmanda kalmamak için animasyonu bitirip mantıksal son durumdan çiz.
             if (paused && CurrentPhase == Phase.Animating) _board.CompleteImmediately();
             if (paused && _save != null) { _cloudDirty = true; CloudAutoSave(true); }
+            // Yerel bildirimler: arka planda planlanır, öne gelince temizlenir (oyundayken bildirim yok).
+            if (paused) ScheduleNotifications();
+            else GameNotifications.CancelAll();
         }
     }
 }

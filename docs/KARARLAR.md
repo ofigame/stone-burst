@@ -151,3 +151,9 @@ Eski ayrıntılı karar günlüğü arşivde (`KatKat_Arsiv_2026-11-06/docs/KARA
   - Meta herkese açık yayın için doğrulanmış işletme + Instant Games Onaylı Ortak statüsü istiyor; bireysel geliştirici yolu yok. Audience Network ve Game Payments Türkiye'de kısıtlı.
   - Durum: uygulama 1136557632301448, sürüm 5 Üretim (yalnız geliştirici/test kullanıcıları görür), IARC 3+ ve yaş beyanı tamam. Kod dal `facebook-instant` (`E:\OFIGAME\OYUNLAR\KatKat_Web`), main'e birleştirilmedi.
   - Yeniden ele alma: kullanıcı resmî işletme (ör. şahıs şirketi, vergi levhası) kurunca → Meta işletme doğrulaması → Onaylı Ortak başvurusu → Policy + Quality Review.
+
+- **2026-11-13 — Yerel bildirimler** (kullanıcı: "oyunumuza bildirimler ekleyelim"; seçilen türler: kalpler doldu, yeni günlük bulmaca, seni özledik; izin zamanı: ilk kalp bitince).
+  - Unity Mobile Notifications 2.5.0 (birleşik API), sunucu yok; plan uygulama arka plana geçerken kurulur, öne gelince hepsi iptal edilir.
+  - Kurallar (`NotifyPlan`): sessiz saatler 22:00–09:00 (kayar 09:00'a); kalpler dolunca (5 dk'dan yakınsa yok); günlük bulmaca 18:00 (bugünkü kazanıldıysa ya da saat geçtiyse yarın); 3. ve 7. gün 18:00 "seni özledik" (sonra durur); günlük bildirime 2 saatten yakın kalp bildirimi düşer.
+  - İzin: ilk kalp bitişinde bir kez oyun içi kart ("Haber verelim mi?") → "Evet" → sistem izni (Android 13+ / iOS). iOS açılışta izin istemez. Ayarlar'da "Bildirimler" anahtarı (açınca izin istenir).
+  - Android: küçük simge `Art/notify-small.png` (icon_0), yeniden başlatmada yeniden planlama; tam zamanlı alarm izni YOK (Play politikası; yaklaşık zamanlama).

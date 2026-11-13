@@ -59,8 +59,44 @@ namespace KatKat.Game
             GameAnalytics.Log("hearts_empty", ("level_number", index + 1));
             ShowLevels();
             ShowHeartsCard(retry);
+            AskNotifyOnce();
             return false;
         }
+
+        // ---- Bildirimler (kullanıcı 2026-11-13; GameNotifications, NotifyPlan) ------------------------------------
+
+        /// <summary>Testler: toplu çalıştırmada da izin kartı gösterilsin.</summary>
+        public static bool NotifyAskInBatch;
+
+        /// <summary>İlk kalp bitişinde bir kez: "Kalpler dolunca haber verelim mi?" (kalp kartının üstünde).</summary>
+        private void AskNotifyOnce()
+        {
+            if (GameNotifications.Asked || (Application.isBatchMode && !NotifyAskInBatch)) return;
+            GameNotifications.Asked = true;
+            GameAnalytics.Log("notify_ask");
+            _menu.ShowNotifyAsk(
+                () => StartCoroutine(GameNotifications.RequestPermission(ok =>
+                {
+                    GameNotifications.Enabled = ok;
+                    GameAnalytics.Log("notify_permission", ("granted", ok ? 1 : 0));
+                    if (ok) _menu.ShowToast(Loc.T("notify.on"), 2.4f);
+                })),
+                () => GameAnalytics.Log("notify_declined"));
+        }
+
+        /// <summary>Arka plana geçiş: planı kur (oyuncu istediyse).</summary>
+        private void ScheduleNotifications()
+        {
+            if (_save == null || !GameNotifications.Enabled) return;
+            long now = HeartNow;
+            var local = DateTimeOffset.FromUnixTimeSeconds(now).LocalDateTime;
+            var full = NotifyPlan.HeartsFullUnix(_save.Data.meta, now);
+            DateTime? fullLocal = full.HasValue ? DateTimeOffset.FromUnixTimeSeconds(full.Value).LocalDateTime : (DateTime?)null;
+            GameNotifications.Schedule(NotifyPlan.Build(local, fullLocal, _daily != null && _daily.WonToday));
+        }
+
+        /// <summary>Test: arka plana geçiş / öne geliş.</summary>
+        public void ResumeForTest() => OnApplicationPause(false);
 
         /// <summary>Kalp kartı: sayı, sonraki kalbe kalan süre, reklamla doldurma. Doldurulunca <paramref name="after"/>.</summary>
         private void ShowHeartsCard(Action after)

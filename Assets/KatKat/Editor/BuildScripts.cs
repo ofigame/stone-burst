@@ -300,7 +300,7 @@ namespace KatKat.EditorTools
             // "pencereli" ayarı Android'de sanal tuşları açık bırakıyordu. Hedefe göre ayrılır.
             PlayerSettings.fullScreenMode = target == BuildTarget.Android ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
             if (target == BuildTarget.iOS) PlayerSettings.fullScreenMode = FullScreenMode.FullScreenWindow;
-            if (target == BuildTarget.iOS || target == BuildTarget.Android) AdMobSetup.Apply();
+            if (target == BuildTarget.iOS || target == BuildTarget.Android) { AdMobSetup.Apply(); NotificationSetup.Apply(); }
             // Google Play derlemesi: Huawei köprüsü Android'e girmez (AppGallery derlemesi kendi açar).
             if (target == BuildTarget.Android && !AppGalleryBuild.Active) AppGalleryBuild.EnsureBridgeOffForGoogle();
             ApplyIcon();

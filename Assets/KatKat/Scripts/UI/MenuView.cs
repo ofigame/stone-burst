@@ -24,6 +24,9 @@ namespace KatKat.UI
         /// <summary>v5: bölüm indeksinin en iyi yıldızı (0–3); tamamlanan düğümün altında küçük yıldızlar.</summary>
         public Func<int, int> StarsOf;
         public event Action<bool> SoundChanged, VibrationChanged, MotionChanged;
+        /// <summary>Ayarlar → "Bildirimler" anahtarı (2026-11-13).</summary>
+        public event Action<bool> NotifyChanged;
+        public Func<bool> NotifyEnabled;
 
         private Canvas _canvas;
         private RectTransform _safe;

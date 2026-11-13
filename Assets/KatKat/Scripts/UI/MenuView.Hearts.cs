@@ -104,6 +104,44 @@ namespace KatKat.UI
             _heartsCard = null;
         }
 
+        private RectTransform _notifyCard;
+
+        /// <summary>
+        /// Bildirim izni sorusu (kullanıcı, 2026-11-13: izin ilk kez kalp bitince sorulsun). Kalp kartının üstünde açılır;
+        /// "Evet" → sistem izni, "Şimdi değil" → bir daha sorulmaz (Ayarlar'dan açılabilir).
+        /// </summary>
+        public void ShowNotifyAsk(Action yes, Action no)
+        {
+            CloseNotifyAsk();
+            const float W = 860f, H = 730f;
+            var card = U3Modal(_page, "NotifyAskCard", W, H, () => { CloseNotifyAsk(); no?.Invoke(); }, out var root);
+            _notifyCard = root;
+            var title = U3Text("Title", card, Loc.T("notify.ask.title"), 52, true, Ui3.Ink);
+            U3In(title.rectTransform, W, 86f, 52f, 688f, 80f);
+            FitText(title, 24);
+            var heart = UiFactory.Image("Heart", card, HeartSprite(), Color.white);
+            heart.preserveAspect = true;
+            heart.raycastTarget = false;
+            U3In(heart.rectTransform, W, 360f, 140f, 140f, 128f);
+            var info = U3Text("Info", card, Loc.T("notify.ask.body"), 32, false, Ui3.InkSecondary);
+            info.textWrappingMode = TMPro.TextWrappingModes.Normal;
+            U3In(info.rectTransform, W, 60f, 280f, 740f, 120f);
+            FitText(info, 22);
+            Ui1.Button("Yes", card, Loc.T("notify.ask.yes"), true, new Vector2(0.5f, 1f), new Vector2(0f, -(410f + 56f)), new Vector2(748f, 112f),
+                () => { CloseNotifyAsk(); yes?.Invoke(); }, null, 42);
+            Ui1.Button("No", card, Loc.T("notify.ask.no"), false, new Vector2(0.5f, 1f), new Vector2(0f, -(536f + 46f)), new Vector2(748f, 92f),
+                () => { CloseNotifyAsk(); no?.Invoke(); }, null, 36);
+        }
+
+        public void CloseNotifyAsk()
+        {
+            if (_notifyCard != null) UiFactory.Kill(_notifyCard.gameObject);
+            _notifyCard = null;
+        }
+
+        /// <summary>Testler: bildirim izni kartı açık mı.</summary>
+        public bool NotifyAskShown => _notifyCard != null;
+
         /// <summary>Reklam düğmesi (2026-11-09: bütün reklam düğmelerinde oynat simgesi, biraz daha yüksek).</summary>
         internal static Button AdButton(string name, Transform parent, string text, Vector2 anchor, Vector2 pos, Vector2 size, Action act) =>
             Ui1.Button(name, parent, text, true, anchor, pos, size, act, UiArt.Icon(UiIcon.Play), 44);

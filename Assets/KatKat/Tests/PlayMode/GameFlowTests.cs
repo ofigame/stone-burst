@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using KatKat.Core;
 using KatKat.Game;
 using KatKat.Levels;
@@ -456,6 +457,59 @@ namespace KatKat.Tests
                 _gc.Menu.CloseHeartsCard();
             }
             finally { GameController.HeartClock = null; }
+        }
+
+        [UnityTest]
+        public IEnumerator Notify_AskOnceOnFirstHeartsOut_YesEnables_PauseSchedules_ResumeCancels()
+        {
+            // 2026-11-13 bildirimler: izin ilk kalp bitişinde bir kez sorulur; evet → planlar arka planda kurulur.
+            const long now = 1_800_000_000;
+            GameController.HeartClock = () => now;
+            GameController.NotifyAskInBatch = true;
+            GameNotifications.Asked = false;
+            GameNotifications.Enabled = false;
+            try
+            {
+                var meta = _gc.SaveService.Data.meta;
+                meta.heartsMissing = 5; meta.heartsStamp = now;
+                _gc.StartLevel(25);
+                Assert.IsTrue(_gc.Menu.IsHeartsCardShown, "kalp kartı");
+                Assert.IsTrue(_gc.Menu.NotifyAskShown, "ilk kalp bitişinde izin kartı");
+                var yes = GameObject.Find("NotifyAskCard")?.GetComponentsInChildren<UnityEngine.UI.Button>(true).FirstOrDefault(b => b.name == "Yes");
+                Assert.IsNotNull(yes, "Evet düğmesi");
+                yes.onClick.Invoke();
+                yield return null; yield return null;
+                Assert.IsFalse(_gc.Menu.NotifyAskShown);
+                Assert.IsTrue(GameNotifications.Enabled, "editörde izin verilmiş sayılır");
+                _gc.Menu.CloseHeartsCard();
+
+                // İkinci kalp bitişinde sorulmaz.
+                _gc.StartLevel(25);
+                Assert.IsFalse(_gc.Menu.NotifyAskShown, "bir kez sorulur");
+                _gc.Menu.CloseHeartsCard();
+
+                _gc.PauseForTest();
+                var plan = GameNotifications.ScheduledForTest;
+                Assert.IsTrue(plan.Any(p => p.Kind == KatKat.Meta.NotifyKind.Daily), "günlük");
+                Assert.IsTrue(plan.Any(p => p.Kind == KatKat.Meta.NotifyKind.Miss3) && plan.Any(p => p.Kind == KatKat.Meta.NotifyKind.Miss7), "özledik");
+                int cancels = GameNotifications.CancelCountForTest;
+                _gc.ResumeForTest();
+                Assert.AreEqual(cancels + 1, GameNotifications.CancelCountForTest, "öne gelince iptal");
+                Assert.IsEmpty(GameNotifications.ScheduledForTest);
+
+                // Kapalıyken planlanmaz.
+                GameNotifications.Enabled = false;
+                _gc.PauseForTest();
+                Assert.IsEmpty(GameNotifications.ScheduledForTest, "kapalı: plan yok");
+            }
+            finally
+            {
+                GameController.HeartClock = null;
+                GameController.NotifyAskInBatch = false;
+                GameNotifications.Asked = false;
+                GameNotifications.Enabled = false;
+                GameNotifications.ScheduledForTest.Clear();
+            }
         }
 
         [UnityTest]
