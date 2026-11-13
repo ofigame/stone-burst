@@ -74,9 +74,15 @@ namespace KatKat.Game
                 using (var player = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
                 using (var activity = player.GetStatic<AndroidJavaObject>("currentActivity"))
                 {
+                    // 2026-11-13 cihaz kaydı: dış "activity" UI iş parçacığında çalışmadan önce using ile atılıyordu →
+                    // NullReferenceException (her uygulamada). Runnable kendi etkinlik başvurusunu alır.
                     activity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
                     {
-                        using (var window = activity.Call<AndroidJavaObject>("getWindow"))
+                        try
+                        {
+                        using (var uiPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+                        using (var uiActivity = uiPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
+                        using (var window = uiActivity.Call<AndroidJavaObject>("getWindow"))
                         using (var decor = window.Call<AndroidJavaObject>("getDecorView"))
                         {
                             // LAYOUT_STABLE | LAYOUT_HIDE_NAVIGATION | LAYOUT_FULLSCREEN | HIDE_NAVIGATION | FULLSCREEN | IMMERSIVE_STICKY
@@ -99,6 +105,8 @@ namespace KatKat.Game
                                 }
                             }
                         }
+                        }
+                        catch (System.Exception e) { Debug.LogWarning("[KatKat] Sürükleyici mod (UI) uygulanamadı: " + e.Message); }
                     }));
                 }
             }
