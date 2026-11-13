@@ -146,3 +146,8 @@ Eski ayrıntılı karar günlüğü arşivde (`KatKat_Arsiv_2026-11-06/docs/KARA
   - Silmeden sonra açılışta sessiz giriş yapılmaz (`katkat.account.deleted`); oyuncu bir hesap düğmesine kendisi basınca kalkar. Böylece hesap kendiliğinden yeniden oluşmaz.
   - 7 satır olduğunda (AB'de gizlilik satırıyla) satır aralığı 164'ten 144'e iner. AppGallery'de satır yok (hesap yok).
   - Firestore kuralları zaten sahibine silme izni veriyordu; kural değişikliği gerekmedi. Kod: `Online/OnlineAccountDeletion.cs`, `IAccountService.DeleteAccount`.
+
+- **2026-11-13 — Facebook Instant Games test aşamasında kalır** (kullanıcı: "şimdilik facebook test aşamasında kalsın").
+  - Meta herkese açık yayın için doğrulanmış işletme + Instant Games Onaylı Ortak statüsü istiyor; bireysel geliştirici yolu yok. Audience Network ve Game Payments Türkiye'de kısıtlı.
+  - Durum: uygulama 1136557632301448, sürüm 5 Üretim (yalnız geliştirici/test kullanıcıları görür), IARC 3+ ve yaş beyanı tamam. Kod dal `facebook-instant` (`E:\OFIGAME\OYUNLAR\KatKat_Web`), main'e birleştirilmedi.
+  - Yeniden ele alma: kullanıcı resmî işletme (ör. şahıs şirketi, vergi levhası) kurunca → Meta işletme doğrulaması → Onaylı Ortak başvurusu → Policy + Quality Review.
