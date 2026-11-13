@@ -43,6 +43,7 @@ WHAT MAKES IT DIFFERENT
 • Chain rule: only freshly revealed stones chain, so every cascade can be planned
 • Power stone tray: big groups create rockets and the Golden Roll; they wait in your tray and fire only when you choose, without using a move
 • Obstacles that change how you think: ice, color locks, envelopes, sponges, gates with buttons, turning bases, paperclips and fragile crystals
+• Rule levels: Exact Moves, Think Backwards, One Tap, Chain Master, Guard the Crystals, Scarce Color, Pure Plan, The Right Moment, Lock Order; every 10th level is a boss that combines rules
 • Paint drops: recolor a single stone when one color is missing
 • Daily puzzle with its own rule every day
 • ZPE skill index: move efficiency, first-try wins, solving speed and no-help finishes, all in one score
@@ -72,6 +73,7 @@ ONU FARKLI KILAN
 • Zincir kuralı: yalnız yeni açılan taşlar zincir kurar, her patlama planlanabilir
 • Özel taş tepsisi: büyük gruplar roket ve Altın Rulo doğurur; tepside bekler, hamle harcamadan istediğin an ateşlenir
 • Düşünme biçimini değiştiren engeller: buz, renk kilidi, zarf, sünger, düğmeli geçit, döner taban, ataş ve kırılgan kristal
+• Kurallı bölümler: Kesin Hamle, Ters Düşünme, Tek Dokunuş, Zincir Ustası, Kristal Koruma, Renk Kıtlığı, Saf Plan, Doğru An, Kilit Sırası; her 10. bölüm kuralları birleştiren bir patron
 • Boya damlası: bir renk eksikse tek taşı boya
 • Her gün kendi kuralı olan günlük bulmaca
 • ZPE beceri endeksi: hamle verimi, ilk denemede başarı, çözüm hızı ve yardımsız bitirme tek puanda
@@ -101,6 +103,7 @@ WAS ES ANDERS MACHT
 • Kettenregel: nur frisch aufgedeckte Steine verketten sich, jede Kaskade ist planbar
 • Spezialstein-Ablage: große Gruppen erzeugen Raketen und die Goldrolle; sie warten in der Ablage und zünden erst, wenn du willst, ohne Zug
 • Hindernisse, die dein Denken verändern: Eis, Farbschlösser, Umschläge, Schwämme, Tore mit Schaltern, Drehsockel, Büroklammern und zerbrechliche Kristalle
+• Regel-Level: Exakte Züge, Umgekehrt denken, Ein Tipp, Kettenmeister, Kristallwache, Knappe Farbe, Reiner Plan, Der richtige Moment, Schloss-Reihenfolge; jedes 10. Level ist ein Boss, der Regeln kombiniert
 • Farbtropfen: färbe einen einzelnen Stein um
 • Tägliches Rätsel mit eigener Regel
 • ZPE-Könnensindex: Zugeffizienz, Erfolge im ersten Versuch, Lösungstempo und Siege ohne Hilfe in einem Wert
@@ -130,6 +133,7 @@ QUÉ LO HACE DIFERENTE
 • Regla de cadena: solo las piedras recién descubiertas encadenan, cada cascada se puede planear
 • Bandeja de piedras especiales: los grupos grandes crean cohetes y el Rollo Dorado; esperan en la bandeja y se usan cuando quieras, sin gastar movimiento
 • Obstáculos que cambian tu forma de pensar: hielo, candados de color, sobres, esponjas, puertas con botones, bases giratorias, clips y cristales frágiles
+• Niveles con reglas: Movimientos exactos, Piensa al revés, Un toque, Maestro de cadenas, Protege los cristales, Color escaso, Plan puro, El momento justo, Orden de candados; cada 10.º nivel es un jefe que combina reglas
 • Gotas de pintura: cambia el color de una sola piedra
 • Puzle diario con su propia regla
 • Índice de habilidad ZPE: eficiencia, victorias al primer intento, velocidad y partidas sin ayuda en una sola puntuación
@@ -159,6 +163,7 @@ Stone Burst لعبة ألغاز عمّا يختبئ في الأسفل.
 • قاعدة السلسلة: الأحجار المكشوفة حديثا فقط تصنع سلسلة، فيمكن التخطيط لكل انفجار
 • صينية الأحجار الخاصة: المجموعات الكبيرة تصنع صواريخ واللفافة الذهبية، تنتظر في الصينية وتُطلق متى شئت دون استهلاك حركة
 • عقبات تغيّر طريقة تفكيرك: جليد، أقفال ألوان، أظرف، إسفنج، بوابات بأزرار، قواعد دوّارة، مشابك وكريستال هش
+• مراحل بقواعد: حركات دقيقة، فكّر بالعكس، لمسة واحدة، سيد السلاسل، احمِ البلورات، لون نادر، خطة خالصة، اللحظة المناسبة، ترتيب الأقفال؛ وكل مرحلة عاشرة زعيم يجمع القواعد
 • قطرات الطلاء: غيّر لون حجر واحد
 • لغز يومي بقاعدة خاصة كل يوم
 • مؤشر المهارة ZPE: كفاءة الحركات والفوز من المحاولة الأولى وسرعة الحل والإنهاء دون مساعدة في نتيجة واحدة
@@ -188,6 +193,7 @@ Stone Burst は「下に何があるか」を考えるパズルゲームです�
 • 連鎖ルール：新しく出た石だけが連鎖するので、連鎖を計画できる
 • 特別な石のトレイ：大きなグループでロケットやゴールドロールが生まれ、好きなときに手数を使わず発動
 • 考え方が変わるギミック：氷、カラーロック、封筒、スポンジ、ボタン付きゲート、回転台、クリップ、こわれやすいクリスタル
+• ルールステージ：ぴったりのて、ぎゃくにかんがえる、ワンタップ、れんさマスター、クリスタルをまもれ、すくないいろ、じゅんすいなけいかく、ベストタイミング、ロックのじゅんばん。10ステージごとにルールを組み合わせたボス
 • ペイント：1つの石の色を変える
 • 毎日ルールが変わるデイリーパズル
 • ZPEスキル指数：手数効率、初回クリア、解く速さ、ヒントなしクリアをひとつのスコアに

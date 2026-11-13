@@ -26,13 +26,16 @@ What is unique to Stone Burst:
 - Power stone tray: large groups create rockets or a Golden Roll that wait in a tray and are used whenever the player chooses, without spending a move.
 - Mechanics that change the puzzle: ice, color locks, envelopes, sponges, gates opened by buttons, turning bases, paperclips, fragile crystals and paint drops.
 - 1,000 handcrafted levels, each verified by our solver against a recorded solution. The hint system only shows a move that the solver has verified leads to a win.
+- Rule levels that change how a board must be solved: Exact Moves (the move limit equals the solution length), Think Backwards (the tempting greedy move loses), One Tap (one move must start the right chain), Chain Master (goals only fill from chain reactions), Guard the Crystals, Scarce Color, Pure Plan (no power stones), The Right Moment (unsolvable without power stones) and Lock Order. Every 10th level is a boss that combines rules.
 - A daily puzzle with its own rule each day, a ZPE skill index (move efficiency, first-try wins, solving speed, no-help finishes) and a collection of 3D stones the player can rotate and inspect.
+
+Please note: levels 1-5 are short guided tutorials on small boards, so they look simpler than the game. The rule levels start at level 27, which a first session may not reach. The Daily tab is open from the start (the first entry is free, no ad); for a new player it is usually an Exact Moves rule puzzle with its rule card.
 
 Changes in this build [1.0.1 (yapı no)]:
 - New screenshots and description that show these mechanics instead of a generic "match" pitch, and keywords without generic trending terms.
 - Removed a developer test scene from the app binary and rewrote a shared text utility, so the binary contains only Stone Burst code.
 
-The fastest way to see the difference: play levels 2 (chain rule) and 6-9 (power stones), and long-press any stack to see its layers. Levels 21 and 22 introduce paperclips and color locks.
+The fastest way to see the difference: open Map > Daily (usually a rule puzzle), play level 2 (chain rule) and levels 6-9 (power stones), and long-press any stack to see its layers. Levels 21 and 22 introduce paperclips and color locks; level 27 is the first rule level and level 30 the first boss.
 
 We are happy to provide a video or more details if helpful.
 
@@ -50,7 +53,7 @@ Each cell is a stack of up to 4 colored stone layers; only the top layer is visi
 
 WHAT TO LOOK AT
 - Level 2: chain rule. Levels 6-9: rockets and the Golden Roll, kept in a tray and used without spending a move. Levels 21-22: paperclips and color locks. Later levels add ice, envelopes, sponges, gates with buttons, turning bases and fragile crystals.
-- Map > Daily: a daily puzzle with its own rule.
+- Map > Daily (open from the start, first entry free): for a new player usually an Exact Moves rule puzzle with its rule card. In the main path, rule levels (Exact Moves, Think Backwards, Chain Master, Pure Plan, The Right Moment and more) start at level 27 and every 10th level is a boss that combines rules. Levels 1-5 are short tutorials.
 - Map > ZPE badge (top left): the skill index. Stones tab: 3D collectible stones.
 - Every level is verified by our solver; hints show a verified move.
 
