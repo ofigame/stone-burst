@@ -65,7 +65,7 @@ namespace KatKat.Tests
             Assert.AreEqual(LiveMatchView.Human, m.Current);
 
             // En iyi puan hamlesi: el taşı seç, hücreye bir kez dokun → hemen uygulanır (önizleme/onay yok).
-            var best = m.LegalMoves(0).Where(x => x.Side == LiveSide.Own).OrderByDescending(x => x.Gain).First();
+            var best = m.LegalMoves(0).Where(x => x.Type == LiveCommandType.Swap && x.Side == LiveSide.Own).OrderByDescending(x => x.Gain).First();
             Assert.Greater(best.Gain, 0);
             v.SelectSlot(best.Slot);
             Assert.AreEqual(best.Slot, v.Selected);
@@ -122,6 +122,7 @@ namespace KatKat.Tests
                 var m = v.Match;
                 if (m.Current == LiveMatchView.Bot) { v.BotMove(); v.CompleteAnimations(); continue; }
                 var cmd = LiveBots.Choose(m, LiveBotKind.Greedy, rng);
+                if (cmd.Type == LiveCommandType.TapGroup) { v.TapCell(LiveSide.Own, cmd.X, cmd.Y); v.CompleteAnimations(); continue; }
                 if (cmd.Type != LiveCommandType.Swap) { m.Submit(LiveCommand.Pass(0, m.NextSeq(0))); v.Refresh(); continue; }
                 v.SelectSlot(cmd.HandSlot);
                 v.TapCell(cmd.Side, cmd.X, cmd.Y);
@@ -131,6 +132,56 @@ namespace KatKat.Tests
             Assert.IsTrue(v.EndShown, "sonuç kartı");
             Assert.AreEqual(8, v.Match.TurnsUsed[0]);
             Assert.AreEqual(8, v.Match.TurnsUsed[1]);
+            _gc.CloseLive();
+            yield return null;
+        }
+
+        /// <summary>
+        /// Kullanıcı 2026-11-14: "Taş yerleştirmeden dokunarak da patlatma olsun". Hazır 3'lüye seçimsiz dokunuş grubu soyar,
+        /// el taşı harcamaz, tur harcar; skor yazısı parçalar varınca artar.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TapReadyGroup_WithoutStone_Peels_KeepsHand_ScoreShownAfterArrival()
+        {
+            _gc.ShowLive();
+            yield return null;
+            var v = _gc.Live;
+            v.BotDelay = 0f;
+            Assert.IsTrue(v.Match.Rules.TapReadyGroups, "varsayılan açık");
+            var rng = new LiveGenerator.Rng(7);
+            bool tapped = false;
+            for (int game = 0; game < 30 && !tapped; game++)
+            {
+                v.NewMatch(game, 0);
+                for (int k = 0; k < 40 && !v.Match.IsOver && !tapped; k++)
+                {
+                    var m = v.Match;
+                    if (m.Current == LiveMatchView.Bot) { v.BotMove(); v.CompleteAnimations(); continue; }
+                    var tap = m.LegalMoves(0).Where(x => x.Type == LiveCommandType.TapGroup).OrderByDescending(x => x.Gain).ToList();
+                    if (tap.Count > 0)
+                    {
+                        var b = m.Boards[0];
+                        int score = m.Scores[0], hand = m.Hands[0].Count, turns = m.TurnsUsed[0];
+                        v.TapCell(LiveSide.Own, b.X(tap[0].Target), b.Y(tap[0].Target));
+                        Assert.AreEqual(score + tap[0].Gain, m.Scores[0], "dokunuşla grup puanı");
+                        Assert.AreEqual(hand, m.Hands[0].Count, "el taşı harcanmaz");
+                        Assert.AreEqual(turns + 1, m.TurnsUsed[0], "tur harcar");
+                        Assert.IsTrue(v.Animating, "soyulma animasyonu oynuyor");
+                        Assert.AreEqual(score, v.ShownScore(0), "parçalar varmadan skor yazısı eski");
+                        v.CompleteAnimations();
+                        Assert.IsFalse(v.Animating);
+                        Assert.AreEqual(m.Scores[0], v.ShownScore(0), "parçalar varınca skor yazısı güncel");
+                        tapped = true;
+                        break;
+                    }
+                    var cmd = LiveBots.Choose(m, LiveBotKind.Greedy, rng);
+                    if (cmd.Type != LiveCommandType.Swap) { m.Submit(LiveCommand.Pass(0, m.NextSeq(0))); v.Refresh(); continue; }
+                    v.SelectSlot(cmd.HandSlot);
+                    v.TapCell(cmd.Side, cmd.X, cmd.Y);
+                    v.CompleteAnimations();
+                }
+            }
+            Assert.IsTrue(tapped, "hazır grup oluştu ve dokunuşla patlatıldı");
             _gc.CloseLive();
             yield return null;
         }

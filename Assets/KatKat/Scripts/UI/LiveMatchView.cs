@@ -92,6 +92,8 @@ namespace KatKat.UI
                 _boards[p] = b;
             }
             BuildCanvas();
+            ComputeLayout();
+            PlaceUi();
             Pool ??= LoadPool();
             NewMatch(0, 0);
         }
@@ -104,10 +106,42 @@ namespace KatKat.UI
             _screen = new Vector2Int(Screen.width, Screen.height);
         }
 
-        // ---- Yerleşim (referans 1080×1920, güvenli alanın üstünden) ---------------------------------------------
+        // ---- Yerleşim (referans birimi; güvenli alanın üstünden) ---------------------------------------------------
+        // Kullanıcı (2026-11-14): "iki tarafın tahtası da yanlara doğru genişlesin, üste dayalı olmasın, oyun alanı ortada olsun".
+        // Üst çubuk sabit; oyun bloğu (rakibin eli, rakip tahtası, skor şeridi, oyuncu tahtası, el, mesaj) kalan yükseklikte
+        // tahtalar en büyük olacak biçimde boyutlanır ve dikeyde ortalanır. İki tahta bandı her zaman eşit (eşit boy).
 
-        // İki bant aynı yükseklikte (640): tahtalar eşit boyda (kullanıcı: "Tahtaların boyutları eşit olacak").
-        private const float BotTop = 250f, BotBottom = 890f, YouTop = 1012f, YouBottom = 1652f;
+        private const float TopBarH = 160f, BotHandH = 56f, StripH = 124f, HandH = 140f, MsgH = 48f, Gap = 6f, SideM = 22f;
+        /// <summary>6×6, iki katmanlı tahtanın yükseklik/genişlik oranı (BoardView.Layout: satır adımı ~1,1, tepsi payı dahil).</summary>
+        private const float BoardHPerW = 6.97f / 6.39f;
+        private float _botTop, _botBottom, _youTop, _youBottom, _stripY, _handY, _msgY, _botHandY;
+
+        /// <summary>Güvenli sütunun referans boyutu (genişlik, yükseklik).</summary>
+        private Vector2 SafeRefSize()
+        {
+            var canvasRef = UiAspect.CanvasRef(_cam.aspect);
+            var n = UiAspect.Column(SafeAreaFitter.CurrentNormalizedRaw(), _cam.aspect);
+            return new Vector2(canvasRef.x * n.width, canvasRef.y * n.height);
+        }
+
+        /// <summary>Bantları güvenli yüksekliğe göre hesaplar (referans birimi, güvenli alanın üstünden aşağı).</summary>
+        private void ComputeLayout()
+        {
+            var safe = SafeRefSize();
+            float avail = safe.y - TopBarH;
+            float fixedH = BotHandH + Gap + StripH + 2f * Gap + HandH + Gap + MsgH + 2f * Gap;
+            // Tahta genişliği sütunu doldurunca daha uzun bandın yararı yok: üst sınır genişlikten.
+            float bandMax = (safe.x - 2f * SideM) * BoardHPerW;
+            float band = Mathf.Max(260f, Mathf.Min((avail - fixedH) * 0.5f, bandMax));
+            float block = fixedH + 2f * band;
+            float y = TopBarH + Mathf.Max(0f, (avail - block) * 0.5f);
+            _botHandY = y + BotHandH * 0.5f; y += BotHandH + Gap;
+            _botTop = y; _botBottom = y + band; y = _botBottom + Gap;
+            _stripY = y + StripH * 0.5f; y += StripH + Gap;
+            _youTop = y; _youBottom = y + band; y = _youBottom + Gap;
+            _handY = y + HandH * 0.5f; y += HandH + Gap;
+            _msgY = y + MsgH * 0.5f;
+        }
 
         /// <summary>Referans birimiyle (güvenli sütunun üstünden) verilen dikey bandın dünya dikdörtgeni.</summary>
         private Rect WorldBand(float topRef, float bottomRef)
@@ -115,7 +149,7 @@ namespace KatKat.UI
             var canvasRef = UiAspect.CanvasRef(_cam.aspect);
             float refH = canvasRef.y, refW = canvasRef.x;
             var n = UiAspect.Column(SafeAreaFitter.CurrentNormalizedRaw(), _cam.aspect);
-            float left = n.xMin * refW + 30f, right = n.xMax * refW - 30f;
+            float left = n.xMin * refW + SideM, right = n.xMax * refW - SideM;
             float top = n.yMax * refH - topRef, bottom = n.yMax * refH - bottomRef;
             float k = _cam.orthographicSize * 2f / refH;
             var c = _cam.transform.position;
@@ -123,7 +157,19 @@ namespace KatKat.UI
                 (right - refW * 0.5f) * k + c.x, (top - refH * 0.5f) * k + c.y);
         }
 
-        private Rect BoardArea(int p) => p == Human ? WorldBand(YouTop, YouBottom) : WorldBand(BotTop, BotBottom);
+        private Rect BoardArea(int p) => p == Human ? WorldBand(_youTop, _youBottom) : WorldBand(_botTop, _botBottom);
+
+        /// <summary>Arayüz parçalarını hesaplanan bantlara taşır.</summary>
+        private void PlaceUi()
+        {
+            if (_strip == null) return;
+            _botHandRow.anchoredPosition = new Vector2(0f, -_botHandY);
+            _strip.anchoredPosition = new Vector2(0f, -_stripY);
+            _handRow.anchoredPosition = new Vector2(0f, -_handY);
+            _message.rectTransform.anchoredPosition = new Vector2(0f, -_msgY);
+        }
+
+        private RectTransform _strip;
 
         private void LayoutBoards()
         {
@@ -219,7 +265,8 @@ namespace KatKat.UI
 
             // Orta şerit: skorlar ve sıra.
             var strip = Ui3.Surface("ScoreStrip", _safe, 40f, Ui3.IvoryTop, Ui3.IvoryBottom, 124f, 3f, Ui3.Brass);
-            UiFactory.Place(strip.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -950f), new Vector2(984f, 124f));
+            UiFactory.Place(strip.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -950f), new Vector2(1000f, 124f));
+            _strip = strip.rectTransform;
             _pillBot = Ui3.Surface("BotPill", strip.transform, 36f, BotColor, BotColor * 0.85f, 104f, 0f);
             UiFactory.Place(_pillBot.rectTransform, new Vector2(0f, 0.5f), new Vector2(150f, 0f), new Vector2(260f, 104f));
             _pillYou = Ui3.Surface("YouPill", strip.transform, 36f, YouColor, YouColor * 0.85f, 104f, 0f);
@@ -234,7 +281,7 @@ namespace KatKat.UI
 
             // Alt: oyuncunun eli ve mesaj satırı.
             var hand = Ui3.Surface("HandBar", _safe, 40f, Ui3.IvoryTop, Ui3.IvoryBottom, 140f, 3f, Ui3.Brass);
-            UiFactory.Place(hand.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -1752f), new Vector2(984f, 140f));
+            UiFactory.Place(hand.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -1752f), new Vector2(1000f, 140f));
             _handRow = hand.rectTransform;
             _message = UiFactory.Text("Message", _safe, "", 34, Ui3.Ink);
             UiFactory.Place(_message.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -1862f), new Vector2(960f, 56f));
@@ -263,8 +310,10 @@ namespace KatKat.UI
             _selected = -1;
             _animating = 0;
             _botAt = _passAt = -1f;
+            _shown[0] = _shown[1] = 0;
+            _popAt[0] = _popAt[1] = -9f;
             BuildBoards();
-            SetMessage(Match.Current == Human ? Loc.T("live.pick") : "");
+            SetMessage(Match.Current == Human ? Loc.T(Rules.TapReadyGroups ? "live.pick.tap" : "live.pick") : "");
             Refresh();
         }
 
@@ -283,7 +332,21 @@ namespace KatKat.UI
         public void TapCell(LiveSide side, int x, int y)
         {
             if (Match == null || Match.IsOver || Match.Current != Human || Animating) return;
-            if (_selected < 0) { SetMessage(Loc.T("live.pick")); Sound?.Play(Sfx.Invalid); return; }
+            // Hazır 3'lü (taş koymadan patlatma; kullanıcı 2026-11-14): seçim yokken ya da seçili taş zaten aynı renkteyken.
+            if (side == LiveSide.Own && Match.Rules.TapReadyGroups && IsReady(Match.Boards[Human], x, y)
+                && (_selected < 0 || Match.Hands[Human][_selected] == Match.Boards[Human][x, y].Top))
+            {
+                var color = Match.Boards[Human][x, y].Top;
+                var rt = Match.Submit(LiveCommand.Tap(Human, ++_seq, x, y), 0);
+                if (rt.Accepted)
+                {
+                    _selected = -1;
+                    PlayTap(Human, x, y, color, rt);
+                    return;
+                }
+                _seq--;
+            }
+            if (_selected < 0) { SetMessage(Loc.T(Match.Rules.TapReadyGroups ? "live.pick.tap" : "live.pick")); Sound?.Play(Sfx.Invalid); return; }
             var cmd = LiveCommand.Swap(Human, ++_seq, _selected, side, x, y);
             var r = Match.Submit(cmd, 0);
             if (!r.Accepted)
@@ -320,20 +383,7 @@ namespace KatKat.UI
             Refresh();
             board.Play(paint, _ => ScoreTarget(player), null, null, () =>
             {
-                if (r.Peeled.Count > 0)
-                {
-                    Sound?.Play(Sfx.Peel);
-                    var wave = new PeelWave { Kind = WaveKind.Tap, Index = 0, GoalProgressAfter = new int[0] };
-                    foreach (int i in r.Peeled)
-                    {
-                        var cell = bs[i];
-                        int rem = cell.Layers.Count;
-                        wave.Cells.Add(new CellPeel(bs.X(i), bs.Y(i), r.Color, rem, rem > 0 ? cell.Top : default));
-                    }
-                    var peel = new MoveResult { Accepted = true, Command = Command.Tap(tx, ty) };
-                    peel.Waves.Add(wave);
-                    board.Play(peel, _ => ScoreTarget(player), null, null, () => Done(boardOwner));
-                }
+                if (r.Peeled.Count > 0) Peel(player, boardOwner, tx, ty, r.Color, r);
                 else Done(boardOwner);
             });
             if (r.Kind == LiveMoveKind.Attack) SetMessage(Loc.T(player == Human ? "live.attack.you" : "live.attack.bot"));
@@ -341,13 +391,60 @@ namespace KatKat.UI
             else SetMessage(Loc.T(player == Human ? "live.prep.you" : "live.prep.bot"));
         }
 
+        /// <summary>Hazır gruba dokunarak patlatma: boyama yok, doğrudan soyulma.</summary>
+        private void PlayTap(int player, int x, int y, LayerColor color, LiveResult r)
+        {
+            _animating++;
+            Refresh();
+            Peel(player, player, x, y, color, r);
+            SetMessage(Loc.F(player == Human ? "live.tap.you" : "live.tap.bot", r.Gained));
+        }
+
+        /// <summary>
+        /// Soyulma dalgası: oyunun soyulma animasyonu; parçalar oyuncunun skor kutusuna uçar (kullanıcı 2026-11-14: "Patlayan
+        /// taşların parçaları skor alanına gider"). Skor yazısı parçalar varınca artar ve zıplar.
+        /// </summary>
+        private void Peel(int player, int boardOwner, int tx, int ty, LayerColor removed, LiveResult r)
+        {
+            var bs = Match.Boards[boardOwner];
+            Sound?.Play(Sfx.Peel);
+            var wave = new PeelWave { Kind = WaveKind.Tap, Index = 0, GoalProgressAfter = new int[0] };
+            foreach (int i in r.Peeled)
+            {
+                var cell = bs[i];
+                int rem = cell.Layers.Count;
+                wave.Cells.Add(new CellPeel(bs.X(i), bs.Y(i), removed, rem, rem > 0 ? cell.Top : default));
+            }
+            var peel = new MoveResult { Accepted = true, Command = Command.Tap(tx, ty) };
+            peel.Waves.Add(wave);
+            _boards[boardOwner].Play(peel, _ => ScoreTarget(player), null, _ => ScoreArrived(player), () => Done(boardOwner));
+        }
+
+        private readonly int[] _shown = new int[2];
+        private readonly float[] _popAt = { -9f, -9f };
+
+        /// <summary>Skor kutusunda görünen puan (parçalar varmadan eski değer).</summary>
+        public int ShownScore(int player) => _shown[player];
+
+        private void ScoreArrived(int player)
+        {
+            _shown[player] = Match.Scores[player];
+            _popAt[player] = _clock;
+            Sound?.Play(Sfx.Tap, 2, 0.7f);
+            Refresh();
+        }
+
         private void Done(int boardOwner)
         {
             _boards[boardOwner].Sync(_states[boardOwner]);
             _animating = Mathf.Max(0, _animating - 1);
+            for (int p = 0; p < 2; p++) if (_shown[p] != Match.Scores[p]) { _shown[p] = Match.Scores[p]; _popAt[p] = _clock; }
             Refresh();
             if (Match.IsOver) ShowEnd();
         }
+
+        private static bool IsReady(BoardState b, int x, int y) =>
+            b[x, y].Active && b[x, y].Layers.Count > 0 && GroupFinder.Component(b, x, y).Count >= LiveRules.MinGroup;
 
         private Vector3 ScoreTarget(int player)
         {
@@ -358,9 +455,10 @@ namespace KatKat.UI
         private void Update()
         {
             if (_cam == null || Match == null) return;
-            if (_screen.x != Screen.width || _screen.y != Screen.height) { FitCamera(); _backdrop.Fit(_cam); LayoutBoards(); }
+            if (_screen.x != Screen.width || _screen.y != Screen.height) { FitCamera(); _backdrop.Fit(_cam); ComputeLayout(); PlaceUi(); LayoutBoards(); }
             _clock += Time.unscaledDeltaTime;
             PulseRim();
+            PopScores();
             if (Match.IsOver || Animating || _end != null) return;
             if (Match.Current == Bot)
             {
@@ -383,7 +481,9 @@ namespace KatKat.UI
             if (Match == null || Match.IsOver || Match.Current != Bot) return;
             var cmd = LiveBots.Choose(Match, BotKind, _rng);
             cmd.Seq = Match.NextSeq(Bot);
+            var tapColor = cmd.Type == LiveCommandType.TapGroup ? Match.Boards[Bot][cmd.X, cmd.Y].Top : default;
             var r = Match.Submit(cmd, 0);
+            if (r.Accepted && r.Kind == LiveMoveKind.Tap) { PlayTap(Bot, cmd.X, cmd.Y, tapColor, r); return; }
             if (!r.Accepted || r.Kind == LiveMoveKind.Pass)
             {
                 if (!r.Accepted) Match.Submit(LiveCommand.Pass(Bot, Match.NextSeq(Bot)), 0);
@@ -428,6 +528,19 @@ namespace KatKat.UI
             return true;
         }
 
+        /// <summary>Skor zıplaması: parçalar varınca yazı kısa süre büyüyüp geri döner.</summary>
+        private void PopScores()
+        {
+            for (int p = 0; p < 2; p++)
+            {
+                var t = p == Human ? _scoreYou : _scoreBot;
+                if (t == null) continue;
+                float k = Mathf.Clamp01((_clock - _popAt[p]) / 0.35f);
+                float s = 1f + 0.45f * Mathf.Sin(k * Mathf.PI);
+                t.rectTransform.localScale = new Vector3(s, s, 1f);
+            }
+        }
+
         private void PulseRim()
         {
             if (Match == null) return;
@@ -452,8 +565,9 @@ namespace KatKat.UI
         public void Refresh()
         {
             if (Match == null || _turn == null) return;
-            Loc.Set(_scoreYou, Match.Scores[Human].ToString());
-            Loc.Set(_scoreBot, Match.Scores[Bot].ToString());
+            // Skor, parçalar skor kutusuna varınca artar (ScoreArrived); hamle bitince gerçek skor (Done).
+            Loc.Set(_scoreYou, _shown[Human].ToString());
+            Loc.Set(_scoreBot, _shown[Bot].ToString());
             int turn = Mathf.Min(Match.Rules.TurnsPerPlayer, Match.TurnsUsed[Match.Current] + 1);
             string who = Match.IsOver ? Loc.T("live.over") : Loc.T(Match.Current == Human ? "live.turn.you" : "live.turn.bot");
             Loc.Set(_turn, who + "\n" + Loc.F("live.round", turn, Match.Rules.TurnsPerPlayer));
@@ -556,6 +670,20 @@ namespace KatKat.UI
         {
             for (int k = 0; k < 400 && Animating; k++)
                 for (int p = 0; p < 2; p++) { _boards[p].Advance(20f); _director.Advance(20f); }
+        }
+
+        /// <summary>Yakalama: animasyonları <paramref name="seconds"/> kadar ilerletir (parça uçuşunun ortası).</summary>
+        public void AdvanceAnimations(float seconds)
+        {
+            // BoardView/Director.Advance milisaniye alır; 20 ms adımlarla (CompleteAnimations ile aynı).
+            for (float ms = seconds * 1000f; ms > 0f; ms -= 20f)
+            {
+                float d = Mathf.Min(20f, ms);
+                for (int p = 0; p < 2; p++) _boards[p].Advance(d);
+                _director.Advance(d);
+                _clock += d / 1000f;
+            }
+            PopScores();
         }
 
         public BoardView BoardOf(int player) => _boards[player];

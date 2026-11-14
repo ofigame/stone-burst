@@ -304,3 +304,19 @@ Kullanıcı (2026-11-13): "hiç hayal ettiğim gibi değil. Tasarım mevcut tasa
 **Ekranlar** (`ekranlar/`): 01 açılış, 02 el taşı seçili, 03 patlama sonrası sıra rakipte, 04 botun hamlesi, 05 rakibe saldırı, 06 maç sonu.
 
 **Denenmedi:** telefonda, insanlarla; ağlı (iki gerçek oyuncu) sürüm yok.
+
+### Dokunarak patlatma, parçalar skora, el adaleti (2026-11-14)
+
+- Hamle üç türlü: kendi tahtana taş koy, rakibe taş koy, ya da hazır 3'lüye taş koymadan dokun (`TapReadyGroups` açık; tur harcar, el taşı harcamaz). Dengeli bot hamlelerinin ~%15'i dokunarak patlatma.
+- Patlayan taşların parçaları skor kutusuna uçar; skor yazısı varınca artar ve zıplar (ekran 03a, 08).
+- Yerleşim ortalı ve ekran boyuna göre; 1080×2400'de tahtalar tam genişlik (`ekranlar_1080x2400/`).
+- **El adaleti** ([OLCUM_RAPORU_v3.md](OLCUM_RAPORU_v3.md), dokunarak patlatma açık, 150 dizilim × 2 sıra, aynı bot iki tarafta):
+
+| Bot | A / B kazanır % (eşitlik kuralıyla) | Ort. puan A / B | Dizilimde iki maçı da A / B / bölündü % |
+|---|---|---|---|
+| Random | 51,0 / 49,0 | 8,2 / 8,3 | 27 / 25 / 47 |
+| Greedy | 49,7 / 50,3 | 40,9 / 40,7 | 29 / 30 / 41 |
+| Aggressive | 46,3 / 53,7 | 20,6 / 21,0 | 18 / 25 / 57 |
+| Dengeli | 49,7 / 50,3 | 42,9 / 43,1 | 32 / 33 / 35 |
+
+Yorum: toplamda iki el denk (300 maçta ±%3 gürültü içinde). Ama tek tek dizilimlerde Dengeli botla %65'inde iki maçı da aynı el kazanıyor; el, sıradan daha belirleyici. Yani adil ortalamada, tek maçta şans payı var. Seçenekler (karar sizin): (1) maç iki el olarak oynanır, ikinci elde eller değişir; (2) eski "aynı el" kuralına dönmek (beraberlik artar); (3) olduğu gibi bırakmak.

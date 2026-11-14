@@ -20,8 +20,11 @@ namespace KatKat.Core.Live
         public int HandSize = 8;
         /// <summary>Oyuncu başına tur (belge: hızlı yerel test için 8). Pas da bir tur harcar.</summary>
         public int TurnsPerPlayer = 8;
-        /// <summary>Açık karar: hazır gruba doğrudan dokunarak patlatma (tur harcar, el taşı harcamaz).</summary>
-        public bool TapReadyGroups;
+        /// <summary>
+        /// Hazır gruba doğrudan dokunarak patlatma (tur harcar, el taşı harcamaz). Varsayılan açık (kullanıcı 2026-11-14: "Taş
+        /// yerleştirmeden dokunarak da patlatma olsun … ya da direkt hazır patlamayı bekleyen taşlar patlatılır").
+        /// </summary>
+        public bool TapReadyGroups = true;
         /// <summary>İlk prototip: rakipte hedef hücrede yeni 3'lü kuran saldırı geçersiz.</summary>
         public bool ForbidAttackGroup = true;
 

@@ -1,17 +1,17 @@
 # Canlı maç ölçüm raporu (botlar)
 
-Üretildi: 2026-11-14 01:30 · `LiveMatchTools.RunReport` (tools/unity.ps1 live-report) · havuz `Assets/KatKat/Resources/Live/live_pool_v3.txt` (gen 3, tohum 20261113)
+Üretildi: 2026-11-14 03:08 · `LiveMatchTools.RunReport` (tools/unity.ps1 live-report) · havuz `Assets/KatKat/Resources/Live/live_pool_v3.txt` (gen 3, tohum 20261113)
 
 Bu sayılar **bot** maçlarıdır, gerçek oyuncu davranışı değildir. Kuralların kaba dengesini ve açık ayarların etkisini karşılaştırmak içindir.
 
 ## Kurallar
 
-- tahta 6x6, el 8 (yenilemesiz), tur 8/oyuncu, dokunarak patlatma kapalı, rakipte 3'lü kuran saldırı geçersiz, eşitlik bozma: en büyük tek grup, o da eşitse ikinci oynayan, eller farklı ama denk, alt katman üstten farklı, zincir yok, 2 katman
+- tahta 6x6, el 8 (yenilemesiz), tur 8/oyuncu, dokunarak patlatma açık, rakipte 3'lü kuran saldırı geçersiz, eşitlik bozma: en büyük tek grup, o da eşitse ikinci oynayan, eller farklı ama denk, alt katman üstten farklı, zincir yok, 2 katman
 - Dokunarak patlatma her ölçümde açık ve kapalı ayrı çalıştırıldı.
 
 ## Havuz çeşitliliği
 
-- Üretim: 163 aday denendi, 150 kabul, istenen tür yok 5, eşdeğer kopya 0; filtre retleri: denk ikinci el yok: 8, süre 2556 ms
+- Üretim: 163 aday denendi, 150 kabul, istenen tür yok 5, eşdeğer kopya 0; filtre retleri: denk ikinci el yok: 8, süre 2593 ms
 - Dizilim: 150
 - Farklı ama denk eller: 150 dizilim; iki elin en iyi hemen puanı hepsinde eşit; fırsat sayısı farkı ortalama 0,00 (en çok 0; ortalama fırsat 37,4); hedef hücre farkı ortalama 0,03
 - Açılışta geçerli hedef hücresi (ortalama): 27,9; fırsat (renk+hedef): 37,4; fırsatlı renk: 3,49; en büyük grup ort.: 5,36
@@ -58,6 +58,17 @@ Kazanma sütunları ham puanla (eşitlik bozmasız).
 | Balanced (ilk) – Greedy | 74,3 / 18,3 / 7,3 | 78,3 / 19,3 / 2,3 | 74,3 / 25,7 / 0,0 | 78,3 / 21,7 / 0,0 |
 | Greedy (ilk) – Balanced | 14,3 / 77,7 / 8,0 | 14,7 / 82,0 / 3,3 | 14,3 / 85,7 / 0,0 | 14,7 / 85,3 / 0,0 |
 
+### El adaleti (aynı bot iki tarafta; P1 = A eli, P2 = B eli, her dizilim iki sırayla)
+
+50 / 50'ye yakınsa iki el denk. "Dizilim" sütunu: aynı dizilimin iki maçını (sıra değişerek) da aynı elin kazandığı dizilimler; bu oran yüksekse o dizilimde el, sıradan daha belirleyici.
+
+| Eşleşme | Maç | A eli / B eli / berabere % (ham) | A / B % (varsayılan eşitlik) | Ort. puan A / B | Dizilim: A iki maçı da / B iki maçı da / bölündü % |
+|---|---|---|---|---|---|
+| Random | 300 | 51,7 / 42,7 / 5,7 | 54,0 / 46,0 | 7,87 / 7,39 | 31,3 / 23,3 / 45,3 |
+| Greedy | 300 | 41,7 / 44,7 / 13,7 | 48,0 / 52,0 | 36,53 / 36,94 | 30,0 / 34,0 / 36,0 |
+| Aggressive | 300 | 50,3 / 46,7 / 3,0 | 52,0 / 48,0 | 20,30 / 19,87 | 22,0 / 18,0 / 60,0 |
+| Balanced | 300 | 43,7 / 38,3 / 18,0 | 51,3 / 48,7 | 37,96 / 37,92 | 37,3 / 34,7 / 28,0 |
+
 ## Dokunarak patlatma AÇIK
 
 Kazanma sütunları ham puanla (eşitlik bozmasız).
@@ -86,4 +97,15 @@ Kazanma sütunları ham puanla (eşitlik bozmasız).
 | Balanced (ilk) – Greedy | 79,0 / 14,7 / 6,3 | 83,3 / 15,0 / 1,7 | 79,0 / 21,0 / 0,0 | 83,3 / 16,7 / 0,0 |
 | Greedy (ilk) – Balanced | 18,7 / 76,0 / 5,3 | 19,0 / 79,0 / 2,0 | 18,7 / 81,3 / 0,0 | 19,0 / 81,0 / 0,0 |
 
-Ölçüm süresi: 295194 ms.
+### El adaleti (aynı bot iki tarafta; P1 = A eli, P2 = B eli, her dizilim iki sırayla)
+
+50 / 50'ye yakınsa iki el denk. "Dizilim" sütunu: aynı dizilimin iki maçını (sıra değişerek) da aynı elin kazandığı dizilimler; bu oran yüksekse o dizilimde el, sıradan daha belirleyici.
+
+| Eşleşme | Maç | A eli / B eli / berabere % (ham) | A / B % (varsayılan eşitlik) | Ort. puan A / B | Dizilim: A iki maçı da / B iki maçı da / bölündü % |
+|---|---|---|---|---|---|
+| Random | 300 | 47,0 / 46,3 / 6,7 | 51,0 / 49,0 | 8,16 / 8,28 | 27,3 / 25,3 / 47,3 |
+| Greedy | 300 | 43,7 / 43,7 / 12,7 | 49,7 / 50,3 | 40,91 / 40,73 | 29,3 / 30,0 / 40,7 |
+| Aggressive | 300 | 45,7 / 51,3 / 3,0 | 46,3 / 53,7 | 20,64 / 21,02 | 18,0 / 25,3 / 56,7 |
+| Balanced | 300 | 40,0 / 42,0 / 18,0 | 49,7 / 50,3 | 42,88 / 43,13 | 32,0 / 32,7 / 35,3 |
+
+Ölçüm süresi: 286436 ms.

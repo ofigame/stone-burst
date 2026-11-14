@@ -132,6 +132,14 @@ namespace KatKat.EditorTools
                 sb.Append("\n### Eşitlik bozma kurallarına göre aynı maçlar (ilk kazanır % / ikinci kazanır % / berabere %)\n\n");
                 sb.Append(LiveSim.Summary.TieHeader()).Append('\n');
                 foreach (var r in runs) sb.Append(r.ToTieRow()).Append('\n');
+                if (baseRules.DifferentHands)
+                {
+                    sb.Append("\n### El adaleti (aynı bot iki tarafta; P1 = A eli, P2 = B eli, her dizilim iki sırayla)\n\n");
+                    sb.Append("50 / 50'ye yakınsa iki el denk. \"Dizilim\" sütunu: aynı dizilimin iki maçını (sıra değişerek) da aynı elin kazandığı dizilimler; ");
+                    sb.Append("bu oran yüksekse o dizilimde el, sıradan daha belirleyici.\n\n");
+                    sb.Append(LiveSim.Summary.HandHeader).Append('\n');
+                    for (int i = 0; i < kinds.Length; i++) sb.Append(runs[i].HandRow()).Append('\n');
+                }
                 sb.Append('\n');
             }
             sw.Stop();
@@ -159,7 +167,10 @@ namespace KatKat.EditorTools
         [MenuItem("Kat Kat/Canlı maç/Ekran görüntüleri")]
         public static void Capture()
         {
-            const int w = 1080, h = 1920;
+            // KATKAT_LIVE_SHOT_H=2400 gibi: uzun ekran denetimi (ayrı klasöre).
+            int w = 1080, h = 1920;
+            string shotDir = ShotDir;
+            if (int.TryParse(Environment.GetEnvironmentVariable("KATKAT_LIVE_SHOT_H"), out int hh) && hh >= 1200 && hh != h) { h = hh; shotDir = ShotDir + "_" + w + "x" + h; }
             KatKat.UI.UiAspect.Override = (float)w / h;
             KatKat.UI.SafeAreaFitter.NormalizedOverride = new UnityEngine.Rect(0f, 0f, 1f, 1f);
             var camGo = new UnityEngine.GameObject("LiveCam");
@@ -176,8 +187,8 @@ namespace KatKat.EditorTools
                 view = KatKat.UI.LiveMatchView.Create(cam, null);
                 view.BotDelay = 0f;
                 foreach (var c in view.GetComponentsInChildren<UnityEngine.Canvas>(true)) if (c.isRootCanvas) c.scaleFactor = 1f;
-                Directory.CreateDirectory(ShotDir);
-                foreach (var old in Directory.GetFiles(ShotDir, "*.png")) File.Delete(old);
+                Directory.CreateDirectory(shotDir);
+                foreach (var old in Directory.GetFiles(shotDir, "*.png")) File.Delete(old);
                 void Shot(string name)
                 {
                     view.Refresh();
@@ -189,7 +200,7 @@ namespace KatKat.EditorTools
                     tex.ReadPixels(new UnityEngine.Rect(0, 0, w, h), 0, 0);
                     tex.Apply();
                     UnityEngine.RenderTexture.active = prev;
-                    File.WriteAllBytes(Path.Combine(ShotDir, name + ".png"), tex.EncodeToPNG());
+                    File.WriteAllBytes(Path.Combine(shotDir, name + ".png"), tex.EncodeToPNG());
                     UnityEngine.Object.DestroyImmediate(tex);
                 }
                 var rng = new LiveGenerator.Rng(7);
@@ -222,6 +233,12 @@ namespace KatKat.EditorTools
                 Shot("02_el_tasi_secili");
                 var b0 = m0.Boards[0];
                 view.TapCell(LiveSide.Own, b0.X(best.Target), b0.Y(best.Target));
+                view.AdvanceAnimations(0.6f);
+                Shot("03a_parcalar_skora_ucuyor_1");
+                view.AdvanceAnimations(0.35f);
+                Shot("03a_parcalar_skora_ucuyor_2");
+                view.AdvanceAnimations(0.35f);
+                Shot("03a_parcalar_skora_ucuyor_3");
                 view.CompleteAnimations();
                 Shot("03_patlama_sonrasi_sira_rakipte");
                 view.BotMove();
@@ -229,13 +246,34 @@ namespace KatKat.EditorTools
                 Shot("04_botun_hamlesi");
                 HumanMove(true);
                 Shot("05_rakibe_saldiri");
+                bool tapShot = false;
                 for (int k = 0; k < 40 && !view.Match.IsOver; k++)
                 {
-                    if (view.Match.Current == 1) { view.BotMove(); view.CompleteAnimations(); }
-                    else HumanMove(false);
+                    if (view.Match.Current == 1) { view.BotMove(); view.CompleteAnimations(); continue; }
+                    if (!tapShot)
+                    {
+                        var m = view.Match;
+                        LiveMove tap = default; bool has = false;
+                        foreach (var mv in m.LegalMoves(0)) if (mv.Type == LiveCommandType.TapGroup && (!has || mv.Gain > tap.Gain)) { tap = mv; has = true; }
+                        if (has)
+                        {
+                            Shot("07_hazir_grup_dokunmayi_bekliyor");
+                            var b = m.Boards[0];
+                            view.TapCell(LiveSide.Own, b.X(tap.Target), b.Y(tap.Target));
+                            view.AdvanceAnimations(0.3f);
+                            Shot("08_dokunarak_patlatma_parcalar_1");
+                            view.AdvanceAnimations(0.3f);
+                            Shot("08_dokunarak_patlatma_parcalar_2");
+                            view.CompleteAnimations();
+                            Shot("09_dokunarak_patlatma_sonrasi");
+                            tapShot = true;
+                            continue;
+                        }
+                    }
+                    HumanMove(false);
                 }
                 Shot("06_mac_sonu");
-                Debug.Log("[KatKat] Canlı maç ekranları → " + ShotDir);
+                Debug.Log("[KatKat] Canlı maç ekranları → " + shotDir + (tapShot ? "" : " (hazır grup çıkmadı; 07–09 yok)"));
             }
             finally
             {

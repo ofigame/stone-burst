@@ -170,6 +170,30 @@ namespace KatKat.Core.Live
             public long EmptyHandTurns;
             public int MaxScore;
 
+            /// <summary>
+            /// El adaleti (kullanıcı 2026-11-14: "İki tarafa da farklı renklerde hamle taşları veriliyor bu adil oluyor mu"):
+            /// P1 her zaman dizilimin A elini, P2 B elini tutar; her dizilim iki sırayla oynandığından sıra etkisi dengelenir.
+            /// Ham (eşitlik bozmasız) ve varsayılan eşitlik kuralıyla A/B kazanma, ortalama puan; dizilim başına iki maçın ikisini
+            /// de aynı elin kazandığı dizilimler (el baskın) ile bölünenler.
+            /// </summary>
+            public int HandAWins, HandBWins, HandDraws, HandAWinsTie, HandBWinsTie;
+            public long ScoreA, ScoreB;
+            public int LayoutsASweep, LayoutsBSweep, LayoutsSplit;
+
+            public string HandRow()
+            {
+                double n = Math.Max(1, Matches);
+                int layouts = LayoutsASweep + LayoutsBSweep + LayoutsSplit;
+                double L = Math.Max(1, layouts);
+                return $"| {Label} | {Matches} | {100 * HandAWins / n:0.0} / {100 * HandBWins / n:0.0} / {100 * HandDraws / n:0.0} | " +
+                       $"{100 * HandAWinsTie / n:0.0} / {100 * HandBWinsTie / n:0.0} | {ScoreA / n:0.00} / {ScoreB / n:0.00} | " +
+                       $"{100 * LayoutsASweep / L:0.0} / {100 * LayoutsBSweep / L:0.0} / {100 * LayoutsSplit / L:0.0} |";
+            }
+
+            public const string HandHeader =
+                "| Eşleşme | Maç | A eli / B eli / berabere % (ham) | A / B % (varsayılan eşitlik) | Ort. puan A / B | Dizilim: A iki maçı da / B iki maçı da / bölündü % |\n" +
+                "|---|---|---|---|---|---|";
+
             public double FirstWinRate => Matches == 0 ? 0 : (double)FirstWins / Matches;
             public double SecondWinRate => Matches == 0 ? 0 : (double)SecondWins / Matches;
             public double DrawRate => Matches == 0 ? 0 : (double)Draws / Matches;
@@ -237,6 +261,12 @@ namespace KatKat.Core.Live
                     else if (w == first) s.FirstWinsBy[t]++;
                     else s.SecondWinsBy[t]++;
                 }
+                // El adaleti: oyuncu 0 = A eli, oyuncu 1 = B eli.
+                s.ScoreA += m.Scores[0];
+                s.ScoreB += m.Scores[1];
+                if (raw == 0) s.HandAWins++; else if (raw == 1) s.HandBWins++; else s.HandDraws++;
+                int wt = m.WinnerBy(rules.TieBreak);
+                if (wt == 0) s.HandAWinsTie++; else if (wt == 1) s.HandBWinsTie++;
             }
             return m;
         }
@@ -248,8 +278,16 @@ namespace KatKat.Core.Live
             for (int i = 0; i < pool.Count; i++)
             {
                 // Botlar ilk/ikinci rolüne bağlı: rol a ilk oynar. Sıra ters: aynı dizilimde diğer oyuncu ilk.
-                Play(pool[i], rules, 0, new[] { a, b }, seed + i * 2, s);
-                Play(pool[i], rules, 1, new[] { b, a }, seed + i * 2 + 1, s);
+                var m1 = Play(pool[i], rules, 0, new[] { a, b }, seed + i * 2, s);
+                var m2 = Play(pool[i], rules, 1, new[] { b, a }, seed + i * 2 + 1, s);
+                // El baskınlığı yalnız aynı bot iki taraftayken anlamlı (karışıkta bot rolü eli değiştirir).
+                if (a == b)
+                {
+                    int w1 = m1.WinnerBy(rules.TieBreak), w2 = m2.WinnerBy(rules.TieBreak);
+                    if (w1 == 0 && w2 == 0) s.LayoutsASweep++;
+                    else if (w1 == 1 && w2 == 1) s.LayoutsBSweep++;
+                    else s.LayoutsSplit++;
+                }
             }
             return s;
         }

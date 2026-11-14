@@ -3,6 +3,12 @@
 Son güncelleme: 2026-11-14. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
 
 ## Şu an
+- **2026-11-14: Canlı maç — dokunarak patlatma, skora uçan parçalar, ortalı/geniş tahta, el adaleti ölçümü** (kullanıcı 2026-11-14; karar KARARLAR.md).
+  - Hamle üç türlü: kendi tahtana taş koy (3'lü olursa patlar), rakibe taş koy, ya da **hazır 3'lüye taş koymadan dokun** (`LiveRules.TapReadyGroups` varsayılan açık; tur harcar, el taşı harcamaz). Bot da dokunarak patlatır.
+  - Patlayan taşların parçaları oyunun soyulma animasyonuyla oyuncunun skor kutusuna uçar; skor yazısı parçalar varınca artar ve zıplar.
+  - Yerleşim: ekran yüksekliğine göre hesaplanır, oyun alanı dikeyde ortalı; tahtalar yanlara 22 birim kenara kadar genişler (1080×2400'de tam genişlik; 1080×1920'de yükseklik sınırlar). Ekranlar `docs/vr1/canli_mac/ekranlar/` (01–09, 03a/08 parça uçuşu) ve `ekranlar_1080x2400/` (`KATKAT_LIVE_SHOT_H=2400`).
+  - El adaleti (`OLCUM_RAPORU_v3.md` "El adaleti"): toplamda denk (Dengeli bot iki tarafta, eşitlik kuralıyla A eli %49,7 / B eli %50,3; ortalama puan 42,9 / 43,1). Tek dizilimde ise %65'inde iki maçı da aynı el kazanıyor (sıra değişse de) → dizilim başına el, sıradan daha belirleyici.
+  - Testler: EditMode 261/263 (2 eski atlanan), `LiveMatchViewTests` 3/3 (yeni: dokunarak patlatma), loc-check TAMAM (3 yeni anahtar). Tüm PlayMode koşusu yapılmadı. Telefonda denenmedi.
 - **2026-11-14: Canlı maç yeniden tasarımı** (kullanıcı 2026-11-13 istekleri; 2026-11-14 "canlı oyunu yapmaya devam edelim"; karar KARARLAR.md).
   - Yeni ekran `UI/LiveMatchView.cs` + `Game/GameController.Live.cs` + anasayfa girişi `UI/MenuView.Live.cs` (Sıralama altı "Canlı Maç"; pilot düğmesi bir sıra aşağı). Oyunun `BoardView` tahtası; eşit iki tahta, arada skor/sıra şeridi, sırası olanda renkli kenar, öneri/önizleme yok, rakip bot.
   - Motor: `LiveRules.BottomDiffersFromTop` (varsayılan açık), havuz `Resources/Live/live_pool_v3.txt` (LM3, 150 dizilim), ölçüm `docs/vr1/canli_mac/OLCUM_RAPORU_v3.md` (Dengeli %47/%53). Eski v1/v2 havuzları ve testleri kural kapalıyla aynen geçiyor.
