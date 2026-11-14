@@ -16,11 +16,20 @@ namespace KatKat.EditorTools
         /// <summary>Yalnız editörde/testte kullanılan sahneler; oyuncu derlemesine konmaz.</summary>
         public static readonly string[] DevOnlyScenes = { ProjectSetup.PeelLabScene };
 
+        /// <summary>
+        /// Yerel deneme APK'sı. Kullanıcı 2026-11-14: "gerçek reklam geldi. Test reklamları olsun apk derlerken" → yerel APK'lar
+        /// KATKAT_TEST_ADS ile Google'ın test reklam birimlerini kullanır (<see cref="KatKat.Game.Ads.AdUnits"/>). Mağaza AAB'si almaz.
+        /// </summary>
         [MenuItem("Kat Kat/Build/Android APK")]
         public static void BuildAndroid()
         {
-            Build(BuildTarget.Android, "Builds/Android/StoneBurst.apk");
+            _extraDefines = new[] { TestAdsDefine };
+            try { Build(BuildTarget.Android, "Builds/Android/StoneBurst.apk"); }
+            finally { _extraDefines = null; }
         }
+
+        /// <summary>Yerel APK'larda test reklam birimleri.</summary>
+        public const string TestAdsDefine = "KATKAT_TEST_ADS";
 
         /// <summary>
         /// Bildirim cihaz denemesi (2026-11-13): KATKAT_NOTIFY_TEST ile arka plana geçince 1 dk sonra deneme bildirimi.
@@ -29,7 +38,7 @@ namespace KatKat.EditorTools
         [MenuItem("Kat Kat/Build/Android APK (bildirim denemesi)")]
         public static void BuildAndroidNotifyTest()
         {
-            _extraDefines = new[] { "KATKAT_NOTIFY_TEST" };
+            _extraDefines = new[] { "KATKAT_NOTIFY_TEST", TestAdsDefine };
             try { Build(BuildTarget.Android, "Builds/Android/StoneBurst-notifytest.apk"); }
             finally { _extraDefines = null; }
         }
@@ -41,7 +50,7 @@ namespace KatKat.EditorTools
         [MenuItem("Kat Kat/Build/Android APK (vr1 prototipi)")]
         public static void BuildAndroidVr1()
         {
-            _extraDefines = new[] { "KATKAT_VR1PROTO" };
+            _extraDefines = new[] { "KATKAT_VR1PROTO", TestAdsDefine };
             try { Build(BuildTarget.Android, "Builds/Android/StoneBurst-vr1.apk"); }
             finally { _extraDefines = null; }
         }

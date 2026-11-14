@@ -3,6 +3,7 @@
 Son güncelleme: 2026-11-14. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
 
 ## Şu an
+- **2026-11-14: Yerel APK'larda test reklamı** (kullanıcı: "gerçek reklam geldi. Test reklamları olsun apk derlerken"). `BuildAndroid`, bildirim denemesi ve vr1 APK'ları `KATKAT_TEST_ADS` tanımıyla derlenir; `Ads/AdUnits.cs` bu tanımda Google'ın herkese açık AdMob test birimlerini kullanır. Play Store AAB, AppGallery ve iOS derlemeleri değişmedi (gerçek birimler). Doğrulama: yeni `Builds/Android/StoneBurst.apk` içindeki IL2CPP metadata'da test birimleri var, gerçek birimler yok. Telefonda denenmedi.
 - **2026-11-14: Canlı maç — 3 katman, 7×6 tahta, 5 sn hamle süresi, 2 raunt** (kullanıcı: "canlı oyun çabuk bitiyor. 3 katmanlı yapalım oyunu birde oyun tahtasına 1 sütun daha ekleyelim. Ver sıra kimdeyse 5 sn süresi olsun. rövanş olmayacak 2 raunt olacak ilk raunt bitince direkt 2. raunt başlayacak. Tabi ekranda bunu gösterelim"; karar KARARLAR.md).
   - `LiveRules.Layers = 3`, `Width = 7` (6 satır), `TurnSeconds = 5`, `TwoRounds` (eski `RematchSwapsHands`). Her katman üstündekinden farklı. Havuz sürüm 5 `Resources/Live/live_pool_v5.txt` (LM5, 150 dizilim; satırda 12. alan orta katman). Eski v1–v4 havuzları `Layers = 2`, 6×6 kurallarla aynen.
   - Süre: şeritte "Sıra sende · 4 sn" ve sırası olanın renginde kısalan çubuk (son %40'ta kırmızıya döner); dolunca tur geçer (`LiveCommand.Timeout`, hamle varken de kabul). Animasyon ve raunt arasında süre durur.

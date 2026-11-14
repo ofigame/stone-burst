@@ -21,6 +21,18 @@ namespace KatKat.Game.Ads
         public const string UnityGameId = "800434959";
         public const string UnityRewarded = "BP_Rewarded_Android";
         public const string UnityInterstitial = "BP_Interstitial_Android";
+#elif KATKAT_TEST_ADS
+        // Yerel deneme APK'ları (kullanıcı 2026-11-14: "gerçek reklam geldi. Test reklamları olsun apk derlerken"): Google'ın
+        // herkese açık AdMob TEST birimleri; gelir getirmez, kendi reklamına tıklama riski yok. Mağaza paketleri (AAB, iOS) bu
+        // tanımı almaz; gerçek birimler aşağıda.
+        public const bool UsingTestIds = true;
+#if UNITY_IOS
+        public const string Rewarded = "ca-app-pub-3940256099942544/1712485313";      // Google test: ödüllü (iOS)
+        public const string Interstitial = "ca-app-pub-3940256099942544/4411468910";  // Google test: geçiş (iOS)
+#else
+        public const string Rewarded = "ca-app-pub-3940256099942544/5224354917";      // Google test: ödüllü (Android)
+        public const string Interstitial = "ca-app-pub-3940256099942544/1033173712";  // Google test: geçiş (Android)
+#endif
 #elif UNITY_IOS
         public const bool UsingTestIds = false;
         public const string Rewarded = "ca-app-pub-2558895513508689/3403938167";      // stoneburst_rewarded
