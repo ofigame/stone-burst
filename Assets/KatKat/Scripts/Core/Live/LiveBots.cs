@@ -190,6 +190,20 @@ namespace KatKat.Core.Live
                        $"{100 * LayoutsASweep / L:0.0} / {100 * LayoutsBSweep / L:0.0} / {100 * LayoutsSplit / L:0.0} |";
             }
 
+            /// <summary>Rövanşlı maç (kullanıcı 2026-11-14: "rövanşta el değişsin"): dizilim başına bir seri.</summary>
+            public int SeriesP1, SeriesP2, SeriesDraws;
+            public long SeriesScoreDiff;
+
+            public string SeriesRow()
+            {
+                int n = SeriesP1 + SeriesP2 + SeriesDraws;
+                double N = System.Math.Max(1, n);
+                return $"| {Label} | {n} | {100 * SeriesP1 / N:0.0} / {100 * SeriesP2 / N:0.0} / {100 * SeriesDraws / N:0.0} | {SeriesScoreDiff / N:0.00} |";
+            }
+
+            public const string SeriesHeader =
+                "| Eşleşme (P1 – P2) | Seri | P1 / P2 / berabere % | Ort. toplam puan farkı |\n|---|---|---|---|";
+
             public const string HandHeader =
                 "| Eşleşme | Maç | A eli / B eli / berabere % (ham) | A / B % (varsayılan eşitlik) | Ort. puan A / B | Dizilim: A iki maçı da / B iki maçı da / bölündü % |\n" +
                 "|---|---|---|---|---|---|";
@@ -217,9 +231,9 @@ namespace KatKat.Core.Live
         }
 
         /// <summary>Tek maç; botlar oyuncu sırasına göre (bots[0] = P1).</summary>
-        public static LiveMatch Play(LiveLayout l, LiveRules rules, int first, LiveBotKind[] bots, long seed, Summary s = null)
+        public static LiveMatch Play(LiveLayout l, LiveRules rules, int first, LiveBotKind[] bots, long seed, Summary s = null, bool swapHands = false)
         {
-            var m = new LiveMatch(l, rules, first);
+            var m = new LiveMatch(l, rules, first, swapHands);
             var rng = new LiveGenerator.Rng(seed);
             int guard = 0;
             while (!m.IsOver && guard++ < 1000)
@@ -288,6 +302,11 @@ namespace KatKat.Core.Live
                     else if (w1 == 1 && w2 == 1) s.LayoutsBSweep++;
                     else s.LayoutsSplit++;
                 }
+                // Rövanşlı maç: m1 (P1 A eli, P1 ilk) + rövanş (eller ve sıra değişik). Bot a = P1. Tek maç tablolarına girmez.
+                var rematch = Play(pool[i], rules, 1, new[] { a, b }, seed + i * 2 + 500000, null, true);
+                int ws = LiveSeries.Winner(m1, rematch);
+                if (ws == 0) s.SeriesP1++; else if (ws == 1) s.SeriesP2++; else s.SeriesDraws++;
+                s.SeriesScoreDiff += System.Math.Abs(LiveSeries.Total(m1, rematch, 0) - LiveSeries.Total(m1, rematch, 1));
             }
             return s;
         }

@@ -320,3 +320,24 @@ Kullanıcı (2026-11-13): "hiç hayal ettiğim gibi değil. Tasarım mevcut tasa
 | Dengeli | 49,7 / 50,3 | 42,9 / 43,1 | 32 / 33 / 35 |
 
 Yorum: toplamda iki el denk (300 maçta ±%3 gürültü içinde). Ama tek tek dizilimlerde Dengeli botla %65'inde iki maçı da aynı el kazanıyor; el, sıradan daha belirleyici. Yani adil ortalamada, tek maçta şans payı var. Seçenekler (karar sizin): (1) maç iki el olarak oynanır, ikinci elde eller değişir; (2) eski "aynı el" kuralına dönmek (beraberlik artar); (3) olduğu gibi bırakmak.
+
+### Rövanş ve tam dikdörtgen tahta (2026-11-14)
+
+Kullanıcı: "rövanşta el değişsin. Tahtaların ortasında boşluk olmasın tahtaların şekli tek tip olacak. Düz köşeli olacak".
+
+- Maç iki el: 1. el bitince ara kart ("1. el bitti", "Rövanş"). Rövanşta aynı dizilim; eller ve ilk oynayan yer değiştirir. Skor kutuları iki elin toplamı; sonuç kartı toplam ve el el skor ("1. el 40 – 50 · Rövanş 42 – 48").
+- Tahtalar tam 6×6, delik ve kesik köşe yok (havuz v4, `Resources/Live/live_pool_v4.txt`).
+- Ölçüm ([OLCUM_RAPORU_v4.md](OLCUM_RAPORU_v4.md), dokunarak patlatma açık, 150 seri):
+
+| Eşleşme (P1 – P2) | P1 / P2 / berabere % | Ort. toplam fark |
+|---|---|---|
+| Random | 46,7 / 51,3 / 2,0 | 8,2 |
+| Greedy | 42,0 / 50,7 / 7,3 | 4,0 |
+| Aggressive | 47,3 / 50,7 / 2,0 | 10,6 |
+| Dengeli | 32,7 / 31,3 / 36,0 | 1,9 |
+| Dengeli (P1) – Greedy | 93,3 / 6,0 / 0,7 | 8,2 |
+| Greedy (P1) – Dengeli | 9,3 / 90,0 / 0,7 | 7,7 |
+
+Yorum: aynı bot iki taraftayken dengede (koşullar simetrik). Dengeli–Dengeli beraberliği yüksek, çünkü aynı deterministik bot aynı koşulda aynı hamleleri yapar; insanlarda bu beklenmez. Güçlü bot tek maçta %73–80, rövanşlı maçta %90–93 kazanıyor: el ve sıra şansı azaldı, beceri öne çıktı.
+
+Ekranlar: `06` ara kart, `10` rövanş başı (eller değişmiş), `11` toplam sonuç.

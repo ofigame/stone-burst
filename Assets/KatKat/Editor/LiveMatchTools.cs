@@ -30,15 +30,18 @@ namespace KatKat.EditorTools
         public const string PoolV3Path = "Assets/KatKat/Resources/Live/live_pool_v3.txt";
 
         /// <summary>Havuz sürümü: KATKAT_LIVE_POOL=v1|v2|v3 (varsayılan v3). Eski ad KATKAT_LIVE_HANDS=same → v1.</summary>
+        /// <summary>Varsayılan havuz (2026-11-14): v3 + tam dikdörtgen tahta (LM4); oyun bunu yükler.</summary>
+        public const string PoolV4Path = "Assets/KatKat/Resources/Live/live_pool_v4.txt";
+
         private static string PoolVariant()
         {
             var v = Environment.GetEnvironmentVariable("KATKAT_LIVE_POOL");
             if (string.IsNullOrEmpty(v) && Environment.GetEnvironmentVariable("KATKAT_LIVE_HANDS") == "same") v = "v1";
-            return v == "v1" || v == "v2" ? v : "v3";
+            return v == "v1" || v == "v2" || v == "v3" ? v : "v4";
         }
 
         private static int GenOf(LiveRules r) =>
-            r.BottomDiffersFromTop ? LiveGenerator.VersionBottomDiffers : r.DifferentHands ? LiveGenerator.VersionDifferentHands : LiveGenerator.Version;
+            r.FullBoard ? LiveGenerator.VersionFullBoard : r.BottomDiffersFromTop ? LiveGenerator.VersionBottomDiffers : r.DifferentHands ? LiveGenerator.VersionDifferentHands : LiveGenerator.Version;
 
         private static LiveRules Variant(out string poolPath, out string reportPath)
         {
@@ -46,13 +49,14 @@ namespace KatKat.EditorTools
             string v = PoolVariant();
             // v1: aynı eller, alt serbest · v2: farklı ama denk eller, alt serbest · v3 (varsayılan): farklı eller + alt üstten farklı.
             rules.DifferentHands = v != "v1";
-            rules.BottomDiffersFromTop = v == "v3";
-            poolPath = v == "v1" ? PoolPath : v == "v2" ? DiffPoolPath : PoolV3Path;
-            reportPath = v == "v1" ? ReportPath : v == "v2" ? "docs/vr1/canli_mac/OLCUM_RAPORU_farkli_el.md" : "docs/vr1/canli_mac/OLCUM_RAPORU_v3.md";
+            rules.BottomDiffersFromTop = v == "v3" || v == "v4";
+            rules.FullBoard = v == "v4";
+            poolPath = v == "v1" ? PoolPath : v == "v2" ? DiffPoolPath : v == "v3" ? PoolV3Path : PoolV4Path;
+            reportPath = v == "v1" ? ReportPath : v == "v2" ? "docs/vr1/canli_mac/OLCUM_RAPORU_farkli_el.md" : v == "v3" ? "docs/vr1/canli_mac/OLCUM_RAPORU_v3.md" : "docs/vr1/canli_mac/OLCUM_RAPORU_v4.md";
             if (int.TryParse(Environment.GetEnvironmentVariable("KATKAT_LIVE_SIZE"), out int n) && n >= 3 && n != rules.Width)
             {
                 rules.Width = rules.Height = n;
-                string tag = v == "v1" ? "" : v == "v2" ? "_farkli_el" : "_alt_farkli";
+                string tag = v == "v1" ? "" : v == "v2" ? "_farkli_el" : v == "v3" ? "_alt_farkli" : "_tam";
                 int gen = GenOf(rules);
                 poolPath = $"docs/vr1/canli_mac/havuz_{n}x{n}{tag}_v{gen}.txt";
                 reportPath = $"docs/vr1/canli_mac/OLCUM_RAPORU{tag}_{n}x{n}.md";
@@ -140,6 +144,12 @@ namespace KatKat.EditorTools
                     sb.Append(LiveSim.Summary.HandHeader).Append('\n');
                     for (int i = 0; i < kinds.Length; i++) sb.Append(runs[i].HandRow()).Append('\n');
                 }
+                sb.Append("\n### Rövanşlı maç (kullanıcı 2026-11-14: \"rövanşta el değişsin\")\n\n");
+                sb.Append("Her dizilimde bir seri: 1. el P1 A eliyle ilk oynar; rövanşta eller ve ilk oynayan değişir. Kazanan iki elin toplam puanı; ");
+                sb.Append("eşitlikte en büyük tek soyma; o da eşitse berabere. Aynı bot iki taraftayken 50 / 50 beklenir (koşullar simetrik); ");
+                sb.Append("farklı botlarda güçlü botun seri kazanma oranı tek maçtakiyle karşılaştırılır.\n\n");
+                sb.Append(LiveSim.Summary.SeriesHeader).Append('\n');
+                foreach (var r in runs) sb.Append(r.SeriesRow()).Append('\n');
                 sb.Append('\n');
             }
             sw.Stop();
@@ -272,7 +282,16 @@ namespace KatKat.EditorTools
                     }
                     HumanMove(false);
                 }
-                Shot("06_mac_sonu");
+                Shot("06_ilk_el_sonu_rovans_karti");
+                // Rövanş (kullanıcı 2026-11-14: "rövanşta el değişsin"): eller ve ilk oynayan değişir, skor toplam.
+                view.StartRematch();
+                Shot("10_rovans_eller_degisti");
+                for (int k = 0; k < 40 && !view.Match.IsOver; k++)
+                {
+                    if (view.Match.Current == 1) { view.BotMove(); view.CompleteAnimations(); }
+                    else HumanMove(false);
+                }
+                Shot("11_mac_sonu_toplam");
                 Debug.Log("[KatKat] Canlı maç ekranları → " + shotDir + (tapShot ? "" : " (hazır grup çıkmadı; 07–09 yok)"));
             }
             finally

@@ -49,16 +49,20 @@ namespace KatKat.Core.Live
         public int Current { get; private set; }
         public readonly LiveRecord Record;
 
-        public LiveMatch(LiveLayout layout, LiveRules rules, int firstPlayer = 0)
+        /// <summary>Rövanş eli: P1 B elini, P2 A elini tutar.</summary>
+        public readonly bool SwappedHands;
+
+        public LiveMatch(LiveLayout layout, LiveRules rules, int firstPlayer = 0, bool swapHands = false)
         {
             Layout = layout;
             Rules = rules.Clone();
             FirstPlayer = firstPlayer;
             Current = firstPlayer;
+            SwappedHands = swapHands;
             for (int p = 0; p < 2; p++)
             {
                 Boards[p] = layout.CreateBoard();
-                Hands[p] = layout.CreateHand(p);
+                Hands[p] = layout.CreateHand(swapHands ? 1 - p : p);
             }
             Record = new LiveRecord { LayoutId = layout.Id, GenVersion = layout.GenVersion, FirstPlayer = firstPlayer, Rules = Rules.ToString() };
             Record.Hand.AddRange(layout.Hand);

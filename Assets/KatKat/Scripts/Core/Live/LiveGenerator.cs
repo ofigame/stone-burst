@@ -151,7 +151,9 @@ namespace KatKat.Core.Live
             int w = rules.Width, h = rules.Height, n = w * h;
             var l = new LiveLayout { GenVersion = Version, Seed = seed, Width = w, Height = h, Mask = new bool[n], Bottom = new LayerColor[n], Top = new LayerColor[n] };
             for (int i = 0; i < n; i++) l.Mask[i] = true;
-            switch (rng.Range(MaskKinds))
+            int maskKind = rng.Range(MaskKinds);
+            if (rules.FullBoard) maskKind = 0; // tam dikdörtgen (sürüm 4); çekiliş yine yapılır, eski havuzlar aynen üretilir
+            switch (maskKind)
             {
                 case 1:
                     l.Mask[0] = l.Mask[w - 1] = l.Mask[n - w] = l.Mask[n - 1] = false;
@@ -196,8 +198,12 @@ namespace KatKat.Core.Live
                 l.Hand2 = PickSecondHand(l, rules, rng);
             }
             if (rules.BottomDiffersFromTop) l.GenVersion = VersionBottomDiffers;
+            if (rules.FullBoard) l.GenVersion = VersionFullBoard;
             return l;
         }
+
+        /// <summary>Tam dikdörtgen tahta (kullanıcı 2026-11-14) havuzun üretim sürümü (kimlik öneki LM4).</summary>
+        public const int VersionFullBoard = 4;
 
         /// <summary>Farklı ama denk eller havuzunun üretim sürümü (kimlik öneki LM2).</summary>
         public const int VersionDifferentHands = 2;
@@ -310,6 +316,7 @@ namespace KatKat.Core.Live
             if (l.Width != rules.Width || l.Height != rules.Height) return "boyut";
             if (l.Hand == null || l.Hand.Length != rules.HandSize) return "el boyu";
             if (rules.DifferentHands != l.DifferentHands) return rules.DifferentHands ? "denk ikinci el yok" : "beklenmeyen ikinci el";
+            if (rules.FullBoard && Array.IndexOf(l.Mask, false) >= 0) return "delikli tahta";
             var b = l.CreateBoard();
             for (int i = 0; i < b.Count; i++) if (b[i].Active && b[i].Layers.Count != LiveRules.LayersPerCell) return "iki katman";
             if (rules.BottomDiffersFromTop)

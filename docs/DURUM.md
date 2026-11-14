@@ -3,6 +3,11 @@
 Son güncelleme: 2026-11-14. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
 
 ## Şu an
+- **2026-11-14: Canlı maç — rövanşta eller değişir, tahtalar tam dikdörtgen** (kullanıcı: "rövanşta el değişsin. Tahtaların ortasında boşluk olmasın tahtaların şekli tek tip olacak. Düz köşeli olacak"; karar KARARLAR.md).
+  - Maç iki el: 1. el bitince ara kart ("Rövanş"); rövanşta aynı dizilim, eller (A/B) ve ilk oynayan yer değiştirir; skor kutuları iki elin toplamını gösterir; kazanan toplamla (eşitse en büyük tek soyma, o da eşitse berabere). `LiveRules.RematchSwapsHands`, `Core/Live/LiveSeries.cs`.
+  - Tahta: `LiveRules.FullBoard` (varsayılan açık) → her tahta tam 6×6, delik/kesik köşe yok. Havuz sürüm 4 `Resources/Live/live_pool_v4.txt` (LM4, 150 dizilim); oyun bunu yükler. Eski v1–v3 havuzları kural kapalıyla aynen.
+  - Ölçüm `docs/vr1/canli_mac/OLCUM_RAPORU_v4.md` (dokunarak patlatma açık): rövanşlı maçta aynı bot iki tarafta P1/P2 dengede (Dengeli 32,7 / 31,3; kalan %36 berabere çünkü aynı bot simetrik koşulda aynı oynuyor); güçlü bot tek maçta %73–80, rövanşlı maçta %90–93 kazanıyor (beceri daha belirleyici).
+  - Testler: EditMode 263/265 (2 eski atlanan), `LiveMatchViewTests` 3/3, loc-check TAMAM (7 yeni anahtar). Ekranlar 01–11 (`06` ara kart, `10` rövanş, `11` toplam sonuç), 1080×2400 da. Telefonda denenmedi.
 - **2026-11-14: Canlı maç — dokunarak patlatma, skora uçan parçalar, ortalı/geniş tahta, el adaleti ölçümü** (kullanıcı 2026-11-14; karar KARARLAR.md).
   - Hamle üç türlü: kendi tahtana taş koy (3'lü olursa patlar), rakibe taş koy, ya da **hazır 3'lüye taş koymadan dokun** (`LiveRules.TapReadyGroups` varsayılan açık; tur harcar, el taşı harcamaz). Bot da dokunarak patlatır.
   - Patlayan taşların parçaları oyunun soyulma animasyonuyla oyuncunun skor kutusuna uçar; skor yazısı parçalar varınca artar ve zıplar.

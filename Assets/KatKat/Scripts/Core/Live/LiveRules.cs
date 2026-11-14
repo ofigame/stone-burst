@@ -45,6 +45,18 @@ namespace KatKat.Core.Live
         /// </summary>
         public bool BottomDiffersFromTop = true;
 
+        /// <summary>
+        /// Tam dikdörtgen tahta (kullanıcı 2026-11-14: "Tahtaların ortasında boşluk olmasın tahtaların şekli tek tip olacak. Düz
+        /// köşeli olacak"): delik ve kesik köşe yok, her hücre etkin. Varsayılan açık (havuz sürüm 4); kapalıyken eski havuzlar aynen.
+        /// </summary>
+        public bool FullBoard = true;
+
+        /// <summary>
+        /// Rövanş (kullanıcı 2026-11-14: "rövanşta el değişsin"): maç aynı dizilimde iki eldir; rövanşta eller ve ilk oynayan
+        /// yer değiştirir, kazanan iki elin toplam puanıyla belirlenir (<see cref="LiveSeries"/>).
+        /// </summary>
+        public bool RematchSwapsHands = true;
+
         public LiveRules Clone() => (LiveRules)MemberwiseClone();
 
         public static string TieBreakName(LiveTieBreak t) => t switch
@@ -57,7 +69,7 @@ namespace KatKat.Core.Live
 
         public override string ToString() =>
             $"tahta {Width}x{Height}, el {HandSize} (yenilemesiz), tur {TurnsPerPlayer}/oyuncu, dokunarak patlatma {(TapReadyGroups ? "açık" : "kapalı")}, " +
-            $"rakipte 3'lü kuran saldırı {(ForbidAttackGroup ? "geçersiz" : "serbest")}, eşitlik bozma: {TieBreakName(TieBreak)}, eller {(DifferentHands ? "farklı ama denk" : "aynı")}, alt katman {(BottomDiffersFromTop ? "üstten farklı" : "serbest")}, zincir yok, 2 katman";
+            $"rakipte 3'lü kuran saldırı {(ForbidAttackGroup ? "geçersiz" : "serbest")}, eşitlik bozma: {TieBreakName(TieBreak)}, eller {(DifferentHands ? "farklı ama denk" : "aynı")}, alt katman {(BottomDiffersFromTop ? "üstten farklı" : "serbest")}, tahta {(FullBoard ? "tam dikdörtgen" : "delikli olabilir")}, zincir yok, 2 katman";
     }
 
     /// <summary>

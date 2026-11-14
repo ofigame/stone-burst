@@ -52,14 +52,15 @@ namespace KatKat.Tests
             Assert.IsTrue(_gc.LiveOpen);
             var m = v.Match;
             Assert.IsNotNull(m, "havuz yüklendi, maç başladı");
-            StringAssert.StartsWith("LM3-", m.Layout.Id, "varsayılan havuz v3");
+            StringAssert.StartsWith("LM4-", m.Layout.Id, "varsayılan havuz v4");
             v.BotDelay = 0f;
 
-            // İki tahta birebir aynı başlar; alt katman üstten farklı; iki tahta aynı boyda.
+            // İki tahta birebir aynı başlar; tam dikdörtgen (delik yok); alt katman üstten farklı; iki tahta aynı boyda.
             for (int i = 0; i < m.Boards[0].Count; i++)
             {
                 CollectionAssert.AreEqual(m.Boards[0][i].Layers, m.Boards[1][i].Layers);
-                if (m.Boards[0][i].Active) Assert.AreNotEqual(m.Boards[0][i].Layers[0], m.Boards[0][i].Layers[1]);
+                Assert.IsTrue(m.Boards[0][i].Active, "tahtada boşluk yok");
+                Assert.AreNotEqual(m.Boards[0][i].Layers[0], m.Boards[0][i].Layers[1]);
             }
             Assert.AreEqual(v.BoardOf(0).Pitch, v.BoardOf(1).Pitch, 1e-4f, "eşit tahta boyutu");
             Assert.AreEqual(LiveMatchView.Human, m.Current);
@@ -109,16 +110,11 @@ namespace KatKat.Tests
             Assert.IsTrue(_gc.Menu.IsMapShown, "çıkınca harita");
         }
 
-        [UnityTest]
-        public IEnumerator FullMatch_AgainstBot_EndsWithResultCard()
+        private static void PlayOut(LiveMatchView v, LiveGenerator.Rng rng)
         {
-            _gc.ShowLive();
-            yield return null;
-            var v = _gc.Live;
-            v.BotDelay = 0f;
-            var rng = new LiveGenerator.Rng(3);
             for (int k = 0; k < 60 && !v.Match.IsOver; k++)
             {
+                v.CompleteAnimations();
                 var m = v.Match;
                 if (m.Current == LiveMatchView.Bot) { v.BotMove(); v.CompleteAnimations(); continue; }
                 var cmd = LiveBots.Choose(m, LiveBotKind.Greedy, rng);
@@ -128,10 +124,43 @@ namespace KatKat.Tests
                 v.TapCell(cmd.Side, cmd.X, cmd.Y);
                 v.CompleteAnimations();
             }
-            Assert.IsTrue(v.Match.IsOver, "8 tur sonunda maç biter");
-            Assert.IsTrue(v.EndShown, "sonuç kartı");
+        }
+
+        /// <summary>Kullanıcı 2026-11-14: "rövanşta el değişsin". 1. el → ara kart → rövanş (eller ve sıra değişik) → toplamla sonuç.</summary>
+        [UnityTest]
+        public IEnumerator FullMatch_Leg1_Rematch_SwapsHands_EndsWithTotalResult()
+        {
+            _gc.ShowLive();
+            yield return null;
+            var v = _gc.Live;
+            v.BotDelay = 0f;
+            var rng = new LiveGenerator.Rng(3);
+            var layout = v.Match.Layout;
+            CollectionAssert.AreEqual(layout.Hand, v.Match.Hands[0], "1. elde sen A eli");
+            PlayOut(v, rng);
+            Assert.IsTrue(v.Match.IsOver, "8 tur sonunda 1. el biter");
             Assert.AreEqual(8, v.Match.TurnsUsed[0]);
             Assert.AreEqual(8, v.Match.TurnsUsed[1]);
+            Assert.IsTrue(v.EndShown, "ara kart");
+            Assert.IsFalse(v.SeriesOver, "maç rövanşla sürer");
+            int s0 = v.Match.Scores[0], s1 = v.Match.Scores[1];
+            int first = v.Match.FirstPlayer;
+
+            v.StartRematch();
+            Assert.IsFalse(v.EndShown);
+            Assert.IsNotNull(v.FirstLeg);
+            Assert.AreSame(layout, v.Match.Layout, "aynı dizilim");
+            CollectionAssert.AreEqual(layout.Hand2, v.Match.Hands[0], "rövanşta sen B eli");
+            CollectionAssert.AreEqual(layout.Hand, v.Match.Hands[1], "rövanşta rakip A eli");
+            Assert.AreEqual(1 - first, v.Match.FirstPlayer, "ilk oynayan değişti");
+            Assert.AreEqual(s0, v.ShownScore(0), "skor kutusu toplamı gösterir");
+            Assert.AreEqual(s1, v.ShownScore(1));
+            yield return null;
+            PlayOut(v, rng);
+            Assert.IsTrue(v.SeriesOver);
+            Assert.IsTrue(v.EndShown, "sonuç kartı");
+            Assert.AreEqual(s0 + v.Match.Scores[0], v.ShownScore(0));
+            Assert.AreEqual(s1 + v.Match.Scores[1], v.ShownScore(1));
             _gc.CloseLive();
             yield return null;
         }
