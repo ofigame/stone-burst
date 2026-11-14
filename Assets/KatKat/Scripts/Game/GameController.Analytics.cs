@@ -50,6 +50,9 @@ namespace KatKat.Game
         private void MaybeRequestReview()
         {
             if (_sessionKind != SessionKind.Normal || _outcome == null || !_outcome.Success) return;
+            // Pencere gösterilemeyen derlemede (editör, AppGallery…) hak harcanmaz (2026-11-14: Android'de pencere yokken
+            // sayaç artıyordu; 3 hakkın bir kısmı boşa gidiyordu).
+            if (ReviewRequester == null && !StoreReviewSupported) return;
             long now = ReviewClock?.Invoke() ?? System.DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             var m = _save.Data.meta;
             if (!ReviewRules.ShouldAsk(_save.Data.completed.Count, EarnedStars, _outcome.Assisted, m.reviewAsks, m.reviewLast, now)) return;
@@ -62,12 +65,21 @@ namespace KatKat.Game
             else RequestStoreReview();
         }
 
+        /// <summary>Sistem puan penceresi bu derlemede var mı: iOS (SKStoreReviewController) ve Google Play (In-App Review).</summary>
+        private static bool StoreReviewSupported =>
+#if UNITY_IOS && !UNITY_EDITOR
+            true;
+#else
+            PlayReview.Supported;
+#endif
+
         private static void RequestStoreReview()
         {
 #if UNITY_IOS && !UNITY_EDITOR
             UnityEngine.iOS.Device.RequestStoreReview();
 #else
-            if (!Application.isBatchMode) Debug.Log("[KatKat] Puan isteği (yalnız iOS cihazda sistem penceresi)");
+            // Android (kullanıcı 2026-11-14: "android için de ekle"): Google Play uygulama içi puan penceresi.
+            PlayReview.Request();
 #endif
         }
     }

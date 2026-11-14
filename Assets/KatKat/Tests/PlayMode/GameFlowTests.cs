@@ -556,6 +556,22 @@ namespace KatKat.Tests
                 Assert.AreEqual(happy ? 1 : 0, sink.Count("review_prompt"));
                 Assert.AreEqual(happy ? 1 : 0, _gc.SaveService.Data.meta.reviewAsks);
                 Assert.IsTrue(sink.Properties.ContainsKey("highest_level"));
+
+                // 2026-11-14: pencere gösterilemeyen derlemede (burada editör; cihazda iOS ve Google Play gösterir) hak harcanmaz.
+                if (happy)
+                {
+                    GameController.ReviewRequester = null;
+                    GameController.ReviewClock = () => now + 200L * 86400L; // bekleme süresi dolmuş
+                    _gc.StartLevel(2);
+                    _gc.Board.Director.TimeScale = Speed;
+                    foreach (var step in _gc.Catalog.Levels[2].Solution) { _gc.PlayStep(step); yield return WaitStable(); }
+                    yield return WaitCelebration();
+                    _gc.Hud.Panel.Skip();
+                    _gc.Hud.Panel.Press(0);
+                    yield return null;
+                    Assert.AreEqual(1, _gc.SaveService.Data.meta.reviewAsks, "pencere yoksa sayaç artmaz");
+                    Assert.AreEqual(1, GameController.ReviewRequestsForTest);
+                }
             }
             finally
             {
