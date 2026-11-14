@@ -107,6 +107,28 @@ namespace KatKat.UI
             return _page;
         }
 
+        /// <summary>
+        /// Tablet haritası (kullanıcı 2026-11-14: "telefondaki gibi olmaz mı tam sığdıralım her şeyi"): geniş ekranda tuval
+        /// yüksekliğe eşlenir ve sayfa ortada 1080 birimlik sütun olur; iki yanda bölge resmi kalır. Harita sayfası, telefondaki
+        /// gibi kenardan kenara dolsun diye sütun genişliği korunarak kısaltılır ve ekran genişliğine büyütülür (k = ekran / sütun).
+        /// Harita dikey kaydırıldığı için kısalan yükseklik yalnız görünen alanı azaltır. Telefonda (k ≈ 1) değişiklik yok.
+        /// </summary>
+        private void FitPageToFullWidth(RectTransform page)
+        {
+            var root = (RectTransform)_canvas.transform;
+            float colW = _safe.rect.width, colH = _safe.rect.height, fullW = root.rect.width;
+            if (colW <= 0f || colH <= 0f) return;
+            // Güvenli alan yatayda tam ekrana kadar (sütun ortada): genişleme yalnız sütun dışındaki yan boşluklar kadar.
+            float k = fullW / colW;
+            if (k < 1.01f) return;
+            page.anchorMin = page.anchorMax = new Vector2(0.5f, 0.5f);
+            page.pivot = new Vector2(0.5f, 0.5f);
+            page.anchoredPosition = Vector2.zero;
+            page.sizeDelta = new Vector2(colW, colH / k);
+            page.localScale = new Vector3(k, k, 1f);
+        }
+
+
         // ---- Ortak parçalar ---------------------------------------------------------------------------
 
         /// <summary>Sol üst ekran etiketi (Loc.T("ui.home") / Loc.T("btn.levels")).</summary>
@@ -843,6 +865,7 @@ namespace KatKat.UI
             CurrentSheet = focusRegion;
             Theme = ThemeDefinition.ForLevel(focusRegion * ThemeDefinition.RegionSize);
             var page = NewPage(Theme.MapSprite);
+            FitPageToFullWidth(page);
             var m = _map = new MapState { Total = total, Current = current, Regions = regions, HighestUnlocked = highestUnlocked, IsCompleted = isCompleted };
             if (StarsOf != null) for (int i = 0; i < total; i++) m.StarSum += StarsOf(i);
             if (ExtraStars != null) m.StarSum += ExtraStars(); // günlük bulmaca yıldızları

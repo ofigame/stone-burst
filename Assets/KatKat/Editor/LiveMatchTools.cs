@@ -290,8 +290,8 @@ namespace KatKat.EditorTools
                 // 2. raunt (kullanıcı 2026-11-14: "ilk raunt bitince direkt 2. raunt başlayacak"): eller ve ilk oynayan değişir, skor toplam.
                 view.SkipRoundBreak();
                 Shot("10_raunt2_eller_degisti");
-                // Süre: sırası olanın 5 sn'sinden 3 sn geçmiş an (çubuk kısalmış).
-                view.AdvanceTurnClock(3.2f);
+                // Süre: sırası olanın 10 sn'sinden 6,5 sn geçmiş an (çubuk kısalmış).
+                view.AdvanceTurnClock(6.5f);
                 Shot("10a_hamle_suresi_azaliyor");
                 for (int k = 0; k < 40 && !view.Match.IsOver; k++)
                 {

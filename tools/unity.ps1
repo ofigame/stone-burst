@@ -46,6 +46,7 @@ switch ($Command) {
     'capture-v5'      { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CaptureV5') 'capture-v5' }
     'capture-usage'   { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CaptureUsage') 'capture-usage' }
     'capture-size'    { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CaptureBoardSize') 'capture-size' }
+    'capture-tablet-map' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CaptureTabletMapBatch') 'capture-tablet-map' }
     'capture-tray'    { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CaptureTray') 'capture-tray' }
     'capture-mascot'  { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CaptureMascot') 'capture-mascot' }
     'live-capture'    { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.LiveMatchTools.CaptureBatch') 'live-capture' }

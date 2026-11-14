@@ -114,9 +114,9 @@ namespace KatKat.Tests
             Assert.IsTrue(_gc.Menu.IsMapShown, "çıkınca harita");
         }
 
-        /// <summary>Kullanıcı 2026-11-14: "sıra kimdeyse 5 sn süresi olsun". Süre dolunca sıra geçer; çubuk ve saniye görünür.</summary>
+        /// <summary>Kullanıcı 2026-11-14: "sıra kimdeyse 5 sn süresi olsun" → "10 saniye yapalım". Süre dolunca sıra geçer; çubuk ve saniye görünür.</summary>
         [UnityTest]
-        public IEnumerator TurnTimer_FiveSeconds_ExpiresToPass()
+        public IEnumerator TurnTimer_TenSeconds_ExpiresToPass()
         {
             _gc.ShowLive();
             yield return null;
@@ -124,7 +124,7 @@ namespace KatKat.Tests
             v.BotDelay = 99f; // bot beklesin
             var m = v.Match;
             Assert.AreEqual(LiveMatchView.Human, m.Current);
-            Assert.LessOrEqual(v.TimeLeft, 5f); Assert.Greater(v.TimeLeft, 3.5f, "sıra başında 5 sn (ilk kare süresi düşülür)");
+            Assert.LessOrEqual(v.TimeLeft, 10f); Assert.Greater(v.TimeLeft, 8.5f, "sıra başında 10 sn (ilk kare süresi düşülür)");
             float t0 = v.TimeLeft;
             var bar = GameObject.Find("TimerBar");
             Assert.IsNotNull(bar, "süre çubuğu");
@@ -137,7 +137,7 @@ namespace KatKat.Tests
             Assert.AreEqual(0, m.Scores[0]);
             Assert.IsFalse(string.IsNullOrEmpty(v.Message), "süre doldu yazısı");
             yield return null;
-            Assert.Greater(v.TimeLeft, 3.5f, "rakibin süresi yeniden başlar");
+            Assert.Greater(v.TimeLeft, 8.5f, "rakibin süresi yeniden başlar");
             _gc.CloseLive();
             yield return null;
         }

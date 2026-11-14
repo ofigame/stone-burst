@@ -186,7 +186,7 @@ Bölümler `LevelLab rebuild` (v7) ile üretildi. Zorluk hamle kıtlığından d
 | `tools/LevelLab` | Bölüm aracı: `build`, `report`, `rebuild` (şekil + zorluk + çözüm), `stress` (bütün bölümlere bot oyunları + değişmez denetimi). |
 | `tools/ArtV6/prepare.ps1` | `docs/gorseller` kaynaklarını oyuna hazırlar (atlas, kırpma, harita şeridi + yol çizgisi). |
 | `tools/unity.ps1` | Unity komutları: `test-edit`, `test-play`, `build-android`, `build-windows`, yakalamalar. |
-| `Scripts/Core/Live/`, `UI/LiveMatchView.cs`, `Game/GameController.Live.cs` | Canlı maç (iki oyuncu, sırayla, ayrı mod; rakip şimdilik bot): motor, doğrulanmış tahta havuzu (varsayılan `Resources/Live/live_pool_v5.txt`: 3 katman, 7×6 tam tahta, farklı ama denk eller, her katman üstündekinden farklı), botlar, oyunun tahta görünümüyle ekran (hamle: kendi tahtana ya da rakibe elden taş koy, ya da hazır 3'lüye dokunarak patlat; parçalar skor kutusuna uçar; maç iki raunt, 2. rauntta eller ve ilk oynayan değişir, toplam kazanır; hamle süresi 5 sn); giriş anasayfada Sıralama altı. Ayrıntı `docs/vr1/canli_mac/SONUC_RAPORU.md`. |
+| `Scripts/Core/Live/`, `UI/LiveMatchView.cs`, `Game/GameController.Live.cs` | Canlı maç (iki oyuncu, sırayla, ayrı mod; rakip şimdilik bot): motor, doğrulanmış tahta havuzu (varsayılan `Resources/Live/live_pool_v5.txt`: 3 katman, 7×6 tam tahta, farklı ama denk eller, her katman üstündekinden farklı), botlar, oyunun tahta görünümüyle ekran (hamle: kendi tahtana ya da rakibe elden taş koy, ya da hazır 3'lüye dokunarak patlat; parçalar skor kutusuna uçar; maç iki raunt, 2. rauntta eller ve ilk oynayan değişir, toplam kazanır; hamle süresi 10 sn); giriş anasayfada Sıralama altı. Ayrıntı `docs/vr1/canli_mac/SONUC_RAPORU.md`. |
 | `docs/gorseller/` | Kullanılan görsellerin kaynakları (bkz. `docs/gorseller/README.md`). |
 
 ## 9. Sık işler
@@ -200,6 +200,7 @@ APK:                       tools/unity.ps1 build-android   → Builds/Android/Ka
 Exe:                       tools/unity.ps1 build-windows   → Builds/Windows/KatKat.exe
 Canlı maç havuz + ölçüm:   tools/unity.ps1 live-report     → docs/vr1/canli_mac/OLCUM_RAPORU_v5.md (KATKAT_LIVE_POOL=v1..v4 eski havuzlar)
 Canlı maç ekranları:       tools/unity.ps1 live-capture    → docs/vr1/canli_mac/ekranlar/ (oyunda: anasayfa → Canlı Maç; KATKAT_LIVE_SHOT_H=2400 → ekranlar_1080x2400/)
+Tablet harita denetimi:    tools/unity.ps1 capture-tablet-map → docs/captures/tablet_harita/ (telefon, iPad, 10:16 tablet; geniş ekranda harita tam genişliğe büyür)
 ```
 
 Android derlemesinde görseller ASTC ile sıkıştırılır (`BuildScripts.ApplyTextureBudget`), ikon katmanları ve tam ekran (sanal tuşlar gizli, kaydırınca geçici) uygulanır.

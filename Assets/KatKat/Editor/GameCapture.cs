@@ -621,6 +621,34 @@ namespace KatKat.EditorTools
             Debug.Log("[KatKat] Tahta boyu yakalamaları tamam");
         }
 
+        /// <summary>
+        /// Tablet harita (yolculuk) denetimi (kullanıcı 2026-11-14: "tabletlerde yolculuk görseli ekrana sığmadığı için arkaplana
+        /// başka görsel yerleştiriyorsun"): telefon, iPad 4:3, iPad 13" ve 10:16 Android tablette harita; çıktı
+        /// docs/captures/tablet_harita/ (depoya girmez).
+        /// </summary>
+        public static void CaptureTabletMap()
+        {
+            const string V = "tablet_harita/";
+            Directory.CreateDirectory(Path.Combine(PeelCapture.OutDir, "tablet_harita"));
+            EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            var sizes = new (string tag, int w, int h)[] { ("telefon_1080x1920", 1080, 1920), ("ipad_1536x2048", 1536, 2048), ("ipad13_2064x2752", 2064, 2752), ("android_tablet_1600x2560", 1600, 2560) };
+            foreach (var s in sizes)
+            {
+                Shot(V + s.tag + "_harita_basi.png", s.w, s.h, null, gc => { CaptureV13Pages.Progress(gc, 3); gc.ShowLevels(); });
+                Shot(V + s.tag + "_harita_ileri.png", s.w, s.h, null, gc => { CaptureV13Pages.Progress(gc, 42); gc.ShowLevels(); });
+            }
+            Debug.Log("[KatKat] Tablet harita yakalamaları tamam → " + Path.Combine(PeelCapture.OutDir, "tablet_harita"));
+        }
+
+        /// <summary>Toplu: tablet harita yakalaması.</summary>
+        public static void CaptureTabletMapBatch()
+        {
+            int code = 0;
+            try { CaptureTabletMap(); }
+            catch (Exception e) { Debug.LogError("[KatKat] Tablet harita yakalama hata: " + e); code = 1; }
+            EditorApplication.Exit(code);
+        }
+
         /// <summary>Tam ekran yakalama + aynı anın doğal piksel kırpımı (kırpım dosyası "_crop" ekiyle).</summary>
         private static void Shot(string file, int w, int h, Rect? safe, Action<GameController> act, RectInt crop)
         {

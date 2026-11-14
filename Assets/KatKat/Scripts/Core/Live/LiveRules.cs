@@ -20,8 +20,8 @@ namespace KatKat.Core.Live
         /// <summary>Tahta boyutu (prototip 6×6; kullanıcı 2026-11-14: "oyun tahtasına 1 sütun daha ekleyelim" → 7 sütun × 6 satır).</summary>
         public int Width = 7, Height = 6;
 
-        /// <summary>Hamle süresi (sn; kullanıcı 2026-11-14: "sıra kimdeyse 5 sn süresi olsun"). Dolunca tur pas geçer. 0 = süresiz.</summary>
-        public float TurnSeconds = 5f;
+        /// <summary>Hamle süresi (sn; kullanıcı 2026-11-14: "sıra kimdeyse 5 sn süresi olsun", sonra "5 saniye çok az olmuş … 10 saniye yapalım"). Dolunca tur pas geçer. 0 = süresiz.</summary>
+        public float TurnSeconds = 10f;
         /// <summary>El boyutu (belge: hızlı yerel test için 8; çizimdeki 8 yuva).</summary>
         public int HandSize = 8;
         /// <summary>Oyuncu başına tur (belge: hızlı yerel test için 8). Pas da bir tur harcar.</summary>

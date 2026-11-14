@@ -388,7 +388,7 @@ namespace KatKat.Tests
         private static string V5PoolPath => Path.Combine(Path.GetDirectoryName(PoolPath), "live_pool_v5.txt");
 
         [Test]
-        public void Default_ThreeLayers_7x6_FiveSeconds_TwoRounds_FullBoard_DifferentHands()
+        public void Default_ThreeLayers_7x6_TenSeconds_TwoRounds_FullBoard_DifferentHands()
         {
             var r = new LiveRules();
             Assert.IsTrue(r.DifferentHands);
@@ -398,7 +398,7 @@ namespace KatKat.Tests
             Assert.AreEqual(3, r.Layers, "3 katman");
             Assert.AreEqual(7, r.Width, "bir sütun fazla");
             Assert.AreEqual(6, r.Height);
-            Assert.AreEqual(5f, r.TurnSeconds, "5 sn hamle süresi");
+            Assert.AreEqual(10f, r.TurnSeconds, "10 sn hamle süresi (kullanıcı: 5 sn çok az)");
             Assert.AreEqual(LiveTieBreak.BiggestGroupThenSecond, r.TieBreak);
             foreach (var l in LiveLayout.ParsePool(File.ReadAllText(V5PoolPath)).Take(20))
                 Assert.IsNull(LiveGenerator.Validate(l, r), l.Id);
