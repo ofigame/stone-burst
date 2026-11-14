@@ -636,6 +636,9 @@ namespace KatKat.EditorTools
             {
                 Shot(V + s.tag + "_harita_basi.png", s.w, s.h, null, gc => { CaptureV13Pages.Progress(gc, 3); gc.ShowLevels(); });
                 Shot(V + s.tag + "_harita_ileri.png", s.w, s.h, null, gc => { CaptureV13Pages.Progress(gc, 42); gc.ShowLevels(); });
+                // Oyun ekranı (kullanıcı 2026-11-14: "oyun ekranını da tablette tam ekran yap, arkaplanını").
+                Shot(V + s.tag + "_oyun_l005.png", s.w, s.h, null, gc => gc.StartLevel(4));
+                Shot(V + s.tag + "_oyun_l120.png", s.w, s.h, null, gc => gc.StartLevel(119));
             }
             Debug.Log("[KatKat] Tablet harita yakalamaları tamam → " + Path.Combine(PeelCapture.OutDir, "tablet_harita"));
         }
