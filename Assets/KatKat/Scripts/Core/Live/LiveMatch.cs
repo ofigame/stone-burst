@@ -192,6 +192,8 @@ namespace KatKat.Core.Live
                     return LiveReject.None;
                 }
                 default:
+                    // Süre aşımı (kullanıcı 2026-11-14: "sıra kimdeyse 5 sn süresi olsun"): hamle varken de tur geçer.
+                    if (cmd.TimedOut && Rules.TurnSeconds > 0f) return LiveReject.None;
                     return HasLegalMove(p) ? LiveReject.PassWithLegalMove : LiveReject.None;
             }
         }

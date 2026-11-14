@@ -7,15 +7,21 @@ namespace KatKat.Core.Live
     /// </summary>
     public sealed class LiveRules
     {
-        /// <summary>Kesin kural: her etkin hücre başlangıçta tam iki katman.</summary>
-        public const int LayersPerCell = 2;
+        /// <summary>
+        /// Hücre başına başlangıç katmanı (ilk belge: 2). Kullanıcı 2026-11-14: "canlı oyun çabuk bitiyor. 3 katmanlı yapalım" →
+        /// varsayılan 3; 2 eski havuzlar içindir.
+        /// </summary>
+        public int Layers = 3;
         /// <summary>Kesin kural: kenardan bağlı en az 3 aynı renk grup.</summary>
         public const int MinGroup = GroupFinder.MinGroup;
         /// <summary>Kesin kural: mevcut dört Stone Burst rengi.</summary>
         public const int ColorCount = 4;
 
-        /// <summary>Tahta boyutu (belgede yok; prototip varsayımı 6×6).</summary>
-        public int Width = 6, Height = 6;
+        /// <summary>Tahta boyutu (prototip 6×6; kullanıcı 2026-11-14: "oyun tahtasına 1 sütun daha ekleyelim" → 7 sütun × 6 satır).</summary>
+        public int Width = 7, Height = 6;
+
+        /// <summary>Hamle süresi (sn; kullanıcı 2026-11-14: "sıra kimdeyse 5 sn süresi olsun"). Dolunca tur pas geçer. 0 = süresiz.</summary>
+        public float TurnSeconds = 5f;
         /// <summary>El boyutu (belge: hızlı yerel test için 8; çizimdeki 8 yuva).</summary>
         public int HandSize = 8;
         /// <summary>Oyuncu başına tur (belge: hızlı yerel test için 8). Pas da bir tur harcar.</summary>
@@ -52,10 +58,11 @@ namespace KatKat.Core.Live
         public bool FullBoard = true;
 
         /// <summary>
-        /// Rövanş (kullanıcı 2026-11-14: "rövanşta el değişsin"): maç aynı dizilimde iki eldir; rövanşta eller ve ilk oynayan
-        /// yer değiştirir, kazanan iki elin toplam puanıyla belirlenir (<see cref="LiveSeries"/>).
+        /// İki raunt (kullanıcı 2026-11-14: "rövanşta el değişsin"; sonra "rövanş olmayacak 2 raunt olacak ilk raunt bitince direkt
+        /// 2. raunt başlayacak"): maç aynı dizilimde iki raunttur; 2. rauntta eller ve ilk oynayan yer değiştirir, kazanan iki
+        /// rauntun toplam puanıyla belirlenir (<see cref="LiveSeries"/>).
         /// </summary>
-        public bool RematchSwapsHands = true;
+        public bool TwoRounds = true;
 
         public LiveRules Clone() => (LiveRules)MemberwiseClone();
 
@@ -69,7 +76,7 @@ namespace KatKat.Core.Live
 
         public override string ToString() =>
             $"tahta {Width}x{Height}, el {HandSize} (yenilemesiz), tur {TurnsPerPlayer}/oyuncu, dokunarak patlatma {(TapReadyGroups ? "açık" : "kapalı")}, " +
-            $"rakipte 3'lü kuran saldırı {(ForbidAttackGroup ? "geçersiz" : "serbest")}, eşitlik bozma: {TieBreakName(TieBreak)}, eller {(DifferentHands ? "farklı ama denk" : "aynı")}, alt katman {(BottomDiffersFromTop ? "üstten farklı" : "serbest")}, tahta {(FullBoard ? "tam dikdörtgen" : "delikli olabilir")}, zincir yok, 2 katman";
+            $"rakipte 3'lü kuran saldırı {(ForbidAttackGroup ? "geçersiz" : "serbest")}, eşitlik bozma: {TieBreakName(TieBreak)}, eller {(DifferentHands ? "farklı ama denk" : "aynı")}, alt katman {(BottomDiffersFromTop ? "üstten farklı" : "serbest")}, tahta {(FullBoard ? "tam dikdörtgen" : "delikli olabilir")}, zincir yok, {Layers} katman";
     }
 
     /// <summary>

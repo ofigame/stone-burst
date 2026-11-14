@@ -29,19 +29,22 @@ namespace KatKat.EditorTools
         /// <summary>Varsayılan havuz (2026-11-14): farklı ama denk eller + alt katman üstten farklı (LM3); oyun bunu yükler.</summary>
         public const string PoolV3Path = "Assets/KatKat/Resources/Live/live_pool_v3.txt";
 
-        /// <summary>Havuz sürümü: KATKAT_LIVE_POOL=v1|v2|v3 (varsayılan v3). Eski ad KATKAT_LIVE_HANDS=same → v1.</summary>
-        /// <summary>Varsayılan havuz (2026-11-14): v3 + tam dikdörtgen tahta (LM4); oyun bunu yükler.</summary>
+        /// <summary>v3 + tam dikdörtgen tahta (LM4, 6×6, 2 katman).</summary>
         public const string PoolV4Path = "Assets/KatKat/Resources/Live/live_pool_v4.txt";
 
+        /// <summary>Varsayılan havuz (kullanıcı 2026-11-14): 3 katman, 7×6, tam dikdörtgen (LM5); oyun bunu yükler.</summary>
+        public const string PoolV5Path = "Assets/KatKat/Resources/Live/live_pool_v5.txt";
+
+        /// <summary>Havuz sürümü: KATKAT_LIVE_POOL=v1..v5 (varsayılan v5). Eski ad KATKAT_LIVE_HANDS=same → v1.</summary>
         private static string PoolVariant()
         {
             var v = Environment.GetEnvironmentVariable("KATKAT_LIVE_POOL");
             if (string.IsNullOrEmpty(v) && Environment.GetEnvironmentVariable("KATKAT_LIVE_HANDS") == "same") v = "v1";
-            return v == "v1" || v == "v2" || v == "v3" ? v : "v4";
+            return v == "v1" || v == "v2" || v == "v3" || v == "v4" ? v : "v5";
         }
 
         private static int GenOf(LiveRules r) =>
-            r.FullBoard ? LiveGenerator.VersionFullBoard : r.BottomDiffersFromTop ? LiveGenerator.VersionBottomDiffers : r.DifferentHands ? LiveGenerator.VersionDifferentHands : LiveGenerator.Version;
+            r.Layers >= 3 ? LiveGenerator.VersionThreeLayers : r.FullBoard ? LiveGenerator.VersionFullBoard : r.BottomDiffersFromTop ? LiveGenerator.VersionBottomDiffers : r.DifferentHands ? LiveGenerator.VersionDifferentHands : LiveGenerator.Version;
 
         private static LiveRules Variant(out string poolPath, out string reportPath)
         {
@@ -49,14 +52,15 @@ namespace KatKat.EditorTools
             string v = PoolVariant();
             // v1: aynı eller, alt serbest · v2: farklı ama denk eller, alt serbest · v3 (varsayılan): farklı eller + alt üstten farklı.
             rules.DifferentHands = v != "v1";
-            rules.BottomDiffersFromTop = v == "v3" || v == "v4";
-            rules.FullBoard = v == "v4";
-            poolPath = v == "v1" ? PoolPath : v == "v2" ? DiffPoolPath : v == "v3" ? PoolV3Path : PoolV4Path;
-            reportPath = v == "v1" ? ReportPath : v == "v2" ? "docs/vr1/canli_mac/OLCUM_RAPORU_farkli_el.md" : v == "v3" ? "docs/vr1/canli_mac/OLCUM_RAPORU_v3.md" : "docs/vr1/canli_mac/OLCUM_RAPORU_v4.md";
+            rules.BottomDiffersFromTop = v == "v3" || v == "v4" || v == "v5";
+            rules.FullBoard = v == "v4" || v == "v5";
+            if (v != "v5") { rules.Layers = 2; rules.Width = rules.Height = 6; }
+            poolPath = v == "v1" ? PoolPath : v == "v2" ? DiffPoolPath : v == "v3" ? PoolV3Path : v == "v4" ? PoolV4Path : PoolV5Path;
+            reportPath = v == "v1" ? ReportPath : v == "v2" ? "docs/vr1/canli_mac/OLCUM_RAPORU_farkli_el.md" : v == "v3" ? "docs/vr1/canli_mac/OLCUM_RAPORU_v3.md" : v == "v4" ? "docs/vr1/canli_mac/OLCUM_RAPORU_v4.md" : "docs/vr1/canli_mac/OLCUM_RAPORU_v5.md";
             if (int.TryParse(Environment.GetEnvironmentVariable("KATKAT_LIVE_SIZE"), out int n) && n >= 3 && n != rules.Width)
             {
                 rules.Width = rules.Height = n;
-                string tag = v == "v1" ? "" : v == "v2" ? "_farkli_el" : v == "v3" ? "_alt_farkli" : "_tam";
+                string tag = v == "v1" ? "" : v == "v2" ? "_farkli_el" : v == "v3" ? "_alt_farkli" : v == "v4" ? "_tam" : "_3kat";
                 int gen = GenOf(rules);
                 poolPath = $"docs/vr1/canli_mac/havuz_{n}x{n}{tag}_v{gen}.txt";
                 reportPath = $"docs/vr1/canli_mac/OLCUM_RAPORU{tag}_{n}x{n}.md";
@@ -144,10 +148,10 @@ namespace KatKat.EditorTools
                     sb.Append(LiveSim.Summary.HandHeader).Append('\n');
                     for (int i = 0; i < kinds.Length; i++) sb.Append(runs[i].HandRow()).Append('\n');
                 }
-                sb.Append("\n### Rövanşlı maç (kullanıcı 2026-11-14: \"rövanşta el değişsin\")\n\n");
-                sb.Append("Her dizilimde bir seri: 1. el P1 A eliyle ilk oynar; rövanşta eller ve ilk oynayan değişir. Kazanan iki elin toplam puanı; ");
+                sb.Append("\n### İki raunt (kullanıcı 2026-11-14: \"rövanş olmayacak 2 raunt olacak\")\n\n");
+                sb.Append("Her dizilimde bir maç: 1. rauntta P1 A eliyle ilk oynar; 2. rauntta eller ve ilk oynayan değişir. Kazanan iki rauntun toplam puanı; ");
                 sb.Append("eşitlikte en büyük tek soyma; o da eşitse berabere. Aynı bot iki taraftayken 50 / 50 beklenir (koşullar simetrik); ");
-                sb.Append("farklı botlarda güçlü botun seri kazanma oranı tek maçtakiyle karşılaştırılır.\n\n");
+                sb.Append("farklı botlarda güçlü botun iki rauntlu kazanma oranı tek rauntla karşılaştırılır. Ayrıca raunt sonunda tahtada kalan katman oranı (maç uzunluğu).\n\n");
                 sb.Append(LiveSim.Summary.SeriesHeader).Append('\n');
                 foreach (var r in runs) sb.Append(r.SeriesRow()).Append('\n');
                 sb.Append('\n');
@@ -282,16 +286,19 @@ namespace KatKat.EditorTools
                     }
                     HumanMove(false);
                 }
-                Shot("06_ilk_el_sonu_rovans_karti");
-                // Rövanş (kullanıcı 2026-11-14: "rövanşta el değişsin"): eller ve ilk oynayan değişir, skor toplam.
-                view.StartRematch();
-                Shot("10_rovans_eller_degisti");
+                Shot("06_raunt_arasi_2_raunt_basliyor");
+                // 2. raunt (kullanıcı 2026-11-14: "ilk raunt bitince direkt 2. raunt başlayacak"): eller ve ilk oynayan değişir, skor toplam.
+                view.SkipRoundBreak();
+                Shot("10_raunt2_eller_degisti");
+                // Süre: sırası olanın 5 sn'sinden 3 sn geçmiş an (çubuk kısalmış).
+                view.AdvanceTurnClock(3.2f);
+                Shot("10a_hamle_suresi_azaliyor");
                 for (int k = 0; k < 40 && !view.Match.IsOver; k++)
                 {
                     if (view.Match.Current == 1) { view.BotMove(); view.CompleteAnimations(); }
                     else HumanMove(false);
                 }
-                Shot("11_mac_sonu_toplam");
+                Shot("11_mac_sonu_iki_raunt_toplam");
                 Debug.Log("[KatKat] Canlı maç ekranları → " + shotDir + (tapShot ? "" : " (hazır grup çıkmadı; 07–09 yok)"));
             }
             finally

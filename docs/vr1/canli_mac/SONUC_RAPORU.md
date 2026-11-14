@@ -341,3 +341,13 @@ Kullanıcı: "rövanşta el değişsin. Tahtaların ortasında boşluk olmasın 
 Yorum: aynı bot iki taraftayken dengede (koşullar simetrik). Dengeli–Dengeli beraberliği yüksek, çünkü aynı deterministik bot aynı koşulda aynı hamleleri yapar; insanlarda bu beklenmez. Güçlü bot tek maçta %73–80, rövanşlı maçta %90–93 kazanıyor: el ve sıra şansı azaldı, beceri öne çıktı.
 
 Ekranlar: `06` ara kart, `10` rövanş başı (eller değişmiş), `11` toplam sonuç.
+
+### 3 katman, 7×6, 5 sn, 2 raunt (2026-11-14)
+
+Kullanıcı: "canlı oyun çabuk bitiyor. 3 katmanlı yapalım oyunu birde oyun tahtasına 1 sütun daha ekleyelim. Ver sıra kimdeyse 5 sn süresi olsun. rövanş olmayacak 2 raunt olacak ilk raunt bitince direkt 2. raunt başlayacak. Tabi ekranda bunu gösterelim".
+
+- Her hücre 3 katman (her katman üstündekinden farklı), tahta 7×6 tam dikdörtgen; havuz v5 (`Resources/Live/live_pool_v5.txt`).
+- Hamle süresi 5 sn: şeritte kalan saniye ve kısalan çubuk; dolunca tur geçer.
+- Rövanş kartı yok: 1. raunt bitince "2. Raunt" kartı (1. raunt skoru) görünür, 2. raunt kendiliğinden başlar; 2. rauntta eller ve ilk oynayan değişir; kazanan toplam.
+- Ölçüm ([OLCUM_RAPORU_v5.md](OLCUM_RAPORU_v5.md), dokunarak patlatma açık): Dengeli bot raunt başına ~63 puan (önce ~43); raunt sonunda katmanların ~%50'si duruyor (tahta tükenmiyor, oyun 8 turla sınırlı). Tek rauntta A eli üstün (Dengeli %59 / %41); iki raunt bunu dengeliyor (38,7 / 37,3 / 24 berabere). Dengeli bot Greedy'yi iki rauntta %95 yeniyor.
+- Ekranlar: `06` raunt arası, `10` 2. raunt başı, `10a` süre azalıyor, `11` maç sonu.

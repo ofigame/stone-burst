@@ -52,15 +52,19 @@ namespace KatKat.Tests
             Assert.IsTrue(_gc.LiveOpen);
             var m = v.Match;
             Assert.IsNotNull(m, "havuz yüklendi, maç başladı");
-            StringAssert.StartsWith("LM4-", m.Layout.Id, "varsayılan havuz v4");
+            StringAssert.StartsWith("LM5-", m.Layout.Id, "varsayılan havuz v5");
             v.BotDelay = 0f;
 
-            // İki tahta birebir aynı başlar; tam dikdörtgen (delik yok); alt katman üstten farklı; iki tahta aynı boyda.
+            // İki tahta birebir aynı başlar; 7×6, tam dikdörtgen; 3 katman, her katman üstündekinden farklı; iki tahta aynı boyda.
+            Assert.AreEqual(7, m.Boards[0].Width);
+            Assert.AreEqual(6, m.Boards[0].Height);
             for (int i = 0; i < m.Boards[0].Count; i++)
             {
                 CollectionAssert.AreEqual(m.Boards[0][i].Layers, m.Boards[1][i].Layers);
                 Assert.IsTrue(m.Boards[0][i].Active, "tahtada boşluk yok");
+                Assert.AreEqual(3, m.Boards[0][i].Layers.Count, "3 katman");
                 Assert.AreNotEqual(m.Boards[0][i].Layers[0], m.Boards[0][i].Layers[1]);
+                Assert.AreNotEqual(m.Boards[0][i].Layers[1], m.Boards[0][i].Layers[2]);
             }
             Assert.AreEqual(v.BoardOf(0).Pitch, v.BoardOf(1).Pitch, 1e-4f, "eşit tahta boyutu");
             Assert.AreEqual(LiveMatchView.Human, m.Current);
@@ -110,6 +114,34 @@ namespace KatKat.Tests
             Assert.IsTrue(_gc.Menu.IsMapShown, "çıkınca harita");
         }
 
+        /// <summary>Kullanıcı 2026-11-14: "sıra kimdeyse 5 sn süresi olsun". Süre dolunca sıra geçer; çubuk ve saniye görünür.</summary>
+        [UnityTest]
+        public IEnumerator TurnTimer_FiveSeconds_ExpiresToPass()
+        {
+            _gc.ShowLive();
+            yield return null;
+            var v = _gc.Live;
+            v.BotDelay = 99f; // bot beklesin
+            var m = v.Match;
+            Assert.AreEqual(LiveMatchView.Human, m.Current);
+            Assert.LessOrEqual(v.TimeLeft, 5f); Assert.Greater(v.TimeLeft, 3.5f, "sıra başında 5 sn (ilk kare süresi düşülür)");
+            float t0 = v.TimeLeft;
+            var bar = GameObject.Find("TimerBar");
+            Assert.IsNotNull(bar, "süre çubuğu");
+            v.AdvanceTurnClock(3f);
+            Assert.AreEqual(t0 - 3f, v.TimeLeft, 0.01f);
+            Assert.AreEqual(LiveMatchView.Human, m.Current, "süre bitmeden sıra sende");
+            v.AdvanceTurnClock(t0 - 3f + 0.1f);
+            Assert.AreEqual(LiveMatchView.Bot, m.Current, "süre dolunca sıra rakibe geçti");
+            Assert.AreEqual(1, m.TurnsUsed[0], "tur harcandı");
+            Assert.AreEqual(0, m.Scores[0]);
+            Assert.IsFalse(string.IsNullOrEmpty(v.Message), "süre doldu yazısı");
+            yield return null;
+            Assert.Greater(v.TimeLeft, 3.5f, "rakibin süresi yeniden başlar");
+            _gc.CloseLive();
+            yield return null;
+        }
+
         private static void PlayOut(LiveMatchView v, LiveGenerator.Rng rng)
         {
             for (int k = 0; k < 60 && !v.Match.IsOver; k++)
@@ -126,36 +158,46 @@ namespace KatKat.Tests
             }
         }
 
-        /// <summary>Kullanıcı 2026-11-14: "rövanşta el değişsin". 1. el → ara kart → rövanş (eller ve sıra değişik) → toplamla sonuç.</summary>
+        /// <summary>
+        /// Kullanıcı 2026-11-14: "rövanş olmayacak 2 raunt olacak ilk raunt bitince direkt 2. raunt başlayacak. Tabi ekranda bunu
+        /// gösterelim". 1. raunt → düğmesiz "2. Raunt" gösterimi → kendiliğinden 2. raunt (eller ve sıra değişik) → toplamla sonuç.
+        /// </summary>
         [UnityTest]
-        public IEnumerator FullMatch_Leg1_Rematch_SwapsHands_EndsWithTotalResult()
+        public IEnumerator FullMatch_Round1_AutoRound2_SwapsHands_EndsWithTotalResult()
         {
             _gc.ShowLive();
             yield return null;
             var v = _gc.Live;
             v.BotDelay = 0f;
+            v.RoundBreakSeconds = 0.4f;
             var rng = new LiveGenerator.Rng(3);
             var layout = v.Match.Layout;
-            CollectionAssert.AreEqual(layout.Hand, v.Match.Hands[0], "1. elde sen A eli");
+            CollectionAssert.AreEqual(layout.Hand, v.Match.Hands[0], "1. rauntta sen A eli");
             PlayOut(v, rng);
-            Assert.IsTrue(v.Match.IsOver, "8 tur sonunda 1. el biter");
+            Assert.IsTrue(v.Match.IsOver, "8 tur sonunda 1. raunt biter");
             Assert.AreEqual(8, v.Match.TurnsUsed[0]);
             Assert.AreEqual(8, v.Match.TurnsUsed[1]);
-            Assert.IsTrue(v.EndShown, "ara kart");
-            Assert.IsFalse(v.SeriesOver, "maç rövanşla sürer");
+            Assert.IsFalse(v.EndShown, "ara kart yok");
+            Assert.IsTrue(v.RoundBreak, "ekranda 2. raunt gösterimi");
+            Assert.IsNotNull(GameObject.Find("RoundCard"));
+            Assert.IsFalse(v.SeriesOver, "maç 2. rauntla sürer");
             int s0 = v.Match.Scores[0], s1 = v.Match.Scores[1];
             int first = v.Match.FirstPlayer;
 
-            v.StartRematch();
-            Assert.IsFalse(v.EndShown);
-            Assert.IsNotNull(v.FirstLeg);
+            // Dokunmadan, kısa süre sonra 2. raunt kendiliğinden başlar ve yazı kalkar.
+            float limit = Time.realtimeSinceStartup + 5f;
+            while ((v.Round1 == null || v.RoundBreak) && Time.realtimeSinceStartup < limit) yield return null;
+            Assert.IsNotNull(v.Round1, "2. raunt kendiliğinden başladı");
+            Assert.IsFalse(v.RoundBreak);
             Assert.AreSame(layout, v.Match.Layout, "aynı dizilim");
-            CollectionAssert.AreEqual(layout.Hand2, v.Match.Hands[0], "rövanşta sen B eli");
-            CollectionAssert.AreEqual(layout.Hand, v.Match.Hands[1], "rövanşta rakip A eli");
             Assert.AreEqual(1 - first, v.Match.FirstPlayer, "ilk oynayan değişti");
+            if (v.Match.TurnsUsed[0] + v.Match.TurnsUsed[1] == 0)
+            {
+                CollectionAssert.AreEqual(layout.Hand2, v.Match.Hands[0], "2. rauntta sen B eli");
+                CollectionAssert.AreEqual(layout.Hand, v.Match.Hands[1], "2. rauntta rakip A eli");
+            }
             Assert.AreEqual(s0, v.ShownScore(0), "skor kutusu toplamı gösterir");
             Assert.AreEqual(s1, v.ShownScore(1));
-            yield return null;
             PlayOut(v, rng);
             Assert.IsTrue(v.SeriesOver);
             Assert.IsTrue(v.EndShown, "sonuç kartı");

@@ -42,6 +42,11 @@ namespace KatKat.Core.Live
         public static LiveCommand Tap(int player, int seq, int x, int y) =>
             new LiveCommand { Type = LiveCommandType.TapGroup, Player = player, Seq = seq, X = x, Y = y };
         public static LiveCommand Pass(int player, int seq) => new LiveCommand { Type = LiveCommandType.Pass, Player = player, Seq = seq };
+        /// <summary>Hamle süresi doldu: tur geçer (yapılabilir hamle olsa da; yalnız süreli kuralda).</summary>
+        public static LiveCommand Timeout(int player, int seq) => new LiveCommand { Type = LiveCommandType.Pass, Player = player, Seq = seq, TimedOut = true };
+
+        /// <summary>Süre aşımıyla gelen pas.</summary>
+        public bool TimedOut;
 
         public override string ToString() => Type switch
         {

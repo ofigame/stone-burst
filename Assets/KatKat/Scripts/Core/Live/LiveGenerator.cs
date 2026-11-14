@@ -181,7 +181,18 @@ namespace KatKat.Core.Live
                     if (GroupFinder.Component(board, board.X(i), board.Y(i)).Count < LiveRules.MinGroup) break;
                 }
                 l.Top[i] = board[i].Top;
-                if (rules.BottomDiffersFromTop)
+                if (rules.Layers >= 3)
+                {
+                    // Üç katman (sürüm 5): orta üstten, alt ortadan farklı (her katmanın altından başka renk çıkar).
+                    l.Middle ??= new LayerColor[n];
+                    int m = rng.Range(LiveRules.ColorCount - 1);
+                    if (m >= (int)l.Top[i]) m++;
+                    l.Middle[i] = (LayerColor)m;
+                    int b = rng.Range(LiveRules.ColorCount - 1);
+                    if (b >= m) b++;
+                    l.Bottom[i] = (LayerColor)b;
+                }
+                else if (rules.BottomDiffersFromTop)
                 {
                     // Üstten farklı üç renkten biri (eşit olasılık).
                     int b = rng.Range(LiveRules.ColorCount - 1);
@@ -199,8 +210,12 @@ namespace KatKat.Core.Live
             }
             if (rules.BottomDiffersFromTop) l.GenVersion = VersionBottomDiffers;
             if (rules.FullBoard) l.GenVersion = VersionFullBoard;
+            if (rules.Layers >= 3) l.GenVersion = VersionThreeLayers;
             return l;
         }
+
+        /// <summary>Üç katman, 7×6 (kullanıcı 2026-11-14) havuzun üretim sürümü (kimlik öneki LM5).</summary>
+        public const int VersionThreeLayers = 5;
 
         /// <summary>Tam dikdörtgen tahta (kullanıcı 2026-11-14) havuzun üretim sürümü (kimlik öneki LM4).</summary>
         public const int VersionFullBoard = 4;
@@ -318,9 +333,14 @@ namespace KatKat.Core.Live
             if (rules.DifferentHands != l.DifferentHands) return rules.DifferentHands ? "denk ikinci el yok" : "beklenmeyen ikinci el";
             if (rules.FullBoard && Array.IndexOf(l.Mask, false) >= 0) return "delikli tahta";
             var b = l.CreateBoard();
-            for (int i = 0; i < b.Count; i++) if (b[i].Active && b[i].Layers.Count != LiveRules.LayersPerCell) return "iki katman";
+            for (int i = 0; i < b.Count; i++) if (b[i].Active && b[i].Layers.Count != rules.Layers) return "katman sayısı";
             if (rules.BottomDiffersFromTop)
-                for (int i = 0; i < l.Mask.Length; i++) if (l.Mask[i] && l.Bottom[i] == l.Top[i]) return "alt üstle aynı";
+                for (int i = 0; i < b.Count; i++)
+                {
+                    if (!b[i].Active) continue;
+                    var ls = b[i].Layers;
+                    for (int k = 1; k < ls.Count; k++) if (ls[k] == ls[k - 1]) return "alt üstle aynı";
+                }
             if (LiveMoves.HasReadyGroup(b)) return "hazır 3'lü";
             if (!l.DifferentHands)
                 return TwoColorCheck(b, l.Hand) ?? DefenseCheck(b, l.Hand, l.Hand, rules);
@@ -377,6 +397,12 @@ namespace KatKat.Core.Live
                 var sb = new StringBuilder(map.Length * 2 + 16);
                 for (int i = 0; i < map.Length; i++) sb.Append(l.Mask[map[i]] ? (char)('0' + Name(l.Top[map[i]])) : '.');
                 sb.Append('/');
+                if (l.Middle != null)
+                {
+                    // Orta katman (üç katmanlı havuz); iki katmanlı anahtarlar eskisiyle aynı kalır.
+                    for (int i = 0; i < map.Length; i++) sb.Append(l.Mask[map[i]] ? (char)('0' + Name(l.Middle[map[i]])) : '.');
+                    sb.Append('/');
+                }
                 for (int i = 0; i < map.Length; i++) sb.Append(l.Mask[map[i]] ? (char)('0' + Name(l.Bottom[map[i]])) : '.');
                 sb.Append('/');
                 // El yalnız renk sayılarıyla (sırası önemsiz); tahtada olmayan renkler sayıya göre adlandırılır.

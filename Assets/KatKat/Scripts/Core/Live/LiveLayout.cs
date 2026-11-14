@@ -17,7 +17,13 @@ namespace KatKat.Core.Live
         public int Width, Height;
         public bool[] Mask;
         public LayerColor[] Bottom, Top;
+        /// <summary>
+        /// Orta katman (kullanıcı 2026-11-14: "3 katmanlı yapalım oyunu"); null ise iki katman (eski havuzlar). Satırda 12. alan.
+        /// </summary>
+        public LayerColor[] Middle;
         public LayerColor[] Hand;
+
+        public int LayerCount => Middle != null ? 3 : 2;
         /// <summary>Farklı ama denk eller (kullanıcı 2026-11-13): ikinci oyuncunun eli; null ise iki el aynı (Hand).</summary>
         public LayerColor[] Hand2;
         /// <summary>Açılış türleri (<see cref="LiveOpening"/> etiketleri, virgülle).</summary>
@@ -35,6 +41,7 @@ namespace KatKat.Core.Live
                 c.Active = Mask[i];
                 if (!Mask[i]) continue;
                 c.Layers.Add(Bottom[i]);
+                if (Middle != null) c.Layers.Add(Middle[i]);
                 c.Layers.Add(Top[i]);
             }
             return b;
@@ -57,7 +64,8 @@ namespace KatKat.Core.Live
             sb.Append('|');
             foreach (var h in Hand) sb.Append((char)('0' + (int)h));
             sb.Append('|').Append(Tags);
-            if (Hand2 != null) { sb.Append('|'); foreach (var h in Hand2) sb.Append((char)('0' + (int)h)); }
+            if (Hand2 != null || Middle != null) { sb.Append('|'); if (Hand2 != null) foreach (var h in Hand2) sb.Append((char)('0' + (int)h)); }
+            if (Middle != null) { sb.Append('|'); for (int i = 0; i < Count; i++) sb.Append(Mask[i] ? (char)('0' + (int)Middle[i]) : '.'); }
             return sb.ToString();
         }
 
@@ -88,6 +96,12 @@ namespace KatKat.Core.Live
             {
                 l.Hand2 = new LayerColor[p[10].Length];
                 for (int i = 0; i < p[10].Length; i++) l.Hand2[i] = (LayerColor)(p[10][i] - '0');
+            }
+            if (p.Length > 11 && p[11].Length > 0)
+            {
+                if (p[11].Length != n) throw new FormatException("Canlı maç dizilimi: orta katman boyu tutmuyor: " + l.Id);
+                l.Middle = new LayerColor[n];
+                for (int i = 0; i < n; i++) if (l.Mask[i]) l.Middle[i] = (LayerColor)(p[11][i] - '0');
             }
             return l;
         }

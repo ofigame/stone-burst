@@ -3,6 +3,12 @@
 Son güncelleme: 2026-11-14. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
 
 ## Şu an
+- **2026-11-14: Canlı maç — 3 katman, 7×6 tahta, 5 sn hamle süresi, 2 raunt** (kullanıcı: "canlı oyun çabuk bitiyor. 3 katmanlı yapalım oyunu birde oyun tahtasına 1 sütun daha ekleyelim. Ver sıra kimdeyse 5 sn süresi olsun. rövanş olmayacak 2 raunt olacak ilk raunt bitince direkt 2. raunt başlayacak. Tabi ekranda bunu gösterelim"; karar KARARLAR.md).
+  - `LiveRules.Layers = 3`, `Width = 7` (6 satır), `TurnSeconds = 5`, `TwoRounds` (eski `RematchSwapsHands`). Her katman üstündekinden farklı. Havuz sürüm 5 `Resources/Live/live_pool_v5.txt` (LM5, 150 dizilim; satırda 12. alan orta katman). Eski v1–v4 havuzları `Layers = 2`, 6×6 kurallarla aynen.
+  - Süre: şeritte "Sıra sende · 4 sn" ve sırası olanın renginde kısalan çubuk (son %40'ta kırmızıya döner); dolunca tur geçer (`LiveCommand.Timeout`, hamle varken de kabul). Animasyon ve raunt arasında süre durur.
+  - 2 raunt: 1. raunt bitince düğmesiz "2. Raunt" kartı (1. raunt skoru, "Eller ve ilk oynayan değişti"), ~2,6 sn sonra 2. raunt kendiliğinden; şeritte "1. Raunt / 2. Raunt · Tur x/8"; sonuç kartında iki raunt skoru.
+  - Ölçüm `docs/vr1/canli_mac/OLCUM_RAPORU_v5.md` (dokunarak patlatma açık): Dengeli bot raunt başına ~63 puan (6×6 2 katmanda ~43); raunt sonunda katmanların ~%50'si duruyor. Tek rauntta A eli üstün (Dengeli %59 / %41) — iki rauntta eller değiştiği için maç dengede (38,7 / 37,3 / 24 berabere).
+  - Testler: EditMode 265/267 (2 eski atlanan), `LiveMatchViewTests` 4/4 (yeni: süre), loc-check TAMAM. Ekranlar 01–11 (`06` raunt arası, `10a` süre). Telefonda denenmedi.
 - **2026-11-14: Canlı maç — rövanşta eller değişir, tahtalar tam dikdörtgen** (kullanıcı: "rövanşta el değişsin. Tahtaların ortasında boşluk olmasın tahtaların şekli tek tip olacak. Düz köşeli olacak"; karar KARARLAR.md).
   - Maç iki el: 1. el bitince ara kart ("Rövanş"); rövanşta aynı dizilim, eller (A/B) ve ilk oynayan yer değiştirir; skor kutuları iki elin toplamını gösterir; kazanan toplamla (eşitse en büyük tek soyma, o da eşitse berabere). `LiveRules.RematchSwapsHands`, `Core/Live/LiveSeries.cs`.
   - Tahta: `LiveRules.FullBoard` (varsayılan açık) → her tahta tam 6×6, delik/kesik köşe yok. Havuz sürüm 4 `Resources/Live/live_pool_v4.txt` (LM4, 150 dizilim); oyun bunu yükler. Eski v1–v3 havuzları kural kapalıyla aynen.
