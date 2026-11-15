@@ -211,6 +211,8 @@ namespace KatKat.Game
         private string _bgKey;
         private static readonly System.Random CosmeticRng = new System.Random();
         public static int? BackgroundOverride;
+        /// <summary>Yakalama/test: VR2 temasını (0..5) bölgeden bağımsız seç; null → <see cref="Vr2.SkinFor"/>.</summary>
+        public static int? Vr2SkinOverride;
         public int BackgroundPick => _bgPick;
 
         public void ShowLevels()
@@ -326,10 +328,17 @@ namespace KatKat.Game
                 if (_bgKey != key || _bgPick < 0) { _bgPick = BackgroundOverride ?? CosmeticRng.Next(5); _bgKey = key; }
                 background = Ui3.GameBackground(_bgPick) ?? background;
             }
+            // VR2 (docs/vr2/CLAUDE_CODE.md): bölgenin teması → tam ekran doku, hedef yuvası kenarı, tahta iç rengi.
+            int vr2 = Vr2SkinOverride ?? Vr2.SkinFor(index);
+            // Kullanıcı 2026-11-15: "arkaplan blurlu olsun" → VR2 dokusu da bulanık (BlurredBackdrop: 1/4 boyut, iki geçiş;
+            // tema başına bir kez üretilir). Bulanıklaştırma başarısızsa keskin doku kalır.
+            if (Vr2.Ready) { var vbg = Vr2.Background(vr2); background = (Vr2.BlurBackground ? BlurredBackdrop.For(vbg) : null) ?? vbg ?? background; }
             _backdrop.SetSprite(background ?? PremiumArt.Background(index));
             _backdrop.Fit(_cam);
             _board.SetTheme(theme);
+            _board.SetVr2Skin(vr2);
             _hud.SetTheme(theme);
+            _hud.SetVr2Skin(vr2);
             // Başlık: altın dairede bölüm numarası, turkuaz hapta bölge türü (SAHİL/BAHÇE/ÇÖL).
             _hud.SetLevel(Loc.Upper(theme.LocalName), _session.State.MovesLeft, _session.State.Goals, _session.State.RollEnabled, index + 1);
             _hud.SetScore(_session.State.Score, _session.State.StarThresholds, false);

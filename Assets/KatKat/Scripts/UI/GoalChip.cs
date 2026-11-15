@@ -104,6 +104,8 @@ namespace KatKat.UI
                 o.enabled = false;
                 sh.enabled = false;
             }
+            // VR2 (referans onayli-ekran.png): simge ve sayaç doğrudan hedef yuvasının krem zemininde; ayrı hap yok.
+            if (Vr2.Ready) { bg.color = Color.clear; o.enabled = false; sh.enabled = false; }
 
             float iconSize = Ui1.Ready ? size.y - 16f : Mathf.Min(66f, size.y - 14f); // ui1/12–13: simge ~78
             float iconX = 14f + iconSize * 0.5f;

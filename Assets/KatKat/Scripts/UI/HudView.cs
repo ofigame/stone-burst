@@ -32,6 +32,7 @@ namespace KatKat.UI
             // v10 oyun içi kabuk (docs/v10/TriKat-Oyun-Ici-Claude, referans 941 × 1672 → 1080, ×1,148):
             // sol üst duraklat, sağ üst geri al (alttaki ile aynı aksiyon; ekranda tek geri al), ortada maskotlu mor hamle
             // kurdelesi, altında yıldız kabuğu ve hedef kabuğu. Değerler mevcut veriden; metinler Loc.
+            if (Vr2.Ready) BuildVr2Panel();
             var head = UiFactory.Rect("Header", _safe);
             head.anchorMin = head.anchorMax = new Vector2(0.5f, 1f);
             head.pivot = new Vector2(0.5f, 1f);
@@ -120,6 +121,22 @@ namespace KatKat.UI
                     c.anchoredPosition = new Vector2(side * (leaf ? 232f : 228f), leaf ? -160f : -170f);
                 }
             }
+            if (Vr2.Ready)
+            {
+                // VR2 (941 referans × 1,148): duraklat (112,106) ve geri al (830,106) güvenli alanın ~%12 / %88'inde,
+                // hamle kapsülü merkezi y 153 → 176. Kapsül, yapraklar ve yıldızlar ui3 biçimini korur.
+                UiFactory.Place((RectTransform)pause.transform, new Vector2(0f, 1f), new Vector2(129f, -122f), new Vector2(112f, 112f));
+                UiFactory.Place((RectTransform)_undo.transform, new Vector2(1f, 1f), new Vector2(-127f, -122f), new Vector2(112f, 112f));
+                ribbonPos = new Vector2(0f, -176f);
+                UiFactory.Place(ribbon.rectTransform, new Vector2(0.5f, 1f), ribbonPos, ribbon.rectTransform.sizeDelta);
+                foreach (var n in new[] { "LeafL", "LeafR", "StarL", "StarR" })
+                {
+                    var c = (RectTransform)head.Find(n);
+                    float side = n.EndsWith("L") ? -1f : 1f;
+                    bool leaf = n.StartsWith("Leaf");
+                    c.anchoredPosition = new Vector2(side * (leaf ? 232f : 228f), leaf ? -164f : -174f);
+                }
+            }
             var handsLayer = UiFactory.Rect("HandsLayer", head);
             UiFactory.Stretch(handsLayer);
             // Maskot çapası: tuval merkezine göre (head ortası = üstten HeadH/2).
@@ -155,7 +172,25 @@ namespace KatKat.UI
                 if (bsh != null) bsh.effectColor = new Color(Ui3.Shadow.r, Ui3.Shadow.g, Ui3.Shadow.b, 0.18f);
                 UiFactory.Place(back.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -420f), new Vector2(984f, 112f));
             }
-            _goalsBar = Ui1.Ready
+            if (Vr2.Ready)
+            {
+                // VR2 yıldız çubuğu y 218–289 → merkez 291 (biçimi korunur); hedef yuvası panelin DIŞINDA bağımsız krem
+                // şerit: x 38–903, y 340–449 → 993 × 125, merkez 453 (panel altı 350 ile ~40 boşluk). hedef-yuvasi.svg.
+                UiFactory.Place(score, new Vector2(0.5f, 1f), new Vector2(0f, -291f), new Vector2(920f, 84f));
+                var back = goals.transform.parent.GetComponent<Image>();
+                back.sprite = Vr2.GoalSlotSprite(_vr2Skin);
+                back.type = Image.Type.Sliced;
+                back.color = Color.white;
+                back.pixelsPerUnitMultiplier = 144f / Vr2GoalH;
+                var bsh = back.GetComponent<Shadow>();
+                if (bsh != null) { bsh.effectColor = new Color(0.06f, 0.1f, 0.12f, 0.14f); bsh.effectDistance = new Vector2(0f, -3f); } // yalnız hafif temas
+                UiFactory.Place(back.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -(Vr2GoalTop + Vr2GoalH * 0.5f)), new Vector2(993f, Vr2GoalH));
+                _vr2Goals = back;
+                goals.color = Color.clear; // iç dolgu yok: zemin yuvanın kendi krem tabanı
+            }
+            _goalsBar = Vr2.Ready
+                ? UiFactory.Stretch(UiFactory.Rect("Goals", goals.transform), 18f, 18f, 0f, 0f) // kapsül uçlarının içinde (çip alanı Ui1 hesabıyla)
+                : Ui1.Ready
                 ? UiFactory.Stretch(UiFactory.Rect("Goals", goals.transform), GoalsPadU1, GoalsPadU1, 0f, 0f) // ui1: yuvarlak uçların içinde
                 : UiFactory.Stretch(UiFactory.Rect("Goals", goals.transform), 12f, 12f, 0f, 0f);
             _goalsRow = UiFactory.Stretch(UiFactory.Rect("Row", _goalsBar));
@@ -171,7 +206,60 @@ namespace KatKat.UI
         /// <summary>Üst grubun yüksekliği (güvenli alanın üstünden); hedef kabuğunun alt kenarı = tahta alanının üstü.</summary>
         private const float HeadH = 500f;
         /// <summary>Hedef bandının alt kenarı (güvenli üstten): ui3 476 (48,364,984,112), önceki 418.</summary>
-        private static float GoalsBottom => Ui3.Ready ? 476f : 418f;
+        private static float GoalsBottom => Vr2.Ready ? Vr2GoalTop + Vr2GoalH : Ui3.Ready ? 476f : 418f;
+
+        // ---- VR2 üst panel ve hedef yuvası (docs/vr2/CLAUDE_CODE.md; 941 referans × 1,148) --------------------------
+        /// <summary>Krem panelin alt kenarı (güvenli üstten): referans y 305 → 350.</summary>
+        private const float Vr2PanelH = 350f;
+        /// <summary>Hedef yuvası: referans y 340–449 → üst 390, yükseklik 125.</summary>
+        private const float Vr2GoalTop = 390f, Vr2GoalH = 125f;
+        /// <summary>Panel altı dış gölge yüksekliği (birim).</summary>
+        private const float Vr2ShadeH = 28f;
+        private RectTransform _vr2Panel, _vr2Shade;
+        private Image _vr2Goals;
+        private int _vr2Skin;
+
+        /// <summary>
+        /// Krem üst panel: ekranın tepesinden (güvenli alan dışı dahil) tam genişlikte, köşeler kare, üst ve yanlarda
+        /// çizgi yok; altında 8 birimlik yumuşak gölge. Başlık öğelerinin arkasında (ilk kardeş).
+        /// </summary>
+        private void BuildVr2Panel()
+        {
+            // Güvenli alanın üstünde kalan şerit (çentik/durum çubuğu): panelin üst rengiyle düz devam.
+            var cap = UiFactory.Image("Vr2PanelCap", _safe, null, Vr2.Hex(0xFFF3DE));
+            cap.raycastTarget = false;
+            var cr = cap.rectTransform;
+            cr.anchorMin = new Vector2(0f, 1f); cr.anchorMax = new Vector2(1f, 1f); cr.pivot = new Vector2(0.5f, 0f);
+            cr.offsetMin = new Vector2(-600f, 0f); cr.offsetMax = new Vector2(600f, 1200f);
+            var panel = UiFactory.Image("Vr2Panel", _safe, Vr2.PanelSprite(), Color.white);
+            panel.raycastTarget = false;
+            _vr2Panel = panel.rectTransform;
+            _vr2Panel.anchorMin = new Vector2(0f, 1f); _vr2Panel.anchorMax = new Vector2(1f, 1f); _vr2Panel.pivot = new Vector2(0.5f, 1f);
+            // Kullanıcı 2026-11-14: "üst alanın alt kısmında dış gölge olmalı ki üst bir katman hissi versin" → belgedeki
+            // 4–8 px yerine belirgin gölge (28 birim, %55; dışa doğru sönümlü).
+            var shade = UiFactory.Image("Vr2PanelShade", _safe, Vr2.PanelShadeSprite(), new Color(1f, 1f, 1f, 0.55f));
+            shade.raycastTarget = false;
+            _vr2Shade = shade.rectTransform;
+            _vr2Shade.anchorMin = new Vector2(0f, 1f); _vr2Shade.anchorMax = new Vector2(1f, 1f); _vr2Shade.pivot = new Vector2(0.5f, 1f);
+            LayoutVr2Panel();
+        }
+
+        private void LayoutVr2Panel()
+        {
+            if (_vr2Panel == null) return;
+            float bottom = Vr2PanelH + _headShift;
+            _vr2Panel.offsetMin = new Vector2(-600f, -bottom); _vr2Panel.offsetMax = new Vector2(600f, 0f);
+            _vr2Shade.offsetMin = new Vector2(-600f, -bottom - Vr2ShadeH); _vr2Shade.offsetMax = new Vector2(600f, -bottom);
+        }
+
+        /// <summary>VR2 teması (0..5, <see cref="Vr2.SkinFor"/>): hedef yuvasının kenar rengi paletten.</summary>
+        public void SetVr2Skin(int skin)
+        {
+            _vr2Skin = skin;
+            if (_vr2Goals != null) _vr2Goals.sprite = Vr2.GoalSlotSprite(skin);
+        }
+
+        public int Vr2Skin => _vr2Skin;
         /// <summary>ui1/17: günlükte üst başlık plakası için hamle/yıldız/hedef grubunun aşağı kayması (duraklat ve geri al yerinde).</summary>
         private const float DailyShift = 72f;
         private float _headShift;
@@ -190,6 +278,7 @@ namespace KatKat.UI
                 c.anchoredPosition -= new Vector2(0f, d);
             }
             _headShift = shift;
+            LayoutVr2Panel();
         }
         private const float GoalsCardW = 1000f, GoalsPadU1 = 40f;
 

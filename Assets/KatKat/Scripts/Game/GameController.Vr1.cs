@@ -127,6 +127,9 @@ namespace KatKat.Game
         private void Vr1CenterIceBegin()
         {
             if (_centerIce != null) { Destroy(_centerIce.gameObject); _centerIce = null; }
+            // VR2 (kullanıcı 2026-11-15: "ortası boş olan tahtalara obje koymayalım … boşlukta derinlik olmadığı için garip
+            // duruyor"): boşluk yalnız arka planı gösterir; buzlu koleksiyon taşı konmaz (ilerleme sonuç rozetinde kalır).
+            if (KatKat.UI.Vr2.Ready) return;
             if (!Vr1Proto.On || _sessionKind != SessionKind.Normal || _stones == null || _session == null) return;
             var hole = KatKat.Levels.BoardHoles.Largest(_session.State.Board);
             if (!hole.Has || hole.Side < Vr1CenterIce.MinSide) return;

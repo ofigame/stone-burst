@@ -72,7 +72,7 @@ namespace KatKat.View
             {
                 var s = new GameObject("Stack").AddComponent<StackView>();
                 s.transform.SetParent(transform, false);
-                s.SetPalette(_theme.Slot, _theme.ContactShadow);
+                s.SetPalette(SlotColor, _theme.ContactShadow);
                 _stacks.Add(s);
             }
             for (int i = 0; i < _stacks.Count; i++) _stacks[i].gameObject.SetActive(false);
@@ -92,6 +92,9 @@ namespace KatKat.View
 
         public ThemeDefinition Theme => _theme;
 
+        /// <summary>Boş hücre yuvası. VR2: iç alanın biraz koyu tonu (kullanıcı 2026-11-14: "taşlar tamamen kalkınca alt zemininde yerini belli eden hücresi olsun").</summary>
+        private Color32 SlotColor => KatKat.UI.Vr2.Ready ? KatKat.UI.Vr2.EmptySlot(_vr2Skin) : _theme.Slot;
+
         /// <summary>
         /// Tahtanın temasını değiştirir: iç tepsi, renkli çerçeve, boş hücre yuvası ve temas gölgesi birlikte.
         /// Taş paleti değişmez. Tema varlığı yoksa nötr krem yedeğe düşer ve uyarı yazar (mor yedek yok).
@@ -100,7 +103,7 @@ namespace KatKat.View
         {
             _theme = theme ?? ThemeDefinition.Coast;
             if (_tray != null) ApplyThemeSprites();
-            foreach (var s in _stacks) s.SetPalette(_theme.Slot, _theme.ContactShadow);
+            foreach (var s in _stacks) s.SetPalette(SlotColor, _theme.ContactShadow);
         }
 
         private void ApplyThemeSprites()
@@ -138,6 +141,8 @@ namespace KatKat.View
             StackExtent(out float top, out float bottom);
             float rowK = Mathf.Max(1f, top - bottom + RowGap);
             float margin = 2f * (TrayPad + FrameTube);
+            // VR2: iç alan hücre kenarından Vr2.Inset taşar; tahta alanına bu pay da sığsın (hedef yuvasına/kenara değmesin).
+            if (KatKat.UI.Vr2.Ready) margin = Mathf.Max(margin, 2f * KatKat.UI.Vr2.Inset + 0.06f);
             float contentK = (_height - 1) * rowK + (top - bottom);
             // Kullanıcı (Redmi): "taşlar çok büyük, tahtayı ve taşları küçültelim". Alan merkezden AreaScale kadar
             // daralır (her yandan); küçük tahtada taş en çok MinColumns sütunluk tahtadaki kadar büyür.
@@ -288,6 +293,8 @@ namespace KatKat.View
                 _decor = new GameObject("Decor").AddComponent<BoardDecor>();
                 _decor.transform.SetParent(transform, false);
             }
+            // VR2: pasif hücreler ve iç boşluklar arka planı gösterir (belge) → boşluk süsü kurulmaz.
+            if (KatKat.UI.Vr2.Ready) { _decor.Rebuild(new bool[_inShape.Length], _width, _height, (x, y) => default, _levelIndex, _theme != null ? _theme.Id : "coast", 10); return; }
             _decor.Rebuild(_inShape, _width, _height, (x, y) =>
             {
                 var c = CellCenter(x, y) + new Vector3(0f, mid, 0f);
@@ -405,8 +412,52 @@ namespace KatKat.View
 
         private bool InCell(int x, int y) => x >= 0 && y >= 0 && x < _width && y < _height && _inShape[y * _width + x];
 
+        // ---- VR2 tahta iç alanı (docs/vr2/CLAUDE_CODE.md; Vr2Floor) ----------------------------------------------------
+        private int _vr2Skin;
+        private const int ResVr2 = 64; // hücre başına piksel (0,085 hücre σ ≈ 5,4 px)
+        private Texture2D _floorTexVr2;
+
+        /// <summary>VR2 teması (0..5): iç alan rengi palet.json floorColor. Tahta kurulmadan önce çağrılır.</summary>
+        public void SetVr2Skin(int skin)
+        {
+            _vr2Skin = Mathf.Clamp(skin, 0, KatKat.UI.Vr2.Skins.Length - 1);
+            if (_floorSr != null && _inShape.Length > 0 && KatKat.UI.Vr2.Ready) BakeFloor();
+            if (KatKat.UI.Vr2.Ready) foreach (var s in _stacks) s.SetPalette(SlotColor, _theme.ContactShadow);
+        }
+
+        /// <summary>Test/yakalama: tahta iç alanının rengi (VR2 açıkken temanın floorColor'ı).</summary>
+        public Color Vr2FloorColor => KatKat.UI.Vr2.InnerFloor(_vr2Skin);
+
+        /// <summary>Test: iç alan sprite'ı (VR2 dokusu).</summary>
+        public Sprite FloorSprite => _floorSr != null ? _floorSr.sprite : null;
+
+        private void BakeFloorVr2()
+        {
+            int pad = Mathf.CeilToInt(ResVr2 * (KatKat.UI.Vr2.Inset + 0.3f)); // pay + gölge bandı
+            var px = Vr2Floor.Bake(_inShape, _width, _height, ResVr2, pad, KatKat.UI.Vr2.InnerFloor(_vr2Skin), KatKat.UI.Vr2.ShadowTint(_vr2Skin), out int tw, out int th);
+            if (_floorTexVr2 == null || _floorTexVr2.width != tw || _floorTexVr2.height != th)
+            {
+                if (_floorTexVr2 != null) DestroyImmediate(_floorTexVr2);
+                _floorTexVr2 = new Texture2D(tw, th, TextureFormat.RGBA32, false) { hideFlags = HideFlags.DontSave, wrapMode = TextureWrapMode.Clamp, filterMode = FilterMode.Bilinear, name = "vr2_floor" };
+            }
+            _floorTexVr2.SetPixels32(px);
+            _floorTexVr2.Apply(false, false);
+            if (_floorSr.sprite != null) DestroyImmediate(_floorSr.sprite);
+            var sp = Sprite.Create(_floorTexVr2, new Rect(0, 0, tw, th), new Vector2(0f, 0f), ResVr2);
+            sp.hideFlags = HideFlags.DontSave;
+            _floorSr.sprite = sp;
+            _floorSr.color = Color.white;
+            float gridLeft = _floorWorld.xMin + 0.25f * _pitch, gridTop = _floorWorld.yMax - 0.25f * _rowPitch;
+            float padX = pad / (float)ResVr2 * _pitch, padY = pad / (float)ResVr2 * _rowPitch;
+            _floorSr.transform.localPosition = new Vector3(gridLeft - padX, gridTop - _height * _rowPitch - padY, 0f);
+            _floorSr.transform.localScale = new Vector3(_pitch, _rowPitch, 1f);
+            // Dış gölge yok (belge).
+            if (_floorShadow != null) _floorShadow.enabled = false;
+        }
+
         private void BakeFloor()
         {
+            if (KatKat.UI.Vr2.Ready) { BakeFloorVr2(); return; }
             if (KatKat.UI.Ui3.Ready) { BakeFloorUi3(); return; }
             int pad = Mathf.RoundToInt(FloorRes * 0.25f);
             int tw = _width * FloorRes + 2 * pad, th = _height * FloorRes + 2 * pad;

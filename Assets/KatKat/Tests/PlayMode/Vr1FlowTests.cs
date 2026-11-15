@@ -37,6 +37,7 @@ namespace KatKat.Tests
         public void TearDown()
         {
             Vr1Proto.Override = null;
+            KatKat.UI.Vr2.Enabled = true;
             GameController.ToursOverride = null;
         }
 
@@ -199,6 +200,8 @@ namespace KatKat.Tests
         [UnityTest]
         public IEnumerator CenterIce_OnlyInInteriorHole()
         {
+            // Eski görünüm (VR2 kapalı) davranışı; VR2'de boşluğa obje konmaz (sonda denetlenir).
+            KatKat.UI.Vr2.Enabled = false;
             Vr1Proto.Override = true;
             // levels-v14: 123 artık "İki Alan" tahtası; iç boşluklu ilk eski tahtayı bul (101–200).
             int idx = -1;
@@ -225,6 +228,12 @@ namespace KatKat.Tests
             _gc.StartLevel(idx);
             yield return null;
             Assert.IsNull(_gc.CenterIce, "anahtar kapalı");
+            // VR2 (kullanıcı 2026-11-15: "ortası boş olan tahtalara obje koymayalım"): anahtar açıkken de yok.
+            KatKat.UI.Vr2.Enabled = true;
+            Vr1Proto.Override = true;
+            _gc.StartLevel(idx);
+            yield return null;
+            Assert.IsNull(_gc.CenterIce, "VR2: boşluğa obje konmaz");
         }
 
         /// <summary>C06: haritaya dönüş özeti tek receipt; harita yeniden açılınca aynı yıldızlar tekrar uçmaz.</summary>
