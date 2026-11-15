@@ -28,6 +28,18 @@ namespace KatKat.EditorTools
             finally { _extraDefines = null; }
         }
 
+        /// <summary>
+        /// Bütün bölümleri açık deneme APK'sı (kullanıcı 2026-11-15: "tüm bölümleri açıp apk derler misin"): KATKAT_UNLOCK_ALL →
+        /// haritada her bölüm numaralı, bulutsuz ve dokunulabilir; kayıt değişmez. Test reklamlı, hata ayıklama imzalı; mağazaya gitmez.
+        /// </summary>
+        [MenuItem("Kat Kat/Build/Android APK (tüm bölümler açık)")]
+        public static void BuildAndroidUnlockAll()
+        {
+            _extraDefines = new[] { "KATKAT_UNLOCK_ALL", TestAdsDefine };
+            try { Build(BuildTarget.Android, "Builds/Android/StoneBurst-acik.apk"); }
+            finally { _extraDefines = null; }
+        }
+
         /// <summary>Yerel APK'larda test reklam birimleri.</summary>
         public const string TestAdsDefine = "KATKAT_TEST_ADS";
 
@@ -54,6 +66,22 @@ namespace KatKat.EditorTools
             try { Build(BuildTarget.Android, "Builds/Android/StoneBurst-vr1.apk"); }
             finally { _extraDefines = null; }
         }
+
+        /// <summary>
+        /// Play Console test sürümü (kullanıcı 2026-11-15: "play console için test reklamlı versiyon çıkartalım"): mağaza AAB'siyle
+        /// aynı imza ve sürüm kodu kuralı, ama KATKAT_TEST_ADS → Google'ın test reklam birimleri (test kanalındaki oyuncular
+        /// gerçek reklama tıklamaz). Bölüm kilidi normal (KATKAT_UNLOCK_ALL yok). Üretim kanalına bu paket yüklenmemeli.
+        /// </summary>
+        [MenuItem("Kat Kat/Build/Android Play Store (AAB, test reklamlı)")]
+        public static void BuildAndroidStoreTestAds()
+        {
+            _extraDefines = new[] { TestAdsDefine };
+            _storeSuffix = "-testreklam";
+            try { BuildAndroidStore(); }
+            finally { _extraDefines = null; _storeSuffix = ""; }
+        }
+
+        private static string _storeSuffix = "";
 
         /// <summary>
         /// Play Store paketi (kullanıcı, 2026-11-10: "play store hazırlığımızı da yapalım"): imzalı AAB.
@@ -90,7 +118,7 @@ namespace KatKat.EditorTools
             // AAB veri paketi LZ4HC ile (2026-11-10 ilk denemede sıkıştırmasız veri 236 MB tutuyordu; APK 130 MB).
             _deferExit = true;
             _extraOptions = BuildOptions.CompressWithLz4HC;
-            try { Build(BuildTarget.Android, "Builds/Android/StoneBurst-" + PlayerSettings.bundleVersion + "-" + code + ".aab"); }
+            try { Build(BuildTarget.Android, "Builds/Android/StoneBurst-" + PlayerSettings.bundleVersion + "-" + code + _storeSuffix + ".aab"); }
             finally
             {
                 _beforeBuild = null;

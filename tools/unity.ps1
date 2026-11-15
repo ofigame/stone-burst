@@ -80,10 +80,12 @@ switch ($Command) {
     'export-art'      { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.ArtExport.ExportAll') 'export-art' }
     'capture-game'    { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CaptureAll') 'capture-game' }
     'build-android'   { $c = Invoke-Unity @('-quit', '-buildTarget', 'Android', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildAndroid') 'build-android' }
+    'build-android-acik' { $c = Invoke-Unity @('-quit', '-buildTarget', 'Android', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildAndroidUnlockAll') 'build-android-acik' }
     'build-android-notifytest' { $c = Invoke-Unity @('-quit', '-buildTarget', 'Android', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildAndroidNotifyTest') 'build-android-notifytest' }
     'build-android-vr1' { $c = Invoke-Unity @('-quit', '-buildTarget', 'Android', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildAndroidVr1') 'build-android-vr1' }
     'build-android-appgallery' { $c = Invoke-Unity @('-quit', '-buildTarget', 'Android', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildAndroidAppGallery') 'build-android-appgallery' }
     'build-android-store' { $c = Invoke-Unity @('-quit', '-buildTarget', 'Android', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildAndroidStore') 'build-android-store' }
+    'build-android-store-test' { $c = Invoke-Unity @('-quit', '-buildTarget', 'Android', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildAndroidStoreTestAds') 'build-android-store-test' }
     'build-ios'       { $c = Invoke-Unity @('-quit', '-buildTarget', 'iOS', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildIOS') 'build-ios' }
     'build-windows'   { $c = Invoke-Unity @('-quit', '-buildTarget', 'Win64', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildWindows') 'build-windows' }
     default { throw "Bilinmeyen komut: $Command" }

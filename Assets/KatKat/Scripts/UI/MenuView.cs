@@ -911,7 +911,7 @@ namespace KatKat.UI
             m.LayerPin = Layer(content, "MascotPin"); // maskot bütün düğümlerin üstünde
             // Bulut sınırı: oyuncunun ulaştığı bölümün hemen üstü. Oturumda önceki gösterimden ilerlediyse aradaki
             // bulutlar açılış animasyonuyla kalkar.
-            m.CloudEdge = CloudEdgeY(current);
+            m.CloudEdge = CloudEdgeY(UnlockAll ? total - 1 : current); // deneme "hepsi açık": bulut yok
             // Açılış animasyonu yalnızca birkaç bölümlük ilerlemede (oyna → kazan → haritaya dön).
             m.CloudFrom = _seenFrontier >= 0 && current > _seenFrontier && current - _seenFrontier <= 3 ? CloudEdgeY(_seenFrontier) : m.CloudEdge;
             _seenFrontier = current;
@@ -1051,8 +1051,8 @@ namespace KatKat.UI
                 keep.Add(i);
                 if (m.Nodes.ContainsKey(i)) continue;
                 var holder = Layer(m.LayerNodes, "L" + (i + 1));
-                // Görünüm gerçek ilerlemeden (kapalı bölüm numarasız, bulut altında); test "hepsi açık" yalnızca dokunmayı açar.
-                bool unlocked = i <= m.HighestUnlocked;
+                // Görünüm gerçek ilerlemeden (kapalı bölüm numarasız, bulut altında); deneme "hepsi açık" derlemesinde numaralı ve dokunulabilir.
+                bool unlocked = i <= m.HighestUnlocked || UnlockAll;
                 Node(holder, NodePos(i), i, unlocked, m.IsCompleted(i), i == m.Current, PremiumArt.V4("ui/level-node-neutral"), UnlockAll);
                 m.Nodes[i] = holder.gameObject;
             }

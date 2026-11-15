@@ -187,7 +187,12 @@ namespace KatKat.Game
         // ---- Menüler -------------------------------------------------------------------------------
 
         /// <summary>Test sürümü: haritadaki bütün bölümler açık (kayıt değişmez; mevcut bölüm yine kayıttan). Yayın hazırlığında kapatıldı (kullanıcı, 2026-11-09: "yayın için eksikleri tamamlayalım").</summary>
-        public static bool TestUnlockAll = false;
+        public static bool TestUnlockAll =
+#if KATKAT_UNLOCK_ALL
+            true; // kullanıcı 2026-11-15: "tüm bölümleri açıp apk derler misin" → yalnız deneme APK'sı (BuildAndroidUnlockAll)
+#else
+            false;
+#endif
 
         /// <summary>v5: ana sayfa = harita (eski ana ekran yakalama/karşılaştırma için korunur).</summary>
         public static bool UseMapAsHome = true;
