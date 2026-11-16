@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 10 hamle + 7 tepsi / limit 14 (pay +4, eski 15) hedef×0,97 bot 0,17 (hedef 0,15) plan 1; zincir v13: yeni çözüm 12 (eski 10), sınır 14→18, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil L; çözüm 3 + 3 tepsi / sınır 8; rastgele 0,155; açgözlü kazanır; yumuşak 0,06
 id: level_894
-title: Bölüm 894
-moves: 18
+moves: 8
 roll: off
 specials: on
-paint: 1
-goals: yellow 50, blue 54, coral 35, envelope 2
+goals: coral 35, yellow 13
 grid:
-bpcc  bpbc  yyyc  yyyc  ccyc  ccyb  ccyc
-cpcc  bpbc  bpyb  yyyb  ycpc  pccb  pcbc
-cbbc  pbby  bbbb  bbyy  cbpy  cbyy  pbbc
-bbbc  #     #     cyyy  #     #     pbbcEy
-bbpb  #     #     yyyy  #     #     cbpc
-yppc  #     #     yyyc  #     #     cbpc
-yppc  ypcb  bpyb  byyb  bbyb  bbyy  cbyy
-bbpy  bppy  bpcy  byyp  pcyp  bccy  bccy
-bbpy  bbpy  bbcy  bbyp  pcppEp bbpp  bbpp
-solution: 0,0 ; 0,7 ; use 1,0,3 ; use 0,0,0 ; 1,7 ; 1,6 ; 3,2 ; use 1,1,0 ; 2,0 ; use 1,2,0 ; 4,0 ; 0,2 ; use 1,5,0 ; 4,1 ; 1,2 ; 0,0 ; use 0,0,6 ; 6,4 ; use 2,3,1
+p     c     c     pp    y     #     #     #
+c     cp    yp    p     pg    #     #     #
+y     yc    y     yg    pg    #     #     #
+yg    cc    c     y     p     #     #     #
+c     cc    g     pc    p     yc    y     yp
+cc    gc    g     cc    c     cp    cp    yp
+c     c     gc    pc    pc    p     c     yp
+c     g     g     p     c     cg    c     yp
+cp    gp    gp    c     c     c     cc    y
+solution: 1,2 ; 7,4 ; use 0,4,1 ; use 0,4,0 ; 3,0 ; use 0,1,0

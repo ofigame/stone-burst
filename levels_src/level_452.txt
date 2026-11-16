@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 8 hamle + 5 tepsi / limit 13 (pay +5, eski 13) hedef×1,13 bot 0,29 (hedef 0,29) plan 0; zincir v13: yeni çözüm 6 (eski 8), sınır 13→11, bot 12/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı (ayna); çözüm 9 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_452
-title: Bölüm 452
-moves: 11
+moves: 10
 roll: off
 specials: on
-goals: coral 37, purple 47, sponge 2
+goals: green 16, blue 37, sponge 1
 grid:
-ppp   pcp   ccpc  cbbc  #     #     #
-byb   bcb   byby  cbb   #     #     #
-cpbp  bppb  bpb   cpbb  #     #     #
-ypy   ppyb  bpyb  ypp   #     #     #
-cpb   ppp   ypp   bbpc  bby   bbbc  bbbb
-ybp   bbyc  bbyb  byyc  cpp   bybb  ybbScb
-yccp  bby   pby   byyc  bcbp  bcbb  ybcb
-bccp  ybpp  bbyc  pcyc  bcp   pcp   ybcb
-pbcp  bbpp  bbbpSby pcbc  pcpc  pcpc  pcpc
-solution: 3,4 ; 0,1 ; use 0,3,1 ; use 0,2,0 ; 0,2 ; use 0,0,0 ; 5,4 ; use 0,1,0 ; 0,3 ; 0,5 ; use 0,0,0 ; use 0,2,0
+#     #     cncb  nnybk1 bnyb  bngy  #     #
+#     #     cccg  ncgg  ncgyk2 nngy  #     #
+yynn  cynn  pgnn  gcby  gnnySb pnnb  ppyc  ppyc
+yyyc  cbcn  pgcc  pgcc  gcnb  pcnb  cybn  cybn
+ybcc  bbcy  bccp  bgcp  pppg  ppby  cyby  gyyn
+cccy  cccy  ccpp  bgpb  bppc  npbyk1 nbyb  gyyb
+cccb  bccb  bbbp  bnpck1 cnpc  gybb  cbbb  cbbb
+#     #     pbbp  pnbpk2 cypc  gybb  #     #
+#     #     pcny  gcpy  gcpy  gypy  #     #
+solution: 6,5 ; 5,4 ; 5,2 ; 5,6 ; use 2,2,1 ; 2,4 ; use 3,2,0 ; 3,0 ; use 0,3,0 ; 5,0 ; 2,0 ; use 2,3,0 ; 4,0 ; use 0,0,3 ; use 1,2,3 ; use 1,4,0

@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 6 hamle + 6 tepsi / limit 10 (pay +4, eski 16) hedef×0,97 bot 0,17 (hedef 0,20) plan 1; zincir v13: yeni çözüm 9 (eski 6), sınır 10→13, bot 27/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L (ayna); çözüm 10 + 8 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_566
-title: Bölüm 566
-moves: 13
+moves: 11
 roll: off
 specials: on
-goals: yellow 57, blue 60, coral 22, envelope 2
+goals: blue 31, purple 37, yellow 31
 grid:
-ppcb  ypcpEy ypbb  #     yyyb  byyb  yybp
-bpyp  bbyp  bbcp  #     bpyb  bpbb  yybb
-pbyp  bbpp  bbcp  #     bypc  bbby  yypcEb
-pcyy  pcyy  bbcc  bpcc  ypccK1:2 byby  ybpc
-pbyy  pyyy  byyc  yycb  ybyp  ybpy  pbpb
-pbyc  pbbc  bbyc  bbyp  bbyp  pypp  pyyyK1:2
-ppyc  pbbp  pbpp  pbyy  pbyy  pybb  cyyb
-ppbc  pbbc  pbyy  pbcc  pbpp  pypy  cbyb
-bpbc  bpbp  bpbp  bccc  bbpc  pbpy  pbyy
-solution: 2,3 ; 0,1 ; use 0,0,0 ; 0,3 ; use 1,0,0 ; 0,6 ; use 1,4,0 ; 6,2 ; 2,0 ; 5,0 ; use 1,4,0 ; 0,0 ; use 1,0,1 ; 0,6 ; use 3,2,0
+#     #     #     ycyyi1 gcybK1:2 gybb  bybc  gybc
+#     #     #     yccb  ycyg  ypgg  bpgc  byyc
+#     #     #     ybcb  gpgy  gpng  bpnp  bnyp
+#     #     #     pypy  gypy  gpyp  gpnp  cpcc
+bcnb  ycnp  gcng  gypgi1 pyyp  pgyp  ngnpi2 ggnp
+bgnb  ycnp  ybng  ypnp  pgyp  ngcpi2 ngcp  ggbc
+bcnp  bcnp  gbpgK1:2 gppc  ppnni1 npbg  gcbg  gybc
+bpcp  cpcp  gbyc  gbyc  ppnn  pbgg  pbyg  gyyg
+bycb  cycb  cbnbi1 cpnb  bpnn  bpnn  pbyg  pbbg
+solution: 6,2 ; 4,2 ; use 0,4,1 ; 4,2 ; use 1,5,0 ; 1,4 ; 0,4 ; 0,4 ; use 2,3,0 ; 6,0 ; use 2,4,0 ; 3,0 ; 5,5 ; use 2,0,5 ; 5,2 ; use 3,5,2 ; use 0,7,0 ; use 0,0,4

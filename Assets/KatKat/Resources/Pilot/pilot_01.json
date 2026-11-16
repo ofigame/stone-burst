@@ -7,10 +7,10 @@
   "rules": [],
   "width": 4,
   "height": 4,
-  "moveLimit": 8,
+  "moveLimit": 9,
   "rollEnabled": false,
   "startingRoll": false,
-  "stars": [300, 400],
+  "stars": [240, 320],
   "goals": [
     { "type": "collectColor", "color": "blue", "amount": 11 },
     { "type": "collectColor", "color": "coral", "amount": 15 }
@@ -34,11 +34,12 @@
     { "x": 3, "y": 3, "active": true, "layers": ["coral", "coral", "blue", "blue"] }
   ],
   "solution": [
-    { "type": "tap", "x": 2, "y": 0 },
     { "type": "tap", "x": 0, "y": 0 },
+    { "type": "tap", "x": 2, "y": 0 },
+    { "type": "tap", "x": 3, "y": 0 },
+    { "type": "tap", "x": 3, "y": 1 },
     { "type": "tap", "x": 0, "y": 3 },
     { "type": "tap", "x": 0, "y": 2 },
-    { "type": "tap", "x": 2, "y": 0 },
-    { "type": "tap", "x": 3, "y": 1 }
+    { "type": "tap", "x": 0, "y": 1 }
   ]
 }

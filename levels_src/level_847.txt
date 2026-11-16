@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 8 / sınır 11 (v7 10); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,08; adillik onarımı: sınır 11→12 (112 oyunda 16 galibiyet); zincir v13: yeni çözüm 6 (eski 8), sınır 12→10, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil U (ayna); çözüm 8 + 8 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_847
-title: Bölüm 847
-moves: 10
+moves: 8
 roll: off
 specials: on
 type: exact
 rules: exact
-goals: blue 49, coral 65, purple 39, envelope 2
+goals: blue 47, green 49, yellow 37, star 3
 grid:
-ycyp  ycpp  yccp  #     yccp  yycp  yycp
-yypp  ycpp  ccyy  #     pbcyEy bycy  yyyy
-cycb  cppp  ccpyEp #     bbby  bpby  yyyy
-cycb  cppb  ppcb  pbcc  bbbc  ypby  ypby
-cccb  yycb  yycb  pbcy  bbcc  ybbc  ybbc
-bccbR cccb  pyyb  bbcy  yypb  ycbc  ycbc
-bcpc  bypb  pyyb  pcby  cccc  ccbc  ccbc
-ycpc  yypbR pyyp  cpbp  ccyy  pcyy  ccbyR
-bpcy  yypb  yyyb  pyyb  pcyy  ppby  pcby
-solution: 0,2 ; 0,0 ; 3,3 ; use 0,0,0 ; use 0,0,0 ; use 0,1,0 ; 4,2 ; 1,4 ; use 0,1,0 ; 2,5 ; use 0,4,2 ; use 0,2,2
+ynpy  ynpy  ccnn  #     #     pcgy  pcgc* pcgg
+bpyb  bnpy  gnnn  #     #     gccy  gcyc  pcyg
+bbpy  gnny  gnnn  #     #     gbyy  gbyy  gbyy
+gbpy  gbnn  gynn  byny  bgny  gbcc  gpcc  gpby
+gbng  gynn  cync  ngnb  ygnb  gbgb  cbbb  cbbp
+ycng  gcpc  ccyc  cgbb* ygnb  cggg  cgbb  bgbb
+ybpg  ycpp  ncpp  cyby  ybnb  cgbg  cgbg  ggbb
+ybpg  ncbp  ncby  nyby  ybby  gbgg  gbbb  ggbb
+cbpg  cbbg  ccbg  yygc  gygc  gygc  gybb  gybb*
+solution: 3,4 ; 6,4 ; use 0,0,0 ; 5,4 ; 2,0 ; use 0,0,1 ; 4,3 ; use 0,6,0 ; 0,4 ; use 0,0,1 ; 2,0 ; use 0,5,2 ; use 0,5,0 ; use 0,7,1 ; 5,0 ; use 0,0,0

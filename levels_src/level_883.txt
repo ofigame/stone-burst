@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 11 hamle + 8 tepsi / limit 17 (pay +6, eski 16) hedef×1,32 bot 0,08 (hedef 0,15) plan 1; zincir v13: yeni çözüm 11 (eski 11), sınır 17→21, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 12, bot 9/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı (ayna); çözüm 9 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10; döndürmeyle başlar;
 id: level_883
-title: Bölüm 883
-moves: 12
+moves: 10
 roll: off
 specials: on
-paint: 1
-goals: blue 34, coral 43
+goals: navy 46, blue 33, coral 30
 grid:
-ycb   G1:cpy G1:cppb G1:cypb G1:cyp G1:cppy cpby
-ycbp  ypb   cpp   cyp   cyp   cpp   cpbc
-ycbp  cbbp  cbb   cbbp  cpbp  cpcp  cpb
-#     ccbp  cyb   cyb   cpbp  cppp  #
-#     ccy   pyc   cbb   pyby  yybp  #
-#     pbyy  pbcy  bcy   ccbB1 yybp  #
-cpp   cpc   pbpy  ypp   bccp  pcyp  pcy
-yppb  byp   pbpy  ppyy  ypby  ppyp  ppbc
-cyp   cypc  cbp   cbc   bby   ppyp  ppyc
-solution: 1,4 ; use 0,0,0 ; 0,1 ; 1,3 ; use 0,0,0 ; use 0,2,0 ; paint 4,1,p ; 2,0 ; use 0,1,0 ; 2,4 ; use 0,2,1
+#     #     #     pnpg  pncn  #     #     #
+#     bpyn  bcpg  ccpg  cbpg  cppp  gpyp  #
+pcyn  nppn  ncpp  ngpg  ygpg  cbpb  cpcb  cbcb
+pcyn  ppgb  pcgn  bggn  ygpg  cccb  nccy  ybcc
+ncynK1:1 nyncR nygn  bygn  yygn  ncny  nccy  bcyc
+nppgK1:1 bbpy  nbgg  ybpn  ybpn  bynn  byyn  bcpn
+bpnn  bnnn  nbnb  nbnb  pbpnK1:1 pypp  cypn  cnpn
+pgcn  bnbg  nbbcR nbnb  pbnn  pbyp  cbyb  cnyb
+pgcn  pgncR bgbn  bbgb  bbnp  cbyp  cyyp  pnyb
+solution: rot 1,4 ; 2,6 ; 1,1 ; 3,5 ; use 0,5,2 ; 6,3 ; use 0,4,0 ; 4,7 ; 6,2 ; 3,0 ; use 0,4,0 ; 0,2 ; use 0,0,4 ; use 0,0,2 ; use 0,7,2 ; use 0,4,0

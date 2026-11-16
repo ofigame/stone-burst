@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 8 / sınır 9 (v7 12); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 9→10 (112 oyunda 6 galibiyet); zincir v13: yeni çözüm 9 (eski 8), sınır 10→15, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 13, bot 10/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil T (ayna); çözüm 18 + 11 tepsi / sınır 18; rastgele 0,000; açgözlü kaybeder; yumuşak 0,08
 id: level_407
-title: Bölüm 407
-moves: 13
+moves: 18
 roll: off
 specials: on
-type: exact
-rules: exact
-goals: blue 54, coral 43, purple 63, sponge 1
+type: scarce
+rules: scarce
+goals: navy 28, envelope 3, sponge 1
 grid:
-pyyc  pyyb  pybbScb pppc  bppc  bypc  bppc
-pycc  yyyy  ypby  ppbp  bpbp  yypp  bpbc
-cbcc  pbyc  ypbc  ypbp  bbbp  pypp  ppbc
-#     cycc  cpcy  bpcb  byyb  bybb  #
-#     cycp  bycy  pbcp  pbyb  bbyp  #
-#     pbyp  cbcp  cpcp  ppyc  pypc  #
-bbby  bbby  cbbp  cpbp  ppby  pycp  pycp
-cypy  ccbc  pcbp  cbbp  cbby  pycp  pycb
-pypc  pypc  pbpp  pbbp  cbbb  pbcp  pbcb
-solution: 1,4 ; use 0,0,0 ; 3,0 ; use 0,1,0 ; 4,3 ; 3,4 ; use 1,0,1 ; 2,7 ; 0,0 ; 6,0 ; use 2,2,0 ; 5,0 ; use 0,5,0 ; 3,0 ; use 0,0,2
+ybbn  ynbn  ycbn  pcyn  pccc  bbbb  cbbb  ybbc
+ynbn  yynp  pyng  pcyn  pbyc  pbbb  pbbp  nnbp
+ynnb  gybc  gyyn  bcyc  bbyc  pgbb  pnbc  nnyc
+yyyb  gygc  nygn  bcgcEn pggb  pgpb  pnpg  pcybSy
+yyyy  gcyg  nypg  ncyc  pggy  cbby  pbpyEp pcgbEc
+ycyy  ycgg  nbyg  cgyc  cyyn  cbgy  bbgc  pbgb
+#     #     cgnn  cgyc  cygc  nbgy  #     #
+#     #     cpyy  pggb  pygc  nbgc  #     #
+#     #     cppy  cppy  cypc  pbgp  #     #
+solution: 3,4 ; use 0,7,0 ; 5,0 ; use 0,0,0 ; 0,0 ; use 0,6,0 ; 3,4 ; 2,3 ; 4,0 ; 7,3 ; use 0,1,0 ; 3,0 ; use 3,2,0 ; 5,0 ; 5,3 ; use 0,2,1 ; 0,1 ; use 3,2,0 ; 5,2 ; use 3,2,0 ; 3,0 ; 5,0 ; 5,4 ; 3,0 ; 4,5 ; 5,4 ; use 3,7,0 ; use 0,7,2 ; use 0,7,2

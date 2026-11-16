@@ -1,21 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order [exact]; kilit coral→yellow; çözüm 10 / sınır 13 (v7 18); açgözlü kaybeder; bot48 0,13 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 9 (eski 10), sınır 13→16, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil artı (ayna); çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_718
-title: Bölüm 718
-moves: 11
+moves: 8
 roll: off
 specials: on
 paint: 1
-type: order
-rules: exact
-goals: yellow 48, blue 32, coral 45, sponge 1
+type: scarce
+rules: scarce
+goals: blue 20, coral 41, yellow 21
 grid:
-#     #     #     pybp  #     #     #
-#     yycb  pycp  pyby  pycy  cbpp  #
-ppcb  pbcy  pbby  byby  cppy  pcbc  pcyb
-ppcp  pccp  pcyy  pcbc  bppc  cpyc  ccyp
-pppp  pppp  bpyy  pppy  pypcScb pppc  pppc
-pypyLc4 pypp  bypc  pppc  pbpp  pypp  pypp
-yccy  ycbyLc4 ycbc  cccc  pbpp  pypp  bypp
-ycby  ycby  ccpy  ccpy  cbbb  bpyp  bpyp
-ycby  ycby  ccyy  ccyy  cbyb  cbyb  bpyb
-solution: 5,2 ; use 0,0,4 ; 6,3 ; use 0,3,1 ; 4,2 ; 4,5 ; use 0,4,1 ; 4,2 ; use 0,1,1 ; use 0,3,1 ; 0,2 ; 3,0 ; use 1,1,1 ; use 0,0,7 ; 3,6 ; use 0,2,1
+#     #     cggc  cygc  cngpK1:1 yngp  #     #
+#     #     nggb  bygb  cycy  ynny  #     #
+ggcc  ngcc  ngcc  ncpb  pcnc  ccny  cpny  cpgn
+bcyc  bgyc  nypg  pypb  pcpcK1:1 pcpy  cbpy  cybn
+bcgcK1:1 pbgc  pbgg  pyng  pccc  ppcy  pbpy  gybn
+ncyg  ccyg  ccgg  ccng  gcgb  pccy  pcbg  pybg
+#     #     cccg  ycnc  cpcc  cccy  #     #
+#     #     cbcb  ypnc  ypcb  cycb  #     #
+solution: 4,1 ; 5,1 ; use 0,2,1 ; 4,1 ; 0,2 ; 2,3 ; use 1,4,1 ; use 2,2,0 ; 3,2 ; 2,0 ; use 2,0,3 ; use 0,3,0 ; 7,4 ; use 1,3,1

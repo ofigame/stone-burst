@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 8 hamle + 7 tepsi / limit 15 (pay +7, eski 17) hedef×1,29 bot 0,38 (hedef 0,34) plan 0; zincir v13: yeni çözüm 8 (eski 8), sınır 15→15, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U (ayna); çözüm 8 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04; döndürmeyle başlar;
 id: level_332
-title: Taban ve Zarf
-moves: 15
+moves: 9
 roll: off
 specials: on
-goals: coral 26, purple 36, envelope 1
+goals: yellow 26, coral 26, green 27
 grid:
-pyp   ycc   bcp   bypR  bcp   ycp   ybyp
-pcb   ycbp  ycb   byb   bypb  ybpEc yby
-bbb   bbbb  cbby  cbby  bppb  ybp   ybyc
-bbcb  bbcb  ypc   ypc   bpbb  bpbc  ybbc
-pyyb  byy   bpyy  yycy  byb   bcb   ycp
-pbpp  bycp  byy   ycp   bcp   ycbp  ycyp
-#     #     ppby  ccb   bcb   #     #
-#     #     pppR  bpb   bbbb  #     #
-#     #     pyp   ybbp  bbb   #     #
-solution: 6,4 ; 3,6 ; use 1,5,0 ; 6,2 ; use 1,0,0 ; 0,1 ; use 1,1,0 ; 0,4 ; use 1,0,1 ; 3,0 ; 0,2 ; use 0,0,2 ; 4,2 ; use 0,4,3 ; use 1,1,0 ; use 0,2,6
+gcpb  yccb  ggcn  #     #     pcgy  pcgy  cnbb
+gccb  yccb  ggnpR #     #     pygy  gyyy  gnpy
+ggyy  ygyy  gcycR #     #     pyby  ncpy  bcpy
+ggbp  cccp  cccb  cccy  cccy  yybg  npbg  bppn
+pgcp  pgpyR cccb  pccy  ynby  ynbg  pnbg  bbyn
+pgcb  ngpc  pcgc  pcgc  ynbc  ynbc  pbpg  ybyg
+ppcb  gpbg  gpnc  ypnb  ypnbLg6 ybnn  ybpn  ybpn
+ypbb  ggby  ggby  ggng  gpbg  nbbn  nbpn  ybby
+nnpb  nnpy  pnpp  pgbp  pnbg  gnbp  gbyp  gbyy
+solution: rot 2,2 ; 5,0 ; use 0,6,1 ; 0,5 ; 3,3 ; use 1,5,0 ; use 0,2,0 ; 2,3 ; 0,3 ; use 1,2,0 ; 5,2 ; 5,1 ; use 1,2,0

@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 6; exact [exact]; çözüm 9 / sınır 9 (v7 10); açgözlü kaybeder; bot48 0,04 (taban 0,04); zincir v13: yeni çözüm 12 (eski 9), sınır 9→16, bot 0/112; zincir v13 kolaylaştırma: hedef −%18, sınır 9, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 512 + tür scarce; şekil U (ayna); çözüm 14 + 10 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d025_t6
 title: Günlük 25
-moves: 9
+moves: 14
 roll: on
 specials: on
-type: exact
-rules: exact
-goals: coral 37, yellow 32, blue 51, sponge 2
+type: scarce
+rules: scarce
+goals: blue 31, purple 24, yellow 39
 grid:
-pbbc  pbbc  pbpb  #     ppyb  ccyb  ccyc
-ybbb  pycb  cbyp  #     cbpb  bbby  cbyy
-ycbp  pybb  pbcb  #     cybc  bbbb  bppb
-ycbp  ccbp  cbcb  pybc  yybc  yypb  cppb
-ccpb  ccpb  ypcb  ypcb  ypyb  cpyb  pppp
-ccpb  cypb  ypbb  ycyb  ycyb  cpcp  pbpp
-pcpb  pppb  ppbb  ycbbSpb ycbb  ccbp  ccpp
-pcpy  pppySby pppb  ppyp  pbbp  pbcb  pbyp
-ycbp  pcby  pppb  ppyb  pbyb  pbyb  pbyp
-solution: 0,1 ; 6,2 ; roll 7 ; use 0,2,0 ; use 0,0,0 ; 2,5 ; use 0,4,0 ; 2,0 ; use 0,5,0
+bcpp  bpppK1:1 pppp  #     #     gnny  yppy  gppy
+bcny  bcnc  bgnc  #     #     gnnn  yppn  ypyy
+bbbg  gccc  bccn  #     #     gnyn  bgyy  bgyy
+nbbg  ggyc  ggyp  ygybK1:1 ygcbK1:1 yggb  pgby  bgby
+ggpg  ggyc  bgyb  ygyb  ypcy  ybgy  yngn  yggy
+ggyn  gnyc  bnyy  ygnp  ygcy  nbgy  pbgn  gbgn
+ggpn  ygyp  ygbp  ygnp  ygcn  gyyn  pyyy  gyyg
+ggpn  ynpp  cnbp  cnnp  yybp  gygp  gyyy  ygpg
+ynyn  ynbn  ynbn  ynnp  nngp  yygp  yypp  ygpg
+solution: 3,5 ; 5,0 ; 0,5 ; use 0,0,0 ; use 0,3,3 ; 2,3 ; use 0,0,1 ; 0,2 ; 6,2 ; use 0,0,2 ; 6,6 ; use 2,0,0 ; 0,0 ; 0,0 ; roll 5 ; 7,4 ; roll 5 ; use 0,5,0 ; 1,6 ; roll 2 ; use 0,1,1 ; use 0,1,1 ; use 0,2,1 ; use 0,2,1

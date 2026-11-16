@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 17 hamle + 7 tepsi / limit 19 (pay +2, eski 11) hedef×1,15 bot 0,13 (hedef 0,15) plan 3; zincir v13: yeni çözüm 15 (eski 17), sınır 19→21, bot 2/112; zincir v13 kolaylaştırma: hedef −%18, sınır 9, bot 12/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 9 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_963
-title: Bölüm 963
-moves: 9
+moves: 10
 roll: off
 specials: on
-paint: 1
-goals: blue 47, coral 37
+goals: green 36, navy 48, blue 31
 grid:
-byyp  G1:bby G1:byy G1:yybb G1:pyb G1:pcp bypc
-pbyp  bby   bbyy  ybb   pyb   ybpc  cbyc
-pby   cbbc  byp   bbp   pyb   ybpc  cbpc
-ccyB1 ccbc  #     #     #     pbbc  pcp
-pbbc  pcbc  #     #     #     pbp   ybp
-bbbc  bcyc  #     #     #     pbp   ypcc
-bcbc  bcy   bcyy  cbyy  cbcb  pbcb  ybcb
-bcpc  pcp   pcy   pcyy  pbyy  pby   pbc
-bcpc  pcp   ycbc  ycb   ybcy  pbcy  ybc
-solution: 1,2 ; 1,5 ; use 0,6,0 ; 2,6 ; use 0,3,1 ; 0,7 ; 6,3 ; use 0,2,1 ; 1,1 ; use 1,1,1
+ycgc  ycgc  G1:ncnc G1:bcyp G1:gcyp G1:gcyb gcyn  gcyy
+ccgc  ggbc  nyyc  byyc  ccyp  bcyb  ncyn  gcyn
+ccby  nnny  nnnn  gnyn  gbyy  bbcb  npnn  gpnyR
+ncby  ncnn  nybn  nypy  bnpy  yncb  ybnb  gcnn
+ncny  npby  cpbc  nycc  gycb  npcb  npcb  gcnn
+bngp  bpgy  cbgp  gbcp  gncp  gncp  bpcp  gccn
+bpgn  nngpR cnpg  bbpp  cbcnB1 bncn  bgcn  nbcn
+gpcn  gnng  cgbg  bgbp  cgpp  cgcg  bgcn  bbnn
+gpcn  gpnn  bgbg  bngg  pngp  ggcg  ggng  ggng
+solution: rot 7,2 ; 2,5 ; 2,5 ; use 0,6,0 ; 2,4 ; use 0,5,1 ; 0,2 ; use 1,4,1 ; 6,6 ; use 0,1,2 ; use 0,5,0 ; 5,0 ; 0,0 ; 1,2 ; use 0,0,0 ; use 0,1,1

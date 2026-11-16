@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [chainOnly+exact]); çözüm 8 / sınır 9 (v7 14); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; zincir v13: yeni çözüm 10 (eski 8), sınır 9→15, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil L (ayna); çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_170
-title: Yıldız Hazinesi
-moves: 12
+moves: 8
 roll: off
 specials: on
 type: boss
-rules: exact
-goals: yellow 43, blue 36, coral 64, star 5
+rules: scarce, exact
+goals: green 23, blue 16, yellow 26
 grid:
-pcyc* bccc  bpcp  #     #     cyy   cby   cby
-pcy   bcyp  ccyy  #     #     bycc  bby   bbyLc8
-bby   ccbp  cyp   #     #     cyc   ccyp  bcyp
-bbb   bpb   ccc   cpc   cpyc  cpyc  cpy   bcy
-bbp*  pppc* ppc   cpc   cyc   ccy   cpyb  cyc
-bbpp  bpp   ppcb  bcb   bcy   cpyy  cpyy  bpyc
-ybpp  ypcy  pbcc  pbcc  cbc   cbp   pyyy  bpyp
-ppp   ppc   pbcc* pbcc  cbcc  ccp   pyc   pycp
-ypy*  ypp   cpp   cpyb  cpc   pyc   pyc   pycy
-solution: 5,1 ; use 0,5,0 ; 4,5 ; use 0,6,1 ; 2,5 ; 1,1 ; use 0,5,0 ; 1,4 ; 1,1 ; use 2,0,0 ; 5,0 ; 6,2 ; use 0,0,0 ; 6,2 ; use 1,2,0 ; 0,0 ; use 1,0,0 ; use 0,2,0
+#     #     #     bpgp  ppyp  ppy   byy   cyyb
+#     #     #     bpgy  pygy  pygp  cycc  cbyc
+#     #     #     pbgy  pygy  cbcp  pbcLg3 cpyc
+#     #     #     cgg   ccb   cccc  pbc   ppyc
+gpyc  ycp   ccpy  ccgp  bcbp  ccp   pcb   bcp
+gpyc  ycy   bgpy  bcpy  bpcp  gpyi1 ppy   bcc
+yyc   yyyg  bgp   byy   bpyp  bpy   ppcy  pccp
+ycbb  gycp  byyp  gyy   gppg  gpp   cbcy  cbcp
+bgb   yyc   gycy  gyy   gcp   cgbci1 cbbi2 cbcp
+solution: 2,4 ; use 0,3,0 ; 5,5 ; use 0,7,0 ; 4,0 ; 3,0 ; use 0,3,3 ; 5,5 ; use 0,3,2 ; 6,1 ; 0,4 ; use 1,5,5 ; 3,0 ; use 0,0,4 ; use 0,0,4

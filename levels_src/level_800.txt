@@ -1,21 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [protect+chainOnly+exact]; kristal 3; zincir yellow 3; çözüm 9 / sınır 11 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,00; adillik onarımı: sınır 11→15 (112 oyunda 5 galibiyet); zincir v13: çözüm aynı, sınır 15→15, bot 14/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dikdörtgen; çözüm 19 + 10 tepsi / sınır 19; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_800
-title: 800. Bölüm Finali
-moves: 15
+moves: 19
 roll: off
 specials: on
-paint: 1
+paint: 2
 type: boss
-rules: protect, chainOnly, exact
-goals: coral 29, purple 28, chain yellow 3
+rules: protect, scarce, exact
+goals: green 11, yellow 10, navy 12
 grid:
-#     #     bccbP bccp  pcpp  cbcp  #     #
-#     #     bcpb  pbpp  pbcb  cpcp  #     #
-pbpc  cybp  ybpb  ybpb  bccb  cypy  cypy  cbby
-cbby  ybby  ybbb  ybbb  ybcb  cypb  ybpc  ybcc
-pycc  cbbc  pbbc  ppbc  ybpy  cppy  ybpy  ccpy
-ybbbP cybp  pybc  ppbb  pcby  pcyy  pccc  pcpc
-yypp  yyby  bbyy  bbbbP bbby  ycyy  ypyb  pcpc
-#     #     pbyb  bbpy  ybbb  ypyb  #     #
-#     #     cbbp  bpbb  bpcb  ypcb  #     #
-solution: 4,4 ; 6,3 ; use 1,4,0 ; use 0,3,0 ; 7,3 ; 0,4 ; use 1,0,2 ; use 0,6,2 ; paint 4,1,p ; 4,0 ; 5,5 ; 5,4 ; 4,5
+pcyn  ncyyP gcyyk1 npby  npbn  cpby  gccp  nypn
+ppyn  ppyb  ncnpk2 ncnn  nbnn  ybbnk1 bcby  ncny
+bpnb  bpnbk1 pcnp  nynp  yccp  ynbn  cnpn  bnpy
+npnc  bpnbk1 bnpb  nypn  yccn  bccy  byny  bgnb
+nygck1 ncnb  nppn  cpbn  cbbc  cbcn  ypcn  ypcb
+ygpn  bcgbk2 bypc  gyyc  ccbc  ycbn  ygpn  ccpb
+ycbn  bybn  byyp  nyyb  pbyn  pcyn  pcpn  yccbP
+cynn  ccny  ybcc  ybcc  pbyc  pcyc  yccy  yncb
+ncny  ccny  cycyP gycb  gycb  pync  pycg  pycg
+solution: paint 7,3,y ; 6,1 ; 4,0 ; 2,7 ; 4,6 ; paint 7,4,g ; use 1,7,3 ; 5,3 ; use 1,0,5 ; use 1,0,5 ; use 0,0,0 ; use 0,0,4 ; 1,1 ; use 0,0,0 ; 1,2 ; 0,1 ; 2,1 ; 3,6 ; 5,6 ; 4,6 ; 4,2 ; 4,0 ; 0,2 ; 2,7 ; use 2,4,0 ; use 0,4,8 ; 3,2 ; use 1,3,0 ; use 0,3,8

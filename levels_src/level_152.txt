@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 4 hamle + 4 tepsi / limit 9 (pay +5, eski 12) hedef×1,10 bot 0,88 (hedef 0,45) plan 0; zincir v13: yeni çözüm 5 (eski 4), sınır 9→10, bot 53/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı (ayna); çözüm 7 + 7 tepsi / sınır 9; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
 id: level_152
-title: Soğuk Mandal
-moves: 10
+moves: 9
 roll: off
 specials: on
-goals: coral 33, purple 40
+goals: blue 26, green 46, purple 35
 grid:
-cby   pbp   cpp   bpp   bbp   cbp   yyc
-cbc   pyc   cpc   ybb   byci1 cbp   pcc
-pyy   cppi1 cpp   bpc   pbp   ppp   cyc
-pyy   cbpi1 pbp   bcc   pbpLb7 ppp   ppc
-yyc   cbp   ybp   bcp   bby   ppy   pbc
-pcy   bpy   bcb   ccb   ppp   pbp   pbb
-#     #     ccb   bcp   ccp   #     #
-#     #     bcp   bcp   bcp   #     #
-#     #     ccy   bbb   ppp   #     #
-solution: 4,5 ; 2,5 ; 1,0 ; use 0,5,0 ; 2,0 ; use 0,1,2 ; use 0,2,0 ; 5,2
+#     #     #     ncpb  npp   #     #     #
+#     ggn   cgnb  gcn   gpgn  gpg   bpgb  #
+ncnb  ngnk1 cgcb  gcbb  gcg   cggc  pngk1 pbg
+ncpb  cgc   cgcn  pcb   ccb   cgbc  pcpb  pbpb
+nbp   gcc   gcgn  pcn   pcgc  pgc   pcc   pcc
+gbb   gbgp  gngn  pnn   pcnc  pcccLp3 ncc   gcc
+ppbp  gpbp  nggn  ggg   ggn   pgn   ggn   ggcp
+pbc   gbb   npbn  gnnn  gnn   npnp  ngnpk1 nnnpk2
+pbcp  gbbp  npc   gpcn  gpnn  bnn   nnn   pnnn
+solution: 5,2 ; 2,3 ; use 0,3,0 ; 5,1 ; use 0,3,0 ; 2,4 ; use 0,6,1 ; 2,2 ; use 0,4,0 ; 4,0 ; use 0,1,1 ; 2,5 ; use 0,4,1 ; use 0,1,1

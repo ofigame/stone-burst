@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 6 hamle + 4 tepsi / limit 9 (pay +3, eski 12) hedef×1,11 bot 0,33 (hedef 0,36) plan 1; zincir v13: çözüm aynı, sınır 9→9, bot 36/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı; çözüm 12 + 9 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_195
-title: Büyük Akış
-moves: 9
+moves: 14
 roll: off
 specials: on
-goals: blue 33, coral 26
+goals: yellow 38, coral 32, purple 44
 grid:
-#     #     #     #     pbpp  ybb   pyb
-#     #     #     cpc   pbbb  ybbb  pyby
-#     #     ppc   ypyc  yyyb  yyb   pycy
-#     ycyy  ppc   ppy   ypcb  ccp   cycy
-pbby  pbcy  pcci1 bpb   bpcp  yyppi1 ybpy
-pyb   pbyy  bcc   bcbyi1 ppcp  yppp  ycb
-byb   bcy   yccy  ppby  ppy   ppy   yyyy
-bypc  bcp   bcpy  ppp   cpy   ppcbLy7 cby
-yyp   yyp   ycpy  ppp   yyc   ccy   cby
-solution: 4,4 ; 1,3 ; 3,1 ; use 0,5,0 ; use 0,4,3 ; 2,2 ; use 0,5,0 ; 5,0 ; 5,4 ; use 0,4,1
+#     #     #     pgpn  pyp   #     #     #
+#     ngy   pgy   pgp   pgpy  pgn   nnn   #
+nggn  nggn  ygnn  ygn   pgyy  pgy   nnyc  nncc
+ngpnk2 yggLc5 ygpy  ynp   cnp   cgpc  cny   cnp
+ngc   nyc   nycy  ynpy  gcp   ynyc  ynyc  cppc
+ngyy  cync  cycc  ygc   ggy   pny   ypgc  ypp
+pngy  cpn   cpc   nncc  nncc  ppyk1 nyg   nppn
+pcgy  ppnnk1 ppyn  ynp   nnp   npnn  nyp   cpp
+ncgc  nynck2 pyy   ygy   ygcg  yyn   cyp   cpp
+solution: 0,4 ; use 0,6,2 ; 4,1 ; use 0,4,0 ; 5,1 ; use 0,4,0 ; 1,4 ; 1,1 ; use 0,4,0 ; 1,1 ; 7,2 ; use 0,3,3 ; 2,4 ; 0,4 ; use 1,0,7 ; 0,7 ; 0,3 ; use 0,0,3 ; 0,2 ; use 0,3,0 ; use 0,3,0

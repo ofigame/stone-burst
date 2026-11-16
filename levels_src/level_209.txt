@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı (ayna); çözüm 7 hamle + 7 tepsi / limit 11 (pay +4, eski 13) hedef×1,11 bot 0,33 (hedef 0,36) plan 0; zincir v13: yeni çözüm 6 (eski 7), sınır 11→10, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T; çözüm 7 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_209
-title: Postacı
-moves: 10
+moves: 8
 roll: off
 specials: on
-goals: purple 42, yellow 33, blue 31, envelope 1
+goals: yellow 17, coral 36, envelope 2
 grid:
-#     #     cccp  cccb  ycy   #     #
-#     #     pbcp  cbyp  ccy   #     #
-bpc   bpcb  ppc   cbyp  ccc   cbpb  bypb
-bpy   bpcb  pbp   cbp   bypc  bbpb  byp
-bcp   bcp   pbp   pypy  byp   bbcb  bpp
-bypp  pyp   pcc   ybcy  bbp   bppc  ppycEb
-bycp  bccp  ycyb  ybcy  ybcc  ppcc  ppyc
-#     #     ycyb  yyc   yyc   #     #
-#     #     ypy   yyy   yyc   #     #
-solution: 2,0 ; use 0,3,0 ; 3,4 ; use 0,6,2 ; 5,4 ; use 0,4,0 ; 2,0 ; 2,2 ; 5,2 ; use 0,2,1 ; use 0,2,1 ; use 0,4,0
+ycbn  cgpn  cgbg  cgbb  pbng  pbbb  ybgb  ybgb
+ycbp  cgpp  cgbg  ybbg  pbng  ppng  ppng  ybbb
+ycgc  bnpp  pccp  pbcg  pbcb  ppgb  pppg  gcbg
+nygg  bnpg  yncc  pnbc  pbgc  bbgc  ypcc  gpbc
+nycg  bccgEn yccb  bbbb  pbgc  pbcc  ybcc  gybc
+nycg  nynb  ycnb  gcby  gcpy  gnpc  ynnp  pync
+#     #     cnyc  bcyg  bcpc  nync  #     #
+#     #     bncg  pbcg  nbbb  nybcEy #     #
+#     #     bbcg  bbcc  ggbc  ggbg  #     #
+solution: 2,0 ; 3,2 ; 2,0 ; use 0,0,2 ; use 0,0,0 ; use 0,2,3 ; 0,2 ; 0,4 ; 3,0 ; use 2,3,1 ; 1,0 ; use 2,0,2 ; use 0,0,0 ; use 0,0,3

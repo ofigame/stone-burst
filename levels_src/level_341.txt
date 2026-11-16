@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 6 hamle + 5 tepsi / limit 13 (pay +7, eski 12) hedef×0,95 bot 0,33 (hedef 0,33) plan 1; zincir v13: yeni çözüm 5 (eski 6), sınır 13→14, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 13 + 6 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,13
 id: level_341
-title: Derin Tur
 moves: 14
 roll: off
 specials: on
-goals: purple 33, yellow 42
+goals: navy 50, purple 43, envelope 2
 grid:
-yppb  cypyR ycyb  pypy  yyy   yybb  yyy
-yppb  cyp   cbp   yypp  yyy   yycc  yyy
-ybp   pcc   pbc   cypb  byy   bpcc  byyc
-bpp   pbpc  pycc  cyc   ycy   cpy   pbpc
-pbpy  pcc   ccyc  cccy  cyyy  ycy   ycp
-pbcc  pbcb  pbc   cccy  ycy   byy   bccc
-#     #     pbc   pbc   bccc  #     #
-#     #     cbc   cbc   ybpbR #     #
-#     #     ppc   cbp   ybpb  #     #
-solution: 3,0 ; use 0,0,0 ; 0,0 ; 1,2 ; 1,0 ; use 0,4,0 ; use 0,0,0 ; 5,1 ; use 0,6,0 ; use 0,1,3
+yypp  pygc  ppnyR ypgn  yppc  gpnc  ppnp  ppbg
+ypgy  pygc  cngn  cnpn  gppc  gppp  npnp  npbp
+ypgy  ybcy  cygy  gbcn  pbcn  gpyn  npby  cpby
+gbny  cyny  cycb  pycb  pgpb  bppn  nnby  cnbp
+gbnn  gnnn  cynn  ynpn  gnpn  yppn  nyny  cnnp
+gbnn  bnnn  bynn  ygpg  ggpn  ypgn  cgngR cggn
+gycy  pycy  bygy  cnpg  gnby  ynbc  cnnyR ncgc
+ggng  pcny  pcgy  cnyn  cnbn  ypbn  ycbn  ncgcEc
+bgng  bcng  pcgy  ppyn  ppyb  ypbb  ypbnEc gcgc
+solution: 3,0 ; use 0,1,0 ; 5,2 ; 4,0 ; 0,4 ; use 1,5,0 ; 2,4 ; use 1,0,0 ; 7,1 ; use 1,0,0 ; 6,1 ; 4,3 ; 0,7 ; rot 2,0 ; rot 6,6 ; 0,6 ; use 1,4,3 ; 5,6 ; use 2,5,7

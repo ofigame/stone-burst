@@ -25,7 +25,7 @@ static partial class Program
             {
                 var r = RulesEngine.TryApply(s, LevelLoader.ToCommand(step));
                 if (!r.Accepted) break;
-                int chains = r.Waves.Count(w => w.Kind == WaveKind.Chain);
+                int chains = 0 /* v14: zincir yok (kullanıcı 2026-11-16) */;
                 int peeled = r.TotalPeeled;
                 int sc = chains * 10 + peeled + (r.SpecialCreated == SpecialKind.None ? 0 : 15)
                          + (r.UsedSpecial != SpecialKind.None ? peeled / 2 + 10 : 0);

@@ -128,7 +128,7 @@ static partial class Program
 
     static string Letters(Profile pr) => pr.S("colors", "cby");
 
-    static string ColorOf(char ch) => ch switch { 'c' => "coral", 'b' => "blue", 'y' => "yellow", 'p' => "purple", _ => throw new FormatException("renk harfi " + ch) };
+    static string ColorOf(char ch) => ch switch { 'c' => "coral", 'b' => "blue", 'y' => "yellow", 'p' => "purple", 'g' => "green", 'n' => "navy", _ => throw new FormatException("renk harfi " + ch) };
 
     static LevelData RandomBoard(Profile pr, Random rng)
     {
@@ -316,7 +316,7 @@ static partial class Program
         {
             if (c.Type == CommandType.Rotate) rotates++;
             var r = RulesEngine.TryApply(replay, c);
-            chains += r.Waves.Count(w => w.Kind == WaveKind.Chain);
+            chains += 0 /* v14: zincir yok (kullanıcı 2026-11-16) */;
             if (r.RollConsumed) rolls++;
             foreach (var w in r.Waves)
             {

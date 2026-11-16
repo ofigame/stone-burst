@@ -1,18 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı; çözüm 8 hamle + 6 tepsi / limit 14 (pay +6, eski 12) hedef×1,11 bot 0,13 (hedef 0,35) plan 2; zincir v13: çözüm aynı, sınır 14→18, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 32/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı; çözüm 7 + 6 tepsi / sınır 9; rastgele 0,005; açgözlü kaybeder; yumuşak 0,08
 id: level_223
-title: Ayrı Yollar
-moves: 12
+moves: 9
 roll: off
 specials: on
-goals: blue 59, coral 24, envelope 2
+goals: navy 25, coral 16, envelope 2
 grid:
-#     #     ycy   ycb   cpb   #     #
-#     #     yyp   cpp   ypb   #     #
-cpy   ccy   pybEy ccp   bbb   bbb   bcb
-bbp   pby   cbb   cpp   bby   bby   bbb
-ybp   ycy   cby   cbb   pbb   bbc   bbb
-bpp   ycp   bcp   cbb   bbp   pbc   bcc
-bbc   ccp   cpb   bbc   bbc   pbp   bbp
-#     #     bbb   byb   bbbEp #     #
-#     #     bcb   bby   byc   #     #
-solution: 0,2 ; 3,0 ; use 0,4,0 ; 2,2 ; 0,2 ; use 0,3,0 ; 5,2 ; use 0,1,2 ; 3,7 ; use 0,0,3 ; use 0,0,3
+#     #     #     pbby  pcby  #     #     #
+#     gccy  gbyp  gbby  gbby  byby  byny  #
+gbnb  gyyy  pyyp  nygy  nyby  gyyn  cyyn  ncby
+gbnb  gyny  pyyp  bycy  bpcbk2 bpcb  cgcn  nnby
+gbyyEy gnny  cgnp  ppnn  ypnn  bccy  cgcy  gncyEy
+gpyy  ngcy  cgcg  pgng  ycnn  gcpb  ggpy  gnny
+gpny  gcny  gpgg  ypng  bpnp  gbng  bnpg  nnpg
+gpgyk1 gcgy  ycgg  ycbb  bpby  bbny  bbgyk1 nngy
+solution: 1,1 ; use 0,5,2 ; 3,0 ; 5,4 ; use 0,1,1 ; 1,5 ; use 1,6,1 ; 3,0 ; use 1,4,0 ; 2,1 ; use 1,1,1 ; 2,1 ; use 1,3,2

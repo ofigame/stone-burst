@@ -932,7 +932,8 @@ namespace KatKat.UI
         {
             HidePalette();
             _palette = UiFactory.Rect("Palette", _bottomBar);
-            UiFactory.Place(_palette, new Vector2(0.5f, 1f), new Vector2(0f, 110f), new Vector2(560f, 130f));
+            // Altı renkli bölümde en çok beş seçenek olabilir: panel seçenek sayısına göre genişler (dört renkte 560 aynı).
+            UiFactory.Place(_palette, new Vector2(0.5f, 1f), new Vector2(0f, 110f), new Vector2(Mathf.Max(560f, options.Count * 130f + 40f), 130f));
             var bg = UiFactory.Image("Bg", _palette, UiArt.Box, new Color(1f, 0.97f, 0.9f, 0.96f), true);
             UiFactory.Stretch(bg.rectTransform);
             bg.pixelsPerUnitMultiplier = UiArt.Box.border.x / 60f;
@@ -1122,8 +1123,30 @@ namespace KatKat.UI
         {
             bool on = !string.IsNullOrEmpty(text);
             _tutorialBox.gameObject.SetActive(on);
-            if (on) Loc.Set(_tutorial, text);
-            _boardBottom = ShellH + 22f + (on ? TutorialH + 18f : 0f);
+            float h = TutorialH;
+            if (on) { Loc.Set(_tutorial, text); h = FitBand(_tutorialBox, _tutorial, TutorialH, 32f, 40f); }
+            _boardBottom = ShellH + 22f + (on ? h + 18f : 0f);
+        }
+
+        /// <summary>
+        /// Kullanıcı (2026-11-16): "bilgi metinleri bazen alanına sığmıyor, o alanları yazıya göre ayarlayalım". Bant yazının
+        /// ölçülen yüksekliğine göre büyür (en az <paramref name="minH"/>, en çok 4 satır); yazı tam punta kalır, yalnız 4
+        /// satırı aşarsa küçülür. Bant üstten ya da alttan sabitli: yükseklik büyürken sabit kenarı yerinde kalır.
+        /// </summary>
+        private static float FitBand(RectTransform band, TMPro.TextMeshProUGUI t, float minH, float fontSize, float padV)
+        {
+            t.enableAutoSizing = false;
+            t.fontSize = fontSize;
+            t.textWrappingMode = TMPro.TextWrappingModes.Normal;
+            float w = band.rect.width;
+            if (w < 10f) w = RefWidth - 96f;
+            w -= 100f;
+            float pref = t.GetPreferredValues(t.text, w, 0f).y;
+            float maxH = fontSize * 1.25f * 4f + padV;
+            float h = Mathf.Clamp(pref + padV, minH, maxH);
+            if (pref + padV > maxH) { t.enableAutoSizing = true; t.fontSizeMax = fontSize; t.fontSizeMin = 18f; }
+            band.sizeDelta = new Vector2(band.sizeDelta.x, h);
+            return h;
         }
 
         /// <summary>Bilgi şeridi: hedef kartının hemen altında, tahtanın üstünde (BoardWorldRect bu kadar yer bırakır).</summary>
@@ -1133,6 +1156,8 @@ namespace KatKat.UI
         {
             _toastBox.anchoredPosition = new Vector2(0f, -(GoalsBottom + _headShift + ToastGap));
             Loc.Set(_toast, text);
+            _toast.lineSpacing = 0f;
+            FitBand(_toastBox, _toast, ToastH, 30f, 30f);
             _toastBox.gameObject.SetActive(true);
             _toastUntil = Time.unscaledTime + seconds;
         }

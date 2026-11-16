@@ -20,6 +20,14 @@ namespace KatKat.Tests
         /// </summary>
         private static LevelState Build(string[] rows, string goals, int moves = 5, string caps = "", string extra = "")
         {
+            var d = Data(rows, goals, moves, caps, extra);
+            var errors = LevelValidator.ValidateStatic(d, LevelValidator.ScopeFor(d));
+            Assert.IsEmpty(errors, string.Join(" | ", errors));
+            return LevelLoader.ToState(d);
+        }
+
+        private static LevelData Data(string[] rows, string goals, int moves = 5, string caps = "", string extra = "")
+        {
             int h = rows.Length, w = rows[0].Split(' ').Length;
             var sb = new StringBuilder();
             sb.Append("{\"schemaVersion\":2,\"id\":\"p3_test\",\"width\":").Append(w).Append(",\"height\":").Append(h)
@@ -48,10 +56,7 @@ namespace KatKat.Tests
                 }
             }
             sb.Append(']').Append(extra).Append('}');
-            var d = LevelParser.Parse(sb.ToString(), "p3");
-            var errors = LevelValidator.ValidateStatic(d, LevelValidator.ScopeFor(d));
-            Assert.IsEmpty(errors, string.Join(" | ", errors));
-            return LevelLoader.ToState(d);
+            return LevelParser.Parse(sb.ToString(), "p3");
         }
 
         private static string Layers(string s)
@@ -64,16 +69,19 @@ namespace KatKat.Tests
         private static string Goal(string color, int amount, int stage) =>
             "{\"type\":\"collectColor\",\"color\":\"" + color + "\",\"amount\":" + amount + ",\"stage\":" + stage + "}";
 
-        /// <summary>Aşama tamamlanınca dalga sonunda sonraki aşama; aynı hamlenin sonraki zincir dalgası yeni aşamaya sayılır.</summary>
+        /// <summary>Aşama tamamlanınca dalga sonunda sonraki aşama; sonraki dokunuş yeni aşamaya sayılır (v14: zincir yok).</summary>
         [Test]
-        public void Stages_AdvanceAfterWave_NextWaveCountsForNextStage()
+        public void Stages_AdvanceAfterWave_NextTapCountsForNextStage()
         {
             var s = Build(new[] { "bc bc bc y", "y p y p", "p y p y", "y p y p" }, Goal("coral", 3, 0) + "," + Goal("blue", 3, 1), caps: "\"stages\"");
             Assert.AreEqual(2, s.StageCount);
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
             Assert.IsTrue(r.Accepted);
             Assert.IsTrue(r.Waves[0].StageAdvanced, "mercan dalgası aşama 0'ı bitirir");
-            Assert.AreEqual(GameStatus.Won, s.Status, "zincirdeki mavi dalga aşama 1'e sayılır");
+            Assert.AreEqual(1, r.Waves.Count, "v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın)");
+            Assert.AreEqual(GameStatus.Idle, s.Status);
+            RulesEngine.TryApply(s, Command.Tap(0, 0));
+            Assert.AreEqual(GameStatus.Won, s.Status, "sonraki mavi dokunuş aşama 1'e sayılır");
         }
 
         /// <summary>Aynı dalganın fazlası sonraki aşamaya aktarılmaz; etkin olmayan aşamaya ilerleme sayılmaz.</summary>
@@ -93,23 +101,19 @@ namespace KatKat.Tests
             Assert.AreEqual(0, t.ActiveStage);
         }
 
-        /// <summary>Mühür: otomatik zincir derinliği ulaşınca geçit açılır; doğrudan dokunuş derinlik 0; yeterli değilse açılmaz.</summary>
+        /// <summary>v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): zincir mührü okunur ama doğrulayıcı reddeder; motor açmaz.</summary>
         [Test]
-        public void Seal_OpensGateAtChainDepth()
+        public void Seal_IsRejected_AndNeverOpens()
         {
             string[] rows = { "bc bc bc g1:yy", "p y p y", "y p y p", "p y p y" };
-            string goals = Goal("yellow", 2, 0);
-            var s = Build(rows, goals, caps: "\"seal\",\"gate\"", extra: ",\"seal\":{\"wave\":1,\"gate\":1}");
-            Assert.IsFalse(s.Board[3, 0].Active);
-            var r = RulesEngine.TryApply(s, Command.Tap(0, 0)); // mercan dokunuş, alttan çıkan mavi zinciri (derinlik 1)
-            Assert.IsTrue(s.SealOpen);
-            Assert.IsTrue(s.Board[3, 0].Active, "geçit açıldı");
-            Assert.IsTrue(r.Waves.Exists(w => w.SealOpened));
-
-            var deep = Build(rows, goals, caps: "\"seal\",\"gate\"", extra: ",\"seal\":{\"wave\":2,\"gate\":1}");
-            RulesEngine.TryApply(deep, Command.Tap(0, 0));
-            Assert.IsFalse(deep.SealOpen, "tek zincir dalgası 2. derinliğe ulaşmaz");
-            Assert.IsFalse(deep.Board[3, 0].Active);
+            var d = Data(rows, Goal("yellow", 2, 0), caps: "\"seal\",\"gate\"", extra: ",\"seal\":{\"wave\":1,\"gate\":1}");
+            Assert.AreEqual(1, d.SealWave, "eski veri çökmeden okunur");
+            var errors = LevelValidator.ValidateStatic(d, LevelValidator.ScopeFor(d));
+            Assert.IsTrue(errors.Exists(e => e.Contains("seal")), string.Join(" | ", errors));
+            var s = LevelLoader.ToState(d);
+            var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
+            Assert.AreEqual(1, r.Waves.Count, "altından çıkan mavi patlamaz");
+            Assert.IsFalse(s.Board[3, 0].Active, "geçit açılmaz");
         }
 
         /// <summary>İki alan: tepsideki satır roketi yalnız hedefin alanında; diğer alandaki aynı satır soyulmaz.</summary>

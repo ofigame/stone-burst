@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3 (kaydırılmış); çözüm 7 hamle + 5 tepsi / limit 15 (pay +8, eski 15) hedef×0,95 bot 0,33 (hedef 0,30) plan 1; zincir v13: yeni çözüm 8 (eski 7), sınır 15→16, bot 18/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil çatı (ayna); çözüm 3 + 2 tepsi / sınır 9; rastgele 0,520; açgözlü kazanır; yumuşak 0,96
 id: level_294
-title: Sabırlı Posta
-moves: 16
+moves: 9
 roll: off
 specials: on
-goals: yellow 36, blue 21, coral 21, envelope 2
+goals: blue 24, navy 21
 grid:
-#     #     bcpbi1 cpp   yypy  pypy  pypb
-#     ccyp  pcyb  pcyb  ycp   ycp   pyp
-yby   bcyp  ccyi1 pccb  ypc   bpcb  yc
-ybp   bcp   ccy   pyybEb pby   pbyp  ppyp
-pcyc  ccpc  #     #     #     ppyp  ypy
-ycp   ycpp  #     #     #     pcb   pcbc
-pyp   ybyi1 #     #     #     ycb   bc
-byp   cby   cbyp  cbyc  ycbp  pcp   #
-yyb   ybb   ybbp  ypbp  ycbyEy #     #
-solution: 2,1 ; 1,1 ; 1,1 ; use 0,0,8 ; 0,5 ; 2,2 ; use 0,2,0 ; 0,2 ; 2,0 ; use 0,2,0 ; use 0,4,0 ; 5,2
+#     #     #     cb    c     #     #     #
+#     cc    cc    c     c     c     c     #
+c     c     bc    b     bn    b     nc    nc
+n     c     c     bn    bn    b     nc    nc
+nn    n     nn    bn    b     cy    n     c
+nn    n     n     b     by    b     n     bc
+y     y     yy    n     by    by    bb    b
+y     yy    ny    ny    cy    by    b     bb
+yy    y     y     n     cy    c     cb    bb
+solution: 4,0 ; 4,5 ; use 0,4,2 ; 2,2 ; use 0,3,0

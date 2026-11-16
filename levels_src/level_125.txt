@@ -1,18 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı (ayna); çözüm 6 hamle + 4 tepsi / limit 10 (pay +4, eski 10) hedef×1,43 bot 0,42 (hedef 0,42) plan 0; zincir v13: yeni çözüm 8 (eski 6), sınır 10→16, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 9, bot 9/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 7 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: level_125
-title: Açılan Şelale
 moves: 9
 roll: off
 specials: on
-goals: purple 47, yellow 32
+goals: yellow 30, blue 29, purple 29
 grid:
-#     #     #     ccp   #     #     #
-#     bcc   bcy   ccy   ppb   cbb   #
-bpy   ypp   bpp   cyp   pyc   ppp   cbp
-cpb   cpp   bpp   bpc   bycLc7 bpy   cbc
-bpp   ypp   ypp   cby   byp   ppp   bpp
-ypc   ypb   ycb   ybc   cyp   pyp   pyp
-cbc   cbc   ybc   yby   cyy   pyy   byy
-pbc   ypc   ypc   ycp   byp   bbb   bpb
-ppc   ypc   ypc   ycp   ycp   bcb   bcb
-solution: 0,5 ; use 0,3,0 ; 4,2 ; 1,2 ; use 0,2,1 ; 4,6 ; 4,2 ; use 0,0,2
+pnb   #     bnn   bnn   bbcp  pbc   #     ccnc
+pnbn  #     ynnb  yynb  pyc   pyp   #     cpnc
+pbcn  pbc   cnnp  bpyb  ypy   ycpc  yyn   ppn
+byc   cbnc  ccnc  bcnc  bcpp  ycp   yyyb  ppnb
+byc   byc   cyn   bypc  nyp   nbyp  cyy   cpyb
+ybyy  cbby  cbb   pbp   pbp   nbyp  nby   cby
+ybyy  cbb   #     pppLn3 ppp   #     nyn   pbnp
+yyyy  yby   #     #     #     #     pbn   pbn
+solution: 1,2 ; 0,3 ; use 0,0,0 ; 4,3 ; use 0,3,2 ; 3,4 ; 6,2 ; use 0,4,0 ; 4,4 ; use 0,5,1 ; use 0,5,1 ; 7,6

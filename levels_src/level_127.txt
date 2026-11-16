@@ -1,19 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order; kilit purple→blue; çözüm 5 / sınır 7 (v7 8); açgözlü kazanır; bot48 0,44 (taban 0,06); bot 0,33; zincir v13: yeni çözüm 5 (eski 5), sınır 7→7, bot 26/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil L; çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_127
-title: Önce Sayaç
-moves: 7
+moves: 9
 roll: off
 specials: on
 type: order
-goals: blue 25, coral 23
+goals: coral 29, blue 29, navy 40
 grid:
-#     #     cppp  cpp   pccb  #     #
-#     ppbbLp4 cpy   pcc   bycy  yypb  #
-ppp   yby   pbyp  cpcp  bycy  yybp  ppbp
-cbp   bbpb  byp   ppc   bpcp  yybp  ypbLp3
-ccyc  ccp   cpp   bpp   pppp  ybbp  pbbLp8
-ccy   ycyy  ccp   pppp  bpc   pbp   pbb
-ycy   ycyp  ycyp  yypp  yypy  cbpy  ccy
-#     yyyp  yyp   yypp  pyy   ybcy  #
-#     #     bybp  yyc   yyp   #     #
-solution: 4,6 ; 2,2 ; use 1,3,1 ; 3,3 ; use 1,4,0 ; 0,4 ; use 0,0,3 ; 0,3 ; use 0,1,1
+cbn   cgn   gppc  gpcc  ggcc  #     #     #
+pgnp  cgp   npp   ggccLp4 ggc   #     #     #
+pgppi1 cnpb  nnn   nbbp  nbc   #     #     #
+bgg   ngg   npnb  npbp  cpnp  #     #     #
+bggp  ngg   npnbi1 ppb   ppb   ppbb  nnni2 nnbp
+gncn  ncg   ncb   ppc   ppcc  gnc   nnc   nnb
+gncn  cgp   ccbg  bpb   bpb   gpc   gpcn  gbcLp5
+cncn  cnpn  cnbg  bpb   ngbn  npbn  gpc   nbb
+cpc   cpg   gpg   gpb   npb   nnb   gnb   nbbb
+solution: 3,6 ; use 0,0,3 ; 2,3 ; use 0,0,0 ; 0,5 ; 3,2 ; 2,2 ; use 0,2,0 ; use 0,0,0 ; 2,0 ; use 0,0,1 ; 6,4 ; 3,3 ; use 0,3,0

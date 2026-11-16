@@ -7,21 +7,12 @@ namespace KatKat.Core
     /// Deterministik kural motoru (belge Bölüm 5, 6, 8, 9; v5 KURALLAR). Zaman, rastgelelik veya sunum bilgisi kullanmaz.
     /// Geçersiz komut durumu değiştirmez. Geçerli komut bütün dalgaları çözer ve olay planını döndürür.
     /// Ataş hasarı (Bölüm 7) ve dip yıldızı aynı dalga sisteminde işlenir; rulo için ayrı motor yoktur.
-    /// v5: özel taşlar (rulo roketi, gökkuşağı, birleşimler) aynı dalga sırasına girer; önce domino, sonra sıradaki özel taş.
+    /// v5: özel taşlar (rulo roketi, gökkuşağı, birleşimler) aynı dalga sırasına girer. v14: domino (zincir) yok.
     /// </summary>
     public static class RulesEngine
     {
-        /// <summary>
-        /// Domino (zincir) kuralı. v13 (kullanıcı, 2026-11-08: "Altından birlikte çıkan 3+ aynı renk patlar"): <see cref="ChainNewOnly"/>
-        /// = soyulmayla altından YENİ bir renk çıkan hücrelerden yan yana en az 3 aynı renkli olanlar kendiliğinden soyulur;
-        /// açık eski komşu ne engeller ne katılır. Ölçüm için (LevelLab chaincmp/chainfit): 0 = v1–v12 kuralı (bileşenin
-        /// tamamı yeni olmalı), −1 = renk şartsız yeni-yalnız, N > 0 = 3+ bileşende en az N yeni (komşular katılır).
-        /// </summary>
-        public const int ChainNewOnly = -2;
-        [ThreadStatic] private static int? _chainTouch;
-        public static int ChainTouch { get => _chainTouch ?? ChainNewOnly; set => _chainTouch = value; }
-        /// <summary>Ölçüm aracının bu iş parçacığındaki seçimini kaldırır (oyun kuralına döner).</summary>
-        public static void ResetChainRule() => _chainTouch = null;
+        // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): soyulmayla altından çıkan aynı renk grubu kendiliğinden
+        // patlamaz. Her patlama oyuncunun dokunuşu ya da kullandığı özel taşın etkisidir; otomatik dalga (domino) yoktur.
 
         public const int RollGroupSize = 5;
         /// <summary>v5 §2: dokunulan grup bu boyuttaysa rulo roketi, <see cref="RainbowGroupSize"/> ve üstüyse gökkuşağı doğar.</summary>
@@ -122,6 +113,9 @@ namespace KatKat.Core
 
         private static void Finish(LevelState state, MoveResult result, int scoreBefore)
         {
+            // Konsept pilotu: hamle harcayan komuttan sonra tehdit bir adım (tepsi hamle harcamaz → ilerletmez; kazandıran hamlede yok).
+            if (state.Hazard != null && result.Command.Type != CommandType.UseSpecial && !state.ProtectedBroken && !state.AllGoalsComplete)
+                HazardRules.Tick(state, result);
             state.Status = Evaluate(state);
             result.MovesLeftAfter = state.MovesLeft;
             result.StatusAfter = state.Status;
@@ -238,6 +232,7 @@ namespace KatKat.Core
         {
             if (state.ProtectedBroken) return GameStatus.LostProtected; // kristal kuralı kazanmadan önce
             if (state.AllGoalsComplete) return GameStatus.Won;
+            if (state.Hazard != null && state.Hazard.Lost) return GameStatus.LostHazard;
             // v6: hamle bitse de tepside kullanılabilir özel taş varsa oyun sürer (tepsi hamle harcamaz).
             if (state.MovesLeft <= 0 && !TrayUsable(state)) return GameStatus.LostOutOfMoves;
             if (!HasLegalMove(state)) return GameStatus.LostNoLegalMoves;
@@ -335,7 +330,7 @@ namespace KatKat.Core
             public bool FromTray;
         }
 
-        /// <summary>Bir hamlenin bütün dalgaları: ilk dalga, domino (zincir) ve sıraya giren özel taşlar.</summary>
+        /// <summary>Bir hamlenin bütün dalgaları: ilk dalga ve sıraya giren özel taşlar (v14: domino yok).</summary>
         private sealed class Resolver
         {
             private readonly LevelState _state;
@@ -343,8 +338,8 @@ namespace KatKat.Core
             private readonly MoveResult _result;
             private readonly Queue<Pending> _queue = new Queue<Pending>();
             private readonly bool[] _queued;
-            private readonly bool[] _hasBeforeTop, _peeled, _direct;
-            private readonly LayerColor[] _beforeTop, _removedColor;
+            private readonly bool[] _peeled, _direct;
+            private readonly LayerColor[] _removedColor;
 
             public Resolver(LevelState state, MoveResult result)
             {
@@ -353,10 +348,8 @@ namespace KatKat.Core
                 _result = result;
                 int n = _board.Count;
                 _queued = new bool[n];
-                _hasBeforeTop = new bool[n];
                 _peeled = new bool[n];
                 _direct = new bool[n];
-                _beforeTop = new LayerColor[n];
                 _removedColor = new LayerColor[n];
             }
 
@@ -426,11 +419,10 @@ namespace KatKat.Core
                     if (firstWave && kind == WaveKind.Tap && tappedCell >= 0 && _state.SpecialsEnabled) Create(first, tappedCell, pw);
                     firstWave = false;
 
-                    var next = ChainCandidates();
+                    // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): dalgadan sonra yalnız sıradaki özel taş ateşlenir.
                     Array.Clear(_direct, 0, _direct.Length);
                     fired = null;
-                    if (next.Count > 0) { wave = next; kind = WaveKind.Chain; }
-                    else wave = null;
+                    wave = null;
                 }
             }
 
@@ -526,11 +518,6 @@ namespace KatKat.Core
             {
                 var board = _board;
                 Array.Clear(_peeled, 0, _peeled.Length);
-                for (int i = 0; i < board.Count; i++)
-                {
-                    _hasBeforeTop[i] = board[i].IsSelectable;
-                    if (_hasBeforeTop[i]) _beforeTop[i] = board[i].Top;
-                }
 
                 var pw = new PeelWave { Kind = kind, Index = _result.Waves.Count };
                 if (fired.HasValue)
@@ -549,7 +536,7 @@ namespace KatKat.Core
 
                 int score = 0;
                 // Eşzamanlı soyulma: her hücreden tam bir katman.
-                var removedByColor = new int[4];
+                var removedByColor = new int[LayerColors.Count];
                 wave.Sort();
                 foreach (var i in wave)
                 {
@@ -560,7 +547,7 @@ namespace KatKat.Core
                     cell.Layers.RemoveAt(cell.Layers.Count - 1);
                     _peeled[i] = true;
                     if (cell.Protected) _state.ProtectedBroken = true; // v12 deneme: kristal soyuldu
-                    AddGoal(_state, removed, kind == WaveKind.Chain);
+                    AddGoal(_state, removed);
                     score += Scoring.Layer(pw.Index);
                     // Dip yıldızı: hücre bu soyulmayla boşaldıysa bir kez.
                     bool star = cell.Layers.Count == 0 && cell.HasBottomStar;
@@ -592,6 +579,14 @@ namespace KatKat.Core
                     else if (c.IceHitsRemaining > 0 && (d || NextToPeeled(board, i, _peeled))) iceHits.Add(i);
                     else if (c.LockRemaining > 0 && (d || removedByColor[(int)c.LockColor] > 0)) lockHits.Add(i);
                     else if (c.HasEnvelope && (d || NextToPeeledColor(board, i, _peeled, _removedColor, c.EnvelopeColor))) envelopes.Add(i);
+                }
+                // Konsept pilotu "Yayılan Yosun": kenar komşusu soyulan ya da doğrudan vurulan yosun temizlenir.
+                for (int i = 0; i < board.Count; i++)
+                {
+                    if (!board[i].Moss || !(_direct[i] || NextToPeeled(board, i, _peeled))) continue;
+                    board[i].Moss = false;
+                    score += Scoring.CoverHit;
+                    pw.MossCleared.Add(new Coord(board.X(i), board.Y(i)));
                 }
                 foreach (var i in envelopes)
                 {
@@ -663,7 +658,6 @@ namespace KatKat.Core
                 }
 
                 // M11 düğme: dibinde düğme olan yığın bu dalgada boşaldıysa basılır, bağlı geçit bir kez etkinleşir.
-                // Açılan hücreler bu dalgada soyulmadığı için zincir tohumu olamaz.
                 foreach (var i in wave)
                 {
                     var c = board[i];
@@ -675,20 +669,8 @@ namespace KatKat.Core
                     score += Scoring.Envelope;
                 }
 
-                // vr1 P3 zincir mührü: bu hamlenin otomatik zincir derinliği mühür derinliğine ulaşınca bağlı geçit açılır
-                // (doğrudan dokunuş derinlik 0; mührün komşuluk şartı yok). Açılan hücreler bu dalgada soyulmaz.
-                if (_state.SealWave > 0 && !_state.SealOpen && kind == WaveKind.Chain)
-                {
-                    int depth = 1;
-                    foreach (var w in _result.Waves) if (w.Kind == WaveKind.Chain) depth++;
-                    if (depth >= _state.SealWave)
-                    {
-                        _state.SealOpen = true;
-                        pw.SealOpened = true;
-                        OpenGate(_state.SealGate, pw);
-                        score += Scoring.Envelope;
-                    }
-                }
+                // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): vr1 P3 zincir mührü de kalktı (otomatik dalga yok);
+                // eski veri doğrulayıcıda reddedilir.
 
                 // vr1 P3 aşamalı hedef: etkin aşama dalga sonunda tamamlandıysa sonrakine geçilir (fazla aktarılmaz).
                 if (_state.ActiveStage < _state.StageCount - 1)
@@ -707,7 +689,7 @@ namespace KatKat.Core
                 return pw;
             }
 
-            /// <summary>Geçidi açar (düğme ya da mühür): bekleyen hücreler katmanlarıyla etkinleşir.</summary>
+            /// <summary>Geçidi açar (düğme): bekleyen hücreler katmanlarıyla etkinleşir.</summary>
             private void OpenGate(int gate, PeelWave pw)
             {
                 if (gate <= 0) return;
@@ -760,54 +742,6 @@ namespace KatKat.Core
                     _result.SpecialToTray = true;
                 }
             }
-
-            /// <summary>Domino adayları: tamamı bu dalgada yeni açılmış aynı renkten oluşan 3+ bileşenler.</summary>
-            private List<int> ChainCandidates()
-            {
-                var next = new List<int>();
-                foreach (var comp in GroupFinder.AllComponents(_board))
-                {
-                    if (comp.Count < GroupFinder.MinGroup) continue;
-                    if (ChainTouch < 0)
-                    {
-                        // Yalnız yeni açılanlar: bileşenin bu dalgada soyulmuş hücrelerinden oluşan alt gruplar (en az 3, yan yana).
-                        // Açık eski komşu ne engeller ne katılır. -2: hücrenin rengi de değişmiş olmalı; -1: renk şartı yok.
-                        var col = _board[comp[0]].Top;
-                        var inComp = new HashSet<int>();
-                        foreach (var i in comp)
-                            if (_peeled[i] && (ChainTouch == -1 || !(_hasBeforeTop[i] && _beforeTop[i] == col))) inComp.Add(i);
-                        var seen = new HashSet<int>();
-                        foreach (var s0 in inComp)
-                        {
-                            if (!seen.Add(s0)) continue;
-                            var part = new List<int> { s0 };
-                            for (int k = 0; k < part.Count; k++)
-                            {
-                                int c = part[k], cx = _board.X(c), cy = _board.Y(c);
-                                foreach (var nb in new[] { cx > 0 ? c - 1 : -1, cx < _board.Width - 1 ? c + 1 : -1, cy > 0 ? c - _board.Width : -1, cy < _board.Height - 1 ? c + _board.Width : -1 })
-                                    if (nb >= 0 && inComp.Contains(nb) && seen.Add(nb)) part.Add(nb);
-                            }
-                            if (part.Count >= GroupFinder.MinGroup) next.AddRange(part);
-                        }
-                        continue;
-                    }
-                    if (ChainTouch > 0)
-                    {
-                        int fresh = 0;
-                        foreach (var i in comp) if (_peeled[i]) fresh++;
-                        if (fresh >= ChainTouch) next.AddRange(comp);
-                        continue;
-                    }
-                    var color = _board[comp[0]].Top;
-                    bool allNew = true;
-                    foreach (var i in comp)
-                    {
-                        if (!_peeled[i] || (_hasBeforeTop[i] && _beforeTop[i] == color)) { allNew = false; break; }
-                    }
-                    if (allNew) next.AddRange(comp);
-                }
-                return next;
-            }
         }
 
         private static bool NextToPeeled(BoardState board, int i, bool[] peeled)
@@ -849,12 +783,9 @@ namespace KatKat.Core
                 if (g.Type == GoalType.CollectEnvelopes && g.Stage == state.ActiveStage) g.Progress++;
         }
 
-        private static void AddGoal(LevelState state, LayerColor color, bool chain = false)
+        private static void AddGoal(LevelState state, LayerColor color)
         {
-            // v12 deneme: zincir hedefi yalnız domino dalgasıyla soyulan katmanları sayar.
-            if (chain)
-                foreach (var g in state.Goals)
-                    if (g.Type == GoalType.CollectChain && g.Color == color && g.Stage == state.ActiveStage) g.Progress++;
+            if (!HazardRules.Counts(state, color)) return; // Dönen Hedef: yalnız etkin renk
             foreach (var g in state.Goals)
                 if (g.Type == GoalType.CollectColor && g.Color == color && g.Stage == state.ActiveStage) g.Progress++;
         }

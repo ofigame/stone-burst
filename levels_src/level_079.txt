@@ -1,17 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 8 hamle + 1 tepsi / limit 16 (pay +8, eski 17) hedef×0,77 bot 0,50 (hedef 0,46) plan 0; zincir v13: yeni çözüm 5 (eski 8), sınır 16→13, bot 33/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T (ayna); çözüm 12 + 6 tepsi / sınır 14; rastgele 0,060; açgözlü kaybeder; yumuşak 0,19
 id: level_079
-title: Buz Labirenti
-moves: 13
+moves: 14
 roll: off
 specials: on
-goals: blue 31, coral 27, star 2
+goals: yellow 22, blue 22, star 2
 grid:
-bpyb  pyyc  pyyc* #     bpci1 bpbi2 byby
-ypyb  ycy   bbyci2 #     bpc   bpcy* bycy
-pcb   ybpc  ybc   bppc  bpcc  cycy  byc
-pcb   cp    bccb  bcc   bcc   by    bycb
-yppc  ycp   pcpb  bcy   ycy   ycyy  ccyi1
-ycpc  yppc  pbbb  ybbb  ycbp  yby   pcyp
-ppcpi1 ppp   bpy   ybbc  cc    cpypi1 ppyp
-ypcp  bb    ybbc  ybbc  ybbci1 ppc   ypy
-solution: 6,0 ; 4,1 ; 2,2 ; use 0,1,0 ; 4,0 ; use 0,0,0 ; 0,0
+byn   ncni1 gcn   cnby* ccb   ccb   gcbg  gngg
+byb   nyn   ncn   gnny  cnb   ncbg  ngyi1 gnyn*
+bcbn  cgbn  cgy   gny   gnby  ync   ncc   nyyn
+bcbyi2 cyny  cyy   gnyb  gcyi1 ynyy  ncc   nyyc
+bcnb  bcnb  bynb  ccnb  ccyy  bnyy  bnc   byy
+#     #     gbc   cbcg  cby   bny   #     #
+#     #     cbnb  nbc   nbg   nbyg  #     #
+#     #     cbnb  nbcb  nbg   nbyg  #     #
+solution: 3,3 ; 3,0 ; 3,0 ; 2,0 ; use 1,2,0 ; use 2,1,1 ; 0,1 ; use 1,6,0 ; 6,1 ; 1,2 ; use 0,0,0 ; 0,2 ; 4,6 ; 5,4 ; 2,6 ; 7,1 ; use 2,0,1 ; use 0,7,0

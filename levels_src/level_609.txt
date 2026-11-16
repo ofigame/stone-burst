@@ -1,18 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3 (ayna); çözüm 6 hamle + 5 tepsi / limit 12 (pay +6, eski 14) hedef×0,97 bot 0,13 (hedef 0,19) plan 3; zincir v13: yeni çözüm 6 (eski 6), sınır 12→13, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U; çözüm 8 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_609
-title: Bölüm 609
-moves: 13
+moves: 8
 roll: off
 specials: on
-goals: purple 42, yellow 30, blue 40
+goals: green 31, navy 26, purple 25
 grid:
-cpyb  cpyb  G1:cpyp G1:ppyb G1:cyyb #     #
-cbyb  cpyb  ppbp  ppyp  cpyy  cybb  #
-pbby  cbby  ybbp  ppcc  ppyc  ccyy  bcby
-pbpc  cbpyB1 #     #     #     bccp  bccp
-pbcy  cbpy  #     #     #     bycc  yycp
-ppcy  bypy  #     #     #     bccc  ybcp
-bppy  pypy  bbbc  bbbc  bbpp  bccb  ypcb
-#     byby  bbbb  bbpc  pcpb  yccb  yccp
-#     #     yybp  bbpc  pcpb  ybcb  bbcp
-solution: 0,2 ; 0,0 ; use 0,3,2 ; use 0,2,0 ; 6,5 ; use 0,3,0 ; 2,0 ; 5,3 ; use 0,4,0 ; use 0,3,0 ; 6,2
+gyby  G1:gpcy G1:gpcy #     #     G1:bnbg bbbg  nbyg
+bybp  bbbp  ggby  #     #     cnbn  cyyn  nyyp
+bbbb  pbbyk1 byby  pgng  pcny  pbyn  nbgc  nyyg
+bbbb  ppby  byny  pgnb  pcbyk1 pngy  nngy  npbg
+ynpn  nypnk1 bypb  cpyb  bcny  gncyk2 nppy  nppg
+ynpg  nppg  bpyg  cpyy  pyny  gypn  nypn  nypgB1
+yngg  nnpg  cpggk2 cggy  pgny  ggcy  cyby  gypy
+yngc  ngpc  cgpc  cggc  cggn  gggn  gnbb  gybbk1
+solution: 3,3 ; 4,2 ; 4,4 ; use 0,6,0 ; 5,1 ; 6,4 ; use 1,0,1 ; 2,1 ; use 2,2,3 ; 0,1 ; 1,3 ; use 3,0,6 ; use 2,5,0

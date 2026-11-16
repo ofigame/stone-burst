@@ -1,20 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [noSpecials+exact]); çözüm 7 / sınır 8 (v7 10); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 8 (eski 7), sınır 8→13, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil L; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_460
-title: Bölüm 460
-moves: 13
+moves: 9
 roll: off
-specials: on
 type: boss
-rules: exact
-goals: coral 72, purple 73, yellow 36, sponge 2
+rules: noSpecials, exact
+goals: yellow 30, blue 35, sponge 1
 grid:
-#     #     #     ybycSby ybpy  #     #     #
-#     cbyp  ccyp  ccyp  cppy  cppp  pbcp  #
-ypcc  ybcc  ccyp  ccpp  ccpp  cppp  bbpy  pypb
-ypcy  ycyc  ycyc  yccc  bppy  cbcp  bbpc  bpbc
-ppcy  pccc  ycbc  pcbc  pybp  ccbp  ppbc  ppbcScb
-ppcb  bpbb  ccbc  ccbc  ccbp  ccbp  ppbc  ppby
-pppb  bcpb  bcbp  ccbp  bbyy  ccby  cybp  cyby
-yppb  ycpb  bcbb  bcbp  bcyp  bcyc  bpyp  yppp
-pppb  pcpb  cbyy  cpby  ccbp  bybc  bpbp  yppb
-solution: 0,5 ; use 0,4,0 ; 4,0 ; 2,1 ; use 0,4,0 ; 7,2 ; use 0,4,0 ; 4,1 ; 1,1 ; use 0,5,1 ; use 0,3,0 ; use 0,3,0 ; 5,6 ; 2,6 ; use 0,1,4
+bbgn  bggn  gyyn  gyyg  nnng  #     #     #
+bbgn  bnyn  gnyg  ggyb  ngnb  #     #     #
+ybnn  bnyn  byyn  nyyn  ngnn  #     #     #
+gyng  ggyg  yggg  yybn  ygyn  ynyb  gnnb  gnnb
+bygg  gggy  bggy  ybgn  bnyg  bnbb  gngb  gngb
+byyg  gygy  nygb  nybg  bbbg  bybb  ggyb  bggb
+bbng  yybb  nybb  nygy  bygySg bybb  ggnb  bgnb
+bbnn  bynb  byby  bggy  bgby  byby  bggy  bggy
+solution: 0,0 ; 3,4 ; 3,3 ; 1,1 ; 5,4 ; 1,6 ; 3,6 ; 5,5 ; 4,5

@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 7 hamle + 4 tepsi / limit 11 (pay +4, eski 18) hedef×1,12 bot 0,25 (hedef 0,33) plan 1; zincir v13: yeni çözüm 7 (eski 7), sınır 11→11, bot 23/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı (ayna); çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,08; döndürmeyle başlar;
 id: level_352
-title: Dön ve Topla
-moves: 11
+moves: 9
 roll: off
 specials: on
-goals: coral 40, purple 37, star 3
+goals: purple 24, blue 40, envelope 2
 grid:
-ppy   ypb   pccbR pycb  byc   ycp   ycp
-ypy   yyc   yycb  pycbR bycc  bcc   bcc
-ypy   ypyc* pyby  yyb   yyc   ypcy  yccy
-#     ppyc  ypc   yypc  yyp   bpc   #
-#     ppyc  pyc   cycb  cbcc  bbcc  #
-#     ppy   cyyy  cyyb* cbyc  bby   #
-pyy   pppc  byp   bbpp  cpyc  bbyc  bpbc
-pyy   pyy   ppp   bbpp* pppc  bbyc  bcbc
-pyy   byy   bby   bbpp  bbpp  bbyp  ycy
-solution: 5,3 ; 1,0 ; use 0,2,0 ; 0,0 ; 1,6 ; use 1,0,0 ; 5,3 ; 3,2 ; 5,0 ; use 0,3,0 ; use 0,6,2
+#     #     #     yppb  yppb  #     #     #
+#     bcyg  bbyn  bbpn  gpgy  cbyy  gbyb  #
+ggyg  bcyg  ybyn  ybnp  gpgy  cbgy  ybbnR ggbb
+ggyb  gcgc  ybgb  ybnb  gynn  cygn  ynby  ggby
+gnyb  gpcb  ypgb  gbnc  gbnnEp gbng  gnynR ggny
+gbyb  gbyp  gbgc  gbnc  bygn  gybg  gbng  npny
+bnyg  ggyp  ggcb  ggcc  bpgg  cybg  nygg  npgy
+bppg  gppp  gccp  gcbpEc bygp  cbcp  bbgp  npgy
+yppg  yppb  yycp  yybp  cybp  cbpnR cbbb  cpgy
+solution: rot 5,8 ; 1,5 ; 5,4 ; use 0,3,0 ; 3,4 ; use 1,4,0 ; use 0,3,0 ; 2,1 ; 6,3 ; use 0,3,2 ; 0,3 ; 2,3 ; use 0,3,0 ; use 1,3,1

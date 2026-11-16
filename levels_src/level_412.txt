@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 5 hamle + 5 tepsi / limit 9 (pay +4, eski 13) hedef×1,30 bot 0,25 (hedef 0,30) plan 0; zincir v13: yeni çözüm 7 (eski 5), sınır 9→12, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T (ayna); çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_412
-title: Bölüm 412
-moves: 12
+moves: 9
 roll: off
 specials: on
-goals: coral 42, purple 35, sponge 1
+goals: blue 26, star 4, sponge 1
 grid:
-#     #     #     #     cpy   ccyc  ccpc
-#     #     #     cpyy  cyp   cyyc  ccp
-#     #     pcy   pyy   pyyy  ycy   ccyy
-#     pbcp  pbcy  ybby  ypyb  ypyScb ypyy
-cbbp  cbbp  ybby  ybby  ypc   ypy   ppy
-cbp   cbb   cbby  pbcb  ppcb  ycc   ycyc
-cbpc  byp   pyby  pyc   yyp   ybc   ccc
-pbp   pby   yyby  yypy  yyp   ybc   yccb
-ybp   cby   cby   cypb  yypb  bbcb  bbbb
-solution: 3,1 ; use 0,5,0 ; 2,3 ; use 0,4,0 ; 4,0 ; 5,6 ; use 0,6,0 ; 4,0 ; 4,6 ; use 2,5,0 ; 1,3 ; use 0,1,3
+gynp  bbcp  bbgp  pbgy  pcbySgc pgny  pgny  cgny
+gycp  gycc  bgbc* pggn* ycnn  gbny  gbcy  npcn
+pbgc  gygc  pcgc  pcgn  ynyg* gpgy  npgn  npcn
+pcnc  pyny  pcpy  pcgg  bcgg  ggby  gggy  pnbn
+ycnc  ycnb  pnpy  pncp  cccn* cncy  cncn  pnnn
+ypgc  yngb  yngp  nycb  gbnn  cbnn  cbnn  pbny
+#     #     ppcb  nycb  gynn  ccny  #     #
+#     #     bpcb  bpnb  gpnb  ccny  #     #
+#     #     bypc  bynb  nybb  ncby  #     #
+solution: 5,0 ; 5,0 ; 3,5 ; 4,5 ; use 0,5,1 ; 5,0 ; use 2,4,0 ; 4,3 ; use 3,4,0 ; use 0,3,0 ; 1,1 ; use 0,4,0 ; 3,0 ; use 2,0,1 ; use 0,3,0

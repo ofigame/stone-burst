@@ -10,7 +10,7 @@ namespace KatKat.Core
         public const int RocketCreated = 50;
         public const int RainbowCreated = 100;
 
-        /// <summary>Dalga sırasına göre katman puanı: domino uzadıkça her katman daha değerli.</summary>
+        /// <summary>Dalga sırasına göre katman puanı: hamlenin sonraki dalgaları (v14: yalnız özel taş dalgaları; zincir yok) daha değerli.</summary>
         public static int Layer(int waveIndex) => LayerBase * (1 + waveIndex);
 
         /// <summary>0 (kazanılmadı) – 3 yıldız. Eşik yoksa kazanmak 3 yıldız sayılır (eski veri).</summary>

@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3 (kaydırılmış) (ayna); çözüm 9 hamle + 7 tepsi / limit 18 (pay +9, eski 17) hedef×1,15 bot 0,13 (hedef 0,20) plan 2; zincir v13: yeni çözüm 10 (eski 9), sınır 18→23, bot 0/112; zincir v13 kolaylaştırma: hedef −%24, sınır 15, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T; çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_951
-title: Bölüm 951
-moves: 15
+moves: 9
 roll: off
 specials: on
-goals: blue 11, coral 38, envelope 2
+paint: 2
+goals: purple 24, blue 29, navy 13
 grid:
-ccy   ccy   ccy   ccyR  ybp   #     #
-ccc   cccc  cbpc  pbyc  yyy   bypc  #
-ccc   ccc   #     #     #     yypc  cycc
-bcp   bccy  #     #     #     pyp   pypR
-pypR  ccp   #     #     #     pcy   pcy
-cyy   ccp   pcp   ppyy  ppyyEp bcyy  bcy
-pcp   pcp   pcp   cpp   ypyy  ycp   ycy
-#     pcpy  ccpyEy cbyy  cbp   pbpy  yyp
-#     #     cby   cbyc  cbpc  pbc   pyc
-solution: 0,3 ; 3,8 ; use 0,0,0 ; 5,6 ; use 0,4,0 ; 0,0 ; 0,1 ; use 0,4,0 ; 4,0 ; use 0,3,0
+ybgp  ycgp  ccbc  cpbc  cpgg  ypbp  npbp  ynbg
+yygp  ycby  cyyy  ynyc  ccgg  ycbp  bccg  yccg
+bygy  bccy  pycb  yppb  bppb  bgpb  bncb  pccb
+bcgc  pccp  pbcp  cbpb  cgbb  yggn  pngn  pcgb
+bggc  pggp  cggg  cncnLb6 cnbn  ypbg  bpgn  pygb
+ccgc  cgbp  ccbg  nccgLy4 bccy  yccg  yngg  nnyb
+#     #     nbpp  ncpy  pyby  pybc  #     #
+#     #     gbbp  yggg  yybc  ynbc  #     #
+#     #     gbbg  gggg  pgbg  ynbc  #     #
+solution: 2,2 ; 5,0 ; use 0,5,3 ; 5,2 ; use 0,0,0 ; 5,0 ; 5,5 ; 5,6 ; use 2,6,0 ; use 0,6,0 ; use 0,5,0 ; 2,2 ; 0,3 ; use 1,2,0 ; use 0,3,4

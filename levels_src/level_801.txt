@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 9 hamle + 5 tepsi / limit 13 (pay +4, eski 14) hedef×1,31 bot 0,21 (hedef 0,21) plan 1; zincir v13: çözüm aynı, sınır 13→13, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı (ayna); çözüm 9 + 8 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_801
-title: Bölüm 801
-moves: 13
+moves: 10
 roll: off
 specials: on
-goals: purple 42, yellow 54
+goals: green 30, yellow 26, navy 34, envelope 3
 grid:
-pyp   pyp   yyc   yccb  pcc   pcci2 pbc
-pcpc  pppc  yypc  ypp   ycpp  ycp   bcc
-pyyc  cyy   ybyy  ypyi1 yby   yby   pcyp
-yyyc  cyy   #     #     #     yby   pbyi1
-bbpc  bypbi1 #     #     #     ccpp  ycpp
-pbbi2 byp   #     #     #     bcp   ycpp
-pbbK1:2 bbbi2 cbbb  ccpb  bbp   bbp   ycy
-cbbK1:2 cpb   cpyb  cpyb  byyb  ybyp  yyyi1
-cbb   cbbb  cpyb  cpyb  byyb  yyypi1 yyy
-solution: 2,6 ; 2,0 ; use 0,0,0 ; 0,0 ; 0,4 ; use 1,0,0 ; 2,0 ; 6,6 ; 6,7 ; 4,0 ; use 0,6,0 ; 0,4 ; use 0,6,0 ; use 0,4,1
+#     #     #     nyyn  nycn  #     #     #
+#     gcpy  gpyy  cpyy  cncn  yncy  bccy  #
+gbgb  gcpp  gpgp  cgnp  cppg  yppn  gnnn  gpnn
+pbnb  pbnb  pbgpEp pgnp  bppg  bppn  gncg  gpcgEy
+pgny  ggny  nbnp  ngpp  bnpc  ccng  cncg  bbcy
+pyny  ncng  nccg  ccbg  ccbc  ccnp  cncp  bbyb
+cnyg  ccyg  cccn  cncn  cncn  ccgp  bbcg  bbyb
+ynyg  ygyg  cybn  cyby  ccbyEp ccgg  cccg  bccb
+ynyg  ynyb  bycb  bycb  cbcy  pccy  pcpy  bcpb
+solution: 1,5 ; 0,4 ; 0,4 ; use 0,1,1 ; use 1,4,0 ; 1,1 ; use 0,3,0 ; use 0,2,2 ; 2,7 ; 1,7 ; 1,2 ; use 2,2,2 ; 1,5 ; 0,2 ; use 2,6,2 ; use 0,0,2 ; use 0,0,2

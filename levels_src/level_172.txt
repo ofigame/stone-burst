@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 6 hamle + 4 tepsi / limit 11 (pay +5, eski 15) hedef×0,94 bot 0,54 (hedef 0,43) plan 0; zincir v13: yeni çözüm 5 (eski 6), sınır 11→10, bot 25/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı; çözüm 7 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
 id: level_172
-title: Rulo Anahtarı
-moves: 10
+moves: 9
 roll: off
 specials: on
-goals: coral 31, purple 25
+goals: navy 31, coral 29, purple 36
 grid:
-#     #     #     #     bpp   cyb   ccb
-#     #     #     byb   yyy   cyb   yyb
-#     #     cyp   ybp   cyyLb8 cyb   bpb
-#     cyy   ccb   ppc   cyp   cpp   bpp
-ypp   ppy   pbb   ycb   ycy   cpp   bpp
-ypy   ppc   ypc   yyb   ycy   bby   cby
-yyc   yyc   ybc   cyy   pcy   pcp   cpp
-cyy   ybc   ybc   ppc   pyy   cyy   cyc
-bbp   ybp   ybp   cbp   ccp   yyb   ycb
-solution: 1,5 ; use 0,4,0 ; 5,0 ; 6,2 ; 4,1 ; use 0,3,1 ; use 1,6,0 ; use 0,6,0 ; 3,1 ; use 0,2,2
+#     #     byn   bynp  bnpp  bnpp  #     #
+#     #     pynp  pnnp  pncp  cnpp  #     #
+bbc   bbcc  bbp   bcpy  cccy  ccn   byn   yynb
+cpc   cbn   yyc   cyc   bcc   byby  byn   ynbb
+cpy   ybny  ynny  cypp  cyy   byby  cybb  ppbb
+cby   nby   nnyn  nnypLn4 pnyp  cny   pcpb  pppb
+bby   ybpp  ycyni1 ycpp  pbpni2 cnpb  yppb  ypb
+#     #     ncy   cypi1 cynn  cnn   #     #
+#     #     ncbb  cyp   cypn  nbpn  #     #
+solution: 3,0 ; use 0,2,0 ; 3,4 ; 6,2 ; 1,4 ; 2,6 ; use 0,4,1 ; 6,2 ; use 0,4,0 ; use 0,4,0 ; 3,2 ; use 1,5,1 ; use 1,3,1

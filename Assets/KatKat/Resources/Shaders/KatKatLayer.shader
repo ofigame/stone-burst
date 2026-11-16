@@ -3,9 +3,11 @@
 //   COLOR        : ana renk (a = opaklık)
 //   TEXCOORD0    : maske/işaret UV
 //   TEXCOORD1.x  : ön yüz oranı (1 ön yüz, 0 alt yüz), .y ışık çarpanı
-//   TEXCOORD2.xy : işaret atlası hücresi (0/1, 0/1), .z işaret gücü, .w yüzey türü (0 üst yüz, 1 yan, 2 düz)
+//   TEXCOORD2.xy : atlas hücresi (LayerPalette.IconCell: x 0..3, y 0/1), .z işaret gücü, .w yüzey türü (0 üst yüz, 1 yan, 2 düz)
 // _MainTex: yuvarlatılmış kare maskesi (a = şekil, r = yastık tonu, g = parlama lekesi, b = sol üst ışıltı)
-// _IconTex: 2x2 kabartma işaret atlası (r = koyu oyuk, g = açık vurgu)
+// _IconTex: 2x2 kabartma işaret atlası (r = koyu oyuk, g = açık vurgu); yalnız ilk dört rengin işareti var (x < 2)
+// _FaceTex: v6 renkli taş atlası, _FaceGrid.xy sütun/satır (512 px hücre; 2048x1024 → 4x2). Hücre ızgara dışındaysa
+//           (eski 2x2 atlas + yeni renk) o taş eski maske + renk yoluna düşer.
 // Işık sol üstten; siyah dış çizgi yok. Premium-v2 rehberi §7: ana renk + kenar açılması + yumuşak parlama + alt kenar koyulaşması.
 Shader "KatKat/Layer"
 {
@@ -15,6 +17,7 @@ Shader "KatKat/Layer"
         _IconTex ("Icon Atlas", 2D) = "black" {}
         _FaceTex ("Colour Stone Atlas (v6)", 2D) = "black" {}
         _UseFace ("Use Colour Stones", Float) = 0
+        _FaceGrid ("Colour Stone Atlas Grid (cols, rows)", Vector) = (2, 2, 0, 0)
         [Enum(Off,0,On,1)] _ZWrite ("ZWrite", Float) = 0
         _Cutoff ("Cutoff", Range(0,1)) = 0.01
         _Gloss ("Gloss", Range(0,1)) = 0.5
@@ -38,6 +41,7 @@ Shader "KatKat/Layer"
             sampler2D _IconTex;
             sampler2D _FaceTex;
             float _UseFace;
+            float4 _FaceGrid;
             float _Cutoff;
             float _Gloss;
 
@@ -78,9 +82,10 @@ Shader "KatKat/Layer"
 
                 // v6 renkli taşlar: üst yüz doğrudan atlastaki çizimdir (işaret çizime işli, 8 px pay: 496/512).
                 // Soyulurken görünen alt yüz eski maskeyle çizilir; ikisi arasında face.x ile geçilir.
-                if (_UseFace > 0.5 && kind < 0.5)
+                // Hücre → UV: ızgaraya bölünür (4x2 atlasta ilk dört hücrenin texel eşlemesi eski 2x2 ile birebir aynı).
+                if (_UseFace > 0.5 && kind < 0.5 && i.icon.x < _FaceGrid.x - 0.5 && i.icon.y < _FaceGrid.y - 0.5)
                 {
-                    fixed4 art = tex2D(_FaceTex, (i.icon.xy + 0.015625 + i.uv * 0.96875) * 0.5);
+                    fixed4 art = tex2D(_FaceTex, (i.icon.xy + 0.015625 + i.uv * 0.96875) / _FaceGrid.xy);
                     fixed3 backV6 = lerp(baseCol, fixed3(1, 0.97, 0.94), 0.34) * (0.86 + 0.16 * mask.r);
                     float f = saturate(i.face.x);
                     float a = lerp(mask.a, art.a, f);
@@ -105,6 +110,8 @@ Shader "KatKat/Layer"
                 // Üst yüz: yastık tonu, kabartma işaret, sol üstte yumuşak ışıltı ve küçük parlama lekesi.
                 fixed3 front = baseCol * (0.58 + 0.47 * mask.r);
                 fixed4 icon = tex2D(_IconTex, (i.icon.xy + i.uv) * 0.5);
+                // Eski işaret atlası 2x2: yeni renklerin (x ≥ 2) işareti yok, kenara kenetlenen şerit görünmesin.
+                icon *= i.icon.x < 1.5 ? 1.0 : 0.0;
                 fixed3 groove = i.icon.x < 0.5 && i.icon.y > 0.5 ? fixed3(0.43, 0.38, 0.34) : baseCol * 0.64;
                 front = lerp(front, groove, icon.r * i.icon.z);
                 front = lerp(front, front + 0.18, icon.g * i.icon.z);

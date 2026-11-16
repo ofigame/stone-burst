@@ -1,19 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 4 hamle + 4 tepsi / limit 7 (pay +3, eski 11) hedef×0,97 bot 0,21 (hedef 0,22) plan 1; zincir v13: yeni çözüm 6 (eski 4), sınır 7→9, bot 33/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı (ayna); çözüm 8 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_752
-title: Bölüm 752
 moves: 9
 roll: off
 specials: on
-paint: 1
-goals: coral 40, purple 34
+paint: 2
+goals: blue 32, coral 30, purple 35
 grid:
-bbc   pcpb  pcp   ycyp  #     #     #
-bycc  byy   byc   bcp   #     #     #
-byc   cyp   cyp   ycp   #     #     #
-ccc   bpcc  bpp   ypyc  #     #     #
-ccy   cpbc  bpc   bppb  bpc   bppp  ybp
-ccy   ypy   bpcb  bcc   byc   pppp  ycpp
-bpy   yyb   bcbb  ycbc  bccc  pcpp  ycpp
-byyy  yyy   yybc  yybc  byb   pbc   bccp
-bcy   yyy   yyby  pyb   bbpc  pbp   pbpb
-solution: 0,4 ; 0,0 ; 2,0 ; use 0,2,0 ; 4,4 ; use 0,2,0 ; 1,3 ; 0,1 ; use 0,1,2 ; use 0,3,3
+#     #     pcgp  cggg  nbgc  npnc  #     #
+#     #     nggp  cggg  nbgn  npgc  #     #
+gggp  ncgp  nggp  ncyp  nbcp  gbbc  gpyc  npyc
+gggp  gbgc  ggyp  ncyp  nnnn  gpby  gpyy  npnc
+bgpp  bbpc  bgpc  nnyc  ppnp  nbnb  nbnb  npbb
+bncp  bnbg  nnpc  nnyc  npypK1:1 npnp  gpny  ypby
+bncc  bnbg  cbpg  cbygK1:1 ycyg  bcyp  ygby  ygbc
+#     #     gnbp  cgbc  bgcg  bcyp  #     #
+#     #     gngp  gngc  nncg  bcny  #     #
+solution: 2,0 ; use 0,4,0 ; 1,5 ; use 0,0,4 ; 2,0 ; use 0,4,0 ; 3,2 ; use 0,2,0 ; 4,0 ; use 0,5,2 ; 4,4 ; 3,0 ; 7,3 ; use 1,2,0 ; use 0,0,3 ; use 0,4,1

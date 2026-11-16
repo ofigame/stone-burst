@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [noSpecials+exact]); çözüm 9 / sınır 13 (v7 17); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; zincir v13: yeni çözüm 12 (eski 9), sınır 13→18, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil merdiven; çözüm 16 + 0 tepsi / sınır 16; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
 id: level_820
-title: Bölüm 820
-moves: 18
+moves: 16
 roll: off
-specials: on
+paint: 1
 type: boss
-rules: exact
-goals: coral 58, purple 41, yellow 57
+rules: noSpecials, exact
+goals: purple 28, coral 36, navy 37
 grid:
-cbyy  cybpi1 pybc  #     #     pbyb  ppyb  ypcb
-cyyy  yybci1 yycc  #     #     ybyp  yccy  ypcy
-cpyp  cpyb  ybyc  #     #     yycp  bbcy  ybcy
-cbypLb8 bpyy  bpyc  pcbb  ycpb  bccc  bcby  bcby
-ybyp  ypyp  bpyci1 pppb  ppcc  yyybi1 cccc  cccy
-ybybi1 ybyb  bbyb  bpyb  cpcbLc8 cycc  cyyc  cyyy
-cyyb  yypb  pcyb  pcyb  bcbp  cbbpi2 cbbp  cyby
-cccc  ypyb  pcbbi2 ppbb  yppb  bbcp  bbpp  yybp
-pbybi2 pbyb  bbyb  bcyb  bcbb  bccp  bbcp  yyyp
-solution: 6,1 ; 3,3 ; use 0,2,0 ; 0,2 ; 1,2 ; use 0,1,0 ; 5,2 ; use 0,0,0 ; 4,6 ; 6,5 ; 3,3 ; use 0,1,1 ; 5,6 ; 5,0 ; use 0,6,0 ; use 0,7,0 ; 6,2 ; 1,0 ; use 1,1,0
+nnpc  ngpc  ncgc  cngg  #     #     #     #
+nnng  ngng  ncnc  cngg  gppg  #     #     #
+ngnp  ngng  ngnc  npgc  gppc  gnpc  #     #
+ngpp  ngpp  ngnc  npng  npng  gnpc  gggc  #
+ngnn  ngnn  ngpc  nppg  ppcg  pcpn  ncgc  ncpp
+npcp  ppcc  pgcc  nnpn  cncn  pcpp  ccgp  ccgp
+pgcp  pgcc  pgcc  ngpn  cnnp  pcnp  cggg  cgpg
+ggcg  ggcg  ngpg  ngpg  npnc  gcnc  pcgc  ngpg
+ggcc  ngcc  nccg  nccg  ncng  gcng  pcnc  nppg
+solution: 0,7 ; 0,0 ; 7,4 ; 4,7 ; 3,5 ; 5,6 ; 2,0 ; 4,1 ; 2,1 ; 4,1 ; 0,1 ; 0,1 ; 4,6 ; paint 0,1,p ; 0,0 ; 0,0

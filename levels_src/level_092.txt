@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 6 hamle + 3 tepsi / limit 10 (pay +4, eski 10) hedef×1,26 bot 0,63 (hedef 0,50) plan 0; zincir v13: yeni çözüm 4 (eski 6), sınır 10→8, bot 26/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil elmas; çözüm 6 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: level_092
-title: Komşu Örtüler
-moves: 8
+moves: 9
 roll: off
 specials: on
-goals: coral 20, purple 21
+goals: yellow 19, purple 15, green 21
 grid:
-byy   pyp   ppp   ppy   ppy   cpb   ppbi1
-bpck1 pcy   pby   bpy   cbb   cpb   ppb
-bcc   bcy   cyy   bby   pyb   yyb   pyb
-bcb   bcb   bcb   bby   yyb   ybb   bbck1
-ccb   bcb   bcb   bby   ybb   ycb   bcc
-#     #     yyy   yyyi1 bbc   #     #
-#     #     pyy   pyy   byy   #     #
-#     #     pby   pyci1 pyy   #     #
-solution: 2,5 ; 3,0 ; 5,0 ; use 1,5,0 ; 1,0 ; use 0,6,0 ; use 0,2,0 ; use 0,0,2
+#     #     #     cnc   ycp   #     #     #
+#     #     cpcp  cncp  yncp  pngp  #     #
+#     cngn  gnn   ynnc  ynn   pnn   pcy   #
+cnyn  cngn  gyny  cyni2 ccng  ccg   ccnp  ncy
+cnyn  cny   nynci1 gnpy  pnn   cngc  gcnp  npn
+ngy   nnyc  cypc  gnp   pnp   png   gggp  ngp
+#     nnyc  cypc  cypg  ygg   gggci1 gygci1 #
+#     #     cyyc  ggy   ggcc  ggyc  #     #
+#     #     #     gnc   gncp  #     #     #
+solution: 1,5 ; use 0,2,1 ; 1,4 ; use 0,4,0 ; 1,2 ; use 0,5,1 ; 5,1 ; 5,6 ; use 0,6,2 ; 6,5 ; use 1,3,0 ; use 0,0,3

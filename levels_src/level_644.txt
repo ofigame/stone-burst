@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 7 hamle + 6 tepsi / limit 10 (pay +3, eski 11) hedef×1,14 bot 0,17 (hedef 0,19) plan 2; zincir v13: yeni çözüm 8 (eski 7), sınır 10→15, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 9/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven; çözüm 10 + 7 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_644
-title: Bölüm 644
 moves: 11
 roll: off
 specials: on
-goals: coral 30, purple 39, yellow 31
+goals: navy 16, blue 18, yellow 24
 grid:
-bbbb  G1:bbbb G1:ybbb G1:ybpc G1:cbpc G1:cbpc ybbc
-bbbb  bbbb  bppb  ybpp  pbcp  ybbc  ybbc
-cbbb  bbbb  bybb  pybb  ppbb  ppcb  pccb
-ppbp  ppbb  ppbb  pybb  pycb  cpcb  pyby
-pyyy  ybbp  ybbp  yybb  pybc  cybc  pypc
-pyyc  cbyc  pbbp  pybbB1 cybc  cypy  pypb
-#     #     ybbc  yybb  cybp  #     #
-#     #     yybc  pypb  pbcp  #     #
-#     #     yycp  pycb  ybbc  #     #
-solution: 0,0 ; 0,0 ; 2,1 ; use 0,3,0 ; use 0,0,0 ; use 0,3,0 ; 2,1 ; 4,6 ; use 1,6,0 ; use 0,4,0 ; 2,7 ; 0,3
+G1:byyy G1:bgyy G1:bgnp #     #     #     #
+bgyy  bcyc  bpnp  bpnp  #     #     #
+ggnc  bcyc  bcyc  ypng  yyngi1 #     #
+gggc  gggc  yybc  yybg  yybn  cynn  #
+ggppi2 ggpp  gyyp  cbyc  ypbc  npnnB1 ngny
+gppp  ggpp  gbyc  cbyci1 cbpc  cgpc  ngpp
+ppcbi1 ppcb  ppbb  ppbp  cpgc  cggc  cgpp
+pccb  pcyn  ppyp  ppbp  cbby  cggci2 cgyp
+nccn  nccn  npcn  ppgn  ppyn  pgyc  cgyc
+solution: 1,7 ; 4,3 ; 3,6 ; 3,4 ; use 1,0,1 ; 4,3 ; 5,3 ; 4,4 ; use 0,0,4 ; 1,1 ; use 0,2,3 ; 0,0 ; use 2,0,0 ; 0,6 ; use 0,0,0 ; use 0,0,0 ; use 0,6,4

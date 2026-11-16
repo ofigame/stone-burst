@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 6; chain [chainOnly+exact]; zincir yellow 10; çözüm 14 / sınır 15 (v7 12); açgözlü kaybeder; bot48 0,08 (taban 0,04); zincir v13: yeni çözüm 14 (eski 14), sınır 15→15, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 529 + tür protect; şekil artı; çözüm 9 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d002_t6
 title: Günlük 2
-moves: 15
+moves: 9
 roll: on
 specials: on
-type: chain
-rules: chainOnly, exact
-goals: blue 52, purple 56, sponge 2, chain yellow 10
+type: protect
+rules: protect, exact
+goals: yellow 19, coral 27, navy 19
 grid:
-#     #     #     #     cyyc  pyyc  cycp
-#     #     #     ybpb  ybyc  ybyp  cbypSbyc
-#     #     cbbb  ybpb  ybpb  ybppSby cbpy
-#     pypb  yypb  ybpp  bbpb  bbcy  cbcy
-pycp  ppcp  yppp  yppp  bppp  yycy  bycy
-pppc  cpcc  cpcc  cypc  cpbc  cybc  cybc
-pypc  pycp  yppb  yppy  ycbc  yccb  yypb
-bycb  bycb  bpbb  byby  pybb  pypb  pypb
-bycb  bycp  bpcp  bycp  byyp  bypb  bbpc
-solution: 0,5 ; use 0,3,1 ; 1,3 ; 6,2 ; use 0,6,0 ; 6,2 ; roll 2 ; 0,4 ; 3,5 ; roll 8 ; use 0,6,1 ; 2,7 ; roll 7 ; use 2,2,2 ; 4,0 ; 4,0 ; 4,1 ; roll 0 ; use 0,0,6
+#     #     gpybP gcyb  ncyp  ncyp  #     #
+#     #     cpgb  nyyb  nyyn  nyyn  #     #
+yygp  cybp  cpbp  gpbc  gpnn  nycn  bycb  yggp
+gyycP gnbp  ccbp  gpbci1 gpnc  pncbi2 pgcb  yggp
+gyyb  gbyb  gcnb  ggbb  pgcc  yncg  npcbi1 ypcp
+gcyb  gbpbi1 gbnb  gbbb  pbcc  pycc  npcp  nngpP
+ycpn  gbpn  gbpc  bbbc  bncc  pygc  ppgp  nngpi2
+#     #     gnbb  gnbc  bnpc  pypy  #     #
+#     #     gnyb  gnyc  bgpc  pgpy  #     #
+solution: 0,4 ; 3,2 ; 4,1 ; use 2,5,0 ; use 1,5,0 ; 5,3 ; roll 1 ; 4,1 ; 3,2 ; use 3,2,4 ; roll 4 ; use 1,6,2 ; 0,2 ; use 2,3,1 ; use 1,6,2 ; use 0,0,4

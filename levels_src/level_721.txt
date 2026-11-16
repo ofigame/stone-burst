@@ -1,19 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 8 hamle + 5 tepsi / limit 13 (pay +5, eski 12) hedef×1,14 bot 0,25 (hedef 0,22) plan 0; zincir v13: yeni çözüm 9 (eski 8), sınır 13→14, bot 14/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil elmas (ayna); çözüm 10 + 7 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_721
-title: Bölüm 721
-moves: 14
+moves: 11
 roll: off
 specials: on
 paint: 1
-goals: purple 40, yellow 50
+goals: coral 16, blue 18, yellow 15, star 3
 grid:
-ccp   yppy  yppc  ypc   ccc   cpc   cpc
-ccpy  ycpy  pypy  pppp  cpcp  pbc   cbbb
-bbp   cypy  cyp   cyp   cpbp  pbb   pbb
-#     cbcy  pbc   cyb   cyb   pbcb  #
-#     cpp   cby   cbb   yyc   pbp   #
-#     yyp   yyp   cyc   yyc   ybp   #
-cyyy  pyy   yyp   yybc  ypb   ycy   pcb
-bcb   yyp   cyb   cyy   cybc  byy   pcb
-cyby  cyb   cyb   cyyc  cybc  cyb   pyb
-solution: 3,1 ; 1,0 ; 6,1 ; use 1,0,0 ; use 1,1,0 ; 0,0 ; 5,1 ; 2,0 ; use 0,0,0 ; 0,7 ; use 0,2,0 ; 3,7 ; 3,6 ; use 3,3,1 ; use 0,0,0
+#     #     #     bnpp  bncp  #     #     #
+#     #     ngbp  ngpp  bgcb  cgcb  #     #
+#     ngng  ngbn  cypn  cygn  cngp  bbgp  #
+pbnc  pgnc  cgbb  cnbb  ynyb  ynyp  pbcn  ppcn
+bbpc  bnnb  bgbp  cgyp  ybyy  ncyn  gcgn  ppcn
+bbpb  gnbb* gnbg  nngg  ybcy  nbcn  gpgn  gpgn
+#     ggnp  ggng  nggy  ypcy  nbnn* gpnn  #
+#     #     pgng  gppy  gpny  nynn  #     #
+#     #     #     ccpy  cpyy* #     #     #
+solution: 6,3 ; 4,4 ; use 0,0,3 ; use 0,4,1 ; 5,2 ; 4,3 ; 2,2 ; use 1,2,2 ; use 0,5,1 ; paint 2,3,n ; 0,3 ; 1,5 ; use 0,0,3 ; 3,0 ; use 0,4,0 ; 3,7 ; use 0,4,0

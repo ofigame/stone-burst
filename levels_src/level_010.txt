@@ -1,16 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U (ayna); çözüm 4 hamle + 3 tepsi / limit 10 (pay +6, eski 8) hedef×1,24 bot 0,25 (hedef 0,55) plan 2; zincir v13: yeni çözüm 3 (eski 4), sınır 10→13, bot 2/112; zincir v13 kolaylaştırma: hedef −%12, sınır 9, bot 31/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dikdörtgen; çözüm 4 + 4 tepsi / sınır 5; rastgele 0,005; açgözlü kazanır; yumuşak 0,02
 id: level_010
-title: Bölüm 10
-moves: 9
+moves: 5
 roll: off
 specials: on
-goals: blue 30
+type: boss
+rules: exact
+goals: navy 33
 grid:
-bc    bcy   #     #     cy    byy
-bcb   yyc   #     #     cbc   cb
-byc   bcy   by    byc   cyc   ybc
-bc    bbc   by    byc   bbc   by
-ycb   yc    bcb   yy    by    byy
-bc    bcc   bc    byc   byc   by
-ccc   bc    bcc   bcc   bcc   yy
-solution: 0,2 ; use 0,1,0 ; 0,1 ; use 0,0,0 ; 4,1 ; use 0,1,0
+np    pp    nn    np    bb    np
+pp    nn    nb    pb    pn    bn
+pb    np    pn    pn    bb    pn
+bp    bp    pn    bn    pp    bn
+pn    np    np    bn    bb    np
+nb    nn    bb    nb    pb    nn
+nb    bb    pn    bn    nn    nn
+solution: 1,2 ; 1,1 ; use 1,0,0 ; 5,0 ; 3,3 ; use 1,0,0 ; use 0,2,0 ; use 0,2,0

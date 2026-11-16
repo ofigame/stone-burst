@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı; çözüm 6 hamle + 5 tepsi / limit 10 (pay +4, eski 13) hedef×0,96 bot 0,29 (hedef 0,27) plan 2; zincir v13: yeni çözüm 7 (eski 6), sınır 10→15, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T; çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_356
-title: Takımada Turu
-moves: 15
+moves: 9
 roll: off
 specials: on
-goals: coral 31, purple 27, yellow 31, star 3
+goals: green 22, purple 39, navy 28
 grid:
-#     #     #     pcy*  #     #     #
-#     cpc   cbcy  pcyyR pcb   pcb   #
-ccby  ccby  ccby  pcy   cpyb  pcy   ypb
-bc    pcbyR pcb   ppy   cpy   cpy   yb
-bbby* pbyy  yc    pyc   py    ybyc* cpby
-bbby  cbcb  pbp   pbp   pbp   ybp   pbb
-ybb   ybb   byb   bpy   cpy   pycy  yb
-bppy  bppy  cpby  ybb   pyb   pyc   yyc
-bpy   bbyy  ccyy  cbb   ybby  cycb  yycb
-solution: rot 3,1 ; 3,0 ; use 0,2,1 ; 2,6 ; use 0,1,1 ; 2,5 ; use 0,0,4 ; 0,3 ; 1,3 ; 5,4 ; use 1,0,4 ; use 0,6,4
+nggb  nggb  nycn  bycn  bgyc  bgyc  bgcp  cgcp
+ccyb  ccgc  bcnn  bynn  pnyc  pnyc  cypp  cypp
+cygp  ccgp  gcnni1 gcng  bcyg  bcpp  bngp  bnyp
+pycy  pccg  pccni2 pcyg  pcyy  ccpc  ccpc  cnyp
+bycyi1 pyng  bccp  pcyg  pcyn  cggn  ccbb  ccgb
+bygy  yyyy  ybyp  ppyp  nnyp  cngc  pnbc  ccgb
+#     #     ybnp  pppp  npyp  nnyci1 #     #
+#     #     yynn  pypp  ppbp  gnbci2 #     #
+#     #     yynn  ypcp  ppcp  gbpp  #     #
+solution: 6,0 ; use 0,6,1 ; 4,0 ; use 0,6,0 ; 2,0 ; 4,0 ; use 1,2,1 ; use 0,4,0 ; 2,0 ; 3,3 ; 0,0 ; 0,0 ; use 0,0,0 ; use 0,0,0

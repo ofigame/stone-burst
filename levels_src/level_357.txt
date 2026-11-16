@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: resource [exact]; çözüm 9 / sınır 13 (v7 12); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 13→14 (112 oyunda 6 galibiyet); zincir v13: yeni çözüm 9 (eski 9), sınır 14→14, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil kesik köşe (ayna); çözüm 11 + 9 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_357
-title: Yıldız Planı
-moves: 14
+moves: 11
 roll: off
 specials: on
-type: resource
+type: exact
 rules: exact
-goals: purple 47, yellow 57, blue 43, star 2
+goals: green 26, yellow 21, envelope 3
 grid:
-ypby  ybyy  ybpy  ybpy  pcpy  pcpy  pccy
-ypyy  ycyy  pcyy  pcpy  pcpy  bccy  ycpp
-ybyy  bcpc  bcpy  pcpy  pbcyR bbcb* bbcb
-bbyy  bccc  #     #     #     ybcp  ybcy
-bbby  bccy  #     #     #     ypcb  ypcp
-bbbb  ppcy  #     #     #     ybcb  ypcy
-bbbb  bcpy  bcpb  ycpc  pbpc  pbcp  yccy
-bpbc  bppc  ycpc  yppc  cppcR ybcy  ybcy
-bppp* bbcpR yccc  ypcc  cpcc  ypcy  yyyy
-solution: 0,0 ; use 0,0,0 ; 1,0 ; use 0,0,0 ; 1,1 ; 0,2 ; use 0,1,0 ; use 0,2,1 ; 5,3 ; use 0,1,5 ; 0,5 ; 0,0 ; 2,7 ; use 2,0,7 ; 5,7 ; use 0,6,0 ; use 0,6,0
+#     #     bgpc  bgpnEy gpng  cpngEy #     #
+#     cpyc  bgbc  pppn  gpnbR cpnn  cpbn  #
+gppp  gpbg  bpbg  pbcg  ppnc  pgnc  pgbn  pnbn
+ppgp  gpbp  gbpg  pbcy  ppcc  pbcgR bbcbR cncnEc
+ypgp  cpnp  gpyp  gbyy  gbcn  ybpn  pgbc  cgbn
+ypbb  cgnb  yyyb  ygcc  pgcc  yybp  pgyn  ygyn
+ypby  ynpb  gypp  ynpc  pncc  ygcp  ygcn  yccn
+#     nnyp  nnyp  gybc  pnpp  ggbp  ybcn  #
+#     #     nbbb  gbbg  gbbg  gpbg  #     #
+solution: 0,2 ; use 0,5,0 ; rot 6,3 ; 4,2 ; use 0,3,0 ; 5,1 ; 3,5 ; use 0,4,0 ; 3,7 ; 6,5 ; use 0,0,4 ; 6,4 ; 3,2 ; 6,1 ; use 0,0,5 ; use 2,0,4 ; 3,1 ; use 0,2,0 ; use 0,2,0 ; use 0,2,0

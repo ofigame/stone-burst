@@ -1,15 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: aha [exact]; 5×6 tek dokunuş; ilk dokunuş 1/5; deneme 89; bot 1,00; zincir v13: çözüm aynı, sınır 1→1, bot 112/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil elmas; çözüm 9 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_999
-moves: 1
+moves: 9
 roll: off
-type: aha
-rules: exact
-goals: coral 11
+specials: on
+goals: green 12, purple 30, coral 12
 grid:
-cyb   bcb   bbb   ycb   ycb
-cby   cby   yby   ycy   ycy
-cby   cby   cbc   ccc   ycc
-cbc   cby   bbb   cbc   yby
-cbc   cyc   cyc   yby   byy
-cbc   yyc   ccc   ccc   ccy
-solution: 0,3
+#     #     #     G1:ybnb G1:ybbb #     #     #
+#     #     ygnb  ybnb  pbby  pbpn  #     #
+#     ccpb  cgpb  ybnb  pbby  pbpy  gppyK1:2 #
+bpyy  bppy  gppc  ybcc  ybbc  npnb  nppy  gppn
+gpby  bgny  gbcn  nbcc  ypyb  ypyb  yppn  ypnn
+ggbg  ggbg  gynn  nynp  ypyb  cnpp  yypp  yynpK1:2
+#     ggbn  yycn  nycn  pnyy  cnyg  ybyg  #
+#     #     ycpn  ycpn  pnyyB1 pyyy  #     #
+#     #     #     ycpn  pcyn  #     #     #
+solution: 2,4 ; 2,3 ; use 1,0,3 ; use 0,1,3 ; 2,6 ; 2,6 ; use 1,2,3 ; 2,1 ; 4,1 ; use 1,1,2 ; 2,5 ; use 0,4,1 ; 3,0 ; 4,1 ; use 2,2,1 ; use 1,0,5 ; use 0,2,1

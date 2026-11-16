@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı; çözüm 8 hamle + 5 tepsi / limit 16 (pay +8, eski 16) hedef×1,13 bot 0,29 (hedef 0,26) plan 0; zincir v13: yeni çözüm 8 (eski 8), sınır 16→20, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 18, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10
 id: level_403
-title: Bölüm 403
-moves: 18
+moves: 9
 roll: off
 specials: on
-goals: blue 39, coral 37, sponge 1
+goals: coral 33, envelope 3, sponge 1
 grid:
-#     #     pbcb  cby   cby   #     #
-#     #     cbbbScb ccyc  ccyc  #     #
-ycyc  yyyc  ypbb  ppy   cpyc  bcy   pyp
-bcb   cpb   ypp   ppbp  cby   yyb   yybc
-cpyc  cyby  ypcy  pbbp  pbyy  bcc   bby
-yyy   cyyy  cbc   cbcp  bbbp  pbb   bbbb
-ypcc  bpcy  ycby  pyc   bypp  bcyp  pbc
-#     #     ycb   bccc  bcpc  #     #
-#     #     ccb   ccbc  bcp   #     #
-solution: 3,6 ; 2,3 ; use 0,2,0 ; 1,4 ; use 0,2,0 ; 3,4 ; use 0,3,0 ; 2,0 ; use 0,4,0 ; 3,0 ; use 0,4,0 ; 2,2 ; use 0,2,1
+ngnp  nggn  bggn  bngb  cpgb  ppgy  gpyg  cgbg
+gcnp  gccnEg bncy  bncy  cpgb  cycy  gyyy  cbby
+#     #     bbcc  bpnn  ypyb  ypcb  cpyy  cbyc
+ggyb  pypc  gbpcEp gpnn  gppn  ypyn  cppc  cppc
+ggyg  pgyc  gbbc  gypy  ggpy  cgyy  yppc  cpnc
+cbcg  cbgc  gbgc  gync  byny  bbyn  ybyc  ypnc
+gbcg  cyyn  gynn  ggnc  gggcEb gngn  npgn  pngc
+gbcg  #     bynn  bpgn  pnyn  pnyn  npyn  pnyc
+gbcg  #     bggn  gpgn  ppynSnb pnyn  ngpb  pgpc
+solution: 1,3 ; 3,5 ; use 0,4,0 ; 0,4 ; use 1,1,0 ; 5,0 ; 7,2 ; use 0,5,1 ; 3,6 ; 4,0 ; 6,0 ; use 3,0,1 ; use 1,1,1 ; use 0,1,0

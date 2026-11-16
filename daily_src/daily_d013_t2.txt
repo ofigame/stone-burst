@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 2; exact [exact] (sıradaki tür; scarce tutmadı); çözüm 7 / sınır 8 (v7 8); açgözlü kaybeder; bot48 0,06 (taban 0,04); zincir v13: çözüm aynı, sınır 8→9, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 55 + tür exact; şekil kum saati; çözüm 6 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d013_t2
 title: Günlük 13
-moves: 9
+moves: 7
 roll: on
 specials: on
 type: exact
 rules: exact
-goals: blue 42, purple 24
+goals: navy 35, green 43, star 2
 grid:
-pyy   ppy   yyb   ppc   ybc   ybc   bbb
-pby   pyp   cpy   byc   bpb   cby   byb
-cby   byy   cyy   bbb   cyb   ycb   bbb
-cby   cyb   yyy   cybk2 cyb   ccb   ppy
-pby   #     #     #     bbpk2 cbp   cbc
-ybb   #     #     #     bbp   cpc   yyc
-pyb   cbc   pbp   yyyk2 pbp   cyc   cyc
-pyb   ppy   yyy   yyy   pbc   cbc   cbc
-solution: 6,0 ; 6,4 ; use 0,1,1 ; 0,0 ; use 0,2,0 ; 0,6 ; roll 0 ; use 0,0,0 ; 5,2 ; 5,1 ; use 2,4,0 ; use 0,0,0
+gpy   gpy   ygg   ygg   pgg*  pgy   ppy   npy
+gyy   gyy   ygg   ggg   ggg   ppn   npy   npp
+#     ngp   ygp   ggy   ggy   ppn   nnp   #
+#     nng   ynp   ynp   ggp   pnn   nnp   #
+#     png   pnp   ggp   ggy   ppy   ppp   #
+#     pgp   pgp   ggp   gny   ppy   ppn   #
+npp   npp   nny   gny   gny   gyn   ggn   ygp*
+npy   npy   nyy   yyn   yyn   gyn   gnn   ynp
+solution: 1,2 ; use 0,0,0 ; 2,0 ; 4,5 ; 2,0 ; use 0,0,0 ; use 0,7,0 ; 2,0 ; use 0,0,0 ; roll 6 ; use 0,6,2

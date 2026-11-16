@@ -19,7 +19,7 @@ namespace KatKat.EditorTools
                 throw new InvalidOperationException("Turkish SDF glyph coverage failed.");
             if (ProceduralArt.ShapeMask.width != 512 || ProceduralArt.IconAtlas.width != 1024)
                 throw new InvalidOperationException("Layer mask/atlas resolution regressed.");
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < LayerColors.Count; i++)
             {
                 var chip = PremiumArt.Chip((LayerColor)i);
                 if (!chip || chip.rect.width != UiStoneArt.FacePixels || chip != UiStoneArt.Chip((LayerColor)i))

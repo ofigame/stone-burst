@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 3 hamle + 3 tepsi / limit 7 (pay +4, eski 11) hedef×0,93 bot 0,38 (hedef 0,47) plan 2; zincir v13: yeni çözüm 3 (eski 3), sınır 7→7, bot 71/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı; çözüm 7 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_121
-title: Renk Kilidi
-tutorial: Kilidin rengindeki katmanları tahtanın herhangi bir yerinden soy: sayaç düşer, kilit açılır.
-moves: 7
+moves: 9
 roll: off
 specials: on
-goals: purple 30, yellow 29
+goals: yellow 29, green 42, star 3
 grid:
-bpb   ycy   ycy   cyp   pby   cby   cbc
-bpb   bpb   ppp   ypy   ybb   yyy   yyy
-ppb   pyb   byc   ypb   ypp   ycc   yby
-#     pyc   pyc   ycb   cpb   cyb   #
-#     bcb   pcb   pyb   cyy   ycy   #
-#     ycb   pcb   cbb   cby   ccp   #
-byc   bcb   cbb   cbp   yyy   ybb   bbp
-ypy   ypy   ypb   byb   bpp   ypp   pcp
-cpy   cppLc5 pbb   yyc   bbb   pcp   pcp
-solution: 2,2 ; 0,0 ; use 0,3,0 ; 1,0 ; use 0,1,0
+#     #     #     bbgp  bbgy  #     #     #
+#     gpnp  gpn   npnp  nbyy  bpyp  bpg   #
+gbbb  gyb   pybn  bypn  ngy   npgp  npgp  yyg
+nnb*  ynpn  pnpn  byp   bgpp  bgp   bgb   yyb
+nnpn  bppn  bnp   yny   pgn   pgpg  pgng  yyn
+nnpp  bpnp  pppp  ygy   ngnp  nggg  bpn   ypgy
+ngnp  ngn   pgp   nnyg  nny   gngg  gpy   npgy
+npb   bpp   bggg* nggg* yggg  yng   gpyg  npy
+ypbp  ypbp  bpgg  npyp  yyyp  gyg   ngy   ngpg
+solution: 5,4 ; use 0,3,0 ; 6,1 ; use 0,4,0 ; 1,1 ; 0,6 ; use 0,3,0 ; 6,4 ; use 1,3,0 ; 1,3 ; use 1,4,1 ; 0,3 ; use 0,0,3

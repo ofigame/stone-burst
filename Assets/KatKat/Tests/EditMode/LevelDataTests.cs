@@ -7,13 +7,14 @@ namespace KatKat.Tests
 {
     public class LevelDataTests
     {
-        // Belge Bölüm 14 kural test fixture'ı (birebir).
+        // Belge Bölüm 14 kural test fixture'ı. v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): altından çıkan
+        // mavi kendiliğinden patlamaz; iki hamle, iki dokunuş (adı geçmişten kalır).
         public const string ChainFixture = @"{
   ""schemaVersion"": 1,
   ""id"": ""fixture_chain_001"",
   ""width"": 4,
   ""height"": 4,
-  ""moveLimit"": 1,
+  ""moveLimit"": 2,
   ""rollEnabled"": false,
   ""startingRoll"": false,
   ""goals"": [
@@ -32,6 +33,7 @@ namespace KatKat.Tests
       ""clipHitsRemaining"": 0, ""hasBottomStar"": false }
   ],
   ""solution"": [
+    { ""type"": ""tap"", ""x"": 0, ""y"": 0 },
     { ""type"": ""tap"", ""x"": 0, ""y"": 0 }
   ]
 }";
@@ -63,9 +65,12 @@ namespace KatKat.Tests
         {
             var state = LevelLoader.ToState(LevelParser.Parse(ChainFixture));
             var r = RulesEngine.TryApply(state, Command.Tap(0, 0));
-            Assert.AreEqual(2, r.Waves.Count);
+            Assert.AreEqual(1, r.Waves.Count, "v14: zincir dalgası yok");
             Assert.IsTrue(r.Waves[0].Cells.TrueForAll(c => c.Removed == LayerColor.Coral && c.NewTop == LayerColor.Blue));
-            Assert.IsTrue(r.Waves[1].Cells.TrueForAll(c => c.Removed == LayerColor.Blue && c.Remaining == 0));
+            var r2 = RulesEngine.TryApply(state, Command.Tap(0, 0));
+            Assert.AreEqual(1, r2.Waves.Count);
+            Assert.IsTrue(r2.Waves[0].Cells.TrueForAll(c => c.Removed == LayerColor.Blue && c.Remaining == 0));
+            Assert.AreEqual(GameStatus.Won, state.Status);
         }
 
         [Test]
@@ -84,7 +89,7 @@ namespace KatKat.Tests
             d.Cells.Add(new CellData { X = 0, Y = 0, Active = true });
             d.Cells.Add(new CellData { X = 9, Y = 0, Active = true });
             var bad = new CellData { X = 1, Y = 1, Active = true, ClipHitsRemaining = 1 };
-            bad.Layers.Add("green");
+            bad.Layers.Add("pink");
             d.Cells.Add(bad);
             d.Goals.Add(new GoalData { Type = "collectColor", Color = "blue", Amount = 3 });
             d.Goals.Add(new GoalData { Type = "collectColor", Color = "yellow", Amount = 1 });
@@ -93,7 +98,7 @@ namespace KatKat.Tests
             StringAssert.Contains("startingRoll", errors);
             StringAssert.Contains("(0,0) iki kez", errors);
             StringAssert.Contains("(9,0) tahta dışında", errors);
-            StringAssert.Contains("bilinmeyen renk 'green'", errors);
+            StringAssert.Contains("bilinmeyen renk 'pink'", errors);
             StringAssert.Contains("ataş bu bölümün kapsamı dışında", errors);
             StringAssert.Contains("yinelenen hedef", errors);
             StringAssert.Contains("yellow hedefi 1, tahtada 0", errors);

@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk yellow 89/87; çözüm 10 / sınır 12 (v7 15); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,17; adillik onarımı: sınır 12→13 (112 oyunda 5 galibiyet); zincir v13: yeni çözüm 11 (eski 10), sınır 13→18, bot 4/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 10/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil merdiven (ayna); çözüm 8 + 8 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_270
-title: Kapaklar Bahçesi
-moves: 10
+moves: 8
 roll: off
 specials: on
 type: boss
-rules: scarce, exact
-goals: yellow 82, blue 41, coral 35, star 2, envelope 2
+rules: protect, exact
+goals: coral 33, green 13, envelope 3
 grid:
-ypyp  pyyy  cyby  bbpy  ypbp  cbbp  pbby  bbbp
-bcyp  cbb   cypbk1 pcc   pcp   ybbp  bbb   bcbb
-ccyp  ccpb  cypb  cypb  cbcy  pbby  pcby  bcbc*
-pyyp  cypb  cyppk1 #     #     pyyc  pypy  pcyc
-yypp  yypp  ycpy  #     #     cypy  pypy  pcyck1
-yypy  yypy  yyyy  #     #     bypp  pcpy  pcpc
-ypcy  cyyy  byyy  bypc  bppc  bppc  bccc  pcpc
-bpyy  cyyy  pyyy  bpyc* bpyy  bbpc  ybbc  ycpc
-ypcy  ypyy  ppyy  ypypEy ypyy  bybyEp ybpc  ybpc
-solution: 2,4 ; use 0,1,0 ; 7,2 ; 2,5 ; 2,6 ; use 0,2,0 ; 3,0 ; use 0,3,1 ; 5,0 ; 0,0 ; use 1,0,4 ; use 0,1,0 ; use 0,3,0
+#     #     #     #     yycp  yycp  nbbp  nbpp
+#     #     #     nyyp  yybn  bybn  nybc  gypc
+#     #     ccyy  ncyy  nyyn  bnbbi1 yybb  gcpb
+#     cnnn  cnyci1 bnyc  nnbb  bnbb  ybbb  gcpb
+gbyn  cbyn  cyyn  ccyci2 cccn  cbcn  ypcbEb yggn
+gyyn  bbpg  bypg  ccgyEp cpcc  cbnni1 gpgb  gggbi2
+cnynP bcnp  bcnp  gcgy  bppc  bcnn  bpnb  bggb
+cncn  pnnc  pcnpEc gcpy  ycpc  ycpn  ybyy  nnyyP
+pncn  pnnc  ynnc  ycnc  ycnp  yccpP nbcp  nbyy
+solution: 6,2 ; 5,2 ; 4,1 ; use 1,6,1 ; use 0,0,5 ; 4,0 ; use 0,4,0 ; 6,0 ; 4,0 ; use 0,3,1 ; 3,4 ; use 0,7,1 ; 1,3 ; use 2,0,5 ; use 0,6,5 ; use 0,3,2

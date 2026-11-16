@@ -1,21 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk blue 52/51; çözüm 13 / sınır 14 (v7 11); açgözlü kaybeder; bot48 0,13 (taban 0,06); bot 0,25; zincir v13: yeni çözüm 8 (eski 13), sınır 14→13, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 9/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil artı; çözüm 8 + 6 tepsi / sınır 8; rastgele 0,010; açgözlü kaybeder; yumuşak 0,00
 id: level_707
-title: Bölüm 707
-moves: 11
+moves: 8
 roll: off
 specials: on
 paint: 1
-type: scarce
-rules: scarce
-goals: blue 48, coral 55, purple 27, sponge 1
+type: exact
+rules: exact
+goals: purple 13, coral 33, yellow 19, star 4
 grid:
-pybp  pybp  pypp  ccpy  ccyy  ccpc  ccbb
-cbyb  cyby  ccpy  ccyy  ccyy  ccbc  pbbp
-cbbb  cbby  cbyp  ybyp  ypyb  cpcb  pbbp
-#     yyyb  pybp  ybcp  ppcb  cbcc  #
-#     byyp  ccyc  pccc  pycb  cyybScb #
-#     ccyp  ycyy  yyyb  cyyb  cyyb  #
-cycp  cpcp  ybcy  ybpy  ccpb  ccyc  ccyp
-cpyb  cpyb  cpcp  cbpy  cbyc  bcyc  bbyb
-cbyc  cpyb  cbyc  cpyb  cyyb  cyyb  bbyb
-solution: 4,2 ; 5,0 ; 2,4 ; use 0,0,0 ; use 0,0,0 ; 3,0 ; 3,3 ; use 0,5,0 ; use 0,6,0 ; 4,0 ; use 0,4,0 ; use 0,6,0
+#     #     cygg  cygp  gncp  gncp  #     #
+#     #     cbbg* yygp  bnyc* bnyc  #     #
+pcbg  pbbg  pbbg  nbby  bcby  bccc  bcyy* bnyy
+ncyg  pbyg  pbyg  ncpb  bcpy  bccc  nbyc  gngg
+nnpc  cgpc  cgpb  cbpb  cbgy  bbgc  nbgg  gbgg
+cnyc  cyyb  cycb* bygy  bbgy  bbcg  cbbg  cbgg
+#     #     cccb  bbpn  bbcy  bbcg  #     #
+#     #     nccn  npcn  gccn  gccn  #     #
+solution: 3,0 ; 2,0 ; use 0,3,0 ; 3,0 ; 2,1 ; use 0,0,2 ; 1,3 ; use 0,3,1 ; use 0,5,2 ; 4,0 ; 2,1 ; 3,6 ; use 0,2,1 ; use 0,0,2

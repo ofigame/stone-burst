@@ -1,16 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 5 hamle + 3 tepsi / limit 9 (pay +4, eski 9) hedef×1,25 bot 0,54 (hedef 0,53) plan 0; zincir v13: yeni çözüm 4 (eski 5), sınır 9→12, bot 0/112; zincir v13 kolaylaştırma: hedef −%24, sınır 7, bot 19/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 5 + 5 tepsi / sınır 9; rastgele 0,055; açgözlü kazanır; yumuşak 0,17
 id: level_026
-title: Mor Kilit
-moves: 7
+moves: 9
 roll: off
 specials: on
-goals: yellow 23, blue 20
+goals: coral 32, green 37
 grid:
-ybp   bcp   #     #     bpp   ppp
-yby   cpy   #     #     ypb   ppb
-ycyk1 yby   ypb   bpb   byp   bpb
-yyy   ybb   ybb   bpb   bpb   yby
-ppbk1 cyb   bpy   bpc   ypb   pyb
-cpc   cpc   ppc   ypc   yyb   cyb
-cpy   cyy   bcp   ybc   pyy   ccbk1
-solution: 3,4 ; 2,2 ; use 0,0,6 ; use 0,0,1 ; 1,2
+pgg   #     #     cpck2 #     #     cng
+pgc   nnc   gnp   cpc   cpg   cng   cng
+ngc   nnc   gnp   cnp   cpg   cpp   cpp
+#     gpc   gpp   gpp   cpg   pgp   #
+#     ccp   gpp   gpp   cgp   pgpk1 #
+ncg   pcg   ppp   gpc   cgc   cgc   pgc
+#     nggk1 ppc   pgc   pgc   ggc   #
+ncn   ngn   pnp   nnp   gng   gcg   gcg
+solution: 3,5 ; 2,1 ; 6,0 ; 4,1 ; use 0,0,1 ; 0,7 ; use 0,0,0 ; use 2,0,1 ; use 0,3,0 ; use 0,0,0

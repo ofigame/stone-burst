@@ -152,7 +152,8 @@ namespace KatKat.Levels
             var sb = new StringBuilder();
             sb.Append(s.MovesLeft).Append('p').Append(s.PaintLeft).Append('|').Append(s.RollSlotFull ? 'R' : '-').Append('|');
             // vr1 P3: aşama ve mühür durumu (eski bölümlerde yazılmaz: anahtar değişmez).
-            if (s.ActiveStage != 0 || s.SealWave != 0) sb.Append('a').Append(s.ActiveStage).Append(s.SealOpen ? 'S' : 's').Append('|');
+            if (s.ActiveStage != 0) sb.Append('a').Append(s.ActiveStage).Append('|');
+            s.Hazard?.AppendKey(sb); // konsept pilotu (yoksa anahtar değişmez)
             foreach (var g in s.Goals) sb.Append(g.DisplayProgress).Append(',');
             sb.Append('|');
             foreach (var t in s.Tray) sb.Append((int)t);
@@ -171,6 +172,7 @@ namespace KatKat.Levels
                 if (c.SpongeNeed != 0) sb.Append('g').Append(c.SpongeNeed).Append(':').Append(c.SpongeHave);
                 if (c.LinkHits > 0) sb.Append('n').Append(c.LinkId).Append(':').Append(c.LinkHits);
                 if (c.ButtonGate > 0) sb.Append('B');
+                if (c.Moss) sb.Append('m');
                 if (!c.Active) sb.Append('#');
                 sb.Append('/');
             }

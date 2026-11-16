@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using KatKat.Core;
 using KatKat.Levels;
@@ -25,7 +25,7 @@ namespace KatKat.Game
         private readonly LevelData[] _pilots = new LevelData[PilotCount];
         private bool _pilot;
         public bool InPilot => _pilot;
-        private int SetCount => _pilot ? PilotCount : TrialCount;
+        private int SetCount => _concept ? ConceptCount : _pilot ? PilotCount : TrialCount;
         private int _trialIndex = -1;
         private int _trialLosses;
         private bool _trialHint;
@@ -35,10 +35,10 @@ namespace KatKat.Game
 
         public LevelData Trial(int i)
         {
-            var set = _pilot ? _pilots : _trials;
+            var set = _concept ? _concepts : _pilot ? _pilots : _trials;
             if (i < 0 || i >= set.Length) return null;
             if (set[i] != null) return set[i];
-            var asset = Resources.Load<TextAsset>(_pilot ? $"Pilot/pilot_{i + 1:00}" : $"Trial/trial_{i + 1:00}");
+            var asset = Resources.Load<TextAsset>(_concept ? $"Concept/concept_{i + 1:00}" : _pilot ? $"Pilot/pilot_{i + 1:00}" : $"Trial/trial_{i + 1:00}");
             if (asset == null) return null;
             try { set[i] = LevelParser.Parse(asset.text, asset.name); }
             catch (FormatException e) { Debug.LogError("[KatKat] Deneme bölümü okunamadı: " + e.Message); }
@@ -48,10 +48,10 @@ namespace KatKat.Game
         public bool TrialDone(int i) => Trial(i) is LevelData d && _save.Data.meta.trialDone.Contains(d.Id);
 
         /// <summary>Haritadaki Deneme düğmesi: deneme listesi (modal).</summary>
-        public void ShowTrials() { _pilot = false; ShowSet(); }
+        public void ShowTrials() { _pilot = false; _concept = false; ShowSet(); }
 
         /// <summary>vr1 pilot listesi (prototip; haritadaki Pilot düğmesi).</summary>
-        public void ShowPilots() { _pilot = true; ShowSet(); }
+        public void ShowPilots() { _pilot = true; _concept = false; ShowSet(); }
 
         private void ShowSet()
         {
@@ -67,6 +67,7 @@ namespace KatKat.Game
                 });
             }
             _menu.TrialListPilot = _pilot;
+            _menu.TrialListConcept = _concept;
             _menu.ShowTrials(items, StartTrial);
         }
 
@@ -90,12 +91,13 @@ namespace KatKat.Game
         private void TrialAfterBegin()
         {
             var d = _level;
-            _hud.SetLevel(Loc.Upper(Loc.T(_pilot ? "vr1.pilot.tag" : "trial.tag")) + " " + (_trialIndex + 1), _session.State.MovesLeft, _session.State.Goals, _session.State.RollEnabled, _trialIndex + 1);
+            _hud.SetLevel(Loc.Upper(Loc.T(_concept ? "concept.tag" : _pilot ? "vr1.pilot.tag" : "trial.tag")) + " " + (_trialIndex + 1), _session.State.MovesLeft, _session.State.Goals, _session.State.RollEnabled, _trialIndex + 1);
             _hud.SetGoalStages(_session.State.Goals, _session.State.ActiveStage);
             var rules = RuleLines(d);
             _hud.SetRuleIcons(rules);
             _hud.ShowRuleCard(TrialTitle(d), Loc.T("trial.intro." + d.TrialType), rules, () => { if (_trialHint) ShowTrialHint(); });
             if (_trialHint) OutcomeAssist(AssistFlags.Guidance);
+            ConceptHud(); // konsept pilotu: hedef odağı SetGoalStages'den sonra
         }
 
         private List<HudView.RuleLine> RuleLines(LevelData d)
@@ -104,8 +106,6 @@ namespace KatKat.Game
             foreach (var r in d.Rules)
             {
                 string text = Loc.T("trial.rule." + r);
-                if (r == "chainOnly")
-                    foreach (var g in d.Goals) if (g.Type == "collectChain") { text = Loc.F("trial.rule.chainOnly.color", Loc.T("color." + g.Color, g.Color)); break; }
                 if (r == "exact") text = Loc.F("trial.rule.exact", d.MoveLimit);
                 list.Add(new HudView.RuleLine { Rule = r, Text = text });
             }
@@ -113,8 +113,9 @@ namespace KatKat.Game
             bool staged = false;
             foreach (var g in d.Goals) if (g.Stage != 0) staged = true;
             if (staged) list.Add(new HudView.RuleLine { Rule = "stages", Text = Loc.T("vr1.rule.stages") });
-            if (d.SealWave > 0) list.Add(new HudView.RuleLine { Rule = "seal", Text = Loc.F("vr1.rule.seal", d.SealWave) });
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): zincir mührü satırı kalktı.
             if (d.Cells.Exists(c => c.Area != 0)) list.Add(new HudView.RuleLine { Rule = "areas", Text = Loc.T("vr1.rule.areas") });
+            if (d.Hazard != null) list.Add(new HudView.RuleLine { Rule = "hazard_" + d.Hazard.Kind, Text = ConceptRuleText(d) }); // konsept pilotu
             return list;
         }
 
@@ -147,6 +148,7 @@ namespace KatKat.Game
         private void ShowTrialLost(GameStatus status)
         {
             _trialLosses++;
+            if (status == GameStatus.LostHazard) { ShowConceptLost(); return; }
             string title = status == GameStatus.LostProtected ? Loc.T("lose.protect.title")
                 : status == GameStatus.LostOutOfMoves ? Loc.T("lose.moves.title") : Loc.T("lose.stuck.title");
             string body = status == GameStatus.LostProtected ? Loc.T("lose.protect.body")

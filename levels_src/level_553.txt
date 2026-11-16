@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı; çözüm 5 hamle + 5 tepsi / limit 9 (pay +4, eski 14) hedef×1,14 bot 0,08 (hedef 0,21) plan 0; zincir v13: yeni çözüm 7 (eski 5), sınır 9→12, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati (ayna); çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_553
-title: Bölüm 553
-moves: 12
+moves: 9
 roll: off
 specials: on
-goals: purple 35, yellow 34
+goals: yellow 39, blue 22, green 18, envelope 3
 grid:
-#     #     pby   cyb   cybK1:2 #     #
-#     #     byb   byb   bcpp  #     #
-pcy   pyb   cyb   ccb   ccp   ppy   cypp
-pcyc  cyc   cyc   ccby  ccb   ppppK1:2 ycy
-bbby  cyp   bycp  bcp   cybb  pcpp  bcyp
-ybcy  ybby  cyp   ccp   bcb   bcp   bcpp
-ybc   ycpy  bypb  ccyb  ccbb  cpp   bppp
-#     #     yybb  cyy   ccy   #     #
-#     #     pyy   ccyp  ccyp  #     #
-solution: 4,3 ; 1,4 ; 0,4 ; use 2,2,0 ; 4,1 ; 2,0 ; use 2,2,0 ; 3,0 ; use 2,6,2 ; 3,2 ; use 2,0,2 ; use 0,6,2
+bgyn  bgpp  ygnp  ygpb  pcpb  pcgg  pccc  pccc
+ypyn  ppppEc bpnp  pgnn  pcpb  ccgg  pccn  pccn
+ycyn  pccp  ppcn  pgcn  pcnb  pcnb  pcbn  ycbn
+#     ccnp  pnnn  pbccEb pcnb  ncyn  npyn  #
+#     nnnn  nnyn  pbyc  ycbp  npyn  npyn  #
+#     nnnn  nbyn  pbbn  yybnEb nyyn  nyyn  #
+bbcc  nbccK1:1 ybyc  gbyc  yyyg  nnyg  nnyn  yncg
+bncc  byyc  yyyc  gyyc  byyg  bbyp  ybcg  yncg
+bycp  byyc  yycg  gyyg  gnyp  ynyp  ynypK1:1 cgng
+solution: 6,1 ; use 0,1,0 ; 3,0 ; use 0,5,0 ; 0,6 ; 5,3 ; 4,6 ; use 0,6,0 ; use 0,0,6 ; 3,6 ; use 0,7,2 ; 2,0 ; use 0,2,0 ; 3,4

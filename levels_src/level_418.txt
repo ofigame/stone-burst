@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı (ayna); çözüm 6 hamle + 6 tepsi / limit 12 (pay +6, eski 12) hedef×1,47 bot 0,25 (hedef 0,25) plan 0; zincir v13: yeni çözüm 9 (eski 6), sınır 12→19, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 13, bot 31/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil artı; çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_418
-title: Bölüm 418
-moves: 13
+moves: 8
 roll: off
 specials: on
-goals: yellow 61, blue 55, coral 39, sponge 1
+type: order
+rules: exact
+goals: green 23, blue 21, sponge 1
 grid:
-#     #     #     ybpy  #     #     #
-#     yyyp  ybcp  ybcy  ybpy  cbpp  #
-ccyp  cycp  ppcp  ppcb  yppy  ybcp  cbcp
-ycyb  pccbScb ppbb  ppcb  yppb  bpcc  bpcy
-ycby  yyyy  cyby  ppbb  ppbb  bpbb  bpby
-ycby  cyyy  cybb  yybb  yppy  ypby  bpby
-bcbp  byyb  ybyb  cybb  yypy  yppy  yppy
-bcbc  ycbc  bcbb  cybb  cypy  yyyb  ypcb
-ycbc  ybbc  pybc  cybb  cpyb  ccyb  yccb
-solution: 3,2 ; 1,1 ; 0,4 ; 0,3 ; use 0,3,2 ; 1,1 ; use 2,3,0 ; 4,1 ; use 2,3,1 ; 2,2 ; use 2,2,1 ; use 2,1,1
+#     #     pbyb  cnyy  cnbc  cnbb  #     #
+#     #     pnyb  bnyy  cnbc  cbbb  #     #
+pypc  pygp  bngp  bbgy  cngc  cygp  nnppi2 ngpp
+pppc  pppc  cnpp  cbpp  ncpc  cygci1 nggy  nggb
+cgpp  pgpy  cygp  ncpp  nccg  cccyi1 pgcy  bgcb
+cgnb  pggy  ppgg  pppp  ppggLn3 pnggi1 pnpn  bycb
+bnnb  cnnb  cnpgLn4 bppp  ppgn  ppgn  bycn  bycbScy
+#     #     cpng  bgcy  ppcp  ppgn  #     #
+#     #     cpnc  pppyi1 pppy  pngn  #     #
+solution: 6,5 ; 4,4 ; use 0,6,2 ; use 0,6,2 ; 1,2 ; 2,3 ; use 0,2,0 ; 4,0 ; use 0,1,2 ; 4,0 ; 2,0 ; 7,4 ; use 1,7,2 ; use 0,2,0

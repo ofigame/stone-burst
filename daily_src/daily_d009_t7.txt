@@ -1,20 +1,21 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 7; exact [exact]; çözüm 9 / sınır 11 (v7 11); açgözlü kaybeder; bot48 0,06 (taban 0,04); zincir v13: yeni çözüm 6 (eski 9), sınır 11→12, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 734 + tür protect; şekil kum saati; çözüm 10 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d009_t7
 title: Günlük 9
-moves: 12
+moves: 10
 roll: on
 specials: on
-type: exact
-rules: exact
-goals: blue 33, purple 41
+paint: 2
+type: protect
+rules: protect, exact
+goals: blue 25, purple 41, coral 21
 grid:
-bcpK2:2 bbc   yyc   ycyy  ybyy  yycb  cccbK2:2
-ccp   cbpp  yyypK2:2 yby   pbyc  yccb  pccb
-cby   cbpK1:1 bbyp  bbyp  pcc   pcc   pccb
-bby   cpy   ccy   pcc   pcc   pccy  pyby
-cbpb  cppb  cby   pcc   cccy  bcby  byb
-pbpbK1:1 ppyb  cpy   pcyc  cyy   byy   byyp
-#     #     cyp   cypc  cyyy  #     #
-#     #     ypyp  pppp  ppyp  #     #
-#     #     ybp   ppy   pcy   #     #
-solution: 4,1 ; use 0,0,1 ; 3,0 ; 0,2 ; 5,0 ; 6,0 ; use 1,1,0 ; use 0,1,0 ; 6,3 ; use 0,0,0 ; use 0,1,5
+ybbn  bngn  ppynP ppyp  gnbp  bncy  bpcc  bcpg
+ybbyK1:2 yngy  pyyn  pycc  gnbp  gcyp  ycpc  gcpgP
+ybbcP ynpc  pbpc  ppcc  gppy  yyyn  ypyg  gppg
+#     ybpp  ybpc  ynpc  yppy  ypyn  ppyn  #
+#     gnnp  cbgp  bypp  bypg  byyn  ppyp  #
+#     gyng  yynp  yyyp  pcng  pyyg  ppyp  #
+cgpy  cyyg  nyyp  nyyb  pbcg  nbcp  nppp  cypbK1:2
+cypg  yygg  yygb  nybb  ybcb  ybnp  ccnb  nycb
+pypb  pygb  ngbc  ngbc  ybpc  ybcp  nccp  nccb
+solution: paint 5,7,b ; 3,6 ; use 0,3,0 ; 4,7 ; use 0,4,0 ; paint 0,2,y ; 3,1 ; 1,5 ; use 1,6,0 ; 1,2 ; roll 4 ; 2,2 ; 3,5 ; use 0,6,0 ; use 2,6,0 ; use 0,4,0 ; use 0,4,0

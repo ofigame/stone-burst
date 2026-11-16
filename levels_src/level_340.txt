@@ -1,19 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [noSpecials+exact]; çözüm 18 / sınır 24 (v7 15); açgözlü kaybeder; bot48 0,08 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 19 (eski 18), sınır 24→25, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U (ayna); çözüm 19 + 0 tepsi / sınır 19; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_340
-title: Dönen Final
-moves: 25
+moves: 19
 roll: off
 type: boss
 rules: noSpecials, exact
-goals: coral 55, purple 55, yellow 22, star 2, envelope 1
+goals: yellow 32, green 29, purple 40
 grid:
-cybc  cbbc  cbbb  #     #     bbbb  bbbc  bbbc
-ycc   cbbc  cypbEb #     #     bybp  bbbp  by
-pcpy  ccpc  cypy  #     #     cbyp  bpyp  bpyp
-pcyp  ccpp  ccpp  pbcp  bycp  cbpb  bybc  cbyc
-pcyp  ccyb  ccpb  cppb  cpcc  ppcp  pccc  pccc*
-pcyb  pcyb* pypb  bp    bp    pppp  pccc  pcyb
-bcyb  pbyb  bbypR yppb  ppcp  ppcp  cypb  pbcb
-bccy  cbcy  cppy  cpcy  ppcy  pybc  pycpR pccb
-bccy  pcpy  pcpp  ppcp  ppcp  pycbR pycb  pcbb
-solution: 1,4 ; 0,3 ; 0,0 ; 6,3 ; 6,4 ; 6,4 ; 0,7 ; 4,6 ; 7,5 ; 5,4 ; 7,6 ; 5,1 ; 1,2 ; 1,0 ; 1,0 ; 0,0 ; 2,7 ; 0,7 ; 1,8
+gybb  gygy  gpgy  #     #     bpbg  bpbyi1 ypby
+bpbb  gybb  gpby  #     #     bgbp  ygbp  ypyy
+bpbp  gybp  gbbpi2 #     #     ggbp  ggbp  ypyp
+gygg  gggp  bbgp  bbpy  pbpy  pgby  ybpp  bbpp
+bgggi1 bggp  bbgpi2 bbygR ypby  pgpp  ybpp  ybbg
+bbyb  byyb  yyyp  bbpp  ypbp  ygbb  yggyR pgbg
+bbyb  pbpg  ybpy  pppb  ppyp  yppb  ygpg  pggg
+pggg  pgpgi1 bbyy  pbyb  ppyb  bypb  bybp  pygp
+pggg  ybyg  bbyy  bpyy  bpyb  bppb  gpbb  gppp
+solution: rot 3,4 ; 5,5 ; 2,5 ; 2,5 ; 5,1 ; 3,3 ; 0,2 ; 0,3 ; 7,4 ; 1,6 ; 2,7 ; 3,5 ; 0,3 ; 5,1 ; 5,0 ; 6,0 ; 0,5 ; 0,7 ; 1,0

@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 6 hamle + 4 tepsi / limit 12 (pay +6, eski 20) hedef×0,94 bot 0,58 (hedef 0,37) plan 0; zincir v13: yeni çözüm 7 (eski 6), sınır 12→13, bot 59/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati (ayna); çözüm 8 + 8 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_193
-title: Üçlü Plan
-moves: 13
+moves: 10
 roll: off
 specials: on
-goals: purple 42, yellow 36, star 2
+goals: yellow 29, coral 53, blue 39
 grid:
-pcyc  pcy   pccp  pccpi1 ppcc  bpp   bpy
-pcyc  pbyc  pbcp  yccp  pbp   bppb* bpyb
-ycyc* yyyc  yyc   ypc   byp   bbpb  bbyb
-#     ycyy  ccc   ypc   cyby  bpp   #
-#     ycyy  yycy  byc   cyby  byc   #
-#     ypcy  ypy   bpb   cyc   byc   #
-ypcp  ypcbLp8 bpyb  bpyb  bpbp  ybbpi1 cbp
-bpcc  ypc   ypcb  ppcc  ypp   ybpb  cbp
-bpcc  ypcc  ybc   ppcb  ybcb  ybcb  cbyi1
-solution: 0,0 ; use 0,1,1 ; 0,2 ; 0,0 ; 4,6 ; use 0,1,0 ; use 0,3,0 ; 3,5 ; 1,3 ; 0,7
+cbc   cgc   ygcg  ygnn  ygcn  ygnn  cnn   bbg
+cbby  cggy  cbgLg3 cnn   ygn   ybg   ynny  bbny
+cbbc  cbb   cbbb  nnnb  nyng  ncgy  ynn   gbny
+#     ncbc  cgb   cnng  nyng  ncby  cnb   #
+#     bgbc  cgy   bnnb  cngb  gngc  cngc  #
+#     bby   ccy   bcg   cygg  gyc   nbgb  #
+cnb   bbny  cnn   byn   gyc   nyc   ncg   ccg
+cngy  bngy  bnny  cbby  gyb   nybc  nng   cng
+cgb   cgb   bnb   cbcy  ccc   cccc  ncyc  cny
+solution: 5,4 ; use 0,0,1 ; 3,0 ; use 0,0,1 ; 4,1 ; 3,0 ; use 0,0,0 ; 0,0 ; 1,0 ; use 0,2,1 ; 3,0 ; 0,0 ; use 0,3,2 ; use 0,0,8 ; use 0,3,3 ; use 0,3,4

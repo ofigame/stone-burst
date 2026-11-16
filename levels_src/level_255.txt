@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 6 hamle + 6 tepsi / limit 14 (pay +8, eski 13) hedef×1,28 bot 0,25 (hedef 0,33) plan 2; zincir v13: çözüm aynı, sınır 14→18, bot 4/112; zincir v13 kolaylaştırma: hedef −%6, sınır 15, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe (ayna); çözüm 8 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_255
-title: Dörtlü Akış
-moves: 15
+moves: 10
 roll: off
 specials: on
-goals: blue 36, coral 51, purple 23, envelope 2
+goals: purple 17, navy 24, envelope 3
 grid:
-pby   cbbb  ybc   ybc   cpc   bpcb  bpc
-pbyb  cbybEc yby   cyc   cppc  bpc   bpcb
-cbybEy ccy   ycyy  ycpb  ccbc  cpc   ybpb
-ccy   #     #     ycpb  #     #     cycc
-ccy   #     #     ppc   #     #     cbcc
-ypcc  #     #     pyy   #     #     ycyc
-cycc  pycb  ppp   cbb   yyby  yyy   ycyc
-cycb  cycb  bppb  cbp   ybb   cppy  ybpc
-pyc   cpcb  cpy   ycy   yby   cbpy  cpy
-solution: 6,3 ; use 0,1,0 ; 2,0 ; use 0,1,0 ; 6,5 ; use 0,0,1 ; 4,0 ; use 0,1,0 ; 0,5 ; use 0,1,0 ; 0,6 ; 1,6
+#     #     nbbc  ynbc  ybbc  ycbc  #     #
+#     gbgy  gbby  gnyy  cbyc  cgyc  ccyc  #
+nbyp  bbgy  bbgpEp bccn  nbcnEp ngcc  nncg  ngcg
+nbbp  nbbn  ncgp  bcyc  ngcp  nggp  nngg  nyyg
+cbbn  ybcn  ypccEb ppcc  pgcp  pyny  pnnc  gyyc
+cgbc  ybgc  bngp  bncc  bgby  bgbc  bgyc  pcyc
+cgcc  cgcc  bngn  bbcn  cbcb  ccbc  ccyc  pcyc
+#     ngcn  ygnn  pynb  pncb  pnby  bcpc  #
+#     #     ypny  yyng  pygg  pngy  #     #
+solution: 6,4 ; use 0,0,2 ; 5,5 ; 2,6 ; use 0,2,0 ; 2,3 ; use 1,3,2 ; 1,4 ; 6,2 ; use 0,0,4 ; use 1,1,7 ; use 0,3,4 ; 3,0 ; 2,0 ; use 0,3,0

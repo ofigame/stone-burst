@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 3; reverse [exact]; çözüm 13 / sınır 13 (v7 15); açgözlü kaybeder; bot48 0,06 (taban 0,04); zincir v13: yeni çözüm 10 (eski 13), sınır 13→14, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 129 + tür resource; şekil dikdörtgen; çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d020_t3
 title: Günlük 20
-moves: 14
+moves: 8
 roll: on
 specials: on
-type: reverse
+type: resource
 rules: exact
-goals: blue 49, yellow 27
+goals: green 42, navy 48, yellow 30
 grid:
-pbp   byp   pyb   byb   byb   bbb   bbb
-pbp   pyp   pyb   pybi1 bybi1 ybb   bbc
-#     ypc   ccbi2 pcb   ppp   cpc   #
-#     ypc   ypb   ybp   ybp   cbc   #
-#     pbp   ypy   ybp   ppp   cyb   #
-#     byy   bby   ybb   byci1 ppb   #
-byp   pyp   bcc   ybc   bbc   cbp   ypc
-bpp   bypi2 pbb   bpc   bpc   ppb   ypb
-solution: 2,0 ; 3,0 ; 1,2 ; 0,0 ; roll 6 ; 2,4 ; roll 5 ; use 1,0,0 ; 3,5 ; 1,6 ; 6,6 ; use 0,0,7 ; use 1,5,0 ; use 0,5,3
+gngg  ggyg  pgng  pgn   ngp   nbpy  nbp   gng
+bnn   bnyg  pnyn  ynp   gpp   gpp   nnp   nngg
+ybny  ybg   pngn  yngn  pyb   ppb   npnb  bnb
+ybyy  pny   pngg  pyp   pybp  pybp  npbb  gpbb
+nny   pny   pnp   npp   nynp  pyp   gppy  gpp
+ppyp  pnyp  gnp   nppg  npnp  bpp   gppy  gpp
+ypg   ypgb  gypy  gnnp  gynp  byp   gyp   gpp
+ypnn  yngy  ngby  nnn   gnp   byp   bgn   ggn
+bgn   bgg   bgb   nbp   byp   byb   bgnb  ggnb
+solution: 3,3 ; use 0,3,0 ; 0,0 ; use 0,1,0 ; 5,6 ; use 0,0,0 ; 0,0 ; 3,0 ; use 0,7,0 ; use 0,0,0 ; 4,2 ; 3,1 ; roll 8 ; use 0,4,0

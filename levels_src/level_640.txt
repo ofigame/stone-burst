@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [protect+exact]; kristal 3; çözüm 8 / sınır 11 (v7 20); açgözlü kaybeder; bot48 0,08 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 9 (eski 8), sınır 11→12, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U (ayna); çözüm 18 + 0 tepsi / sınır 18; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_640
-title: Bölüm 640
-moves: 12
+moves: 18
 roll: off
-specials: on
 type: boss
-rules: protect, exact
-goals: coral 36, purple 42, yellow 57
+rules: noSpecials, exact
+goals: coral 42, green 35, yellow 36
 grid:
-pycb  cycb  G1:yppb G1:yppb G1:yypb G1:pyyy G1:pyyy cyyy
-pyyb  cyyb  bpyb  cppb  yypc  ycyc  cyyc  cyyy
-pycp  cyyp  cbyp  cppp  pycc  pycp  cycp  yycp
-cbcbP cbcb  cbyy  pppp  pypc  pypp  yypy  ycpp
-cbyb  cbyy  bbyb  ccyy  cyyy  pyppB1 bpyc  bcpy
-bbyb  cbyy  ybpb  ycyb  cbyb  cpyb  cyyb  byyy
-#     #     bppc  yppc  ypyb  cpyp  #     #
-#     #     cpcb  ypcy  ypcb  ypbb  #     #
-#     #     bppp  bycc  bbbbP cbbbP #     #
-solution: 5,2 ; 4,1 ; 0,2 ; use 2,5,0 ; 0,0 ; 2,0 ; use 2,0,0 ; 0,0 ; use 0,3,0 ; 4,0 ; use 0,3,0 ; 6,3 ; use 1,7,0 ; use 1,0,5 ; 6,3 ; use 0,1,0 ; use 0,1,0
+yyyp  G1:gypp G1:gcyy #     #     G1:cygc G1:gygg gyyg
+yyyp  ccpc  ccyyk1 #     #     pypc  pygc  pyyg
+cypp  ygcc  cgcyk1 #     #     pypy  ppppk1 pgyg
+cypp  yppg  cpcc  yppc  pgpy  gypy  gygpB1 pgcp
+cppp  ycgg  cycg  yycg  yycy  pycy  ccgp  cgcg
+cpyp  ypgg  ypcg  cycg  pygy  pcgy  cccy  cccg
+cypp  yyppk2 yygy  cycy  cycg  ycgg  pccy  pccg
+cppp  gcpp  gcgg  ccgp  cccg  yggg  ygyy  pgcg
+cpgc  cygck1 cpgg  cpgp  cpgc  cggc  ygyy  ygyy
+solution: 5,2 ; 1,3 ; 6,7 ; 5,2 ; 6,3 ; 2,3 ; 5,7 ; 5,2 ; 7,0 ; 6,4 ; 3,5 ; 0,0 ; 0,2 ; 0,0 ; 1,1 ; 2,0 ; 1,2 ; 5,0

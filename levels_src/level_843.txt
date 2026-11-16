@@ -1,19 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 10 hamle + 7 tepsi / limit 12 (pay +2, eski 14) hedef×0,97 bot 0,08 (hedef 0,16) plan 2; zincir v13: yeni çözüm 13 (eski 10), sınır 12→19, bot 0/112; zincir v13 kolaylaştırma: hedef −%18, sınır 11, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı; çözüm 9 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_843
-title: Bölüm 843
-moves: 11
+moves: 10
 roll: off
 specials: on
-paint: 1
-goals: blue 25, coral 36
+paint: 2
+goals: yellow 25, coral 15, green 25
 grid:
-cpby  G1:yccy G1:ycc G1:ycc G1:bccy G1:bbcy bpb
-ccc   cccy  bccy  bbcy  bbyy  bby   cpyb
-ccyp  ccc   ycy   ybcp  ybyc  ccyp  cyy
-ccyB1 pbyy  #     #     #     ccy   byby
-ycyy  pbcy  #     #     #     ccy   cypy
-ybb   pbp   #     #     #     bcy   byp
-ypb   cpp   ccyb  pcyb  pcy   bcyy  bypy
-cppc  cpp   bpyp  bcyb  ycyc  ycyc  ycp
-cppc  cppc  cby   cpyb  bpy   ypp   ypp
-solution: 6,2 ; use 0,6,0 ; 1,1 ; use 0,0,1 ; 5,6 ; 6,4 ; use 0,2,1 ; 1,5 ; 0,1 ; 0,3 ; use 1,1,1 ; use 0,3,1
+#     #     yppp  yngb  yggp  #     #
+#     #     yppp  ynnp  yggp  #     #
+pcbn  cgbn  ygbp  ygbn  yggn  yybc  yyby
+pcyg  cgbg  yggp  ycyn  ycyb  bnbc  yyyy
+pcyg  gnbg  bgbp  bbbg  bngb  bngb  bygy
+pcgn  gnbn  gbpgLp5 gbpg  ycgn  ncgp  npcy
+pbbn  pbbg  pbpc  pcpc  ycbc  ypgp  npcy
+#     #     pgpb  pgpb  ygbc  #     #
+#     #     pgpb  cbpb  cbbb  #     #
+solution: 6,2 ; 2,0 ; use 1,5,2 ; paint 3,3,g ; 0,3 ; 5,2 ; use 0,4,0 ; use 0,4,0 ; use 0,4,0 ; 2,7 ; use 0,0,3 ; 2,5 ; 4,5 ; use 0,5,2 ; 2,7

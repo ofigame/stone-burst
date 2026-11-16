@@ -1,3 +1,4 @@
+using KatKat.Core;
 using UnityEngine;
 
 namespace KatKat.View
@@ -26,8 +27,8 @@ namespace KatKat.View
         private static bool _stoneAtlasTried;
 
         /// <summary>
-        /// v6 renkli taş atlası (Resources/PremiumV6/stones, tools/ArtV6/prepare.ps1 üretir). 2x2 hücre, IconCell sırası;
-        /// her taş hücrenin ortasındaki 496 px. Yoksa null: shader eski maske + renk yoluna döner.
+        /// v6 renkli taş atlası (Resources/PremiumV6/stones, tools/ArtV6/prepare.ps1 üretir). 2048x1024, 4x2 hücre (512),
+        /// IconCell sırası; her taş hücrenin ortasındaki 496 px. Yoksa null: shader eski maske + renk yoluna döner.
         /// </summary>
         public static Texture2D StoneAtlas
         {
@@ -36,6 +37,18 @@ namespace KatKat.View
                 if (!_stoneAtlasTried) { _stoneAtlasTried = true; _stoneAtlas = Resources.Load<Texture2D>("PremiumV6/stones"); ResourceUsage.Note("PremiumV6/stones"); }
                 return _stoneAtlas;
             }
+        }
+
+        /// <summary>Taş atlası hücresinin piksel boyu.</summary>
+        public const int StoneCellPixels = 512;
+
+        /// <summary>Taş atlasında bu rengin çizimi var mı (eski 2x2 atlasta yeni renklerin hücresi yoktur).</summary>
+        public static bool StoneAtlasHas(LayerColor c)
+        {
+            var t = StoneAtlas;
+            if (t == null) return false;
+            var cell = LayerPalette.IconCell(c);
+            return (cell.x + 1f) * StoneCellPixels <= t.width && (cell.y + 1f) * StoneCellPixels <= t.height;
         }
 
         // ---- v4 taş kaynakları (tiles/face-neutral, tiles/symbol-*) ---------------------------------------------
@@ -155,6 +168,8 @@ namespace KatKat.View
             {
                 m.SetTexture("_FaceTex", StoneAtlas);
                 m.SetFloat("_UseFace", 1f);
+                // Izgara dokunun boyundan: 2048x1024 → 4x2 (eski 1024 atlas gelirse 2x2, yeni renkler eski yola düşer).
+                m.SetVector("_FaceGrid", new Vector4(StoneAtlas.width / (float)StoneCellPixels, StoneAtlas.height / (float)StoneCellPixels, 0f, 0f));
             }
             m.SetFloat("_ZWrite", zWrite ? 1f : 0f);
             m.renderQueue = zWrite ? 3100 : 3000;

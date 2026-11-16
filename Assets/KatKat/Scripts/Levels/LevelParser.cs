@@ -131,12 +131,13 @@ namespace KatKat.Levels
                 d.Cells.Add(cell);
             }
             if (o.ContainsKey("paint")) d.Paint = Int(o, "paint", where);
-            if (o.TryGetValue("seal", out var sv) && sv != null) // vr1 P3 zincir mührü
+            if (o.TryGetValue("seal", out var sv) && sv != null) // vr1 P3 zincir mührü; v14'te kaldırıldı, yalnız okunur (doğrulayıcı reddeder)
             {
                 var so2 = AsObj(sv, where, "seal");
                 d.SealWave = Int(so2, "wave", where);
                 d.SealGate = Int(so2, "gate", where);
             }
+            if (o.TryGetValue("hazard", out var hz) && hz != null) d.Hazard = HazardData.Parse(hz, where); // konsept pilotu
             if (o.ContainsKey("solution"))
             {
                 foreach (var s in List(o, "solution", where))

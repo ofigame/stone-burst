@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x2+2x2 (kaydırılmış); çözüm 6 hamle + 3 tepsi / limit 9 (pay +3, eski 12) hedef×0,77 bot 0,42 (hedef 0,46) plan 1; zincir v13: yeni çözüm 3 (eski 6), sınır 9→6, bot 32/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil dikdörtgen; çözüm 3 + 2 tepsi / sınır 10; rastgele 0,485; açgözlü kazanır; yumuşak 0,46
 id: level_084
-title: Derin Yıldız
-moves: 6
+moves: 10
 roll: off
 specials: on
-goals: coral 25, purple 23, star 3
+goals: blue 19, purple 51
 grid:
-byp   cyb   bbb*  bpc   cpc   ppc   cpp
-ypb   ypb   byb   bpci2 cpc   ppc   ppc
-ypb   #     #     byb   #     #     ppy
-ypc   #     #     byb   #     #     ppp
-bpc   cpb   ypbi2 pby   bby   ccy   cpy
-bpc   cpb   ppc   pbp   ccy   ycy   cpy
-bbc   cbc   ybc*  ppy   ycp   ccy   cbp
-bbc   ybc   ycp   ycp   ycp   ccp*  ccp
-solution: 4,6 ; 0,3 ; 1,0 ; use 1,3,0 ; use 1,2,0 ; use 0,0,0
+b     b     pb    p     pp    pp    b     bg
+b     p     p     pp    pp    b     b     p
+pb    pb    p     p     p     pg    pg    pg
+p     pb    p     pg    gg    pp    pp    pp
+pb    gb    gb    pp    p     pg    p     pp
+p     g     g     gp    pp    pp    p     pp
+gg    gg    g     p     p     pb    g     pp
+gg    g     gb    gb    g     g     g     p
+gg    g     g     gb    gb    g     g     bb
+solution: 5,3 ; use 0,0,0 ; 5,2 ; 2,0 ; use 0,4,0

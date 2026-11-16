@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order; kilit purple→blue; çözüm 6 / sınır 11 (v7 12); açgözlü kaybeder; bot48 0,15 (taban 0,06); bot 0,00; zincir v13: çözüm aynı, sınır 11→11, bot 16/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil L (ayna); çözüm 7 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_158
-title: Ilık Mandal
-moves: 11
+moves: 8
 roll: off
 specials: on
-type: order
-goals: yellow 47, blue 34
+type: scarce
+rules: scarce
+goals: navy 39, coral 17, green 44
 grid:
-cbyp  ccy   cyyy  #     #     #     #
-ybp   yyb   yyy   ycyp  #     #     #
-ypc   byby  ycby  yccp  byc   #     #
-pycp  ypc   pbcp  bbc   bbc   ycc   #
-yccb  ccbc  cpci1 cbc   bbc   bpcbi1 bccbLy5
-ccb   cpbc  cpbLp5 ypc   bbcp  bccp  ccc
-cbbb  cbbb  ypbLp5 yccy  byyy  bpyy  cpy
-pbp   pyp   pyy   ypy   cpyy  pby   cyyp
-bbyb  pby   pbyc  pyyc  pyy   pyy   cbyp
-solution: 3,6 ; use 0,0,0 ; 4,6 ; 0,0 ; use 0,0,0 ; 3,1 ; use 1,2,0 ; 4,2 ; 0,2 ; use 1,1,0 ; use 1,2,0
+#     #     #     gbnLc5 npnb  npg   cnpg  nbp
+#     #     #     gbbb  npnb  npg   bbg   nbn
+#     #     #     gpbb  ccbn  cpp   bpgn  bbnn
+#     #     #     gbn   pcpn  cpp   bpgn  ppg
+pgp   bgpn  bbn   bbn   pcgn  ccp   pbgn  png
+pgn   bgpc  bcnc  pbn   pbgb  pggb  pbg   png
+ppn   gcp   pcn   pngg  nbgb  pggb  bgg   pcgg
+gpc   gpn   pnbg  bnbg  bbbg  ngp   bbg   pcgg
+gbcg  nbcg  gnp   ncpp  bbp   bgpn  pcgg  pcng
+solution: 4,2 ; 4,0 ; 7,3 ; use 0,4,0 ; use 0,5,0 ; 4,0 ; use 0,4,2 ; 7,0 ; 4,5 ; use 0,3,0 ; 5,2 ; use 0,0,4 ; use 0,5,0

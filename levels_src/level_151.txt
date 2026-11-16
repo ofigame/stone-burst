@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 4 hamle + 4 tepsi / limit 8 (pay +4, eski 11) hedef×1,27 bot 0,33 (hedef 0,45) plan 0; zincir v13: yeni çözüm 3 (eski 4), sınır 8→7, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe (ayna); çözüm 7 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_151
-title: Buzlu Anahtar
-tutorial: Buz komşuluk ister, kilit renk ister. İkisini birlikte planla.
-moves: 7
+moves: 9
 roll: off
 specials: on
-goals: blue 44, coral 37
+goals: yellow 37, blue 45, coral 31
 grid:
-pbp   pbp   pyp   #     ybc   bcc   pcy
-pbp   pbp   byp   #     pyb   pby   pby
-ppp   ccp   ybp   #     cby   cby   yby
-ypc   ycp   ybp   ybp   cbc   cbc   ybc
-ybc   byp   byp   bbpi1 cpy   ccy   cpci1
-cbp   byp   byy   bcb   cpb   cpy   ybc
-cby   cby   ybc   ybcLc5 pcb   ccc   cpc
-ppy   ppb   ppb   bcy   pcb   cpb   ppb
-pyp   pyb   ppb   ypb   ycb   cpp   pcb
-solution: 3,5 ; use 0,6,0 ; 4,2 ; 0,0 ; use 0,4,0 ; use 0,4,0
+#     #     pybyk2 cyby  cyp   cyy   #     #
+#     cby   pyb   pgby  ybpy  cypb  cypb  #
+ybg   gbyg  gbyg  ggb   ybb   ccp   pcp   ypb
+ycg   gyy   gbgy  gggy  gcb   gcpp  gpp   ypbc
+ycgg  yyyg  ybyy  ccg   ccb   cgpc  ggb   ppbc
+yygg  yyyg  ypp   cpg   ccbk1 cbgc  pbg   pbgyLy3
+cybbk1 pyb   ppbg  cbbg  cgb   ccb   cbgy  ccg
+#     ypbb  pbb   ybb   ygbg  bcbg  ccc   #
+#     #     ybpb  ygpb  bgp   bgbg  #     #
+solution: 0,2 ; use 0,2,1 ; 3,0 ; 3,2 ; use 0,3,0 ; 4,3 ; 4,0 ; use 0,2,0 ; 2,5 ; use 0,3,0 ; 5,4 ; use 0,2,0 ; use 0,2,0 ; use 0,5,0

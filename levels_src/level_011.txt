@@ -1,16 +1,15 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 5 hamle + 3 tepsi / limit 10 (pay +5, eski 11) hedef×1,24 bot 0,42 (hedef 0,64) plan 0; zincir v13: yeni çözüm 5 (eski 5), sınır 10→14, bot 6/112; zincir v13 kolaylaştırma: hedef −%6, sınır 9, bot 21/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 4 + 3 tepsi / sınır 9; rastgele 0,010; açgözlü kaybeder; yumuşak 0,04
 id: level_011
-title: Bölüm 11
 moves: 9
 roll: off
 specials: on
-goals: yellow 26
+goals: coral 17
 grid:
-bcy   bbb   ycb   yy    yb    ycc
-yby   bb    by    cyc   bcb   cb
-cyc   ycy   yyc   yb    bby   bby
-cb    cy    yc    cy    bcb   cyc
-ycb   cy    yc    bcc   cy    bcc
-#     #     yc    yc    #     #
-#     #     byc   bcy   #     #
-solution: 2,2 ; use 0,3,0 ; 3,0 ; 4,0 ; use 1,0,0 ; 1,0 ; use 0,4,0
+nn    yp    #     #     #     cp    cn
+ny    yy    #     #     #     py    cn
+nn    ny    cy    cp    cp    cn    pc
+ny    yc    yn    nc    py    np    pp
+cp    pn    np    nc    cy    cp    pp
+cy    nn    yn    pn    nn    cy    cp
+cp    yp    yp    nc    nc    cc    pc
+solution: 5,3 ; use 0,5,0 ; 5,5 ; use 0,0,2 ; 2,2 ; 2,3 ; use 1,5,0

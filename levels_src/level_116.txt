@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 6 hamle + 4 tepsi / limit 12 (pay +6, eski 13) hedef×1,26 bot 0,38 (hedef 0,43) plan 0; zincir v13: yeni çözüm 6 (eski 6), sınır 12→16, bot 5/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 22/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil elmas; çözüm 8 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_116
-title: Köprüler
-moves: 12
+moves: 10
 roll: off
 specials: on
-goals: coral 44, purple 17, star 2
+goals: navy 8, yellow 49, green 32
 grid:
-cpb   ypb   bpb   #     cp    byp*  byc
-cpb   cbb   cpb   #     bbb   byp   bypi1
-cyc   cbc   bbb   pbc   ybc   byb   yc
-ycc   bcc   ycci1 ybc   ybc   cyc   pcb
-cb    yy    byc   yyb   byc   ccc   bc
-ybc   bbc   ypc   pcb   cybi1 cby   cyp
-ypy   cbc   byc   yyb   cb    cpc   bcb
-ppy   cpy*  cby   cbb   bcb   pbb   bbb
-solution: 0,0 ; use 0,5,0 ; 0,6 ; 0,0 ; 3,4 ; use 0,4,0 ; 1,4 ; use 0,4,0 ; 1,1 ; use 0,1,1
+#     #     #     ppcy  ygpy  #     #     #
+#     #     ypcy  ppc   ggpg  ggpg  #     #
+#     gyy   ypyy  gyyy  ggpyi1 ngy   ngy   #
+cyyi2 cypi1 yyyy  gyc   cng   cncp  nnyp  pggp
+gpyp  nypp  yyy   gyc   cyc   cncg  ygc   ygcp
+gpyi1 pcyp  pyc   gyc   gncp  cygp  yyp   yyp
+#     pcg   pyc   gypp  cycc  cyg   cyp   #
+#     #     yyc   yyp   cypc  gyg   #     #
+#     #     #     yypg  gypg  #     #     #
+solution: 5,3 ; use 0,4,1 ; 2,1 ; 3,3 ; use 0,4,3 ; 1,2 ; use 0,1,2 ; 5,2 ; 1,3 ; 6,4 ; 4,3 ; use 0,3,0 ; use 0,4,0 ; use 0,4,0 ; use 0,4,1

@@ -64,8 +64,6 @@ namespace KatKat.Levels
                 SpecialsEnabled = d.SpecialsEnabled,
                 StarThresholds = d.StarThresholds,
                 PaintLeft = d.Paint,
-                SealWave = d.SealWave,
-                SealGate = d.SealGate,
                 Status = GameStatus.Idle,
             };
             foreach (var g in d.Goals)
@@ -76,17 +74,21 @@ namespace KatKat.Levels
                     gs.Type = GoalType.CollectColor;
                     if (!ColorIds.TryParse(g.Color, out gs.Color)) throw new FormatException($"{d.Id}: hedefte bilinmeyen renk '{g.Color}'");
                 }
+                // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): collectChain desteklenmez; doğrulayıcı reddeder. Eski
+                // veri yeniden üretilene kadar oyun çökmesin diye düz renk hedefi gibi okunur.
                 else if (g.Type == "collectChain")
                 {
-                    gs.Type = GoalType.CollectChain;
-                    if (!ColorIds.TryParse(g.Color, out gs.Color)) throw new FormatException($"{d.Id}: zincir hedefinde bilinmeyen renk '{g.Color}'");
+                    gs.Type = GoalType.CollectColor;
+                    if (!ColorIds.TryParse(g.Color, out gs.Color)) throw new FormatException($"{d.Id}: hedefte bilinmeyen renk '{g.Color}'");
                 }
                 else if (g.Type == "collectStars") gs.Type = GoalType.CollectStars;
                 else if (g.Type == "collectToken" && g.Kind == "envelope") gs.Type = GoalType.CollectEnvelopes;
                 else if (g.Type == "collectToken" && g.Kind == "sponge") gs.Type = GoalType.CollectSponges;
+                else if (g.Type == "collectToken" && g.Kind == "balloon") gs.Type = GoalType.CollectBalloons;
                 else throw new FormatException($"{d.Id}: bilinmeyen hedef tipi '{g.Type}'");
                 s.Goals.Add(gs);
             }
+            if (d.Hazard != null) s.Hazard = d.Hazard.ToState(board, d.Id); // konsept pilotu
             return s;
         }
 

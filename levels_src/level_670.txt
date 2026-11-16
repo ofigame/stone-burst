@@ -1,20 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk blue 43/42; çözüm 10 / sınır 12 (v7 8); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,00; adillik onarımı: sınır 12→13 (112 oyunda 7 galibiyet); zincir v13: yeni çözüm 11 (eski 10), sınır 13→16, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil elmas (ayna); çözüm 11 + 0 tepsi / sınır 11; rastgele 0,015; açgözlü kaybeder; yumuşak 0,00
 id: level_670
-title: Bölüm 670
-moves: 16
+moves: 11
 roll: off
-specials: on
 type: boss
-rules: scarce, exact
-goals: yellow 42, blue 42, coral 40
+rules: noSpecials, exact
+goals: navy 23, purple 25, green 22
 grid:
-pyyy  cypy  G1:pybb G1:cbcb G1:cccb G1:pccb G1:pcyb ybyy
-pyyy  pcyb  ycyb  bcpb  cccc  pccy  pcbp  ycyy
-cycy  cccc  yppc  yppp  bccb  bcpb  pcpb  ycyy
-bycy  cycp  yppy  cpby  ypby  ccpc  pcpc  ybbc
-cycp  ccbpB1 cppp  cppy  yyby  cycy  ccpc  ppcb
-cbby  ybpp  pypy  pyyy  cybp  cpcy  bbcy  pbcy
-#     #     ycpp  ycpp  cppp  ppcp  #     #
-#     #     ybpp  ccpp  cppp  cpcp  #     #
-#     #     bcbb  bccb  bypb  bbpp  #     #
-solution: 2,3 ; 3,2 ; 2,6 ; use 0,1,1 ; use 0,0,0 ; 1,1 ; 5,3 ; 0,2 ; use 0,2,0 ; use 1,0,2 ; 3,1 ; 6,0 ; use 0,2,0 ; 3,0 ; use 0,4,0 ; 4,6 ; 5,0 ; use 3,3,0 ; use 0,6,1
+#     #     #     G1:pgpp G1:pgyp #     #     #
+#     #     pgpg  pgpp  ynyn  ynyn  #     #
+#     npyg  gpyg  gppy  ypgp  yngp  nypg  #
+ynpn  yppn  yygg  gygg  gpgy  npny  nppg  nypy
+pnpn  pnpnK1:1 pygg  ngyg  gnyy  npnyB1 npng  nypyK1:1
+#     gpgyK1:1 gpgy  npyy  gnyn  gnnn  gpnp  #
+#     #     nyyg  nypg  gnyn  gpyg  #     #
+#     #     #     gnpp  gnpn  #     #     #
+solution: 2,1 ; 1,2 ; 2,1 ; 4,3 ; 2,1 ; 4,1 ; 2,1 ; 4,4 ; 5,3 ; 1,2 ; 0,3

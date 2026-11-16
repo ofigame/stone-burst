@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 5 hamle + 4 tepsi / limit 10 (pay +5, eski 11) hedef×1,27 bot 0,42 (hedef 0,46) plan 2; zincir v13: yeni çözüm 8 (eski 5), sınır 10→17, bot 5/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 10/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati; çözüm 7 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
 id: level_131
-title: Başka Anahtar
-tutorial: Bu kilit hedefin değil, kendi rengini ister. Sayacına bak.
-moves: 11
+moves: 9
 roll: off
 specials: on
-goals: blue 37, coral 33
+goals: purple 46, coral 22, navy 45
 grid:
-ypp   ypp   ypc   ycc   bpc   bcy   bcy
-yccLy5 ycc   ypc   ycc   bbb   bcy   pcy
-ypy   ypy   ypb   byb   ycy   pcy   pby
-ybb   pby   bpc   byp   bbb   yby   cby
-cbb   cbc   cpc   bbp   bbp   pcc   pcy
-bbp   bpb   bpc   cpb   ppp   pcc   ypy
-#     #     bpp   bpp   bpc   #     #
-#     #     ccb   ccb   cyb   #     #
-#     #     pcp   ccb   cyb   #     #
-solution: 5,0 ; 2,7 ; 2,0 ; use 0,3,0 ; 3,3 ; 0,3 ; use 2,2,0 ; use 2,4,1 ; 2,0 ; use 2,4,1 ; use 0,0,1
+ngg   gggb  ncnbi1 pnn   nnbn  ncb   ncb   npbp
+ngg   gpg   nnnb  pnnn  pngn  ncgci1 npbp  npnp
+ngp   bpb   bbnp  pbn   pgcni1 nncn  npcb  ncnb
+#     bpbg  bgnp  bgnc  pgn   nncn  cbcni2 #
+#     bpg   bpcp  bpp   npn   cpnp  cpgp  #
+#     gpp   gbcc  pnpp  ncn   pngp  npgp  #
+gnpg  gnpg  pgpc  pnpc  ncpc  pnnn  npgn  bpbc
+gnpg  bnpLc3 cgpp  pnc   npp   gbnb  gbgb  bpgb
+gnpg  bcbp  cgcp  pnc   gppp  gbb   bbbc  bbgc
+solution: 2,5 ; 2,2 ; use 0,5,0 ; use 0,5,0 ; 3,0 ; 2,4 ; 0,6 ; 1,5 ; use 2,4,0 ; use 0,3,0 ; use 0,3,0 ; use 0,2,0 ; 2,0

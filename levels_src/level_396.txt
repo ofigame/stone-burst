@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3 (kaydırılmış); çözüm 5 hamle + 5 tepsi / limit 11 (pay +6, eski 17) hedef×0,79 bot 0,08 (hedef 0,26) plan 0; zincir v13: yeni çözüm 6 (eski 5), sınır 11→12, bot 17/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil dikdörtgen; çözüm 3 + 2 tepsi / sınır 8; rastgele 0,175; açgözlü kazanır; yumuşak 0,88
 id: level_396
-title: Çark Köprüleri
-moves: 12
+moves: 8
 roll: off
 specials: on
-goals: coral 35, purple 31, yellow 28, star 2, envelope 1
+goals: green 22, coral 42
 grid:
-bbb   py    pypp  pypp  pbpc  ybp   yy
-cybb  cybp  cbcy  cyppR ppcc  ppcc  pbycEb
-cybb  cyyp  cyyp  pyyp  pppp  pbcy  ppyc
-bb    ccyy  cpycR pyyp* pbpy  cbcy  ypb
-bpcc  ypcc  #     #     #     pypp  cpby
-yypy  yycc  #     #     #     ccyy  ccbyR
-bypp  pcbc  #     #     #     cpcc  ccyy
-byyp  ppyc  byyc  pyyc  cybb  ccby  cyby
-bpyp* ppyc  bc    bycb  cc    ccbp  cyyp
-solution: 2,0 ; 2,1 ; use 0,4,0 ; 6,4 ; use 1,6,0 ; use 0,4,1 ; 2,0 ; 0,6 ; use 1,0,0 ; 0,0 ; use 1,0,0
+b     bg    b     bc    c     cn    c     c
+c     ng    b     bc    cc    c     n     cg
+nc    nc    nc    cc    c     ng    n     n
+n     nc    c     c     g     gg    cg    n
+cc    cc    cc    c     gg    cg    cg    ng
+c     c     cc    gn    g     g     c     nn
+g     g     g     nn    nn    cc    cc    n
+g     g     nc    nn    bn    cc    c     c
+gn    g     n     n     nc    n     b     bg
+solution: 3,0 ; 5,2 ; use 0,1,0 ; use 0,6,0 ; 5,6

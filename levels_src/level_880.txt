@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı (ayna); çözüm 8 hamle + 7 tepsi / limit 14 (pay +6, eski 13) hedef×1,14 bot 0,13 (hedef 0,10) plan 1; zincir v13: yeni çözüm 8 (eski 8), sınır 14→14, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe; çözüm 15 + 0 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_880
-title: Bölüm 880
-moves: 14
+moves: 15
 roll: off
-specials: on
-goals: coral 66, purple 63, yellow 67, sponge 1
+type: boss
+rules: noSpecials, exact
+goals: navy 30, green 22, coral 27
 grid:
-#     #     #     pyypK1:2 pyyp  #     #     #
-#     pbpp  pcyp  pyyc  pcyp  pypp  pbcc  #
-ypcb  ypbbScby byyb  pycy  pcpp  yppp  ppcp  ppcy
-cppy  cpby  byyc  pybc  pcpp  ycpy  ypcp  ypcy
-cppy  cpyb  yybc  ybcc  cbcy  yccy  yycp  yycy
-cppc  cbyc  bbbc  ybbc  cbbcK1:2 pcpy  pybb  yycy
-yybc  yyyy  yybc  ybcc  ybcc  ybpc  pycc  ybcy
-ybyc  ycyy  yybp  bcyc  cccc  ycpc  pypc  ybpb
-ycyp  pcyp  cbyp  bcyp  bcpc  bcpc  pbpc  ybpc
-solution: 2,3 ; 3,0 ; 5,1 ; use 0,3,0 ; 3,1 ; use 0,3,0 ; use 0,0,2 ; 1,2 ; 2,1 ; use 0,2,1 ; 7,6 ; use 0,3,1 ; use 0,1,1 ; 1,1 ; use 1,1,1
+#     #     nnyg  nngy  nngnR nngg  #     #
+#     nnyn  nyyc  nnng  nygcR cygg  cyyc  #
+gccc  nngc  nyyc  ngnc  ngyy  ngyc  cgyc  ynyy
+gcgc  gcgc  ccyc  ycnc  ygyy  ynyy  ygyn  ynyn
+ggcnR ggcc  cgcy  yccc  yccc  nnyc  ngnn  nnyy
+nncy  ngcy  cgcy  cgcy  ngcc  ngyc  gnny  gnny
+#     ncyn  cyyy  cgyy  ncnc  ngng  ygng  #
+#     #     cyyy  ycyy  ycny  ycng  #     #
+solution: 2,1 ; 2,1 ; 2,3 ; 4,2 ; 1,2 ; 6,3 ; 6,1 ; 6,1 ; 5,0 ; 3,2 ; 0,4 ; rot 4,1 ; 5,0 ; 4,1 ; 4,0

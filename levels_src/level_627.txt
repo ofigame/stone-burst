@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk purple 27/26; çözüm 7 / sınır 9 (v7 12); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 6 (eski 7), sınır 9→9, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil merdiven; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_627
-title: Bölüm 627
-moves: 9
+moves: 8
 roll: off
 specials: on
-type: scarce
-rules: scarce
-goals: blue 46, coral 37, purple 24
+type: resource
+rules: exact
+goals: coral 48, blue 26, star 3, envelope 2
 grid:
-cpbp  pcby  G1:pbby G1:cbpp G1:cpbp #     #
-cpcc  cyyp  pbby  ybbb  ybbb  ccyb  #
-cbbp  pbbp  ybcy  yycc  cyyc  ycyb  ycbb
-bccb  yccy  #     #     #     cbyy  cbbb
-bccb  bccp  #     #     #     bpcp  cbyb
-bpcp  bpcp  #     #     #     cyyb  cpyb
-cccp  bbcpB1 ybcb  cyyb  cyyb  ybyc  cbyb
-#     bycb  cbpb  cycb  cypy  ybyy  ybyc
-#     #     cbcy  cbcy  cbyy  ybyp  cyyb
-solution: 1,4 ; 3,1 ; use 1,0,0 ; 0,2 ; 3,6 ; use 1,0,1 ; use 1,0,0 ; 5,5 ; use 1,0,1 ; 1,0 ; use 0,2,0 ; use 0,0,0
+gbpp  gbcp  gbcp  gpcp  #     #     #     #
+gypy  nypy  nbpp  gpcb  gybb  #     #     #
+cpgy  cygp  cycp  pbcb  yycbEy yycn  #     #
+cpgy  bpcp* cgcn  pbbn  yybb  yygn  cyyc  #
+bygy  bycp  cgbn  cgbn  yycb  yngc  cyyc  cybp
+cnby  ccbp  ccbb  cccb  cycb  pnnc  cnnp  cngp
+pncg  ybcp* ybcp  gbbb  cbcb  pbcp  pccp  cbgp
+gncgEy nccc  yccb  gngb* gngp  gngy  gcgn  gbgn
+gycc  nccc  ygcc  ggcp  gngp  gppp  gcgn  gngg
+solution: 0,0 ; 2,3 ; 3,1 ; 1,0 ; use 0,1,0 ; use 0,0,1 ; 1,7 ; use 1,0,7 ; 6,3 ; use 0,5,2 ; use 0,1,0 ; 2,2 ; 0,0 ; use 0,1,0 ; use 0,0,2

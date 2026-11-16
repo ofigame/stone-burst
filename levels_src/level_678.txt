@@ -1,20 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order [exact]; kilit coral→blue; çözüm 6 / sınır 7 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 7→8 (112 oyunda 9 galibiyet); zincir v13: yeni çözüm 6 (eski 6), sınır 8→9, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil T; çözüm 3 + 2 tepsi / sınır 8; rastgele 0,250; açgözlü kaybeder; yumuşak 0,96
 id: level_678
-title: Bölüm 678
-moves: 9
+moves: 8
 roll: off
 specials: on
-type: order
-rules: exact
-goals: yellow 44, blue 30, coral 38
+goals: green 30, blue 19
 grid:
-ccyp  G1:cppy G1:ccpy G1:cpyc G1:bpyc G1:bppc ybbc
-ccyp  ccyp  bcby  bybp  bppc  yppc  yybc
-pcbp  pcpp  pcyp  byyp  bypp  bypc  yybc
-pcbp  #     #     #     ycpp  bcpp  bcbc
-pbby  #     #     #     ycppB1 bcpc  bpbc
-cbpy  #     #     #     cypc  pcpc  bccc
-cbpy  ppyc  yyyy  yppp  cpby  ccby  bccc
-cbpy  pbcc  pyyy  ycpp  yppy  ppby  ppcy
-cbpbLc4 pbybLc4 pypc  ypcp  yppy  pbpy  cpcy
-solution: 0,0 ; 6,0 ; 4,1 ; use 0,2,1 ; use 0,0,0 ; 2,1 ; 1,0 ; use 1,4,0 ; 3,6 ; use 2,6,0 ; use 0,0,0
+gc    pc    pc    p     p     g     gp    gp
+pc    pc    p     pg    p     p     g     gp
+g     g     pg    pg    pg    p     g     g
+gg    gg    b     pg    c     c     c     cb
+gg    gg    b     cg    c     g     g     p
+gg    gg    b     bg    cp    gp    gp    gp
+#     #     bb    b     b     bp    #     #
+#     #     bb    b     b     b     #     #
+#     #     b     bb    bb    c     #     #
+solution: 3,1 ; 7,4 ; 2,3 ; use 0,5,0 ; use 1,7,3

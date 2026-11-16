@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L (ayna); çözüm 8 hamle + 7 tepsi / limit 14 (pay +6, eski 17) hedef×1,31 bot 0,13 (hedef 0,20) plan 3; zincir v13: yeni çözüm 9 (eski 8), sınır 14→19, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 14, bot 20/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe (ayna); çözüm 15 + 6 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10
 id: level_586
-title: Bölüm 586
-moves: 14
+moves: 15
 roll: off
 specials: on
-goals: yellow 51, blue 30, coral 57, envelope 2
+goals: yellow 31, purple 28, green 21
 grid:
-#     #     #     yyyb  ccyb  ccyp  bpcp
-#     #     #     cyyb  cccb  yycp  yccp
-#     #     #     ccyc  pcyb  pccb  pccb
-#     #     #     pyyb  cyyb  pcccK1:1 pccy
-bcyy  bycy  bycb  ppyb  cpyb  ccpc  cccy
-ycby  byby  bypy  cppyK2:2 ppyy  ccpc  ccpc
-ybbp  ypbp  cpbyEb cpby  cpcb  yccyK2:2 ycpy
-ybbcEy ybbcK2:2 ybby  cpcyK1:1 cpcy  ypcy  cpbc
-ccyc  ccyc  ypyc  ppyy  ybcb  ypyp  ypyc
-solution: 3,0 ; 0,4 ; 4,0 ; use 0,4,0 ; use 0,0,5 ; use 0,3,0 ; 4,3 ; 5,0 ; use 0,3,1 ; 2,6 ; 3,3 ; 0,6 ; use 0,3,0
+#     #     cnbn  cppn  yngbR ynng  #     #
+#     yybn  ypbn  cppn  cbbc  ybbg  yyng  #
+yycb  pygg  yynn  yppn  ygbb  ccbb  cygnR bnnp
+ycnb  pygg  pygbR ygny  ggyy  ccyy  cyng  bcyg
+gcnn  gpnn  bpng  gpnc  ggnc  cyyp  cyng  ccyn
+ncnb  npnn  bpnp  ypcc  pycp  pncp  pncg  pcbn
+nnng  cnng  bnnp  ypby  yyby  pygc  pnyg  nnyn
+#     cnng  bgnp  bgbg  pyby  ppyc  pnyc  #
+#     #     cpnp  bpbg  ppbc  ypbc  #     #
+solution: rot 6,2 ; 5,0 ; use 0,7,2 ; 3,4 ; use 0,1,2 ; 4,5 ; 6,3 ; 6,2 ; 2,0 ; use 0,3,0 ; 3,6 ; use 3,3,0 ; 3,2 ; 3,6 ; rot 4,0 ; rot 2,3 ; 4,7 ; 2,0 ; use 0,1,1 ; rot 2,3 ; use 0,1,1

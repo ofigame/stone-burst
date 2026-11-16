@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 1; exact [exact] (sıradaki tür; reverse tutmadı); çözüm 4 / sınır 5 (v7 5); açgözlü kaybeder; bot48 0,15 (taban 0,04); zincir v13: yeni çözüm 4 (eski 4), sınır 5→5, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 1 (1–40); tarif 22 + tür exact; şekil çatı; çözüm 5 + 3 tepsi / sınır 6; rastgele 0,000; açgözlü kazanır; yumuşak 0,04
 id: daily_d020_t1
 title: Günlük 20
-moves: 5
+moves: 6
 roll: on
 specials: on
 type: exact
 rules: exact
-goals: blue 41, coral 32
+goals: green 29, coral 25
 grid:
-#     #     #     bcb   bcc   byc
-#     #     #     bby   cyy   byc
-#     #     #     bbb   byy   byc
-bbb   bcb   cby   cbb   cbc   cyc
-ybb   bcb   yyb   bbb   byb   byc
-ybb   cbb   cyb   cbc   ybc   byc
-cbb   ccb   ccy   ccy   bcc   ccc
-solution: 3,2 ; use 0,3,1 ; 4,0 ; 3,0 ; 0,3 ; use 0,3,0 ; use 0,3,0
+#     #     #     bgc   #     #     #
+#     cgy   cyb   gyc   gyb   bbb   #
+bcy   ccy   ycb   gyg   ggb   ggb   cgg
+byy   cgg   ygg   ybg   ggb   ggy   ygg
+byc   cgc   ygc   ybg   bgc   bgy   ygg
+byy   gyy   ycb   ybb   bgc   bgy   ygb
+gyy   ccg   ccg   cbb   bcb   bcg   bcg
+gcy   gcb   gcb   ccy   bcb   ycy   ycy
+solution: 4,1 ; 3,2 ; use 1,4,2 ; roll 7 ; 1,6 ; 3,3 ; use 1,3,0 ; use 1,3,0

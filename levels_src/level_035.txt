@@ -1,17 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı (ayna); çözüm 6 hamle + 5 tepsi / limit 11 (pay +5, eski 8) hedef×1,41 bot 0,33 (hedef 0,51) plan 1; zincir v13: çözüm aynı, sınır 11→11, bot 29/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T; çözüm 6 + 3 tepsi / sınır 8; rastgele 0,100; açgözlü kaybeder; yumuşak 0,06
 id: level_035
-title: Hazır Rulo
-moves: 11
+moves: 8
 roll: off
 specials: on
-goals: blue 34, coral 49
+goals: blue 20, purple 32
 grid:
-#     #     #     ycc   #     #     #
-#     byy   cyc   ycc   pyc   pcb   #
-pby   pby   cby   ycc   ccc   cbc   ccy
-pby   pby   ccc   yyc   ccyk1 pcc   ccy
-pyb   pyc   cbc   cby   pby   pcy   pcy
-cbc   pyb   cbbk1 ccp   bcbk1 bcp   bcy
-pcp   cbb   cbb   ccb   pcb   ppp   bpb
-cyc   ybc   pbb   ccy   pcb   bpb   byb
-solution: 6,2 ; 3,0 ; 2,4 ; use 1,5,1 ; 1,1 ; 3,0 ; use 0,3,0 ; 5,3 ; use 0,4,2 ; use 0,0,5 ; use 0,0,5
+ngb   npp   bpp   bpp   bpp   bpg   nng
+gpb   gpg   bpg   bpg   bpp   npp   nng
+gpb   gpb   gng   gng   gpg   gpn   ppn
+gnp   gnp   bpg   ppg   png   gng   pgn
+gnp   gnp   npg   bpb   pgb   nnb   ngn
+#     #     ngg   bgg   ngg   #     #
+#     #     bgg   bgg   ngg   #     #
+#     #     pbn   bbn   nbn   #     #
+solution: 1,1 ; use 0,2,2 ; 1,0 ; 1,0 ; use 0,0,0 ; 4,4 ; 3,3 ; 3,4 ; use 0,0,2

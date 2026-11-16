@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 6 hamle + 5 tepsi / limit 13 (pay +7, eski 12) hedef×1,11 bot 0,46 (hedef 0,43) plan 0; zincir v13: yeni çözüm 7 (eski 6), sınır 13→14, bot 32/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı; çözüm 7 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_171
-title: Kat Kilidi
-moves: 14
+moves: 8
 roll: off
 specials: on
-goals: blue 33, coral 43
+goals: yellow 47, purple 15, green 31
 grid:
-ybbLc7 bby   bby   bby   cyy   cyc   cyc
-ypb   cpb   cpc   cpc   ccc   ccc   pcc
-cpb   cpp   ybp   bby   bcb   bpb   ypb
-cpb   cpp   #     #     #     cpb   byb
-cpb   cbp   #     #     #     cpp   cpy
-ypb   pbc   #     #     #     ccp   ccp
-ycy   cbp   cyc   cyy   byy   ccy   pcp
-cpy   cby   ccp   cbc   ybc   ycc   ccp
-cpb   cpy   cbp   ybc   pbc   bbp   ccp
-solution: 3,7 ; 5,4 ; 0,0 ; 5,0 ; use 1,0,0 ; use 2,4,1 ; 0,0 ; use 2,1,0 ; 2,1 ; 5,0 ; use 1,1,0 ; use 1,2,2
+#     #     #     ycy   ycy   #     #     #
+#     ygbb  bbb   ybgy  byg   gyy   cyyy  #
+ybyb  ygy   bbbc  gbb   ggy   ggyy  ygyy  gcc
+gbyc  gbbc  pyc   ggc   ggp   gcp   ycyy  gcc
+gbyg  cbb   cyc   cypc  cyp   bbp   bcpy  ccg
+gyy   cby   cyb   cybc  cybc  bbgy  pbgy  cyyy
+byp   byyb  cyyb  ccbc  ggb   bbp   pbpg  cyyg
+bccp  pyc   pcp   pcb   gcb   gbg   gccg  bcyg
+ycc   pcc   pcc   cccb  cccb  gccb  gcc   bcc
+solution: 2,2 ; 2,5 ; 5,1 ; use 0,2,3 ; use 0,4,1 ; 2,4 ; use 0,3,0 ; use 0,3,1 ; 0,7 ; 1,7 ; 0,2 ; use 0,5,2 ; use 1,6,1

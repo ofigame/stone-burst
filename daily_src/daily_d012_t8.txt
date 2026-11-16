@@ -1,21 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 8; scarce [scarce] (sıradaki tür; reverse tutmadı); kıt renk yellow 38/37; çözüm 10 / sınır 11 (v7 11); açgözlü kaybeder; bot48 0,06 (taban 0,04); zincir v13: yeni çözüm 11 (eski 10), sınır 11→14, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 886 + tür pure; şekil kenar çentikleri; çözüm 14 + 0 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d012_t8
 title: Günlük 12
 moves: 14
 roll: on
-specials: on
-paint: 1
-type: scarce
-rules: scarce
-goals: blue 35, yellow 37
+type: pure
+rules: noSpecials, exact
+goals: purple 35, green 36, coral 35, envelope 2
 grid:
-#     #     cpc   cpc   cpcp  #     #
-#     #     cpc   cpcb  cpc   #     #
-bbb   ccpp  ccpb  cbc   cpc   pcyy  cccy
-bbb   bbp   ycpb  ybb   ybyb  pcyy  ccc
-bcp   cbpy  yyyb  ycy   ycy   pcyy  bccy
-bcpy  cypc  yybp  ccyp  yccp  pccy  bccy
-bcpy  byp   bpbp  bpy   ccbp  ycc   bccp
-#     #     bpy   bpyy  bpc   #     #
-#     #     bpyc  bpy   bpyb  #     #
-solution: 2,5 ; 5,2 ; use 1,3,1 ; 5,2 ; use 1,2,4 ; 2,6 ; 1,2 ; roll 3 ; 6,2 ; use 2,0,2 ; 2,0 ; paint 1,2,b ; roll 2 ; 4,5 ; use 1,2,0 ; use 1,4,5
+nccn  cncn  G1:cncn G1:cngg G1:cngg cpng  gpcc  gnnc
+#     nnnn  nncnEn cgng  cggc  ccnc  gncn  #
+#     pnnn  pncc  cccc  ccgc  ccgc  gngn  #
+nnpp  pnpc  pnpc  pnpn  gngn  cncn  gppcB1 gpcp
+gpnc  gpng  ppng  cgnp  ppnp  cppp  gppc  gpcp
+gpnc  gppc  cpnc  cgpn  pgpn  cgpcEc ggpp  gppp
+cppg  gppg  npcg  npcn  nggn  cggc  cgpp  gppp
+cggg  gpgg  gpcg  ggcn  nggc  cgnc  cpng  gpcg
+cggn  cpgn  #     #     #     #     cpcn  cpcn
+solution: 3,3 ; 4,1 ; roll 6 ; 0,3 ; 0,0 ; roll 7 ; 0,4 ; 6,3 ; 6,3 ; roll 3 ; 3,0 ; roll 1 ; 6,0 ; roll 0

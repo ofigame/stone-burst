@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 5 hamle + 5 tepsi / limit 8 (pay +3, eski 13) hedef×0,95 bot 0,25 (hedef 0,32) plan 0; zincir v13: yeni çözüm 5 (eski 5), sınır 8→8, bot 29/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,005; açgözlü kaybeder; yumuşak 0,13
 id: level_266
-title: Posta Çerçevesi
-moves: 8
+moves: 10
 roll: off
 specials: on
-goals: yellow 43, blue 44, coral 24, envelope 1
+goals: yellow 30, star 3, envelope 2
 grid:
-yy    bcyy  ccbp  #     ccbyEy pcpy  bp
-bppp  yy    pccy  #     ccby  ppc   cyyp
-ppbp  ppb   pbp   #     ccb   ccb   ccb
-cpcp  ypbp  ybbc  ybbp  bcc   pcbb  pcbbk1
-cbb   ppcy  ybby  ybby  bpb   ppbb  cpbb
-bbbb  bcy   yyc   yb    cpy   ppbc  cby
-byb   ybyy  ypy   by    ybyk1 ypb   by
-pypb  pbyc  ypyc  pb    yby   ybyp  ybyb
-pycb  pycb  yyyb  cpb   cbby  cpy   cpyb
-solution: 1,4 ; 4,2 ; use 1,0,0 ; use 0,4,0 ; 5,3 ; use 0,2,1 ; 0,4 ; 2,6 ; use 1,0,0 ; use 0,0,0
+yygy  ygpy  gppy  npyy  pcyg  #     #     #
+gygc  yggc  gppc  nnyg  ncggEp #     #     #
+gygn  ynpn  ypbn  pnyg  pcgg  #     #     #
+yync* ynnp  ycbp  pnbp  pcgc  #     #     #
+gyyc  gnyc  gnbc  cnbc  pygc  pygb  gngb  gnyn
+byyn  bbgn  bcgn  ccgn  nyyc  pygc  gcgc  gnpn
+cyyn  cbbn  bbcn  cccn  nyyb  bygc  cygc  nnpc
+ypbn  ybbc  nbbb* gcbb  gbgbEc byyb  bygy  nygc
+pbbn  ybpc  nbbc  gybb  gyyb* pyyb  nyyy  nyyy
+solution: 0,3 ; 3,1 ; use 1,4,0 ; 0,2 ; use 0,0,0 ; 1,4 ; 0,3 ; 2,7 ; 5,7 ; use 0,0,0 ; 5,5 ; use 0,0,7 ; use 0,0,7 ; use 0,3,1

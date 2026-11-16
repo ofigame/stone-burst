@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 5 hamle + 5 tepsi / limit 9 (pay +4, eski 14) hedef×1,13 bot 0,21 (hedef 0,25) plan 1; zincir v13: yeni çözüm 5 (eski 5), sınır 9→13, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 10/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe (ayna); çözüm 8 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_425
-title: Bölüm 425
-moves: 10
+moves: 9
 roll: off
 specials: on
-goals: purple 28, yellow 61, blue 42, sponge 1
+goals: coral 32, blue 33, sponge 1
 grid:
-#     #     cbyp  cbcp  cybyLc10 #     #
-#     ycyb  ybyb  pbyb  ypby  ypby  #
-cybb  ccbb  ccbp  ypby  cyyy  cpcy  cycy
-cbcy  cbcy  cbby  ypyy  pyby  bpyp  cpby
-ypyyScb ypcy  bbcb  bycb  yybb  ypby  ypby
-bbcy  ybcy  bbpb  bypp  ybby  ybby  ypby
-ypyc  ycyc  bcbc  bcbp  bbby  cbby  cpyy
-#     pcyp  bybp  pbyy  bbyp  cpyy  #
-#     #     yycp  cyyc  cyyc  #     #
-solution: 4,1 ; 1,1 ; use 0,1,1 ; use 0,2,0 ; 4,0 ; 2,1 ; use 0,2,0 ; use 0,3,1
+#     #     bgpn  ngpn  cgcb  ggcb  #     #
+#     bgcg  bgng  bbgg  cbcc  cgcg  pbng  #
+pgng  ngny  ngny  nbgp  ygyp  pgyg  pbng  pybg
+pgnc  pnny  ppcb  cngb  cyybSc ygyn  ygnn  yybg
+pncc  pncg  ppcc  cncc  cnyc  cbgc  ybyg  cybg
+nbcb  byng  pgbg  gnbb  ynbc  ybgc  ybbg  cybg
+nypb  bypg  ygcc  ggcg  gpyg  gyyg  cycg  cybg
+#     bbpb  gbpc  gbnc  pgbg  gycg  gycp  #
+#     #     ygbg  ggbg  ggbg  nncg  #     #
+solution: 1,4 ; 0,3 ; 5,1 ; 7,2 ; use 0,4,0 ; use 0,4,0 ; 7,2 ; use 0,4,1 ; 0,6 ; use 0,4,1 ; 2,5 ; 6,1 ; use 0,6,1

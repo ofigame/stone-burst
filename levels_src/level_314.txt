@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe; çözüm 5 hamle + 4 tepsi / limit 9 (pay +4, eski 13) hedef×0,95 bot 0,33 (hedef 0,29) plan 1; zincir v13: yeni çözüm 5 (eski 5), sınır 9→9, bot 44/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı; çözüm 11 + 8 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_314
-title: Doğru Sıra
-moves: 9
+moves: 11
 roll: off
 specials: on
-goals: yellow 37, blue 26, coral 34
+goals: coral 30, purple 32, navy 31
 grid:
-#     #     ybc   ycbb  ypbp  #     #
-#     bbp   ccpp  yccp  ypcR  cbpc  #
-cppp  bpp   cypp  yypp  cbbp  ccbp  cybc
-ccpp  bppp  cypp  yyp   yycb  cyc   cyb
-pcc   ccbp  cyy   ccy   ccpb  ccc   cyb
-yypy  cyb   yby   cypb  ycp   pcb   ycb
-bypyR cypy  yyp   ypyp  ycp   ycbc  bcbc
-#     bbyc  yybc  cybc  bcbc  bcb   #
-#     #     ypp   ypb   ycbc  #     #
-solution: 1,1 ; 2,1 ; use 0,3,0 ; 2,0 ; 3,2 ; 4,4 ; use 0,2,1 ; use 0,3,1 ; use 0,2,0
+#     #     bncb  yccb  pcnb  ncng  #     #
+#     #     ynnp  yccp  pcnb  gcng  #     #
+bppp  byyc  ybnp  bccb  gpgb  gcng  pcpc  pnpc
+yppyR yyyc  yync  bbnn  pbgn  pcgg  cnpg  pncpR
+ybcbR ybyc  gycc  gccb  cncy  pncy  pngg  pbgc
+ybyp  ppyc  gpcb  ncpb  nbcy  bypb  gbgy  nbgy
+pgyb  pgnb  ycnb  ycpb  bbcy  bbpb  gbgy  nngp
+#     #     pbnb  ybpn  pgcp  pnpb  #     #
+#     #     pcng  pbnn  pgnp  nnyb  #     #
+solution: rot 0,4 ; 3,4 ; 1,2 ; 5,0 ; use 0,2,1 ; use 0,5,0 ; 5,0 ; 4,4 ; 2,4 ; 4,5 ; use 0,5,0 ; use 0,2,1 ; 1,2 ; use 0,0,2 ; 2,0 ; use 0,4,0 ; 2,0 ; use 0,4,0 ; use 0,2,0

@@ -1,19 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: protect [protect]; kristal 2; çözüm 4 / sınır 7 (v7 7); açgözlü kazanır; bot48 0,65 (taban 0,10); bot 0,33; zincir v13: yeni çözüm 4 (eski 4), sınır 7→7, bot 39/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil dikdörtgen; çözüm 8 + 8 tepsi / sınır 9; rastgele 0,015; açgözlü kaybeder; yumuşak 0,00
 id: level_068
-title: Erime
-moves: 7
+moves: 9
 roll: off
 specials: on
-type: protect
-rules: protect
-goals: coral 23, purple 31
+type: reverse
+rules: exact
+goals: purple 29, blue 37, coral 41
 grid:
-byc   byy   cpp   #     #     #     #
-byc   ypb   cyy   pypi1 #     #     #
-ppp   ycp   ppp   cyp   ypy   #     #
-ycp   ppy   ppc   pyc   cyy   bcb   #
-cyy   pyp   ypy   pbc   cyy   pyc   cpc
-pyb   pyp   ppc   ppc   cyc   byci1 byp
-yybP  yyp   cpyi1 ppy   ypy   bpc   yybP
-byb   byc   bpp   ppy   cpy   cpc   ypc
-solution: 2,3 ; 0,2 ; 3,2 ; 5,4 ; use 2,2,0 ; use 2,0,0
+cgn   cpp   cpn   bpp   gbb   gbc   ncg   ccni1
+cgn   cpn   cpn   bpb   bpb   gpc   nbg   cbn
+nbb   nnn   cnn   nnn   pnb   bbg   bbg   cbc
+gbc   gnc   cnn   ngn   png   png   bbc   ccc
+bng   gnc   gnc   ngc   pbc   pbg   bbc   ccc
+bng   bgc   bgg   nbci1 ppci1 ppg   pnc   cnc
+cpn   bpc   bgg   nbb   npb   pnb   pcc   pcc
+cpn   cpn   bpn   nbn   nnn   pnb   pcp   ncp
+solution: 6,0 ; use 0,5,0 ; 4,0 ; 0,0 ; 1,0 ; 0,6 ; use 0,1,0 ; use 0,1,0 ; 3,5 ; use 0,3,0 ; 0,3 ; 1,2 ; use 0,0,6 ; use 0,0,5 ; use 0,2,2 ; use 0,0,2

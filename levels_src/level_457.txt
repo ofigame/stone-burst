@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: chain [chainOnly+exact]; zincir purple 8; çözüm 9 / sınır 12 (v7 13); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 8 (eski 9), sınır 12→11, bot 34/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil merdiven; çözüm 12 + 8 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_457
-title: Bölüm 457
-moves: 11
+moves: 12
 roll: off
 specials: on
-type: chain
-rules: chainOnly, exact
-goals: yellow 58, blue 37, sponge 2, chain purple 8
+type: order
+rules: exact
+goals: yellow 33, envelope 2, sponge 1
 grid:
-#     #     cccb  ypcb  ypcy  #     #
-#     ycyy  yccb  ypyc  yycy  cbcy  #
-pcyb  pcyb  ycyb  byyc  pyyy  cpyy  cbcy
-bybb  pyyb  byyc  byyc  byyc  yyyb  cccp
-bcpb  bcyb  bbbb  cbyy  cbyy  ccbb  ycpy
-ccpc  cppc  pbpb  cbpbSby pbpb  pbbb  ccpp
-ccpc  cppc  pbpb  cbpb  pypb  pybb  pcyp
-#     bppc  bccy  pccy  pyyy  yyyy  #
-#     #     pccp  yccy  yyyyScb #     #
-solution: 2,0 ; use 0,4,0 ; 2,0 ; use 0,4,0 ; 1,4 ; 4,0 ; 4,3 ; 5,6 ; use 0,5,1 ; 6,3 ; use 0,1,1 ; 6,2 ; use 2,6,4
+cgby  cgbyLc3 bbpy  bcpb  #     #     #     #
+cgny  ngng  nbpg  ccpb  cbpyLc5 #     #     #
+cbcn  ggnn  nbng  cbgb  bbgyEn ypgg  #     #
+cbcn  bbcpSnb ybcp  cbnb  bnnb  cnyg  cpyg  #
+ngbn  bnbp  ybpp  cbng  bbny  bnyg  cpyc  cnnc
+ngby  bnby  gypp  cbyg  cbby  pnyc  pgyc  cgnc
+ncgy  gpbc  gpcc  bbyg  cyyp  yyyp  npgc  cggc
+ncby  ncbc  bbyc  bbnc  cbnc  ypncEc ypgc  gngc
+pcbb  pbyb  bbyp  pbnc  cbnc  ybbc  gbbc  gnbb
+solution: 6,4 ; 4,4 ; use 1,0,2 ; 6,5 ; use 1,1,0 ; 6,4 ; use 0,0,0 ; 3,4 ; 3,5 ; 3,2 ; use 1,0,3 ; 3,3 ; 3,0 ; 0,2 ; use 0,5,2 ; 0,2 ; 3,7 ; use 3,5,2 ; use 0,0,8 ; use 0,2,3

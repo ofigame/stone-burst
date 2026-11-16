@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 1; exact [exact] (sıradaki tür; chain tutmadı); çözüm 5 / sınır 7 (v7 6); açgözlü kaybeder; bot48 0,13 (taban 0,04); zincir v13: çözüm aynı, sınır 7→7, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 1 (1–40); tarif 19 + tür exact; şekil T (ayna); çözüm 5 + 2 tepsi / sınır 6; rastgele 0,000; açgözlü kazanır; yumuşak 0,00
 id: daily_d018_t1
 title: Günlük 18
-moves: 7
+moves: 6
 roll: on
 specials: on
 type: exact
 rules: exact
-goals: coral 34
+goals: purple 31, green 28
 grid:
-#     #     #     by    byc   yc
-#     #     yc    cyc   cyc   cy
-#     byc   ybb   yb    cyc   bbb
-bc    cb    ccb   cyb   cyb   bbc
-bcb   ccy   cc    bc    yyc   bb
-by    cy    ccb   bbb   cyc   cyb
-cyb   cb    cyb   bb    cby   cb
-solution: 2,2 ; 2,5 ; 4,0 ; use 2,3,0 ; 2,3 ; 5,2 ; use 2,1,4
+gyb   gyb   pyb   pyb   ppy   ppy   ppy
+bgp   bgp   pgy   pyy   pby   pgp   gbb
+byg   ygg   pbp   pby   bbp   pgp   gby
+bpg   ypg   ybp   pgp   pgg   pgg   pby
+bpg   bpg   ygy   ygy   pgy   ggy   pby
+#     #     ygy   ygy   ygy   #     #
+#     #     gpy   gpy   gpy   #     #
+solution: 6,2 ; 0,2 ; 4,0 ; use 0,4,0 ; use 0,0,1 ; 4,1 ; 4,0

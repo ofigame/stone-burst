@@ -1,19 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı; çözüm 9 hamle + 6 tepsi / limit 11 (pay +2, eski 11) hedef×1,14 bot 0,13 (hedef 0,16) plan 0; zincir v13: yeni çözüm 8 (eski 9), sınır 11→14, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L (ayna); çözüm 9 + 8 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_793
-title: Bölüm 793
-moves: 11
+moves: 10
 roll: off
 specials: on
-paint: 1
-goals: purple 46, yellow 27
+goals: yellow 32, purple 29, coral 24
 grid:
-#     #     cpy   ypy   ycb   #     #
-#     #     ccyp  ycy   bcy   #     #
-ypb   ypcy  ppcb  bpc   bpcp  pppp  ppp
-ypb   ypb   cpbb  ppc   pcbp  bycp  pyp
-ppbc  ccb   ccb   pcp   pcbp  byb   byc
-ppbc  cby   cccb  ccp   bcpp  bcp   bcpp
-ppb   pcyp  cbcb  cbyb  ycy   ycp   yccp
-#     #     cbpy  cbyc  ycyb  #     #
-#     #     cbpy  cbp   ycp   #     #
-solution: 4,2 ; 0,2 ; use 0,2,0 ; 3,1 ; 0,4 ; use 0,2,0 ; 3,0 ; paint 4,7,c ; 1,5 ; 6,4 ; 4,0 ; use 0,1,2 ; use 0,5,2
+#     #     #     nggn  npgg  nycp  nccp  ncpp
+#     #     #     ygnni1 ypcgi1 yycg  ycyg  ycyp
+#     #     #     cgpy  cnyyi1 cnyg  ycyg  bcyn
+gppbi1 pbpy  cbgc  nppy  nppy  cyyy  ygyg  bgpg
+ppnb  ppny  cbgy  nnby  nnpn  yngn  yyppi2 bbpp
+pggb  cggb  cggb  bbcp  bbnp  yggn  cbgp  cbpp
+nggg  npcgi2 cgcy  bbcy  bgnp  ggnn  cggn  cbgn
+ypgp  npgg  npgy  bggy  bgny  gbnyi1 nbbc  nbgc
+solution: 5,1 ; use 0,7,0 ; 6,1 ; use 0,5,0 ; 5,0 ; 2,6 ; 0,3 ; use 1,0,3 ; 5,0 ; use 1,5,0 ; use 0,6,0 ; 3,3 ; 2,3 ; 7,2 ; use 1,2,3 ; use 1,0,3 ; use 1,4,2

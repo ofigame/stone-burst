@@ -1,20 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [protect+exact]; kristal 3; çözüm 7 / sınır 14 (v7 15); açgözlü kaybeder; bot48 0,10 (taban 0,04); bot 0,00; zincir v13: yeni çözüm 9 (eski 7), sınır 14→16, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil artı (ayna); çözüm 14 + 0 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_520
-title: Bölüm 520
-moves: 16
+moves: 14
 roll: off
-specials: on
 type: boss
-rules: protect, exact
-goals: coral 58, purple 33, yellow 40
+rules: noSpecials, exact
+goals: purple 27, navy 27, coral 25, envelope 2
 grid:
-ycyp  ycyp  cccy  #     #     cbyb  pbbbP cbpc
-cyyy  ccyy  cccy  #     #     ybbb  pbbb  cbpp
-pcyy  pcyc  ycbb  #     #     bbbb  bbcp  bppp
-bcycK1:1 pcyc  bccb  bpcy  ypbp  ybbb  ybcp  cpcp
-bbyc  pyyc  bccb  cccb  cpbb  ybbb  cbpb  cbcb
-bcyc  pcyy  pccy  ccpy  cbbp  yybp  cybp  ccbb
-pcbbP pcbb  pycy  pcyb  cyyy  pyyy  cyyy  cycbK1:1
-pcbbP pybb  pybb  pccb  pccy  pcyy  ycyp  cccb
-bcyy  bcyy  bybb  pycb  pccy  pccp  yccp  yccp
-solution: 2,0 ; 0,1 ; 2,0 ; use 1,0,0 ; use 0,3,3 ; 1,4 ; 3,7 ; use 0,0,0 ; use 0,2,0 ; 1,4 ; 7,0 ; 2,2 ; use 0,2,0 ; 2,2 ; use 0,3,3
+#     #     cyppK1:1 cycn  cycn  cycn  #     #
+#     #     nppy  npcy  nccp  cccc  #     #
+ncpn  nppn  pppc  pnpy  nnnp  cnyc  ccpc  nnpy
+nyny  nynn  pypc  pcpc  ncny  ccyp  ccpy  nnpy
+cycy  pycn  pcpc  ycpnK1:1 ynnn  cnnp  cnpp  nnpcK1:1
+pycn  pycpEy pyyp  pnyn  ynypEy ycyp  ycpc  nnnc
+#     #     cpnp  cpyn  ccyp  yyyy  #     #
+#     #     ypnp  ynnn  ccpn  pypy  #     #
+solution: 2,2 ; 2,1 ; 2,0 ; 3,4 ; 2,5 ; 5,3 ; 3,1 ; 5,2 ; 3,2 ; 6,2 ; 4,1 ; 3,0 ; 6,2 ; 0,2

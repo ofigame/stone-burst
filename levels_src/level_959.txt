@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı (ayna); çözüm 9 hamle + 8 tepsi / limit 12 (pay +3, eski 19) hedef×1,15 bot 0,08 (hedef 0,15) plan 2; zincir v13: yeni çözüm 14 (eski 9), sınır 12→21, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 14, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil elmas; çözüm 8 + 8 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_959
-title: Bölüm 959
-moves: 14
+moves: 8
 roll: off
 specials: on
-goals: blue 65, coral 38, purple 34, envelope 2
+goals: purple 20, green 32, navy 25
 grid:
-#     #     bbyy  pbpp  cbpp  #     #
-#     #     bpby  bbpp  cbpc  #     #
-bybcEp ybyy  bpbp  bbcp  ybcc  cbbcR ypyp
-ypbyR bbyy  bbyp  bbyc  cbyc  cbyc  ccyb
-cbcb  bbcb  bbbp  cbbp  cccp  cccb  bcybR
-cbbb  cbcpEy bpcp  bpcp  bpcb  bcbb  bybb
-cbbb  ppcb  bpcb  pbcp  ppcp  bybb  bybb
-#     #     ppbb  pbcy  yycy  #     #
-#     #     ybcp  ypcp  ypyp  #     #
-solution: 4,1 ; use 0,1,2 ; 3,0 ; 3,2 ; use 1,0,2 ; use 0,3,0 ; 3,1 ; use 0,4,0 ; 0,2 ; use 0,3,0 ; 4,5 ; 0,2 ; 2,2 ; use 0,0,4 ; 5,4 ; 2,6
+#     #     #     yybg  gyng  #     #     #
+#     #     pggy  gyny  gnng  gbnni2 #     #
+#     gnnb  ggnyi1 nggc  yngc  nbnn  ngnni1 #
+pgpg  gnng  ggcy  ngcy  ybgni2 ybnb  ngyc  ngyp
+pgpg  gnygi1 ggyp  ygyn  ypcn  ypcb  ppbc  ppbp
+bypg  gynp  ggnp  ygyc  ypcc  ypcc  cpgy  pbbp
+#     ccpb  gcnb  gcyc  pcyc  pcpb  cpgy  #
+#     #     gcpb  gnnb  pnnb  ybnb  #     #
+#     #     #     nybpi1 nybb  #     #     #
+solution: 1,6 ; use 0,3,2 ; 3,0 ; 4,0 ; use 1,7,3 ; 2,1 ; use 1,3,1 ; 0,3 ; use 1,2,3 ; 2,1 ; use 1,5,1 ; 4,4 ; use 0,0,3 ; 5,1 ; use 1,2,1 ; use 0,0,3

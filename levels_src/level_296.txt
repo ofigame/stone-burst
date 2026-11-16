@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı; çözüm 6 hamle + 4 tepsi / limit 9 (pay +3, eski 15) hedef×0,95 bot 0,33 (hedef 0,30) plan 1; zincir v13: yeni çözüm 5 (eski 6), sınır 9→12, bot 0/112; zincir v13 kolaylaştırma: hedef −%36, sınır 11, bot 0/112; zincir v13 kolaylaştırma: hedef −%60, sınır 12, bot 0/112; zincir v13 kolaylaştırma: hedef −%36, sınır 11, bot 0/112; zincir v13 kolaylaştırma: hedef −%30, sınır 8, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 9 + 8 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_296
-title: Posta Köprüleri
-moves: 8
-roll: on
+moves: 11
+roll: off
 specials: on
-goals: coral 28, purple 19, yellow 17, star 3, envelope 2
+goals: purple 27, navy 45, envelope 3
 grid:
-#     #     #     ppc   #     #     #
-#     ypyy  cpcb  cc    ppcc  ppc   #
-pycy  ypyb  cpyb  cpyb* ppc   cpcb  cbp
-cyyb  yppb  yb    cpybk1 yyy   pyy   cpbc
-bb    cppb  cpbb  cbbb  cbb   ybpyEb yp
-pyb   cyb   cpc   cbcb  cbcb  cbck1 cycc
-pyb   pyb   bbb   pyb   cbb   cby   cycc
-pyy   pbb   cyb   yyc*  pcp   cbpp  cbcc
-ybb   ybbp  ybcp  yyc*  yycEc cbyp  cbc
-solution: 3,0 ; use 0,4,1 ; 2,1 ; 4,4 ; 3,6 ; use 0,3,0 ; 6,5
+gngnEg nngn  bngp  bnpy  cnpg  ycbn  ygbg  ygpg
+gybn  nygn  yybc  bcpy  cncc  pncn  yngb  ygpb
+bcbn  ngbc  yybc  bypy  ccpc  pccn  nngc  nnnc
+ccnb  nygb  yygyEp cgcc  ncpc  cccn  nnpp  nnpc
+ccnc  pynn  pbny  pbcy  nbpy  cpcg  cpnc  ccpy
+ybgc  yynn  pbnb  ngcb  nbcn  ybcn  ybnc  ycpg
+pbgc  pnbp  nybb  nybbEg cypn  cppnLy3 gcnn  ccng
+bppg  bnpp  gbpb  nnbb  nnpc  gnpc  ggpc  cgpc
+bppg  cnpp  cbng  cbbg  ngbg  cnbc  nnbc  nnpn
+solution: 2,5 ; use 0,0,0 ; 1,6 ; use 0,2,0 ; 4,7 ; use 0,0,6 ; 0,7 ; 0,3 ; use 0,0,0 ; 4,6 ; use 0,0,0 ; 5,0 ; use 0,3,0 ; 0,0 ; 6,4 ; use 1,1,0 ; use 0,0,2

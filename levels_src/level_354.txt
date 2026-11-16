@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 6 hamle + 5 tepsi / limit 9 (pay +3, eski 15) hedef×0,96 bot 0,25 (hedef 0,28) plan 0; zincir v13: yeni çözüm 7 (eski 6), sınır 9→10, bot 9/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil kesik köşe; çözüm 3 + 2 tepsi / sınır 8; rastgele 0,200; açgözlü kazanır; yumuşak 0,48
 id: level_354
-title: Işık Sırası
-moves: 10
+moves: 8
 roll: off
 specials: on
-goals: yellow 32, blue 32, coral 30, star 3
+goals: blue 33
 grid:
-ybp   ccyc  bbcc  bbp   bbpc  bbp   bbp
-ccp*  bcpR  cbcc  ccc   cyccR ybp   ybpp
-cyb   ycb   ycc   ccc   bbc   bbp   ybp
-yyb   #     #     cby   #     #     yby
-bybb  #     #     bcc   #     #     ppc
-pccb  #     #     bccy  #     #     pyyyR
-pcc   bpc   bccp  ppp   ypp   yyb   yyyy
-ccby  bpby  ppbp  ppbp  ypbp  yyb*  pyc
-ppb*  pppy  pcc   pccp  ycy   ycyb  ycyb
-solution: 0,0 ; 1,0 ; use 0,2,0 ; 3,0 ; use 0,0,0 ; 6,5 ; 1,6 ; use 1,0,0 ; 2,8 ; use 0,0,0 ; 3,6 ; use 0,0,4
+#     #     yp    b     b     b     #     #
+#     bp    y     b     b     b     b     #
+b     bp    b     b     by    b     bg    b
+y     y     y     by    b     b     bg    bg
+y     yg    y     b     bb    b     b     b
+yg    yg    yg    b     bb    yb    yb    b
+yg    yg    y     y     b     y     yb    y
+#     y     yg    y     yg    y     y     #
+#     #     yg    y     yg    yg    #     #
+solution: 0,3 ; 6,2 ; 3,0 ; use 0,0,2 ; use 0,1,2

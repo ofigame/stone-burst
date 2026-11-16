@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 5 hamle + 5 tepsi / limit 10 (pay +5, eski 15) hedef×0,96 bot 0,33 (hedef 0,31) plan 1; zincir v13: yeni çözüm 6 (eski 5), sınır 10→11, bot 53/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_381
-title: Buzlu Çark
-moves: 11
+moves: 9
 roll: off
 specials: on
-goals: purple 27, yellow 36
+goals: navy 20, coral 30, star 3
 grid:
-ycp   yccb  pbc   bbyp  ybccR bbcc  bccc
-ycpb  yccb  pycb  pbb   ybbi1 ybcc  bcc
-yyb   yyci1 cyy   pcbc  pbcc  pbcc  bpcc
-cbb   #     #     ppbc  #     #     bpyc
-cbbp  #     #     ppbc  #     #     ppy
-cbbp  #     #     pbb   #     #     ypy
-cyyp  cyyb  cyyb  cbcb  cccy  bcbp  bpyy
-yyyb  yycbR ycc   ycpc  bcp   bbp   bpy
-yyb   yycb  yyc   bcc   bcy   bpy   cpyc
-solution: 3,5 ; use 0,2,0 ; 6,3 ; use 0,0,0 ; 0,6 ; 4,0 ; use 0,3,0 ; 1,0 ; use 0,2,0 ; 0,0
+bbgb  bbgg  gbgg  ycgg  ycbp  pcbp  pncc  pncc
+bcgb  bbpg  bnpy  yngg  ycbg  pbnn  pbgb  pngb
+bcgb  bcpy  ncpy  pcbg  pcbg  pbnn  ybgn  pbgb
+bbyb  bbpy  ncgb  ncbn* nccp  ppnn* ypnc  ypng
+bpyb  bppy  pcgb  ycgn  bpcp  bpcy  ypncLp5 gpcp
+cccg  ppby  ppby  gpbp  bpbp  bcbc  ngbc  bgnp
+ccpg  ccpg  pcpy  ggpb  bgpb  ngpb  ngnb  bcnp
+nngy  bngp  bcpc  bbpc  bygc* ncpp  yypp  ycgg
+npcy  bncp  bncc  bbgc  gygc  gcgp  gygg  ycgg
+solution: 2,1 ; use 0,4,0 ; 2,6 ; use 0,2,1 ; 1,0 ; use 0,6,0 ; 0,0 ; 4,0 ; use 0,6,0 ; 5,1 ; 5,0 ; use 0,1,1 ; 6,1 ; use 0,0,7 ; use 0,1,1

@@ -1,21 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order [exact]; kilit purple→coral; çözüm 6 / sınır 9 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 7 (eski 6), sınır 9→10, bot 9/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil L (ayna); çözüm 9 + 9 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_878
-title: Bölüm 878
-moves: 10
+moves: 9
 roll: off
 specials: on
-paint: 1
-type: order
+type: exact
 rules: exact
-goals: yellow 41, blue 43, coral 29, envelope 2
+goals: purple 34, navy 21, green 25
 grid:
-cbbp  cypy  cpyy  #     #     #     #
-pppp  pppy  pppp  pyyc  #     #     #
-pcpp  pbpp  cbpp  pyycEp bpcy  #     #
-bbpc  pbbp  bypy  bcbcLp4 bcpc  ccpp  #
-bbpc  ypyy  yyyc  byyc  pypb  cypp  cbpp
-cbyc  ypyy  yppp  bbpcLp4 pypb  cypc  bbyb
-cbyy  ybby  ybbp  pbbp  pbpp  pbpp  ybbp
-ccyb  ccbyEy bbbp  bbcp  pbpp  pbcp  ycbp
-bcyy  bpby  bpcp  bpcp  pbyp  yccp  yccp
-solution: 2,5 ; use 0,3,1 ; 2,3 ; 0,0 ; 4,3 ; use 0,1,0 ; 0,3 ; 1,0 ; use 0,0,2 ; use 0,0,0 ; use 0,1,0 ; 1,8
+#     #     #     ygpc  cgpc  ycgb  ycgb  ypgp
+#     #     #     ygpp  cgbp  ccyb  pbyb  ypyg
+#     #     #     ypbyi1 cpbg  cbng  gbng  ycygk1
+#     #     #     cpby  nbyg  nbygk2 gpcg  gcyn
+ycny  cyny  yycn  yccy  bcyy  ncgci1 gpcc  bccy
+ccnyi1 cynn  cncn  bccb  bnybk1 bcyci1 bcpci1 bcpy
+nyny  bcnp  yccp  pccb  pgpb  pgpb  pnbp  pbpp
+nypb  nycg  yccpk1 cpcb  pgbb  pgpb  pnppk1 cngb
+pypb  pbcp  ybcpi2 cpbp  ccbpk1 ccbb  cngb  cngb
+solution: 3,5 ; 4,6 ; use 1,0,6 ; use 0,7,1 ; 2,4 ; 2,4 ; 3,6 ; 3,2 ; use 1,5,2 ; 6,3 ; use 1,7,0 ; 5,0 ; use 1,5,0 ; use 0,4,0 ; 3,4 ; use 1,4,0 ; use 1,4,0 ; use 0,5,0

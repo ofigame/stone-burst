@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 12 hamle + 7 tepsi / limit 19 (pay +7, eski 13) hedef×1,14 bot 0,13 (hedef 0,21) plan 2; zincir v13: yeni çözüm 12 (eski 12), sınır 19→23, bot 1/112; zincir v13 kolaylaştırma: hedef −%12, sınır 13, bot 43/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 10 + 7 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_862
-title: Bölüm 862
-moves: 13
+moves: 11
 roll: off
 specials: on
-paint: 1
-goals: yellow 56, blue 8, envelope 2
+goals: coral 32, blue 28, yellow 35, envelope 3
 grid:
-#     #     #     #     cbcp  ycc   ybcb
-#     #     #     cpy   cppy  ccpy  pcc
-#     #     cyyy  yyyyEp cyc   pcyy  pcyy
-#     ycy   pcyy  yccy  cyc   cpyy  ppyy
-ypyp  ycy   pcy   pccy  ppc   ppyy  ppy
-cppp  yyyp  pcc   pccy  ppcy  ppyy  ycc
-cpcp  cycp  cccyEy ccyy  cpyp  ppy   yby
-cyc   cyy   cyy   cyy   ppy   pppc  yyyc
-bppb  bppb  cby   cpy   bpy   pppc  ppp
-solution: 3,1 ; paint 5,0,b ; use 0,5,0 ; 5,2 ; 2,2 ; 5,0 ; use 0,6,0 ; 4,4 ; use 1,5,0 ; use 0,3,1
+bnpb  bnybi1 ybyb  ybgb  cbgc  cbgc  pggc  pgnc
+bppn  bnyni1 cnyb  ppgb  ppcy  cggn  cggc  pggc
+#     #     ccgb  pcgy  cgcy  cggn  #     #
+yccg  yccg  ycgbEb gccn  bccnEb bynn  gynni1 gyyb
+yccg  ycgg  ycgn  gccn  gccn  bngy  bnbn  pyyb
+ggcp  gggp  gygy  bycy  bybc  gpgy  ppby  ppgb
+#     gygp  gygni2 bycyi2 bygc  gbgc  gpgc  #
+#     ypbn  ggnni1 gbnn  pypc  pbnc  ybgc  #
+ypyp  ypbp  bgbp  bbnp  pbnn  pynnEb yyyn  nyyni1
+solution: 4,5 ; 4,0 ; use 0,4,0 ; 2,0 ; 5,4 ; use 1,5,0 ; 3,3 ; use 1,0,0 ; 2,2 ; 4,0 ; 0,3 ; use 1,1,0 ; 0,8 ; use 1,2,0 ; 2,6 ; use 0,0,8 ; use 0,2,0

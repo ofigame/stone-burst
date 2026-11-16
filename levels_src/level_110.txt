@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk yellow 40/38; çözüm 11 / sınır 11 (v7 10); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 11 (eski 11), sınır 11→15, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil T; çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_110
-title: Kule Finali
-moves: 12
+moves: 7
 roll: off
 specials: on
 type: boss
 rules: scarce, exact
-goals: yellow 36, blue 35, star 3
+goals: green 32, blue 33, coral 19
 grid:
-cpcb  cpc   ccc   bcbc  bbb   bybc  bcbc  bcbc
-ppy   cpyb  bpc   bpcp  ppc   bbpc  bcb*  bcbc
-ypbbi1 cpyb  bpyb  bpbp  pbp   pbp   ccb   ccpc
-#     cpybi1 ypc   byp*  pyp   ybppi1 cbpp  #
-#     cpbi1 ypcb  byc   pyb   cybp  cpb*  #
-#     cpb   bpcb  ybb   ppcc  cpci2 bpcy  #
-yyyb  yy    yccb  yccp  ycc   cpcb  pbp   bpbi1
-yypc  byyc  pc    ycp   ccpp  cc    ypp   bpp
-ppyc  pcy   cppc  cycci2 ccy   ccy   yyy   cpy
-solution: 2,4 ; use 0,3,0 ; 1,1 ; use 0,6,0 ; 1,0 ; use 0,0,0 ; 4,1 ; use 0,5,0 ; 6,4 ; 4,5 ; 0,6 ; 1,3 ; use 3,0,0 ; 6,6 ; use 0,2,4 ; use 0,0,7
+bcb   bgbp  cgbg  cgc   nbgb  nbbb  nbgi1 png
+ngbc  bgbk1 ggb   bgc   bgc   ppbp  pnb   pnnp
+nbb   npb   bcc   ngcb  bgc   npbp  npbp  gpnp
+bbpb  nbpbk2 ncpn  gcc   pcb   ncn   ngc   npn
+bnpci1 nnpc  nppn  gngn  gcn   bgnc  gpc   npbk2
+bngc  npgb  npgb  bngb  cgbb  bbb   cnb   cnbci1
+#     #     bnnp  cncb  cppbk1 cbb   #     #
+#     #     bnp   nnp   pcp   gcp   #     #
+#     #     bng   nng   gcp   gcg   #     #
+solution: 1,5 ; 2,6 ; use 1,0,0 ; use 0,0,0 ; 0,0 ; use 0,1,0 ; 4,0 ; 2,3 ; 3,5 ; 2,2 ; use 0,2,1 ; use 1,0,4 ; use 0,3,4

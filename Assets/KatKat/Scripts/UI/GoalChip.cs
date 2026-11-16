@@ -1,4 +1,4 @@
-using KatKat.Core;
+﻿using KatKat.Core;
 using KatKat.View;
 using UnityEngine;
 using UnityEngine.UI;
@@ -60,7 +60,6 @@ namespace KatKat.UI
             var mark = UiFactory.Image("Mark", badge.transform, UiArt.Icon(UiIcon.Check), Color.white);
             UiFactory.Stretch(mark.rectTransform, 3, 3, 3, 3);
             c._check = badge.rectTransform;
-            AddChainMark(goal, icon);
             if (compact)
             {
                 c.Root.sizeDelta = new Vector2(110f, 88f);
@@ -134,28 +133,21 @@ namespace KatKat.UI
             var mark = UiFactory.Image("Mark", badge.transform, UiArt.Icon(UiIcon.Check), Color.white);
             UiFactory.Stretch(mark.rectTransform, 3, 3, 3, 3);
             c._check = badge.rectTransform;
-            AddChainMark(goal, icon);
             c.Set(goal.Progress, false);
             return c;
         }
 
-        /// <summary>v12 deneme: zincir hedefinde (yalnız zincirle soyulanlar sayılır) renk taşının sol üstünde zincir işareti.</summary>
-        private static void AddChainMark(GoalState goal, Image icon)
-        {
-            if (goal.Type != GoalType.CollectChain) return;
-            var chain = UiFactory.Image("Chain", icon.transform, RuleIcons.For("chainOnly"), Color.white);
-            chain.raycastTarget = false;
-            UiFactory.Place(chain.rectTransform, new Vector2(0f, 1f), new Vector2(6f, -6f), new Vector2(34f, 34f));
-        }
+        // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): zincir hedefinin zincir işareti kalktı.
 
         /// <summary>Hedef simgesi: renk taşı, yıldız ya da zarf (HUD, zafer kartı ve uçuş hedefi aynı simge).</summary>
         public static Sprite IconFor(GoalState goal)
         {
             switch (goal.Type)
             {
-                case GoalType.CollectStars: return PremiumArt.Get("icon_star") ?? ProceduralArt.StarSprite;
+                case GoalType.CollectStars: return KatKat.View.SpecialArt.V6("tripo/bottom-star") ?? PremiumArt.Get("icon_star") ?? ProceduralArt.StarSprite;
                 case GoalType.CollectEnvelopes: return TileSkin.Sprite("mechanics/envelope-closed") ?? PremiumArt.Get("ov_envelope") ?? ProceduralArt.StarSprite;
                 case GoalType.CollectSponges: return SpecialArt.SpongeGoal;
+                case GoalType.CollectBalloons: return HazardPaint.Balloon; // konsept pilotu
                 default: return PremiumArt.Chip(goal.Color) ?? UiArt.Chip(goal.Color);
             }
         }

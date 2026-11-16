@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 9 hamle + 5 tepsi / limit 12 (pay +3, eski 11) hedef×1,44 bot 0,38 (hedef 0,37) plan 0; zincir v13: yeni çözüm 8 (eski 9), sınır 12→12, bot 9/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U (ayna); çözüm 7 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_184
-title: Kilit Zinciri
-moves: 12
+moves: 8
 roll: off
 specials: on
-goals: coral 35, purple 51
+goals: yellow 36, blue 36, star 2
 grid:
-yyby  ycc   yypy  bpcy  ppp   cppp  cppk1
-byp   bcc   yycp  bycp  ppcp  ppp   ppp
-yyp   ycp   pypb  bbcp  pcc   bppc  ycpc
-yyp   bcy   ybc   bbpy  byby  pbb   ycpc
-cycb  pcb   pyb   ypp   pypy  pbp   pbcc
-bbbp  pby   ypyy  yyyy  pyb   pbbp  pbc
-#     #     ypyc  ybyLp8 pybc  #     #
-#     #     ybyc  bbb   cyb   #     #
-#     #     ypcck1 cbcb  cycb  #     #
-solution: 4,0 ; 4,2 ; 3,7 ; use 0,1,0 ; 4,0 ; use 1,4,0 ; 5,2 ; 3,3 ; 2,2 ; use 1,1,0 ; use 1,2,2 ; 0,0 ; use 1,2,0 ; use 1,3,0
+gcy   bcy   ppy   #     #     ycbb  ycgb  ycgb
+gcy   ggb   ppyp  #     #     ccb   cyg*  yyy
+ppy   gpbb  ppgb  #     #     cyyg  cyg   ggy
+ppy   gpb   ppc   ppcp  bpg   bgyp  bygp  yppp
+gcp   gcpp  pcg   pgc   ggc   gggb  ybp   ypp
+gpp   bpy   cpc   cgc   yybb  byp   gyp   ypp
+gyc   bgcp* bpcp  ybc   ybb   byb   ggbyLg5 ppgy
+cyg   ggpb  bpp   ybb   pbb   pbb   pbb   pbp
+ccgp  gggp  pypp  pyb   pyp   yypy  ybp   pbp
+solution: 5,3 ; use 0,5,0 ; 6,0 ; 6,1 ; 6,0 ; use 1,2,1 ; 4,5 ; use 2,0,0 ; 2,3 ; 1,6 ; use 2,5,0 ; use 0,0,0

@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 8 hamle + 4 tepsi / limit 10 (pay +2, eski 13) hedef×0,97 bot 0,21 (hedef 0,17) plan 1; zincir v13: yeni çözüm 8 (eski 8), sınır 10→11, bot 12/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_743
-title: Bölüm 743
-moves: 11
+moves: 9
 roll: off
 specials: on
 paint: 1
-goals: blue 45, coral 37
+goals: blue 34, yellow 18, purple 29, envelope 3
 grid:
-#     #     bcb   bybp  cyb   #     #
-#     bcy   byc   byc   pypp  pbpc  #
-bcc   bcyc  pcyc  pyy   pypp  pcp   pyp
-bbc   bccp  bpyc  ypy   yyyp  pcp   ppp
-bbcp  bccp  ppcc  ppy   yby   ybp   bppb
-pcc   bcc   bcc   ppc   pby   bcc   bbb
-pbc   bcc   ccc   bccb  ybp   bccp  bcyb
-#     pcpb  pcpb  bbcb  bbp   pcy   #
-#     #     pbbb  bcbb  bypp  #     #
-solution: 2,1 ; 1,3 ; 0,2 ; 3,2 ; use 0,2,0 ; 4,1 ; use 0,2,0 ; 4,6 ; use 1,2,0 ; 3,2 ; use 0,6,2 ; 5,5 ; use 0,6,2
+cpbg  #     cbng  cbnp  cbnb  cbybEn #     pbbp
+gpbg  gpbn  cpgp  bcpp  bcgbEc bbcn  nncn  nnbb
+gpyn  pybn  gbgp  ybpn  nbgp  gbcc  gncn  nncbEc
+npyp  ypyn  gnpn  bnpn  nbgp  gbgc  gncb  bpnb
+ypyp  ypcp  gnbg  bnbn  nncy  gccc  nnnc  bpnb
+#     ypcg  bpcg  bbbn  nncy  nccn  nnbn  #
+#     cnng  pynn  pbbc  ngcc  cybp  yybp  #
+cpcg  cpcg  pycn  bbcc  bgcc  ypbp  yybp  ygyp
+solution: 1,1 ; use 0,5,1 ; 5,1 ; 3,0 ; 5,6 ; use 0,4,0 ; use 0,5,0 ; 1,1 ; 4,4 ; use 2,0,3 ; 2,3 ; 0,0 ; use 2,7,0 ; use 1,5,0 ; use 1,0,0

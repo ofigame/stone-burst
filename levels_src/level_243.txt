@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 6 hamle + 5 tepsi / limit 10 (pay +4, eski 13) hedef×0,78 bot 0,33 (hedef 0,33) plan 0; zincir v13: yeni çözüm 7 (eski 6), sınır 10→11, bot 31/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T (ayna); çözüm 10 + 8 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
 id: level_243
-title: Mühür ve Işık
-moves: 11
+moves: 12
 roll: off
 specials: on
-goals: blue 25, coral 46, star 2, envelope 2
+goals: blue 44, coral 32, envelope 2
 grid:
-ycb   cbb   cbyyEy ccyy  cyy   bby   bbc
-ccby  ccc   ccb   ccpy  ccyc* cbcp  ypcy
-cccp  pbc   pbp   ppy   cpc   cbcp  cbcy
-cbc   pccy  #     #     #     pcpp  cccy
-bccc  bbc   #     #     #     cccp  ccp
-pbcp  pbc   #     #     #     ccyp  pcb
-ppcpEc pbc*  cyp   cyby  cpb   cpy   ccpy
-cpb   cpc   ccpy  yyby  cpbc  ycpc  pcby
-cppc  cyp   cyp   byb   cbbc  ppbb  pbb
-solution: 0,3 ; use 0,0,0 ; 1,5 ; use 0,3,0 ; 1,1 ; use 0,1,0 ; 5,1 ; 4,1 ; 2,0 ; use 0,0,0 ; 5,0
+pppc  pgpc  pgpc  bgpn  bccb  ygcb  cgbc  cgpc
+pppc  pgyn  nncn  nncn  ycbb  ygbb  ngbc  ngbc
+nyyy  gyyg  ngcg  nnpb  gnpbLy5 ybpb  nybb  ygbc
+nnyy  nnyy  cgpg  gbgg  gngb  cbpb  cbcb  ypbc
+ynby  ncbg  cbbg  cbyg  gyyg  cyyg  ppcyEb ppcg
+ynyg  pcyg  pbbg  cbyg  pyyg  pyyg  pbcg  pbcgEn
+#     #     gnbg  ggbg  gybg  ynby  #     #
+#     #     bnbg  pcbg  pyby  pypy  #     #
+#     #     bcbg  bcpg  bypn  pgpn  #     #
+solution: 6,0 ; 4,0 ; use 0,7,0 ; 1,2 ; 3,4 ; 1,4 ; use 0,0,0 ; 0,2 ; use 0,4,1 ; 5,0 ; use 0,4,0 ; 4,4 ; 3,2 ; use 1,5,0 ; 3,0 ; use 2,3,0 ; use 1,0,0 ; use 0,3,0

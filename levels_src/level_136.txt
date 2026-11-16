@@ -1,18 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 5 hamle + 4 tepsi / limit 9 (pay +4, eski 14) hedef×0,94 bot 0,17 (hedef 0,41) plan 0; zincir v13: yeni çözüm 4 (eski 5), sınır 9→8, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven (ayna); çözüm 9 + 8 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_136
-title: Bahçe Yolu
-moves: 8
+moves: 11
 roll: off
 specials: on
-goals: coral 41, purple 28
+goals: yellow 25, coral 40, green 38
 grid:
-#     #     pcp   ccp   cbp   #     #
-#     cyy   cyy   cpp   pbp   pbp   #
-pcb   bcy   pcc   pcc   pcc   pbb   ccp
-pbc   ybb   ybb   pcc   pbp   ccp   bcpLc7
-cpc   ppb   bpp   ybp   ybp   pcb   bbb
-bpc   cy    ccc   bbc   ybp   yb    bpb
-bpc   ycp   ccc   ccc   cyp   yyp   byb
-#     bcc   cbc   ycp   cbp   bbp   #
-#     #     ccb   cyb   ccy   #     #
-solution: 2,5 ; use 0,1,1 ; 6,2 ; 0,3 ; 2,0 ; use 0,2,0 ; use 1,1,1 ; use 0,3,0
+#     #     #     #     bgp   bgp   cbp   ybp
+#     #     #     bygg  bgcc  ygcc  cgc   cbc
+#     #     gyy   cyyg  pcyg  pbyc  pbc   cbp
+#     yyyp  gyy   cyyg  pcb   pcbcLc3 pppy  cpp
+gbgp  gbbp  gybp  cgg   bcy   gcb   gyby  ccp
+pgcb  ggc   yggp  ggg   gcy   gcbb  gccb  cccb
+bpc   gpc   gycp  ggc   gbc   gbc   gbc   bbc
+bpc   gcgp  gyc   gyb   gbbp  yycp  ygc   bgc
+solution: 1,3 ; 1,5 ; 3,1 ; use 0,3,1 ; use 0,3,1 ; 4,1 ; 4,3 ; 1,5 ; use 0,2,2 ; use 0,4,1 ; 0,6 ; use 0,4,1 ; 4,2 ; 0,4 ; use 0,6,1 ; use 0,0,4 ; use 0,1,3

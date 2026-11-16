@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 8 / sınır 10 (v7 11); açgözlü kaybeder; bot48 0,10 (taban 0,06); bot 0,17; zincir v13: yeni çözüm 9 (eski 8), sınır 10→11, bot 10/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil kesik köşe (ayna); çözüm 9 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_567
-title: Bölüm 567
-moves: 11
+moves: 9
 roll: off
 specials: on
 type: exact
 rules: exact
-goals: blue 54, coral 41, purple 43
+goals: blue 30, yellow 44, coral 31
 grid:
-bccc  bccc  bcpc  bpbc  bppc  yppb  yppb
-bccy  bycy  bppy  bpbc  yypc  ypyb  ypyb
-bpcy  bypy  ypyy  bpyy  bcpc  yycb  cbcb
-yppy  pyyy  #     #     #     pycb  cbcb
-bpyp  ppypK1:2 #     #     #     yppp  cbpp
-ppcb  cbyp  #     #     #     yppcK1:2 ccpp
-bccp  pbyc  bbpb  yppb  ypcb  ypcy  cpcc
-bccc  bcbb  bppb  cpcc  ybbb  yppb  bppc
-ycbc  ycbc  bpby  ybpy  bbcb  bppb  bppb
-solution: 2,6 ; 0,1 ; 0,0 ; use 0,2,0 ; 3,0 ; use 0,0,0 ; use 0,3,0 ; 1,1 ; 0,5 ; use 0,2,0 ; 0,5 ; use 0,5,0 ; 5,0 ; 0,8 ; use 0,3,2
+#     #     cgny  ccyc  ccnc  ycnyK1:1 #     #
+#     cbpb  cnnb  pnyb  cnnb  ynny  ngnpK1:1 #
+nbpb  pbpb  pyny  pngb  pynp  ynnp  pgnpK1:1 bpnc
+cbpy  pbny  pyny  bygb  bynp  pnnp  pgng  bgnc
+cnny  pnny  pnny  ngnb  nynb  ypyb  bnyc  byyc
+gbny  gnpy  pnpy  ngnc  ngnc  ypyb  bpcg  byyb
+cbcy  cncy  cnyy  nnnc  bynb  bpyb  ppcg  pycg
+#     cnyb  nnyy  nnpp  yppp  ppyg  ppcg  #
+#     #     ygpc  ygpc  ygyc  pgyg  #     #
+solution: 1,1 ; 2,2 ; 6,5 ; use 0,3,0 ; 2,1 ; use 0,2,0 ; 6,1 ; 1,1 ; use 1,1,1 ; 2,0 ; use 1,3,0 ; 3,2 ; use 2,5,0 ; 0,4 ; use 3,3,0 ; use 0,7,2 ; use 0,7,2

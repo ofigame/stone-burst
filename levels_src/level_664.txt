@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 11 hamle + 4 tepsi / limit 14 (pay +3, eski 12) hedef×1,14 bot 0,13 (hedef 0,18) plan 2; zincir v13: yeni çözüm 9 (eski 11), sınır 14→16, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T (ayna); çözüm 10 + 7 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_664
-title: Bölüm 664
-moves: 10
+moves: 11
 roll: off
 specials: on
-goals: coral 55, purple 49, yellow 37
+goals: purple 29, navy 33, yellow 23
 grid:
-ppyy  G1:pcpy G1:pcpy G1:pccc G1:ppyc G1:ppyc bpyc
-pppy  pypy  pcby  pccy  ppcy  ppyc  bypc
-pycb  pypb  ycby  ypcy  ypcy  pcyp  bypb
-pycb  ccppB1 ccbp  pccy  yppp  ycyb  yypb
-yccc  cccp  cccp  cccp  ccbp  ycyp  bcpb
-ycbc  cccc  ybcy  yccy  cpcy  bpyy  ybcc
-#     #     bcyc  yccy  ppby  #     #
-#     #     ybpp  ppyb  bpyp  #     #
-#     #     pycp  pbcb  pbpp  #     #
-solution: 0,0 ; use 0,2,1 ; 0,1 ; 6,2 ; 0,2 ; use 0,0,1 ; use 0,6,0 ; 1,1 ; use 0,5,2 ; 0,0 ; 1,0 ; use 0,0,0 ; use 0,0,0
+gpcp  gpcp  G1:cpcc G1:cpcc G1:ybgc G1:ybgy bbny  bbny
+gbcb  gbnb  cccc  cccc  nycp  nngp  nybp  nybn
+bncn  gccn  cccp  nccp  nygc  gnnc  gcpb  gybn
+bngy  bcgn  ppny  nppy  gypn  gnnb  gcpb  gcbcB1
+pngy  pcgn  pcny  gbpy  ybpn  ybncR bcbn  bcbc
+nnycR nggy  ncby  gbpy  bbpn  bbpg  bcpn  bcpc
+#     #     ycbp  gbpp  ybpg  ygcg  #     #
+#     #     ycnn  gcyp  pgyp  pgcc  #     #
+#     #     ypnn  ygyn  ngcn  pgcc  #     #
+solution: rot 0,5 ; 0,3 ; use 0,7,1 ; 2,2 ; 7,1 ; use 0,0,0 ; 2,1 ; use 1,6,0 ; 5,2 ; 7,3 ; use 1,6,0 ; use 0,7,0 ; 5,1 ; 3,4 ; 2,4 ; use 1,2,0 ; use 1,4,0

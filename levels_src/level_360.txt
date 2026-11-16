@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [protect+exact]; kristal 3; çözüm 10 / sınır 13 (v7 12); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; adillik onarımı: sınır 13→16 (112 oyunda 5 galibiyet); zincir v13: yeni çözüm 10 (eski 10), sınır 16→18, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U (ayna); çözüm 19 + 8 tepsi / sınır 19; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_360
-title: Yıldız Çarkı
-moves: 18
+moves: 19
 roll: off
 specials: on
 type: boss
 rules: protect, exact
-goals: coral 52, purple 24, yellow 29, star 3
+goals: navy 27, yellow 39, coral 21
 grid:
-bccc* bccp  pccy  bbpc  cyyb  cbyb  bpcb  bbpb
-bbcp  pycp  pyyy  cycy  cbyy  cbcy* bpcy  bbpb
-bbcp  pycb  pycb  cycy  cbcyR bbcy  bccy  cyyy
-bbcy  bccc  byyy  #     #     bbcb  bccc  bcpc
-cycy  ccyc  bcyy  #     #     pbcb  bccc  bcpcR
-cycy  yyc   bbyy  #     #     ppcb  bb    bpcc
-cycb  cycy  pycy  pbpb  bbpb  pccb  bccp  bcpbP
-cycb  cyyy  cycy  pbyb* pbyb  pccb  bccpR bbpbP
-cyyp  cyyp  cyyy  pppy  pbpy  bbbpP bbcp  bbpc
-solution: 2,0 ; use 0,0,0 ; 5,2 ; 0,3 ; 2,6 ; 3,6 ; 2,3 ; use 2,0,0 ; use 0,0,0 ; 1,0 ; 0,1 ; 1,0 ; use 1,6,0 ; 7,3 ; use 1,1,0
+ppnnP bpcnP nncn  #     #     npcb  npcb  ppcb
+bbnnP bbnn  nngy  #     #     bbcy  npcc  ppyc
+ybgg  bbgn  ybgy  bcyg  bpyg  bbcn  bpcn  bpyc
+yyng  ybgp  ybyp  bcygi1 nyyg  npyp  bpngR bpgb
+yynci1 yngc  ybyp  bybn  bybn  byyb  bpycR pcgy
+ynbg  yngg  ygyp  ygyn  ypbn  bpby  bpcy  pccy
+yybb  ynbg  cgpc  cgpci2 npyy  gpcy  ppcy  pccy
+yybni2 ynpn  ynnpR cgyni1 ngyy  ngby  ngby  pbcy
+solution: rot 6,4 ; 6,4 ; 3,4 ; 5,0 ; use 0,5,0 ; 1,3 ; 2,1 ; 0,2 ; use 2,6,1 ; 1,3 ; 1,3 ; 1,7 ; 0,3 ; use 2,5,1 ; 5,0 ; 5,0 ; use 0,2,0 ; 6,4 ; use 0,2,0 ; use 1,2,0 ; rot 6,3 ; 5,7 ; 5,6 ; use 2,0,7 ; 3,4 ; use 2,0,6 ; 1,6

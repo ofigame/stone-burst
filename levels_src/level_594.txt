@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3 (kaydırılmış); çözüm 7 hamle + 5 tepsi / limit 9 (pay +2, eski 12) hedef×1,31 bot 0,21 (hedef 0,20) plan 1; zincir v13: yeni çözüm 8 (eski 7), sınır 9→11, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil kesik köşe (ayna); çözüm 3 + 3 tepsi / sınır 8; rastgele 0,215; açgözlü kaybeder; yumuşak 0,29
 id: level_594
-title: Bölüm 594
-moves: 11
+moves: 8
 roll: off
 specials: on
-goals: yellow 29, blue 49, coral 56
+goals: blue 30, yellow 14
 grid:
-cbpc  ycpc  pypy  pycbK1:1 cypb  cppp  bppp
-cbpc  ybpc  pypy  ccby  bcpbK2:2 bypb  bypp
-cbpp  cbpb  cbpb  bbby  bcbb  pypb  bypb
-cpbp  #     #     #     ccbpK2:2 bcbp  bcbb
-bpbp  #     #     #     ccyy  ccpcK2:2 bcpc
-bpbp  #     #     #     pypy  pcpy  ppbc
-pppp  pcpc  pcpc  pcpyK1:1 pcpy  pccy  ybcc
-ppyp  pcyc  pcbc  ppyc  pccc  pcbc  bbcc
-pcyp  pcyp  pyyc  bbyc  pcbc  pbbb  pbbc
-solution: 6,4 ; use 0,2,0 ; 3,0 ; 2,0 ; 5,4 ; 6,5 ; use 0,5,1 ; use 0,0,0 ; use 0,2,0 ; 5,2 ; 4,1 ; 4,3 ; use 0,0,0 ; use 0,5,3
+#     #     b     p     p     y     #     #
+#     bc    b     pc    pc    y     yb    #
+bb    b     p     p     pc    y     y     yb
+yb    p     pp    b     b     bc    yc    bc
+y     y     y     yy    b     b     bc    b
+y     y     p     b     b     bp    b     b
+by    p     pc    bc    bc    b     bb    bb
+#     pc    pc    b     bc    cc    b     #
+#     #     pc    p     p     c     #     #
+solution: 2,6 ; use 0,2,0 ; 0,3 ; 5,0 ; use 1,5,0 ; use 0,0,2

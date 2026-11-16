@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [chainOnly+exact]; zincir coral 10; çözüm 7 / sınır 10 (v7 7); açgözlü kazanır; bot48 0,04 (taban 0,04); bot 0,00; adillik onarımı: sınır 10→13 (112 oyunda 3 galibiyet); adillik onarımı: sınır 13→14 (112 oyunda 6 galibiyet); zincir v13: yeni çözüm 6 (eski 7), sınır 14→13, bot 40/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kenar çentikleri; çözüm 13 + 0 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_370
-title: Kilitli Çark
 moves: 13
 roll: off
-specials: on
 type: boss
-rules: chainOnly, exact
-goals: yellow 62, blue 49, star 2, chain coral 10
+rules: noSpecials, exact
+goals: coral 36, yellow 30, purple 36
 grid:
-ppyb  pcybR pcyb  #     #     cbyb  pbycR ybyc
-pyyy  pyyy  bybb  #     #     ccyy  bcyy  pcbc
-pycy  ybcy  cbyp  #     #     ccyy  ccbc  ppbc
-yybb  ypbp  cbpp  cbbp  cbbp  cpbp  bycp  bpbc
-bpbb  ypbb  pp    pbbc  pbbpR bbp   yccy  ycby
-bpy   ppbb  ppbb  ppbc  yyby* yycy  yycy  ypy
-ycyb  ypyb  ypcb  ppcc  ypby  yybyLb8 ybcy  ybcy
-ycyb  ppyp  ppbp  ppby  cpby  cybp* yybp  pbcb
-ycbb  ycbb  ppbb  cpby  cycy  cybp  yycp  pycp
-solution: 5,7 ; 6,4 ; 4,7 ; use 1,0,1 ; 0,3 ; use 2,0,0 ; 2,2 ; use 2,5,0 ; 6,0 ; use 0,0,3
+nycn  #     #     #     #     #     #     npcy
+nycy  #     #     pnyp  pncp  #     #     npcc
+nccy  nccc  nncc  cnyc  cycn  pycpR pypy  pppc
+yncn  nccc  nccn  cycn  cycn  cpcc  yypc  ypnc
+yncn  yncn  nncn  cycn  cypp  cncc  ynnc  ynnp
+ypyn  ypyn  ypnn  cypn  cypp  yync  yynp  ypnp
+ypyn  ypcn  nppc  nypc  nypn  yypc  cypp  cpcp
+ppyp  ppcp  ynpc  pypn  pnpn  pypn  cypp  cppnR
+ppcp  pncp  yncc  nycp  pncp  pycc  cypc  cnpc
+solution: rot 5,2 ; 4,2 ; 7,1 ; 0,3 ; 0,1 ; 4,4 ; 3,2 ; 0,1 ; 4,6 ; 4,4 ; 4,4 ; 6,6 ; 5,6

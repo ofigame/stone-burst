@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 3; protect [protect+exact]; kristal 3; çözüm 10 / sınır 10 (v7 6); açgözlü kaybeder; bot48 0,04 (taban 0,04); zincir v13: yeni çözüm 8 (eski 10), sınır 10→10, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 105 + tür resource; şekil artı (ayna); çözüm 9 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d027_t3
 title: Günlük 27
-moves: 10
+moves: 9
 roll: on
 specials: on
-type: protect
-rules: protect, exact
-goals: blue 26, coral 27
+type: resource
+rules: exact
+goals: purple 26, navy 24, coral 46
 grid:
-byc   yycP  byc   #     #     #     #
-ybc   pyp   ycp   bcpi1 #     #     #
-bbp   bbp   ccp   pcy   ccy   #     #
-pyp   pbc   pbp   bcy   pbc   cpb   #
-bpc   bpc   cyb   pcb   ycy   yyc   pyyP
-pbp   cpp   pyp   ccp   cpc   pcc   ppc
-bcpi1 cyb   pyb   cyy   pyc   ppb   ppc
-bbp   cbb   pbb   pbb   ppb   ppb   ppcP
-solution: 1,6 ; 3,2 ; 1,3 ; 1,1 ; use 0,3,1 ; 2,4 ; roll 6 ; 2,4 ; use 1,4,2 ; 4,4 ; use 0,0,2
+#     #     bng   bbpg  bbpg  bbcg  #     #
+#     #     bbg   nbp   bbp   ngpn  #     #
+pcp   pbb   nbg   ncng  ccp   ncgn  ccc   ccnb
+pcpg  pcp   bgnb  ncn   pcgn  pcgn  pcc   gcn
+pcpg  bccp  bgb   gggb  ggb   ncb   pcc   ggn
+bbcp  gcc   gnb   gpgb  gcb   nggb  ncgb  pgnp
+bbc   gcc   gpg   npg   cpc   ngcb  pgc   pgcp
+#     #     ngcc  ngc   ngc   pgcb  #     #
+#     #     cbc   cgc   ngcb  pgc   #     #
+solution: 2,3 ; 4,5 ; 5,1 ; use 0,3,1 ; use 0,0,2 ; 2,0 ; 4,2 ; use 1,3,0 ; use 1,2,0 ; 2,0 ; roll 8 ; use 1,5,0 ; 3,4 ; roll 2 ; use 0,0,2 ; use 0,0,2

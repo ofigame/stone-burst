@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3; çözüm 8 hamle + 5 tepsi / limit 12 (pay +4, eski 19) hedef×0,79 bot 0,50 (hedef 0,21) plan 0; zincir v13: yeni çözüm 8 (eski 8), sınır 12→12, bot 40/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil artı; çözüm 3 + 1 tepsi / sınır 8; rastgele 0,360; açgözlü kazanır; yumuşak 1,00
 id: level_546
-title: Bölüm 546
-moves: 12
+moves: 8
 roll: off
 specials: on
-goals: yellow 32, blue 36, coral 23, envelope 2
+goals: navy 20, blue 7
 grid:
-#     #     cybp  yybp  bybp  bppb  bppc
-#     ccbp  pypc  ycbc  bcbp  bycc  cppc
-yypp  pcpc  pbpcK1:2 pbbc  pbpp  bypp  ccpb
-yyby  yyyy  #     #     #     bybbK1:2 bcbbEb
-yyby  byby  #     #     #     byby  bcby
-pbbp  ybby  #     #     #     bpby  cccy
-cbcp  yycc  cyyy  bypc  bppcEy bpcy  bccy
-cbcp  bppc  cpyy  bpbb  bpbb  bppb  #
-pbyc  cppc  cppy  yppy  ybbc  #     #
-solution: 5,4 ; 2,0 ; 2,0 ; 0,3 ; use 2,4,0 ; use 0,5,0 ; 1,6 ; use 0,0,6 ; 1,5 ; 0,7 ; use 0,0,2 ; 1,6
+#     #     nc    nc    n     nn    #     #
+#     #     c     nc    nc    n     #     #
+y     y     cc    nc    n     n     n     n
+yn    y     yb    yb    y     n     n     n
+y     yy    n     n     yy    ny    n     n
+y     yy    y     nb    y     y     yb    cb
+b     y     yc    yc    yc    y     cb    cb
+#     #     yc    yc    yc    yc    #     #
+#     #     yy    y     y     y     #     #
+solution: 2,0 ; 2,0 ; use 1,2,3 ; 2,4

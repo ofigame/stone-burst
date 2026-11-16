@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3 (ayna); çözüm 6 hamle + 4 tepsi / limit 16 (pay +10, eski 15) hedef×0,79 bot 0,33 (hedef 0,30) plan 0; zincir v13: çözüm aynı, sınır 16→16, bot 19/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati (ayna); çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_411
-title: Bölüm 411
-moves: 16
+moves: 8
 roll: off
 specials: on
-goals: blue 27, coral 35, sponge 1
+goals: green 27, coral 40, sponge 1
 grid:
-cyb   ccy   bcyy  bcpy  bcpy  #     #
-cyyc  cyp   ccyp  yyc   bcb   ybcy  #
-pbp   ybpc  ypy   ycyp  ccyp  bybp  ybbp
-bby   bpyy  #     #     #     ybpc  ybycScb
-bcy   bbb   #     #     #     bypb  yyyb
-bcb   ypbc  #     #     #     pyp   pyy
-bpp   bppc  ybpc  ybp   cyc   cycc  pccc
-#     yppc  ybc   yccb  yccb  cpcc  cpcc
-#     #     ycyc  ycc   yccb  ypyc  ypcc
-solution: 4,6 ; use 0,0,0 ; 0,4 ; use 0,4,1 ; 5,6 ; use 0,3,1 ; 3,2 ; 0,0 ; 1,5 ; use 1,4,1
+bccy  bncgk1 npcg  cpcc  cpny  cynp  yyppk1 cyng
+bccy  bngc  nngp  gppy  gcny  ppnp  cppg  cpng
+ncnyk1 ncnc  bpcg  bpgy  ycgy  ycgp  cppy  npny
+#     nbcb  npcg  npgy  ygcy  nccy  npcy  #
+#     gbby  npby  ngby  pgby  npnc  npcp  #
+#     gbbn  ycbck2 pcgy  pppc  pncc  yncp  #
+pycg  pbbyk2 gcbc  ppgy  pppck1 nngp  yncpSy cncp
+bypg  bgby  ggbg  pggb  ncpb  ncpp  bypp  cnpp
+bypg  bgpg  gpyy  gpyy  npyy  npyp  bypp  cnbc
+solution: 4,0 ; use 0,2,0 ; 5,0 ; use 0,6,0 ; 4,2 ; 1,3 ; use 0,2,0 ; 3,5 ; use 0,1,0 ; 0,0 ; use 0,0,0 ; 2,0 ; 5,3 ; use 1,3,0 ; use 0,0,0

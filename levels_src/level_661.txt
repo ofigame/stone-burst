@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 4 hamle + 3 tepsi / limit 8 (pay +4, eski 12) hedef×0,80 bot 0,79 (hedef 0,23) plan 0; zincir v13: yeni çözüm 5 (eski 4), sınır 8→9, bot 74/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T (ayna); çözüm 9 + 9 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_661
-title: Bölüm 661
-moves: 9
+moves: 10
 roll: off
 specials: on
-goals: purple 34, yellow 27
+goals: green 17, blue 25, purple 46, envelope 2
 grid:
-pyp   G1:yccb G1:bcc G1:pcp G1:ppy G1:ppyb cpbp
-pcp   ycp   ccbp  pcpy  cpyc  ppyb  cpyb
-ycbb  cpcc  cccb  ycyb  ppyb  ppyb  ypc
-#     cpyc  ycy   ycyb  pcy   ybpB1 #
-#     ccyc  ycp   pcpb  pcp   cpb   #
-#     ycy   yccb  pccb  ccb   cpb   #
-ypb   ccpc  ycyb  pcy   ccb   bcyy  cccb
-bcby  cbbb  bby   bcyp  bbbp  yby   cbp
-ccby  ccb   ccy   bcp   cbb   pbpc  pbcc
-solution: 0,0 ; 2,1 ; 5,1 ; use 0,0,0 ; 0,1 ; use 0,0,0 ; 2,1 ; use 0,3,1
+cypy  cypn  G1:bcbn G1:bcbb G1:pnbb G1:pnbp cgnp  ygnp
+gppn  bnpn  bcpy  yyby  yncb  nycb  ngcp  ygcp
+gpnn  pnpn  pnpp  bypy  bncy  nyyy  ygpy  ygny
+gpnn  pnnn  pnnp  bycp  bccy  bgygEg bgpb  pgnbB1
+pbng  cbng  cpng  ppyy  cpyg  bpyg  pnpy  pgnyEb
+pgnp  cpnp  cppy  cppy  ccpy  ppny  ppny  ppny
+#     #     pcpc  pcbc  pcnb  bcny  #     #
+#     #     pync  pnbc  nyny  ncny  #     #
+#     #     pyny  pnyy  nyyy  byby  #     #
+solution: 2,1 ; use 0,0,4 ; 1,0 ; use 0,3,1 ; 3,4 ; 1,0 ; use 0,6,0 ; 6,2 ; 7,3 ; 4,1 ; use 0,5,0 ; use 2,3,0 ; use 0,0,0 ; 4,7 ; use 1,0,0 ; use 0,4,0 ; 3,1 ; use 0,2,0

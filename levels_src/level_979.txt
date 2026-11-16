@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 8 hamle + 6 tepsi / limit 10 (pay +2, eski 13) hedef×0,97 bot 0,17 (hedef 0,15) plan 0; zincir v13: yeni çözüm 6 (eski 8), sınır 10→8, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı (ayna); çözüm 9 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_979
-title: Bölüm 979
-moves: 8
+moves: 9
 roll: off
 specials: on
-paint: 1
-goals: blue 38, coral 48, purple 33
+goals: green 16, yellow 28, coral 18
 grid:
-ybbp  G1:ybbp G1:yccp G1:yccp G1:ybpb G1:cbpc cypc
-ybbp  ybbp  bcbp  pcbcB1 ycbp  cypy  yypy
-bbcp  bpcp  yccp  pccc  yyyc  pcbp  pcbc
-bpcy  bpby  bpby  pccc  pyyc  pybc  pyyc
-bpby  bpbb  bpbb  cycb  yyyc  pcbc  ycyc
-bycp  bcyp  cccp  cccp  cpcp  ycyy  ycpy
-#     #     cypb  cbcc  ypcc  #     #
-#     #     ppbp  pbyc  ppbc  #     #
-#     #     ycbc  cbbc  ppbc  #     #
-solution: 3,1 ; 3,6 ; use 0,0,0 ; use 0,3,1 ; 2,1 ; use 0,0,0 ; 2,2 ; 1,3 ; 4,2 ; use 0,6,0 ; use 1,5,0
+#     #     nnpb  nnybK1:1 ccyy  #     #
+#     #     nybb  cynp  ccny  #     #
+cpgn  cypb  nbbb  bybn  bypy  bypy  yypc
+cppn  yypb  nbpb  pbnn  pcpy  bbyy  yyyc
+gbbn  ycbn  pcpn  pcnnK1:1 ccnb  cbgb  cbyb
+gbpn  ngbn  pgby  pcby  pgbg  ggpg  gnnb
+gyby  nyby  ygby  pgbp  cnbp  gnpb  gnnbK1:1
+#     #     ygby  pgcp  cpcy  #     #
+#     #     ypgb  ypgp  cpgy  #     #
+solution: 4,0 ; 2,5 ; use 0,4,0 ; 5,4 ; use 1,5,4 ; 0,2 ; use 1,4,0 ; 2,4 ; use 1,4,0 ; 0,6 ; 2,0 ; use 2,0,2 ; 0,2 ; use 0,0,2 ; 5,2 ; use 0,1,2 ; use 0,5,2

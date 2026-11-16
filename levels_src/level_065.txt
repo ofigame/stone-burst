@@ -1,17 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 4 hamle + 4 tepsi / limit 8 (pay +4, eski 11) hedef×1,09 bot 0,50 (hedef 0,47) plan 0; zincir v13: yeni çözüm 5 (eski 4), sınır 8→9, bot 77/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T; çözüm 7 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: level_065
-title: Kırılan Kaskat
-moves: 9
+moves: 10
 roll: off
 specials: on
-goals: purple 47, yellow 19
+goals: blue 32, purple 18, navy 23
 grid:
-pcbi1 pcp   ypb   pyb   pbb   pbpi1 pppi1
-ybc   pcp   pcp   pyb   cyb   pbc   cbc
-ypc   ppp   ppp   byp   bpc   cbc   ybb
-yyc   ppc   ppp   pyp   pyp   ccp   ccp
-ppy   ppy   ppb   cbp   ypb   cpc   ccb
-#     #     byb   bbp   ybb   #     #
-#     #     pyb   pyp   pyy   #     #
-#     #     pyb   pyy   pyy   #     #
-solution: 2,0 ; 1,0 ; use 1,2,0 ; 2,4 ; 4,1 ; use 1,5,0 ; 4,6 ; use 1,6,0
+nnp   nng   nyg   yyn   yypi1 yyp   yyg   bgy
+gnp   nyg   pyp   ggp   gnp   yng   yyg   bgy
+gpp   ybp   ggp   ggb   gyb   gny   pby   bby
+ypy   yby   gnp   gnb   byp   gny   pnb   byn
+bny   bny   bnn   bnn   byn   pyb   pyb   byn
+#     #     bbg   bbg   pbg   pggi2 #     #
+#     #     bbg   bygi1 pyg   ngb   #     #
+#     #     bbg   bbg   bpgi1 npb   #     #
+solution: 0,0 ; use 0,1,2 ; 2,5 ; use 0,0,0 ; 7,0 ; use 0,4,0 ; 6,0 ; use 0,0,0 ; 2,4 ; use 0,7,0 ; 1,0 ; 2,0 ; use 0,1,0 ; use 0,7,2

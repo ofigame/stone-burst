@@ -1,21 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 8; protect [protect+exact]; kristal 3; çözüm 9 / sınır 12 (v7 8); açgözlü kaybeder; bot48 0,10 (taban 0,04); zincir v13: yeni çözüm 10 (eski 9), sınır 12→13, bot 24/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 869 + tür pure; şekil kenar çentikleri; çözüm 17 + 0 tepsi / sınır 17; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d019_t8
 title: Günlük 19
-moves: 13
+moves: 17
 roll: on
-specials: on
-paint: 1
-type: protect
-rules: protect, exact
-goals: yellow 43, purple 26, blue 32, sponge 1
+paint: 2
+type: pure
+rules: noSpecials, exact
+goals: purple 24, coral 34, navy 20, star 4
 grid:
-ccbbScb ccycP cyyc  #     cbbc  ybyc  ybcc
-ccbb  cyyy  yyyc  #     pcbp  pcyp  pbcp
-yybb  yyyy  ycyy  #     pccc  pcyc  cccpP
-ppbb  ppbb  pccy  pycp  yccc  yccc  cccp
-ppby  ppcb  pcbb  yypp  yypb  ycyp  cycp
-pbcp  pycb  pcbb  pypc  ccpb  ccbc  cybp
-cbcp  cycp  ccbc  cybc  bcbb  bcyb  cybp
-cbcpP cbcc  bcbc  bcby  bcbb  ycyc  yyyc
-cpcc  ybbc  ybbc  bcby  bcyb  ycyc  yyyc
-solution: 0,1 ; use 0,0,1 ; roll 1 ; 1,4 ; use 0,1,1 ; roll 3 ; 3,4 ; 4,5 ; 5,5 ; 4,0 ; use 0,5,0 ; roll 6 ; 0,3 ; use 0,2,1
+nnpn  G1:nnpn G1:nnyn npcc* G1:nccc G1:nync nycc  nycc
+#     #     cpyn  cpcp  pccp  pynp  #     #
+#     #     cppc  ypnc  ccnc  pnnp  #     #
+ycpnB1 ycpn  ccpy  ypyn  ccnc  ccny  ypcy  ypcc
+#     #     ycyy  ycyy  pccc* pcnn  #     #
+nncc  nncy  yccy  pycc  ppcc  pccc  cpcn* cpcn
+ynpc  #     #     pycp  cpyp  #     #     cpcn
+ynpc  #     #     cpyp  cpyp  #     #     ppcn*
+solution: 6,5 ; 3,1 ; 3,0 ; 6,5 ; 4,4 ; roll 3 ; 5,1 ; roll 7 ; 4,1 ; 4,4 ; 3,1 ; 0,3 ; roll 3 ; 0,0 ; 3,0 ; roll 0 ; 0,0

@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3 (kaydırılmış) (ayna); çözüm 5 hamle + 3 tepsi / limit 8 (pay +3, eski 12) hedef×0,79 bot 0,42 (hedef 0,27) plan 1; zincir v13: yeni çözüm 5 (eski 5), sınır 8→8, bot 82/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 13 + 6 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10
 id: level_375
-title: Posta Akışı
-moves: 8
+moves: 14
 roll: off
 specials: on
-goals: blue 22, coral 31, purple 29, envelope 2
+goals: blue 25, navy 40, green 37
 grid:
-cypc  cycy  ccpp  yypp  bypc  #     #
-ccyc  ccpy  ccpp  ycpp  bcpp  bybc  #
-bpcy  cpcyR #     #     #     yypc  yypy
-pcpy  yycy  #     #     #     ypyy  bypy
-ccpp  ccby  #     #     #     yppy  cpyy
-bppy  bbpy  bbby  bcbyEc bcpy  cppc  ypcy
-ppppEb cbppR bcby  bcby  bcpy  bppc  yppc
-#     cbpp  bycp  bcpp  pppy  bpbb  yybc
-#     #     cypc  cycy  bycp  cycp  bybc
-solution: 1,0 ; 2,0 ; use 0,0,0 ; use 0,0,0 ; 1,4 ; 5,2 ; use 1,4,1 ; 0,0
+bncy  gbcy  gnny  ypny  ycyg  ycgg  bggb  pggg
+bbcg  gbyg  ppyg  pppg  ppyg  bcgg  bgng  pgng
+yycp  gyby  pcgy  pcpg  bpyg  ycyg  pcgy  pcpgk1
+yypnR gybpk1 gcgy  bcgy  bbgc  ybyg  gcgy  gcby
+ngyb  nggb  cgny  ccgy  bcgc  ypyn  ncbn  ybbn
+ygnp  yygn  cgnc  ygnn  ypgb  ypyb  nbcyk2 ybny
+yynp  nygp  npgc  pync  nyyb  ypcb  nbbpR ybng
+ypnn  ngnp  ngcc  ppcb  nyyb  ypyb  ybyn  ynng
+ncnn  nccnk1 ngcnk2 npcnk1 npyp  yngn  nngn  nncc
+solution: 4,0 ; 0,0 ; use 0,2,0 ; 5,0 ; use 0,6,0 ; use 0,6,0 ; 2,2 ; 5,3 ; use 0,2,0 ; 4,0 ; 7,4 ; 0,5 ; use 1,6,4 ; 7,4 ; 2,7 ; 2,5 ; 1,7 ; rot 6,6 ; use 2,5,1

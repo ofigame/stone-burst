@@ -1,17 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe; çözüm 3 hamle + 2 tepsi / limit 8 (pay +5, eski 10) hedef×1,08 bot 0,58 (hedef 0,64) plan 1; zincir v13: çözüm aynı, sınır 8→8, bot 54/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil merdiven (ayna); çözüm 3 + 2 tepsi / sınır 12; rastgele 0,335; açgözlü kazanır; yumuşak 0,79
 id: level_012
-title: Büyük Gösteri
-tutorial: Özel taşları biriktir: tepside dört yer var, istediğin an kullan!
-moves: 8
+moves: 12
 roll: off
 specials: on
-goals: coral 14
+goals: green 12, yellow 12
 grid:
-#     #     cb    yb    #     #
-#     yy    bc    cb    yy    #
-bby   cb    ybb   yy    bb    cyc
-bc    yc    ycy   bb    byy   cyc
-ybb   cy    cbb   bbb   yyb   cbc
-#     yyb   byc   cb    yy    #
-#     #     bb    cb    #     #
-solution: 5,2 ; 3,3 ; 5,2 ; use 1,2,0 ; use 0,2,0
+#     #     #     #     yn    yn    nn
+#     #     #     g     yn    n     n
+#     #     y     y     n     g     n
+#     n     gn    n     yg    n     gg
+n     g     yg    gy    gn    ny    yn
+g     y     n     g     yy    gy    g
+n     g     ng    yg    yy    yn    n
+g     gn    y     n     ny    ng    n
+solution: 4,0 ; use 0,4,0 ; 5,3 ; 4,3 ; use 0,3,1

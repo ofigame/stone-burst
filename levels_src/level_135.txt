@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 5 hamle + 4 tepsi / limit 9 (pay +4, eski 11) hedef×0,94 bot 0,29 (hedef 0,41) plan 1; zincir v13: yeni çözüm 5 (eski 5), sınır 9→9, bot 10/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil elmas (ayna); çözüm 11 + 6 tepsi / sınır 12; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
 id: level_135
-title: Kendiliğinden
-moves: 9
+moves: 12
 roll: off
 specials: on
-goals: blue 39, coral 31
+goals: green 27, coral 32, purple 26
 grid:
-cbb   bbb   byp   byc   ypy   cpy   cpy
-bbb   cbb   cyc   ycp   byc   cyc   cpc
-cpc   cpc   cyb   cpb   bpc   byb   cbb
-ycc   cby   #     #     #     bpb   bpb
-pby   pby   #     #     #     yby   ypy
-pbp   pcp   #     #     #     yby   ycc
-pcp   pbp   pbc   pby   cyc   ccb   ccbLy7
-ycp   bpc   bbp   bbp   yby   ccy   ycb
-ycy   yby   yby   bcy   yby   bcy   ycb
-solution: 4,7 ; use 0,4,0 ; 5,2 ; use 0,3,0 ; 0,4 ; 2,6 ; use 0,0,0 ; 0,0 ; use 0,0,0
+#     #     #     gcp   gcp   #     #     #
+#     #     cngy  gcp   ggn   pgny  #     #
+#     cpg   gngg  gnpg  pyny  pyp   pgp   #
+pcy   cpnn  cpn   gpy   gpny  gpny  gcc   gyc
+pcyp  ccn   cyn   ypy   gpyy  gpc   ccc   ccy
+pcy   pcnc  pycLg5 ypc   yyp   gpg   ncyg  ccyg
+#     pgy   gcy   gccy  gyp   nygp  nyg   #
+#     #     ccy   ccgy  gygy  nnnp  #     #
+#     #     #     ngc   ngc   #     #     #
+solution: 4,5 ; 4,2 ; 5,5 ; 1,5 ; 1,2 ; use 0,3,0 ; use 0,3,0 ; use 0,3,0 ; 4,1 ; 2,4 ; use 0,6,2 ; 4,3 ; 0,3 ; 0,3 ; use 0,0,5 ; 6,3 ; use 0,1,2

@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 8 hamle + 5 tepsi / limit 18 (pay +10, eski 18) hedef×1,14 bot 0,17 (hedef 0,24) plan 2; zincir v13: yeni çözüm 6 (eski 8), sınır 18→16, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T; çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_611
-title: Bölüm 611
-moves: 16
+moves: 9
 roll: off
 specials: on
-goals: blue 23, coral 46
+goals: purple 26, navy 29, green 30, sponge 1
 grid:
-pcpb  pcbb  G1:pcy G1:ppy G1:ppcy pcc   ppyy
-pcpb  ccbb  ccy   ppc   ppc   pyyy  yyb
-yyc   pycb  pyy   yyyp  pyyp  pyb   pyb
-yccy  pccy  yycy  ycbp  pcb   pbbB1 pbc
-bcpp  bcyy  bcyp  pccp  ppyp  ppy   pbyp
-bypp  bbcp  bcc   ycc   ypy   pby   cby
-#     #     cccc  cycp  yyyp  #     #
-#     #     yccc  cpc   cypy  #     #
-#     #     cccc  cpc   pccp  #     #
-solution: 3,2 ; 2,1 ; use 1,0,0 ; 3,3 ; use 0,1,0 ; 1,4 ; use 0,0,0 ; 0,0 ; 4,4 ; use 0,5,0 ; use 0,5,3
+ccgg  gygg  G1:gygy G1:gggy G1:ygbg cgbg  cgbn  cnbn
+ccbn  bnbg  gypp  ygpn  ygpn  ypng  cgyg  ybyn
+pcpn  bnbg  gpnp  gpnn  nppn  ppnc  bpnc  bbyb
+pcpn  yngg  ynng  pccpB1 nncp  pncp  nbcb  ncyb
+pcpy  ycgc  ynnc  pycp  pyyy  pcyy  nbnc  ncnc
+pypy  yycc  gggc  pggb  pygbSb pccb  nbcc  ncyc
+#     #     gggp  gnng  pybg  pbbb  #     #
+#     #     cnbp  cpbp  nbbg  nbnb  #     #
+#     #     cpgp  cpnc  cpng  cbng  #     #
+solution: 3,6 ; use 0,5,0 ; 3,1 ; 2,1 ; 3,3 ; use 1,6,0 ; 2,1 ; 0,0 ; use 0,0,3 ; use 0,0,2 ; 3,5 ; use 1,4,2 ; use 1,0,0 ; 1,3 ; use 0,0,5

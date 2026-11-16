@@ -1,21 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [protect+exact]; kristal 3; çözüm 12 / sınır 18 (v7 16); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 10 (eski 12), sınır 18→16, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U; çözüm 22 + 6 tepsi / sınır 22; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_720
-title: Bölüm 720
-moves: 16
+moves: 22
 roll: off
 specials: on
-paint: 1
+paint: 2
 type: boss
 rules: protect, exact
-goals: coral 40, purple 43, yellow 39
+goals: green 12, navy 11, purple 15, star 4
 grid:
-pbyb  pyby  byby  bbbbP pybb  pybc  pybc  cyyc
-bbbbP bybb  bbbb  bbyb  cbpy  ycbc  pyby  cyyy
-bcbb  bcbb  bbbb  cbbb  cyyc  cpyc  ppbp  pyyy
-ccby  bcby  ybpp  #     #     cpyc  ypyy  byyy
-cpby  cpby  cypp  #     #     bppy  bypy  byyp
-cppy  ccpb  cypb  #     #     cybc  cbpy  cbpy
-pcpy  pcpy  bcpb  bcbp  pbbp  pbbp  pbbb  cbpb
-pcpb  pcbb  pppp  bpcp  bccy  pccy  cccb  cbpb
-bcbbP bcbb  bpyp  bpbp  bpcy  bpyy  ycyb  cyyb
-solution: 5,0 ; 5,0 ; use 1,1,0 ; 6,4 ; use 1,5,0 ; 3,6 ; 1,5 ; use 2,7,0 ; 5,8 ; 4,6 ; 2,7 ; 7,1 ; use 0,7,0 ; 6,7 ; use 0,0,3
+pgnc  ygnc  ycng  #     #     bpyc* byyc  bnyp
+ygpb  ygnb* nbpg  #     #     cpgy  yyyp  yycp
+bgpy  bcpc  nbpc  nppy  ngpy  cggy  yyyc  yyccP
+cnpyP bcpc  bgbc  ggby  bgpy  bgnp  bpcp  bycc
+cnpp  ppgc  ppnc* gybn  gbny  gbnp  npcp  nppc
+cgbp* cpgc  pgpn  ggnn  gcpn  gcnn  npcp  nbpc
+ygbp  yggp  gnpn  pnbn  pcpn  gcnb  npny  nppc
+ygbc  gcgc  gcbgP pnbg  nnbb  pcbb  ppny  nppy
+solution: 1,2 ; 2,4 ; use 1,7,0 ; 1,4 ; 5,1 ; use 0,5,0 ; 0,4 ; 3,2 ; 4,2 ; 2,2 ; use 1,0,4 ; 2,3 ; 4,5 ; 6,6 ; 6,4 ; 6,4 ; paint 1,1,c ; 0,0 ; 0,0 ; 0,0 ; paint 1,1,b ; 0,1 ; use 3,6,0 ; 5,0 ; use 1,0,0 ; use 0,5,0 ; 0,5 ; 0,4

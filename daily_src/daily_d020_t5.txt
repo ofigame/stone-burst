@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 5; reverse [exact]; çözüm 10 / sınır 12 (v7 12); açgözlü kaybeder; bot48 0,04 (taban 0,04); zincir v13: yeni çözüm 9 (eski 10), sınır 12→14, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 375 + tür resource; şekil çatı (ayna); çözüm 10 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: daily_d020_t5
 title: Günlük 20
-moves: 14
+moves: 10
 roll: on
 specials: on
-type: reverse
+type: resource
 rules: exact
-goals: blue 43, yellow 36
+goals: purple 32, blue 29, navy 34
 grid:
-cpy   yby   yby   cby   cpy   bpc   cpc
-ypyR  ypp   cpc   cby   ybp   byc   byc
-cpb   cpc   ppb   yyc   yyp   byb   byc
-#     cbc   bcc   yyc   ybb   pyb   #
-#     ppp   cpp   byb   ybb   yby   #
-#     pppR  bpp   byb   cpb   cpc   #
-pyb   byp   bpb   byp   cbc   ppc   bpc
-pbb   ybb   cpb   ypp   ccc   ppc   pyc
-bpb   ybb   pyp   ypp   bcp   pcb   bcp
-solution: 0,6 ; 1,4 ; use 1,0,0 ; 5,2 ; use 0,4,0 ; 3,0 ; 3,2 ; roll 8 ; use 0,4,1 ; 4,5 ; use 0,1,0 ; 0,0 ; roll 1 ; use 0,6,0
+#     #     #     pbgc  pbgc  #     #     #
+#     cyny  yyny  yynck2 ybnp  nppn  cppn  #
+cncbk1 gpgy  gpyy  ycyg  ycpp  nppb  cngb  cbbp
+cncc  gngg  gcyg  ncbg  npbg  ypnb  cngb  cybp
+cngc  cngp  cbyg  cpbg  nppg  gnnb  gncc  gygc
+yypp  cypp  nbbg  cgbg  ynpg  ynnb  pnbpR ccpgR
+pybb  yggbk1 ypbg  bggbk1 pgyc  ypgck1 cygn  cygp
+pbbb  cbgbk2 cpcb  gpcg  pnyg  pgcc  ygnn  cnnp
+pbbn  ybbn  ybbn  gpcc  gncc  ggcc  ygnn  cnnp
+solution: rot 6,5 ; 3,2 ; 5,2 ; 4,1 ; use 0,4,2 ; 4,1 ; roll 1 ; use 0,1,1 ; 0,6 ; roll 5 ; 1,1 ; use 0,0,2 ; use 0,5,1 ; roll 3 ; use 1,5,1

@@ -251,17 +251,17 @@ namespace KatKat.View
             if (_sponge == null)
             {
                 _sponge = Mark("Sponge", SpecialArt.Sponge, 2);
-                _spongeSlots = new SpriteRenderer[4];
-                for (int i = 0; i < 4; i++) _spongeSlots[i] = Mark("SpongeSlot", SpecialArt.Disc, 3);
+                _spongeSlots = new SpriteRenderer[LayerColors.Count];
+                for (int i = 0; i < _spongeSlots.Length; i++) _spongeSlots[i] = Mark("SpongeSlot", SpecialArt.Disc, 3);
             }
             _sponge.gameObject.SetActive(true);
             _sponge.sortingOrder = _renderer.sortingOrder + 2;
             var face = TopFaceLocal;
             FitOnFace(_sponge, face, Vector2.zero, 1.0f);
             int count = 0;
-            for (int c = 0; c < 4; c++) if ((need & (1 << c)) != 0) count++;
+            for (int c = 0; c < LayerColors.Count; c++) if ((need & (1 << c)) != 0) count++;
             int k = 0;
-            for (int c = 0; c < 4; c++)
+            for (int c = 0; c < LayerColors.Count; c++)
             {
                 var slot = _spongeSlots[c];
                 bool needed = (need & (1 << c)) != 0;
@@ -320,8 +320,8 @@ namespace KatKat.View
             if (_crystal == null) _crystal = Mark("Crystal", KatKat.UI.RuleIcons.For("protect"), 9);
             _crystal.gameObject.SetActive(true);
             _crystal.sortingOrder = _renderer.sortingOrder + 9;
-            _crystal.transform.localPosition = TopFaceLocal + new Vector3(-Size * 0.3f, Size * 0.3f, 0f);
-            _crystal.transform.localScale = Vector3.one * (Size * 0.42f / _crystal.sprite.bounds.size.x);
+            _crystal.transform.localPosition = TopFaceLocal; // 2026-11-16: tam ortada, büyük
+            _crystal.transform.localScale = Vector3.one * (Size * 1.2f / _crystal.sprite.bounds.size.x); // 2026-11-16: Tripo kristali, okunur boy
         }
 
         /// <summary>M11 geçit hayaleti: henüz açılmamış hücrede gelecek üst rengin soluk karesi.</summary>
@@ -401,7 +401,8 @@ namespace KatKat.View
         public Vector3 TopFaceLocal => new Vector3(0f, (_layers.Count - 2) * Thickness, 0f);
 
         /// <summary>Yıldız rozetinin kök uzayındaki yeri: yığının ön alt kenarı, boşken taban ortası.</summary>
-        public Vector3 StarLocal => _layers.Count == 0 ? TopFaceLocal : new Vector3(Size * 0.3f, -Size * 0.38f, 0f);
+        // 2026-11-16 (kullanıcı: "taşların tam ortasında olsun"): yıldız üst yüzün ortasında.
+        public Vector3 StarLocal => TopFaceLocal;
 
         private SpriteRenderer Mark(string name, Sprite sprite, int orderOffset)
         {
@@ -421,7 +422,7 @@ namespace KatKat.View
                 _clip = Mark("Clip", SpecialArt.Clip(false), 1);
                 for (int i = 0; i < _dots.Length; i++) _dots[i] = Mark("ClipDot", ProceduralArt.DotSprite, 2);
             }
-            if (_hasStar && _star == null) _star = Mark("Star", ProceduralArt.StarSprite, 2);
+            if (_hasStar && _star == null) _star = Mark("Star", SpecialArt.V6("tripo/bottom-star") ?? ProceduralArt.StarSprite, 2);
 
             var face = TopFaceLocal;
             if (_clip != null)
@@ -429,7 +430,7 @@ namespace KatKat.View
                 _clip.gameObject.SetActive(_clipHits > 0);
                 _clip.sortingOrder = _renderer.sortingOrder + 1;
                 // v4 ataş kıskacı: renk kilidinin altın asma kilidiyle karışmasın diye büyük ve gümüş, yüzün üst yarısında.
-                FitOnFace(_clip, face, TileSkin.ClipOffset, TileSkin.ClipWidth);
+                FitOnFace(_clip, face, Vector2.zero, TileSkin.ClipBoardWidth); // 2026-11-16: tam ortada, büyük
                 _clip.color = Color.white;
                 for (int i = 0; i < _dots.Length; i++)
                 {
@@ -437,7 +438,7 @@ namespace KatKat.View
                     d.gameObject.SetActive(i < _clipHits);
                     d.sortingOrder = _renderer.sortingOrder + 2;
                     float off = _clipHits == 2 ? (i == 0 ? -0.11f : 0.11f) : 0f;
-                    d.transform.localPosition = face + new Vector3(Size * off, -Size * 0.33f, 0f);
+                    d.transform.localPosition = face + new Vector3(Size * off, -Size * 0.44f, 0f);
                     d.transform.localScale = Vector3.one * Size * 0.2f;
                 }
             }
@@ -450,7 +451,8 @@ namespace KatKat.View
                 _star.gameObject.SetActive(_hasStar);
                 _star.sortingOrder = _renderer.sortingOrder + 5; // alttaki satırın yığını rozeti örtmesin
                 _star.transform.localPosition = StarLocal;
-                _star.transform.localScale = Vector3.one * Size * (_layers.Count == 0 ? 0.55f : 0.42f);
+                // Sprite boyutundan bağımsız (Tripo yıldızı 512 px; eski çizim 1 birim).
+                _star.transform.localScale = Vector3.one * Size * 1.3f / Mathf.Max(0.01f, _star.sprite.bounds.size.x);
                 _star.color = Color.white;
             }
         }

@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 4 hamle + 3 tepsi / limit 9 (pay +5, eski 14) hedef×0,94 bot 0,46 (hedef 0,41) plan 0; zincir v13: yeni çözüm 4 (eski 4), sınır 9→9, bot 94/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L; çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_139
-title: Anahtar Ustası
 moves: 9
 roll: off
 specials: on
-goals: blue 23, coral 45
+goals: green 40, blue 30, purple 31
 grid:
-yyyy  yycp  pyb   #     ycb   ybc   cbc
-cyyy  yyc   yybc  #     ccbp  ccc   ybcy
-cypy  cpcy  cpb   #     yyb   ycc   pbcy
-cbp   cpp   cpcy  cpy   cbbb  cbp   pbc
-cbp   ybpc  cycLp10 cbb   cbb   cbcy  pbc
-ccpp  ccpc  cc    cbc   bp    ybcy  cbcy
-ccpp  ccpp  cppp  cpc   ppyb  ppp   ppp
-yypc  ycy   cpp   cpyc  pcy   ppy   ppcp
-yypc  yyy   pyp   pppc  pbpc  bc    ypcp
-solution: 1,4 ; use 0,0,0 ; 5,0 ; use 0,1,0 ; 4,0 ; use 0,1,0 ; 2,0
+bnyy  byb   yypp  yyp   yyb   #     #     #
+gnb   gyb   gyp   bpp   ypbn  #     #     #
+pngg  gpbg  gbng  ybb   yyb   #     #     #
+yng   ppnn  gyn   gyb   yyp   #     #     #
+yng   pngn  pnb   pbby  ybp   ybgy  bbyy  bbyp
+ggp   ngpp  ngbp  nbgp  nbgn  yng   bpy   ybpp
+ggyg  ggyy  ggn   bnn   bng   yngp  ypg   ypg
+ggbg  gnbg  ygn   pbyy  bgpy  bng   gnpn  gpp
+gpbg  gnb   ynp   pbpy  pgp   bggg  ggpg  pgpg
+solution: 0,5 ; 0,2 ; use 0,2,0 ; 5,5 ; use 0,1,0 ; 4,5 ; 0,5 ; 4,2 ; 6,5 ; use 0,3,2 ; 2,2 ; use 0,0,2 ; use 0,2,0 ; use 0,3,1

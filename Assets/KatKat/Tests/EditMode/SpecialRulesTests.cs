@@ -233,7 +233,7 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void RocketOpensNewSameColorGroup_DominoContinues()
+        public void RocketOpensNewSameColorGroup_NoDomino()
         {
             var s = S(5, new[]
             {
@@ -248,10 +248,11 @@ namespace KatKat.Tests
             var t = S(5, new[] { "cb cb cb", "y y y" }, (LayerColor.Coral, 99));
             t.Board[0, 0].Special = SpecialKind.RocketRow;
             var r2 = RulesEngine.TryApply(t, Command.Tap(0, 0));
-            // Satır 0: (1,0),(2,0) b soyulur → c,c; (0,0) roket hücresi de b → c: üç yeni mercan → domino.
-            Assert.AreEqual(2, r2.Waves.Count);
-            Assert.AreEqual(WaveKind.Chain, r2.Waves[1].Kind);
-            Assert.AreEqual(".", TestBoards.Cell(t, 1, 0));
+            // Satır 0: (1,0),(2,0) b soyulur → c,c; (0,0) roket hücresi de b → c: üç yeni mercan açılır ama
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın) kendiliğinden patlamaz; yalnız roket dalgası.
+            Assert.AreEqual(1, r2.Waves.Count);
+            Assert.AreEqual(WaveKind.Special, r2.Waves[0].Kind);
+            Assert.AreEqual("c", TestBoards.Cell(t, 1, 0));
         }
 
         [Test]
@@ -277,9 +278,9 @@ namespace KatKat.Tests
             Assert.AreEqual(30, Scoring.Layer(2));
             var s = S(5, new[] { "cb cb cb", "y y y" }, (LayerColor.Coral, 99));
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            // 3 mavi (dalga 0) + 3 mercan domino (dalga 1): 3×10 + 3×20.
-            Assert.AreEqual(90, r.ScoreGained);
-            Assert.AreEqual(90, s.Score);
+            // 3 mavi (dalga 0): 3×10. v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): açılan mercan domino yapmaz.
+            Assert.AreEqual(30, r.ScoreGained);
+            Assert.AreEqual(30, s.Score);
             Assert.AreEqual(0, Scoring.Stars(false, 999, new[] { 10, 20 }));
             Assert.AreEqual(1, Scoring.Stars(true, 5, new[] { 10, 20 }));
             Assert.AreEqual(2, Scoring.Stars(true, 10, new[] { 10, 20 }));
@@ -315,12 +316,34 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void ExistingRulesUnchanged_WhenSpecialsDisabled_ChainStillWorks()
+        public void ExistingRulesUnchanged_WhenSpecialsDisabled_NoChain()
         {
             var s = TestBoards.State(5, new[] { "cb cb cb", "y y y" }, (LayerColor.Coral, 3));
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.AreEqual(2, r.Waves.Count);
+            Assert.AreEqual(1, r.Waves.Count, "v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın)");
+            Assert.AreEqual(GameStatus.Idle, s.Status);
+            RulesEngine.TryApply(s, Command.Tap(0, 0));
             Assert.AreEqual(GameStatus.Won, s.Status);
+        }
+
+        /// <summary>v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): övgü büyük hamleye bağlı: 6+ grup ya da 8+ katmanlık özel taş.</summary>
+        [Test]
+        public void BigMove_SixGroupOrEightLayerSpecial_IsPraised()
+        {
+            var five = S(5, new[] { "c c c c c y", "y b y b y b" }, (LayerColor.Coral, 99));
+            var r5 = RulesEngine.TryApply(five, Command.Tap(0, 0));
+            Assert.AreEqual(0, BigMove.Level(r5), "5'li grup sıradan");
+
+            var six = S(5, new[] { "c c c c c c", "y b y b y b" }, (LayerColor.Coral, 99));
+            var r6 = RulesEngine.TryApply(six, Command.Tap(0, 0));
+            Assert.AreEqual(1, BigMove.Level(r6));
+            Assert.IsTrue(BigMove.IsMomentWave(r6, r6.Waves[0]));
+
+            var row = S(5, new[] { "y b y b y b y b", "c c y c c y c c" }, (LayerColor.Coral, 99));
+            row.Tray.Add(SpecialKind.RocketRow);
+            var rr = RulesEngine.TryApply(row, Command.UseSpecial(0, 0, 0));
+            Assert.AreEqual(1, BigMove.Level(rr), "8 katman soyan roket");
+            Assert.IsTrue(BigMove.IsMomentWave(rr, rr.Waves[rr.Waves.Count - 1]));
         }
     }
 }

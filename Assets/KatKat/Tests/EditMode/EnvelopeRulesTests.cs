@@ -57,25 +57,27 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void ChainWaveWithSealColor_OpensEnvelope()
+        public void NextTapWithSealColor_OpensEnvelope()
         {
-            // Dalga 0 maviyi soyar (zarf mercan ister), zincir dalgası mercanı: zarf ikinci dalgada açılır.
+            // İlk dokunuş maviyi soyar (zarf mercan ister); v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): açılan mercan patlamaz, ikinci dokunuş zarfı açar.
             var s = WithEnvelopeGoal(State(5, new[] { "cb cb cb", "p  yEc p" }, FarGoal), 1);
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.AreEqual(2, r.Waves.Count);
+            Assert.AreEqual(1, r.Waves.Count);
             Assert.AreEqual(0, r.Waves[0].EnvelopeOpens.Count);
-            Assert.AreEqual(1, r.Waves[1].EnvelopeOpens.Count);
-            Assert.AreEqual(1, r.Waves[1].GoalProgressAfter[1]);
+            var r2 = RulesEngine.TryApply(s, Command.Tap(0, 0));
+            Assert.AreEqual(1, r2.Waves.Count);
+            Assert.AreEqual(1, r2.Waves[0].EnvelopeOpens.Count);
+            Assert.AreEqual(1, r2.Waves[0].GoalProgressAfter[1]);
         }
 
         [Test]
-        public void OpenedEnvelope_IsNotChainSeed()
+        public void OpenedEnvelope_RevealedYellowsDoNotPop()
         {
-            // v13: mercanlar kalkınca üç sarı birlikte açılıp patlar; zarfın sarısı onlara bağlı ama soyulmadığı için katılmaz.
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): mercanlar kalkınca üç sarı açılır ama patlamaz; zarf açılır, sarısı yerinde kalır.
             var s = WithEnvelopeGoal(State(5, new[] { "yc yc  yc", "b  yEc b" }, FarGoal), 1);
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.AreEqual(2, r.Waves.Count);
-            Assert.AreEqual(3, r.Waves[1].Cells.Count);
+            Assert.AreEqual(1, r.Waves.Count);
+            Assert.AreEqual("y", Cell(s, 1, 0));
             Assert.AreEqual("y", Cell(s, 1, 1));
             Assert.AreEqual(1, s.Goals[1].Progress);
             Assert.IsTrue(s.Board[1, 1].IsSelectable);

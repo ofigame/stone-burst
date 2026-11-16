@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: protect [protect]; kristal 3; çözüm 4 / sınır 7 (v7 11); açgözlü kaybeder; bot48 0,17 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 5 (eski 4), sınır 7→12, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 8, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil U; çözüm 8 + 8 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_218
-title: Hafif Mektup
 moves: 8
 roll: off
 specials: on
-type: protect
-rules: protect
-goals: yellow 35, blue 19, coral 13, envelope 2
+type: reverse
+rules: exact
+goals: yellow 44, navy 38, envelope 3
 grid:
-bpp   ccyc  cyyc  #     #     #     #
-pyb   ccyEc bby   cyb   #     #     #
-pppP  pcy   yyyp  cyy   cyy   #     #
-pypy  pyp   cbc   cyy   ppy   ppy   #
-cpyb  ycp   bypy  bpy   bcyb  pybb  byy
-pyby  ybcy  ybpy  bpyEc byb   bpb   bybc
-ppby  bpc   ycy   bcp   cyp   byyc  bpb
-bcb   bpy   ycyy  ycpp  ycyp  ypy   ypbp
-bcbp  bpyp  ppy   ppp   yppp  yppP  ypppP
-solution: 3,2 ; use 0,1,0 ; 0,4 ; 3,4 ; use 1,0,5 ; use 0,2,0 ; 1,0 ; use 0,0,1 ; 4,4
+cbpy  cpnyEc npny  #     #     pcgp  pcgn  ppcnEc
+cbpy  ccpy  npny  #     #     bccp  bccp  ppcp
+ccpc  ccpb  ypny  #     #     bbbp  bbcy  ybyp
+ncgc  yygb  ypcb  ypcc  ngcc  nybc  bbby  bbbg
+yggc  gnyc  ynyb  ggnb  ggnn  nynnLp4 ncnn  bcpgEb
+ygbb  gbyb  ycyb  bcyb  pcnp  nnnn  nnnn  bcpn
+ygbb  nbgb  bngb  bnyb  pcgp  ncgp  nyyp  bpyn
+ypyy  ncyb  bcyb  gyyb  pypy  ncpn  nypp  bpyg
+bcyy  ncby  ncby  gyny  gypy  gcgn  ycgg  bpyg
+solution: 1,2 ; 2,4 ; 4,5 ; use 2,7,0 ; 2,4 ; 0,0 ; use 3,1,0 ; use 0,1,0 ; 4,4 ; use 0,1,0 ; 7,5 ; use 0,1,3 ; 5,4 ; use 1,2,0 ; use 1,2,0 ; use 0,0,8

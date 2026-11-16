@@ -1,18 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 8 hamle + 6 tepsi / limit 11 (pay +3, eski 17) hedef×1,15 bot 0,13 (hedef 0,14) plan 3; zincir v13: yeni çözüm 10 (eski 8), sınır 11→17, bot 1/112; zincir v13 kolaylaştırma: hedef −%12, sınır 11, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil L (ayna); çözüm 9 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_997
-title: Bölüm 997
-moves: 11
+moves: 9
 roll: off
 specials: on
-goals: purple 38, yellow 63, blue 37, sponge 1
+paint: 1
+type: protect
+rules: protect, exact
+goals: blue 30, coral 19, purple 20
 grid:
-ybby  bbpyScby bbyy  bbycLb8 #     #     #
-ybby  bypp  bcpy  pbcy  #     #     #
-ybyy  ybyp  pcyy  ppcy  #     #     #
-yppp  cccy  ccyy  ppyyLc8 #     #     #
-ypcp  ybcp  ycyy  ppyb  ypyb  ycyb  bcyb
-ccpb  ybcp  ybcy  ycyy  yccy  bccb  yccy
-ypbp  byyp  yybp  ycyy  bcyy  ycbp  ycbp
-bpbp  cpcy  cpyy  ppyy  pyby  yybp  yybp
-bpby  bpby  cpby  ppbc  pybb  pybb  pybp
-solution: 0,3 ; use 0,1,1 ; 0,0 ; use 0,0,0 ; 5,4 ; 0,2 ; use 0,1,0 ; 1,0 ; use 0,1,0 ; 0,0 ; 3,0 ; 1,0 ; use 0,3,0
+#     #     #     ngcb  nbbg  nbgn  nccc  bcbg
+#     #     #     bgcb  ngby  bpgn  gcbc  bcbg
+#     #     #     bgby  npgy  bpgn  gcbc  nybg
+#     #     #     gbbn  gngy  bgnn  ngpc  nybgP
+gbcb  gbpb  ggpb  gpbn  gnnn  gnpn  ggpn  gbng
+nbcg  nbcb  cbgn  cpyn  gnyb  pnyb  pgcb  nyng
+nbcg  nbgg  yygn  yppp  gnpy  pnpb  nycb  nycb
+npcg  nybg  nybp  ypgp  gpgb  gpgb  gngp  yynn
+npcp  nycpP ncgp  gcgpP gcgy  gpgb  yggp  ygnn
+solution: 4,5 ; 0,5 ; use 0,6,0 ; 5,0 ; 3,3 ; use 1,3,0 ; use 1,3,0 ; use 0,6,0 ; 1,4 ; 4,7 ; use 0,0,7 ; 3,3 ; 0,4 ; use 0,5,0 ; 4,4 ; use 0,5,0 ; use 0,2,4

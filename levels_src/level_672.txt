@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3 (kaydırılmış); çözüm 8 hamle + 5 tepsi / limit 11 (pay +3, eski 13) hedef×1,48 bot 0,25 (hedef 0,23) plan 0; zincir v13: yeni çözüm 10 (eski 8), sınır 11→17, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 13, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil çatı; çözüm 3 + 2 tepsi / sınır 8; rastgele 0,305; açgözlü kazanır; yumuşak 0,79
 id: level_672
-title: Bölüm 672
-moves: 13
+moves: 8
 roll: off
 specials: on
-goals: coral 52, purple 32
+goals: purple 16, yellow 15
 grid:
-cbp   G1:pbb G1:pbyp G1:pbyp G1:pbyp G1:ppc pccc
-cbyb  pbbb  ypbb  ypbb  bcy   bcyc  ppyc
-ybcb  ybc   #     #     #     ypbp  cycp
-cyb   cybp  #     #     #     cybc  cyc
-cyc   cybp  #     #     #     yyb   cybc
-byc   cyb   pcb   ccbB1 cyb   cyb   cyb
-cyc   cyc   pccy  bcbp  ybyc  ppyy  byyy
-cpcc  cbcc  pby   bcbp  ycb   ppb   ppy
-cpc   cpc   cyyc  byc   bcbp  bpb   ypbc
-solution: 0,4 ; use 0,0,0 ; 6,0 ; 0,0 ; use 1,0,0 ; 1,0 ; 2,0 ; use 0,5,0 ; 2,6 ; 3,6 ; use 0,0,7 ; use 0,0,0 ; use 0,1,0
+#     #     #     c     cy    #     #     #
+#     cn    c     cn    cy    yy    y     #
+c     c     cn    cn    cy    y     cy    cy
+c     cp    c     c     cc    c     cy    c
+p     c     c     cp    c     cc    c     py
+cc    c     cn    c     cp    c     c     p
+y     y     n     cp    cp    c     cp    pp
+y     yn    n     n     cp    nn    n     pp
+yn    y     ny    n     p     pn    pn    p
+solution: 4,0 ; use 0,1,1 ; 4,5 ; 0,6 ; use 0,1,3

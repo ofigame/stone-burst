@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3; çözüm 8 hamle + 7 tepsi / limit 16 (pay +8, eski 12) hedef×1,14 bot 0,08 (hedef 0,16) plan 2; zincir v13: yeni çözüm 14 (eski 8), sınır 16→26, bot 1/112; zincir v13 kolaylaştırma: hedef −%12, sınır 18, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil T (ayna); çözüm 3 + 3 tepsi / sınır 8; rastgele 0,295; açgözlü kazanır; yumuşak 0,40
 id: level_804
-title: Bölüm 804
-moves: 18
+moves: 8
 roll: off
 specials: on
-goals: coral 37, purple 31, yellow 30
+goals: yellow 24, blue 8
 grid:
-#     #     yycb  yycb  ypby  ypcp  ppbc
-#     ybcb  yybb  cybc  bbbci1 ppbci2 pycci1
-ybcy  ybcb  pbbbi1 pypc  yppbi1 ppcc  bpcc
-ypcy  pbyp  #     #     #     bycb  bpcb
-yycy  ypcb  #     #     #     bybb  bpcb
-yyypi1 ycbci2 #     #     #     ypbc  bpbc
-cyyp  cybp  cybc  ypbci2 ybcc  yycc  yybc
-bbyp  bbbp  pbcbLb8 pbcb  ybcp  ppby  #
-bbyp  bbbp  pbbb  pcbbLc8 cpcb  #     #
-solution: 0,6 ; use 0,0,2 ; 5,5 ; 0,7 ; use 1,6,0 ; 2,0 ; use 1,5,0 ; 5,5 ; use 1,4,0 ; 2,0 ; use 1,4,0 ; 4,0 ; 2,0 ; 5,1 ; 1,4
+y     pp    pp    p     b     bg    b     bg
+gp    gp    g     p     pp    y     yp    b
+g     g     g     gg    p     yp    yp    bp
+g     g     g     gy    gy    y     y     b
+g     y     yy    yy    yp    yp    y     b
+y     yy    yy    y     yp    pp    pp    bp
+#     #     g     g     pp    pp    #     #
+#     #     gg    g     y     p     #     #
+#     #     g     g     yp    p     #     #
+solution: 1,0 ; use 0,5,0 ; 4,0 ; use 0,0,0 ; 4,4 ; use 0,2,4

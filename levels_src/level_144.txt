@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 6 hamle + 4 tepsi / limit 12 (pay +6, eski 12) hedef×1,10 bot 0,38 (hedef 0,40) plan 0; zincir v13: yeni çözüm 6 (eski 6), sınır 12→12, bot 9/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil kesik köşe (ayna); çözüm 3 + 2 tepsi / sınır 9; rastgele 0,435; açgözlü kazanır; yumuşak 0,94
 id: level_144
-title: Sıralı Kilit
-moves: 12
+moves: 9
 roll: off
 specials: on
-goals: coral 37, purple 39
+goals: blue 37, navy 31
 grid:
-ccy   pcc   pcyp  ppbp  bbpp  pyy   yyb
-ccyy  yyypLc7 ypbp  ppbc  ypb   ycy   yyy
-pcy   pcb   pycpLb7 yybp  yybp  ppyy  pyy
-pcy   ycbb  #     #     #     pyy   pypp
-ybc   pyyc  #     #     #     ycy   pcy
-bbcb  ppyp  #     #     #     pyy   pcc
-bby   bpy   pcbp  ppcp  yyc   yyy   pcyc
-pyyp  pybb  cyb   ybc   pcbc  pybc  pcbp
-cyb   cbcb  cbcb  cbc   pcb   pybc  bcc
-solution: 5,0 ; use 0,6,0 ; 4,6 ; 2,0 ; use 0,1,0 ; 5,0 ; use 0,4,0 ; use 0,3,0 ; 0,0 ; use 0,0,0 ; 1,0
+#     #     b     b     b     bn    #     #
+#     bp    b     b     b     b     bb    #
+p     bp    b     bn    bn    pn    p     bn
+p     bp    b     b     pn    p     pn    p
+b     bp    b     b     n     nn    pn    pn
+b     b     bn    bn    n     nn    nn    pn
+b     bn    bn    bn    n     n     n     nn
+#     n     bn    bn    b     b     n     #
+#     #     b     bn    bp    b     #     #
+solution: 3,2 ; 1,1 ; 2,0 ; use 0,5,0 ; use 1,5,0

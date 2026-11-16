@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 9 hamle + 5 tepsi / limit 12 (pay +3, eski 12) hedef×1,26 bot 0,25 (hedef 0,43) plan 2; zincir v13: yeni çözüm 9 (eski 9), sınır 12→15, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L; çözüm 8 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_115
-title: Çözülme
-moves: 15
+moves: 10
 roll: off
 specials: on
-goals: blue 36, coral 33
+goals: coral 39, blue 28, yellow 31
 grid:
-byy   byyi1 bpy   bpb   cyb   cyb   cpc
-byc   byc   bby   bpy   ycp   ccy   cpc
-byc   bbpi1 bbp   pppi1 ycpi1 ycc   cpc
-bbc   bpp   bpp   ppp   ycy   ccy   bpc
-cbp   cbc   ypc   ycc   ycy   ccc   bpc
-#     #     ybc   byc   bpy   #     #
-#     #     ycpi1 byb   bbb   #     #
-#     #     byb   byb   pcb   #     #
-solution: 1,4 ; 4,3 ; 6,0 ; 0,1 ; use 2,3,0 ; use 1,4,0 ; 0,0 ; 2,0 ; use 0,0,4 ; use 0,2,1 ; 5,0 ; 3,2 ; 2,1
+pyn   pyny  nyc   cyc   cpbc  #     #     #
+cynn  bycn  pycpi1 nyb   nyb   #     #     #
+cypp  bbcp  pbc   nncn  npb   #     #     #
+cnyp  bbyp  bycn  pnn   ypn   #     #     #
+pnyi1 bcc   bypn  pcnn  cnn   cnnb  bnb   byb
+pcc   bccc  nyp   nynn  cpn   cnbb  bnb   byby
+pcc   ccpc  nnpc  nync  cynn  pyb   pby   cbb
+pyc   pynn  pnnb  cync  yybn  ynyc  cbyp  cbb
+bnnc  bpnn  bpcn  cycni2 nnyc  nnyc  nny   pnp
+solution: 3,2 ; 1,4 ; use 0,2,0 ; use 0,4,0 ; 3,2 ; use 0,1,0 ; 6,4 ; 2,1 ; use 0,3,0 ; 4,2 ; use 1,2,1 ; 1,2 ; 2,5 ; use 0,1,0 ; use 0,1,1

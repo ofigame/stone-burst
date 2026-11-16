@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe; çözüm 10 hamle + 6 tepsi / limit 16 (pay +6, eski 11) hedef×1,28 bot 0,21 (hedef 0,35) plan 1; zincir v13: yeni çözüm 8 (eski 10), sınır 16→14, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U (ayna); çözüm 8 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_224
-title: Mühür Planı
-moves: 14
+moves: 10
 roll: off
 specials: on
-goals: coral 41, purple 42, envelope 2
+goals: purple 21, green 23, envelope 3
 grid:
-#     #     cpc   bbcc  ybpc  #     #
-#     cpcc  ypy   pcy   pcy   pyp   #
-pcbEb cpbc  ypp   ypc   cbcc  bppc  byyc
-pcb   ccb   pypc  yycp  bcy   bcy   byyc
-pbb   pbb   pypc  ybpp  ybp   ybyb  cbyc
-pbb   pbb   bcyc  cyc   ybp   ybyb  cybb
-pbby  pccEy cpc   yyy   cpb   cpb   cyb
-#     bcpb  ppyb  ypyy  bpyy  bcy   #
-#     #     ppyp  ypyp  ypy   #     #
-solution: 0,3 ; 3,3 ; 1,1 ; use 0,1,1 ; use 0,1,1 ; 2,1 ; 2,0 ; 2,5 ; 6,2 ; use 0,2,0 ; use 0,2,0 ; use 0,2,0 ; 3,6 ; use 1,0,2 ; use 0,0,4
+gbcn  bpcn  bpcn  #     bgcy  bgcc  bgcc
+gbcn  bnpn  bncn  #     ygby  cgny  bpng
+gnpn  pnpg  yncg  #     ygby  ygny  ygng
+pbngEp ppng  pgcy  ybpy  ygyy  ypbg  yybg
+ppnc  ppnc  ybby  ybpc  ygyb  ygyn  byyb
+gybb  gybbLp5 pybc  bcpc  bgcb  cgcn  bgcb
+gcyc  gpyc  byyc  gccc  pycg  cycp  bgbp
+ccby  ccyp  byyb  bcbbEg pyng  byng  bcbpEy
+ccyy  gcyp  gcbp  gcbb  pnng  pcnp  pcbp
+solution: 4,0 ; 0,0 ; use 0,1,1 ; use 0,4,0 ; 4,0 ; 5,3 ; use 1,6,0 ; 3,4 ; use 0,1,2 ; 0,0 ; use 0,1,0 ; 1,1 ; use 0,0,0 ; 1,2 ; use 0,0,0

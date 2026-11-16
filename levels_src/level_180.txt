@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [noSpecials+exact]); çözüm 5 / sınır 6 (v7 9); açgözlü kaybeder; bot48 0,17 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 6 (eski 5), sınır 6→9, bot 14/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kenar çentikleri; çözüm 10 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_180
-title: Kule Kasası
-moves: 9
+moves: 10
 roll: off
 specials: on
 type: boss
-rules: exact
-goals: coral 41, purple 24, yellow 35, star 3
+rules: protect, exact
+goals: blue 38, navy 32, purple 32
 grid:
-bcy   ccy   ccy   cccc  cpyc  cpc   ccc   byp
-pyyy  cbyy  cycy* ccc   cpy   cpc   cyb*  cybc
-pypp  pyyy  pycy  ycc   ybc   cbcp  cbbp  cyby
-bbp   yb    bccy* #     #     ypcc  bp    ppby
-ypp   bbb   bbb   #     #     ypc   ycby  ypby
-ybpy  ycb   yyb   #     #     pcc   pccLb10 cpb
-ybpy  ybp   yycy  yyb   pyc   bbb   bbc   pbb
-yyy   ybyp  byc   ycbp  pcbp  py    pyy   ppyb
-yby   yby   yyc   yyyc  pcc   ycc   ycc   ppy
-solution: 0,0 ; 1,0 ; use 0,4,0 ; use 0,3,0 ; 4,0 ; use 0,7,0 ; 0,3 ; 6,1 ; 7,0
+ngpp  ngp   ncpb  #     cgb   cgg   ngpc  npp
+pgpp  nnpp  gnnb  pnnc  pnnc  pngc  ppp   nppn
+#     pnn   pbn   ppb   pbb   bbn   pbn   bgp
+ncnP  pnn   pbng  gpbg  bnbg  nnpg  nbp   bbpn
+ncbn  pcbn  gcg   gng   bnc   nncp  bbnp  bbn
+nbbP  ncb   gccp  cnpp  bbbc  bbb   bgbp  pgc
+bbbp  bcb   bcc   cbpp  cbp   bbpn  ncpn  gccn
+pbbg  pnb   cbbg  cbbg  bnb   bng   ggcp  gccp
+pnbg  pnbg  ppbLn3 #     #     bnn   bnn   gcn
+solution: 2,3 ; use 0,0,7 ; 5,6 ; use 0,0,0 ; 5,5 ; 4,4 ; 5,2 ; 3,2 ; use 0,0,0 ; use 0,0,0 ; 7,2 ; use 1,1,0 ; 2,4 ; use 1,1,0 ; 4,3 ; 4,2

@@ -1,18 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 5 hamle + 4 tepsi / limit 9 (pay +4, eski 9) hedef×1,58 bot 0,54 (hedef 0,53) plan 0; zincir v13: yeni çözüm 6 (eski 5), sınır 9→10, bot 60/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil elmas (ayna); çözüm 6 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_061
-title: Buz
-tutorial: Yanında soyma yap, buzu kır.
-moves: 10
+moves: 9
 roll: off
 specials: on
-goals: purple 33, yellow 39
+goals: navy 16, coral 16, star 3
 grid:
-bbp   bbb   bpp   #     bpp   bcb   pyy
-bbc   bbc   bpc   #     cpy   byy   yyb
-bbc   pbc   ppc   cpb   cyb   yyb   cyb
-bpy   cby   bcb   ycb   cyb   yyb   cyc
-bppi1 ppp   bcp   bcb   ycb   ybci1 cbc
-yyb   pyp   pyb   ppb   ypc   ypc   bpc
-yyy   byp   bcy   bpy   bpy   byc   bpc
-ycy   byy   bpy   bpy   bpy   byc   bpc
-solution: 6,1 ; 6,2 ; 4,4 ; 1,4 ; use 0,6,0 ; use 0,0,0 ; 0,1 ; use 0,2,0 ; 0,0 ; use 1,6,0
+#     #     #     gcg   gcg   #     #     #
+#     #     gbb   npb   gbn   ggn   #     #
+#     bbb   gbb*  npb*  gbn   ggn   gnc   #
+cng   pnb   pbb   npb   gcb   ggnk1 gnb   pnp
+cng   cbb   pbp   ncp   ncn   pgn*  pbb   pbp
+#     cbg   pbg   nbc   pbc   pgg   pgbk1 #
+#     #     cnc   cpc   cgb   cgbk2 #     #
+#     #     #     bpbk1 bgb   #     #     #
+solution: 2,1 ; 3,1 ; 3,1 ; 4,3 ; use 1,2,1 ; use 0,3,0 ; use 0,2,3 ; 1,4 ; use 0,3,0 ; 0,3 ; use 0,4,0

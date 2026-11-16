@@ -1,17 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 5 hamle + 3 tepsi / limit 9 (pay +4, eski 10) hedef×1,08 bot 0,54 (hedef 0,56) plan 1; zincir v13: yeni çözüm 5 (eski 5), sınır 9→9, bot 16/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati (ayna); çözüm 6 + 5 tepsi / sınır 9; rastgele 0,070; açgözlü kaybeder; yumuşak 0,23
 id: level_031
-title: Rulo ve Ataş
 moves: 9
 roll: off
 specials: on
-goals: blue 36, coral 14
+goals: navy 32, coral 48
 grid:
-bbp   bby   ypy   pcp   bpp   cyb   bpp
-yby   bby   ypy   cpy   bpy   bbp   cyy
-#     bpy   bpy   ppy   byc   ypb   #
-#     pby   pby   ppc   bpc   byp   #
-#     pby   pbb   ypc   bby   pcy   #
-#     ycy   ybc   ybc   pby   pby   #
-bcc   bpp   bybk2 bby   cbyk2 pbb   pcb
-ypc   bcb   cyb   bbp   cyc   ycb   yyp
-solution: 1,0 ; 5,6 ; use 0,3,1 ; 3,4 ; 2,4 ; use 1,0,0 ; 0,0 ; use 0,0,0
+cgc   cnc   nnc   cnc   ccg   ncc   ncc
+cgc   ncg   nng   cnn   bcg   gcc   ngc
+#     bcn   bbn   bnn   bbc   bbc   #
+#     bbn   bbn   bgn   ggg   bngk1 #
+#     bcnk1 ccb   cgn   bng   bng   #
+#     cnb   ccb   ngc   ncb   bnc   #
+cbb   cnc   ccb   bcc   bcb   ccck1 cbn
+cbc   cnc   cnn   ncb   ncb   ncc   cbn
+solution: 3,1 ; use 0,4,0 ; 0,0 ; use 0,1,0 ; 4,1 ; 1,4 ; use 0,1,0 ; use 0,2,0 ; 4,4 ; 1,5 ; use 0,4,5

@@ -9,7 +9,8 @@
         CollectEnvelopes = 2,
         /// <summary>Sünger toplama: veride collectToken(kind=sponge) (M09).</summary>
         CollectSponges = 3,
-        /// <summary>v12 deneme: yalnız zincirle (domino dalgası) soyulan bu renkteki katmanlar sayılır. Veride collectChain.</summary>
-        CollectChain = 4,
+        // 4 = CollectChain v14'te kaldırıldı (kullanıcı 2026-11-16: zincir tamamen kaldırılsın); numara boş bırakıldı.
+        /// <summary>Konsept pilotu "Balonlar": patlayan balon. Veride collectToken(kind=balloon).</summary>
+        CollectBalloons = 5,
     }
 }

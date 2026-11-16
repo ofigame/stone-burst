@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [chainOnly+exact]; zincir yellow 4; çözüm 13 / sınır 13 (v7 12); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,08; adillik onarımı: sınır 13→14 (112 oyunda 5 galibiyet); zincir v13: yeni çözüm 10 (eski 13), sınır 14→15, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil artı (ayna); çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_650
-title: Bölüm 650
-moves: 12
+moves: 8
 roll: off
 specials: on
 type: boss
-rules: chainOnly, exact
-goals: blue 45, coral 47, chain yellow 4
+rules: scarce, exact
+goals: yellow 12, coral 27, green 28
 grid:
-pbpp  pbyp  G1:ppyp G1:ppyc G1:bbyc G1:bbyy G1:bcyy ycby
-bbyb  pbyp  ypyp  pcpy  pbyy  pbyy  bbyy  ypby
-bbyc  pbyc  pbyc  cppb  cbyb  pbpp  pbbp  ypby
-bccy  bcpy  pppc  pppb  ppbp  yycp  pycp  ypcc
-cccb  cccp  cbcb  ppcb  yycy  yccy  bypy  bpcc
-cccbB1 bccp  bccb  pccc  ypby  cpcy  bpcy  bycc
-#     #     pcpb  pccy  yccy  cpcc  #     #
-#     #     ycpb  ycpy  ypcy  ypbc  #     #
-#     #     ycbp  ypbp  bpyy  ypby  #     #
-solution: 3,2 ; use 0,7,0 ; 0,0 ; 5,3 ; use 0,1,0 ; 0,2 ; 0,0 ; use 0,7,0 ; 7,0 ; 2,6 ; 0,2 ; use 0,0,0 ; 3,1 ; 0,4 ; 2,3 ; use 1,0,4 ; use 0,5,0 ; use 0,0,1
+#     #     G1:gngb G1:cngp G1:cnyg yncg  #     #
+#     #     ggpb  pgbb  pppb  ypcb  #     #
+cbgb  cbbn  gbpc  bgyc  bpyg  nncg  pncg  bbpg
+pbgb  cgbb  gcbc  gcgb  bpgbB1 nngp  ppypLn4 bbng
+pbgg  pggb  bgcc  pgcp  pycpLb5 bbcp  bbcp  bbnb
+bbpb  bbny  bcgc  pcgn  pycn  bbcn  cbgb  cbgb
+cbnc  cbnc  bcgc  ccgn  cbgg  bbyg  bpgg  cpgg
+#     #     bcgy  ccpy  bbpn  bbpn  #     #
+#     #     cbny  cbnn  nbpn  nbpn  #     #
+solution: 2,2 ; 0,2 ; use 0,5,0 ; 4,3 ; 2,3 ; use 2,3,2 ; 3,5 ; 3,2 ; 0,2 ; use 0,0,3 ; use 1,5,0 ; 7,3 ; use 1,4,0 ; use 0,2,0 ; use 0,5,0

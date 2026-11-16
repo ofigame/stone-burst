@@ -1,17 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 2; v2 aynen; tür uygulanamadı; zincir v13: yeni çözüm 10 (eski 10), sınır 13→17, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 15, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 43 + tür reverse; şekil dikdörtgen; çözüm 7 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d030_t2
 title: Günlük 30
-moves: 15
+moves: 8
 roll: on
 specials: on
-goals: yellow 32, purple 57
+type: reverse
+rules: exact
+goals: navy 24, purple 42, star 2
 grid:
-pcp   ycp   bcpk1 cpp   pyb   cpyk1 cpp
-pcb   ycp   pcp   cpp   cpyk1 pyy   pyp
-bpb   ppb   ppb   ppp   ppy   pyy   pyp
-ypy   pyy   #     #     #     ppp   ypc
-pyp   ypy   #     #     #     byc   cyc
-ccp   ycc   ypp   bcp   byp   cyp   cby
-ycc   pcp   cbb   byc   byp   ppp   cpp
-ccb   pbc   cpy   pyc   pyy   ppy   ppb
-solution: 2,5 ; roll 2 ; 0,0 ; use 1,1,0 ; 2,0 ; use 1,0,0 ; 0,5 ; use 1,5,0 ; 6,3 ; roll 3 ; 6,3 ; 5,6
+bcp   ccp   ppp   ppn   nnn   cnn   cnnk1
+bcc   bcp   ppb   ppc   ccc   cnb   nnb
+ccb*  pcb   ppb   pcp   ccp   ncp   nnb
+cbb   nbb   pcb   pcp   ccp   cpp   nnb
+cbc   nbc   pnbk1 ncn   ncb   cpb   cpb
+pbc   pcc   pcn   pcn   ccb   ccp   cpb
+pnp   pnp   cnb   bnc   bcc   ccp   bbb
+cpp   ppb   bpb*  bcck2 ncc   ncp   nbb
+solution: 5,1 ; 3,0 ; 2,6 ; use 0,0,0 ; roll 7 ; 3,1 ; use 0,4,0 ; 2,1 ; 2,0 ; use 2,0,0 ; use 0,1,0 ; use 0,2,0

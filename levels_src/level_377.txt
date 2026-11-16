@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: chain [chainOnly+exact]; zincir purple 10; çözüm 7 / sınır 11 (v7 14); açgözlü kaybeder; bot48 0,15 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 6 (eski 7), sınır 11→10, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil T (ayna); çözüm 28 + 0 tepsi / sınır 28; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_377
-title: Sıralı Posta
-moves: 10
+moves: 28
 roll: off
-specials: on
-type: chain
-rules: chainOnly, exact
-goals: yellow 42, blue 40, envelope 2, chain purple 10
+type: pure
+rules: noSpecials, exact
+goals: yellow 22, green 28, envelope 3
 grid:
-pppc  ybpc  ybpy  bbpy  bbcc  bpcc  cccpR
-pypc  bpyc  ycyy  bcpy  bcyc  bccy  bccp
-pycc  bybc  ybycR yccy  pcby  bcbyEc cccp
-#     bycp  ybbp  cbcp  bcpy  bcbc  #
-#     yccp  ycbp  ycbp  pcpy  bppc  #
-#     pccp  pcyp  ycyp  pcpc  bcbp  #
-pcpb  ypyp  ypyy  ycyc  bcbcEp bccc  pyby
-ppbb  ybcc  ppbyR pbby  cpby  bpyp  bpcb
-ppcb  ppcy  bpcy  pbby  pbcp  bpcp  bpcp
-solution: 1,3 ; 2,5 ; use 0,6,0 ; 2,0 ; 0,0 ; use 0,1,0 ; use 0,1,0 ; 4,0 ; 1,7 ; use 0,3,0 ; use 0,2,2
+ygyb  ngyb  nbyb  gbby  nyny  ngny  ggnn  ggyb
+ygnb  yggn  nbgb  gbny  nyny  byny  gyyn  bbgy
+nygb  nggb  nnbb  gnny  nbny  nggn  bgynEn bbgy
+nybg  ngbb  bnnb  gnng  nbnnEb nggg  ngyg  nbgy
+bybg  bbbb  bybb  gbng  ybnnEy ybnn  ngby  gbbg
+nbnn  nbnn  bbny  gnny  gnby  ybby  ngygR ggynR
+#     #     gggb  nnyb  nnnn  gbgn  #     #
+#     #     ggbb  gbyg  nbyb  gbgb  #     #
+#     #     ngbb  nybg  nybb  gnyb  #     #
+solution: 2,5 ; 0,0 ; 0,0 ; 4,0 ; 5,2 ; 4,0 ; 7,1 ; 1,3 ; 0,2 ; rot 6,5 ; rot 7,5 ; 0,3 ; 0,2 ; 0,1 ; 0,0 ; 2,0 ; 1,0 ; 0,5 ; 3,1 ; 7,0 ; 3,3 ; 2,5 ; 4,7 ; rot 7,5 ; rot 6,5 ; 6,4 ; 5,2 ; 3,4

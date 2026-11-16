@@ -1,13 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). ; zincir v13: çözüm aynı, sınır 2→2, bot 112/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 vitrin; şekil artı; çözüm 4 + 3 tepsi / sınır 8; rastgele 0,195; açgözlü kazanır; yumuşak 0,88
 id: level_002
-title: Zincir
-tutorial: Zincir: soyduğun taşların altından yan yana en az 3 aynı renk birlikte çıkarsa, onlar da kendiliğinden patlar!
-moves: 2
+moves: 8
 roll: off
-goals: blue 3
+specials: on
+goals: green 15, purple 18
 grid:
-bc    bc    bc    yc
-by    by    by    cy
-yc    yc    cy    cy
-yc    yc    cy    cy
-solution: 0,0
+#     #     pgg   by    gyp   #     #
+#     #     bg    bg    gyp   #     #
+gy    pyg   byg   yg    gy    yy    yp
+pyb   pyb   bb    ybp   gyp   py    pyy
+pb    bgg   bg    bpg   bp    by    byg
+pyy   ppg   yg    bpg   bpp   byg   gbg
+#     #     bbp   bb    bp    #     #
+#     #     bpp   ypp   ypg   #     #
+solution: 2,0 ; use 0,4,0 ; 1,4 ; 3,3 ; 0,3 ; use 1,6,2 ; use 0,0,5

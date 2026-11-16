@@ -9,17 +9,19 @@ namespace KatKat.View
     /// </summary>
     public static class UiStoneArt
     {
-        private static readonly Sprite[] Chips = new Sprite[8];
-        public const int FacePixels = 512;
+        // Her renk için işaretli + işaretsiz iki önbellek yuvası.
+        private static readonly Sprite[] Chips = new Sprite[LayerColors.Count * 2];
+        public const int FacePixels = ProceduralArt.StoneCellPixels;
 
         public static Sprite Chip(LayerColor color) => Layer(color, true);
 
         public static Sprite Layer(LayerColor color, bool showSymbol)
         {
-            int index = (int)color + (showSymbol ? 0 : 4);
+            int index = (int)color + (showSymbol ? 0 : LayerColors.Count);
             if (Chips[index]) return Chips[index];
             var stones = ProceduralArt.StoneAtlas;
-            if (stones != null)
+            // Atlasta bu rengin hücresi yoksa (eski 2x2 atlas) koddan çizilen yola düşülür.
+            if (stones != null && ProceduralArt.StoneAtlasHas(color))
             {
                 // v6: renkli taş çizimi (işaret çizime işli; işaretsiz istek de aynı taşı kullanır).
                 var c = LayerPalette.IconCell(color);
@@ -44,7 +46,8 @@ namespace KatKat.View
                 float sideV = (y + 0.5f) / (FacePixels - drop);
                 var m = v >= 0f && v <= 1f ? mask.GetPixelBilinear(u, v) : Color.clear;
                 var sideMask = sideV <= 1f ? mask.GetPixelBilinear(u, sideV) : Color.clear;
-                var icon = showSymbol ? atlas.GetPixelBilinear((cell.x + u) * 0.5f, (cell.y + v) * 0.5f) : Color.clear;
+                // Eski işaret atlasında yalnız ilk dört rengin işareti var; yeni renkler işaretsiz düz yüz.
+                var icon = showSymbol && LayerPalette.HasLegacySymbol(color) ? atlas.GetPixelBilinear((cell.x + u) * 0.5f, (cell.y + v) * 0.5f) : Color.clear;
                 // Keep these coefficients aligned with Resources/Shaders/KatKatLayer.shader.
                 var front = baseColor * (0.58f + 0.47f * m.r);
                 Color groove = color == LayerColor.Yellow ? new Color(0.43f, 0.38f, 0.34f) : baseColor * 0.64f;

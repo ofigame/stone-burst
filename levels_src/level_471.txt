@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3 (kaydırılmış); çözüm 5 hamle + 5 tepsi / limit 9 (pay +4, eski 11) hedef×0,96 bot 0,38 (hedef 0,28) plan 0; zincir v13: yeni çözüm 5 (eski 5), sınır 9→9, bot 29/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 10 + 10 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_471
-title: Bölüm 471
-moves: 9
+moves: 11
 roll: off
 specials: on
-goals: blue 38, coral 23, sponge 2
+goals: purple 38, envelope 3, sponge 1
 grid:
-pcc   pccc  ppp   ypp   pbpc  pyp   pybb
-ccc   pcc   pppb  cpp   cppy  pyp   pybb
-cbpb  #     #     cppb  #     #     pbbScb
-pbp   #     #     cbyp  #     #     pby
-pbpp  #     #     cbyp  #     #     pyy
-bbp   bcpp  bcp   ypb   cycScby yycp  ppy
-ybbp  bpb   bpp   bpp   yccy  ycp   ycp
-bbbp  bbpp  ppp   yyc   pypy  bcp   bcp
-bbb   bpbp  bpb   bpcy  bpp   bpy   bcp
-solution: 5,5 ; 0,3 ; use 1,6,0 ; 2,0 ; use 1,0,0 ; 6,3 ; use 0,6,0 ; 2,0 ; use 0,0,0 ; use 0,4,0
+cbpy  #     bbbyEy pbpn  pppn  #     pncc
+cppy  cppy  cbny  bpyn  pppg  pnccEg pncc
+#     #     bbny  bpng  bppg  #     #
+#     #     pbby  gpng  gpby  #     #
+yypn  pycp  pbbg  gbbg  gbbg  pbbg  pbbg
+cypn  cnpn  cncb  bncg  bgcg  bgcg  ggcy
+yngy  ynpy  ncpb  ggcy  ggyy  bcpy  bccb
+nncyEg ynpb  nypb  ygpy  ynpy  gnpy  bccbSgc
+nycn  #     nypp  nnyg  ynyg  #     bncb
+solution: 4,1 ; 0,0 ; 2,3 ; 2,3 ; use 3,0,7 ; use 1,6,0 ; 3,0 ; 3,0 ; use 0,0,0 ; use 1,2,0 ; 3,5 ; 0,4 ; use 0,4,0 ; 0,4 ; use 3,1,1 ; 3,3 ; use 1,0,0 ; use 2,0,0 ; use 0,3,1 ; use 0,6,0

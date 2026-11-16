@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 2; exact [exact] (sıradaki tür; scarce tutmadı); çözüm 7 / sınır 8 (v7 8); açgözlü kaybeder; bot48 0,04 (taban 0,04); zincir v13: çözüm aynı, sınır 8→9, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 45 + tür exact; şekil kum saati (ayna); çözüm 7 + 4 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,13
 id: daily_d029_t2
 title: Günlük 29
-moves: 9
+moves: 8
 roll: on
 specials: on
 type: exact
 rules: exact
-goals: coral 42, purple 24
+goals: purple 29, coral 45, star 2
 grid:
-ccc   bcy   bcy   ppy   bbc   ppb   pbb
-cbc   ycb   cpc   cby   ypb   pbp   pcb
-ccc   byc   ybc   ccc   ybb   cbb   ycb
-ppb   yyc   ybc   ybck2 bbb   ybc   ycb
-ycy   ycp   ccpk2 #     #     #     pcb
-bby   ypy   ccp   #     #     #     bcc
-yby   yby   pcp   bbbk2 pcp   ycy   pbc
-ycy   ycy   pcy   bbb   bbb   ppb   pbc
-solution: 0,0 ; 0,4 ; use 0,2,1 ; 5,0 ; use 0,0,0 ; 3,6 ; roll 0 ; use 0,3,0 ; 1,2 ; 0,1 ; use 2,1,0 ; use 0,0,0
+npp   pnp   gnp   gcg   ccg   ccg   gcg
+npc   pnc   ggc   npc   ncc   gcg   gcc*
+#     png   cgg   cgc   pcc   pcg   #
+#     ncg   ncn   npc   cnc   gng   #
+#     ncp   npp   cpn   cnc   cng   #
+#     ggp   ggn   cgc   npc   ppc   #
+ccp*  ncp   ggp   ngg   npn   ppc   gpc
+ccc   ncc   gcn   gpn   npn   gpc   gpc
+solution: 3,0 ; 3,0 ; use 0,0,0 ; 0,6 ; 0,6 ; 2,3 ; use 0,4,0 ; roll 1 ; use 0,0,0 ; 2,1 ; use 0,3,0

@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 6 hamle + 6 tepsi / limit 9 (pay +3, eski 12) hedef×0,97 bot 0,17 (hedef 0,19) plan 1; zincir v13: yeni çözüm 6 (eski 6), sınır 9→9, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati (ayna); çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_655
-title: Bölüm 655
 moves: 9
 roll: off
 specials: on
-goals: blue 52, coral 25, purple 31
+goals: yellow 38, coral 21, blue 21
 grid:
-bypp  G1:bypy G1:bypp G1:bybp G1:ycyc G1:ppyy byyy
-bypy  bppy  byby  pyyc  pcyc  ppyc  ypcb
-bppp  bpbp  bpyy  pcyb  pcyc  ppyy  ybpb
-#     bbyy  bbyy  pbyy  ccyy  cbybR #
-#     bbyp  bcyy  ypyy  ycyy  cbyc  #
-#     bcbpB1 bbbp  ypyy  ycyy  cbpp  #
-ycbc  ycbp  ypyy  cpyy  cyyy  cppp  bppbR
-ycbc  ycbp  bpyyR yyyy  ybpy  bbpb  bypb
-ycbc  ycbp  byyb  yyyb  bypb  bbyb  bbyb
-solution: 6,6 ; 0,1 ; use 0,0,0 ; 2,2 ; use 0,2,1 ; use 0,4,0 ; 4,1 ; use 0,0,0 ; 1,0 ; 0,0 ; use 0,2,0
+ggbp  gpbn  G1:gpnn G1:gyyn G1:yyyy G1:yyyy nbyn  nbnn
+gnbp  nnnn  npnb  ypnb  yyyb  gcnb  bbcn  nbcn
+ynbp  ynnn  ngpb  ygnb  ypyn  gcnn  gncn  ynpn
+#     gnpn  ngpb  ygpp  ypnp  ppnn  ppcc  #
+#     gcyc  ccyc  nyyc  ncnp  nccy  pccyB1 #
+#     gcyn  cpyn  cpgn  ycyp  pccy  pngy  #
+pnbn  bnbn  ppyn  yggn  ygyy  nccy  pngc  pnpg
+bnbn  bnyp  bpyn  ynyn  yngb  ncgb  ncpc  ynpb
+ynyg  nbyg  nnyn  nnyg  nngb  gggb  ggnc  ynnb
+solution: 1,5 ; use 0,2,1 ; 5,4 ; 6,3 ; 1,0 ; use 1,5,1 ; use 1,0,0 ; 1,4 ; 4,0 ; use 1,0,0 ; 6,0 ; use 0,4,0 ; 2,0 ; use 1,3,0 ; use 0,0,0

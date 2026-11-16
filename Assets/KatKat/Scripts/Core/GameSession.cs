@@ -30,7 +30,7 @@ namespace KatKat.Core
             return result;
         }
 
-        /// <summary>Son tam oyuncu hamlesini bütün zincirleriyle geri alır. Kayıp ekranından kullanılabilir.</summary>
+        /// <summary>Son tam oyuncu hamlesini bütün dalgalarıyla geri alır. Kayıp ekranından kullanılabilir.</summary>
         public bool Undo()
         {
             if (!CanUndo) return false;

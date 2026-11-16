@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 2; reverse [exact] (sıradaki tür; protect tutmadı); çözüm 6 / sınır 7 (v7 7); açgözlü kaybeder; bot48 0,08 (taban 0,04); zincir v13: çözüm aynı, sınır 7→7, bot 15/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 45 + tür reverse; şekil dikdörtgen; çözüm 6 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d003_t2
 title: Günlük 3
 moves: 7
@@ -6,14 +6,14 @@ roll: on
 specials: on
 type: reverse
 rules: exact
-goals: blue 31, yellow 9
+goals: purple 29, blue 33, star 2
 grid:
-ccb   bcc   bcc   bcc   pcc   ppc   ppc
-ccbk2 pcc   bpc   ppc   ppc   pbc   ppc
-ccb   bbb   pbp   ppc   pcck2 bcb   bpb
-cpc   bpb   pcb   pbc   ycyk2 bcb   pbb
-ccb   cpb   ppp   pbc   ppy   pbb   pbb
-#     #     ppy   ppc   ppc   #     #
-#     #     ccy   pyp   ycc   #     #
-#     #     cby   cyy   ccb   #     #
-solution: 1,0 ; 0,2 ; use 0,4,3 ; 5,1 ; 5,0 ; use 0,0,0 ; 0,0 ; roll 6 ; use 1,4,6 ; use 0,1,0
+pgy   bgy   ggp   ggb   bgp*  ypp   ybg
+pgy   bgb   gpb   gpb   bpp   ypg   ybg
+pyy   bgp   gby   gbp   gpp   yyp   yyg
+byp   ypp   ygy   ggp   ggy   pyg   ygg
+gyp   ypp   ygg   ggb   ggy   bpg   bgg
+gyb   gpp   ypp   ybb   yyb   bpb   ypg
+bgb   bgp   gyy   ybb   byb   bpg   byg
+bbb   ggb*  ggy   gyp   yyg   yyg   yyg
+solution: 6,0 ; 4,0 ; use 0,3,0 ; use 0,2,0 ; roll 7 ; 0,6 ; 2,0 ; use 1,4,0 ; 5,0 ; use 0,0,3 ; use 0,0,3

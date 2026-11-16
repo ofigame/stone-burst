@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [chainOnly+exact]; zincir coral 4; çözüm 11 / sınır 12 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,00; adillik onarımı: sınır 12→13 (112 oyunda 5 galibiyet); zincir v13: yeni çözüm 8 (eski 11), sınır 13→13, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kum saati (ayna); çözüm 14 + 13 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_530
-title: Bölüm 530
-moves: 13
+moves: 14
 roll: off
 specials: on
 type: boss
-rules: chainOnly, exact
-goals: yellow 39, blue 60, chain coral 4
+rules: scarce, exact
+goals: green 25, blue 28, coral 18
 grid:
-bcbcK1:1 ycbc  ypbc  bpbc  bppc  pcpc  pcpp  bppcK1:1
-ycyb  ycbb  bpby  pypp  bcpp  pcpp  bcpp  pybp
-bpyc  bpbb  pppy  pppy  ypcy  bbcc  bycc  bybp
-#     bbyb  bcbp  bppb  bpcc  bbcc  bbbc  #
-#     cbbp  ypbb  ypbp  bybp  bybc  ypbp  #
-#     ybbp  ypbp  ypbp  bpyb  bpbp  bpbp  #
-ccyc  ccyp  yppp  pcbp  ccpp  ccpc  cppy  cppy
-cpcp  ccpp  pcpp  pcpp  ycpb  ccpp  cypy  cypy
-cpcb  pccp  pppp  pcpy  ycby  cbby  ccpy  cycy
-solution: 6,6 ; use 0,1,0 ; 1,4 ; use 0,2,1 ; 2,0 ; 0,1 ; 4,0 ; use 0,3,0 ; 4,2 ; use 0,2,0 ; 3,1 ; 5,2 ; use 0,0,0 ; use 1,0,0 ; use 1,4,2
+nnnb  ypnb  ypyn  ycpb  gnpyk2 gcpy  pcpg  ppng
+nnbb  ncby  ccyy  ggyb  ggpy  gppy  byny  pgng
+cnbb  ncpy  ccpc  cyyb  cycb  cpnp  ggny  pycg
+#     bcyy  bbyy  cpyyk1 gync  gynpk1 cygpk2 #
+#     bcpgK1:2 bbpc  bpyc  bpnc  ppnp  ccnn  #
+#     bcpy  pbby  bbcy  bncp  nnnp  pcyn  #
+pbnn  pbpn  pbbn  pycyk1 byyp  nnyp  nnyb  ypgg
+pgnn  pnnn  pyyn  yynn  bnng  bnyp  byybK1:2 ypbp
+ngpn  gcpg  gnyp  ynyn  ynnn  yynp  yynb  yybb
+solution: 0,6 ; use 0,0,0 ; 4,2 ; 5,0 ; use 1,6,0 ; 5,0 ; use 1,5,0 ; use 0,1,0 ; 1,1 ; 7,0 ; 1,3 ; 3,2 ; use 1,5,0 ; use 1,0,1 ; 3,7 ; 6,5 ; use 0,6,0 ; 3,3 ; use 0,0,1 ; 5,5 ; 0,6 ; use 1,5,1 ; 2,7 ; use 0,0,8 ; use 2,0,8 ; use 1,2,0 ; use 0,2,8

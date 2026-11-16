@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: protect [protect]; kristal 3; çözüm 11 / sınır 16 (v7 15); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 8 (eski 11), sınır 16→17, bot 5/112; zincir v13 kolaylaştırma: hedef −%6, sınır 13, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil kum saati; çözüm 16 + 10 tepsi / sınır 17; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_298
-title: Son Mola
-moves: 13
+moves: 17
 roll: off
 specials: on
-type: protect
-rules: protect
-goals: yellow 31, blue 34, coral 29, envelope 1
+type: scarce
+rules: scarce
+goals: purple 28, blue 22, star 2
 grid:
-ccyp  bcypEb ccypP bppbP bppb  ycpb  ccyb
-ccyc  ycbc  ccbc  cyby  bppy  bppp  ybppP
-bcbc  ycbc  ybbc  pybc  ppcc  bycy  ybpb
-bccb  yccb  bcbc  pycc  ppcy  bycb  bbcy
-bycb  bycb  ypcy  ppcy  pbcy  bycy  pppb
-yycc  ypcb  ypcb  ppbb  bbpb  bbpp  bycp
-#     #     yybb  yycp  cbcb  #     #
-#     #     yyby  yycc  ybcc  #     #
-#     #     ycby  ybby  bbpc  #     #
-solution: 4,3 ; 0,3 ; 0,1 ; use 1,0,1 ; 4,3 ; use 1,0,1 ; 6,2 ; use 0,0,5 ; 4,5 ; use 1,0,0 ; use 0,0,0
+pbyc  pcyc  ncgc  ncgy  ncby  pygy  pygg  byby*
+cbnn  nnng  npgg  pgcy  pcpp  gnpy  gcbg  gcby
+#     nnny  nngp  npgy  nngp  nnbc  ncbc  #
+#     cnny  ncny  npby  npbc  ngbc  ngpc  #
+#     pbpn  bcny  gcby  gpbc* bgbc  ngpc  #
+#     nbcn  gbpb  pcbp  gnbp  bpcp  nbcc  #
+cbnb  gbnn  gynb  ygnb  ygyy  ypgg  npyg  nnyg
+ccnp  bcnp  bccc  bcny  bgyy  yggy  nnyc  nnyg
+solution: 3,5 ; 3,0 ; 5,2 ; 5,2 ; use 0,4,1 ; 5,3 ; use 2,0,1 ; use 0,4,0 ; 3,0 ; 0,1 ; 2,1 ; 1,1 ; use 1,1,0 ; 1,4 ; use 3,1,0 ; 0,0 ; 4,6 ; 5,0 ; use 3,0,0 ; 5,6 ; 2,3 ; use 3,0,0 ; use 0,0,0 ; 6,1 ; use 0,7,0 ; use 0,7,0

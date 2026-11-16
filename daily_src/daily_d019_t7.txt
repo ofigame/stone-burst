@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 7; protect [protect+exact]; kristal 3; çözüm 16 / sınır 17 (v7 13); açgözlü kaybeder; bot48 0,06 (taban 0,04); zincir v13: yeni çözüm 10 (eski 16), sınır 17→15, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 15, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 701 + tür pure; şekil çatı (ayna); çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d019_t7
 title: Günlük 19
-moves: 15
+moves: 9
 roll: on
-specials: on
-type: protect
-rules: protect, exact
-goals: coral 26, blue 31
+paint: 2
+type: pure
+rules: noSpecials, exact
+goals: coral 48, purple 36, blue 20
 grid:
-bbpb  G1:cbpb G1:pbyp G1:pbyy G1:ppby G1:bpy bpy
-pyyyP bbc   pyc   pyc   ppb   bpyb  bbpp
-byy   bpc   pyc   cyc   pyp   byp   byc
-byb   byyy  cyyy  cycy  cbcb  cbcb  cycb
-byyB1 cyy   yyyy  yyby  cycb  cypb  cppb
-bpbc  cybc  yyyy  pyyy  pppc  bpp   ppb
-#     #     yyy   ppcy  cpcc  #     #
-#     #     pppc  pppb  ypb   #     #
-#     #     yppP  pppbP pcb   #     #
-solution: 1,3 ; roll 2 ; 4,1 ; use 0,1,1 ; 1,3 ; roll 4 ; 3,0 ; roll 3 ; 2,0 ; 0,0 ; roll 0 ; use 2,0,5
+#     #     #     pcpp  pcpc  #     #     #
+#     pccc  pcbc  pcpck2 pcpc  ppcp  ypcy  #
+cycp  yycck2 cybb  cypb  ycpc  cpcp  cycp  cbcp
+cyyy  yycy  yycb  ypbb  ycbp  cpcpk1 yycp  bypc
+bpyc  ypyb  yycb  ypbp  cbbp  cccp  ypbp  bypc
+bycc  pypc  pccb  yccb  cccp  pcbc  ppbp  bypp
+ypcy  pppc  bpcb  cycc  cpcy  bpcck1 bpbc  cbpc
+ypcy  ppyy  bcyb  pycc  ppcy  bccp  bbcpk1 cbyp
+bppb  bppb  cyyb  cycc  cccp  bccyk1 bccy  cbcy
+solution: 5,1 ; 2,2 ; roll 3 ; 4,0 ; 3,0 ; roll 5 ; 4,0 ; roll 6 ; 5,5

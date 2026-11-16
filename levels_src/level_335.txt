@@ -1,18 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati (ayna); çözüm 7 hamle + 6 tepsi / limit 9 (pay +2, eski 15) hedef×1,46 bot 0,25 (hedef 0,28) plan 1; zincir v13: yeni çözüm 8 (eski 7), sınır 9→14, bot 1/112; zincir v13 kolaylaştırma: hedef −%12, sınır 8, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L; çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_335
-title: Erime Turu
-moves: 8
+moves: 9
 roll: off
 specials: on
-goals: blue 39, coral 37, purple 34
+goals: coral 14, green 33, yellow 28
 grid:
-bycp  bycci1 bybc  cyb   ccyc  cpyc  bbpp
-cyc   cbc   cbb   cbby  ccy   cpyc  cyy
-cpyc  ybc   yycp  pbyy  cbcR  cypc  cypi1
-#     ybcpR bycp  byy   bppc  yyp   #
-#     bbcp  ppc   pbyp  bpyc  ypy   #
-#     ppy   ybyp  yyb   ypbc  yyy   #
-pcby  pbyyi1 byy   pyb   pyb   pybp  ycy
-ycyy  pbb   bbyp  pcyp  pyby  pybp  ybyp
-ycyy  bcyy  bcyy  bcyy  ybyy  ybbp  ybb
-solution: 4,0 ; 0,6 ; use 0,0,0 ; use 0,3,0 ; 3,0 ; 0,0 ; use 0,6,0 ; use 0,0,0 ; 1,0 ; use 0,3,0
+ncnp  pcbg  pggg  pnbb  gnbbk1 #     #     #
+nbnbk1 nbbp  nggb  bncc  gnyc  #     #     #
+pbpb  nppp  npcn  ggcg  ggcc  #     #     #
+pnyg  pppg  npgn  pbbn  bbbyk1 bypy  bgpy  cgpy
+cpngk2 npng  nppb  pbpb  bybp  gybp  cgpy  cgypR
+cpyg  nppb  nppb  bbpy  yygy  yygyk2 cggy  cyyg
+cgyg  ngpgk1 bbng  ybyg  ybyp  yynp  pynp  pygg
+cnbc  nnbg  nbbg  gbbg  gbyp  ybpyR ypgp  pygg
+solution: rot 7,4 ; 4,6 ; use 0,0,6 ; 5,3 ; 5,3 ; 6,3 ; use 0,1,0 ; use 1,3,1 ; use 0,0,5 ; 2,4 ; 4,3 ; use 0,2,2 ; 1,1 ; use 0,3,1 ; use 0,2,0

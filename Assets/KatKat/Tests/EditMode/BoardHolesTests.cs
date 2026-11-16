@@ -13,22 +13,22 @@ namespace KatKat.Tests
             return LevelParser.Parse(File.ReadAllText(f), Path.GetFileName(f));
         }
 
-        /// <summary>Bulunan boşluk kenara değmez, kare alanı tamamen boştur (hücre örtülmez).</summary>
+        /// <summary>
+        /// Bulunan boşluk kenara değmez, kare alanı tamamen boştur (hücre örtülmez). v14 (kullanıcı 2026-11-16: "ortası delik
+        /// tahtaları kaldıralım"): ana katalogda iç boşluk yok, bu yüzden olumlu durum yapay tahtada sınanır; kenar çentiği boşluk sayılmaz.
+        /// </summary>
         [Test]
         public void Holes_AreInterior_AndSquareIsEmpty()
         {
-            int found = 0;
+            var b = new KatKat.Core.BoardState(6, 6);
+            for (int i = 0; i < b.Count; i++) { b[i].Active = true; b[i].Layers.Add(KatKat.Core.LayerColor.Coral); }
+            foreach (var (x, y) in new[] { (2, 2), (3, 2), (2, 3), (3, 3), (0, 0), (1, 0) }) { b[x, y].Active = false; b[x, y].Layers.Clear(); }
+            var h = BoardHoles.Largest(b);
+            Assert.IsTrue(h.Has, "ortadaki 2×2 boşluk");
+            Assert.AreEqual((2, 2, 3, 3), (h.MinX, h.MinY, h.MaxX, h.MaxY), "köşe çentiği (kenara değen) boşluk değil");
+            Assert.AreEqual(2, h.Side);
             for (int n = 1; n <= 1000; n++)
-            {
-                var b = LevelLoader.ToState(Level(n)).Board;
-                var h = BoardHoles.Largest(b);
-                if (!h.Has) continue;
-                found++;
-                Assert.Greater(h.MinX, 0, n.ToString()); Assert.Greater(h.MinY, 0, n.ToString());
-                Assert.Less(h.MaxX, b.Width - 1, n.ToString()); Assert.Less(h.MaxY, b.Height - 1, n.ToString());
-                Assert.GreaterOrEqual(h.Side, 1);
-            }
-            Assert.Greater(found, 0, "katalogda en az bir iç boşluk");
+                Assert.IsFalse(BoardHoles.Largest(LevelLoader.ToState(Level(n)).Board).Has, $"level_{n:000}: v14'te iç boşluk yok");
         }
 
         /// <summary>Ölçüm (elle): iç boşluk dağılımı.</summary>

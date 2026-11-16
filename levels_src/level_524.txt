@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 9 hamle + 6 tepsi / limit 12 (pay +3, eski 10) hedef×1,47 bot 0,21 (hedef 0,22) plan 2; zincir v13: yeni çözüm 9 (eski 9), sınır 12→16, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U; çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_524
-title: Bölüm 524
-moves: 10
+moves: 9
 roll: off
 specials: on
-goals: coral 39, purple 48, yellow 36
+goals: green 12, navy 47, blue 23, envelope 2
 grid:
-pbby  pbby  pbyc  cbpc  #     #     #
-pbyy  pbyy  pbyy  pbpc  #     #     #
-bbyy  ypyp  pbyp  pppy  #     #     #
-bbcy  byby  bpby  bppy  #     #     #
-bbcb  ybyb  ypyb  yppb  bbcb  bbyy  ccby
-bcpp  bcpp  ypyb  pppp  cbcy  cbby  ccby
-bcbb  bycp  bpcp  pycc  cbbp  cbby  ccbc
-bybb  bycc  bpcc  bbcp  bbcp  pccp  pccpK1:1
-bycb  pycc  bpcb  ppcb  bbcp  ppcp  ppcpK1:1
-solution: 0,0 ; 5,4 ; use 0,2,0 ; 4,6 ; 0,3 ; 3,0 ; use 1,0,4 ; use 1,2,0 ; 3,2 ; use 1,1,2 ; use 0,1,0
+gpyc  ccyp  ccbb  #     #     yppy  bnpnEp bncn
+gpyp  cpyp  bcgb  #     #     ypny  bnpp  bnnp
+gncy  gnny  bcgb  #     #     ygny  nnny  nnnp
+cycy  ynny  bcny  ycny  ybny  ybny  npcy  npnb
+cycy  yncy  yncy  nbby  npby  pbyg  pbcg  pynb
+cygy  cygy  yncy  ybbp  gpbgK1:1 nnyn  nnyn  yynb
+ppyn  pypn  ypcy  ypcp  gcng  gncyK1:1 nnyn  yynb
+bpyy  bppn  cppp  ypnc  pcnc  pncy  nncy  nypy
+bcyy  cyyn  cyyp  yync  yybcEn pnby  pnbn  nnpn
+solution: 5,0 ; use 0,1,0 ; 0,2 ; use 0,6,0 ; 5,5 ; use 0,2,0 ; 7,1 ; use 0,2,1 ; 5,6 ; 5,5 ; 2,1 ; use 1,2,0 ; use 0,4,3 ; 4,5

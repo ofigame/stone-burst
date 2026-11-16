@@ -13,6 +13,8 @@ namespace KatKat.Levels
                 case "blue": color = LayerColor.Blue; return true;
                 case "yellow": color = LayerColor.Yellow; return true;
                 case "purple": color = LayerColor.Purple; return true;
+                case "green": color = LayerColor.Green; return true;
+                case "navy": color = LayerColor.Navy; return true;
                 default: color = default; return false;
             }
         }
@@ -24,6 +26,8 @@ namespace KatKat.Levels
                 case LayerColor.Coral: return "coral";
                 case LayerColor.Blue: return "blue";
                 case LayerColor.Yellow: return "yellow";
+                case LayerColor.Green: return "green";
+                case LayerColor.Navy: return "navy";
                 default: return "purple";
             }
         }

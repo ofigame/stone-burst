@@ -32,17 +32,16 @@ namespace KatKat.Tests
                 Assert.IsEmpty(errors, d.Id + ": " + string.Join(" | ", errors));
                 StringAssert.StartsWith("pilot_", d.TrialType, d.Id);
                 var s = LevelLoader.ToState(d);
-                bool stageAdvanced = false, sealOpened = false;
+                bool stageAdvanced = false;
                 foreach (var step in d.Solution)
                 {
                     var r = RulesEngine.TryApply(s, LevelLoader.ToCommand(step));
                     Assert.IsTrue(r.Accepted, d.Id + " " + step.Type);
                     stageAdvanced |= r.Waves.Any(w => w.StageAdvanced);
-                    sealOpened |= r.Waves.Any(w => w.SealOpened);
                 }
                 Assert.AreEqual(GameStatus.Won, s.Status, d.Id + ": kayıtlı çözüm kazanmalı");
                 if (d.TrialType == "pilot_stages") Assert.IsTrue(stageAdvanced && s.StageCount >= 2, d.Id + ": aşama ilerlemeli");
-                if (d.TrialType == "pilot_seal") Assert.IsTrue(sealOpened, d.Id + ": mühür açılmalı");
+                // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): pilot_seal bölümleri doğrulayıcıda reddedilir.
                 if (d.TrialType == "pilot_twin") Assert.IsTrue(RulesEngine.HasAreas(s.Board), d.Id + ": iki alan");
             }
         }

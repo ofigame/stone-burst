@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: reverse [exact]; çözüm 5 / sınır 7 (v7 9); açgözlü kaybeder; bot48 0,38 (taban 0,06); bot 0,25; zincir v13: yeni çözüm 5 (eski 5), sınır 7→11, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 8, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil artı (ayna); çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_248
-title: Yumuşak Posta
 moves: 8
 roll: off
 specials: on
-type: reverse
+type: exact
 rules: exact
-goals: coral 35, purple 37, yellow 33, envelope 1
+goals: green 30, navy 20, envelope 3
 grid:
-bcp   ybp   pycy  yypy  cpp   bpby  bypy
-pbpp  bycy  pbp   ybby  ypby  bppy  pyb
-pbp   cbp   bbby  ybb   ypby  bcpc  ycppEc
-#     bbpy  bbpc  ybbp  ybb   ccpc  #
-#     bbp   bcpy  bcp   ybbc  bbp   #
-#     cbc   ccy   cby   pby   bcy   #
-cpy   yccy  cccy  byy   pby   bbcb  bcpb
-cpc   cpc   bcp   byyb  byy   byb   byc
-cpbb  ppyb  pcyb  pcb   bcpb  byb   bybp
-solution: 5,6 ; 2,4 ; use 0,2,0 ; use 0,2,0 ; 3,0 ; use 0,0,0 ; 2,1 ; use 0,0,0 ; 2,0
+#     #     ygbb  yycy  yycg  gycg  #     #
+#     #     ccyb  ccyb  gpcyk2 gyyg  #     #
+yggb  ygbb  ycbb  ycyb  gpyg  gnyg  gypb  yypbEc
+yggp  ygbp  gnbp  cnnp  ynpb  gnpb  ybnb  yynyk1
+ppgn  ppbn  pncy  cnbpEy ycbb  ygng  pbnb  bbnyk1
+pbgn  nbgy  yncy  cncy  ycyy  pcnbk1 pcnc  bbnyEy
+#     #     ybng  ybgg  bbyg  bbyb  #     #
+#     #     ybng  gbgg  gbgg  byyg  #     #
+solution: 2,6 ; 6,2 ; use 0,0,4 ; use 0,7,2 ; 0,3 ; 3,3 ; 2,0 ; use 2,4,0 ; 3,0 ; use 2,5,2 ; 1,5 ; 5,5 ; use 3,0,2 ; use 0,0,5 ; use 0,0,5

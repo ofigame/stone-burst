@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 6; resource [exact] (sıradaki tür; pure tutmadı); çözüm 10 / sınır 12 (v7 12); açgözlü kaybeder; bot48 0,06 (taban 0,04); zincir v13: yeni çözüm 9 (eski 10), sınır 12→15, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 502 + tür resource; şekil çatı (ayna); çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d006_t6
 title: Günlük 6
-moves: 11
+moves: 8
 roll: on
 specials: on
 type: resource
 rules: exact
-goals: coral 66, yellow 48, blue 22, sponge 1
+goals: coral 33, blue 24, navy 24, envelope 3
 grid:
-cyyc  cyyc  cybc  cpbc  cpbb  #     #
-cyyy  cyyy  cyby  cycc  cccb  cycp  #
-ybyy  cyyy  cycy  cycc  cybb  cycp  yyyp
-byyy  bbbc  #     #     #     cybp  cybp
-bcbc  bbycSpb #     #     #     ccbp  cybp
-byyp  byyc  #     #     #     cypp  cybp
-cyyp  cypb  cbcp  cycp  bypy  pcpy  cybp
-#     cypp  cccp  cccp  cbpy  yccp  yccp
-#     #     cccb  cccp  yccp  yccp  yccc
-solution: 5,1 ; use 0,0,0 ; 0,0 ; 2,0 ; 0,0 ; use 0,4,0 ; use 0,1,0 ; use 0,0,1 ; 0,1 ; 1,6 ; use 1,4,1 ; use 0,0,4
+#     #     #     gbbb  gbbb  #     #     #
+#     nccy  pcpy  pbcp  ybgp  yygpK1:2 bygp  #
+ngcgEp ngcy  ngcc  pgcg  ppnp  npnp  ypyp  pgnp
+bccn  bcgn  bngc  cggg  cpcgK1:2 npyp  ypyp  pgnp
+bcgnEn bcgy  bngc  pggg  cgcn  bccn  bgbn  bgcp
+bbpp  cbgc  ncgcEp ncgg  ncyn  ccyc  cnbc  bgcc
+bcpp  nbpp  nbgg  nypg  cypg  ccgn  yngn  bpcc
+pcpy  ncny  pygy  pypy  bypn  yygn  ynnb  ypny
+pbpb  pcgb  pygp  pycg  bypg  bygb  bynb  gnny
+solution: 3,1 ; use 0,4,2 ; 4,4 ; use 0,0,5 ; 3,2 ; 3,1 ; 3,2 ; use 0,3,0 ; use 0,2,3 ; 7,2 ; use 1,0,2 ; use 0,2,2 ; 0,3 ; 6,4 ; use 0,0,2

@@ -1,21 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 8; scarce [scarce]; kıt renk blue 67/66; çözüm 11 / sınır 13 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,04); zincir v13: yeni çözüm 11 (eski 11), sınır 13→13, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 899 + tür resource; şekil çatı (ayna); çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d013_t8
 title: Günlük 13
-moves: 13
+moves: 8
 roll: on
 specials: on
-paint: 1
-type: scarce
-rules: scarce
-goals: coral 59, blue 66, yellow 33
+type: resource
+rules: exact
+goals: purple 37, green 40, coral 29
 grid:
-ccyb  ccyp  cyyp  #     #     bbbp  bypp  bbpy
-ccyy  ccyy  ccyp  #     #     ypbp  bpcp  bppy
-ppby  ppyy  ppby  #     #     yppp  cpcp  cppy
-ppcy  ppbb  bpcb  cpbb  cbcy  bbpp  bycp  cypb
-pybc  pycb  bccb  bcbp  bbpy  bbpp  pypp  pbpp
-bbyb  bccc  bcbb  bcpy  bbpb  bbpb  pbpp  pbpc
-cpyc  byyc  ccbc  bypc  bypc  pccc  pcpc  pcpb
-cbyb  byyc  ccbc  ccpc  pppc  ppcy  pppb  pppb
-cbyb  ycyb  ycby  ycpc  ycpy  yccy  ycpb  yppb
-solution: 1,5 ; 5,0 ; use 0,7,0 ; 2,2 ; 6,0 ; use 0,0,0 ; 2,4 ; use 0,6,2 ; 0,0 ; 1,0 ; roll 0 ; 1,0 ; paint 0,3,b ; roll 3 ; use 0,5,0
+#     #     #     nypyi1 nypy  #     #     #
+#     bgnp  bgpp  ngpn  pypn  pppn  ypng  #
+ncgb  ncgp  ncpp  ycpnk1 ccpn  pcnn  pyng  ppng
+nbgb  ncgpi1 nccg  bcnn  ccpn  bypnk1 gypg  npng
+nbyb  bcgy  bncyk1 bnyy  cncn  bggp  gggp  gpgp
+pccb  bcgg  bbgg  bpypk2 cynpi1 bynp  ybgn  pygni2
+pncg  yncgi2 nbcg  bpyg  cgny  ygnc  yggc  pypn
+pnng  ypcg  ngcg  cpyg  cgpb  ycpbi1 pygb  pygbk1
+bncg  bpcg  ngcg  cpyy  cppy  ppgy  pyggk2 pgggk1
+solution: 6,1 ; 3,1 ; 1,1 ; 1,5 ; roll 2 ; use 1,1,2 ; use 1,2,1 ; 1,4 ; use 1,2,1 ; 4,4 ; use 1,0,2 ; use 1,5,1 ; 5,4 ; use 1,2,3

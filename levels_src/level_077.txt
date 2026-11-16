@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: pure [noSpecials]; çözüm 11 / sınır 14 (v7 13); açgözlü kaybeder; bot48 0,25 (taban 0,10); bot 0,17; zincir v13: yeni çözüm 13 (eski 11), sınır 14→16, bot 49/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil U (ayna); çözüm 10 + 0 tepsi / sınır 12; rastgele 0,010; açgözlü kaybeder; yumuşak 0,02
 id: level_077
-title: Çatlak Plan
-moves: 16
+moves: 12
 roll: off
 type: pure
 rules: noSpecials
-goals: purple 33, yellow 15
+goals: purple 28, blue 25, coral 31
 grid:
-bpb   pyb   byp   pyp   pyp   ppp   ppp
-bpb   byb   byp   bypi1 pypi1 ypp   ppc
-#     ybc   ccpi2 bcp   bbb   cbc   #
-#     ybc   ybp   ypb   ypb   cpc   #
-#     bpb   yby   ypb   bbb   cyp   #
-#     pyy   ppy   ypp   pyci1 bbp   #
-pyb   byb   pcc   ypc   ppc   cpb   ybc
-pbb   pybi2 bpp   pbc   pbc   bbp   ybp
-solution: 2,0 ; 3,0 ; 2,4 ; 1,2 ; 0,0 ; 4,5 ; 2,5 ; 0,6 ; 1,5 ; 1,4 ; 3,5 ; 5,4 ; 0,0
+ccp   ccp   cbpc  #     #     cbpc  cbpb  cppi1
+bcp   bcpi1 bbpc  #     #     cbpc  cpp   cpp
+pcc   cbp   cbbc  ccbb  ccc   cbp   bbpc  bbp
+pcc   cbcp  ppb   ppbb  ppb   ppp   bbpc  bbc
+pccbi1 pcc   ppc   ppp   ppc   bpc   bbp   bbpb
+pbp   pbcp  bbc   bbc   pbpp  ccpp  pcpp  pcpb
+pbp   cbc   bbcci2 bcc   pcc   ccc   pcc   ccbb
+cppp  cpp   cpb   bpb   bbb   pbbp  pbc   cccb
+solution: 2,0 ; 0,0 ; 0,0 ; 2,0 ; 6,2 ; 6,1 ; 5,2 ; 2,1 ; 5,0 ; 2,3

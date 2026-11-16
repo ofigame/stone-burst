@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: protect [protect+exact]; kristal 3; çözüm 7 / sınır 9 (v7 15); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 9→11 (112 oyunda 9 galibiyet); zincir v13: yeni çözüm 6 (eski 7), sınır 11→10, bot 18/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil kesik köşe; çözüm 12 + 8 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_578
-title: Bölüm 578
-moves: 10
+moves: 12
 roll: off
 specials: on
-type: protect
-rules: protect, exact
-goals: yellow 28, blue 44, coral 31
+type: scarce
+rules: scarce
+goals: blue 25, purple 26, green 29
 grid:
-cbcb  cbbc  bcbb  #     #     #     #
-bbcb  ccbc  ccby  ccyb  #     #     #
-cpyc  ccyc  ypyy  ypybK2:2 ycypK1:1 #     #
-bpbb  cpbc  pbbb  pypb  ybyb  pbyp  #
-cpbp  cbbc  pbbp  pbpp  ybyy  pcyp  pcypK1:1
-cpypP cpyp  pcbp  pbbp  bcbyK2:2 ycyp  ycyp
-ypbp  ypbb  yyby  pyby  bcpy  ycby  pcpyP
-ppbb  pybb  pybb  ppby  bpbb  bcbp  yccp
-ccbb  ccbb  cbby  cpbpP bpbbK2:2 bccp  cccp
-solution: 5,3 ; 1,0 ; use 0,2,0 ; 0,0 ; 1,6 ; use 1,4,2 ; use 0,0,0 ; 3,1 ; 2,6 ; use 1,0,2 ; use 0,0,0
+#     #     pgbp  pcbp  pybp  nncp  #     #
+#     ypbg  ygyp  ncyp  pygn  nnyp  gnyp  #
+ypcy  ypgp  bbyp  ppyp  pygn  ngcc  nbyc  ppgb
+gycg  nygb  bynp  bncp  gncnK1:2 ngcp  cbpc  cpgn
+gypg  gygp  nbnp  gcng  gcnp  bgpp  bypp  pybn
+nppg  nygb  nynp  gcpg  gnpg  gnpy  yngyK1:2 cngcR
+npnc  bybyR gynp  gcnn  gbnp  gnyp  cngy  ccgg
+#     cynn  byng  gccy  bcbcR cgyb  cggy  #
+#     #     pcnb  pcng  pcng  ggyb  #     #
+solution: 2,0 ; use 0,1,1 ; 5,3 ; 4,1 ; use 0,2,0 ; 5,2 ; use 0,2,0 ; 6,3 ; 6,4 ; 6,5 ; 4,0 ; rot 4,7 ; use 0,2,2 ; rot 7,5 ; use 1,3,0 ; 2,0 ; use 2,2,0 ; 3,6 ; use 2,0,4 ; use 0,3,3

@@ -1,17 +1,15 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 3 hamle + 0 tepsi / limit 7 (pay +4, eski 11) hedef×0,76 bot 1,00 (hedef 0,60) plan 0; zincir v13: çözüm aynı, sınır 7→7, bot 112/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe; çözüm 4 + 1 tepsi / sınır 7; rastgele 0,330; açgözlü kaybeder; yumuşak 0,48
 id: level_009
-title: Altın Rulo
-tutorial: Sekiz ya da daha fazla taş: Altın Rulo tepsine gelir. Bir taşa dokun, o rengin hepsini toplar!
 moves: 7
 roll: off
 specials: on
-goals: coral 12
+goals: blue 12
 grid:
-#     #     yy    by    #     #
-#     yy    by    yb    yby   #
-yyc   byc   bbc   cb    cbc   ycc
-bcy   yy    yy    cbc   bb    ycc
-cc    cy    by    bb    ybc   ycc
-#     cb    ybb   yb    yb    #
-#     #     yyb   yc    #     #
-solution: 4,2 ; 3,1 ; 0,2
+#     #     cc    cc    #     #
+#     cc    pp    pc    pc    #
+bb    pb    bb    cp    bb    cc
+bp    pc    cp    bb    bp    bp
+bp    pp    bb    pp    bc    cp
+#     cb    cb    cc    cb    #
+#     #     pp    cp    #     #
+solution: 0,3 ; 0,2 ; use 0,4,1 ; 4,2 ; 2,4

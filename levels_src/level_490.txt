@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [chainOnly+exact]; zincir yellow 8; çözüm 11 / sınır 14 (v7 14); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,08; adillik onarımı: sınır 14→17 (112 oyunda 6 galibiyet); zincir v13: yeni çözüm 6 (eski 11), sınır 17→12, bot 29/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil merdiven; çözüm 10 + 0 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_490
-title: Bölüm 490
-moves: 12
+moves: 10
 roll: off
-specials: on
 type: boss
-rules: chainOnly, exact
-goals: blue 71, coral 40, sponge 2, chain yellow 8
+rules: noSpecials, exact
+goals: green 23, navy 29, sponge 1
 grid:
-ppcy  ppcy  pccy  #     #     pyby  pyyp  cyyp
-pyyb  ppcy  pcyc  #     #     pypb  pcpy  cyyb
-byyb  bcyy  yccy  #     #     ccpb  ccpy  cybb
-byybScby pycp  bppp  cbby  cbbb  ccpb  cyby  cybb
-byyb  bycb  cycp  yycp  ypbb  yppy  bycb  bccb
-ypby  yybb  pypb  cpcb  pcbb  bcbb  bbbb  bybp
-yybp  ypbbScb cybp  pypp  bcyp  ycbb  bbbb  yybp
-yybp  yybb  bppp  bppp  bcyb  ypyb  cbbp  yccp
-yypp  yypp  ybpp  bppc  ybpb  ybcb  cbcp  cccp
-solution: 7,5 ; 5,1 ; 1,3 ; use 0,1,0 ; use 0,0,1 ; use 0,1,0 ; 4,4 ; 0,0 ; use 0,0,0 ; use 0,5,0 ; 3,6
+nynb  nbng  nbyb  nnyy  #     #     #     #
+yybg  ybbg  ynbb  nnbb  ybby  #     #     #
+yybb  gbyb  ygyb  nnyy  ygby  ygyy  #     #
+yyyb  gbyy  bgyy  bnyy  bnyb  bgyb  bbbb  #
+ybyb  nbyg  nnyg  nnyy  gyyb  gyyg  yybg  yybb
+gbyb  gnyg  ynyg  nyyy  gyyy  gyyb  gyyb  yyyb
+ngbn  gnyn  gngy  yygy  yyyy  gnyy  gnbb  gyyn
+ngbn  ygyg  ybgy  ybgn  ygbn  yggy  yngn  bnyb
+ngbn  ynyn  ynyn  ynyn  ygynSy ynyy  yngn  bnyb
+solution: 4,1 ; 0,6 ; 2,0 ; 1,2 ; 2,2 ; 4,2 ; 1,4 ; 3,2 ; 1,5 ; 6,7

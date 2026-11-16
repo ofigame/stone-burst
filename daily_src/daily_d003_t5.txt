@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 5; protect [protect+exact]; kristal 3; çözüm 8 / sınır 13 (v7 12); açgözlü kaybeder; bot48 0,04 (taban 0,04); zincir v13: yeni çözüm 8 (eski 8), sınır 13→17, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 376 + tür reverse; şekil çatı; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
 id: daily_d003_t5
 title: Günlük 3
-moves: 17
+moves: 8
 roll: on
 specials: on
-type: protect
-rules: protect, exact
-goals: purple 43, coral 51, yellow 44, envelope 2
+type: reverse
+rules: exact
+goals: coral 53, navy 35, green 24
 grid:
-pcby  ccpp  cbcp  cbcp  cycc  yycc  yypc
-pcbyi1 yypb  ybppEy cbcp  cbcc  cbccEc yypb
-pcyb  cyyb  cbpy  ybcy  yycy  yypc  ybpbP
-#     cyybi1 yypy  yycy  yyyc  pcyb  #
-#     ppcb  pcpb  ccpb  ycyb  pyybi1 #
-#     bccp  cycp  ccpb  cpyb  cyyb  #
-bpyy  bpyp  cypp  ccpb  ccyb  cypp  ybpy
-bpbbP bybp  bybp  ccpb  cyyb  yycy  pycy
-pybbP pybp  cbbp  cbbp  cbpb  cbcb  pbcp
-solution: 1,4 ; use 0,0,0 ; 1,0 ; roll 1 ; 0,0 ; use 0,0,0 ; use 0,1,0 ; 1,1 ; 4,2 ; 2,5 ; use 0,1,0 ; roll 6 ; use 0,1,4
+#     #     #     cyng  cyng  #     #     #
+#     npbpk2 nyyp  pyyg  pyng  gbng  ggcgk1 #
+ncngR ncbb  nypb  pypp  pygp  pynb  bgcn  bbbn
+ncnn  npnn  bppn  bnpn  ggcn  bgcb  bgcb  bbbb
+ycgn  ycgn  gpyy  gnnn  gnnb  bbcb  bbbb  bbbg
+ybyy  cbyn  cpyy  cccy  cccb  pcpbk1 bycb  bnbg
+ybgy  bcbb  ppyy  pbcy  pncb  pnpc  bpcc  cncc
+ncgp  bcgb  ccby  cbbck2 cncc  pccc  ppcck1 cncc
+ncgp  pccnR pccbR ncnck1 ncnc  gccc  gpcc  gpcc
+solution: rot 0,2 ; 5,6 ; 5,2 ; use 0,0,2 ; use 0,0,2 ; 3,0 ; use 0,3,0 ; 2,4 ; 3,5 ; use 0,0,2 ; 1,5 ; 5,5 ; use 0,6,1 ; use 0,0,3 ; use 0,6,1

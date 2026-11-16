@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 6 hamle + 5 tepsi / limit 10 (pay +4, eski 16) hedef×0,96 bot 0,21 (hedef 0,29) plan 1; zincir v13: yeni çözüm 6 (eski 6), sınır 10→14, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe; çözüm 9 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_431
-title: Bölüm 431
 moves: 10
 roll: off
 specials: on
-goals: blue 32, coral 23, sponge 2
+goals: green 20, purple 26, yellow 43
 grid:
-pcc   pbcp  pbyp  pby   bbypScb ppy   yyyy
-bcc   bpc   cpyp  pbyp  bby   ppbp  pyby
-bccy  bbc   cpy   ypp   bpy   ypy   pyby
-bpc   bby   cypb  ypp   ypp   ypp   pyy
-ccy   cbyp  cpc   cypc  bypc  bpySby ppyy
-cbc   cbcp  cbc   cbcc  bbpc  bypc  pby
-#     #     bbcp  pyc   pbp   #     #
-#     #     bpyp  ppy   pppb  #     #
-#     #     bpy   bybp  bpb   #     #
-solution: 2,4 ; use 0,3,0 ; 0,0 ; use 0,3,0 ; 2,6 ; 2,4 ; use 1,4,0 ; 0,0 ; 0,0 ; use 0,2,0
+#     #     ncyg  nyyy  gybn  gybn  #     #
+#     bgnc  ycyy  yyyy  ggby  ggbn  bgnn  #
+ybcy  pbcy  ygcy  yyyy  yybc  bgbc  bbgp  gngp
+ybbn  pbbp  ggyp  ygyp  yybn  yncn  pnbp  gngp
+ynnn  ybbc  gbyp  yyyp  pygp  pbbc  pbbc  pcgc
+pgnn  pgby  pbyb  pcyb  pcgp  bnyc  bngc  pcgc
+yycy  bgcy  pnyy  ynyb  pcyb  pyyc  ybnc  ypgc
+#     bycy  yncn  ypnb  ypyb  pbnb  ybnc  #
+#     #     cbpn  cppp  cpyn  pbyn  #     #
+solution: 3,0 ; use 0,6,2 ; 3,0 ; 5,4 ; use 0,2,0 ; 2,4 ; 2,0 ; use 0,2,0 ; use 0,4,4 ; 2,2 ; 2,0 ; 4,0 ; use 0,4,0 ; 4,0 ; use 2,2,0 ; use 1,2,5

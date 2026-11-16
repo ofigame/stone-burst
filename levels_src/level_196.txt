@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L (ayna); çözüm 5 hamle + 3 tepsi / limit 11 (pay +6, eski 12) hedef×0,78 bot 0,42 (hedef 0,36) plan 1; zincir v13: yeni çözüm 4 (eski 5), sınır 11→10, bot 48/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T (ayna); çözüm 7 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10
 id: level_196
-title: Bahçe Kapısı
-moves: 10
+moves: 9
 roll: off
 specials: on
-goals: coral 26, purple 22, star 3
+goals: green 35, purple 23, blue 26
 grid:
-#     #     #     byyc  bpc   ybpc  cbpck1
-#     #     #     yyyc  ycc   ycp   bbc
-#     #     #     yyy   pyp   yyp   bcc
-#     #     #     byc   bpc   bccb  ycb
-pypb  cypb* bpyb  bpyLb7 ypb   ycb   ccbc*
-cypb  cyp   ppy   ppyy  yyp   ypbp  cyb
-cyy   cpy   bpy   bcy   yybp  ypc   bp
-ccc   bcpb  bcy   bcb   ppbp  ypc   pyb
-cybbk1 cypb  ccp   bpcp* cpcp  ypcp  cpb
-solution: 4,5 ; 2,5 ; use 0,3,0 ; use 0,6,1 ; 3,0 ; use 0,6,0 ; 4,0
+bcpb  gcpb  ggybk1 pggb  pggk1 pgg   cggy  ygp
+bcci1 gcc   ggy   pgg   cpp   ccpgi1 cbg   gbpb
+ccc   bccy  bcy   bccb  bpp   ccp   gcgb  gcpb
+cpp   ccpy  ccy   gcc   gcc   cccc  gcc   gcc
+gyyc  gpyy  ypyy  ypcg  gpc   cccc  ccc   gcg
+bypc  byp   gpp   pgcgk2 pgc   pgcc  gcg   gcgk1
+#     #     ggy   cgygi2 cby   pbc   #     #
+#     #     bcy   bby   pby   pbyg  #     #
+#     #     cccb  ccbb  bcb   bbb   #     #
+solution: 3,3 ; use 0,6,0 ; 4,6 ; use 0,0,0 ; 3,0 ; use 0,0,0 ; 3,0 ; 3,0 ; 0,0 ; 3,3 ; use 1,2,0 ; use 0,0,0 ; use 0,1,0

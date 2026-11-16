@@ -1,19 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: pure [noSpecials+exact]; çözüm 15 / sınır 20 (v7 17); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 13 (eski 15), sınır 20→18, bot 10/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil merdiven (ayna); çözüm 10 + 8 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_508
-title: Bölüm 508
-moves: 18
+moves: 10
 roll: off
-type: pure
-rules: noSpecials, exact
-goals: coral 34, purple 38, yellow 49
+specials: on
+type: scarce
+rules: scarce
+goals: navy 16, purple 23, green 26
 grid:
-#     #     #     ypbb  #     #     #
-#     cpbp  ccbp  ybbp  ybyy  cbyb  #
-cpcy  bccp  cbyy  bpyp  cbcy  cycy  cycy
-ppcp  cpyp  ybcb  ypyb  cpbp  cycp  yycy
-yccp  ypcy  bpyy  bbyy  bbyp  yyyp  yycy
-pcyy  yyyy  yyyy  pbcp  ybyp  ybyp  yybcK1:1
-ppyy  ppcy  cycy  cycy  ppcp  yccy  ypby
-ppyy  pybp  cbbp  cbpp  cppp  cpcp  cpcpK1:1
-yyyy  yyyy  cbpp  cbpp  ybpb  cccp  yccp
-solution: 4,3 ; 1,1 ; 2,3 ; 4,1 ; 3,7 ; 2,4 ; 3,5 ; 0,3 ; 3,2 ; 5,2 ; 0,3 ; 1,2 ; 5,3
+#     #     #     #     nnycK1:1 ncyc  pcbc  pbgc
+#     #     #     bnyc  bcyb  cnybK1:1 pbby  pbpy
+#     #     ygyy  ygyy  pnyg  cnyb  cypy  pypy
+#     ycyg  ycyy  pgyy  pgyg  bpyb  bycg  ypgg
+pgcb  pcyg  bcyp  bcyy  cpyg  ypcb  cgcg  cpgg
+pgyb  pyyb  gypg  cppg  yppc  yynn  ygcy  ygcy
+pgcb  pybgK1:1 cnbg  cgpb  ygnn  bbgn  gbcy  ggcp
+bgcg  bncg  cncg  ngyg  ypyg  bpyn  gpyp  gpyp
+solution: 2,5 ; 5,5 ; use 0,4,2 ; 4,1 ; 4,1 ; use 1,7,1 ; 6,5 ; 6,3 ; 7,3 ; use 1,7,3 ; 0,7 ; use 1,5,1 ; 4,0 ; use 0,4,0 ; 0,4 ; use 0,3,1 ; use 0,4,0 ; use 0,4,0

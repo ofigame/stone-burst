@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı (ayna); çözüm 7 hamle + 6 tepsi / limit 15 (pay +8, eski 12) hedef×1,12 bot 0,29 (hedef 0,27) plan 1; zincir v13: yeni çözüm 6 (eski 7), sınır 15→14, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı; çözüm 10 + 9 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_365
-title: Kilit Akışı II
-moves: 14
+moves: 11
 roll: off
 specials: on
-goals: purple 66, yellow 33, blue 21
+goals: green 30, yellow 21, star 3
 grid:
-#     #     #     yppp  #     #     #
-#     pycR  cypp  cppp  ccpp  cyp   #
-pbcy  bccy  byc   bpp   cpc   ppcp  ypp
-ycc   ypc   byc   bbp   bcc   ycp   ypp
-ycpy  pyy   ycy   ybp   cbcc  pbpc  yppc
-ycp   ypp   ycyb  ycy   pbcc  cbcc  cpp
-bppR  bpp   ypbb  cpb   ybbc  ppb   ccpp
-cpb   cppc  yppb  ypc   ypcc  ppb   ccb
-cpb   bpp   pyp   ypcpLc7 ppc   ppcy  ypyy
-solution: 4,2 ; 2,5 ; use 0,1,1 ; 1,1 ; 3,0 ; use 0,2,2 ; 1,5 ; use 0,5,1 ; use 0,3,0 ; 0,2 ; use 1,6,2 ; use 0,3,0
+#     #     #     pcbn  pcbn  #     #     #
+#     cpgy* cpby  npbg  pcgc  nbbc  nbyc  #
+nbgp  cngb  cnbn  ncbbk1 ncgp  ngbn  nbyy  ngyn
+nbgp  nncb  bbbb* ngbb  gcgn  ggbn  bbyy  ggcy
+nbcp  gccp  ybgb  yggn  bggy  bgbp  bycpk2 gycy
+cgyn  gcnp  ycnn  ygnnk1 pngy  pgbp  cybp  pybg
+gggn  gpppk2 nppn  bbnyk1 bnpg  pnyg  cyyp  pyng
+ycgy  gppy  nnpn  bbpy  bcpp* pnyg  bngg  bngb
+ycgy  yngg  ynyg  bbpb  bcpb  pcnbk1 bcnb  bngb
+solution: 7,7 ; 7,5 ; use 0,1,1 ; 0,2 ; 3,4 ; use 1,1,1 ; 2,1 ; use 0,1,1 ; use 0,1,1 ; 1,6 ; 2,5 ; use 1,6,1 ; 1,4 ; 5,4 ; use 1,6,4 ; 3,6 ; use 0,0,3 ; use 0,5,1 ; use 0,5,1

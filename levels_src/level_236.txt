@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 7 hamle + 5 tepsi / limit 10 (pay +3, eski 16) hedef×0,95 bot 0,33 (hedef 0,34) plan 1; zincir v13: yeni çözüm 7 (eski 7), sınır 10→10, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven; çözüm 7 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: level_236
-title: Yıldızlı Posta
-moves: 10
+moves: 9
 roll: off
 specials: on
-goals: coral 41, purple 33, star 3, envelope 1
+goals: blue 13, yellow 31, envelope 3
 grid:
-bcy   pbb   ycb   #     bppy  pyp   ybpb
-yccy  ycby  cbc   #     pp    ypp   bppb
-ycc   bbp   bbby  #     cybb  pp    bypb
-pcc   ycbpEy bbb   cbbb  cybb  ycbb* ycp
-pcbc  bcbc  bcbc* bcp   cypb  bcbp  pybb
-pcb   pcbi1 bcp   bpc   bcp   bcb   bcp
-bpc   pcyy  by    bcyy  cy    cpy   cpyi1
-ycc   pbpc  pcp   bcpp  bcb   ppb   ppb
-cpcy  cccy  pcc   pcc*  pbbb  ppyb  pccy
-solution: 0,2 ; 4,2 ; use 0,1,0 ; use 0,5,0 ; 1,0 ; use 0,0,0 ; 0,5 ; use 0,0,0 ; 2,7 ; 4,0 ; 6,0
+ggyc  ngyb  ncgb  #     #     #     #
+gpyy  gyyck2 cygb  cngyEy #     #     #
+bnyy  pyyc  pygp  cgpc  bgpp  #     #
+bngp  bbgp  bbgpEp nnpc  nnpp  nnny  #
+gpgg  npgg  yggy  ggbc  gpbp  gpnn  bnnn
+cpgg  npgg  yypg  gppg  gppp  gpnnk1 bnng
+ccbg  ncyc  nypc  gppg  gbgy  gbpg  nncg
+pcby  ycyyk1 ycpy  yppy  gypy  ngpg  ngygk2
+pcby  ccby  cypy  cynyk1 gyyy  gbyn  ggygEp
+solution: 4,6 ; use 0,2,2 ; 0,3 ; use 0,1,0 ; 0,6 ; use 0,3,1 ; 1,6 ; use 0,0,8 ; 3,2 ; use 0,1,0 ; 1,0 ; use 0,4,2 ; 2,4 ; use 0,0,1

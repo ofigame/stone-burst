@@ -8,5 +8,7 @@ namespace KatKat.Core
         LostNoLegalMoves = 3,
         /// <summary>v12 deneme: kristal (korunan) yığından katman soyuldu.</summary>
         LostProtected = 4,
+        /// <summary>Konsept pilotu: tehdit kazandı (nedeni <see cref="HazardState.Loss"/>).</summary>
+        LostHazard = 5,
     }
 }

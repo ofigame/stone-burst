@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 3; protect [protect+exact] (sıradaki tür; chain tutmadı); kristal 3; çözüm 8 / sınır 10 (v7 8); açgözlü kaybeder; bot48 0,19 (taban 0,04); zincir v13: yeni çözüm 7 (eski 8), sınır 10→9, bot 10/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 106 + tür reverse; şekil T; çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d010_t3
 title: Günlük 10
-moves: 9
+moves: 7
 roll: on
 specials: on
-type: protect
-rules: protect, exact
-goals: purple 27, coral 18
+type: reverse
+rules: exact
+goals: coral 60, purple 32, green 18
 grid:
-#     #     pbp   pbp   pbc   #     #
-#     bpck2 bpcc  bpp   pbp   pcbi1 #
-ybcc  ybc   bbcc  bbpc  bbc   bcb   ybyP
-ybyc  bcp   ybyy  yyy   pcbp  pcb   bpbbi1
-byyP  bbbb  ycy   yyybk2 bcpb  byp   bpyb
-ycb   ycbb  ybpi1 byb   bpyc  ppyb  bpyb
-#     ycp   ycp   bcb   pyy   pbyb  #
-#     #     ypb   pybP  pycb  #     #
-solution: 2,1 ; 2,0 ; 6,4 ; 4,1 ; use 2,4,0 ; roll 1 ; 2,0 ; roll 6 ; use 2,1,1 ; use 1,4,0
+pcpc  pcpc  pcp   cypp  cgp   ngcn  ygcn  yngi1
+pnc   pnpc  pcgc  nnpp  cnc   nnn   cnc   cngc
+gycc  gncc  pnn   nnyp  cncn  nnc   cnc   ccgc
+gync  gycci1 ynnc  ync   cnc   ccp   ccn   ccn
+gync  gpn   nng   ccg   cnnp  cpp   yyp   ycg
+ycnc  ypnp  ncy   ncy   ppnp  ppg   nyg   ycg
+#     #     gyp   pcnc  ppc   pcc   #     #
+#     #     yny   pync  ppyc  ccy   #     #
+#     #     ynyp  pnn   ccy   ccy   #     #
+solution: 0,0 ; use 0,0,0 ; 6,1 ; use 0,4,0 ; 5,0 ; 4,0 ; use 0,0,0 ; use 0,0,0 ; 0,2 ; 0,2 ; roll 6 ; use 1,5,0 ; use 0,3,4

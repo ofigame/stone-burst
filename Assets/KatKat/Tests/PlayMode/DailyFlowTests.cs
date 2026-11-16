@@ -137,7 +137,7 @@ namespace KatKat.Tests
             Assert.AreEqual("2026-11-06", meta.moveBonusDay);
             Assert.IsTrue(_gc.LastOutcome.Finished && _gc.LastOutcome.Success);
             Assert.AreEqual(SessionKind.Daily, _gc.LastOutcome.Kind);
-            Assert.AreEqual("daily-v3", _gc.LastOutcome.ContentVersion);
+            Assert.AreEqual("daily-v4", _gc.LastOutcome.ContentVersion); // v14: zincirsiz günlük katalog
             Assert.GreaterOrEqual(_gc.Daily.State.tier, 1, "günün seviye grubu kayda sabitlendi");
             Assert.AreEqual(2, _gc.Worlds.CountFor(_gc.Catalog.Count), "dünya kataloğu oyunda yüklü");
             _gc.ShowDaily();

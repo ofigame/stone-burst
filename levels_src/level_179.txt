@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı (ayna); çözüm 5 hamle + 4 tepsi / limit 8 (pay +3, eski 12) hedef×1,11 bot 0,50 (hedef 0,38) plan 1; zincir v13: yeni çözüm 5 (eski 5), sınır 8→8, bot 26/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı (ayna); çözüm 12 + 5 tepsi / sınır 13; rastgele 0,075; açgözlü kaybeder; yumuşak 0,02
 id: level_179
-title: Derin Usta
-moves: 8
+moves: 13
 roll: off
 specials: on
-goals: blue 33, coral 37, purple 18
+goals: navy 27, yellow 22, star 2
 grid:
-#     #     ycyy  yycc  ycyc  #     #
-#     #     yyc   cpp   by    #     #
-cb    yycy  cycb  yybc  yybc  ypb   bb
-pcp   ybpy  cycb  ccc   ycc   cpc   cpy
-cbpc  cbb   cbbb  bbcb  cbyc  ypycLp10 cpp
-py    bybcLc7 cyb   bbc   pbyc  pbp   pp
-pcyc  pybc  cyb   pybp  pbyp  cbb   cpby
-#     #     cybp  ccbp  cppp  #     #
-#     #     cbb   yyb   ccy   #     #
-solution: 3,2 ; 2,2 ; use 0,3,1 ; 2,1 ; use 0,3,0 ; 4,0 ; use 0,4,1 ; 5,4 ; use 0,3,0 ; use 0,2,4
+#     #     npcn  ypc   yccy  ybp   #     #
+#     #     npp   npc   pccy  yppy  #     #
+nbnn  nbb   pnbp  pncp  pnb   ypbc  ycnc  ynnc
+nbn   bbnLy3 bnpy  bncb  pbcb  pbyy  ynn   ynn
+pbnn  pbyn  cbyn  cbcb  cbcb  cyy   bcy   cny
+pcnn  ccy   ccy   yby   ybc   byc   bcpy* ccp
+pcnp  ycnp  ycp   ycnb  bbn   bbc   nbc   nbpc
+#     #     ycpp* ncnb  nynb  nnn   #     #
+#     #     ycp   nyn   bycc  bncc  #     #
+solution: 0,6 ; 0,2 ; use 1,4,0 ; 4,2 ; 3,6 ; 3,3 ; use 1,2,0 ; 3,3 ; 5,3 ; 6,5 ; 3,4 ; use 0,6,2 ; 2,0 ; use 3,2,7 ; 2,0 ; use 0,2,0 ; 2,7

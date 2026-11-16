@@ -1,16 +1,15 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven; çözüm 4 hamle + 3 tepsi / limit 10 (pay +6, eski 7) hedef×1,24 bot 0,54 (hedef 0,60) plan 0; zincir v13: yeni çözüm 6 (eski 4), sınır 10→12, bot 15/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı; çözüm 4 + 4 tepsi / sınır 7; rastgele 0,020; açgözlü kaybeder; yumuşak 0,10
 id: level_008
-title: Bölüm 8
-moves: 12
+moves: 7
 roll: off
 specials: on
-goals: yellow 27
+goals: coral 19
 grid:
-ybb   ybc   ccc   #     #     #
-cy    byc   cy    byc   #     #
-byy   cyc   cb    ybb   ybb   #
-cy    cyc   ycb   byc   by    byc
-cyb   by    cy    by    by    by
-bc    bb    bbc   bcc   byc   yy
-cyb   by    ccc   cy    by    cc
-solution: 1,0 ; use 0,0,0 ; 4,3 ; 2,4 ; use 0,2,1 ; 2,2 ; 2,0 ; 0,0 ; use 1,0,0
+#     #     bc    bg    #     #
+cb    cb    bb    bc    bg    gb
+cc    bb    gg    cg    gg    gc
+cb    gc    bb    cc    cb    gg
+cg    bg    bc    gc    cg    gg
+bg    gg    bc    cb    gg    bb
+#     #     bc    gg    #     #
+solution: 3,3 ; use 0,0,1 ; 0,1 ; use 0,3,0 ; 3,0 ; use 0,5,1 ; 4,1 ; use 0,2,0

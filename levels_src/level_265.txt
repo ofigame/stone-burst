@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 8 hamle + 4 tepsi / limit 11 (pay +3, eski 14) hedef×0,95 bot 0,33 (hedef 0,32) plan 1; zincir v13: yeni çözüm 7 (eski 8), sınır 11→10, bot 26/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı (ayna); çözüm 8 + 5 tepsi / sınır 10; rastgele 0,035; açgözlü kaybeder; yumuşak 0,08
 id: level_265
-title: Kapak Akışı
 moves: 10
 roll: off
 specials: on
-goals: purple 32, yellow 38, blue 28, envelope 2
+goals: navy 29, star 2, envelope 3
 grid:
-bpb   byy   cpyk1 ypy   #     #     #
-pbb   ccpp  cbcp  cpyp  #     #     #
-bbc   bbcc  ppcc  ppyc  #     #     #
-bbyy  bbbk1 pppc  ypy   #     #     #
-ypy   bbp   bpcc  pcc   pbcc  yyyb  pyyy
-ypy   bpby  cpc   ypyy  pbcEb pyp   pyy
-ypyy  bpb   bpcb  ypc   bby   cyyy  pbcy
-byy   byyb  bpyb  ypy   bbyc  cycEc bbc
-cyy   byy   yyy   bpp   bbbc  cybc  cbbc
-solution: 4,7 ; 0,3 ; 6,4 ; use 1,0,0 ; 0,2 ; use 2,0,0 ; 0,3 ; 1,0 ; use 0,0,5 ; 0,0 ; use 1,0,1
+#     #     pypn  pypn  yyyy  ypyy  #     #
+#     #     ngny  pgny  pyny  ppgy  #     #
+pcpb  pcgc  nggbEp pgpy  pppy  bpgp  bpbp  bpbn
+gcpb  gcgc  ngpn  ngpn  pbpn  ybcy  bpbc  bpbn
+ngpb  bgnn* ngnn  npnn  nbcn  bbcy  bpbc  bpbn
+bypnEb bnnn  npyn  npyn  gppy  bbcn  nncn  nnbn
+byyn  bnpn  nbpc  nbpc  pbpc  bncc* bncn  bnyn
+#     #     nycp  pycc  pycp  pbnp  #     #
+#     #     gcbp  gccp  gycpEp gbcp  #     #
+solution: 2,3 ; 7,2 ; 6,3 ; use 0,5,2 ; use 0,0,2 ; 1,4 ; 2,2 ; use 2,1,2 ; 4,0 ; 6,2 ; use 3,5,0 ; 6,5 ; use 0,6,2

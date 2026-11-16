@@ -1,18 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x2; çözüm 6 hamle + 5 tepsi / limit 10 (pay +4, eski 13) hedef×1,25 bot 0,46 (hedef 0,50) plan 2; zincir v13: yeni çözüm 5 (eski 6), sınır 10→13, bot 1/112; zincir v13 kolaylaştırma: hedef −%12, sınır 8, bot 26/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı (ayna); çözüm 6 + 5 tepsi / sınır 8; rastgele 0,015; açgözlü kaybeder; yumuşak 0,04
 id: level_045
-title: Boşluklar
-tutorial: Boşluklar tahtaya ait değildir; grupları böler.
 moves: 8
 roll: off
 specials: on
-goals: purple 34, yellow 20, star 2
+goals: navy 46, purple 23, star 2
 grid:
-cbp   cbb   cbb*  byb   bbb   bcc   bbc
-cyb   ccb   cyb   byb   pbb   pyb   ybc
-pbc   pcb   ccb   pyb   pyy   pyb   pbb
-pbb   ycb   #     #     #     pyb   pyb
-byp   cpc   #     #     #     pyb   byp
-ppp*  bp    cbp   bbc   byp   byb   bpy
-ppp   ppp   bbp   bbp   byp   yyp   ybc
-pcp   pcp   bbp   cyp   byp   ycc   cyc
-solution: 0,4 ; 1,0 ; 1,0 ; 1,0 ; use 3,0,0 ; use 0,4,1 ; use 0,4,2 ; use 0,0,5
+#     #     #     ppc   #     #     #
+#     nnn   nnn   ppy   ycp   ycp   #
+nnn   nnc*  nnc   pyy   pcp   yyp   pyp
+ncn   nny   pnc   nyp   nyp   nyn   cyp
+nny   npy   cpy   ccn   ncc   ycn   ccp
+nnn   npc   ypc   cnn   nnc   yyn   ycn
+ccn   ncn   yyn   yyn   nyc   nyn   ncn
+ccp   ypc   yyc*  yyc   ync   pny   pcy
+solution: 4,1 ; use 0,3,0 ; 3,1 ; 1,1 ; 1,1 ; 5,5 ; use 0,3,2 ; use 0,1,1 ; use 1,3,0 ; 1,3 ; use 0,3,0

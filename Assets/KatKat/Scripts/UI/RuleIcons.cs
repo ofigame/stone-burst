@@ -1,11 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace KatKat.UI
 {
     /// <summary>
     /// v12 deneme kural simgeleri (koddan, 128 px; plan §6.1: az sayıda sabit simge, 9 dilde aynı):
-    /// protect (kristal), chainOnly (zincir halkaları), noSpecials (üstü çizili roket), exact (hedef tahtası),
-    /// scarce (damla ve eksi). Kural kartında, hedef alanının yanındaki kalıcı simgelerde ve zincir hedefinde kullanılır.
+    /// protect (kristal), noSpecials (üstü çizili roket), exact (hedef tahtası), scarce (damla ve eksi). Kural kartında ve
+    /// hedef alanının yanındaki kalıcı simgelerde kullanılır. v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın):
+    /// chainOnly ve seal (zincir halkaları) kalktı.
     /// </summary>
     public static class RuleIcons
     {
@@ -19,12 +20,19 @@ namespace KatKat.UI
 
         public static Sprite For(string rule)
         {
+            // Konsept pilotu: kural kartında konseptin kendi görseli.
+            if (rule == "hazard_raven") return KatKat.View.HazardPaint.Raven;
+            if (rule == "hazard_balloon") return KatKat.View.HazardPaint.Balloon;
+            if (rule == "hazard_orders" || rule == "hazard_cycle") return KatKat.View.HazardPaint.Clock;
+            // 2026-11-16: oyunun parçalarından (hamle sayacı, taşlar, tepsi) parlak kabartmalı simgeler.
+            if (rule == "protect" && KatKat.View.SpecialArt.V6("tripo/crystal") is Sprite cr) return cr;
+            if (rule == "exact") return KatKat.View.HazardPaint.RuleExact;
+            if (rule == "scarce") return KatKat.View.HazardPaint.RuleScarce;
+            if (rule == "noSpecials") return KatKat.View.HazardPaint.RuleNoSpecials;
             if (Cache.TryGetValue(rule, out var s) && s) return s;
             Pixel f = rule switch
             {
                 "protect" => Crystal,
-                "chainOnly" => Chain,
-                "seal" => Chain, // vr1 P3 zincir mührü
                 "noSpecials" => NoSpecials,
                 "exact" => Target,
                 "scarce" => Scarce,
@@ -83,16 +91,6 @@ namespace KatKat.UI
             c = Over(c, Ice, Cov(d + 0.02f));
             if (y > 0.06f) c = Over(c, new Color(1f, 1f, 1f, 0.55f), Cov(d + 0.02f));
             c = Over(c, Color.white, Cov(Circle(x, y, -0.06f, 0.12f, 0.025f)));
-            return c;
-        }
-
-        private static Color Chain(float x, float y)
-        {
-            var c = Badge(x, y);
-            // İki iç içe halka (çapraz).
-            float a = Mathf.Abs(Circle(x * 0.85f, y, -0.1f, 0.06f, 0.14f)) - 0.04f;
-            float b = Mathf.Abs(Circle(x * 0.85f, y, 0.1f, -0.06f, 0.14f)) - 0.04f;
-            c = Over(c, Teal, Cov(Mathf.Min(a, b)));
             return c;
         }
 

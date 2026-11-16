@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 8 hamle + 5 tepsi / limit 12 (pay +4, eski 13) hedef×1,13 bot 0,21 (hedef 0,23) plan 0; zincir v13: yeni çözüm 9 (eski 8), sınır 12→17, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 14, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil elmas; çözüm 3 + 2 tepsi / sınır 8; rastgele 0,305; açgözlü kazanır; yumuşak 0,83
 id: level_474
-title: Bölüm 474
-moves: 14
+moves: 8
 roll: off
 specials: on
-goals: yellow 57, blue 45, coral 32, sponge 2
+goals: yellow 11, navy 18
 grid:
-ypyc  ybyc  ycyc  ycpp  cypb  ybpb  ybpy
-cyyb  cbyb  ycpp  yypp  yyyb  yypb  ybpy
-cyyb  bbyb  ybyb  byycScby byyc  byyc  bpyy
-bybc  #     #     pyby  #     #     pbyy
-bpbc  #     #     ybcp  #     #     pbyy
-bpbc  #     #     cbcyScb #     #     ypyy
-bcbc  bcbc  bpcc  bpbc  bppc  bppc  bpyy
-bcbc  bppb  bcyb  ccpb  cypp  bypp  pppc
-bcbc  bypb  cypy  cypy  cypy  cycy  cycp
-solution: 0,3 ; use 0,4,0 ; 2,7 ; use 0,0,2 ; 4,0 ; use 0,0,0 ; 6,0 ; 2,6 ; 6,3 ; use 0,1,0 ; 6,3 ; use 0,1,0 ; 3,0 ; 3,0 ; 2,0
+#     #     #     n     b     #     #     #
+#     #     ng    n     nb    gb    #     #
+#     yb    y     n     gb    g     g     #
+y     g     gb    nb    gb    yg    y     yb
+gn    g     n     n     ng    y     yb    yb
+nn    g     nn    g     g     y     y     yb
+#     g     gn    gn    gn    gn    yn    #
+#     #     g     g     gn    g     #     #
+#     #     #     gn    gn    #     #     #
+solution: 4,0 ; 3,0 ; 7,3 ; use 1,2,2 ; use 0,0,3

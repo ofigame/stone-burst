@@ -16,6 +16,9 @@
     <Compile Include="../../Assets/KatKat/Scripts/Core/**/*.cs" />
     <Compile Include="../../Assets/KatKat/Scripts/Levels/**/*.cs" />
     <Compile Include="../../Assets/KatKat/Tests/EditMode/**/*.cs" />
+    <!-- Unity ad alanı (EditorTools, View) isteyen testler yalnız Unity içinde derlenir. -->
+    <Compile Remove="../../Assets/KatKat/Tests/EditMode/AppGalleryBuildTests.cs" />
+    <Compile Remove="../../Assets/KatKat/Tests/EditMode/NewColorsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />

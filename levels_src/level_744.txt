@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3 (kaydırılmış); çözüm 7 hamle + 6 tepsi / limit 11 (pay +4, eski 12) hedef×0,97 bot 0,13 (hedef 0,17) plan 2; zincir v13: çözüm aynı, sınır 11→11, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil kum saati; çözüm 3 + 3 tepsi / sınır 8; rastgele 0,470; açgözlü kazanır; yumuşak 0,85
 id: level_744
-title: Bölüm 744
-moves: 11
+moves: 8
 roll: off
 specials: on
-paint: 1
-goals: coral 48, purple 22, yellow 31, sponge 1
+goals: green 17, blue 25
 grid:
-#     #     ccbb  cpbb  cbpb  cypb  cyyc
-#     ycbb  bcbb  ypbb  ypbb  ccpb  cyyc
-yccy  ycyy  byyb  ybcy  ybcc  ccyc  ycbc
-pcyp  #     #     #     bbyc  cbyp  cbcb
-ycyy  #     #     #     ppybScb pbyp  pcby
-ycpy  #     #     #     bpyb  cbcb  pbbc
-cpbc  bpby  pbbb  cbbb  bbcc  bccc  bccc
-cpby  yypy  bbpp  ccbb  cyyc  bcyy  #
-cybp  bypy  bbpy  bycb  pycy  #     #
-solution: 2,0 ; use 0,2,0 ; 6,0 ; use 0,5,0 ; 2,0 ; use 0,0,3 ; 5,5 ; use 0,6,0 ; 0,2 ; 0,6 ; use 1,6,0 ; 2,1 ; use 1,0,3
+c     c     bc    g     gc    gc    gc    pc
+c     c     b     bb    g     b     gc    b
+c     p     b     gb    gb    b     bb    b
+#     cb    cb    cb    gc    b     bb    #
+#     cb    cc    cc    bc    bc    bb    #
+#     c     c     c     cp    p     p     #
+cg    cg    c     cp    pp    p     b     pp
+c     cg    c     cp    g     gp    bp    bp
+c     cg    cg    c     g     gb    g     b
+solution: 2,1 ; 4,0 ; use 0,3,0 ; 1,3 ; use 1,3,1 ; use 0,1,3

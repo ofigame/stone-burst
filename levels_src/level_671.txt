@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T (ayna); çözüm 9 hamle + 6 tepsi / limit 14 (pay +5, eski 10) hedef×1,31 bot 0,25 (hedef 0,23) plan 0; zincir v13: yeni çözüm 5 (eski 9), sınır 14→14, bot 3/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 15/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı; çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
 id: level_671
-title: Bölüm 671
-moves: 10
+moves: 8
 roll: off
 specials: on
-goals: blue 38, coral 46
+goals: coral 11, blue 25, green 28, envelope 2
 grid:
-bpyb  G1:cppb G1:ypc G1:ypcp G1:ypcp G1:ycp bcb
-cbc   cpcc  ypcc  cpc   yppp  bcp   bcyb
-bbcy  ybc   cbpc  yyy   ypp   bcyy  bcyy
-yyc   ybcc  ybpc  ypp   ypcp  ycy   bcpy
-bby   ybc   cbp   ybbb  pyy   ypyp  ccyp
-cpc   pbc   pbbB1 pcpb  bcp   pcp   ccb
-#     #     pbb   pcyb  pcbb  #     #
-#     #     yby   cbyb  ccb   #     #
-#     #     ccy   bcyb  ycb   #     #
-solution: 3,4 ; use 0,0,2 ; 0,1 ; use 0,0,0 ; 3,0 ; use 0,2,0 ; 6,3 ; use 0,1,0 ; 6,1 ; use 0,1,1
+#     #     G1:bnpc G1:bnpc G1:bgpp #     #
+#     #     bnnb  bnpg  bggp  #     #
+cbnp  cbpg  cppb  pncgB1 bgggEy ggbg  gggy
+cbnp  gbcb  bpcb  gpcb  gygb  ggbg  ncbg
+cnnp  bnyb  bnyb  byyy  byby  ggby  gnnn
+gpcy  bycy  bnyy  nnpy  bnny  byny  gnnn
+gycy  gypy  gppy  nbng  gbpg  cyng  cnng
+#     #     gppp  ynnp  gnng  #     #
+#     #     nbny  ynnpEn ygng  #     #
+solution: 2,1 ; use 0,3,1 ; 4,3 ; 5,2 ; use 0,3,2 ; 0,2 ; use 1,2,1 ; 0,2 ; use 0,3,1 ; 0,2 ; use 0,4,0 ; 4,1 ; 4,1 ; use 0,4,0

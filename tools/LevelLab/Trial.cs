@@ -53,8 +53,10 @@ static partial class Program
         report.AppendLine();
         report.AppendLine("| # | Tür | Tahta | Hamle | En kısa | İlk hamle (kazandıran/yasal) | Tuzak | Açgözlü | Büyük grup önce | Özel taşsız | Deneme |");
         report.AppendLine("|---|---|---|---|---|---|---|---|---|---|---|");
+        string only = args.Length > 2 ? args[2] : null; // ör. "05": yalnız trial_05 (diğer dosyalar korunur; rapor yazılmaz)
         for (int n = 0; n < specs.Count; n++)
         {
+            if (only != null && (n + 1).ToString("00") != only) continue;
             var spec = specs[n];
             var rng = new Random(seed + n * 7919);
             LevelData found = null; Metrics fm = null; int tries = 0;
@@ -88,7 +90,10 @@ static partial class Program
             Console.WriteLine($"{found.Id} {spec.Type}: {found.Width}x{found.Height} hamle {found.MoveLimit} (en kısa {fm.MinMoves}) ilk hamle {fm.Winners}/{fm.Legal} açgözlü {(fm.GreedyWins ? "kazanır" : "kaybeder")} deneme {tries}");
             report.AppendLine($"| {n + 1} | {spec.Type} | {found.Width}×{found.Height} | {found.MoveLimit} | {fm.MinMoves} | {fm.Winners}/{fm.Legal} | {fm.Trap:P0} | {(fm.GreedyWins ? "kazanır" : "kaybeder")} | {(fm.BiggestFirstWins ? "kazanır" : "kaybeder")} | {(fm.SolvableWithoutSpecials ? "evet" : "hayır")} | {tries} |");
         }
-        File.WriteAllText(Path.Combine(RepoRoot(), "docs", "v12", "DENEME_URETIM.md"), report.ToString(), new UTF8Encoding(false));
+        // v14: rapor docs/v14 altına (v12 raporu yerinde kalır).
+        if (only != null) return 0;
+        Directory.CreateDirectory(Path.Combine(RepoRoot(), "docs", "v14"));
+        File.WriteAllText(Path.Combine(RepoRoot(), "docs", "v14", "DENEME_URETIM.md"), report.ToString(), new UTF8Encoding(false));
         return 0;
     }
 
@@ -218,39 +223,9 @@ static partial class Program
 
     static List<TrialSpec> TrialSpecs() => new List<TrialSpec>
     {
-        // 1 Tek dokunuş: 1 hamle; yalnız bir dokunuş zinciri başlatıp hedefi tamamlar.
-        new TrialSpec
-        {
-            Type = "aha", Title = "Tek Dokunuş", W = 5, H = 6, Colors = 3, MinLayers = 3, MaxLayers = 3, Rules = new[] { "exact" },
-            Shape = (r, d) =>
-            {
-                // Her ilk dokunuşun ilerlemesine bak; en iyisi tek başına olsun.
-                d.MoveLimit = 1;
-                var s = LevelLoader.ToState(d);
-                var best = new Dictionary<string, List<int>>();
-                foreach (var c in ColorNames) best[c] = new List<int>();
-                foreach (var cmd in LevelSolver.Moves(s))
-                {
-                    var n = s.Clone();
-                    var res = RulesEngine.TryApply(n, cmd);
-                    if (!res.Accepted || res.Waves.Count < 3) { foreach (var c in ColorNames) best[c].Add(0); continue; }
-                    foreach (var c in ColorNames)
-                    {
-                        ColorIds.TryParse(c, out var lc);
-                        best[c].Add(res.Waves.Sum(w => w.Cells.Count(p => p.Removed == lc)));
-                    }
-                }
-                foreach (var c in ColorNames.OrderBy(_ => r.Next()))
-                {
-                    var v = best[c].OrderByDescending(x => x).ToList();
-                    if (v.Count >= 5 && v[0] >= 7 && v[0] - v[1] >= 2) { d.Goals.Add(Goal("collectColor", c, v[0])); return true; }
-                }
-                return false;
-            },
-            Slack = 0,
-            Accept = (m, d) => m.MinMoves == 1 && (m.Legal == 0 || (m.Winners == 1 && m.Legal >= 5)),
-        },
-        // 2 Kesin hamle: pay yok, 4–5 hamle, kazandıran ilk hamle az.
+        // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): Tek Dokunuş (aha) ve Zincir Ustası (chain) çıktı; yerlerine
+        // Derin Kuyu (compact) ve Geniş Kıyı (wide). Kural kartı sırası korunur: 1 dar hamle, 4 kıt renk, 7 özel taş yok, 10 kristal.
+        // 1 Kesin hamle: pay yok, 4–5 hamle, kazandıran ilk hamle az.
         new TrialSpec
         {
             Type = "exact", Title = "Kesin Hamle", W = 5, H = 6, Colors = 4, MinLayers = 2, MaxLayers = 3, Rules = new[] { "exact" },
@@ -264,6 +239,21 @@ static partial class Program
             },
             Slack = 0,
             Accept = (m, d) => m.MinMoves >= 4 && m.MinMoves <= 5 && (m.Legal == 0 || (m.Legal >= 5 && m.Trap >= 0.6)),
+        },
+        // 2 Derin kuyu: küçük tahta, 3–4 katmanlı yığınlar; alttaki renkleri önceden düşün (1 hamle pay).
+        new TrialSpec
+        {
+            Type = "compact", Title = "Derin Kuyu", W = 5, H = 5, Colors = 3, MinLayers = 3, MaxLayers = 4,
+            Shape = (r, d) =>
+            {
+                var a = ColorBy(d, true);
+                var b = ColorNames.Take(3).Where(c => c != a).OrderByDescending(c => ColorTotal(d, c)).First();
+                d.Goals.Add(Goal("collectColor", a, (int)(ColorTotal(d, a) * 0.7)));
+                d.Goals.Add(Goal("collectColor", b, (int)(ColorTotal(d, b) * 0.55)));
+                return true;
+            },
+            Slack = 1,
+            Accept = (m, d) => m.MinMoves >= 4 && m.MinMoves <= 6 && (m.Legal == 0 || (!m.BiggestFirstWins && m.Trap >= 0.5)),
         },
         // 3 Ters düşünme: açgözlü ve "büyük grup önce" kaybeder.
         new TrialSpec
@@ -299,18 +289,20 @@ static partial class Program
             Slack = 1,
             Accept = (m, d) => m.MinMoves >= 3 && m.MinMoves <= 6 && (m.Legal == 0 || m.Trap >= 0.5),
         },
-        // 5 Zincir ustası: yalnız zincirle soyulan katmanlar sayılır.
+        // 5 Geniş kıyı: büyük, sığ tahta; seçenek çok, doğru sırayı bul (kesin hamle).
         new TrialSpec
         {
-            Type = "chain", Title = "Zincir Ustası", W = 5, H = 6, Colors = 3, MinLayers = 3, MaxLayers = 3, Rules = new[] { "chainOnly" },
+            Type = "wide", Title = "Geniş Kıyı", W = 8, H = 8, Colors = 4, MinLayers = 1, MaxLayers = 2, Rules = new[] { "exact" },
             Shape = (r, d) =>
             {
-                var a = ColorNames[r.Next(3)];
-                d.Goals.Add(Goal("collectChain", a, 5 + r.Next(4)));
+                var a = ColorBy(d, true);
+                var b = ColorNames.Where(c => c != a).OrderByDescending(c => ColorTotal(d, c)).First();
+                d.Goals.Add(Goal("collectColor", a, (int)(ColorTotal(d, a) * 0.75)));
+                d.Goals.Add(Goal("collectColor", b, (int)(ColorTotal(d, b) * 0.65)));
                 return true;
             },
             Slack = 0,
-            Accept = (m, d) => m.MinMoves >= 2 && m.MinMoves <= 4 && (m.Legal == 0 || m.Trap >= 0.6),
+            Accept = (m, d) => m.MinMoves >= 4 && m.MinMoves <= 6 && (m.Legal == 0 || (!m.GreedyWins && m.Trap >= 0.6)),
         },
         // 6 Kristal koruma: kristal yığınlar soyulursa kayıp; açgözlü kristali kırar.
         new TrialSpec
@@ -373,17 +365,17 @@ static partial class Program
             Slack = 0,
             Accept = (m, d) => m.MinMoves >= 3 && m.MinMoves <= 5 && (m.Legal == 0 || m.Trap >= 0.55),
         },
-        // 10 Patron: kristal + zincir hedefi + kesin hamle, büyük tahta.
+        // 10 Patron: kristal + özel taş yok + kesin hamle, büyük tahta (v14: zincir hedefi yerine ikinci renk hedefi).
         new TrialSpec
         {
-            Type = "boss", Title = "Patron: Liman Feneri", W = 6, H = 7, Colors = 3, MinLayers = 3, MaxLayers = 3, Rules = new[] { "protect", "chainOnly", "exact" },
+            Type = "boss", Title = "Patron: Liman Feneri", W = 6, H = 7, Colors = 3, MinLayers = 3, MaxLayers = 3, Rules = new[] { "protect", "noSpecials", "exact" },
             Budget = 900000,
             Shape = (r, d) =>
             {
                 var a = ColorBy(d, true);
-                var b = ColorNames.Take(3).Where(c => c != a).OrderBy(_ => r.Next()).First();
-                d.Goals.Add(Goal("collectChain", b, 4 + r.Next(3)));
+                var b = ColorNames.Take(3).Where(c => c != a).OrderByDescending(c => ColorTotal(d, c)).First();
                 d.Goals.Add(Goal("collectColor", a, (int)(ColorTotal(d, a) * 0.5)));
+                d.Goals.Add(Goal("collectColor", b, (int)(ColorTotal(d, b) * 0.4)));
                 for (int k = 0; k < 3; k++) d.Cells[r.Next(d.Cells.Count)].Protected = true;
                 return d.Cells.Count(c => c.Protected) >= 2;
             },

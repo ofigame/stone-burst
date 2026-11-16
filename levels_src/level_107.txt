@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: resource [exact]; çözüm 7 / sınır 9 (v7 13); açgözlü kaybeder; bot48 0,25 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 7 (eski 7), sınır 9→9, bot 10/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil kum saati (ayna); çözüm 8 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_107
-title: Doğru Sıra
 moves: 9
 roll: off
 specials: on
-type: resource
-rules: exact
-goals: blue 32, coral 30
+type: protect
+rules: protect
+goals: navy 33, green 26, yellow 31
 grid:
-cpy   cyy   pbc   pbb   pyy   yyp   yyci1
-ybpi1 yyp   bbpi2 pbb   pbp   yyp   cyp
-#     cby   cpp   ybb   pbb   bbb   #
-#     cby   ypc   ybc   ppci2 ypb   #
-#     cpc   cpc   ypc   bpc   cpc   #
-#     cpc   cyci1 ycc   bbc   cyc   #
-cpc   cpp   byp   ybc   pbc   cyc   byp
-bpp   bpp   cyc   pbc   pbb   byp   byp
-solution: 2,3 ; use 0,5,0 ; 3,0 ; 3,0 ; use 0,2,0 ; 0,0 ; 3,0 ; use 1,2,0 ; 1,2 ; 0,6 ; use 1,2,1
+nbnn  nynb  gyn   gyngk1 yyn   yyyb  yynb  bgnb
+ygy   ngnb  gyn   bnnk1 ygyk1 ygy   bpyn  bgbg
+ygyb  ygyb  pnyn  bnyn  bgyn  ygy   ypb   gpbg
+#     ybb   pbb   ngn   pgnn  pgg   ypyb  #
+#     pbpn  pbpn  nnpn  pnpn  pgg   ypy   #
+#     pygnk2 pnnp  pnnp  nbyn  ngy   ygn   #
+gbgp  gbgy  pbb   gbbp  npn   pgng  ygng  npnP
+ggp   ggpy  ygby  gnby  npp   pnpg  bpn   gpn
+bnn   ynn   ygyg  ynyP  npyp  pnyp  bnbp  gpbp
+solution: 1,0 ; use 0,5,0 ; 0,0 ; 1,0 ; use 0,2,0 ; 5,3 ; 3,0 ; 3,0 ; use 3,1,0 ; 6,0 ; use 3,6,0 ; 4,0 ; use 3,1,0

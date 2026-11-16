@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı; çözüm 4 hamle + 4 tepsi / limit 8 (pay +4, eski 13) hedef×0,95 bot 0,17 (hedef 0,29) plan 1; zincir v13: yeni çözüm 4 (eski 4), sınır 8→8, bot 41/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı (ayna); çözüm 8 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_313
-title: Sıra Kaydır
-moves: 8
+moves: 9
 roll: off
 specials: on
-goals: purple 27, yellow 32
+goals: yellow 25, green 27, purple 27
 grid:
-#     #     cbbp  cbb   pbb   #     #
-#     #     cbbp  ybby  pyb   #     #
-yby   byby  cbb   cbbp  ybbc  cpby  ypbyR
-cby   pypp  yby   cbyp  cby   cpb   ypb
-ybcb  ybb   yyy   cbp   cbyc  ccyc  cpb
-ppcy  byc   cybp  cbp   cbyy  bpcc  bpcR
-bybp  bybp  pcbp  pcy   cbby  cyb   ppb
-#     #     ypyb  yybb  cyb   #     #
-#     #     ypp   ycb   ycbb  #     #
-solution: 3,2 ; use 0,3,1 ; 4,2 ; use 0,2,0 ; 2,0 ; 2,0 ; use 0,3,1 ; use 0,4,0
+#     #     #     cnnc  cgnc  #     #     #
+#     nycc  cyyy  cnpc  cnpc  cbpy  cbby  #
+gncpLy6 gncc  bbcy  bbpg  ybpp  cbpp  cypg  cypb
+pgnp  gggp  bbgy  pcgg  nggg  gpypLg5 gypg  gbpb
+pgpnR pcgy  bcbn  bbgn  ngnn  gnbp  gyyc  cbyb
+nyybR nygy  ncbn  nbbg  pnpg  pnbp  pncc  cbcb
+nypp  nygb  bgbg  bgpg  pnpc  pbyc  pbyc  pbcc
+ccgp  nygb  bygc  cgpc  cyyp  cbcc  pgyn  cgyc
+ccbp  ccyb  bcyc  bgpc  yypp  pycyR pycc  cycc
+solution: rot 0,4 ; 2,4 ; 3,2 ; 6,4 ; 3,2 ; use 0,2,1 ; use 0,5,1 ; 6,2 ; 2,3 ; 1,6 ; use 0,6,2 ; use 0,2,1 ; use 0,1,3

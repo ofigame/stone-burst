@@ -1,19 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [chainOnly+exact]; zincir yellow 6; çözüm 4 / sınır 6 (v7 17); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,00; zincir v13: yeni çözüm 5 (eski 4), sınır 6→7, bot 43/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe; çözüm 8 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_070
-title: Buz Şelalesi
-moves: 7
+moves: 9
 roll: off
 specials: on
 type: boss
-rules: chainOnly, exact
-goals: blue 25, chain yellow 6
+rules: scarce, exact
+goals: yellow 26, green 17, star 2
 grid:
-yyb   yyby  pyb   #     ypbci1 pyy   ycyc
-pypy  pbyy  ybpi1 #     ycbc  ypy   ycy
-yyp   ybp   yypc  pcbp  ycyc  ypyc  ypb
-yyyp  yypc  yyci1 pbc   pbyci1 ypy   cbbb
-yypc  byyc  yyyy  pyy   cbb   pby   cby
-yby   cbyb  pby   pyyb  pyyb  pyy   yyy
-cbpp  cccp  yyci1 yyyb  yycp  yycp  yyyp
-ccbp  ccc   ycyb  yyyb  yyyp  yyyp  yyyp
-solution: 4,4 ; 5,3 ; 4,1 ; use 1,0,0 ; 2,1 ; 0,0 ; use 1,1,0
+#     #     ppc   ppc   bgp*  bpp   #     #
+#     ypp   gpc   pbc   bgy   bpc   bpc   #
+ybpi2 ybp   yby   yby   ycy   ypy   ppgi1 ppgi1
+ccp   cbp   cyg   cyg   ccy   cby   pbg   ppg
+ccb   cbb   yyg   byg   bcy   cbp   cbp   cpp
+cyb*  ybb   bpg   bpg   pcy   gcy   gcg   ccp
+#     byb   byb   ycc   ccc   bbg   bbg   #
+#     #     ypp   ypp   ccc   cbc   #     #
+solution: 4,1 ; 2,0 ; 2,0 ; use 0,4,0 ; 4,0 ; use 0,2,0 ; 1,1 ; use 0,5,2 ; 4,2 ; 5,3 ; use 0,7,2 ; 3,6 ; use 0,4,2

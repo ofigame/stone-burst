@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 5; reverse [exact]; çözüm 8 / sınır 10 (v7 9); açgözlü kaybeder; bot48 0,04 (taban 0,04); zincir v13: yeni çözüm 9 (eski 8), sınır 10→11, bot 16/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 382 + tür pure; şekil artı (ayna); çözüm 10 + 0 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: daily_d012_t5
 title: Günlük 12
-moves: 11
+moves: 10
 roll: on
-specials: on
-type: reverse
-rules: exact
-goals: blue 46, coral 56, purple 34, star 3, envelope 3
+type: pure
+rules: noSpecials, exact
+goals: yellow 26, purple 30, navy 15
 grid:
-bppp  bpp   ppcc  cycc  cbbc  bbcb  cc    ccyb
-bppb  bppb  cpbb* cybb  cbbb  cbcb  cccb  cppb
-cpcb  bcbb  bpbb  cpbb  cbby  cycyEc cccp  ccyb
-cccb  #     #     ybyb  ccyy  #     #     ccyp
-ccyb  #     #     ybybEy ccyy  #     #     ypcp
-pyyy  #     #     ybpy  ccpy  #     #     yypp
-cppy  cypyLp8 ycpy  ycpc  cccc  cpyy  pypp  cypp
-pyyy  cyyc  yycb  yccb  bcccEb pcyb  pppp  ycpb
-ypyy  pbyy  pbyb  pbyb* pccc  pcyc  byyp  pypb*
-solution: 5,0 ; use 0,5,0 ; 7,3 ; use 0,7,0 ; 2,0 ; roll 8 ; 2,6 ; use 1,0,0 ; 4,0 ; 6,0 ; use 1,2,0 ; 0,0 ; roll 2 ; use 0,4,0
+#     #     gpny  gyny  gyny  gnny  #     #
+#     #     ypnp  ypgp  gyygR gypy  #     #
+pgpy  gppy  gpyp  ppgp  ggpn  gggy  gggy  yggn
+pggg  pppg  yyyg  ppgp  gyppk1 ggpyk2 gypy  gypn
+gggp  gpgn  ppgg  pppyR pypp  nypyk2 gppg  gynn
+gygp  ppgn  ppyn  ypyn  yynn  yypy  gpyy  gyyn
+nygg  nnpg  ngyg  ygggk1 gggn  nggyk1 gpyy  gpny
+#     #     ynpg  ynpg  gygn  yyny  #     #
+#     #     nnpp  nnpp  nppy  yypy  #     #
+solution: rot 4,1 ; 1,4 ; roll 4 ; 2,1 ; roll 2 ; 5,3 ; 7,3 ; roll 5 ; 0,2 ; 2,0

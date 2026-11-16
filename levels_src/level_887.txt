@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 8 / sınır 13 (v7 11); açgözlü kaybeder; bot48 0,10 (taban 0,06); bot 0,17; zincir v13: yeni çözüm 7 (eski 8), sınır 13→16, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil kum saati (ayna); çözüm 9 + 9 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_887
-title: Bölüm 887
-moves: 12
+moves: 9
 roll: off
 specials: on
-type: exact
+type: reverse
 rules: exact
-goals: blue 55, coral 37, purple 41, envelope 2
+goals: yellow 30, blue 41, coral 36, star 4
 grid:
-yppc  yypy  cypy  bbpp  bbbp  bbbp  bbbb
-cpcc  pppb  cypp  bccc  bpcpR ybyp  cbyp
-pppc  ppcy  pypb  pcpy  pycp  ybpb  byyb
-#     bbbb  cccp  byyb  ypyb  ybcb  #
-#     pppp  pppc  cppc  bybc  yycp  #
-#     ccpc  pppc  pbpc  bybb  bcbbEp #
-pbpcEy pbcc  bcpy  bbbb  ccyp  cbyp  bpyb
-yybcR yycc  bcbc  pcbb  cppcR bbyb  bpyb
-yybc  bpyc  yccc  byyy  pyyb  bpyb  pyyc
-solution: 3,0 ; use 0,0,6 ; 2,4 ; 5,2 ; use 0,4,0 ; 1,1 ; 5,5 ; use 0,0,0 ; use 0,0,0 ; use 0,3,0 ; 3,0
+pncc  pbyc* bbyc  bbyc  bcyc  bcnc  ncnbi1 nccg
+ppbc  ppbb  bpybi1 gbyb  gcyc  ncnc  ncng  nccg
+npbb  ypbb  bppp  gbpg  gbnp  pggn  pcgyi1 ncgy
+#     ypnn  bpyp  nbyg  pbnp  pgpn  yygn* #
+#     cggn  cgpc  ngyc  nbpc  gypn  byyp  #
+#     cngn  cnpb  ynbc* bbbc  yybc  byyp  #
+ccnn  ccgn  ccbb  ybbb  ybcyi1 yycn  cycp  cycp
+ynnn  ynnb  ycnn  ycbn  gbcy  ggyni1 ngybi2 cgyp
+gnbb  ynbb* ynbn  gpgn  gbgn  bbcn  gbyb  gbgp
+solution: 0,0 ; 1,0 ; use 1,0,6 ; 2,4 ; use 0,1,0 ; use 0,1,0 ; 6,4 ; 1,3 ; use 0,2,1 ; 5,0 ; 4,0 ; use 1,2,0 ; 0,6 ; use 2,6,2 ; 7,0 ; use 2,0,0 ; use 0,6,0 ; use 0,1,3

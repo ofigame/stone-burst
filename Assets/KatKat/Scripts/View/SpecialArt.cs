@@ -94,8 +94,8 @@ namespace KatKat.View
         {
             // v6 tek ataş görseli var; açık hâl aynı görselle (BoardView açılışı hareketle anlatır).
             if (open)
-                return _clipOpen ? _clipOpen : (_clipOpen = V6("clip") ?? Make("clip_open", (x, y) => ClipPixel(x, y, true)));
-            return _clipClosed ? _clipClosed : (_clipClosed = V6("clip") ?? Make("clip_closed", (x, y) => ClipPixel(x, y, false)));
+                return _clipOpen ? _clipOpen : (_clipOpen = V6("tripo/clip-open") ?? V6("clip") ?? Make("clip_open", (x, y) => ClipPixel(x, y, true)));
+            return _clipClosed ? _clipClosed : (_clipClosed = V6("tripo/clip-closed") ?? V6("clip") ?? Make("clip_closed", (x, y) => ClipPixel(x, y, false)));
         }
 
         private static Color ClipPixel(float x, float y, bool open)

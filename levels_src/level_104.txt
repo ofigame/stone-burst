@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 6 hamle + 4 tepsi / limit 9 (pay +3, eski 13) hedef×1,10 bot 0,42 (hedef 0,44) plan 0; zincir v13: yeni çözüm 5 (eski 6), sınır 9→8, bot 9/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil elmas; çözüm 8 + 8 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_104
-title: Kat Kat Buz
-moves: 8
+moves: 10
 roll: off
 specials: on
-goals: coral 24, purple 21
+goals: yellow 37, coral 13, navy 16
 grid:
-cyp   byy   bpb   bpb   bpb   ypyi1 bby
-cyy   cpy   byp   pbbi1 pyy   ccy   byb
-bcyi2 cyy   cbc   pyb   bpb   byc   pyy
-pbp   pbp   pbc   ppb   ppb   ppp   cyb
-bpy   byci2 yyc   cby   pcy   pcc   pyb
-#     #     yyc   ccy   pcy   #     #
-#     #     ccy   ccy   ycy   #     #
-#     #     bpb   yyy   yyc   #     #
-solution: 3,4 ; use 0,2,0 ; 5,0 ; use 0,0,0 ; 2,2 ; 2,2 ; 0,0 ; use 0,0,0 ; use 0,5,0
+#     #     #     gcg   pcgy  #     #     #
+#     #     ccy   gcpni1 gcpn  ppyn  #     #
+#     yyyc  ccpc  ccp   cgc   ypy   ypy   #
+ygyi1 yyygi1 pnyg  nny   ngy   ngg   ygy   yypc
+ypyk1 ppny  pgng  pnyy  pppk1 pggg  ygpg  yyg
+ppyck2 ggg   pggg  pygg  npny  ppn   yggg  yygc
+#     gggy  ggg   gygg  gpy   gnygk1 ygpg  #
+#     #     ngyy  ngg   pgyy  pnp   #     #
+#     #     #     cpyn  ppy   #     #     #
+solution: 2,3 ; 1,5 ; 2,3 ; use 0,4,0 ; use 1,3,1 ; 4,3 ; use 1,2,1 ; 3,1 ; 2,1 ; use 2,0,3 ; 1,2 ; use 0,2,1 ; 0,4 ; use 2,5,1 ; use 0,5,1 ; use 0,1,2

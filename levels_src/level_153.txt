@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 6 hamle + 5 tepsi / limit 14 (pay +8, eski 14) hedef×1,27 bot 0,33 (hedef 0,40) plan 1; zincir v13: yeni çözüm 6 (eski 6), sınır 14→18, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 13, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U (ayna); çözüm 9 + 8 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_153
-title: İki Yol
-moves: 13
+moves: 11
 roll: off
 specials: on
-goals: purple 41, yellow 36
+goals: purple 47, coral 43, yellow 32
 grid:
-ppyi2 ppy   ppy   ppc   ppb   cpb   bpb
-ppy   ppy   ypy   ppp   bpp   ppb   bcb
-ypy   ypc   pyy   bpbi1 bpy   bcb   ybb
-yby   pbc   #     #     #     ycb   bbb
-yby   ppc   #     #     #     ycb   ycb
-yby   pyy   #     #     #     ybb   ybb
-ccy   ycc   ybc   bcy   ybb   ybb   ybb
-yby   ybc   pbc   pcc   ccp   ycp   ybpLp7
-yby   ybc   pbc   pbc   pbpi2 pppi1 pyb
-solution: 1,0 ; 4,0 ; use 0,3,0 ; 1,0 ; use 0,0,0 ; use 0,0,0 ; 5,5 ; 6,0 ; use 1,0,0
+gyc   gyci1 cnpn  #     #     ngcLy5 ngcy  ppg
+gpci1 gpcy  cpyy  #     #     ngcc  ngp   pcpg
+pyy   pyyy  cgyg  #     #     pgcc  pcgc  pcnc
+pyy   pgny  ngng  nnc   ggcg  cgg   gcg   pcnc
+ppy   pgy   ygn   gncg  gpcg  gpg   gypg  pyn
+ppyc  ppyc  gpyc  pnn   pncg  cgg   ggpg  gyp
+pppc  cyn   gnni2 pnn   cyg   cyg   ypng  cgc
+pyppi1 gyp   pyg   pnyc  nyg   yypc  yppc  cgc
+ppc   gpc   gpyp  ggy   ngg   nnp   cnpy  cgpy
+solution: 1,1 ; 4,3 ; use 0,0,0 ; 0,6 ; use 0,0,0 ; 0,1 ; 3,3 ; use 1,6,1 ; use 1,1,2 ; 7,0 ; use 1,6,0 ; use 0,7,0 ; 7,1 ; 7,0 ; 1,7 ; use 0,1,0 ; use 0,0,7

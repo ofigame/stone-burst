@@ -22,7 +22,10 @@ static partial class Program
         var sb = new StringBuilder();
         sb.Append("{\n  \"version\": 1,\n  \"games\": ").Append(games).Append(",\n  \"levels\": [\n");
         var t0 = DateTime.Now;
-        for (int i = 0; i < files.Count; i++)
+        // v14: bölümler bağımsız; paralel ölçülür, sıra korunur (çıktı bayt bayt aynı düzen).
+        var lines = new string[files.Count];
+        int doneCount = 0;
+        System.Threading.Tasks.Parallel.For(0, files.Count, new System.Threading.Tasks.ParallelOptions { MaxDegreeOfParallelism = Math.Max(1, Environment.ProcessorCount - 1) }, i =>
         {
             var d = LevelParser.Parse(File.ReadAllText(files[i]), Path.GetFileName(files[i]));
             int n = LevelValidator.LevelNumber(d.Id);
@@ -32,11 +35,11 @@ static partial class Program
             if (!rep.Success) throw new InvalidOperationException(d.Id + ": kayıtlı çözüm kazanmıyor: " + rep.Error);
             int steps = Math.Max(1, limit - rep.MovesLeft);
             double wr = BotRate(d, limit, n, games);
-            sb.Append("    {\"id\":\"").Append(d.Id).Append("\",\"steps\":").Append(steps).Append(",\"limit\":").Append(limit)
-              .Append(",\"bot\":").Append(wr.ToString("0.000", CultureInfo.InvariantCulture)).Append('}');
-            sb.Append(i < files.Count - 1 ? ",\n" : "\n");
-            if (i % 100 == 99) Console.WriteLine($"zperef {i + 1}/{files.Count} ({(DateTime.Now - t0).TotalSeconds:0} sn)");
-        }
+            lines[i] = "    {\"id\":\"" + d.Id + "\",\"steps\":" + steps + ",\"limit\":" + limit + ",\"bot\":" + wr.ToString("0.000", CultureInfo.InvariantCulture) + "}";
+            int k = System.Threading.Interlocked.Increment(ref doneCount);
+            if (k % 100 == 0) Console.WriteLine($"zperef {k}/{files.Count} ({(DateTime.Now - t0).TotalSeconds:0} sn)");
+        });
+        for (int i = 0; i < files.Count; i++) sb.Append(lines[i]).Append(i < files.Count - 1 ? ",\n" : "\n");
         sb.Append("  ]\n}\n");
         var outDir = Path.Combine(Root, "Assets", "KatKat", "Resources", "Zpe");
         Directory.CreateDirectory(outDir);

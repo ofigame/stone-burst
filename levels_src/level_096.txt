@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x2; çözüm 5 hamle + 2 tepsi / limit 9 (pay +4, eski 14) hedef×0,77 bot 0,58 (hedef 0,44) plan 1; zincir v13: yeni çözüm 4 (eski 5), sınır 9→8, bot 42/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil çatı; çözüm 3 + 2 tepsi / sınır 10; rastgele 0,575; açgözlü kazanır; yumuşak 0,98
 id: level_096
-title: Çerçeve
-moves: 8
+moves: 10
 roll: off
 specials: on
-goals: coral 23, purple 17
+goals: blue 26, purple 32
 grid:
-byc   cby   cpy   cyy   pcy   cyc   bcp
-byp   pp    cpy   cpy   bpb   cb    bcp
-pyy   pyp   ybp   ppyi1 pcc   cbp   bpp
-ybb   bcc   #     #     #     bc    bcp
-cyy   byy   #     #     #     pcy   bcy
-ypck1 yby   cypk1 cpb   ycy   pby   yby
-ypc   ypy   ycc   cyb   yyb   ypb   yybi1
-ypc   ppc   cyy   cyy   cyy   bc    bbyi1
-solution: 3,5 ; 5,4 ; use 0,0,0 ; 0,0 ; use 0,4,0 ; 6,0
+#     #     #     n     n     #     #     #
+#     n     np    n     n     n     nb    #
+pb    nb    n     p     pn    b     n     np
+pb    pb    nb    b     bn    bn    n     np
+p     p     b     bn    bn    bn    n     np
+p     bp    bp    n     b     p     n     n
+pp    b     b     n     n     pp    pp    np
+p     b     b     bb    p     pp    pp    n
+p     bp    b     bb    pb    p     p     np
+solution: 0,4 ; 3,0 ; use 0,6,1 ; use 0,2,1 ; 5,6

@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 5 hamle + 4 tepsi / limit 10 (pay +5, eski 11) hedef×1,28 bot 0,42 (hedef 0,41) plan 1; zincir v13: yeni çözüm 6 (eski 5), sınır 10→15, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 50/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil elmas (ayna); çözüm 11 + 9 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_202
-title: Mavi Mühür
-moves: 10
+moves: 13
 roll: off
 specials: on
-goals: yellow 40, blue 30, envelope 1
+goals: yellow 22, purple 33, envelope 2
 grid:
-#     #     #     #     ypb   ypy   bcy
-#     #     #     yyp   ybb   ybb   yby
-#     #     bpp   ypp   ycy   ycb   ppp
-#     cpp   bpp   yyb   ycyEb yyc   byc
-pyp   pbp   bbp   byy   ypb   ycc   bcc
-pyp   pby   bcy   bpy   ypb   cyc   ycb
-pcp   pcp   ycp   ycy   pyc   pcc   ccb
-pcp   ypp   ypy   cbb   cbc   pbc   pcb
-bbp   ybp   cbp   cbp   cyy   cyb   cby
-solution: 3,1 ; use 0,4,0 ; 2,2 ; 3,1 ; 4,2 ; use 1,5,0 ; use 1,4,1 ; 4,4 ; use 0,4,0
+#     #     #     gggc  nggc  #     #     #
+#     #     gbpg  gybc  cgbg  ynbg  #     #
+#     gybc  gbbg  gyyp  cgyp  yncb  pncp  #
+gnbc  gycc  pygg  pygg  cpgp  cpgp  pggp  pggn
+ycbp  ypcp  bpcn  bccn  bccn  gpyp  cnyn  cyyn
+ycbp  ycbpLg5 ppcb  ppcb  bppn  gppn  cnyn  byycEc
+#     bnyy  gnpy  bnpb  bppn  gnggEb gngg  #
+#     #     gccn  gcbn  cbpn  gpcn  #     #
+#     #     #     cbbp  cbnp  #     #     #
+solution: 3,2 ; 7,3 ; 4,5 ; use 0,1,6 ; use 1,7,3 ; 2,1 ; use 0,3,2 ; use 0,2,1 ; 0,4 ; 1,2 ; 1,4 ; use 0,3,2 ; 3,0 ; 3,0 ; 2,1 ; use 2,0,5 ; use 0,3,1 ; 3,0 ; use 1,0,3 ; use 0,1,3

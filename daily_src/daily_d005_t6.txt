@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 6; scarce [scarce]; kıt renk purple 37/36; çözüm 10 / sınır 11 (v7 10); açgözlü kaybeder; bot48 0,04 (taban 0,04); zincir v13: yeni çözüm 12 (eski 10), sınır 11→13, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 509 + tür pure; şekil kesik köşe (ayna); çözüm 11 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d005_t6
 title: Günlük 5
-moves: 13
+moves: 11
 roll: on
-specials: on
-type: scarce
-rules: scarce
-goals: coral 51, purple 36, sponge 1
+type: pure
+rules: noSpecials, exact
+goals: yellow 26, blue 25, green 31, envelope 2
 grid:
-ypcc  bcyc  ycyc  pbcy  cbyp  pbc   pyyp
-cpy   cpy   ycbc  ypbc  bbby  bbcb  cbc
-cpyy  cpyy  yyyy  yyby  bbcy  cby   cppy
-cyy   ycy   yyyp  ybby  ypbc  bpp   cccp
-ccyc  ppy   bcyp  pbbb  pbc   pcy   pcy
-ccy   cpy   bbcp  bbp   bbp   bcc   bcy
-#     #     bpc   bbcc  bppc  #     #
-#     #     cbc   cpc   cpp   #     #
-#     #     ccpb  cypSby cyc   #     #
-solution: 0,1 ; use 0,0,0 ; roll 8 ; 6,2 ; 5,0 ; 0,2 ; use 0,4,0 ; 1,0 ; use 0,0,0 ; 5,4 ; 3,3 ; roll 4 ; 2,0 ; 3,0 ; roll 0 ; use 0,3,4
+#     #     gbyn  gyyn  ggyn  #     #
+#     nbnbK1:1 nbyb  gyyb  ygyn  bgyn  #
+nyyy  nbng  ngnb  nyng  ygbn  ynby  gnbb
+bgyn  bgyg  bggb  nngbK1:1 nngbK1:1 yybg  gnbb
+nbyn  nggn  ggyn  gnybEg gnyg  byng  gyny
+nbgb  nngy  nggy  gbgy  gggg  bygg  byyy
+nnnb  nnnb  ggng  ggng  gggg  ggyb  bgyb
+#     nbnn  ygnb  ybyb  ybybEb ygyb  #
+#     #     ybnb  ybyb  ybyb  #     #
+solution: 2,7 ; roll 5 ; 5,3 ; 1,1 ; 5,6 ; roll 4 ; 5,2 ; roll 4 ; 1,2 ; 3,7 ; 3,7

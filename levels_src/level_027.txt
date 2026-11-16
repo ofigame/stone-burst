@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 6 / sınır 8 (v7 10); açgözlü kazanır; bot48 0,23 (taban 0,10); bot 0,17; zincir v13: yeni çözüm 7 (eski 6), sınır 8→13, bot 1/112; zincir v13 kolaylaştırma: hedef −%18, sınır 8, bot 16/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil merdiven; çözüm 5 + 4 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_027
-title: Kilitli Satır
-moves: 8
+moves: 6
 roll: off
 specials: on
 type: exact
 rules: exact
-goals: blue 15, coral 21
+goals: coral 30, yellow 40
 grid:
-ycb   ypb   pyb   cyy   cyb   cpb
-ypb   pyb   pyb   pyb   cyp   cpb
-ypbk1 cyb   byyk1 bcb   yby   ypc
-yyy   cyc   #     #     ppp   ppy
-cyy   cyy   #     #     ppy   ycy
-cyb   cyy   #     #     ycy   ycy
-cyy   ccy   ccb   ycbk1 ycy   ycc
-solution: 0,3 ; 0,0 ; 5,3 ; use 0,5,0 ; use 0,0,0 ; 0,3 ; use 0,3,0 ; use 0,4,0 ; 3,0
+cyb   yyb   bpck1 #     #     #     #
+cyb   yyb   ypb   ycc   #     #     #
+cyyk1 yyy   yyy   ypc   ypb   #     #
+cyc   yyc   yyc   ybc   ypb   ypb   #
+pyp   pyp   pbck1 bbc   yby   yyy   ypy
+pyc   pcp   cbc   bbc   yyy   yyy   ypc
+bcc   bcc   ybc   pbc   cyb   cpy   cpc
+bcp   bbp   ybp   pbc   cyb   byb   bpb
+solution: 3,1 ; 4,2 ; use 0,3,2 ; 0,2 ; use 0,3,1 ; 0,0 ; 0,0 ; use 0,1,0 ; use 1,0,0

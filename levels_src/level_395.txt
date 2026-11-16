@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çatı (ayna); çözüm 8 hamle + 5 tepsi / limit 10 (pay +2, eski 13) hedef×1,13 bot 0,25 (hedef 0,26) plan 1; zincir v13: yeni çözüm 8 (eski 8), sınır 10→10, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı (ayna); çözüm 8 + 4 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_395
-title: Büyük Dönüş
-moves: 10
+moves: 8
 roll: off
 specials: on
-goals: blue 44, coral 51, purple 33
+goals: purple 29, blue 21, navy 29
 grid:
-#     #     #     bcby  #     #     #
-#     bbyb  bbpy  bcpy  pyyy  ccbb  #
-bbyy  byyy  bypp  bypc  pyyy  ccpb  cccy
-ypbp  ypcp  bycpR bypc  ybpy  cybb  yycy
-cpyy  ycyp  ccby  cbpc  cbpc  cbpb  cbcb
-cpyy  ypyp  ccby  cybc  cpbc  ccpy  ccpb
-cpyy  cpyyR cyby  cypy  bypy  bcpy  bcpb
-cpyc  cpyc  pycc  pycy  pypyR bcpy  bcyb
-pycb  pycb  pycb  yycy  pyyy  bcyy  bcyb
-solution: 0,4 ; 5,1 ; use 0,2,2 ; 3,2 ; use 0,1,1 ; 0,4 ; 3,0 ; 3,7 ; 2,1 ; use 0,3,1 ; 0,2 ; use 0,3,0 ; use 0,1,1
+#     #     #     pnby  pncy  #     #     #
+#     ygnp  ypnp  ppcp  pncy  nyny  nynb  #
+ygny  ygny  ypnn  ppcn  bycy  bycn  gynb  gynb
+yycy  yyny  yycg  pyyn  cyyy  ccyn  ncpy  gcynR
+ypcb  ybcg  ybcg  pbyn  yppb  ycyb  ycpy  gcpy
+ycgg  nbgb  yycg  pypyR npnp  ncnp  nbpg  gbpg
+ycgg  ncgb  nygy  pyyp  ppyp  ncgg  yygg  gybp
+pcgb  pgbb  gpgy  nycp  pccp  pcgg  nbgg  gbgnR
+npbb  npbb  npby  nyyg  nycg  nybg  nbbg  nbbg
+solution: rot 3,5 ; 6,5 ; 3,5 ; use 0,6,1 ; 0,2 ; use 0,6,1 ; 3,0 ; 1,7 ; use 0,1,1 ; 4,0 ; use 0,4,0 ; 4,0

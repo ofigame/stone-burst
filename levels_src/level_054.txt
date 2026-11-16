@@ -1,17 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x2 (kaydırılmış); çözüm 7 hamle + 5 tepsi / limit 11 (pay +4, eski 17) hedef×1,42 bot 0,46 (hedef 0,49) plan 0; zincir v13: yeni çözüm 8 (eski 7), sınır 11→12, bot 24/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil dikdörtgen; çözüm 3 + 3 tepsi / sınır 10; rastgele 0,625; açgözlü kazanır; yumuşak 0,85
 id: level_054
-title: Seyrek
-moves: 12
+moves: 10
 roll: off
 specials: on
-goals: yellow 45, blue 26
+goals: coral 23, navy 40
 grid:
-cpy   bb    bbp   pcp   pcy   pp    ybp
-pcy   bcy   pb    cyp   yb    cpy   bpy
-pcy   cyy   pyy   pyc   pyc   bby   bby
-pby   yybk1 byb   pyck1 pyc   bbc   bby
-pyp   pyp   #     #     #     cbc   cc
-pcy   pcp   #     #     #     ccc   cpb
-cyy   cyp   pyc   ybp   ycck1 ycb   ybb
-cby   pyy   pyy   ycy   ycy   yyy   ppb
-solution: 0,5 ; use 0,1,0 ; 4,0 ; 0,0 ; 3,2 ; use 1,1,0 ; 0,0 ; 0,6 ; 1,2 ; use 0,4,0 ; 2,0 ; use 0,2,0 ; use 0,6,0
+np    np    np    c     n     nn    nn    n
+n     n     n     c     nn    nn    n     np
+n     n     n     cn    nn    nn    pn    pp
+n     n     cn    c     n     n     p     pp
+nc    nc    n     c     p     p     cc    c
+nc    c     cp    p     p     c     cc    nc
+p     p     pp    p     pc    nc    nc    n
+pc    p     pp    p     p     nc    nc    nc
+solution: 4,0 ; 4,4 ; use 0,3,0 ; use 0,5,0 ; 7,1 ; use 0,7,0

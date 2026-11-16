@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: scarce [scarce]; kıt renk blue 56/55; çözüm 10 / sınır 11 (v7 11); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,25; zincir v13: yeni çözüm 11 (eski 10), sınır 11→16, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil çatı; çözüm 9 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_467
-title: Bölüm 467
-moves: 12
+moves: 9
 roll: off
 specials: on
-type: scarce
-rules: scarce
-goals: blue 52, coral 32, purple 47, sponge 2
+type: reverse
+rules: exact
+goals: green 25, purple 41, sponge 1
 grid:
-yppy  yppy  yppy  ypby  bbbp  bbcp  bpcp
-ypby  ycby  ccyy  cbpb  cbbp  cpcb  bpcb
-ypbb  ypbb  cpcy  cbpb  ycyb  bpcb  cpcb
-#     yycy  yycy  ybcbScb bbyp  ypyb  #
-#     yypy  byyy  bbpp  bbyp  ycyp  #
-#     ypcy  bppc  bypc  yyyp  ycyb  #
-ybcy  ypcc  yppc  ppbb  byyy  byybSby yyyb
-ypcp  ypcp  ypyc  ppyy  pbpy  ppyb  ppyb
-cpcp  cpcp  cbyp  yyyb  ybyy  bpyb  bpyb
-solution: 0,0 ; use 0,0,0 ; 3,0 ; use 0,4,0 ; 4,5 ; 1,5 ; use 0,5,0 ; 0,6 ; 2,5 ; use 2,4,0 ; 5,3 ; use 1,0,6 ; use 1,5,0
+#     #     #     pyny  pygy  #     #     #
+#     bnny  bbby  pbnp  ybgp  ybpp  nbpp  #
+gpyp  bbnc  nbpc  nbpp  nbyp  nbyp  nbpp  byppSc
+gpnp  gpnc  nnpc  nbpc  gbcp  gycg  ngnb  cgnb
+gpnp  bnnn  bngb  nbpb  gbpb  cycg  cbbc  cbny
+gcbp  bnbp  bcgg  bcyg  bcyp  bcyy  pbby  ynny
+ncgb  nnyb  bnyp  bnyp  bnyp  pgyb  ngbg  ynby
+ncyb  gbyb  gbgy  pbgy  pngp  ppyb  npyc  nnccLg6
+pcny  ncyy  nbgy  pcny  pngy  ppgb  npgc  nnccLn6
+solution: 4,5 ; use 0,7,2 ; 3,1 ; 4,5 ; use 0,4,1 ; 1,2 ; use 0,5,1 ; 4,1 ; 3,0 ; 2,2 ; use 0,4,0 ; 3,0 ; use 0,0,3 ; 2,6 ; use 3,4,0 ; use 0,0,3 ; use 0,4,0

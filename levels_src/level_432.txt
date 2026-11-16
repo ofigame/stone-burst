@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 6 hamle + 4 tepsi / limit 9 (pay +3, eski 13) hedef×0,96 bot 0,33 (hedef 0,29) plan 0; zincir v13: yeni çözüm 6 (eski 6), sınır 9→9, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil kenar çentikleri; çözüm 3 + 3 tepsi / sınır 8; rastgele 0,160; açgözlü kazanır; yumuşak 0,90
 id: level_432
-title: Bölüm 432
-moves: 9
+moves: 8
 roll: off
 specials: on
-goals: coral 40, purple 36, sponge 2
+goals: navy 16, yellow 23
 grid:
-ybc   pbc   pbcp  pccb  pcp   ycp   ycb
-cbc   cpc   pcc   pcpbSby pcpb  ybp   pby
-cbby  ybc   pyc   yyc   bcyb  byy   cyyp
-cbc   cbc   #     #     #     ybp   bypb
-cbp   bycb  #     #     #     ybpy  cbpb
-ccpb  bcbb  #     #     #     bpp   cpcb
-ccb   ccb   cyyb  yyy   bpby  bpp   ppc
-cby   pby   pypy  ypp   bpp   bppc  pyc
-pbyc  pbycScb pcpy  pbpy  bpcy  ppcy  pyc
-solution: 0,7 ; 1,4 ; 0,0 ; use 1,0,1 ; use 0,0,0 ; use 0,5,0 ; 5,3 ; use 0,4,0 ; 5,3 ; 0,4 ; use 0,3,0
+n     #     b     bb    b     b     #     b
+n     #     gn    g     yg    yg    #     b
+gn    g     g     n     n     yg    y     y
+y     yn    b     n     b     n     y     y
+#     #     by    b     bn    n     #     #
+g     g     b     b     bn    bn    y     y
+ng    gg    g     g     g     yb    y     yy
+n     ng    g     g     gb    yb    yb    yy
+n     gg    gg    gb    gb    y     yy    yy
+solution: 0,5 ; use 0,0,0 ; 2,1 ; use 0,4,1 ; 2,3 ; use 0,5,6

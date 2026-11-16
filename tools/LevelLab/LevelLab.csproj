@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <!-- Seviye yazım aracı (Unity gerektirmez). Kullanım için docs/CALISTIRMA.md. -->
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -20,9 +20,12 @@
     <Compile Include="Trial.cs" />
     <Compile Include="Campaign.cs" />
     <Compile Include="Audit.cs" />
-    <Compile Include="Chain.cs" />
     <Compile Include="Pilot.cs" />
+    <Compile Include="Concept.cs" />
     <Compile Include="Families.cs" />
+    <Compile Include="MainV14.cs" />
+    <Compile Include="B2.cs" />
+    <Compile Include="DailyV14.cs" />
     <Compile Include="../../Assets/KatKat/Scripts/Core/**/*.cs" />
     <Compile Include="../../Assets/KatKat/Scripts/Levels/**/*.cs" />
   </ItemGroup>

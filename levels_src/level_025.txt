@@ -1,16 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 4 hamle + 4 tepsi / limit 7 (pay +3, eski 11) hedef×1,08 bot 0,50 (hedef 0,54) plan 0; zincir v13: yeni çözüm 5 (eski 4), sınır 7→8, bot 47/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe; çözüm 5 + 5 tepsi / sınır 9; rastgele 0,010; açgözlü kaybeder; yumuşak 0,00
 id: level_025
-title: Açılan Yol
-moves: 8
+moves: 9
 roll: off
 specials: on
-goals: purple 21, yellow 23
+goals: purple 22, green 36
 grid:
-ycb   ycb   ybb   #     #     #
-ycb   ycc   yby   #     #     #
-pbb   pbc   ybb   #     #     #
-pcc   pcc   pyy   yybk1 yyb   pbp
-ycy   ycc   yyb   ypb   yybk1 ybp
-pcy   ccy   pyb   ppp   ppp   cby
-pyp   cpy   pyy   ypp   ypp   pbp
-solution: 2,4 ; 3,4 ; 2,3 ; use 0,2,0 ; 0,5 ; use 0,0,0 ; use 0,2,3 ; 3,3
+#     #     ycc   ycc   ypc   #     #
+#     ccy   pcc   pcp   ycp   gcy   #
+gyp   gyy   pyc   pcc   ycy   ygy   ygy
+ycc   pcc   gcg   pcgk1 gcg   ygy   ygg
+yyc   pyy   pyy   pcp   gpy   ygy   ggg
+gpp   gygk1 pcg   ppg   ppg   ygy   ygg
+#     yyc   ggc   ggc   ypg   ygck1 #
+#     #     ggc   ggc   ypg   #     #
+solution: 5,1 ; use 0,2,0 ; 5,1 ; use 0,4,0 ; 2,0 ; 2,1 ; 1,1 ; use 1,1,1 ; use 0,0,2 ; use 0,2,2

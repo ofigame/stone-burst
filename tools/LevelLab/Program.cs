@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -15,7 +15,7 @@ using KatKat.Levels;
 //   roll: off | on | start
 //   goals: coral 6, yellow 3, star 2
 //   grid:
-//   yc yc yc by        (her hücre ALTTAN ÜSTE harfler: c b y p; "." aktif boş, "#" inactive;
+//   yc yc yc by        (her hücre ALTTAN ÜSTE harfler: c b y p g n — g yeşil, n lacivert (2026-11-16); "." aktif boş, "#" inactive;
 //   ...                 sonek "k1"/"k2" ataş, "*" dip yıldızı: "bck2", "yc*")
 //   solution: 0,0 ; 1,2 ; roll 2
 //
@@ -47,6 +47,7 @@ static partial class Program
             case "zperef": return ZpeRef(args);
             case "trial": return Trial(args);
             case "pilot": return Pilot(args);
+            case "concept": return Concept(args);
             case "families": return Families(args);
             case "v8": return V8(args);
             case "audit": return Audit(args);
@@ -54,12 +55,14 @@ static partial class Program
             case "daily3": return Daily3(args);
             case "dailyindex3": return DailyIndex3(args);
             case "show": return ShowSolution(args);
-            case "chaincmp": return ChainCompare(args);
-            case "chainfit": return ChainFit(args);
-            case "chaindiag": return ChainDiag(args);
-            case "fairlist": return FairList(args);
-            case "chainease": return ChainEase(args);
             case "moments": return TrailerMoments(args);
+            case "v14": return V14(args);
+            case "v14install": return V14Install(args);
+            case "v14report": return V14Report(args);
+            case "v14sha": return V14Sha(args);
+            case "b2check": return B2Check(args);
+            case "daily14": return Daily14(args);
+            case "daily14install": return Daily14Install(args);
             default: Console.Error.WriteLine("komut: build | analyze [filtre] | report | index | daily"); return 2;
         }
     }
@@ -395,7 +398,7 @@ static partial class Program
     }
 
     static string ColorName(char ch, string path, int x, int y) =>
-        ch switch { 'c' => "coral", 'b' => "blue", 'y' => "yellow", 'p' => "purple", _ => throw new FormatException($"{path}: ({x},{y}) harf '{ch}'") };
+        ch switch { 'c' => "coral", 'b' => "blue", 'y' => "yellow", 'p' => "purple", 'g' => "green", 'n' => "navy", _ => throw new FormatException($"{path}: ({x},{y}) harf '{ch}'") };
 
     /// <summary>schemaVersion 2 yalnızca yeni örtü (buz/kilit) kullanan bölümlerde; 1–60 biçimi bayt bayt aynı kalır.</summary>
     static bool NeedsV2(LevelData d) => d.Capabilities.Contains("specials") || d.Paint > 0

@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 6 hamle + 6 tepsi / limit 10 (pay +4, eski 14) hedef×1,11 bot 0,21 (hedef 0,33) plan 2; zincir v13: yeni çözüm 7 (eski 6), sınır 10→15, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 10, bot 15/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe; çözüm 10 + 7 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_244
-title: Derin Mektup
-moves: 10
+moves: 11
 roll: off
 specials: on
-goals: coral 35, purple 59, yellow 27, star 3, envelope 1
+goals: coral 33, blue 32, purple 40
 grid:
-#     #     #     #     ppyc  bpy   ypyc
-#     #     #     byp   bpy*  bpyp  ypyc
-#     #     yyp   bbp   bbyp  pbyp  yypp
-#     ycpy  yyp   ycpb  pbp   pby*  pbpb
-ccp   cpp   ccpp  ccpp  ccpb  pcpb  pcpb
-cpp   ppyp  bcyp  bcpp  cyp   pcbbEp pcb
-cpbp  ppb   ppb   pyyy  pyyb  pcbb  pcp
-cbbc  cbb   pbbb  pycy  pybb  pcb   pcp
-cbby  cbbc* cbbc  pyc   ypc   ycb   pbbp
-solution: 3,1 ; use 0,4,0 ; 0,6 ; use 0,4,0 ; 3,1 ; 1,3 ; use 0,5,0 ; 3,3 ; use 0,4,0 ; use 0,6,0 ; 0,4
+#     #     gpbc  npbc  bgbc  bgbg  #     #
+#     npgc  gpbc  npbp  bpnp  ggng  gyng  #
+pnbc  nnbc  nybp  npbp  bpyg  ggng  gybg  bcby
+pnny  pnby  pcpc  nbnp  cbnp  cpbg  cpby  ccby
+gppy  gpby  gcpc  gbny  gbpc  cppg  bgpg  cgbg
+gppn  gppc  ycpc  ybcy  ybcc  nbgc  cpbp  cpbp
+bcpn  bcyg  pbpg  gbcy  gbny  yngy  yncp  cpcp
+#     bnyg  pbng  pcny  gbny  cngy  yygp  #
+#     #     pnyb  ccyb  cbyg  cbgy  #     #
+solution: 5,0 ; use 0,2,0 ; 3,1 ; use 0,4,2 ; 2,0 ; 6,2 ; use 0,2,0 ; use 0,7,2 ; 3,0 ; 5,5 ; 4,2 ; 1,4 ; use 0,4,1 ; 5,5 ; 2,6 ; use 1,4,3 ; use 1,2,6

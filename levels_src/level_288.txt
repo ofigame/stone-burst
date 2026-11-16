@@ -1,20 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: reverse [exact]; çözüm 10 / sınır 11 (v7 13); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 11 (eski 10), sınır 11→13, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil merdiven; çözüm 3 + 2 tepsi / sınır 9; rastgele 0,265; açgözlü kazanır; yumuşak 0,79
 id: level_288
-title: Ilık Posta
-moves: 13
+moves: 9
 roll: off
 specials: on
-type: reverse
-rules: exact
-goals: coral 63, purple 36, yellow 36, envelope 1
+goals: coral 5, navy 44
 grid:
-ycbp  yccb  ybcbi1 yycc  bcbc  bcby  bcby
-cpbp  ycbb  cbby  cycc  bcbc  bcbc  ccbp
-cccy  bcpy  cccc  cycy  bcbc  cbbb  cbbb
-cbcc  bypb  #     #     #     ccbb  cbbb
-cbcc  cbpp  #     #     #     ccyb  pyyp
-cycp  cycp  #     #     #     bbyp  pycp
-pybc  pbbp  pybpEy pybp  pbypi1 pyyp  cyyp
-pybc  pyyc  bbyc  bbbc  bcbb  yybp  yycp
-cybc  cybp  pycp  bbyc  bbyc  pbbp  bbpp
-solution: 6,4 ; use 0,0,0 ; 0,3 ; 3,6 ; use 0,5,0 ; use 0,1,2 ; 3,0 ; 0,0 ; 5,0 ; 1,6 ; use 0,1,0 ; use 0,0,0 ; use 0,0,1 ; 2,0 ; 0,1 ; 5,2 ; 5,2 ; use 0,2,2
+g     g     gg    gg    #     #     #     #
+g     cn    c     c     c     #     #     #
+gp    g     nn    nn    cn    c     #     #
+g     np    n     nn    gn    n     ng    #
+g     np    n     n     g     n     ng    gg
+g     n     nn    g     gn    nn    n     n
+gp    n     nn    gn    nn    pn    p     n
+g     ng    n     n     nn    p     pn    p
+ng    ng    ng    n     pn    pn    pn    pp
+solution: 0,7 ; 2,2 ; 2,1 ; use 0,0,3 ; use 0,1,1

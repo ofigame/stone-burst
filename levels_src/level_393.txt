@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3 (kaydırılmış); çözüm 7 hamle + 4 tepsi / limit 11 (pay +4, eski 12) hedef×0,79 bot 0,21 (hedef 0,26) plan 2; zincir v13: yeni çözüm 5 (eski 7), sınır 11→9, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil elmas; çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_393
-title: Kasa ve Posta
 moves: 9
 roll: off
 specials: on
-goals: purple 33, yellow 48, envelope 1
+goals: navy 26, green 16, envelope 3
 grid:
-cpy   cpy   cpyc  ycy   ycy   ycyb  ycy
-ypy   cpyc  ybcb  ycyb  yccb  ycc   yccpEc
-cycc  cbc   #     #     #     yyc   yypp
-yybb  yyc   #     #     #     ycpcR ybpp
-yybb  yypb  #     #     #     bbpy  ybpy
-ybbb  pppR  ppbLy7 ppp   ppyy  bbyy  bbyy
-ppb   ppcb  ppc   bbc   ypb   yyb   yyyy
-yybb  ppy   cbcb  bbc   yyc   yyc   yyyR
-yyb   pyp   pyp   bypp  bypp  yyp   yypb
-solution: 0,3 ; use 0,2,0 ; 5,4 ; use 0,0,0 ; 1,4 ; use 0,5,0 ; 1,5 ; use 0,5,0 ; 3,0 ; use 0,6,1
+#     #     #     pygb  pcnc  #     #     #
+#     #     bpyyEy gygb  gbnc  bbnc  #     #
+#     cpgy  bpgy  cypy  cyby  bbnpR ybgyR #
+pbpb  cppc  ccgy  cypb  cyby  bbbg  ybpg  pcpg
+pycb  cypc  nypc  nynb  nyny  pbng  ppng  pppg
+pycb  ncbc  ncbn  nyyn  nyyn  nbyb  npyb  npyn
+#     nycb  nccb  gybg  gbbnEg gnbb  nnnb  #
+#     #     bypb  bypcEc gbyn  pbbn  #     #
+#     #     #     bypc  bbyc  #     #     #
+solution: rot 6,2 ; 6,2 ; 1,2 ; use 0,3,0 ; 3,4 ; use 1,3,0 ; use 0,0,5 ; 1,5 ; 3,4 ; 4,2 ; 3,4 ; use 3,1,6 ; use 0,4,0 ; use 0,4,0

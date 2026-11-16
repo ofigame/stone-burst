@@ -1,18 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 6 hamle + 5 tepsi / limit 10 (pay +4, eski 15) hedef×0,95 bot 0,38 (hedef 0,37) plan 0; zincir v13: çözüm aynı, sınır 10→10, bot 30/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 8 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_262
-title: İki Kapak
 moves: 10
 roll: off
 specials: on
-goals: yellow 40, blue 28, envelope 1
+goals: purple 25, navy 38, envelope 2
 grid:
-#     #     #     #     ccc   ccyy  bcyy
-#     #     #     pyc   cccy  ycpy  cby
-#     #     ppyb  pcpy  bccy  bcpy  bpp
-#     yppb  ppy   yccc  bccyEb bbcbk1 bppb
-ybp   ybb   ppp   yycc  yyp   yyp   byb
-yccy  ycp   ccpc  cyp   cyp   yypb  bypbk1
-cpcc  ypp   cpc   bycc  bpb   yybb  yypb
-cbcc  cbpb  ppcc  byp   ccy   pppy  yypb
-pbc   cbcb  ppcb  ppcb  ppcy  pcc   byp
-solution: 5,0 ; 5,5 ; use 0,6,1 ; 4,4 ; 4,3 ; 4,0 ; use 1,5,0 ; 4,0 ; use 1,6,0 ; use 0,3,1 ; use 0,3,3
+ycbp  bcbn  bgbn  ngnnk1 ngnn  ypbn  pbyy  pgyy
+ybbp  ycbp  bcbp  bnnn  ynny  ybcn  pbyn  nbyg
+ybcn  nccpEy bbcp  gcnp  gbcy  bbcy  nyyg  yngg
+ybcp  nbcpEg nbcp  pcnpk1 gccnk2 bbcg  nycg  yncg
+cpyb  nbnb  pbcp  pcnp  gccn  bcyy  gcyn  ynbn
+cpyy  bcyb  pcpp  bbyp  bbcy  bbyy  bcyn  ccbn
+cpby  ccbb  ncyp  nnyp  nncp  bbyc  yngc  yygc
+cpby  ncbn  ncbn  ggyn  ggcy  ggyy  yggy  yygc
+solution: 7,1 ; use 0,1,0 ; 2,1 ; use 0,2,0 ; 6,0 ; 5,1 ; 1,0 ; use 0,0,0 ; 6,2 ; use 0,3,0 ; 3,3 ; 5,0 ; use 0,3,0 ; use 2,0,0 ; use 0,5,0

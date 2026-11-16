@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil dikdörtgen; çözüm 12 hamle + 8 tepsi / limit 20 (pay +8, eski 16) hedef×1,12 bot 0,29 (hedef 0,31) plan 1; zincir v13: yeni çözüm 11 (eski 12), sınır 20→19, bot 10/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe; çözüm 7 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_289
-title: Kış Postacısı
-moves: 19
+moves: 8
 roll: off
 specials: on
-goals: purple 50, yellow 51, blue 64, envelope 3
+goals: green 20, purple 28, envelope 2
 grid:
-ybbbi2 bbyb  bbyb  pbcp  pbcb  pcpy  bpyy
-ybbpi1 ybyp  yyyp  bycpi2 ybpb  bcpy  pbyb
-yc    ybcp  yyby  yyyy  bypyi1 bypyi1 ppy
-ycbb  ypcc  ypcc  ybp   bcpb  ybpb  cpbbEb
-ybbb  bbbb  bccb  ycpy  ycpy  bbcb  cbbb
-ybc   pbbb  cbbb  pbpy  pcpy  pbpb  bcy
-pbbc  bbbc  bbcb  pycy  pypy  pbbc  pbcp
-pbyc  bbcc  bbcb  pycyEc pypy  pcpc  pccc
-pbyb  bbbbEp bbbb  pyby  pycy  pycy  cppy
-solution: 3,4 ; use 0,1,0 ; 0,5 ; 5,0 ; use 0,3,0 ; use 0,1,0 ; 0,3 ; 3,0 ; 0,0 ; use 0,0,0 ; 1,1 ; 5,4 ; use 1,3,0 ; 0,2 ; 1,3 ; use 0,0,3 ; 2,1 ; use 2,5,0
+#     #     nypg  ycpb  ncyb  ncyc  #     #
+#     bbnn  cbng  ybyb  nbybEp nccg  bcng  #
+cpnc  bnnn  cppy  cpyy  npnb  bcngEn pgnp  npnp
+cpnc  bnnc  cppg  pbgy  nggb  ngbb  ppcb  ppgp
+cpcc  bncg  pnpg  pggy  nggy  pbbp  pygg  yygp
+pccg  cycg  pnnb  cyng  pypg  nbbb  pygg  yygy
+pcng  cycn  cncn  cnyg  pyyg  nbyb  pbyy  ynyy
+#     cynn  cbnc  cbnc  ybpc  ncbg  ncbg  #
+#     #     cnyp  cnpp  cbpb  pcpb  #     #
+solution: 2,2 ; 2,3 ; 4,2 ; use 0,4,0 ; use 1,0,5 ; use 0,2,2 ; 7,3 ; 0,2 ; 1,1 ; use 2,0,2 ; use 0,5,0 ; 7,4 ; use 1,7,3

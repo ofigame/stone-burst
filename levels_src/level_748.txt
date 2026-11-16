@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: pure [noSpecials+exact]; çözüm 14 / sınır 16 (v7 8); açgözlü kaybeder; bot48 0,15 (taban 0,06); bot 0,50; zincir v13: yeni çözüm 14 (eski 14), sınır 16→16, bot 18/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil kesik köşe (ayna); çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_748
-title: Bölüm 748
-moves: 16
+moves: 8
 roll: off
-paint: 1
-type: pure
-rules: noSpecials, exact
-goals: coral 53, purple 41, yellow 24, sponge 1
+specials: on
+type: protect
+rules: protect, exact
+goals: blue 26, green 19, yellow 19, envelope 3
 grid:
-#     #     #     bccb  #     #     #
-#     bcyb  bcyb  bcpbScb ycpy  yppy  #
-pcpp  pcpb  ycpb  ycpb  ycpy  ycpy  cbbp
-bcpp  pcpp  pccc  cccc  cccb  cbcp  cbbp
-bbpp  bbcy  bccb  cpyb  cbyb  cbcb  bbbp
-pbcb  pbcy  bbcy  cpyb  bcyb  ccyb  bcbp
-pbbb  pbcy  ppcy  cppp  ccyp  ppcc  bcbp
-pcbc  ppcy  pppc  cbpp  ccyp  ybyp  ycbp
-pcyy  ppyc  ypyc  ybyp  ybcp  ybcp  yccc
-solution: 1,1 ; 1,1 ; 1,4 ; 4,3 ; 6,2 ; 2,3 ; 0,2 ; 0,2 ; 2,7 ; 2,6 ; 6,2 ; 2,3 ; 5,5 ; 2,3
+#     #     pcyc  nccc  ncyn  bbgn  #     #
+#     nynp  nync  nycc  npyn  bpgn  bybp  #
+bbnb  bbnb  bync  ybgc  yngn  npnb  bbny  nbby
+cbnb  bbnc  nbnc  nbgn  pggnEn ngnn  ncnb  ncpbP
+cbnp  cbnc  gpnn  gpgn  pygnEp ncnc  ncnn  nbpnP
+ccnp  gccg  gpny  npgyEc nygy  gyyy  ggbn  ngbn
+ncnp  npcy  cncy  nngy  yygg  pcyb  pgbb  nybp
+#     npcy  cpcc  ccgc  bcgg  bcyb  pgcb  #
+#     #     cpccP ccnc  bcng  bcng  #     #
+solution: 4,0 ; use 0,3,0 ; 2,0 ; use 0,2,0 ; 3,2 ; 2,1 ; 0,2 ; use 0,1,1 ; use 0,5,0 ; 5,6 ; 1,1 ; use 1,0,2 ; 0,2 ; use 1,5,0 ; use 1,5,0

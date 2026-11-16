@@ -1,20 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: order [exact]; kilit yellow→blue; çözüm 8 / sınır 12 (v7 12); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 8 (eski 8), sınır 12→16, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 13, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil T; çözüm 3 + 1 tepsi / sınır 8; rastgele 0,705; açgözlü kazanır; yumuşak 1,00
 id: level_558
-title: Bölüm 558
-moves: 13
+moves: 8
 roll: off
 specials: on
-type: order
-rules: exact
-goals: yellow 44, blue 39, coral 39
+goals: yellow 21, coral 29
 grid:
-pyby  byby  bypp  bybp  ypbp  ypbp  ypbp
-pypy  bypy  bcpp  bcbp  ycbc  ycyc  ycyc
-pbpy  pbpp  pppp  pccp  ppcb  ppcbLy3 pccb
-bppy  bbyp  pycc  pbpp  bpcbK1:2 bppb  bcpbLy5
-ppyc  ppyb  #     #     #     ccpy  ppbb
-yppc  pcyb  #     #     #     pybb  ypbc
-ppcc  pcybK1:2 #     #     #     yycp  yycc
-pbpp  pycc  pcpy  ccpp  ycpp  yycc  yycc
-bycc  bycc  byyc  cypc  pppb  cypy  cbby
-solution: 2,0 ; use 0,2,0 ; 0,0 ; use 0,2,1 ; 4,2 ; 1,0 ; use 0,4,1 ; 0,0 ; use 0,4,1 ; use 0,0,3 ; 0,4 ; use 0,5,5
+bn    b     bc    y     yc    yc    yc    yc
+b     bc    bc    yb    y     y     c     y
+yy    bc    n     y     yc    cc    c     c
+yy    bc    n     nc    bc    c     cc    c
+yy    yy    ny    bc    b     cc    cc    cc
+y     y     nc    bc    bb    b     cc    cc
+#     #     n     nc    yb    bb    #     #
+#     #     nb    nb    nb    nb    #     #
+#     #     n     n     n     yb    #     #
+solution: 4,0 ; use 0,3,0 ; 6,3 ; 0,2

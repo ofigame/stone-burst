@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: resource [exact]; çözüm 5 / sınır 8 (v7 9); açgözlü kaybeder; bot48 0,13 (taban 0,10); bot 0,25; adillik onarımı: sınır 8→9 (112 oyunda 26 galibiyet); zincir v13: yeni çözüm 5 (eski 5), sınır 9→13, bot 6/112; zincir v13 kolaylaştırma: hedef −%12, sınır 8, bot 27/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dikdörtgen; çözüm 10 + 5 tepsi / sınır 11; rastgele 0,025; açgözlü kaybeder; yumuşak 0,00
 id: level_087
-title: Hangi Yol
-moves: 8
+moves: 11
 roll: off
 specials: on
 type: resource
 rules: exact
-goals: blue 37, coral 27, star 3
+goals: blue 21, green 41, star 2
 grid:
-pyy   pbp   ybp   ybpb  bbpb  #     #
-cbcp  cbp   cyp*  yyp   bbbb  cbbb  #
-cycpi1 cyp   bypb  ccb   pybb  pbc   cbcb
-cbcp  #     #     #     pyci1 pyc   cbc*
-cbc   #     #     #     pcb   pyb   bcyb
-cbcy  cbp   bby   bbbc  bpbc* cyp   cyy
-#     ybp   bbyy  cbpci1 cbpc  cbpc  cbp
-#     #     bbyyi2 cbyc  cbyc  cbpci2 cbp
-solution: 3,0 ; 1,0 ; use 1,0,1 ; 4,0 ; use 1,3,2 ; 4,4 ; use 1,0,1 ; use 0,0,1
+gby   bgy   bgyy  bbyy  gbyg  gpyg  npnp  nnnp
+gby   gbb   gbyy  ggy   bgy   bpb   npb   png
+nbbg  nbbg  nyny  pgyy  gpn   gpb   nggg  pggp
+bnbp  bng   byy   pgy   gpy   gpgy  nggy  nyypi1
+ypgp  bpg   bpg   bpb   ppb   pgyy  pgy   ggy
+gpyp  gng   gggy  ygyb* ygyb  ngn   ngng  gynp*
+ygyn  nng   nngy  ygyb  ppyb  ppy   gyyg  gygg
+ygyni1 ggyb  gnyy  gng   pngb  nng   nyy   npgg
+ygp   ygpb  gngb  gng   pngb  pngp  pbnp  bpn
+solution: 0,0 ; use 0,0,0 ; 6,2 ; 2,5 ; 0,0 ; use 0,2,0 ; 1,0 ; 2,0 ; use 2,7,0 ; 6,0 ; 1,5 ; 5,5 ; 5,2 ; use 0,4,0 ; use 0,3,1

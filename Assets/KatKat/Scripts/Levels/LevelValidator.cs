@@ -18,7 +18,7 @@ namespace KatKat.Levels
         public static readonly ValidationScope SecondStage = new ValidationScope { AllowedSizes = new[] { 4, 5, 6 }, MaxLayers = 4, AllowClips = true, AllowStars = true };
 
         /// <summary>schemaVersion 2'de geçerli yetenek adları (Premium-v2 rehberi §12).</summary>
-        public static readonly string[] KnownCapabilities = { "clip", "star", "ice", "colorLock", "envelope", "rotor", "specials", "sponge", "linkedClip", "gate", "paint", "stages", "seal", "areas" }; // vr1 P3: stages/seal/areas yalnız pilot katalog
+        public static readonly string[] KnownCapabilities = { "clip", "star", "ice", "colorLock", "envelope", "rotor", "specials", "sponge", "linkedClip", "gate", "paint", "stages", "seal", "areas" }; // vr1 P3: stages/seal/areas yalnız pilot katalog (v14: seal tanınır ama reddedilir)
 
         /// <summary>
         /// schemaVersion 1: belge Bölüm 15 — ilk 20 bölümde ataş, yıldız, 6x6 ve dört katman yok (kimlik "level_###").
@@ -58,12 +58,10 @@ namespace KatKat.Levels
             foreach (var g in d.Goals) { if (g.Stage < 0) e.Add($"{id}: hedef aşaması negatif"); if (g.Stage > maxStage) maxStage = g.Stage; }
             if (maxStage > 0 && !d.Capabilities.Contains("stages")) e.Add($"{id}: aşamalı hedef için stages yeteneği gerekli");
             for (int st = 0; st <= maxStage; st++) if (!d.Goals.Exists(g => g.Stage == st)) e.Add($"{id}: aşama {st} için hedef yok");
-            if (d.SealWave != 0)
-            {
-                if (!d.Capabilities.Contains("seal")) e.Add($"{id}: zincir mührü için seal yeteneği gerekli");
-                if (d.SealWave < 1 || d.SealWave > 3) e.Add($"{id}: mühür dalgası 1-3 olmalı");
-                if (!d.Cells.Exists(c => c.GateId == d.SealGate)) e.Add($"{id}: mühür geçidi {d.SealGate} için hücre yok");
-            }
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): zincire bağlı veri artık desteklenmez; eski kayıt yakalanır.
+            if (d.SealWave != 0 || d.Capabilities.Contains("seal")) e.Add($"{id}: zincir mührü (seal) v14'te kaldırıldı, desteklenmiyor");
+            if (d.Rules.Contains("chainOnly")) e.Add($"{id}: chainOnly kuralı v14'te kaldırıldı, desteklenmiyor");
+            if (d.TrialType == "chain" || d.TrialType == "aha") e.Add($"{id}: '{d.TrialType}' türü zincire bağlıydı, v14'te desteklenmiyor");
             if (d.Cells.Exists(c => c.Area != 0) && !d.Capabilities.Contains("areas")) e.Add($"{id}: iki alan için areas yeteneği gerekli");
             if (d.Cells.Exists(c => c.Area < 0 || c.Area > 1)) e.Add($"{id}: alan 0 ya da 1 olmalı");
             // v5 (özel taşlı bölümler): dikdörtgen tahta 5–8 genişlik, 5–9 yükseklik (taşlar küçülür, tahta alanı aynı).
@@ -74,7 +72,7 @@ namespace KatKat.Levels
             if (d.StartingRoll && !d.RollEnabled) e.Add($"{id}: startingRoll için rollEnabled gerekli");
 
             var seen = new HashSet<long>();
-            var colorTotals = new int[4];
+            var colorTotals = new int[LayerColors.Count];
             int stars = 0, envelopes = 0;
             foreach (var c in d.Cells)
             {
@@ -88,7 +86,7 @@ namespace KatKat.Levels
                     if (c.GateId > 0)
                     {
                         if (c.GateLayers.Count == 0) e.Add($"{at} geçit hücresi boş olamaz");
-                        if (!d.Cells.Exists(b => b.ButtonGate == c.GateId) && !(d.SealWave > 0 && d.SealGate == c.GateId)) e.Add($"{at} geçit {c.GateId} için düğme ya da mühür yok");
+                        if (!d.Cells.Exists(b => b.ButtonGate == c.GateId)) e.Add($"{at} geçit {c.GateId} için düğme yok");
                         foreach (var l in c.GateLayers)
                             if (ColorIds.TryParse(l, out var gc)) colorTotals[(int)gc]++;
                     }
@@ -164,11 +162,7 @@ namespace KatKat.Levels
                     if (!ColorIds.TryParse(g.Color, out var col)) e.Add($"{id}: hedefte bilinmeyen renk '{g.Color}'");
                     else if (g.Amount > colorTotals[(int)col]) e.Add($"{id}: {g.Color} hedefi {g.Amount}, tahtada {colorTotals[(int)col]} katman var");
                 }
-                else if (g.Type == "collectChain")
-                {
-                    if (!ColorIds.TryParse(g.Color, out var cc)) e.Add($"{id}: zincir hedefinde bilinmeyen renk '{g.Color}'");
-                    else if (g.Amount > colorTotals[(int)cc]) e.Add($"{id}: {g.Color} zincir hedefi {g.Amount}, tahtada {colorTotals[(int)cc]} katman var");
-                }
+                else if (g.Type == "collectChain") e.Add($"{id}: zincir hedefi (collectChain) v14'te kaldırıldı, desteklenmiyor");
                 else if (g.Type == "collectStars")
                 {
                     if (!scope.AllowStars) e.Add($"{id}: yıldız hedefi bu bölümün kapsamı dışında");
@@ -178,6 +172,7 @@ namespace KatKat.Levels
                 {
                     if (d.SchemaVersion < 2) e.Add($"{id}: collectToken için schemaVersion 2 gerekli");
                     if (g.Kind == "sponge") { if (g.Amount > d.Cells.FindAll(c => c.SpongeColors.Count > 0).Count) e.Add($"{id}: sünger hedefi tahtadaki süngerden fazla"); }
+                    else if (g.Kind == "balloon") { if (d.Hazard == null || d.Hazard.Kind != "balloon" || g.Amount > d.Hazard.Cells.Count) e.Add($"{id}: balon hedefi tahtadaki balondan fazla"); } // konsept pilotu
                     else if (g.Amount > envelopes) e.Add($"{id}: zarf hedefi {g.Amount}, tahtada {envelopes} zarf var");
                 }
                 else e.Add($"{id}: bilinmeyen hedef tipi '{g.Type}'");

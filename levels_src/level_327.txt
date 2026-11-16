@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 6 / sınır 8 (v7 12); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,00; adillik onarımı: sınır 8→9 (112 oyunda 8 galibiyet); zincir v13: yeni çözüm 6 (eski 6), sınır 9→10, bot 9/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil çatı; çözüm 10 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
 id: level_327
-title: Sıralı Taban
 moves: 10
 roll: off
 specials: on
-type: exact
+type: reverse
 rules: exact
-goals: blue 38, coral 31, purple 31
+goals: blue 21, navy 17, envelope 2
 grid:
-bcyp  bcyb  pcyb  cpyc  ypyp  ypyp  pppp
-pbyb  ppyc  pbyy  bpcy  cccp  pycy  pppy
-pbyc  pppy  bcyy  ycyy  yccy  ycyy  ppcy
-cpcb  ybpy  bcyb  bbcc  bycy  bypbR bypy
-pbyp  #     #     bccb  #     #     ypby
-pbpb  #     #     bpcc  #     #     bcyy
-ybpb  #     #     cycc  #     #     pccb
-pppy  yppb  cbpb  bbyp  bbcc  bccp  pccb
-yppp  bbcbR bbyb  bybp  cbcc  ycypR ypyy
-solution: 4,0 ; 4,0 ; use 0,1,0 ; 3,0 ; use 0,1,1 ; 4,0 ; use 0,0,0 ; 0,0 ; use 0,0,0 ; 3,6
+#     #     #     ncyp  ncyp  #     #     #
+#     ypgy  ypgy  ypnc  ncgc  yypc  yypc  #
+gycg  npyn  pyyn  yync  ccgc  cppp  cppc  ccpb
+gycg  gcyp  pcyg  pygg  bcgp  npyp  cbyc  cbpb
+gycc  gcnp  pynb  pypb  ncyy  nbyc  nbyc  nybpR
+gycc  bcyc  ycgp  yypp  gyycR gyyy  ncgb  nygb
+pybp  pbyp  ycypEb ycyp  yyyb  yyny  nyny  nybb
+bbbp  bbyc  yyyc  cycg  gycg  gbnb  nbny  ngpyEy
+bncbR cbyc  cyyg  cpyg  gpyg  gppb  gppy  bgpc
+solution: 3,1 ; 6,3 ; 3,7 ; use 2,0,6 ; use 0,7,2 ; 1,7 ; use 0,3,1 ; 5,5 ; use 0,0,7 ; 6,6 ; 1,6 ; 5,1 ; rot 4,5 ; 1,1 ; use 1,1,1 ; use 0,1,2

@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [noSpecials+scarce+exact]); çözüm 7 / sınır 9 (v7 10); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,08; adillik onarımı: sınır 9→10 (112 oyunda 17 galibiyet); zincir v13: yeni çözüm 8 (eski 7), sınır 10→13, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dikdörtgen; çözüm 21 + 12 tepsi / sınır 21; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_500
-title: 500. Bölüm Finali
-moves: 13
+moves: 21
 roll: off
 specials: on
 type: boss
-rules: exact
-goals: coral 49, purple 44, yellow 55, sponge 2
+rules: protect, scarce, exact
+goals: yellow 34, green 19, sponge 1
 grid:
-#     #     cccy  cccy  cycy  cppy  #     #
-#     #     bcpb  bcpy  byby  cpby  #     #
-pppy  bppy  bcpy  bppy  cpyy  cpcy  cpcy  bpcp
-pppb  ppcc  ypccScb bppy  bpyy  cpyy  cbyy  bcyp
-pbpb  pycb  yycb  bypb  byby  ccpy  bbcy  bcyc
-ybpb  pypb  yypb  bcyc  bcby  bccp  ybcb  bcyb
-ybpb  pycc  bbcc  bcyy  bcpy  byyy  yccy  ycpb
-#     #     bbyc  bbyb  bpyy  byyy  #     #
-#     #     yypb  ycyb  pcbb  pybbScby #     #
-solution: 2,0 ; 0,3 ; use 0,2,0 ; use 0,5,0 ; 2,1 ; 4,0 ; use 0,2,0 ; 0,2 ; use 1,5,0 ; 3,7 ; 5,6 ; 4,3 ; use 0,5,0 ; use 1,2,1
+ncpc  ncpc  ncpy  nccn  nygb  ccgc  pcyy  pgny
+bnpc  bcpc  cbpn  nbyn  nynb  bcgb  yybc  bnnc
+bbyb  ccbp  cbnn  cnbn  bynnSyb bcpc  nycc  cnnc
+bbyb  bpbp  ncnn  ngyn  bgnn  cynn  cyyc  bnyy
+nbnb  pgnb  ncnc  bgbc  bggg  ncgg  cygy  bygy
+ygng  pgnb  ccnn  cgyn  ngyg  ncpy  bcpn  bycnP
+cpng  cgyg  cgcg  cgcp  nnpp  nnpb  bncn  bccn
+cyng  cycg  cpcb  pccp  bcbp  ncbp  pybp  bccgP
+cgnb  bybb  pgyb  pccc  bcbcP bcbp  ygcp  bgcg
+solution: 0,5 ; 4,0 ; 3,0 ; use 1,2,0 ; 4,4 ; 0,2 ; 0,4 ; 1,4 ; use 1,0,3 ; 4,3 ; use 2,6,0 ; 5,0 ; 3,6 ; use 0,6,0 ; use 0,6,0 ; 7,0 ; use 2,6,0 ; 0,0 ; 0,2 ; 0,0 ; 0,0 ; use 3,0,6 ; 1,1 ; 0,6 ; 2,7 ; 4,0 ; use 0,4,0 ; 4,0 ; use 3,3,0 ; 0,0 ; use 0,0,1 ; use 2,0,2 ; use 0,4,2

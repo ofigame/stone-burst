@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 4; chain [chainOnly+exact]; zincir blue 4; çözüm 9 / sınır 12 (v7 10); açgözlü kaybeder; bot48 0,08 (taban 0,04); zincir v13: yeni çözüm 8 (eski 9), sınır 12→12, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 226 + tür pure; şekil T (ayna); çözüm 7 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d026_t4
 title: Günlük 26
-moves: 12
+moves: 7
 roll: on
-specials: on
-type: chain
-rules: chainOnly, exact
-goals: yellow 45, purple 30, chain blue 4
+type: pure
+rules: noSpecials, exact
+goals: purple 28, coral 33, envelope 3
 grid:
-ycc   ybcb  yyb   bypy  bypy  bbb   bbp
-ycyyLb7 ybyb  cbb   cbpy  cppp  bbb   pbyc
-yyyy  yyyy  bpby  cbp   pyp   yypp  ybpLc7
-byy   cyp   #     #     #     pypp  pyp
-pbbc  cycc  #     #     #     cbcp  bybp
-pbbc  ccbc  #     #     #     cbc   cyby
-cppc  cbyc  cbcb  ccbb  bcb   bcy   bbby
-bpb   bpyc  cbcc  bbcy  ccy   bcyb  bcb
-bpb   ppb   bcbc  ccy   bcyc  byc   cbcy
-solution: 0,4 ; 4,1 ; use 0,3,0 ; use 0,6,0 ; 1,6 ; 1,4 ; roll 1 ; use 0,3,0 ; 1,0 ; roll 2 ; 6,4 ; use 0,2,0 ; use 0,6,1 ; use 0,2,0
+bpbbEg ppbg  pggg  pgggk1 pbpp  cbcb  gccb  gccb
+bcgp  bcgp  pcgp  pggp  cggp  cbpb  gcpp  gcpp
+pbpp  pgpp  pgpp  pggg  cbgg  cbgg  bbpg  gpgp
+pcpg  cbgb  cggbEg pggb  bcgg  pcgg  bppg  cppp
+pcpg  ccpg  cgggEb gggb  bccp  pccpk2 bccp  cpcp
+pccb  ccpg  ccpg  ggcb  ggcg  bccg  bccg  cccp
+#     #     cccpk1 ggcc  ggcc  bgcg  #     #
+#     #     gbbp  ggbc  bgcg  ccpg  #     #
+#     #     gbcp  pbcc  bccc  ccpc  #     #
+solution: 3,3 ; 3,2 ; 4,0 ; 0,3 ; 1,0 ; 6,1 ; 4,3

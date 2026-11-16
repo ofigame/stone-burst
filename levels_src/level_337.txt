@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: chain [chainOnly+exact]; zincir blue 4; çözüm 8 / sınır 12 (v7 16); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,08; adillik onarımı: sınır 12→13 (112 oyunda 12 galibiyet); zincir v13: yeni çözüm 9 (eski 8), sınır 13→16, bot 9/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil kum saati; çözüm 13 + 10 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_337
-title: Kilitli Tur
-moves: 16
+moves: 13
 roll: off
 specials: on
-type: chain
-rules: chainOnly, exact
-goals: purple 46, yellow 38, chain blue 4
+type: scarce
+rules: scarce
+goals: purple 21, green 25, star 3
 grid:
-pbyb  pbybR cbcp  cbcy  #     #     #
-pyyc  pbyb  bbcp  ccyy  #     #     #
-pyyc  cccb  bpyb  bccp  #     #     #
-cbyp  yccbLc7 yypb  ppcb  #     #     #
-pcyy  pcyy  ppbb  ppbb  ppbb  pcpb  pcyb
-pcpy  pcpy  bpcc  bpbcR bcbp  pcyp  pcyp
-yccb  pcbbR pcpc  bppc  ppbc  pbyy  pcyy
-yycb  pccb  pccb  bbbc  ybbb  yybb  ycbp
-yybb  bcyb  pccb  ybbb  ybbb  ybbb  bcbp
-solution: 0,6 ; 2,5 ; 0,0 ; use 0,3,0 ; use 0,2,0 ; 4,6 ; 5,5 ; 3,7 ; use 3,0,4 ; 0,1 ; use 2,0,0 ; use 0,0,1 ; 2,0 ; 3,3 ; use 2,0,0 ; use 0,3,3
+nncy  nnyg  gyyc  bypy  bygy  ncnb  ncny  ncgn
+gycg  nyyg  gcpc  bcpc  bcgc* ycnb  ncgc  ncgn
+gycg  gcyg  gcggR bycn  bcnn  bcnn  gcgc  pncn
+#     gpcb  gycb  bynb  bynn* bnnn  ynyb  #
+#     gpyb  bpyb  bcncR bgyn  bbyn  ybcb  #
+#     bbgb  byyb  cycn  gpyn  ypyn  ybcn  #
+gnpg  bbgb  bbcc  cgcn  cnpn  gncc  nncn  nncc
+gbycR pbyy  pbcc  pgcc  cgpp* gnny  nppy  npcc
+cbpy  cyyy  cycc  cycb  gypb  gnnb  ngpc  ngcc
+solution: 1,0 ; 3,2 ; 2,0 ; use 0,4,0 ; use 1,4,0 ; 5,0 ; use 0,2,2 ; 3,4 ; use 0,0,0 ; use 0,3,0 ; 0,0 ; 5,0 ; use 0,7,0 ; 5,0 ; 5,0 ; use 2,7,0 ; use 0,1,3 ; rot 0,7 ; 3,5 ; 6,6 ; use 1,1,0 ; 1,5 ; use 0,1,7

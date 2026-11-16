@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [protect+exact]; kristal 3; çözüm 13 / sınır 15 (v7 14); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,08; zincir v13: yeni çözüm 10 (eski 13), sınır 15→16, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 13, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil çatı; çözüm 11 + 6 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_240
-title: Büyük Posta
-moves: 13
+moves: 11
 roll: off
 specials: on
 type: boss
 rules: protect, exact
-goals: coral 40, purple 43, yellow 42, star 2, envelope 2
+goals: green 28, purple 17, envelope 3
 grid:
-cpc   bpcp* pcc   pyypEb ppy   ppy   bcb   byyp
-pcb   bpcp  bpcp  cyc   cpp   cppyEp bcby  ycb
-bpy   bbcp  cyy   cyy   cyyp  bpyy  bcb   ycby*
-bpyb  bbcb  cbcb  #     #     pybc  bpyp  bcbLc8
-ppyb  bpy   bby   #     #     pyyc  pcb   bcp
-ppy   ycy   yby   #     #     pyyp  bcpc  bcpP
-yc    ycyc  yby   pbyc  ppy   bbbc  bcbp  bbP
-cyc   ycyc  bbyc  cpy   ppyy  bpyc  bcyp  cbcP
-pcpy  pcp   bpyb  cpy   cpy   ypy   bcbp  ycb
-solution: 0,6 ; 1,4 ; use 1,4,0 ; 1,0 ; use 0,0,0 ; 6,1 ; 0,1 ; use 2,7,0 ; 3,0 ; 3,1 ; use 0,6,0 ; use 0,6,0 ; use 0,5,0 ; use 0,0,0 ; 0,4 ; 1,2 ; use 0,5,0 ; 5,3 ; 4,6
+#     #     #     ncbn  nycn  #     #     #
+#     pcgbi1 ycgb  yybn  yycc  bync  byny  #
+cnng  nbcgEp ncgb  pybbi2 ppcc  bpbci2 byby  bpgg
+gncg  nbcg  bbpg  bbby  pccg  bgcg  bgnp  gpgg
+gncg  nncg  bnpy  ynyy  pgcy  ngcn  nbpp  nppp
+ggcy  ngng  bgnc  yyyc  bycn  nbcn  nbcni1 pppgEc
+ygcy  ngnn  cbnn  ycnp  ycnp  pbnni1 pbggEb ppggP
+yggb  nbng  nbnb  bgnb  ycnp  ybnn  ybnc  pcbg
+nggg  ngng  nggc  bggc  pggg  ygggP pcbcP pcby
+solution: 6,3 ; 5,4 ; 5,4 ; use 0,0,2 ; 1,2 ; 3,3 ; use 0,2,3 ; 6,4 ; 1,7 ; 6,3 ; 7,2 ; 4,1 ; use 0,4,0 ; use 1,0,5 ; use 0,4,2 ; use 0,0,2 ; 0,7

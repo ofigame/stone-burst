@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 5 hamle + 4 tepsi / limit 8 (pay +3, eski 13) hedef×0,77 bot 0,46 (hedef 0,40) plan 1; zincir v13: çözüm aynı, sınır 8→8, bot 54/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U (ayna); çözüm 7 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_145
-title: Akan Renk
-moves: 8
+moves: 9
 roll: off
 specials: on
-goals: purple 35, yellow 24
+goals: coral 47, navy 36, blue 32
 grid:
-ybpc  yppc  yycp  bybp  #     #     #
-ybp   ypy   ypcp  bpyy  #     #     #
-cyy   ypyy  yyc   bycLy5 #     #     #
-cyy   bpyy  bby   bycb  #     #     #
-cyyb  bycc  bbcc  ppc   ppcb  pcc   ccpc
-ccc   ccc   bbcc  ppbc  ppc   ppcc  pcc
-yccy  ycc   ycbc  ppbc  ppy   ppp   ypppLc5
-ybcy  ybcb  bppb  ppb   cppp  pppp  byp
-cbcy  bbcb  pbbb  pbbc  cpcp  ypp   ybpc
-solution: 1,7 ; 5,6 ; use 1,1,1 ; 1,4 ; use 1,2,0 ; 3,4 ; 1,4 ; use 1,1,1 ; use 0,0,2
+gcni1 gcnp  bcnp  #     #     cgb   cbg   gbg
+ggpb  bcn   bpn   #     #     cpnp  cgnp  gggn
+cgpb  bbn   bbnb  #     #     ppnn  ppnn  ppg
+cbn   ccc   nbcc  nbbc  gbpp  gpp   ppcn  ppgg
+cbnn  pcpb  pppb  cppb  ggp   ncgc  nccn  pcc
+cgnn  bccb  bcb   cgb   ggpc  nggc  ncgi1 nccn
+cgpn  bpcn  cccb  ccbb  ccgb  ncgc  ncc   nccn
+cpn   cpcn  gcc   gcb   pcgnLn4 nnpn  ngp   ngg
+cpn   cpnp  gbnp  gbg   pcg   nnpi2 bppc  bpg
+solution: 1,4 ; 0,3 ; use 0,1,0 ; use 0,0,0 ; 1,3 ; use 0,0,0 ; 0,1 ; 4,4 ; use 0,2,0 ; 5,4 ; use 0,2,2 ; 5,0 ; use 1,1,0 ; use 0,6,0

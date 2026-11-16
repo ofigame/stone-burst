@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 7 hamle + 6 tepsi / limit 11 (pay +4, eski 12) hedef×0,97 bot 0,17 (hedef 0,16) plan 1; zincir v13: yeni çözüm 8 (eski 7), sınır 11→12, bot 37/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil dikdörtgen; çözüm 3 + 2 tepsi / sınır 8; rastgele 0,400; açgözlü kazanır; yumuşak 0,92
 id: level_864
-title: Bölüm 864
-moves: 12
+moves: 8
 roll: off
 specials: on
-goals: coral 39, purple 39, yellow 27, sponge 1
+goals: purple 23, green 26
 grid:
-cbbb  cbbb  ypbb  bpbp  ppbb  bpbb  bpby
-cpcb  cpcb  ypbb  bbbp  bycc  bpcb  bpcb
-bpcy  cbby  ybby  ppcp  ybbp  bpbp  bpyb
-pcpp  yyby  #     #     #     ppbbScby byyc
-ppbb  pyyb  #     #     #     yycb  byyb
-cpbb  cpbbK1:2 #     #     #     ybcb  bycb
-cbby  cbyy  cbyc  pbyp  pbyp  pbcp  pycb
-cybb  bbyc  cpcc  cyyp  pyyp  pbpcK1:2 cycb
-bppy  bppc  cpcc  cycc  cypp  cbpb  cycb
-solution: 5,4 ; 3,6 ; 2,6 ; use 0,6,0 ; 0,0 ; use 0,3,0 ; 0,0 ; use 1,0,1 ; use 1,6,0 ; 5,5 ; use 1,2,0 ; 2,6 ; 0,4 ; use 2,4,1
+pb    g     g     gb    g     bp    g     gb
+p     gb    gb    gb    g     gp    gp    g
+p     p     pb    pb    p     g     p     py
+py    y     y     b     p     b     py    py
+p     y     y     bg    p     gp    y     yy
+yp    yp    bp    b     gp    gp    y     y
+y     y     y     g     g     g     y     y
+p     g     g     g     gy    gy    y     yb
+pb    p     g     g     gy    g     yb    yb
+solution: 7,2 ; 3,0 ; use 0,5,0 ; 5,4 ; use 1,1,0

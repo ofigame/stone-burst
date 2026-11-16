@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 8 hamle + 5 tepsi / limit 12 (pay +4, eski 12) hedef×1,13 bot 0,29 (hedef 0,25) plan 0; zincir v13: yeni çözüm 8 (eski 8), sınır 12→12, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati (ayna); çözüm 8 + 8 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_409
-title: Bölüm 409
-moves: 12
+moves: 8
 roll: off
 specials: on
-goals: purple 69, yellow 40, blue 37, sponge 1
+goals: purple 17, blue 40, sponge 1
 grid:
-ppbc  ppbc  pycp  #     pycp  pycb  cypy
-ppbc  ppbc  yppy  #     pycp  ppcp  bppy
-pcbc  pcbc  yppy  #     cycb  bpcb  bpcyScb
-pccb  pccy  yccy  ypcp  cycb  cpcy  bycy
-bccb  pccy  ypcb  cpcy  cppy  cpcy  cpcy
-yccb  ppcy  pppb  pcbb  bpbc  bcbc  cpcc
-ybcb  pbcp  bccp  bcbp  bcbp  bcbc  bpbc
-bbby  ppyy  bccp  yybc  yyyp  cppp  bppc
-bpby  bpyy  ycyy  pyyc  cbpp  cbpp  cbpp
-solution: 1,6 ; use 0,5,0 ; 6,0 ; 4,5 ; 0,0 ; use 0,0,0 ; use 0,4,0 ; 1,7 ; 0,2 ; use 0,4,0 ; 0,6 ; 2,3 ; use 0,0,7 ; use 0,2,1
+ybyg  byng  byng  nypb  cnpb  nbpb  cnpb
+ybyg  bynb  bnnb  nnpp  nngp  nbnp  nbnb
+cbyc  cbyb  ngyn  ngpg  nnpg  nnnb  nnnb
+#     cgnp  ngyn  nbyn  nnng  nygc  #
+#     bgnp  nbcp  bbcp  byng  bygg  #
+#     bygn  bccp  ccbp  cyng  bcgg  #
+gccg  bcgg  ycgp  ccbn  ccgn  ncgc  ycbc
+gbgp  bbgg  pgggSnc pcbn  pcgn  ncgn  ybbc
+bbgp  bggp  bggg  ygbn  ycnb  nbnb  ybbc
+solution: 3,6 ; use 0,2,0 ; 3,0 ; 3,2 ; use 1,3,0 ; 4,6 ; 3,5 ; use 1,1,0 ; 1,3 ; use 1,5,0 ; 4,0 ; 2,4 ; use 0,1,4 ; use 0,5,1 ; use 0,3,0 ; use 0,1,2

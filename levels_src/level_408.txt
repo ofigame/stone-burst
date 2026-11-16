@@ -1,20 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: reverse [exact]; çözüm 6 / sınır 6 (v7 8); açgözlü kaybeder; bot48 0,10 (taban 0,06); bot 0,08; adillik onarımı: sınır 6→7 (112 oyunda 18 galibiyet); zincir v13: yeni çözüm 6 (eski 6), sınır 7→7, bot 46/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil T; çözüm 3 + 2 tepsi / sınır 8; rastgele 0,400; açgözlü kazanır; yumuşak 0,88
 id: level_408
-title: Bölüm 408
-moves: 7
+moves: 8
 roll: off
 specials: on
-type: reverse
-rules: exact
-goals: coral 36, purple 36, yellow 27, sponge 1
+goals: coral 36, navy 11
 grid:
-ycby  ppyy  ppyy  pbyb  cbyb  ccyc  bbyy
-pcyb  pppc  pbpy  pbpc  ccyb  bbyb  bbyy
-pcyb  #     #     cpcc  #     #     bbyy
-pcyb  #     #     bppc  #     #     bppy
-bpyc  #     #     bypy  #     #     cppy
-ypcp  ybppScb ycpy  pypy  pypb  yypy  bpcy
-pppp  yypp  yypp  pybp  ycbb  pcyc  ccpy
-ppcb  pycb  yycb  ycbp  ycbp  ccbc  ccpb
-bpcp  bccp  cccb  cccb  cbcb  cccb  cppb
-solution: 0,7 ; 0,5 ; use 0,5,0 ; use 0,0,0 ; 0,4 ; 0,0 ; use 1,1,0 ; use 0,0,0 ; 6,3 ; 1,0
+cg    c     c     c     y     y     y     y
+c     c     cc    c     cg    yg    y     yc
+cy    c     g     c     cg    y     gc    yc
+c     cg    cg    c     c     gc    gc    g
+cn    c     c     cn    c     cn    gc    g
+cn    y     y     y     c     cn    g     g
+#     #     y     y     yn    cn    #     #
+#     #     y     yn    cn    cn    #     #
+#     #     yn    cn    cn    c     #     #
+solution: 5,4 ; use 0,0,4 ; 1,0 ; 4,1 ; use 0,2,1

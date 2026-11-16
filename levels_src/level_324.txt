@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 9 hamle + 6 tepsi / limit 19 (pay +10, eski 11) hedef×1,12 bot 0,21 (hedef 0,29) plan 1; zincir v13: yeni çözüm 6 (eski 9), sınır 19→20, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 15, bot 9/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil çatı; çözüm 3 + 2 tepsi / sınır 8; rastgele 0,270; açgözlü kazanır; yumuşak 0,98
 id: level_324
-title: İki Kat Plan
-moves: 15
+moves: 8
 roll: off
 specials: on
-goals: coral 43, purple 43, yellow 47
+goals: coral 12, purple 20
 grid:
-yyc   bpcy  byp   byy   bpyb  ypcb  ypbb
-bpbp  bpcy  bpcy  bpcy  bpc   ypbb  ypb
-bpcp  bpyyR bybc  bccy  bpcy  yppb  ypp
-ycy   bcyy  #     #     #     yypp  yyp
-ycyp  byy   #     #     #     cyp   cpb
-ycyy  bcy   #     #     #     cypc  cpb
-ccby  ccbc  pyb   pyyy  pyyc  ppy   cpb
-cccy  ccc   cycy  pyyy  cpyR  pcyp  cpbp
-pccy  pcc   ppcbR pyy   cyy   cby   cpbp
-solution: 1,0 ; use 0,0,0 ; 3,6 ; 6,2 ; use 0,4,0 ; 0,6 ; use 0,0,0 ; 0,5 ; use 1,5,0 ; use 0,2,0
+#     #     #     py    yb    #     #     #
+#     p     py    py    y     by    yy    #
+py    py    p     yy    yy    b     yy    y
+p     p     y     y     yy    by    by    by
+p     pp    p     p     b     b     b     cb
+p     pp    p     p     p     bc    cc    c
+yp    yp    yp    bp    bp    cc    b     cc
+y     y     y     b     b     bc    b     b
+cb    y     y     yc    bc    b     b     by
+solution: 3,0 ; use 0,3,0 ; 5,1 ; 7,4 ; use 0,6,5

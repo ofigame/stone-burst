@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 10 hamle + 6 tepsi / limit 20 (pay +10, eski 14) hedef×1,12 bot 0,25 (hedef 0,28) plan 3; zincir v13: yeni çözüm 12 (eski 10), sınır 20→26, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 20, bot 12/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı (ayna); çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
 id: level_334
-title: Dön Sonra Aç
-moves: 20
+moves: 8
 roll: off
 specials: on
-goals: yellow 51, blue 20, coral 41, envelope 2
+goals: yellow 17, coral 19, navy 21
 grid:
-#     #     #     #     bycb  bbcy  pcp
-#     #     #     byc   bycb  pyc   pcp
-#     #     ycy   yyyc  pby   pypc  bypc
-#     yccp  yccc  ypc   bppc  pypc  pycc
-ycc   ybbp  bppp  bpppR bpp   bpp   bpcc
-ppb   pcyc  ccy   ypcc  pbyc  ccy   yccEp
-ppyR  ccy   ccc   pycp  pbcp  yccp  ypb
-ybyy  ybyyEy ccc   pycc  yyc   ccbp  ycb
-ypyy  ypyy  cpyc  yyyc  yyyc  cyy   ycpb
-solution: 0,6 ; 1,5 ; use 1,4,0 ; 3,6 ; 4,0 ; use 2,5,0 ; 6,3 ; 6,0 ; use 2,4,2 ; use 0,1,3 ; use 1,3,2 ; 2,5 ; 2,4 ; 4,4 ; 2,2 ; use 1,2,2
+#     #     #     cpyg  #     #     #
+#     npcc  cpcc  cppb  nybp  gyby  #
+ypyb  ggyg  ggyg  pgpb  nbbp  nypg  ggpn
+npcy  ngcg  pgyg  pgpn  pbbp  pgcg  ggcn
+npcy  ngyg  ngyg  pgpn  pbbp  ygpbR ygbp
+gpyp  pbcp  pbnbR pgpn  pbbn  cbbp  ygbp
+bcyp  bbbn  ygbn  ygbn  ygbn  cgcn  cgcn
+bcgg  ncgpR gcyg  ggyg  bgbg  cgpn  nncn
+gcgb  gcng  gbyg  cgyg  ngpg  nnpn  nncn
+solution: rot 2,5 ; 3,3 ; 1,2 ; 1,2 ; use 0,1,1 ; 2,5 ; 2,6 ; 2,6 ; use 3,6,2 ; 4,1 ; use 3,1,1 ; use 0,0,2 ; use 0,0,2 ; use 0,0,7

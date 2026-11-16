@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 10 hamle + 4 tepsi / limit 16 (pay +6, eski 18) hedef×0,77 bot 0,38 (hedef 0,38) plan 2; zincir v13: yeni çözüm 5 (eski 10), sınır 16→11, bot 26/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati (ayna); çözüm 7 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_169
-title: Hazine Ustası
-moves: 11
+moves: 8
 roll: off
 specials: on
-goals: purple 47, yellow 24, blue 22, star 5
+goals: green 45, purple 37, coral 25
 grid:
-cpcb  cycb* cybp  #     cpbp  cybp  cybp
-cyc   cycp  cyyp  #     cppp  cpb   cpb
-cbc   cccp  cpc   #     cppp  cpb   cpbbLb7
-ycb   ycbp  ycc   yyp   yycb* yybb  yyp
-by    cyc   bccy  bppb  bycb* ybb   by
-ycp   ybpy  pcby* pbc   ypcb  pppb  ppp
-ypp   bbpy  byby  pbb   ppbc  pppLp8 pppb
-ypcc  yyp   bybb  ppbc  pbcc  ppp   pppb
-pcp   pcpy  pypc* pypc  pppc  cyp   cppb
-solution: 4,6 ; 5,1 ; use 1,2,0 ; 2,4 ; use 1,0,0 ; 0,0 ; 3,3 ; use 0,4,0 ; use 0,0,0
+ncgb  bbcb  nbc   npc   bgg   bggb  bgc   bgbg
+bcg   bpb   npb   gpcp  gpn   nggb  bgcg  bgcg
+pcgg  pcbg  pnbg  gncp  cpnpLp3 npp   bpg   bgg
+#     pbbg  pbb   ggb   cgn   cggp  ppg   #
+#     nbp   nbg   cng   pnp   gpc   ppc   #
+#     ngpg  nbg   cnpn  ppb   gbbp  pgc   #
+ngpb  cgcb  ngc   nnc   ppcb  bbbp  bgb   cgn
+npbb  ppbg  nnn   gnbc  bpcc  bbpp  cgbb  cgng
+ppb   ppbg  nbn   gbnc  ggpc  bbp   bgpb  bgn
+solution: 0,1 ; 0,0 ; use 1,1,0 ; 5,2 ; use 1,0,0 ; 3,0 ; 4,5 ; use 1,0,0 ; 2,1 ; use 1,3,1 ; 5,5 ; use 1,4,0 ; use 0,4,0

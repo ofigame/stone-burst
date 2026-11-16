@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 6 hamle + 3 tepsi / limit 8 (pay +2, eski 13) hedef×0,79 bot 0,25 (hedef 0,24) plan 1; zincir v13: yeni çözüm 4 (eski 6), sınır 8→6, bot 9/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı (ayna); çözüm 10 + 9 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_433
-title: Bölüm 433
-moves: 6
+moves: 11
 roll: off
 specials: on
-goals: purple 25, yellow 22, sponge 2
+goals: yellow 39, green 29, sponge 1
 grid:
-cbpb  cbp   yyc   ybcpSby ybc   cbc   cpc
-cbp   pccb  ypc   ybb   cbc   cycb  cpcScb
-pbb   ppc   ybcy  bbb   cpc   cpcy  ypb
-#     pbb   bccy  bcc   bccb  bby   #
-#     pbp   pyy   byc   ccp   cyy   #
-#     cbp   pbpy  cypb  cypb  cycc  #
-cbbc  ccp   ccp   cycb  cbcb  cbcc  bbcc
-pbb   pcy   pbc   cycb  cyc   byc   byyc
-pbb   pbb   pbcb  cbcb  byy   bcy   pcy
-solution: 3,5 ; use 0,2,2 ; 1,4 ; use 0,0,0 ; 2,0 ; use 0,2,0 ; 2,3 ; use 0,0,0
+#     #     #     gbbb  ggbb  #     #     #
+#     yyng  ynyg  ynbg  pgbnk1 ppnb  cyyb  #
+pnby  pnny  bnngk1 bpng  bpnn  cpnn  cynb  pyng
+pnbc  npbc  bpcg  gpcg  ggcc  bgcck2 cycy  pybg
+pnbn  npby  gpcy  gbyg  ggcg  byyc  cycc  pybg
+ynyn  ypyc  npcc  nbyc  nbng  bynn  cgcn  pybb
+bgnp  bbnck2 ybcc  bbyn  pbyg  pnnp  nnbb  nncb
+ygnp  ybnp  ygyc  bgyg  pngg  pnnp  nnbp  yncb
+ycbcSng ycbc  ycyc  ypyg  npgyk1 nngyk1 yccy  yccy
+solution: 1,1 ; 1,5 ; use 1,0,2 ; use 0,1,1 ; 1,4 ; 1,3 ; use 0,1,1 ; use 0,2,2 ; 0,2 ; 3,2 ; 3,0 ; 2,1 ; use 1,1,1 ; 4,3 ; use 0,4,0 ; use 2,6,1 ; 7,3 ; use 2,7,2 ; use 0,6,2

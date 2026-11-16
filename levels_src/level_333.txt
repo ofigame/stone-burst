@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3; çözüm 7 hamle + 6 tepsi / limit 15 (pay +8, eski 13) hedef×1,29 bot 0,25 (hedef 0,29) plan 0; zincir v13: yeni çözüm 9 (eski 7), sınır 15→17, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı; çözüm 9 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_333
-title: Taban ve Kilit
-moves: 17
+moves: 10
 roll: off
 specials: on
-goals: purple 62, yellow 35
+goals: purple 22, yellow 37, blue 43
 grid:
-ppby  cyb   pybp  pcpp  pcy   pcp   pypc
-ypp   bpy   pbyp  pbyp  pcyb  pcpb  pypbR
-ycp   ycby  bby   ppc   cpbbR pcyb  ppb
-ycp   ycyy  #     #     #     ppbp  ppbp
-ypp   ybyy  #     #     #     pbp   cpb
-cpbc  pyb   #     #     #     ppp   cpbp
-cpbcLb7 ypb   ypc   ypb   ppbb  ppb   cbb
-ccc   cpcb  ypcy  yyby  bpc   pbyb  cpb
-ccc   cpcb  bpby  byb   ybc   pbcb  cbbb
-solution: 1,1 ; 2,0 ; 4,1 ; use 1,0,0 ; 1,4 ; 6,1 ; use 2,3,0 ; use 2,3,0 ; 0,4 ; 0,0 ; use 2,1,0 ; 6,4 ; use 2,0,0 ; 4,6 ; use 2,0,0
+#     #     bybg  nybn  nybn  nyyy  #     #
+#     #     bybg  pynnLg5 ppnp  nyng  #     #
+nngb  nnbg  bbbg  yygc  ypbc  npgg  nygy  bygy
+bnnb  nync  bbgc  gygc  gybc  pcbg  bybn  bypp
+cgbg  nynb  ynbb  ynby  gcby  ncbg  ncbn  ggpp
+cybg  nynp  nnbb  ybpy  gbpp  ggbp  ggbp  ggpp
+cgby  cgby  cgby  gbcy  gbpp  gbpp  gbyp  gbyp
+#     #     cgbn  ggcp  ncyp  bcyp  #     #
+#     #     cncy  nncyLn6 nnyy  nnyy  #     #
+solution: 3,4 ; 7,3 ; use 1,4,1 ; 3,2 ; 4,2 ; use 2,5,0 ; 2,0 ; 2,0 ; use 0,0,2 ; 0,2 ; use 1,2,0 ; 0,4 ; use 1,2,0 ; 0,6 ; use 1,3,0 ; use 2,3,0

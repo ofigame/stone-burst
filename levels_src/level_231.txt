@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil halka 3x3 (kaydırılmış); çözüm 5 hamle + 5 tepsi / limit 9 (pay +4, eski 15) hedef×0,95 bot 0,33 (hedef 0,39) plan 1; zincir v13: yeni çözüm 7 (eski 5), sınır 9→11, bot 52/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı; çözüm 7 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_231
-title: Buzlu Posta
-moves: 11
+moves: 9
 roll: off
 specials: on
-goals: blue 35, coral 28, envelope 1
+goals: blue 33, coral 23, envelope 2
 grid:
-bpb   cpbb  cpyy  pyy   bppc  bpcp  ypyp
-cpbc  ppc   cpyy  pyy   bcpc  bppp  ypyp
-yppc  pbpc  ypp   ypy   bpp   pppy  cyci1
-ycpc  pbpy  ppp   ypyy  ypbEc ppb   ypyb
-yypp  pypy  #     #     #     ypbb  yybb
-yypp  bcp   #     #     #     yyp   yyp
-bcy   bccb  #     #     #     bypp  bcp
-yccci1 yyc   yycb  cyc   bcbp  cbpb  bcbb
-ycc   bcc   byc   byc   cyb   cbbb  cbbb
-solution: 1,7 ; use 0,0,3 ; 2,7 ; 5,5 ; 4,7 ; use 0,4,0 ; 0,2 ; use 2,0,0 ; use 1,0,6 ; 1,5 ; 4,0 ; use 0,4,0
+#     #     nbgy  npby  npbg  bgpg  #     #
+#     #     cbgnEc cpgy  npbg  bgpgEn #     #
+pncbk1 pbpp  ybpn  cnyn  bbnp  bgpp  bgcb  bgcb
+cncb  pbcp  ybcc  ybyn  cbny  cggy  cygb  bycb
+cgbb  pbcg  yncg  yncy  nnnp  gnpy  yypy  yypy
+cgbc  bbbg  bbbg  yccy  ncnpk2 pngyk2 pnpy  ybpyk1
+pggc  pcgb  ncgb  cccb  npcp  bpgp  pngc  ybgc
+#     #     nbgb  cpgb  npcp  bpgn  #     #
+#     #     nbcn  cbgpk1 bbcp  bbgn  #     #
+solution: 1,6 ; use 0,2,1 ; 4,6 ; 1,4 ; 0,5 ; 0,3 ; use 1,4,1 ; use 1,0,2 ; 4,3 ; 2,1 ; use 0,2,0 ; use 0,2,0 ; use 0,2,0 ; use 0,2,0

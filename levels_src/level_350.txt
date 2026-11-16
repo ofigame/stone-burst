@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk blue 40/39; çözüm 6 / sınır 8 (v7 10); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,08; adillik onarımı: sınır 8→9 (112 oyunda 9 galibiyet); zincir v13: yeni çözüm 6 (eski 6), sınır 9→9, bot 10/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe; çözüm 18 + 12 tepsi / sınır 18; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_350
-title: Dönen Kule
-moves: 9
+moves: 18
 roll: off
 specials: on
 type: boss
 rules: scarce, exact
-goals: yellow 50, blue 39, coral 30, star 2
+goals: coral 23, navy 24, purple 25
 grid:
-cycp  cycp  pypy  yybp  #     #     #     #
-yppy  cypyR cpbp  pybp  ppbp  #     #     #
-ycpb  yppb  bcby  bpyp* yppp  pppy  #     #
-ycpb  pppp  bbyy  bpyp  ybyp  ppyy  ccyy  #
-pcpb  bcyc  bbyy  ypbc  pycc  pcpy  yypp  ccpy
-bcyb  bcyy  pcyy  ppyb  pcyc  ccyy  bypyR cycb*
-yccpR ypyy  cbyy  cpby  cyyb  cyyc  cbyy  ccpb
-yypy  yypy  bpb   pyp   cyc   bc    cbyc  ccyc
-ybpy  ybpb  ybpb  ycpb  ycpc  ycpc  ccpc  cypc
-solution: 2,2 ; 3,0 ; use 0,0,2 ; use 0,2,2 ; 5,2 ; 4,1 ; 2,2 ; use 1,7,4 ; 5,5 ; use 0,2,3
+#     #     pgcnR pnny  pnny  bnnpR #     #
+#     bycy  gcyc  gpnp  bpbb  bybn  bgby  #
+bybn  bybb  ncgc  npcc  bpgc  bggb  nggc  ngpp
+bybn  bbbb  nbyb  gbgb  gbgb  gggy  nggp  ngpp
+bncn  ynbp  pggp  yygn  gypn  ggpy  pppy  pcpp
+nnnc  cppp  pgpy  yypn  yygc  gpgc  pppc  ppnp
+ngyc  gggy  ggcg  ybnn  nbyb  ppnb  ppnc  cgnc
+#     pngy  ynnpR nggn  nbcb  ppbg  ppcg  #
+#     #     ygbb  ngbb  pgbg  pnbg  #     #
+solution: 4,5 ; use 0,0,4 ; 7,2 ; use 0,2,0 ; 0,2 ; use 0,2,0 ; 7,2 ; use 0,5,0 ; 6,4 ; 4,2 ; rot 2,7 ; use 1,5,0 ; use 0,2,0 ; 2,1 ; 1,2 ; 3,6 ; use 1,2,0 ; 3,4 ; 5,2 ; 0,6 ; 2,5 ; use 0,1,7 ; 1,1 ; 0,2 ; 3,1 ; use 1,1,1 ; 4,1 ; use 0,6,1 ; use 2,0,6 ; use 0,7,2

@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: protect [protect+exact]; kristal 3; çözüm 7 / sınır 10 (v7 11); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 10→14 (112 oyunda 8 galibiyet); zincir v13: yeni çözüm 11 (eski 7), sınır 14→18, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil dikdörtgen; çözüm 21 + 0 tepsi / sınır 21; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_338
-title: Mola Turu
-moves: 18
+moves: 21
 roll: off
-specials: on
-type: protect
-rules: protect, exact
-goals: yellow 38, blue 34, coral 44
+type: pure
+rules: noSpecials, exact
+goals: yellow 43, green 35, purple 52
 grid:
-ybyc  ybyc  ybpc  #     #     #     #
-byyc  ybpc  ybpc  ybbc  #     #     #
-byyc  bpcp  bpby  ypbc  pbcyR #     #
-bpyc  bpcp  pccy  ppbc  ppbc  pbcp  #
-pcyc  ppcc  ppcc  ppcc  ppby  pycp  yccp
-bcppP bycp  pycb  pypc  cpcc  yybp  ycbp
-byppP bycp  pycp  pbpp  pycc  yycc  ypbb
-byby  bbcp  pbcy  pbppR ybcc  ybcc  ypbc
-yycy  cycy  cpcy  pbpbP ybpc  ybbc  ypbb
-solution: 0,0 ; 4,5 ; use 1,1,0 ; use 0,0,1 ; 3,3 ; 5,5 ; 1,5 ; use 2,6,4 ; 5,4 ; 1,2 ; use 3,1,0 ; 0,1 ; 2,5 ; rot 4,2 ; use 3,4,2 ; 1,4 ; use 3,0,1
+byyb  pbyb  pbpb  bppg  bppgi1 bgpb  gpbb  ggbp
+bbgb  bbyy  pypb  pgpb  ygbg  bgbb  gpby  bgby
+ybgy  ybyy  yypg  pgpg  bgbp  bgby  gpyp  bgby
+gbgy  ybgy  pypg  yypp  yggpi1 bgyy  gbyy  gbyy
+gbpb  yypb  yybp  yybg  ygppi2 bgpy  pbypR gbyg
+gypp  gypp  gbpp  gbpbR ybpp  gypy  pbyb  gbyg
+pppy  ygpy  ybpy  gypy  yypg  gypg  pyyb  pbyb
+pgpy  bgpp  bbpp  gbpg  gypgi1 gppgi1 bypb  pyyb
+pggp  pgpp  pbpp  pbpb  gypy  bpby  bpbb  pppb
+solution: 6,1 ; 1,1 ; 0,2 ; 0,6 ; 2,2 ; 0,0 ; 0,0 ; rot 3,5 ; 0,4 ; 1,4 ; 1,7 ; 0,5 ; 6,5 ; 5,3 ; 5,0 ; 3,0 ; 2,0 ; 4,4 ; 4,3 ; 3,6 ; 6,4

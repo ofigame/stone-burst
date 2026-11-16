@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 2; exact [exact] (sıradaki tür; pure tutmadı); çözüm 5 / sınır 7 (v7 7); açgözlü kaybeder; bot48 0,08 (taban 0,04); zincir v13: yeni çözüm 6 (eski 5), sınır 7→9, bot 16/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 56 + tür exact; şekil elmas; çözüm 6 + 6 tepsi / sınır 7; rastgele 0,005; açgözlü kaybeder; yumuşak 0,02
 id: daily_d006_t2
 title: Günlük 6
-moves: 9
+moves: 7
 roll: on
 specials: on
 type: exact
 rules: exact
-goals: purple 34, yellow 34
+goals: purple 28, navy 28, star 3
 grid:
-pbc   ybc   ppy   ppb   pbpk1 cbb   ypy
-yby   ypyk1 ypy   bpy   bpb   cbb   cbp
-#     ypy   bpy   bpyk1 ycck2 cbc   #
-#     ypc   ybc   yyb   ypy   ybc   #
-#     cpy   ypc   ypp   ycp   ybc   #
-#     bcc   ypy   ybp   ycp   bcp   #
-ycy   ycck1 yby   pby   ppp   ycp   ycbk2
-ycy   ycy   bbb   ppy   ppp   yppk1 ypy
-solution: 3,4 ; roll 1 ; use 0,2,0 ; 3,0 ; use 0,2,0 ; 3,5 ; 3,3 ; 3,6 ; use 0,1,0
+#     #     #     ppp   bpp   #     #     #
+#     #     pnp   pnp   bpp   nbp   #     #
+#     nnb*  pcb   pcp   cpp   nbbk2 bbb   #
+ncn   ncc   ncck1 ncc   ccb   ccb   bnb   bnn
+bcn   ncn   npc   npb   ncb   cpb   cnn   bnn
+#     cnp   cnc   ppbk1 pcb   pcn   pcn   #
+#     #     nnbk1 pnb*  pcb   pcn   #     #
+#     #     #     pnb*  pcb   #     #     #
+solution: 3,0 ; 6,2 ; use 0,2,1 ; 3,2 ; 5,4 ; 0,3 ; use 0,3,0 ; 3,3 ; use 0,4,0 ; use 0,5,1 ; use 1,1,2 ; use 0,3,0

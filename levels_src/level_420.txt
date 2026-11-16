@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 2x3; çözüm 9 hamle + 5 tepsi / limit 11 (pay +2, eski 15) hedef×1,13 bot 0,21 (hedef 0,20) plan 3; zincir v13: yeni çözüm 9 (eski 9), sınır 11→13, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kenar çentikleri; çözüm 13 + 10 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_420
-title: Bölüm 420
 moves: 13
 roll: off
 specials: on
-goals: coral 37, purple 63, yellow 47, sponge 1
+type: boss
+rules: protect, exact
+goals: yellow 31, coral 23, sponge 1
 grid:
-#     #     byyb  pyyb  ppyb  pyyb  bbpp  bbby
-#     pypy  bpyb  byyp  bbpp  bypp  bcpp  bbpp
-cypy  bypb  bppb  pppy  bbpp  cbpp  cppp  bppp
-cypyScb cypc  cypy  #     #     cppy  cppc  bppb
-cycb  cbpy  yycy  #     #     bcbc  ppbc  pypc
-cycb  cbcy  ybcy  #     #     bcby  byby  pybc
-cyyb  cpyb  ybpy  ppcy  pccb  pccb  bycp  cbbb
-cpyy  cpyb  bppb  bppb  bbcy  pbbb  bybp  #
-yppy  yyyy  bypb  bbpb  bbyb  cbyb  #     #
-solution: 0,4 ; use 0,1,3 ; 0,2 ; 2,0 ; 4,0 ; use 0,2,0 ; 3,0 ; use 1,1,1 ; 3,6 ; 5,4 ; 6,1 ; 1,4 ; use 3,1,1 ; use 1,1,1
+gnyc  gnncP cbng  cnyp  npnpi1 ggnp  cbpy  cbpy
+#     gngc  gbnc  ynyy  nnyy  ggny  cggy  #
+#     gygg  gbbb  ybyb  ybbb  gynn  gbgnSp #
+#     gygg  gybb  yngb  ybgb  nygb  ncgn  #
+gbcyP ggbg  ggbb  ynpb  yccb  yccb  ncyb  ccyg
+gbcy  ggby  ybpg  ybpg  ybby  pbcy  cbygi1 ccygi2
+#     ggpn  ypbg  pybgi1 pbby  pgcy  pbcg  #
+pppb  gppc  npbc  pybp  ppbp  pgyp  cnyn  cnpn
+pbcb  pbcb  ybcc  ybcp  ypbp  ypppi1 cnpnP cnpn
+solution: 6,0 ; 2,2 ; use 0,1,2 ; use 0,2,0 ; 6,4 ; 4,4 ; use 0,0,5 ; 2,2 ; 3,1 ; use 0,0,5 ; 0,7 ; 1,7 ; 3,1 ; use 1,5,0 ; 5,1 ; use 1,1,1 ; 3,7 ; use 3,1,3 ; 4,6 ; use 2,3,0 ; use 2,7,0 ; 2,2 ; use 2,2,0

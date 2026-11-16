@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 2; exact [exact]; çözüm 4 / sınır 5 (v7 7); açgözlü kaybeder; bot48 0,04 (taban 0,04); zincir v13: yeni çözüm 6 (eski 4), sınır 5→7, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 46 + tür reverse; şekil U; çözüm 6 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: daily_d009_t2
 title: Günlük 9
 moves: 7
 roll: on
 specials: on
-type: exact
+type: reverse
 rules: exact
-goals: purple 33, coral 22
+goals: coral 38, navy 25, star 2
 grid:
-ppb   ppc   ycc   ccc   cpck1 bpp
-ppc   bpc   #     #     cpp   bpp
-ypc   bpc   #     #     ccp   bcp
-pyc   yypk1 bbb   pbyk1 ccb   ccpk1
-yby   ypy   #     #     pcb   pcb
-pyp   ypc   #     #     pcp   ccp
-cpp   cpb   ppb   cyb   pbb   cpp
-solution: 4,3 ; 5,0 ; 1,0 ; roll 6 ; use 0,1,0 ; 2,0 ; 0,2 ; use 0,0,3
+gng   gng   gpg   #     pcp   pcn   ccn
+gpg   gnn   gpg   #     pnp   ggp   cgp
+cpg   cnn   pnc   pnc   pnn   ggp   ggp
+cgg   cgn   cgp   cgn   ppn   pgc   ggc
+cgg   cgn   cpn   cpc   ppc   npc   gpc
+ngg*  pgg   pcg   ccp   gcp   gpc   gpp
+ppn*  ppn   ncn   ccg   ccg   npg   npc
+ppn   npc   npc   cpc   cpc   cpg   ppc
+solution: 0,0 ; use 0,2,2 ; 0,0 ; 0,3 ; use 0,5,0 ; 2,0 ; roll 6 ; 1,2 ; use 0,2,0 ; use 0,4,0 ; use 0,6,0

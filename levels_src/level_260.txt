@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [noSpecials+exact]); çözüm 7 / sınır 8 (v7 13); açgözlü kaybeder; bot48 0,15 (taban 0,04); bot 0,00; zincir v13: yeni çözüm 7 (eski 7), sınır 8→10, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil T (ayna); çözüm 10 + 8 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_260
-title: Kule Mektubu
 moves: 10
 roll: off
 specials: on
 type: boss
-rules: exact
-goals: coral 47, purple 42, yellow 38, star 3, envelope 2
+rules: scarce, exact
+goals: purple 24, star 3, envelope 3
 grid:
-bpyb  pbcb  bpbb  ppby  pcbc  pbyc  bbcp  bbcp
-ycyb  bpcb  ppbb  pcbp  pcbc  pcyc  pbyc  bbcp
-ycyb  yccp  ycbp  ycpp  pcbp  ccyy  ybyc  ycppEp
-#     yyb   pcyp  pcyp  ccbp  cbcy  pp    #
-#     cbyc  bbyb  bbyp  pcbc  pcby  pcby  #
-#     cy    bbbb  pbyy  cbbc  ycby  cc    #
-bppb  byby  byby  cpyy  yycp  cybp  cpcp  yppb
-ppyyEb pbyb  byby  cyyy  ccyy  cyby  ycpp* yppp
-cbpb  cbpb* cppy  cppy  cyyy  cycp  cyyy  cpyy*
-solution: 1,7 ; 1,5 ; use 0,6,0 ; 0,0 ; 4,0 ; use 1,0,8 ; 3,5 ; 4,0 ; 1,0 ; use 0,0,0 ; use 0,5,1 ; use 0,3,0
+cpyg  cpyg  yyyc  yygc  yngc  gpby  gcby  ccby*
+cpnb  ggyg  gyyg  yngn  gncg  gncy* ccbn  ccgn
+ccnp  gpcg  gycg  bppn  pbpn  gpgn  cpgn  ncgn
+ygcnEn ygcg  gyyg  pyyn  ybyg  gygp  bycn  ngcn
+ygbg  nyyp  nyyg* cbyc  gbyg  gyyp  bgynEp bgyy
+#     #     npycEy cpyc  cpyn  gpbp  #     #
+#     #     gpnc  gpnp  cyyb  ybyy  #     #
+#     #     ygnn  ybnp  ybnb  ybyp  #     #
+solution: 3,1 ; 0,0 ; use 0,0,0 ; use 0,0,0 ; 0,0 ; use 0,0,2 ; 2,0 ; use 0,2,0 ; 4,2 ; 3,1 ; 3,0 ; use 0,5,0 ; 6,0 ; 2,6 ; use 1,0,0 ; use 0,3,0 ; 4,3 ; use 0,1,2

@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 6 hamle + 4 tepsi / limit 9 (pay +3, eski 11) hedef×0,80 bot 0,21 (hedef 0,20) plan 0; zincir v13: yeni çözüm 6 (eski 6), sınır 9→9, bot 14/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 9 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_931
-title: Bölüm 931
-moves: 9
+moves: 10
 roll: off
 specials: on
-paint: 1
-goals: blue 39, coral 35
+goals: blue 22, navy 16, purple 22
 grid:
-cbb   G1:cybb G1:bybb G1:bybp G1:byb G1:ccpp ccb
-ccpy  bcb   bcbb  bcb   bcpb  ccp   cyb
-bcpy  bcpy  yccb  pccb  pcpb  bcyB1 bypb
-#     bbpy  cccy  cpcy  ypc   pcyp  #
-#     ppp   cpp   cpcy  yyc   ypc   #
-#     bppb  bypb  cyy   yyy   pbcp  #
-ybp   ypp   bpyb  byyc  yycp  pbpp  pbpp
-bycc  byp   bpp   bpyy  yby   pby   pbpp
-cyc   cycc  ppc   ppc   byb   yby   cby
-solution: 0,1 ; 1,1 ; use 0,0,1 ; use 0,0,0 ; 4,1 ; 4,4 ; use 0,6,0 ; 1,4 ; use 0,0,0 ; 5,5
+bcgg  bggg  ygcg  gbby  ycpy  ycgpi2 ycgp
+yypg  byyy  ygcg  gbbg  gypy  gcpp  ncpp
+ygpc  yyyci1 nyypi1 nypg  gyggi1 bpgb  bpgb
+ygbc  pybc  cbyc  cbyn  nbyg  ppnn  bygn
+ggbp  pgyg  cycc  cycc  nbcc  ybnb  bycy
+gpnp  pgng  byny  bycy  gygp  yygb  ypcy
+gpnc  gcnc  bcnc  bbcp  gycpi2 gycp  gncy
+npng  ncnci1 bcpy  bbpc  bypb  bpcb  ynyc
+npng  gbng  gypyi1 gypy  bypy  bpyc  ypyc
+solution: 0,7 ; 0,6 ; 0,6 ; use 0,5,0 ; 0,0 ; use 0,6,0 ; 0,2 ; use 0,3,3 ; 0,1 ; use 0,3,1 ; 1,6 ; 2,7 ; 4,6 ; use 2,3,1 ; use 0,0,7

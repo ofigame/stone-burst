@@ -1,21 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk yellow 49/48; çözüm 13 / sınır 15 (v7 14); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; adillik onarımı: sınır 15→16 (112 oyunda 6 galibiyet); zincir v13: yeni çözüm 12 (eski 13), sınır 16→19, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 18, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil L (ayna); çözüm 17 + 0 tepsi / sınır 17; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_790
-title: Bölüm 790
-moves: 18
+moves: 17
 roll: off
-specials: on
-paint: 1
+paint: 2
 type: boss
-rules: scarce, exact
-goals: yellow 46, blue 87, coral 36
+rules: noSpecials, exact
+goals: navy 29, yellow 30, blue 43
 grid:
-pbbc  ybbp  yybp  #     #     pccc  ppby  pppb
-ybpc  ybpp  yybp  #     #     pbcb  bpbb  bpcb
-bbby  ybpy  bbpp  #     #     pbpb  bpcb  bpcb
-ycbb  ycbb  ybyb  ycyp  bccy  yppy  bpcb  bpcb
-ycbb  pybb  pyyb  pcyy  ppbb  yccy  yccb  ppcb
-cpbp  pyyb  pbcb  pbby  ybcy  ycpb  ypcb  ppcb
-cpcp  ccyp  pcyb  pcyp  bbyy  pbyb  pbcy  pcbb
-cpyp  cpyb  pcbb  pcbb  ppbb  bbbb  pbbp  pbbp
-cpyp  ppyb  ppbp  pcbb  bbbb  bbbb  bbyc  bbyc
-solution: 7,0 ; 2,3 ; use 0,6,0 ; use 0,0,0 ; 4,4 ; 0,2 ; 3,3 ; use 0,5,0 ; use 1,2,3 ; 7,4 ; use 1,0,0 ; 1,4 ; 1,0 ; 0,0 ; 1,0 ; paint 1,1,y ; 2,0 ; 5,7
+#     #     #     ybcy  ybcci1 nbcc  cbbbi2 bbbb
+#     #     #     ybny  ybcb  nbnb  cnnb  bbbc
+#     #     #     ybny  nbny  nbnn  cbnn  bybc
+#     #     #     ybcb  ybcy  nbnni1 yycn  cybc
+ybcn  yynn  nyyn  nycn  nycn  nccc  ybcc  ybbc
+cbcy  ybyy  ycyb  yccn  nybn  nyyc  nync  ybyn
+cbby  ybby  bccy  bccc  nybn  nybc  nynci1 yybn
+cbby  cbbn  bbcy  bcnc  ncbn  nbbn  cbyy  ynby
+cbcb  ybcb  yccn  bcnni1 ncbn  ncbn  cbbn  bbbb
+solution: 0,4 ; 0,5 ; 7,1 ; 4,5 ; 3,0 ; 3,1 ; 7,0 ; 5,1 ; 0,6 ; 6,5 ; 5,5 ; 7,4 ; 7,2 ; 6,0 ; 3,5 ; 2,5 ; 2,4

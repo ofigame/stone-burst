@@ -75,22 +75,19 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void ChainGoal_CountsOnlyChainWaves()
+        public void ChainRules_AreRejected_StaleDataCaught()
         {
-            // Üst sıra mercan (dokunulur); altında mavi satır açılınca zincirle soyulur.
-            var b = new BoardState(3, 2);
-            for (int x = 0; x < 3; x++)
-            {
-                var top = b[x, 0]; top.Active = true; top.Layers.Add(LayerColor.Blue); top.Layers.Add(LayerColor.Coral);
-                var bot = b[x, 1]; bot.Active = true; bot.Layers.Add(LayerColor.Purple);
-            }
-            var s = new LevelState { Board = b, MovesLeft = 3 };
-            s.Goals.Add(new GoalState { Type = GoalType.CollectChain, Color = LayerColor.Blue, Amount = 3 });
-            s.Goals.Add(new GoalState { Type = GoalType.CollectChain, Color = LayerColor.Coral, Amount = 3 });
-            var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.IsTrue(r.Accepted);
-            Assert.AreEqual(0, s.Goals[1].Progress, "dokunulan mercan zincir sayılmaz");
-            Assert.AreEqual(3, s.Goals[0].Progress, "zincirle açılan mavi sayılır");
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): collectChain, chainOnly ve zincir türleri okunur ama reddedilir.
+            const string json = "{\"schemaVersion\":2,\"id\":\"chain_old\",\"width\":5,\"height\":5,\"moveLimit\":5,\"trialType\":\"chain\",\"rules\":[\"chainOnly\"],"
+                + "\"goals\":[{\"type\":\"collectChain\",\"color\":\"blue\",\"amount\":3}],\"cells\":[]}";
+            var d = LevelParser.Parse(json, "chain_old");
+            Assert.AreEqual("collectChain", d.Goals[0].Type);
+            var errors = LevelValidator.ValidateStatic(d, LevelValidator.ScopeFor(d));
+            Assert.IsTrue(errors.Any(e => e.Contains("collectChain")), string.Join(" | ", errors));
+            Assert.IsTrue(errors.Any(e => e.Contains("chainOnly")), string.Join(" | ", errors));
+            Assert.IsTrue(errors.Any(e => e.Contains("'chain'")), string.Join(" | ", errors));
+            var s = LevelLoader.ToState(d); // eski veri çökmez: düz renk hedefi gibi okunur
+            Assert.AreEqual(GoalType.CollectColor, s.Goals[0].Type);
         }
     }
 }

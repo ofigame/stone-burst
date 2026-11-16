@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 6 hamle + 5 tepsi / limit 10 (pay +4, eski 13) hedef×0,96 bot 0,33 (hedef 0,32) plan 0; zincir v13: yeni çözüm 6 (eski 6), sınır 10→10, bot 32/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven; çözüm 8 + 4 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10; döndürmeyle başlar;
 id: level_361
-title: Kilit Turu
-tutorial: Döndürmek renk toplamaz: kilidin rengini üste getir, sonra soy.
-moves: 10
+moves: 8
 roll: off
 specials: on
-goals: purple 33, yellow 43
+goals: green 29, yellow 28, envelope 3
 grid:
-cyc   ccb   pcbb  pyb   byb   bpb   bpcb
-pyb   pybc  cyyy  pycp  bcb   byc   yycb
-cyc   cyc   cyy   cyyp  pcc   pyb   yycb
-#     cccp  ccpp  ccpp  pccp  byyp  #
-#     cypp  cypp  ccc   bcc   bcb   #
-#     pbp   bypb  cyyb  cyyyR cycy  #
-cycy  byy   bby   cby   cyyp  pybR  bcb
-byc   byy   bypp  cyypLc5 bcyy  pyb   bbbb
-pbcp  pbyp  pby   bbc   bccy  byb   bbb
-solution: 5,6 ; 1,0 ; use 1,5,0 ; 4,5 ; use 1,3,0 ; 1,5 ; use 1,3,0 ; 0,0 ; use 1,0,0 ; 4,2 ; use 1,3,1
+pggyR cbng  cbyg  #     #     #     #
+pgngEp cbgg  cbyg  cbpg  #     #     #
+bpny  cpcy  cncy  cnng  bcnc  #     #
+bbby  cbby  ggcy  cpbg  ccpc  cgyc  #
+ypby  ybcy  ggcc  gpbc  bgbc  bgyc  bgyc
+ypbg  ynpy  bgcy  bpcpEy bygp  bcyb  bgyb
+gnng  ynpc  yypy  nycp  nygp  nccb  nbcbEy
+gbny  ybby  ynpb  gypb  cggy  ncby  pbbc
+pyyn  pyngR gnbn  gycn  ccgy  ncgc  pcgc
+solution: rot 0,0 ; 4,2 ; 5,5 ; use 0,0,2 ; 1,2 ; 0,0 ; use 1,0,0 ; use 0,0,0 ; 3,3 ; 3,3 ; 3,4 ; use 1,0,0

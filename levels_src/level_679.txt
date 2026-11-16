@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 8 hamle + 7 tepsi / limit 16 (pay +8, eski 16) hedef×1,31 bot 0,17 (hedef 0,18) plan 0; zincir v13: yeni çözüm 10 (eski 8), sınır 16→22, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 15, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T; çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_679
-title: Bölüm 679
-moves: 15
+moves: 8
 roll: off
 specials: on
-goals: blue 54, coral 45, purple 49
+goals: green 16, coral 26, blue 29
 grid:
-yypy  G1:pypb G1:cypy G1:byyy G1:bycy G1:bbcy cbcc
-yycb  pypb  byyy  bbyy  cbcy  pbcc  cbcc
-yycc  bypb  byby  bbby  pbcc  pbpc  cbpy
-#     yccc  pbpy  ypyc  ppcc  bppp  #
-#     ccyc  cbyc  ybyc  ypcy  pbpp  #
-#     ycyy  cbyy  bcyc  pbpy  pbpy  #
-cbby  ybbc  cbpb  cbcb  bppb  bpyp  bpypB1
-ybpc  yypc  ybpc  bbcc  bpcb  bpyp  pybp
-ybpp  yypp  pbpp  pbcc  pbbb  ppbp  ppbp
-solution: 6,0 ; use 0,6,0 ; 2,4 ; use 0,5,1 ; 2,0 ; 1,0 ; use 0,6,0 ; 4,2 ; use 0,1,0 ; 2,0 ; use 0,4,0 ; use 0,2,0 ; 2,1
+nncn  gnyn  G1:cbnb G1:pbcy G1:nncy yncb  ybyb  ybyp
+gycy  gnyy  cncy  pbcy  nbcy  ybcn  ybbn  ygbn
+gycy  gycy  ngcy  nncg  nbyg  nbyn  pbyn  pgyn
+yyby  ggcyB1 bgcp  gycp  nbyc  nbyn  nyyn  nycb
+bnbn  bnyy  bnyy  nypc  ngpc  ybcn  bycn  nycn
+nyby  bncy  bnyp  gnpn  ygpn  ygcn  bncn  bnnn
+#     #     bnyp  bncp  yncb  ngcb  #     #
+#     #     pnpp  yppp  pngp  pncp  #     #
+#     #     pnpc  pppc  ppgp  ppgp  #     #
+solution: 5,1 ; 0,1 ; use 0,5,0 ; use 0,5,0 ; 2,3 ; use 0,7,1 ; 0,1 ; 0,1 ; 7,1 ; 3,1 ; use 1,3,0 ; 4,1 ; use 1,2,0 ; use 0,3,0

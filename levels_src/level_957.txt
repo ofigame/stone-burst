@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: resource [exact]; çözüm 7 / sınır 11 (v7 11); açgözlü kaybeder; bot48 0,10 (taban 0,06); bot 0,33; zincir v13: yeni çözüm 7 (eski 7), sınır 11→15, bot 3/112; zincir v13 kolaylaştırma: hedef −%12, sınır 10, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil L (ayna); çözüm 10 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_957
-title: Bölüm 957
 moves: 10
 roll: off
 specials: on
-type: resource
+type: reverse
 rules: exact
-goals: purple 36, yellow 48, blue 29, sponge 1
+goals: purple 40, coral 36, navy 23
 grid:
-bycb  bycb  bypb  pypb  yypb  ppbc  pcpy
-byby  bybc  bybc  pypc  pcpb  pcby  pcpy
-bbby  bypc  bypc  pypc  ccpc  pcpy  ccpy
-ybbb  #     #     bycy  #     #     ccpb
-yycb  #     #     bypc  #     #     cbyb
-yyyy  #     #     bcpc  #     #     cpyb
-ybcy  ycyy  bbyy  bcyy  pppy  ppcc  cpyc
-ybcy  ybpcLb8 ybyy  pcyyScby pccy  ppyc  pypb
-ybcc  pypc  cycb  pcyc  pcycLc8 yyyb  yyyb
-solution: 0,5 ; use 0,6,0 ; 0,0 ; 0,0 ; use 0,2,0 ; 0,6 ; 5,0 ; use 0,3,0 ; use 0,0,0
+#     #     #     ccgg  ccbg  ccbg  gcyg  gygg
+#     #     #     cygg  pgggi1 nggbi2 ngpb  gygn
+#     #     #     gygg  pybg  pgby  cnpy  cypp
+#     #     #     gbyg  gyyg  cpbg  cncp  pypp
+npbn  bgpn  cgpc  cgyc  gpyg  gpbp  pbcp  pbpc
+nppni1 bppn  pppn  cgyc  bnbp  bnpp  bbpci1 pbpc
+ncgy  bcnn  pcnn  bnyc  bnbp  bnbyi1 bypy  byby
+gpnn  ppyn  pcyb  gnbc  npby  npnyi1 bypc  byyc
+gpnb  ycyb  ycpb  gcpc  gcbc  cpnc  bppc  bpyc
+solution: 0,4 ; 7,2 ; use 0,6,3 ; 5,6 ; 7,2 ; use 0,7,1 ; 5,4 ; use 1,1,4 ; 1,7 ; 1,6 ; 4,5 ; 0,5 ; use 3,3,0 ; 3,0 ; use 0,3,0 ; use 0,3,0 ; use 0,4,0

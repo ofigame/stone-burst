@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L; çözüm 4 hamle + 4 tepsi / limit 8 (pay +4, eski 10) hedef×1,10 bot 0,54 (hedef 0,47) plan 1; zincir v13: yeni çözüm 4 (eski 4), sınır 8→8, bot 33/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T; çözüm 8 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,13
 id: level_122
-title: Mercan Anahtar
-moves: 8
+moves: 10
 roll: off
 specials: on
-goals: yellow 21, blue 27
+goals: navy 42, purple 40, blue 22
 grid:
-pcb   ybp   ycy   yby   #     #     #
-pyb   ybb   cbb   ccy   #     #     #
-cpc   ypb   cpp   ycc   #     #     #
-bcc   byc   bbp   pbp   #     #     #
-bpc   byc   pbc   pbp   pbp   ppp   cyp
-byb   yypLc7 cyp   pcc   pcp   cpc   cpc
-cbc   byb   byp   bcp   ccp   cpp   cpc
-pyb   byc   byc   cpc   cpc   cpb   cpc
-byb   byb   byc   cpc   cbp   cpp   cbp
-solution: 1,7 ; 2,2 ; 0,2 ; use 1,0,0 ; 1,3 ; use 2,1,0 ; use 1,2,0
+ngb   ngb   ngp   pgbg  pgb   bgb   bgg   npyyLb5
+bgny  gyny  nyp   gyb   gggp  ggy   nygg  npyg
+gynb  gnnp  ngng  ggn   ppgp  npy   nyyg  nyy
+yynb  gynp  nyb   npnp  pngp  gyg   pyng  pyy
+nnnb  nnpb  ppbb  ppy   png   gyg   ggnn  ggy
+nnb   nnb   ynb   ypgb  gngb  gng   gny   gny
+#     #     ynbb  ypp   pyp   pyp   #     #
+#     #     ygpb  ynp   gypp  pyp   #     #
+#     #     gnp   gnpp  gypp  gybn  #     #
+solution: 0,2 ; 6,0 ; 7,0 ; use 0,2,0 ; 0,2 ; use 0,7,1 ; use 0,0,0 ; 0,1 ; 0,0 ; use 0,4,0 ; use 0,0,0 ; 3,4 ; 6,1 ; use 0,4,2 ; use 0,3,0

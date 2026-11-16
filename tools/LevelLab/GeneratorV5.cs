@@ -251,7 +251,6 @@ static partial class Program
             if (r.SpecialCreated != SpecialKind.None) specials++;
             foreach (var w in r.Waves)
             {
-                if (w.Kind == WaveKind.Chain) chains++;
                 if (w.Fired != SpecialKind.None) fired++;
                 coverUse += w.Cells.Count(p => covered.Remove((p.X, p.Y)));
                 gatesOpened += w.GateOpens.Count;

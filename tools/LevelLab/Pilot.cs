@@ -11,7 +11,7 @@ using KatKat.Levels;
 /// vr1 P2/P3 pilot kataloğu (docs/vr1/claude_code_paketi_v1/belgeler/05_TAHTA_YENILIKLER.md "12 bölümlük pilot"):
 /// canlı 1–1000'e dokunmaz; çıktı Assets/KatKat/Resources/Pilot/pilot_NN.json ve docs/vr1/PILOT_URETIM.md.
 ///   P01 kompakt-derin (güvenli/ustalık yolu), P02 geniş-sığ, P03 dar bağlantı, P04 kanat açma + eski engel (buz),
-///   P05–P07 aşamalı hedef, P08–P10 zincir mührü (derinlik 1/2/3), P11–P12 iki alan ortak tepsi.
+///   P05–P07 aşamalı hedef, P08–P10 düğmeli kanat (v14: eski zincir mührü pilotları), P11–P12 iki alan ortak tepsi.
 /// Her aday tohumlu rastgele üretilir; kayıtlı çözüm motorla yeniden yürütülerek doğrulanmadan yazılmaz. Rapor, tasarım
 /// varsayımını (amaç) ve ölçülen değerleri ayrı sütunlarda tutar. Zorluk iddiası yoktur; ölçüm botlarla yapılır.
 /// Kullanım: dotnet run -- pilot [tohum]
@@ -99,7 +99,9 @@ static partial class Program
         }
         report.AppendLine();
         report.AppendLine("Notlar: \"Kazandıran ilk hamle\" = ilk hamleden sonra bütçe içinde doğrulanmış çözüm bulunan yasal hamle sayısı / yasal hamle (alternatif yol göstergesi; bütçe dolan dal kazandırmaz sayılır). \"En derin zincir\" = kayıtlı çözümdeki en uzun otomatik zincir dalgası sayısı.");
-        File.WriteAllText(Path.Combine(RepoRoot(), "docs", "vr1", "PILOT_URETIM.md"), report.ToString(), new UTF8Encoding(false));
+        if (only != null) return 0; // tek pilot: rapor yazılmaz
+        Directory.CreateDirectory(Path.Combine(RepoRoot(), "docs", "v14"));
+        File.WriteAllText(Path.Combine(RepoRoot(), "docs", "v14", "PILOT_URETIM.md"), report.ToString(), new UTF8Encoding(false)); // v14: vr1 raporu docs/vr1 altında kalır
         return 0;
     }
 
@@ -169,7 +171,7 @@ static partial class Program
         foreach (var c in path)
         {
             var r = RulesEngine.TryApply(rep, c);
-            m.MaxChainDepth = Math.Max(m.MaxChainDepth, r.Waves.Count(w => w.Kind == WaveKind.Chain));
+            m.MaxChainDepth = Math.Max(m.MaxChainDepth, 0 /* v14: zincir yok (kullanıcı 2026-11-16) */);
         }
         if (limit <= 0) return m;
         foreach (var cmd in LevelSolver.Moves(s))
@@ -236,7 +238,17 @@ static partial class Program
         };
         string[] twoRooms = { "...#...", "...#...", "...#...", ".......", "...#...", "...#...", "...#..." };
         string[] wing = { "....GG", "....GG", "...IGG", "B..I..", "......", "......", "......" };
-        string[] sealWing = { ".....GG", ".....GG", ".....GG", ".......", ".......", ".......", "......." };
+        string[] buttonWing = { ".....GG", ".....GG", ".....GG", ".......", ".......", ".B.....", "......." };
+        string[] buttonWingIce = { ".....GG", ".....GG", ".....GG", ".......", ".I.....", "IBI....", "......." };
+        // Kanat hedefi: hedef rengin bir kısmı yalnız kanatta; hedef dışarıdakinden fazla → kanat açılmalı.
+        Func<Random, LevelData, bool> wingGoal = (r, d) =>
+        {
+            var c = ColorNames.OrderByDescending(x => d.Cells.Sum(cell => cell.GateLayers.Count(l => l == x))).First();
+            int outside = Total(d, c, false), inside = Total(d, c) - outside;
+            if (inside < 3) return false;
+            d.Goals.Add(Goal("collectColor", c, outside + Math.Min(inside, 3)));
+            return true;
+        };
         string[] areas = { "...#RRR", "...#RRR", "...#RRR", "...#RRR", "...#RRR", "...#RRR" };
         return new List<PilotSpec>
         {
@@ -261,12 +273,14 @@ static partial class Program
                 Shape = staged(3), Slack = 2, Accept = (m, d) => m.Steps >= 4 },
             new PilotSpec { Type = "pilot_stages", Title = "Buzlu Sıra", Intent = "Aşamalı hedef + mevcut engel (buz)", W = 6, H = 7, Colors = 3, MinLayers = 2, MaxLayers = 3, Caps = new[] { "stages", "ice" },
                 Mask = new[] { "......", "..II..", "......", "......", "..II..", "......", "......" }, Shape = staged(2), Slack = 2, Accept = (m, d) => m.Steps >= 4 },
-            new PilotSpec { Type = "pilot_seal", Title = "Birinci Mühür", Intent = "Zincir mührü: 1. otomatik dalga kanadı açar", W = 7, H = 7, Colors = 3, MinLayers = 2, MaxLayers = 3, Mask = sealWing, Caps = new[] { "seal", "gate" }, SealWave = 1,
-                Shape = sealed_, Slack = 2, Accept = (m, d) => m.Steps >= 3 },
-            new PilotSpec { Type = "pilot_seal", Title = "İkinci Mühür", Intent = "Zincir mührü: 2. dalga gerekir (alt katmanları hazırla)", W = 7, H = 7, Colors = 3, MinLayers = 3, MaxLayers = 3, Mask = sealWing, Caps = new[] { "seal", "gate" }, SealWave = 2,
-                Shape = sealed_, Slack = 2, Budget = 90000, Accept = (m, d) => m.Steps >= 3 },
-            new PilotSpec { Type = "pilot_seal", Title = "Üçüncü Mühür", Intent = "Zincir mührü: 3. dalga (zor; planlı zincir)", W = 7, H = 7, Colors = 3, MinLayers = 3, MaxLayers = 4, Mask = sealWing, Caps = new[] { "seal", "gate" }, SealWave = 3,
-                Shape = sealed_, Slack = 3, Budget = 90000, Accept = (m, d) => m.Steps >= 3 },
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): zincir mührü pilotları (P08–P10) düğmeli kanada dönüştü —
+            // kanat, zincir dalgası yerine oyuncunun boşalttığı düğmeli yığınla açılır (eski mühür kanadı maskesi korunur).
+            new PilotSpec { Type = "pilot_wing", Title = "Kanat Kapısı", Intent = "Düğmeli kanat: hedefin bir kısmı kanatta, düğmeyi doğru anda boşalt", W = 7, H = 7, Colors = 3, MinLayers = 2, MaxLayers = 3, Mask = buttonWing, Caps = new[] { "gate" },
+                Shape = wingGoal, Slack = 2, Accept = (m, d) => m.Steps >= 4 && !m.BiggestWins },
+            new PilotSpec { Type = "pilot_wing", Title = "Buzlu Kanat", Intent = "Düğmeli kanat + buz: düğmeye giden yol buzla kapalı", W = 7, H = 7, Colors = 3, MinLayers = 3, MaxLayers = 3, Mask = buttonWingIce, Caps = new[] { "gate", "ice" },
+                Shape = wingGoal, Slack = 2, Budget = 90000, Accept = (m, d) => m.Steps >= 4 },
+            new PilotSpec { Type = "pilot_wing", Title = "Derin Kanat", Intent = "Düğmeli kanat, derin yığınlar (zor; düğme yığını 3–4 katman)", W = 7, H = 7, Colors = 3, MinLayers = 3, MaxLayers = 4, Mask = buttonWing, Caps = new[] { "gate" },
+                Shape = wingGoal, Slack = 2, Budget = 90000, Accept = (m, d) => m.Steps >= 5 },
             new PilotSpec { Type = "pilot_twin", Title = "İki Kıyı", Intent = "İki alan, ortak hamle ve tepsi; roket yalnız seçilen alanda", W = 7, H = 6, Colors = 3, MinLayers = 2, MaxLayers = 3, Mask = areas, Caps = new[] { "areas" }, Specials = true,
                 Shape = twoAreas, Slack = 2, Accept = (m, d) => m.Steps >= 4 },
             new PilotSpec { Type = "pilot_twin", Title = "Ortak Tepsi", Intent = "İki alan: bir alanda üretilen özel taş diğerinde kullanılır", W = 7, H = 6, Colors = 3, MinLayers = 2, MaxLayers = 3, Mask = areas, Caps = new[] { "areas" }, Specials = true,
@@ -329,13 +343,13 @@ static partial class Program
             var n = s.Clone();
             var r = RulesEngine.TryApply(n, a);
             if (!r.Accepted) continue;
-            if (r.Waves.Count(w => w.Kind == WaveKind.Chain) >= depth) return true;
+            if (0 /* v14: zincir yok (kullanıcı 2026-11-16) */ >= depth) return true;
             if (n.IsTerminal) continue;
             foreach (var b in LevelSolver.Moves(n))
             {
                 var m = n.Clone();
                 var r2 = RulesEngine.TryApply(m, b);
-                if (r2.Accepted && r2.Waves.Count(w => w.Kind == WaveKind.Chain) >= depth) return true;
+                if (r2.Accepted && 0 /* v14: zincir yok */ >= depth) return true;
             }
         }
         return false;

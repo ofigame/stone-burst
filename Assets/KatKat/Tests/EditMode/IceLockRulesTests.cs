@@ -33,13 +33,13 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void IceBreaks_StackStaysIntact_NotPeeledNorChainSeed()
+        public void IceBreaks_StackStaysIntact_NotPeeled()
         {
-            // v13: mercanlar soyulur, üç sarı birlikte açılıp zincirle patlar; buzu kırılan hücrenin sarısı soyulmadığı
-            // için zincire katılmaz, yerinde kalır.
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): mercanlar soyulur, üç sarı açılır ama patlamaz; buzu kırılan hücrenin sarısı yerinde kalır.
             var s = State(5, new[] { "yc yc  yc", "b  yi1 b" }, FarGoal);
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.AreEqual(2, r.Waves.Count);
+            Assert.AreEqual(1, r.Waves.Count);
+            Assert.AreEqual("y", Cell(s, 1, 0));
             Assert.AreEqual(0, r.Waves[0].IceHits.Single().RemainingAfter);
             Assert.AreEqual("y", Cell(s, 1, 1));
             Assert.AreEqual(0, s.Board[1, 1].IceHitsRemaining);
@@ -47,13 +47,15 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void TwoChainWavesNextToIce_GiveTwoHits()
+        public void TwoTapsNextToIce_GiveTwoHits()
         {
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): altından çıkan mavi patlamaz; buz her dokunuşta bir hasar alır.
             var s = State(5, new[] { "bc bc  bc", "y  bi2 y" }, FarGoal);
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.AreEqual(2, r.Waves.Count);
+            Assert.AreEqual(1, r.Waves.Count);
             Assert.AreEqual(1, r.Waves[0].IceHits.Single().RemainingAfter);
-            Assert.AreEqual(0, r.Waves[1].IceHits.Single().RemainingAfter);
+            var r2 = RulesEngine.TryApply(s, Command.Tap(0, 0));
+            Assert.AreEqual(0, r2.Waves[0].IceHits.Single().RemainingAfter);
             Assert.AreEqual("b", Cell(s, 1, 1));
         }
 
@@ -120,15 +122,17 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void Lock_CountsEachChainWaveSeparately()
+        public void Lock_CountsEachTapSeparately()
         {
-            // Dalga 0: 3 mercan, dalga 1 (zincir): 3 mavi, dalga 2 (zincir): 3 mercan → kilit 6 → 3 → 3 → 0.
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): üç ayrı dokunuş: 3 mercan, 3 mavi, 3 mercan → kilit 6 → 3 → 3 → 0.
             var s = State(5, new[] { "pbLc6 p p", "cbc cbc cbc", "y y y" }, FarGoal);
             var r = RulesEngine.TryApply(s, Command.Tap(0, 1));
-            Assert.AreEqual(3, r.Waves.Count);
+            Assert.AreEqual(1, r.Waves.Count);
             Assert.AreEqual(3, r.Waves[0].LockHits.Single().RemainingAfter);
-            Assert.AreEqual(0, r.Waves[1].LockHits.Count);
-            Assert.AreEqual(0, r.Waves[2].LockHits.Single().RemainingAfter);
+            var r2 = RulesEngine.TryApply(s, Command.Tap(0, 1));
+            Assert.AreEqual(0, r2.Waves[0].LockHits.Count);
+            var r3 = RulesEngine.TryApply(s, Command.Tap(0, 1));
+            Assert.AreEqual(0, r3.Waves[0].LockHits.Single().RemainingAfter);
         }
 
         [Test]

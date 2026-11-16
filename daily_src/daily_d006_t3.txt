@@ -1,18 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 3; pure [noSpecials+exact]; çözüm 13 / sınır 17 (v7 7); açgözlü kaybeder; bot48 0,04 (taban 0,04); zincir v13: yeni çözüm 13 (eski 13), sınır 17→20, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 105 + tür resource; şekil L (ayna); çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d006_t3
 title: Günlük 6
-moves: 20
+moves: 7
 roll: on
-type: pure
-rules: noSpecials, exact
-goals: yellow 31, coral 26, star 5
+specials: on
+type: resource
+rules: exact
+goals: blue 23, coral 44, navy 27
 grid:
-bcc   bbc   bbc   #     bcy   ccy   bpc*
-byc   byy   bbyi1 #     cpy   ccp*  cpp
-pyc*  pyc   pyy*  bby   bbp   cpp   ybp
-pcc   pyc   pby   pby   ppp*  ppp   pbb
-pyci1 pyc   byy   bbb   ppb   cpb   pbb
-pbc   ybc   yyc   byb   bbp   bcyi1 bpc
-cbc   ybc   yyy   byb   byp   bbc   cpb
-ybc   ybc   yyy   byc   byc   bbc   bbc
-solution: 0,0 ; 5,6 ; 1,1 ; roll 2 ; 5,1 ; roll 1 ; 6,0 ; 6,2 ; 2,4 ; roll 0 ; 4,3 ; roll 0 ; 4,3
+#     #     #     bgp   gnbg  pnbg  bncg  bcg
+#     #     #     bbpg  gbcg  png   pcc   bccp
+#     #     #     cbc   ccc   cng   cpg   cpgp
+#     #     #     cgc   ccp   ccpp  pcnp  ppg
+nbc   npcc  bncn  bbcn  bbbn  cpb   ppn   ppn
+nngc  ppcc  bncc  pnb   ppcn  npb   ppb   pbbc
+nng   png   ppp   nnb   nnc   ngb   npbc  nbpc
+npgc  cgc   ngcp  ngc   pcgg  gcg   ncbc  ngb
+npcc  cgcc  ggcp  gcg   pcg   gpgg  gpp   gpp
+solution: 2,4 ; 4,0 ; use 0,6,0 ; 3,4 ; 7,1 ; use 0,4,0 ; use 0,4,0 ; 6,1 ; 0,5 ; use 0,7,1 ; use 0,0,4 ; 0,5 ; use 0,2,4

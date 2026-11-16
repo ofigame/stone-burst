@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 9 hamle + 5 tepsi / limit 12 (pay +3, eski 19) hedef×1,32 bot 0,13 (hedef 0,14) plan 0; zincir v13: yeni çözüm 8 (eski 9), sınır 12→15, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 12, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil kesik köşe (ayna); çözüm 3 + 2 tepsi / sınır 8; rastgele 0,260; açgözlü kazanır; yumuşak 0,90
 id: level_996
-title: Bölüm 996
-moves: 12
+moves: 8
 roll: off
 specials: on
-goals: coral 44, purple 46, yellow 47
+goals: navy 22, blue 5
 grid:
-pypc  cycc  byyc  #     pbpb  bbby  bbby
-pycci1 cccc  bcyb  #     bypc  bybc  bbby
-pccc  cpcc  cpcb  #     bbpb  cbpc  cbpyi1
-pyyp  pyyc  pbyc  ybypi2 bbpp  bbpb  bbpb
-pybp  pybc  pybpi2 ybyb  ybpb  bbpbi1 ybpb
-yyyp  yyyp  yybpi1 ybbp  ybbp  cbbp  ybppLb8
-ycyp  bcyp  cybc  cpbb  cypb  cbbb  ybbbi1
-ycyb  bcyb  bpbc  cpbb  cypc  cbpbLc8 ybpb
-ycbbi2 ycbb  ycbb  ycbb  pypc  pbpc  pbbb
-solution: 0,0 ; use 0,1,0 ; 2,6 ; 0,3 ; 5,3 ; use 0,1,0 ; use 0,0,0 ; 0,6 ; 2,1 ; 1,0 ; use 0,0,0 ; 0,0 ; 1,1
+#     #     y     b     nc    yc    #     #
+#     yn    y     bc    yc    y     y     #
+y     yn    b     b     y     y     cy    cy
+y     y     b     b     y     yy    y     cy
+yc    nc    n     n     ny    ny    n     c
+n     n     ny    c     cy    cy    c     c
+n     ny    ny    cy    c     c     y     c
+#     n     ny    n     yn    yn    yn    #
+#     #     n     n     yn    y     #     #
+solution: 5,1 ; 2,5 ; 2,4 ; use 0,3,0 ; use 0,1,1

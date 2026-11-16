@@ -113,25 +113,35 @@ namespace KatKat.Tests
             Assert.AreEqual(c0 + 3, _gc.Sound.PlayCount);
         }
 
-        /// <summary>Gerçek oyun akışı: zincirli bölüm kazanılır; zincir WAV'ı hamle başına en çok bir kez, ödül bir kez çalar.</summary>
+        /// <summary>
+        /// Gerçek oyun akışı (v14: zincir yok; övgü sesi oyuncunun büyük hamlesine bağlı, <see cref="KatKat.Core.BigMove"/>):
+        /// bölüm 3 (index 2, Altın Rulo turu: ilk dokunuş 8+ taşlık grup) kayıtlı çözümle kazanılır. Övgü WAV'ı hamle başına
+        /// en çok bir kez ve yalnız büyük hamlede çalar (sayısı motor tekrarındaki büyük hamle sayısına eşit); ödül bir kez.
+        /// </summary>
         [UnityTest]
-        public IEnumerator RealLevel_ChainOncePerMove_RewardOnce()
+        public IEnumerator RealLevel_BigMovePraiseOncePerMove_RewardOnce()
         {
             int chainMoves = 0, chainPlays = 0, rewardPlays = 0;
-            // Bölüm 2 (index 1): öğretici zincir bölümü.
-            _gc.StartLevel(1);
+            _gc.StartLevel(2);
+            // Beklenen: kayıtlı çözüm motorla tekrar edilir, BigMove seviyesi > 0 olan hamleler sayılır.
+            var probe = KatKat.Levels.LevelLoader.ToState(_gc.CurrentLevel);
+            int expectedBig = 0;
+            foreach (var st in _gc.CurrentLevel.Solution)
+                if (KatKat.Core.BigMove.Level(KatKat.Core.RulesEngine.TryApply(probe, KatKat.Levels.LevelLoader.ToCommand(st))) > 0) expectedBig++;
+            Assert.Greater(expectedBig, 0, "bölüm 3 çözümünde büyük hamle var (Altın Rulo doğuran grup)");
             _gc.Board.Director.TimeScale = 6f;
             foreach (var step in _gc.CurrentLevel.Solution)
             {
-                int start = _gc.Sound.PlayCount;
                 int chainBefore = chainPlays;
-                _gc.Sound.OnPlayed = n => { if (n == "chain-four") chainPlays++; if (n == "level-reward") rewardPlays++; };
+                // Bitiş kutlamasının roketleri sayılmaz (oyuncu hamlesi değil).
+                _gc.Sound.OnPlayed = n => { if (n == "chain-four" && !_gc.IsCelebrating) chainPlays++; if (n == "level-reward") rewardPlays++; };
                 _gc.PlayStep(step);
                 float limit = Time.realtimeSinceStartup + 20f;
                 while (_gc.CurrentPhase == GameController.Phase.Animating && Time.realtimeSinceStartup < limit) yield return null;
-                Assert.LessOrEqual(chainPlays - chainBefore, 1, "bir hamlede zincir WAV'ı en çok bir kez");
+                Assert.LessOrEqual(chainPlays - chainBefore, 1, "bir hamlede övgü WAV'ı en çok bir kez");
                 if (chainPlays > chainBefore) chainMoves++;
             }
+            Assert.AreEqual(expectedBig, chainMoves, "övgü sesi yalnız büyük hamlelerde");
             float l2 = Time.realtimeSinceStartup + 30f;
             while (_gc.IsCelebrating && Time.realtimeSinceStartup < l2) yield return null;
             yield return null;

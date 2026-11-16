@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil T; çözüm 4 hamle + 4 tepsi / limit 9 (pay +5, eski 15) hedef×0,94 bot 0,71 (hedef 0,42) plan 1; zincir v13: çözüm aynı, sınır 9→9, bot 49/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe; çözüm 8 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_182
-title: İki Kapı
 moves: 9
 roll: off
 specials: on
-goals: yellow 28, blue 30
+goals: yellow 51, coral 30, purple 21
 grid:
-bpp   ypy   bpb   bbc   pybLb7 pyb   byb
-bpp   ypy   ypy   bpc   yyb   yyb   byc
-ppp   pppk1 ypp   byp   yyc   ycc   byc
-ypb   bpp   bpp   bpp   ypc   ccc   bpc
-ybp   bbp   bpc   bpp   cbp   ybc   ybb
-ypc   ypc   bbc   yppk1 ybp   ppp   ybb
-#     #     bby   bbp   ycp   #     #
-#     #     bby   pbp   ccp   #     #
-#     #     bcp   pby   pyy   #     #
-solution: 2,2 ; 0,0 ; use 0,2,0 ; 6,1 ; use 0,1,0 ; 0,0 ; use 0,0,0 ; use 0,4,0
+#     #     ncbp  ncb   ncyb  nppn  #     #
+#     bbyc  ybb   ynb   ynyb  pynn  yyp   #
+ccyc  ccyc  cbb   cyb   bnyb  pnn   pnny  cbnb
+cyy   cyb   ycb   yyb   bnnb  bbn   pbcy  cbp
+yyy   yypn  ycp   ycpy  cnn   ybb   bbcy  bcb
+yypn  yypn  nyp   cbb   cbb   bnb   ybc   ycb
+byy   yynn  nycp  cbbp  bbb   bnyb  ynyb  yyyb
+#     ynnp  ynnp  cbnpLn3 cbn   cnyb  cpyb  #
+#     #     ppnn  pbn   cbnp  cny   #     #
+solution: 2,4 ; 5,4 ; 3,0 ; use 1,4,0 ; use 1,3,0 ; 1,4 ; use 1,2,0 ; 5,5 ; 1,1 ; 7,2 ; use 1,0,2 ; 3,0 ; use 1,3,1 ; use 0,6,1 ; use 0,5,0 ; use 0,0,2

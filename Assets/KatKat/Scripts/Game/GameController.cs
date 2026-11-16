@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using KatKat.Core;
 using KatKat.Levels;
 using KatKat.Save;
@@ -166,6 +166,7 @@ namespace KatKat.Game
             SetupMeta();
             _menu.DailyPressed = ShowDaily;
             _menu.PilotPressed = ShowPilots; // vr1 pilot katalog (yalnız prototip anahtarı açıkken görünür)
+            _menu.ConceptPressed = ShowConcepts; // konsept pilotu (pilotla aynı koşul)
             _menu.CollectionPressed = ShowCollection;
             // v10 taş vitrini: koleksiyonda kazanılmış karta dokununca ve taş kazanılınca (3D model ya da büyük PNG).
             _showcase = KatKat.UI.StoneShowcase.Create(cam, transform);
@@ -261,8 +262,9 @@ namespace KatKat.Game
             _backdrop.Fit(_cam);
         }
 
-        /// <summary>Öğretici halkanın gösterildiği mekanik tanıtım bölümleri: dokunma, zincir, rulo, ataş, yıldız, buz, renk kilidi, zarf.</summary>
-        private static readonly int[] HintLevels = { 0, 1, 10, 20, 40, 60, 120, 200, 300 };
+        /// <summary>Öğretici halkanın (ilk hamle) gösterildiği bölümler. v14: 1–3 turlar, 4–5 vitrin mekanikleri; sonra gerçek tanıtımlar
+        /// (ataç 21, yıldız 41, buz 61, renk kilidi 121, zarf 201, döner taban 301).</summary>
+        private static readonly int[] HintLevels = { 0, 1, 2, 3, 4, 20, 40, 60, 120, 200, 300 };
 
         public void StartLevel(int index)
         {
@@ -359,6 +361,7 @@ namespace KatKat.Game
             _hud.ShowTutorial(null);
             _hud.SetDailyLayout(_sessionKind == KatKat.Meta.SessionKind.Daily && Ui1.Ready); // ui1/17: başlık plakasına yer
             _board.Build(_session.State, _hud.BoardWorldRect(_cam));
+            ConceptHud(); // konsept pilotu (tehditsiz bölümde gizler)
             Vr1CenterIceBegin(); // vr1 P1 prototipi: ortası boş tahtada buzlu koleksiyon taşı
             bool normal = _sessionKind != KatKat.Meta.SessionKind.Daily && _sessionKind != KatKat.Meta.SessionKind.Trial;
             _hud.SetRuleIcons(null);
@@ -510,6 +513,7 @@ namespace KatKat.Game
                     if (cell.ClipHitsRemaining > 0) _hud.ShowToast(Loc.T("toast.clip"));
                     else if (cell.IceHitsRemaining > 0) _hud.ShowToast(Loc.T("toast.ice"));
                     else if (cell.HasEnvelope) _hud.ShowToast(Loc.F("toast.envelope", LayerPalette.ColorName(cell.EnvelopeColor)));
+                    else if (cell.Moss) _hud.ShowToast(Loc.T("concept.toast.moss")); // konsept pilotu
                     else _hud.ShowToast(Loc.F("toast.lock", cell.LockRemaining, LayerPalette.ColorName(cell.LockColor)));
                 }
                 return;
@@ -643,12 +647,14 @@ namespace KatKat.Game
                     opened |= wave.EnvelopeOpens.Count > 0;
                     if (opened) _sound.Play(Sfx.ClipOpen, 0, 0.8f);
                     if (wave.GateOpens.Count > 0) KatKat.UI.Vr1Proto.Play("gate-open");
-                    // Dalga başına tek ana ses. v10: dört vuruşlu zincir WAV'ı hamlenin ilk zincir dalgasında bir kez
-                    // (sonrakilerde üst üste binmez, perde yükseltmesi yok); WAV yoksa eski kademeli sentez.
-                    if (wave.Kind == WaveKind.Chain)
+                    // Dalga başına tek ana ses. v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): dört vuruşlu zincir
+                    // WAV'ı artık büyük hamlenin (6+ grup ya da 8+ katmanlık özel taş) övgü dalgasında bir kez çalar;
+                    // WAV yoksa övgü seviyesine göre kademeli sentez.
+                    if (!_chainSounded && BigMove.IsMomentWave(r, wave))
                     {
-                        if (!_sound.HasChainWav) _sound.Play(Sfx.Chain, wave.Index - 1);
-                        else if (!_chainSounded) { _chainSounded = true; _sound.Play(Sfx.Chain); }
+                        _chainSounded = true;
+                        if (!_sound.HasChainWav) _sound.Play(Sfx.Chain, BigMove.Level(r) - 1);
+                        else _sound.Play(Sfx.Chain);
                     }
                     else _sound.Play(wave.Kind == WaveKind.Roll ? Sfx.RollUse : Sfx.Peel);
                     if (wave.Index == 0 && r.RollAwarded)
@@ -662,9 +668,8 @@ namespace KatKat.Game
                 wave =>
                 {
                     if (wave.StarsCollected > 0 || wave.EnvelopeOpens.Count > 0) _sound.Play(Sfx.Star);
-                    // vr1 P3: aşama tamamlandı → sonraki aşama öne çıkar; mühür açıldı bildirimi.
+                    // vr1 P3: aşama tamamlandı → sonraki aşama öne çıkar.
                     if (wave.StageAdvanced) { _hud.SetGoalStages(_session.State.Goals, wave.StageAfter); _hud.ShowToast(Loc.F("vr1.stage.next", wave.StageAfter + 1, _session.State.StageCount), 2.2f); }
-                    if (wave.SealOpened) _hud.ShowToast(Loc.T("vr1.seal.open"), 2.2f);
                     scoreShown += wave.Score;
                     _hud.SetScore(scoreShown, _session.State.StarThresholds, true);
                     // HUD hedefi görsel dalga tamamlandığında gösterir; mantıkta yeniden artırılmaz.
@@ -680,27 +685,30 @@ namespace KatKat.Game
         }
 
         /// <summary>
-        /// Domino ve özel taş anları: dalga başında övgü yazısı ve ses. 2. dalgadan itibaren büyüyen sözler
-        /// ("Süper!", "Kat Kat!", "Şahane!", "Efsane!"); birleşimde Loc.T("praise.combo"); doğan taşın adı.
+        /// Büyük hamle ve özel taş anları: dalga başında övgü yazısı ve ses. v14 (kullanıcı 2026-11-16: zincir tamamen
+        /// kaldırılsın): sözler ("Süper!", "Katman katman!", "Şahane!", "Efsane!") zincir dalgasına değil oyuncunun büyük
+        /// hamlesine bağlı (<see cref="BigMove"/>: 6+ grup ya da 8+ katman soyan özel taş). Birleşimde Loc.T("praise.combo");
+        /// doğan taşın adı büyük grupta büyük yazılır.
         /// </summary>
         private void Praise(MoveResult r, PeelWave wave)
         {
+            int level = BigMove.IsMomentWave(r, wave) ? BigMove.Level(r) : 0;
+            string[] words = { Loc.T("praise.1"), Loc.T("praise.2"), Loc.T("praise.3"), Loc.T("praise.4") };
             if (wave.Kind == WaveKind.Special)
             {
                 _sound.Play(Sfx.RollUse);
                 Haptics.Medium();
                 if (wave.ComboWith != SpecialKind.None) _hud.ShowPraise(Loc.T("praise.combo"), 3);
+                else if (level > 0) _hud.ShowPraise(words[level - 1], level);
                 return;
             }
             if (wave.Index == 0 && r.SpecialCreated != SpecialKind.None)
             {
                 KatKat.UI.Vr1Proto.Play("special-charge");
-                _hud.ShowPraise(r.SpecialCreated == SpecialKind.Rainbow ? Loc.T("praise.rainbow") : Loc.T("praise.rocket"), 1);
+                _hud.ShowPraise(r.SpecialCreated == SpecialKind.Rainbow ? Loc.T("praise.rainbow") : Loc.T("praise.rocket"), Mathf.Max(1, level));
+                return;
             }
-            if (wave.Kind != WaveKind.Chain) return;
-            string[] words = { Loc.T("praise.1"), Loc.T("praise.2"), Loc.T("praise.3"), Loc.T("praise.4") };
-            int k = Mathf.Clamp(wave.Index - 1, 0, words.Length - 1);
-            _hud.ShowPraise(words[k], k + 1);
+            if (level > 0) _hud.ShowPraise(words[level - 1], level);
         }
 
         // ---- v6 özel taş tepsisi -------------------------------------------------------------------------
@@ -780,7 +788,7 @@ namespace KatKat.Game
             }
             _paintCell = new Coord(x, y);
             var options = new List<LayerColor>();
-            for (int c = 0; c < 4; c++)
+            for (int c = 0; c < LayerColors.Count; c++)
             {
                 var col = (LayerColor)c;
                 if (col != b[x, y].Top && b.CountLayers(col) > 0) options.Add(col);
@@ -893,6 +901,7 @@ namespace KatKat.Game
             _hud.SetGoalStages(s.Goals, s.ActiveStage); // vr1 P3 (tek aşamalıda etkisiz)
             _hud.SetMoves(s.MovesLeft);
             _hud.SetTray(s.Tray, _traySlot = -1);
+            ConceptAfterPlay(_lastResult); // konsept pilotu: tehdit olayı, durum satırı
             if (s.Status == GameStatus.Idle && s.MovesLeft <= 0 && s.Tray.Count > 0)
             {
                 _hud.ShowToast(Loc.T("toast.nomoves.tray2"), 2.6f);
@@ -910,6 +919,7 @@ namespace KatKat.Game
                 case GameStatus.LostOutOfMoves:
                 case GameStatus.LostNoLegalMoves:
                 case GameStatus.LostProtected:
+                case GameStatus.LostHazard:
                     SetPhase(Phase.Ended);
                     ShowLost(s.Status);
                     break;
@@ -945,8 +955,9 @@ namespace KatKat.Game
             Haptics.Medium();
             // Son bölümde olmayan bir sonrakini yükleme: bölüm seçimine dön (rehber §5).
             bool hasNext = _levelIndex + 1 < _catalog.Count;
-            // Büyük kutlama yalnızca son hamle zincirle bittiyse; küçük üçlüde Loc.T("win.big") yok (rehber §6).
-            bool chain = _lastResult != null && _lastResult.Waves.Count > 1;
+            // Büyük kutlama yalnızca son hamle büyükse (v14: zincir yerine 6+ grup ya da 8+ katmanlık özel taş, BigMove);
+            // küçük üçlüde Loc.T("win.big") yok (rehber §6).
+            bool chain = BigMove.Level(_lastResult) > 0;
             // Sonraki bölüm kartı: gerçek katalog verisi ve onun teması (bölge geçişinde yeni tema). Katalog dışı
             // (StartCustom) ya da son bölümde sahte önizleme yok.
             NextLevelPreviewView.Data? next = null;
@@ -1028,6 +1039,7 @@ namespace KatKat.Game
             _hud.HidePalette();
             _hud.SetPaint(s.PaintLeft, false);
             _hud.SetTray(s.Tray, _traySlot = -1);
+            ConceptHud();
             SetPhase(Phase.Idle);
         }
 

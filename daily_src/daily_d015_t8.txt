@@ -1,21 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 8; order [exact] (sıradaki tür; resource tutmadı); kilit yellow→blue; çözüm 11 / sınır 14 (v7 10); açgözlü kaybeder; bot48 0,04 (taban 0,04); zincir v13: yeni çözüm 9 (eski 11), sınır 14→16, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 872 + tür exact; şekil dikdörtgen; çözüm 9 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: daily_d015_t8
 title: Günlük 15
-moves: 16
+moves: 9
 roll: on
 specials: on
-paint: 1
-type: order
+type: exact
 rules: exact
-goals: blue 61, yellow 46, coral 50, envelope 2
+goals: navy 24, yellow 34, blue 24
 grid:
-byyb  byyb  yyyc  ycyc  ycyc  cccc  cpcc
-pypc  pcpb  ycpbLy3 cccb  pcyb  cccb  cccb
-cypc  cyby  bcbc  bcbbEb pcyb  cccb  cbcb
-bcpy  bcby  bcbp  bcbp  cpyb  cbyb  cbpb
-cbbp  bbyy  bbyp  bybp  cpbb  ypyc  ypbb
-cccy  bbcy  bbyp  bybp  yybp  yybc  yybb
-#     #     cccy  cybpEp yybp  #     #
-#     #     cbyb  cbbb  pcbbLy5 #     #
-#     #     cyyp  bbyy  ypcp  #     #
-solution: 2,3 ; 1,2 ; 0,0 ; use 0,2,0 ; 0,1 ; 3,0 ; use 0,2,2 ; 0,0 ; use 0,0,0 ; use 0,3,0 ; use 0,0,0 ; 0,2 ; 4,1 ; 4,3 ; use 0,5,4
+ycgc  ncpp  ccpc  cccpR ygpc  cgpb  ccpc  ccpc
+ycgc  nngg  ccbg  ccbc  ypcpR gygb  cppb  bppc
+nppb  nncg  nncg  npgc  cpgy  cpgg  bpcg  bbcg
+bbpp  gnpy  gbgy  nbby  ngcy  cpypR bpcy  bbpy
+pbnp  ggny  gggy  cngn  cgcy  ycpy  bcpy  bypy
+pyyb  ppnb  ppyn  cnyn  ygcp  yccg  ygcy  bncp
+pyyb  ppyg  ypyg  ygyn  ygbp  ycbg  ygby  gncp
+pnbb  pnnp  pcnp  ycnn  ygyn  ygyn  ygbc  gncp
+ynbp  ycbp  ycnb  ycnb  ycyn  cbcn  cbcc  gbcc
+solution: rot 5,3 ; 4,2 ; roll 7 ; use 0,5,0 ; 1,4 ; 5,3 ; use 0,7,4 ; 4,3 ; use 0,7,0 ; roll 8 ; use 0,3,3 ; 5,5 ; 6,5 ; use 0,3,3

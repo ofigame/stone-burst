@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 8 hamle + 4 tepsi / limit 12 (pay +4, eski 14) hedef×1,13 bot 0,21 (hedef 0,27) plan 2; zincir v13: yeni çözüm 7 (eski 8), sınır 12→13, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L; çözüm 12 + 9 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_521
-title: Bölüm 521
-moves: 13
+moves: 12
 roll: off
 specials: on
-goals: purple 52, yellow 33
+goals: coral 45, blue 26, yellow 51
 grid:
-#     #     #     #     ypc   ypcK1:1 ypc
-#     #     #     ypc   ybc   ypc   ypcc
-#     #     ycc   ybc   bbcp  bcc   bpc
-#     pccc  pcc   ybpp  cbbp  bcc   ccc
-ybp   pbpc  ycpc  ypb   ypp   bcc   cycy
-ybpy  ybpc  ypc   ypb   ypbp  bcc   bcp
-bbpc  bbp   ypc   ypp   ycbc  bccy  yypy
-cbpcK1:1 bpp   yppc  pppc  pcbc  pycc  pyp
-cbp   bbp   yppy  ppy   pycp  yyc   pcpy
-solution: 4,2 ; use 0,6,0 ; 4,0 ; use 0,3,2 ; 1,6 ; use 0,6,0 ; 4,2 ; 5,2 ; use 0,6,0 ; 0,4 ; 0,6 ; use 0,1,4
+bpyp  bpyp  cyyc  cyyc  #     #     #
+cpyy  gpypK1:2 cybc  cybc  #     #     #
+cnyg  gnyn  cgcy  cgby  #     #     #
+cnyg  cnyg  cnby  cnby  #     #     #
+yyyc  gyyc  gbbc  bybbK1:2 cypc  cycn  yyny
+yycc  yycy  gcbc  bypb  bypc  nbyy  yynyK1:2
+npcy  pcyy  bcyb  bnyb  pnpc  nbyy  ngny
+ppcc  pppc  ggpb  gnyb  gncy  cbny  cgny
+pcgc  ccgc  gggy  gngy  yncy  cbby  cgby
+solution: 5,5 ; use 0,2,0 ; 2,4 ; 4,4 ; 0,4 ; use 0,2,1 ; 2,0 ; 0,5 ; 5,4 ; use 0,3,2 ; use 0,2,0 ; 3,7 ; use 1,2,0 ; 0,2 ; use 0,1,0 ; 1,0 ; 0,2 ; 0,2 ; use 2,1,2 ; use 1,6,4 ; use 0,0,2

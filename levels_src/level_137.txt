@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact] (yedek; istenen chain [chainOnly]); çözüm 9 / sınır 10 (v7 15); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 12 (eski 9), sınır 10→13, bot 13/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil kenar çentikleri; çözüm 9 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_137
-title: Doğru Renk
-moves: 13
+moves: 9
 roll: off
 specials: on
-type: exact
+type: resource
 rules: exact
-goals: purple 58, yellow 41
+goals: blue 33, purple 34, yellow 29
 grid:
-bcyp  byp   cbp   #     pcpy  cpb   ppbp
-bcyp  bcbp  bpp   #     cbby  bcb   pbb
-bcy   bpy   cbp   #     ypy   ypyy  pbby
-bpcLy8 bpp   byyp  cypb  cpp   bpyb  yby
-ypc   ppp   bpyy  pcbb  cybb  byb   ybb
-pcbc  ppcy  bpyy  cpy   yyy   cyyc  bbb
-pbbc  pbbc  pcb   ppy   yyyp  yyc   cyb
-yyc   ccbc  pcyc  ppcy  ypcp  cpp   cybp
-cpbc  pbpp  cpy   cpby  pyc   cpp   pbc
-solution: 2,4 ; 0,3 ; 0,0 ; use 0,4,0 ; 1,2 ; 5,0 ; use 0,4,0 ; use 0,4,2 ; 1,0 ; 5,5 ; 6,0 ; 5,5 ; 2,6 ; use 0,6,0 ; 5,3 ; 5,5 ; use 3,0,8 ; use 0,0,8
+yncy  ynbp  pybc  pnbc  pnc   pnc   #     ybcb
+byck1 yybp  pypc  bcy   bcyb  pny   bny   pnc
+bccy  ycy   bpp   bcpy  bcp   bypb  byyb  pnc
+bcc   ycy   ynb   ybpy  pyp   bypb  bncb  nncb
+ppnyk2 pcnk1 ynp   pbpc  pcnc  yppk2 nppb  nbc
+ypn   ppn   cpbc  cpnLy5 ncn   ncn   bcp   bbpn
+ypc   bncb  #     #     pybc  pcbc  ccnc  nbn
+bpb   bnb   #     #     nyyc  pcyc  ccy   cbnb
+solution: 5,2 ; 4,2 ; 3,1 ; use 1,2,0 ; 1,0 ; use 1,1,0 ; 2,3 ; 2,0 ; 0,5 ; use 2,0,0 ; 3,0 ; use 3,2,0 ; 6,1 ; use 0,7,0

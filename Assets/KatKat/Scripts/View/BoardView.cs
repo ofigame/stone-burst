@@ -83,7 +83,13 @@ namespace KatKat.View
             for (int i = 0; i < needed; i++) _inShape[i] = state.Board[i].Active || state.Board[i].GateId > 0;
             Layout(worldArea);
             Sync(state);
+            if (_hazards == null && state.Hazard != null) _hazards = HazardView.Attach(this);
+            _hazards?.Begin(state);
         }
+
+        /// <summary>Konsept pilotu: tehdit katmanı (tehditli bölümde ilk kurulumda eklenir).</summary>
+        private HazardView _hazards;
+        public HazardView Hazards => _hazards;
 
         /// <summary>Hücre ızgarası ile tepsi kenarı arası ve çerçeve borusu (hücre adımı oranı).</summary>
         public const float TrayPad = 0.075f, FrameTube = 0.12f;
@@ -586,6 +592,7 @@ namespace KatKat.View
                 s.transform.localRotation = Quaternion.identity;
                 s.transform.localScale = Vector3.one;
             }
+            _hazards?.Show(state);
         }
 
         /// <summary>Döner taban düğmesi isabeti (düğme çevresinde ~0.26 adım). Hücre dokunuşundan önce denetlenir.</summary>

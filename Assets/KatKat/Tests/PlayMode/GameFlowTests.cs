@@ -58,6 +58,75 @@ namespace KatKat.Tests
             }
         }
 
+        // ---- v14 (2026-11-16): bölümler yeniden üretildi; sabit koordinat yerine kayıtlı çözüm ve motor araması ----------------
+
+        /// <summary>Bölümün kayıtlı çözümünün ilk adımı (geçerli, kazandırmayan bir dokunuş).</summary>
+        private Command FirstStep(int index) => LevelLoader.ToCommand(_gc.Catalog.Levels[index].Solution[0]);
+
+        /// <summary>
+        /// Hamle israf eden oyun: her adımda hedefi en az ilerleten küçük grubu (özel taş doğurmayan, kazandırmayan) soyar; hamle
+        /// bitince LostOutOfMoves. Tepside taş kalırsa oyun sürer, o yüzden yol tepsisiz bitmeli. Döner: dokunuşlar ya da null.
+        /// </summary>
+        private static List<Command> WastePath(LevelData d)
+        {
+            var s = LevelLoader.ToState(d);
+            var path = new List<Command>();
+            for (int guard = 0; guard < 40 && !s.IsTerminal; guard++)
+            {
+                Command? pick = null;
+                int best = int.MaxValue;
+                foreach (var comp in GroupFinder.AllComponents(s.Board))
+                {
+                    if (comp.Count < GroupFinder.MinGroup || comp.Count >= RulesEngine.RocketGroupSize) continue;
+                    var c = Command.Tap(s.Board.X(comp[0]), s.Board.Y(comp[0]));
+                    var p = s.Clone();
+                    if (!RulesEngine.TryApply(p, c).Accepted || p.Status == GameStatus.Won || p.Status == GameStatus.LostProtected || p.Status == GameStatus.LostNoLegalMoves) continue;
+                    int progress = p.Goals.Sum(g => g.DisplayProgress);
+                    if (progress < best) { best = progress; pick = c; }
+                }
+                if (pick == null) return null;
+                RulesEngine.TryApply(s, pick.Value);
+                path.Add(pick.Value);
+            }
+            return s.Status == GameStatus.LostOutOfMoves && s.Tray.Count == 0 ? path : null;
+        }
+
+        /// <summary>İsrafla kısa yoldan kaybedilen ilk normal bölüm (turlu 1–3 ve kural kartlı tür bölümleri hariç; kalpsiz 1–20).</summary>
+        private int LossLevel(out List<Command> path)
+        {
+            for (int i = 3; i < 20; i++)
+            {
+                var d = _gc.Catalog.Levels[i];
+                if (!string.IsNullOrEmpty(d.TrialType)) continue;
+                path = WastePath(d);
+                if (path != null && path.Count <= 12) return i;
+            }
+            Assert.Fail("israfla kaybedilen kısa bölüm bulunamadı (4–20)");
+            path = null;
+            return -1;
+        }
+
+        /// <summary>Kaybettiren yolu oyuncu dokunuşu gibi oynar; son dokunuş hamleyi bitirir.</summary>
+        private IEnumerator PlayPath(List<Command> path)
+        {
+            foreach (var c in path)
+            {
+                _gc.OnCellPressed(c.X, c.Y);
+                yield return WaitStable();
+            }
+        }
+
+        /// <summary>Başlangıçta grubu 3'ten küçük (geçersiz dokunuş) seçilebilir bir hücre.</summary>
+        private (int x, int y) InvalidCell()
+        {
+            var b = _gc.Session.State.Board;
+            for (int y = 0; y < b.Height; y++)
+            for (int x = 0; x < b.Width; x++)
+                if (b[x, y].IsSelectable && GroupFinder.Component(b, x, y).Count < GroupFinder.MinGroup) return (x, y);
+            Assert.Fail("küçük grup yok");
+            return (-1, -1);
+        }
+
         /// <summary>
         /// Görsel v3 §6, V10/V12/V20: zafer kartındaki önizleme gerçek sonraki bölümün verisidir; DEVAM'a hızlı iki
         /// basış tek bölüm yükler; son katalog bölümünde sahte önizleme yok.
@@ -212,9 +281,9 @@ namespace KatKat.Tests
         [UnityTest]
         public IEnumerator RapidTapsDuringAnimation_OnlyFirstCommandProcessed()
         {
-            _gc.StartLevel(2);
+            _gc.StartLevel(10);
             int moves = _gc.Session.State.MovesLeft;
-            _gc.OnCellPressed(0, 0);
+            var first = FirstStep(10); _gc.OnCellPressed(first.X, first.Y); // v14: 11. bölüm, öğretici dışı; ilk dokunuş özel taş doğurur
             for (int i = 0; i < 6; i++) _gc.OnCellPressed(i % 4, 3);
             yield return null;
             _gc.OnCellPressed(2, 3);
@@ -225,7 +294,7 @@ namespace KatKat.Tests
         }
 
         /// <summary>
-        /// v11 özel güç simgeleri: bölüm 6'nın kayıtlı çözümüyle özel taş normal yoldan oluşur, tepsiye gelir (yeni
+        /// v11 özel güç simgeleri: bölüm 2'nin (v14 roket turu) kayıtlı çözümüyle özel taş normal yoldan oluşur, tepsiye gelir (yeni
         /// PNG, döndürülmeden), yuva seçilince hedefleme, tahtada çalışır; geri alma tepsiyi geri getirir. Roket
         /// ateşlenince simge ikiye bölünür (iki "RocketHalf"). Kurallar motor testlerinde (SpecialRulesTests).
         /// </summary>
@@ -233,11 +302,11 @@ namespace KatKat.Tests
         public IEnumerator V11_Special_CreatedToTray_Targeted_Used_Undone_WithNewIcons()
         {
             Assert.IsTrue(KatKat.View.SpecialArt.HasV11, "v11 simgeleri yüklü");
-            _gc.StartLevel(5);
+            _gc.StartLevel(1); // v14: 2. bölüm ilk dokunuşta roket doğurur, ikinci adımda tepsiden kullanır
             _gc.Board.Director.TimeScale = Speed;
             var sol = _gc.CurrentLevel.Solution;
             int useAt = sol.FindIndex(s => s.Type == "use");
-            Assert.GreaterOrEqual(useAt, 1, "bölüm 6 çözümünde tepsi kullanımı var");
+            Assert.AreEqual(1, useAt, "bölüm 2 çözümünün ikinci adımı tepsi kullanımı");
             for (int i = 0; i < useAt; i++) { _gc.PlayStep(sol[i]); yield return WaitStable(); }
 
             var tray = _gc.Session.State.Tray;
@@ -311,7 +380,7 @@ namespace KatKat.Tests
         {
             _gc.StartLevel(2);
             var before = _gc.Session.State.Clone();
-            _gc.OnCellPressed(0, 0); // kazandırmayan hamle (zafer sonrası geri alma kapalıdır)
+            var first = FirstStep(2); _gc.OnCellPressed(first.X, first.Y); // kazandırmayan hamle (zafer sonrası geri alma kapalıdır)
             yield return WaitStable();
             Assert.IsFalse(_gc.Session.State.ContentEquals(before));
             _gc.Undo();
@@ -325,12 +394,9 @@ namespace KatKat.Tests
         [UnityTest]
         public IEnumerator LossCard_AdNoFill_CardStaysUsable()
         {
-            _gc.StartLevel(3);
-            _gc.OnCellPressed(0, 0);
-            yield return WaitStable();
-            var next = LevelSolver.Moves(_gc.Session.State);
-            _gc.OnCellPressed(next[0].X, next[0].Y);
-            yield return WaitStable();
+            int lossAt = LossLevel(out var lossPath); // v14: israfla kaybedilen kısa bölüm (eski 4. bölüm "Hangisi Önce?" yerine)
+            _gc.StartLevel(lossAt);
+            yield return PlayPath(lossPath);
             Assert.AreEqual(GameStatus.LostOutOfMoves, _gc.Session.State.Status);
             Assert.IsTrue(_gc.ExtraMovesOffered);
             yield return new WaitForSeconds(1f); // kart açılış animasyonu
@@ -357,13 +423,10 @@ namespace KatKat.Tests
         [UnityTest]
         public IEnumerator V12_LossCard_AdExtraMoves_OncePerLevel_NotCountedInZpe()
         {
-            _gc.StartLevel(3);
+            int lossAt = LossLevel(out var lossPath); // v14: israfla kaybedilen kısa bölüm (eski 4. bölüm "Hangisi Önce?" yerine)
+            _gc.StartLevel(lossAt);
             int zpeGamesBefore = /* ZPE v3: kayıtlar geçmiş listesinde; zpeGames v2 toplamıyla dondu */ (_gc.SaveService.Data.meta.zpeHistory?.Count ?? 0);
-            _gc.OnCellPressed(0, 0);
-            yield return WaitStable();
-            var next = LevelSolver.Moves(_gc.Session.State);
-            _gc.OnCellPressed(next[0].X, next[0].Y);
-            yield return WaitStable();
+            yield return PlayPath(lossPath);
             Assert.AreEqual(GameStatus.LostOutOfMoves, _gc.Session.State.Status);
             Assert.IsTrue(_gc.ExtraMovesOffered, "kayıp kartında reklam teklifi (+1 hamle ve 1 taş)");
             Assert.AreEqual(zpeGamesBefore + 1, (_gc.SaveService.Data.meta.zpeHistory?.Count ?? 0), "kayıp ZPE'ye yazıldı");
@@ -525,17 +588,14 @@ namespace KatKat.Tests
             try
             {
                 // Kayıp: level_end success=0.
-                _gc.StartLevel(3);
+                int lossAt = LossLevel(out var lossPath); // v14: israfla kaybedilen kısa bölüm (eski 4. bölüm "Hangisi Önce?" yerine)
+                _gc.StartLevel(lossAt);
                 Assert.AreEqual(1, sink.Count("level_start"));
-                Assert.AreEqual(4, sink.Last("level_start")["level_number"]);
-                _gc.OnCellPressed(0, 0);
-                yield return WaitStable();
-                var next = LevelSolver.Moves(_gc.Session.State);
-                _gc.OnCellPressed(next[0].X, next[0].Y);
-                yield return WaitStable();
+                Assert.AreEqual(lossAt + 1, sink.Last("level_start")["level_number"]);
+                yield return PlayPath(lossPath);
                 Assert.AreEqual(GameStatus.LostOutOfMoves, _gc.Session.State.Status);
                 Assert.AreEqual(0, sink.Last("level_end")["success"]);
-                Assert.AreEqual(4, sink.Last("level_end")["level_number"]);
+                Assert.AreEqual(lossAt + 1, sink.Last("level_end")["level_number"]);
 
                 // Kazanım: oyunu tanımış oyuncu (20 bölüm bitmiş), öğreticisiz bölüm 3.
                 for (int i = 0; i < 20; i++) _gc.SaveService.MarkCompleted(_gc.Catalog.IdAt(i), i, _gc.Catalog.Count);
@@ -709,13 +769,9 @@ namespace KatKat.Tests
         [UnityTest]
         public IEnumerator WrongChoice_LosesOutOfMoves_ThenUndoFromLossScreen()
         {
-            _gc.StartLevel(3); // "Hangisi Önce?": mavi grubu önce soymak kaybettirir.
-            _gc.OnCellPressed(0, 0);
-            yield return WaitStable();
-            var next = LevelSolver.Moves(_gc.Session.State);
-            Assert.IsNotEmpty(next);
-            _gc.OnCellPressed(next[0].X, next[0].Y);
-            yield return WaitStable();
+            int lossAt = LossLevel(out var lossPath); // v14: israfla kaybedilen kısa bölüm (eski 4. bölüm "Hangisi Önce?" yerine)
+            _gc.StartLevel(lossAt);
+            yield return PlayPath(lossPath);
             Assert.AreEqual(GameStatus.LostOutOfMoves, _gc.Session.State.Status);
             Assert.IsTrue(_gc.Hud.PanelOpen);
             _gc.Undo();
@@ -730,7 +786,8 @@ namespace KatKat.Tests
         {
             _gc.StartLevel(3);
             int moves = _gc.Session.State.MovesLeft;
-            _gc.OnCellPressed(0, 3); // iki mavi: geçersiz
+            var (ix, iy) = InvalidCell(); // v14: grubu 3'ten küçük hücre (eski sabit "iki mavi" yerine)
+            _gc.OnCellPressed(ix, iy);
             yield return null;
             Assert.AreEqual(moves, _gc.Session.State.MovesLeft);
             Assert.AreEqual(GameController.Phase.Idle, _gc.CurrentPhase);
@@ -739,15 +796,16 @@ namespace KatKat.Tests
         [UnityTest]
         public IEnumerator InterruptedAnimation_RedrawsFromLogicalState()
         {
-            _gc.StartLevel(1);
-            _gc.OnCellPressed(0, 0);
-            yield return new WaitForSecondsRealtime(0.2f);
+            _gc.StartLevel(10);
+            var first = FirstStep(10); _gc.OnCellPressed(first.X, first.Y); // v14: 11. bölüm (öğretici dışı), özel taş doğuran ilk dokunuş
+            // v14: zincirsiz tek dalga batch kipinde bir karede bitebiliyor; animasyon dokunuşla aynı karede kesilir (eski 0,2 sn bekleme).
             Assert.AreEqual(GameController.Phase.Animating, _gc.CurrentPhase);
             _gc.Board.CompleteImmediately();
             if (_gc.IsCelebrating) _gc.SkipCelebration();
             Assert.AreNotEqual(GameController.Phase.Animating, _gc.CurrentPhase);
             Assert.IsFalse(_gc.Board.IsPlaying);
             AssertViewMatchesState();
+            yield return null;
         }
 
         /// <summary>Bir komutu oyuncu girdisi gibi uygular (tepsi: yuva → hücre; boya ve rulo: PlayStep).</summary>

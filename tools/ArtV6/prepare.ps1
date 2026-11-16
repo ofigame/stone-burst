@@ -1,9 +1,12 @@
 # docs/v6 renkli görsellerini oyuna hazırlar → Assets/KatKat/Resources/PremiumV6/
-#   stones.png   : 1024 atlas, 2x2 hücre (512), her taş 496 px + 8 px şeffaf pay (mip taşmasın).
-#                  Hücre sırası LayerPalette.IconCell ile aynı (UV, y yukarı): mercan(0,0) turkuaz(1,0) inci(0,1) mor(1,1).
+#   stones.png   : 2048x1024 atlas, 4x2 hücre (512), her taş 496 px + 8 px şeffaf pay (mip taşmasın).
+#                  Hücre sırası LayerPalette.IconCell ile aynı (UV, y yukarı): mercan(0,0) turkuaz(1,0) inci(0,1) mor(1,1),
+#                  yeşil yaprak(2,0) lacivert yıldız(3,0); (2,1)/(3,1) boş. İlk dört hücre eski 1024 atlasla piksel piksel aynı.
 #   ice-solid/ice-cracked : buzun gövdesi yarı saydam yapılır (taş rengi alttan okunsun), parlak kenar opak kalır.
 #   gold-roll, sponge-ring, envelope, clip : görünen sınıra kırpılır.
-# Kullanım: powershell -File tools/ArtV6/prepare.ps1
+# Kullanım: powershell -File tools/ArtV6/prepare.ps1            (hepsi)
+#           powershell -File tools/ArtV6/prepare.ps1 -StonesOnly (yalnız taş atlası; diğer varlıklara dokunmaz)
+param([switch]$StonesOnly)
 $ErrorActionPreference = 'Stop'
 $root = Resolve-Path (Join-Path $PSScriptRoot '..\..')
 $src = Join-Path $root 'docs\gorseller'
@@ -41,16 +44,20 @@ public static class ArtV6
         }
     }
 
-    public static void Atlas(string[] paths, int x, int y, int w, string outPath)
+    public static void Atlas(string[] paths, int[] crops, string outPath)
     {
-        // paths: mercan, turkuaz, inci, mor. Görüntü koordinatı (y aşağı): mercan sol alt, turkuaz sağ alt, inci sol üst, mor sağ üst.
-        var b = new Bitmap(1024, 1024, PixelFormat.Format32bppArgb);
+        // paths: mercan, turkuaz, inci, mor, yeşil, lacivert. crops: her taş için kaynak kare (x, y, kenar), görünen sınır.
+        // Hücre (UV, y yukarı) = LayerPalette.IconCell: 2x2 bloklar, i → ((i/4)*2 + i%2, (i/2)%2).
+        // Görüntü koordinatı (y aşağı): UV satırı 0 alt yarı (y 512), satır 1 üst yarı (y 0).
+        var b = new Bitmap(2048, 1024, PixelFormat.Format32bppArgb);
         using (var g = Graphics.FromImage(b))
         {
             g.Clear(Color.Transparent);
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < paths.Length; i++)
             {
-                int cx = (i % 2) * 512, cy = (i / 2 == 0) ? 512 : 0;
+                int col = (i / 4) * 2 + i % 2, row = (i / 2) % 2;
+                int cx = col * 512, cy = row == 0 ? 512 : 0;
+                int x = crops[i * 3], y = crops[i * 3 + 1], w = crops[i * 3 + 2];
                 using (var s = new Bitmap(paths[i])) Draw(g, s, new Rectangle(x, y, w, w), new Rectangle(cx + 8, cy + 8, 496, 496));
             }
         }
@@ -407,8 +414,12 @@ public static class ArtV6
 $stoneDir = Join-Path $src 'taslar'
 $mechDir = Join-Path $src 'mekanikler'
 Write-Host "tas kaynagi: $stoneDir"
-$stones = '01-mercan-daire','02-turkuaz-ucgen','03-inci-dalga','04-mor-elmas' | ForEach-Object { Join-Path $stoneDir "$_.png" }
-[ArtV6]::Atlas($stones, 96, 96, 833, (Join-Path $dst 'stones.png'))
+$stones = '01-mercan-daire','02-turkuaz-ucgen','03-inci-dalga','04-mor-elmas','05-yesil-yaprak','06-mavi-yildiz' | ForEach-Object { Join-Path $stoneDir "$_.png" }
+# Kırpım = görünen sınır (alfa > 24). 01-04: 1024 px kaynak, sınır 96..927. 05-06: 1254 px kaynak, sınır ~114..1139
+# (yeşil 1024x1024, lacivert 1026x1024; kare, sınırın ortasında). Böylece yeni taşlar hücrede eskilerle aynı boyda.
+$stoneCrops = [int[]]@(96,96,833, 96,96,833, 96,96,833, 96,96,833, 114,115,1025, 114,115,1026)
+[ArtV6]::Atlas([string[]]$stones, $stoneCrops, (Join-Path $dst 'stones.png'))
+if ($StonesOnly) { Write-Host 'yalniz tas atlasi uretildi (stones.png)'; return }
 
 foreach ($p in @(@('05-buz-saglam','ice-solid'), @('06-buz-catlak','ice-cracked'))) {
     $b = [ArtV6]::Crop((Join-Path $mechDir "$($p[0]).png"), 96, 96, 833, 833, 512, 512)

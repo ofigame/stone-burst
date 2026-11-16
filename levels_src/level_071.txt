@@ -1,17 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 5 hamle + 4 tepsi / limit 10 (pay +5, eski 10) hedef×1,42 bot 0,46 (hedef 0,52) plan 1; zincir v13: yeni çözüm 6 (eski 5), sınır 10→11, bot 12/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U; çözüm 8 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_071
-title: Buzlu Yıldız
-moves: 11
+moves: 10
 roll: off
 specials: on
-goals: blue 29, coral 47, star 2
+goals: yellow 40, coral 31, purple 35
 grid:
-#     #     #     #     bbc   bcc   ybc
-#     #     #     cby   cbc   cbc   bbc
-#     #     bcb   cby   cyy   cyp   byp
-#     bcb   bcb   bby   ccy   cyp   cyp
-ycc   ycc*  pcc   cpb   pbp   yyp   byc
-pcc   cpc   ybp   pyb*  cyp   ppy   pyy
-cpyi1 ycc   bcc   ppb   cpb   ycb   ccc
-ypci1 cpy   ccy   pyb   ccb   cpb   ycc
-solution: 3,1 ; 2,2 ; use 1,4,0 ; 5,2 ; 0,4 ; use 1,6,0 ; 2,4 ; 1,5 ; use 0,4,0 ; use 2,6,0 ; use 0,0,6
+ppcy  npc   bcc   #     #     pbb   pbby  ppn
+pcc   bcy   bcy   #     #     ppb   cbb   ypn
+ycc   ypcb  ypcb  cync  cyn   cbn   cbnn  ypny
+yyp   bpp   bycb  nybc  byb   bpb   ppnn  bbn
+nycb  bpp   byyy  nyyy  bpb   cpnb  pbnc  bbn
+npc   npcc  byc   pyb   bynp  cynb  pyyc  bcyc
+npyyi1 ppc   bycp  pbbp  pybp  cyy   yyy   ycnci2
+ppcy  ppc   bby   nbypi1 nbyp  ypn   ypnp  ypn
+solution: 0,5 ; use 0,1,0 ; 0,3 ; use 0,2,0 ; 2,2 ; use 0,0,0 ; 7,0 ; 4,5 ; use 0,0,0 ; 2,5 ; use 1,0,0 ; 0,2 ; 7,6 ; use 0,0,7 ; use 0,7,1

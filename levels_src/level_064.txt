@@ -1,17 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U (ayna); çözüm 5 hamle + 5 tepsi / limit 11 (pay +6, eski 11) hedef×1,25 bot 0,50 (hedef 0,48) plan 0; zincir v13: yeni çözüm 7 (eski 5), sınır 11→13, bot 19/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati; çözüm 7 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10
 id: level_064
-title: Buz Sırası
-moves: 13
+moves: 9
 roll: off
 specials: on
-goals: coral 38, purple 31
+goals: yellow 37, green 18, star 2
 grid:
-pbc   pby   pby   #     pyy   pyc   bpc
-pbc   pby   bby   #     yyy   cbc   cpc
-pyyi2 pyb   pbc   ycc   yyc   cpc   bpc
-pyci2 pbb   ycy   pbc   yyc   cyc   byc
-pyb   ybb   pby   pby   cyc   ycpi1 bbp
-ccb   ycc   pbc   pbci1 ycp   ycp   ycp
-ycb   pbc   pbc   pyy   bby   ybb   pbb
-ycb   ppc   pyc   pyy   ypy   ybb   ybbi1
-solution: 2,3 ; 5,0 ; use 0,0,0 ; 5,4 ; 1,2 ; 1,0 ; use 2,0,0 ; 3,6 ; use 0,0,7 ; 4,0 ; use 0,5,0
+ybp   pbb   ppbi1 nyy   bpy   bbb   gbp   ggp
+ybp   ygb   gpy   bpy   bpy   bpb   gbb*  ggbi1
+#     ygg   ypg   nnb   nnb   bng   ypg   #
+#     ygg   nnb   nnb   nnn   byg   bpg   #
+#     ypy   yny   bnb   byn   byn   pgn   #
+#     ppy   ppy   byb   ybn   pgb   pgy   #
+yyy   pgy   pgy   byp   ybp   ppb   ypy   ynn
+pyy   ppy   bpy*  bbp   bby   bby   yby   ynn
+solution: 1,4 ; use 0,1,2 ; 1,4 ; use 0,1,0 ; 3,5 ; use 0,1,1 ; 3,0 ; 3,2 ; 4,0 ; use 0,3,0 ; 4,0 ; use 0,2,1 ; use 1,4,5

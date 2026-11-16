@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 4 hamle + 3 tepsi / limit 8 (pay +4, eski 12) hedef×0,94 bot 0,50 (hedef 0,40) plan 1; zincir v13: yeni çözüm 4 (eski 4), sınır 8→8, bot 40/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 9 + 8 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_211
-title: İki Mektup
-tutorial: İki zarf aynı mührü ister: ikisinin de yanında o rengi soy.
-moves: 8
+moves: 10
 roll: off
 specials: on
-goals: blue 43, coral 36, envelope 2
+goals: navy 48, green 43, envelope 3
 grid:
-yyy   cbb   ycb   pcc   ccc   ccb   cpc
-cpb   yyb   bbb   ycc   cybEc ypbEc cpc
-byy   yby   bby   byb   ccb   ccc   bpc
-#     cbb   byb   ccb   byp   bcc   #
-#     cyb   cyy   pyb   bcb   bbp   #
-#     cby   bpy   yyy   bby   pbp   #
-byp   pby   ppb   bby   ycb   cbc   bcc
-pyy   pcp   pbp   ycb   pcb   bcc   byc
-ppc   pcc   cyc   cbb   pyy   ybc   ccy
-solution: 3,2 ; 0,2 ; use 0,3,0 ; use 0,3,0 ; 4,4 ; 1,0 ; use 0,1,0
+cyng  cyng  pyng  pccn  cccn  bbcn  bbcn
+cpng  yynb  ppnp  pccn  cbbn  bbbg  bbcnEb
+ypng  ypcn  cpyp  ccyn  bbyn  nbbg  pbbg
+pyby  pycnEn bccn  bcpn  bnpn  nbng  nbnc
+cygp  cycp  ccgn  gcpy  gnng  cbng  pbng
+cggp  pggp  pcgy  gbny  gcny  ccny  cbng
+ycng  ygnpEc pcyp  nbyp  gbng  gcyg  gbnn
+ycpg  ynng  bpng  bpgy  gbgg  gbyg  bbbn
+gnpy  gnny  gnny  bpgy  cpgy  cbgn  bbbn
+solution: 5,1 ; 3,0 ; 3,7 ; use 2,0,6 ; 4,1 ; 0,7 ; 0,0 ; use 0,0,0 ; 0,4 ; use 0,0,4 ; 3,4 ; use 0,3,5 ; 3,5 ; use 0,0,5 ; use 1,3,0 ; use 0,4,0 ; use 0,4,3

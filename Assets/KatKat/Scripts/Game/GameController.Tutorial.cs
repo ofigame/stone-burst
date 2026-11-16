@@ -10,10 +10,10 @@ namespace KatKat.Game
     /// <summary>
     /// Öğretici turlar (kullanıcı: "tur şeklinde olsun, ilk bölümlerde oyuncuyu direkt yönlendirerek oynatsın; bölümler
     /// ilerledikçe yeni bir özellik gelmişse ona da öğretici koyalım; odak yer açık, diğer taraflar karartılmış").
-    ///   • Bölüm 1–3: kayıtlı çözüm adım adım gösterilir; oyuncu yalnızca gösterilen gruba dokunabilir.
-    ///   • Bölüm 1: ilk hamleden sonra hedef kartı ve hamle sayacı tanıtılır.
-    ///   • Bölüm 6/7/9/12: özel taş tepsisi (roket doğar → tepsi, kullanım iki adımda, Altın Rulo, biriktirme).
-    ///   • Her mekaniğin ilk çıktığı bölüm: o mekanikli ilk hücre açık, kısa açıklama.
+    ///   • Bölüm 1–3 (v14): kayıtlı çözüm adım adım gösterilir; oyuncu yalnızca gösterilen gruba dokunabilir.
+    ///   • Bölüm 1: dokun-soy ve katlar; ilk hamleden sonra hedef kartı ve hamle sayacı tanıtılır.
+    ///   • Bölüm 2: roket doğar → tepsi → kullanım iki adımda. Bölüm 3: Altın Rulo. Bölüm 8: biriktirme.
+    ///   • Her mekaniğin ilk çıktığı bölüm (v14 vitrini: 3–5): o mekanikli ilk hücre açık, kısa açıklama.
     /// Bilgi adımı ekrana dokununca geçer. Tur bölüm kazanılınca bir daha gösterilmez (PlayerPrefs).
     /// </summary>
     public sealed partial class GameController
@@ -88,39 +88,49 @@ namespace KatKat.Game
         private bool Configure(int index)
         {
             int all = int.MaxValue;
+            bool tour = true;
             switch (index)
             {
-                // 2026-11-09 (kullanıcı: "aynı şeyler için tekrar tekrar çıkmasın; ilk 2 bölümde tamamen öğretici
-                // oynatsın, sonra yeni birşey geldiğinde onu tanıtmak için çıksın"): 3. bölüm (plan) ve 7. bölüm
-                // (6. bölümün özel taş kullanımının tekrarı) yönlendirmesi kaldırıldı.
-                case 0: _guideUntil = all; _guideText[0] = "tut.l1.tap"; return true;
-                case 1: _guideUntil = all; _guideText[0] = "tut.l2.domino"; return true;
-                case 5: _guideUntil = all; _guideText[0] = "tut.l6.big"; return true;   // yeni: özel taş (roket) ve tepsi
-                case 8: _guideUntil = all; _guideText[0] = "tut.l9.big"; return true;   // yeni: Altın Rulo
-                case 11: _tourQueue.Add(new TourInfo { Key = "tut.save", Hole = () => _hud.TrayRect() }); return true; // yeni: biriktirme
+                // v14 (2026-11-16, docs/v14/PLAN.md "Ekran ve metin": "Öğretici turlar yeni bölümlere göre: 1 dokunuş; 2 roket ve
+                // tepsi; 3 Altın Rulo"). Zincir dersi (eski 2. bölüm, tut.l2.domino) kaldırıldı. Turlar kayıtlı çözümü adım adım
+                // yürütür: 2. bölümün çözümü ilk dokunuşta roket doğurup hemen tepsiden kullanır, 3. bölümünki Altın Rulo ile.
+                case 0: _guideUntil = all; _guideText[0] = "tut.l1.tap"; break;
+                case 1: _guideUntil = all; _guideText[0] = "tut.l6.big"; break;   // roket ve tepsi
+                case 2: _guideUntil = all; _guideText[0] = "tut.l9.big"; break;   // Altın Rulo
+                case 7: _tourQueue.Add(new TourInfo { Key = "tut.save", Hole = () => _hud.TrayRect() }); break; // biriktirme (ilk iki katlı gerçek bölüm)
+                default: tour = false; break;
             }
-            // Yeni mekanik: katalogdaki ilk bölümü bu mu?
-            string cap = NewCapability(index);
-            if (cap == null) return false;
-            var at = FirstMechanicCell(cap);
-            if (cap == "paint") _tourQueue.Add(new TourInfo { Key = "tut.mech.paint", Hole = () => _hud.PaintRect() });
-            else _tourQueue.Add(new TourInfo { Key = "tut.mech." + cap, Hole = at.HasValue ? () => CellsRect(new[] { at.Value }) : (Func<Rect?>)null });
-            return true;
+            // Yeni mekanikler: katalogda ilk kez bu bölümde görünenlerin hepsi (v14 vitrini 3–5. bölümlerde birden çok
+            // mekanik gösterir). Yönlendirmeli turda bilgi adımları yönlendirmeden önce gelir.
+            foreach (var cap in NewCapabilities(index))
+            {
+                var at = FirstMechanicCell(cap);
+                if (cap == "paint") _tourQueue.Add(new TourInfo { Key = "tut.mech.paint", Hole = () => _hud.PaintRect() });
+                else _tourQueue.Add(new TourInfo { Key = "tut.mech." + cap, Hole = at.HasValue ? () => CellsRect(new[] { at.Value }) : (Func<Rect?>)null });
+                tour = true;
+            }
+            return tour;
         }
 
         private static readonly string[] Mechanics = { "clip", "star", "ice", "colorLock", "envelope", "rotor", "sponge", "linkedClip", "gate", "paint" };
 
-        private string NewCapability(int index)
+        /// <summary>v14 vitrini (1–5. bölüm) bütün mekanikleri bir kez gösterir; takvimdeki gerçek tanıtım (ataç 21, yıldız 41…)
+        /// vitrinden sonraki ilk bölümde yeniden çıkar ("vitrinden sonra gerçek tanıtım", docs/v14/PLAN.md).</summary>
+        private const int ShowcaseLevels = 5;
+
+        private List<string> NewCapabilities(int index)
         {
-            if (_catalog == null || index < 0 || index >= _catalog.Count || _catalog.Levels[index] != _level) return null;
+            var list = new List<string>();
+            if (_catalog == null || index < 0 || index >= _catalog.Count || _catalog.Levels[index] != _level) return list;
+            int from = index >= ShowcaseLevels ? ShowcaseLevels : 0;
             foreach (var cap in Mechanics)
             {
                 if (!_level.Capabilities.Contains(cap)) continue;
                 bool earlier = false;
-                for (int i = 0; i < index && !earlier; i++) earlier = _catalog.Levels[i].Capabilities.Contains(cap);
-                if (!earlier) return cap;
+                for (int i = from; i < index && !earlier; i++) earlier = _catalog.Levels[i].Capabilities.Contains(cap);
+                if (!earlier) list.Add(cap);
             }
-            return null;
+            return list;
         }
 
         private Coord? FirstMechanicCell(string cap)
@@ -306,7 +316,7 @@ namespace KatKat.Game
                 _tourQueue.Add(new TourInfo { Key = "tut.goals", Hole = () => _hud.GoalsRect() });
                 _tourQueue.Add(new TourInfo { Key = "tut.moves", Hole = () => _hud.MovesRect() });
             }
-            if (r != null && r.SpecialCreated != SpecialKind.None && _tourSpecialSeen == 0 && (_levelIndex == 5 || _levelIndex == 8))
+            if (r != null && r.SpecialCreated != SpecialKind.None && _tourSpecialSeen == 0 && (_levelIndex == 1 || _levelIndex == 2)) // v14: roket turu 2., Altın Rulo turu 3. bölüm
             {
                 _tourSpecialSeen++;
                 string key = r.SpecialCreated == SpecialKind.Rainbow ? "tut.rainbow" : "tut.tray";

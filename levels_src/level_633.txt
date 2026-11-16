@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3 (kaydırılmış); çözüm 7 hamle + 4 tepsi / limit 11 (pay +4, eski 17) hedef×0,97 bot 0,17 (hedef 0,19) plan 2; zincir v13: yeni çözüm 11 (eski 7), sınır 11→15, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı (ayna); çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_633
-title: Bölüm 633
-moves: 15
+moves: 9
 roll: off
 specials: on
-goals: purple 20, yellow 43
+goals: blue 20, yellow 13, navy 29
 grid:
-yyyp  G1:yyyp G1:pby G1:pbcp G1:cbb G1:cbpb pcp
-yyyb  yby   ybc   cbc   cccb  cbbb  ppcy
-yyyb  #     #     cbyc  #     #     ccpy
-cbbb  #     #     pbyb  #     #     pcby
-cpb   #     #     bbc   #     #     ycb
-ypp   bypb  bpcb  cyby  bybB1 ycb   ycb
-yyby  byyy  bcy   byy   byc   byb   yyb
-bby   bbby  pccy  ppc   cpc   yyc   yccb
-byb   bbby  bcc   pcc   ypcb  ycc   yycb
-solution: 3,5 ; 6,4 ; 2,5 ; use 0,1,1 ; use 0,0,0 ; 0,1 ; 0,0 ; use 1,0,0 ; 2,7 ; 2,7 ; 6,0 ; use 1,6,0 ; 0,5 ; 4,0 ; 3,0 ; use 0,3,0
+#     #     ycpn  gggn  ngyn  #     #
+#     #     gcpc  gcgc  ncyn  #     #
+gpbg  npbg  npcg  gpbg  npbn  npbp  nnbp
+gpbp  nybp  bbcp  gbby  gbypk2 yggp  nngp
+npgy  nycp  bycn  nncy  yngp  yggp  pygp
+bnbn  bgpnk2 bgbn  nncnk1 ncgp  ncgpk1 pcgp
+bnbp  bnpp  bnbg  cncp  npcp  ncyp  pyygk1
+#     #     bnbg  cngn  nnyg  #     #
+#     #     bcbg  ccgnk1 cngn  #     #
+solution: 5,2 ; 5,3 ; use 0,2,0 ; 2,6 ; use 0,4,0 ; 2,4 ; 3,4 ; 0,2 ; use 2,0,2 ; use 0,2,0 ; 2,1 ; use 0,0,3 ; 2,3 ; use 1,1,2 ; use 0,2,2

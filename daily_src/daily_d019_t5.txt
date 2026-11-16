@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 5; reverse [exact] (sıradaki tür; protect tutmadı); çözüm 6 / sınır 9 (v7 9); açgözlü kaybeder; bot48 0,10 (taban 0,04); zincir v13: yeni çözüm 7 (eski 6), sınır 9→10, bot 23/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 363 + tür pure; şekil kenar çentikleri; çözüm 11 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: daily_d019_t5
 title: Günlük 19
-moves: 10
+moves: 11
 roll: on
-specials: on
-type: reverse
-rules: exact
-goals: purple 37, blue 61, coral 37, star 2, envelope 2
+type: pure
+rules: noSpecials, exact
+goals: purple 36, navy 37, yellow 25
 grid:
-cyyb  cyyp  cpyy  cbyy  cbyc  cbycEp bbbb  bcbb
-ccbb  bpbb  bpbp  cyby  pybp  bbyc  bbyb  bcybi1
-pbbb  bybb  ppby  ppby  pybp  bcccEb bccc  yybc
-#     pybb  pypb  pcpci1 pycb  bcpb  yccb  #
-#     pypb  bycb  bcyc  yycbi2 yccb  yccc  #
-#     ybcb  ybcc  ybyy  ycyy  pccy  pccy  #
-ybpy* cbpy  ccyy  ycyy  ycby  yyby* pycy  bbpb
-ybpy  cbpy  ccyy  cbyy  yyyy  yyby  bypy  bpbb
-byb   bpypi2 bpyy  bpyb  ypyb  ppyc  pbpci1 bpb
-solution: 3,5 ; 0,0 ; use 0,0,0 ; 4,3 ; use 1,0,0 ; use 0,0,0 ; 2,0 ; use 0,3,0 ; 4,0 ; use 0,1,1 ; roll 1 ; 7,6
+pynp  pyny  nnny  npyp  npnb  pnnb  nnnb  nnbp
+pnnp  pnyy  pnyy  bnyy  pnny  pnbp  nnnb  nnbp
+pnbp  pppn  pnyn  byyn  ppyy  pnbp  bynp  bynp
+ppbp  pppn  npby  pynb  pnyy  pnbp  ppbb  bpny
+bpnp  bpnp  bynb  yynb  pnny  pnny  ppnb  bbnp
+bppy  pnny  pypn  bynn  bbbn  bybn  yybp  bbnp
+pppb  pnpb  pypn  pbnn  bbnyR nbbn  #     #
+nypp  nnpb  nyyn  byyp  bppbR npbn  npyn  #
+bypp  nypp  npyp  bypnR bypp  npyp  npyp  npyy
+solution: rot 4,6 ; 1,0 ; roll 4 ; 1,2 ; 1,1 ; 7,0 ; roll 8 ; 0,0 ; roll 8 ; 0,0 ; roll 1

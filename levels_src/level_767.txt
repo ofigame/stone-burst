@@ -1,21 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: exact [exact]; çözüm 6 / sınır 9 (v7 10); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 7 (eski 6), sınır 9→12, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil çatı (ayna); çözüm 11 + 8 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_767
-title: Bölüm 767
-moves: 12
+moves: 11
 roll: off
 specials: on
-paint: 1
-type: exact
+paint: 2
+type: resource
 rules: exact
-goals: blue 49, coral 46, purple 37, sponge 1
+goals: purple 30, navy 30, coral 32
 grid:
-byyp  byyb  bcyc  ccpc  cypc  cypc  bbpy
-bcbp  bcbb  cpyb  yppc  cyyc  cppc  cpyc
-bcby  bcpb  ccpp  ybpp  cybc  cybb  cybb
-#     pcby  ccpp  ybpp  ybyc  bpbc  #
-#     ppcc  pbcy  yccp  ypyb  bpbb  #
-#     bybp  bycy  pycy  yypc  pppb  #
-ypby  ppbpScb pccy  bcyy  ccyb  ccpy  cbbp
-yppb  ppbc  bcby  bpyy  bcyb  bbcp  cycp
-ycpy  ycyc  bcpy  bcyy  bybp  bypp  bycp
-solution: 2,0 ; 2,4 ; use 0,0,0 ; use 0,1,0 ; 1,5 ; 4,5 ; 1,2 ; use 1,1,1 ; 0,0 ; use 2,6,0 ; 2,0 ; use 2,2,0 ; use 0,6,0
+#     #     #     pcyb  ngyp  #     #     #
+#     ngnp  pyyp  pyyb  ngyb  ngyb  npyg  #
+cngc  ngyp  nyyp  pyyb  nnyb  gncb  gncg  ybcp
+nngb  bgbb  bcyb  gnnc  gnnc  gnnp  ypnp  ybyp
+nbcy  nccy  bccc  bnyc  gnnp  gpyn  ypyn  ccyg
+pbyg  nccg  ncbp  ncbp  pcnp  gygn  cccn  cccg
+pbbb  pbby  pbbc  pcbg  ycpcR yygn  yggg  gygg
+ccbb  ccby  pcpc  pcpb  ypyb  yypgR gggc  byng
+ccnp  ccnp  cppc  yppc  ypyb  yygp  bgng  byng
+solution: rot 4,6 ; paint 4,3,p ; 7,2 ; 4,3 ; 7,4 ; use 0,0,2 ; use 0,4,0 ; use 0,1,1 ; 3,7 ; 6,3 ; 3,7 ; use 0,2,4 ; 3,0 ; 3,0 ; use 2,3,0 ; use 0,0,2 ; 4,0 ; use 1,4,0 ; use 0,2,1

@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: reverse [exact]; çözüm 6 / sınır 7 (v7 11); açgözlü kaybeder; bot48 0,06 (taban 0,06); bot 0,00; adillik onarımı: sınır 7→8 (112 oyunda 10 galibiyet); zincir v13: yeni çözüm 7 (eski 6), sınır 8→9, bot 24/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil kenar çentikleri; çözüm 9 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_488
-title: Bölüm 488
 moves: 9
 roll: off
 specials: on
-type: reverse
+type: order
 rules: exact
-goals: coral 31, purple 36, yellow 41, sponge 2
+goals: navy 29, yellow 23, coral 25
 grid:
-cbpb  cbcb  cpcc  #     #     #     #
-pbpy  bbyb  bbcc  cpbb  #     #     #
-ycyy  bbyy  bbyc  pybc  pybb  #     #
-yyby  byyp  ycpc  ycpp  yppp  ypcb  #
-yyby  pyyp  yyyp  yycpScb yyyp  ypcb  bycb
-yyby  pyyp  cyyc  cpyp  ppyp  ybcb  ybyb
-cyyy  cypc  ccpc  pppp  ppcp  ppbb  ppbb
-cyyb  ycyb  yccb  ppcb  ppcy  ypby  ypbyScby
-ycyb  ycyp  yccb  pccb  ppyy  ppyy  ypyb
-solution: 0,7 ; 3,3 ; use 1,2,0 ; 1,3 ; use 1,0,1 ; 5,3 ; use 1,2,0 ; use 0,0,4 ; 4,5 ; use 0,6,4 ; 5,7 ; 4,7
+ypnp  gpcp  #     bnng  bnnb  #     bcyc  cbyc
+ybnp  ybnb  #     ybpgk2 ynng  #     bcyc  pbnc
+ypnn  pbgy  bbpy  bbpy  pnnc  pcnp  pcyp  pbcnLg4
+gpgn  ppgn  bbpg  bgpg  bgyg  bbcn  pbcnk2 pbcn
+#     cgbg  bgyg  bgpn  bgyg  pbyb  pbcb  #
+#     ycbg  ygcg  ygcn  bgcn  ygcb  ygcy  #
+nynp  bpgp  gpcp  ygbn  yggnk1 nycck1 ngcyk1 nnpb
+bygc  bpgg  gnyg  ygbg  ngbnLg4 nncc  nncy  pnpb
+bygc  #     ypygk1 ypbc  ngbc  nnby  #     pnpb
+solution: 2,3 ; 5,4 ; use 0,6,0 ; 7,1 ; use 0,6,0 ; 6,5 ; 3,4 ; 0,7 ; use 1,7,0 ; 6,0 ; use 1,0,1 ; 0,1 ; use 0,4,0 ; 4,5 ; use 0,4,0 ; use 0,5,2 ; use 0,6,0

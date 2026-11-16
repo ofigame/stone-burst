@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 11 hamle + 5 tepsi / limit 14 (pay +3, eski 9) hedef×1,44 bot 0,42 (hedef 0,36) plan 0; zincir v13: yeni çözüm 8 (eski 11), sınır 14→15, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 9, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 10 + 9 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_203
-title: İnci Mühür
-moves: 9
+moves: 11
 roll: off
 specials: on
-goals: blue 27, coral 40, envelope 1
+goals: coral 42, green 41, purple 35
 grid:
-#     #     bcb   byb   byp   #     #
-#     cbb   pcp   yyc   pcp   pcp   #
-cyy   cbc   bcc   pcc   cpp   bpp   ppp
-bcb   yyy   cyc   cyc   cyy   ppc   ppc
-cyy   cyc   pyc   cbp   ybp   ycc   ppp
-cyy   pby   ypc   ypp   ybb   pcp   pcp
-ppy   pbcEy ppc   cpp   bpb   bcp   pcp
-#     pbc   pbc   ypc   bpb   bbc   #
-#     #     bcb   yyc   byc   #     #
-solution: 3,1 ; 2,4 ; 0,4 ; use 0,2,0 ; 6,4 ; use 0,2,0 ; use 1,2,0 ; 4,0 ; 4,2 ; use 0,5,1 ; use 0,1,1
+ncpy  ncpy  nnpc  nnbc  bpbc  bgbn  bgyy  bpyy
+pnny  pcnb  nnpg  ngnb  bynb  yynn  ypgc  bpgc
+pnyg  pyyb  nyng  ngng  nybb  nygb  nbgc  gbgy
+cnyg  bnbg  bcbg  gcyg  nnbni1 ngbn  nbgc  nbgy
+cbnci2 cbbg  nnny  gcpg  gcpy  ngpc  ncgc  pbny
+#     cbbc  nnny  nccy  bccy  npcp  ncnp  ppnb
+ngpy  ncby  ncbb  nycc  bgcc  bgcp  bppp  bpnbi1
+ggcy  ngcy  ngcy  gygy  ggcc  ggpc  bppc  gppc
+gpcy  gpcy  #     cygy  gpcy  #     bpbc  gpbc
+solution: 2,1 ; use 0,0,0 ; 3,5 ; use 0,2,0 ; 3,4 ; 6,1 ; use 0,0,0 ; 0,6 ; 1,1 ; 2,0 ; use 0,0,0 ; 3,0 ; use 0,3,2 ; use 0,4,0 ; 6,2 ; 7,4 ; use 0,0,0 ; use 0,0,1 ; use 0,7,5

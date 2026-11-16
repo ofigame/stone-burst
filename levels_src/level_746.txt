@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U; çözüm 9 hamle + 5 tepsi / limit 12 (pay +3, eski 14) hedef×1,14 bot 0,21 (hedef 0,17) plan 1; zincir v13: yeni çözüm 7 (eski 9), sınır 12→10, bot 21/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven; çözüm 13 + 8 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_746
-title: Bölüm 746
-moves: 10
+moves: 14
 roll: off
 specials: on
-paint: 1
-goals: yellow 35, blue 61, coral 60, envelope 2, sponge 1
+goals: navy 22, blue 34, coral 32, star 4
 grid:
-bppy  bcpyScb ccpc  #     pcbc  pcpc  pcpc
-bppy  bpcb  ccpc  #     bcpy  ycpp  ycpp
-pbcy  ybcb  bccb  #     bcbb  ccbb  cbpc
-ybcy  ybcb  ppyb  ybbb  ybbb  pbbc  cbbc
-ybcy  pbcb  ppyb  ybbb  ybbb  pbbc  pybc
-yccc  cbcb  cbyb  ccyb  bcyp  pcbp  bpbp
-ybcc  ccpc  ccpp  ccyc  ycyp  pppp  bppp
-bbcc  bbccEb ccyb  ccyb  ycpb  yppb  pcpb
-bbcc  cbcbEy cbyc  ccyc  ccyp  pcyp  pcyp
-solution: paint 3,6,b ; 1,1 ; 4,5 ; use 0,2,0 ; use 0,0,0 ; 5,0 ; 4,2 ; use 1,1,0 ; 4,0 ; 0,0 ; use 0,0,0 ; use 0,0,5
+ybyg  ycbg  bcyy  bpyy  #     #     #     #
+gbpb  ycbc  bcbc  bpby  cybn  #     #     #
+pbpb  ycgp  ycbp  bgyn* cgyn  bpyn* #     #
+pcpb  pcgy  pnby  cgyn  cgnn  bpnn  bnny  #
+cppb  npny  nnby  nbpy  bbbn  bbcy  bnny* cyng
+cpnbLp6 npng  nyyg  nbpg  cnbg  cncy  ynpb  yynb
+ypcb  npyb  cyyb  cbyb  cnypLg6 cynp  cpcb  yycb
+ypcb  bpyc  cpyg  cpyg  cypy  cypy  cpcb  yycb
+yggp* bggp  cggb  cygg  cypy  nycn  cpcn  cycb
+solution: 6,3 ; 4,1 ; 2,0 ; use 0,0,1 ; use 0,2,3 ; 0,1 ; use 0,1,1 ; 6,3 ; 3,2 ; 0,1 ; 6,5 ; use 1,5,2 ; use 0,0,2 ; 0,6 ; 2,7 ; 0,6 ; 1,6 ; use 1,1,1 ; 0,8 ; use 0,0,8 ; use 0,3,8

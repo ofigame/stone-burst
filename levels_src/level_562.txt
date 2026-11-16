@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven (ayna); çözüm 6 hamle + 5 tepsi / limit 9 (pay +3, eski 11) hedef×1,14 bot 0,38 (hedef 0,26) plan 0; zincir v13: yeni çözüm 6 (eski 6), sınır 9→9, bot 18/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 9 + 8 tepsi / sınır 10; rastgele 0,030; açgözlü kaybeder; yumuşak 0,00
 id: level_562
-title: Bölüm 562
-moves: 9
+moves: 10
 roll: off
 specials: on
-goals: yellow 38, blue 35
+goals: purple 30, blue 30, navy 31, star 3
 grid:
-#     #     #     #     bpc   byc   byc
-#     #     #     cyyc  cyc   bycb  bycb
-#     #     cycc  cpy   cyyp  byypK1:2 cyy
-#     byyc  cyc   ppp   pypp  pypp  ccp
-pby   pyyc  cpyb  cppb  pcp   pbp   ccpp
-pyb   pybc  cyb   cbpb  cbpb  cbyb  cbpK1:2
-yyb   ppb   ppb   ypp   ycp   ycb   ybbp
-ybcc  pbcc  ppcc  cpp   ypp   yypp  bybp
-pbc   pbp   pbpc  cbpc  cbpc  byp   bybp
-solution: 2,2 ; 4,2 ; 2,4 ; 5,2 ; use 1,3,2 ; use 1,5,1 ; use 1,4,0 ; 1,6 ; 3,6 ; use 1,2,2
+cgyg  cgbn  ggbn  gycn  nycp  ngyp  ncyg  yccg
+gyyb  cybb  bybb  bycb  nygb  pggp  ncbgK1:2 ypcg
+gyny  pygb* bncn  nngp  nbgg  pggg  ncgg  ppcp
+gyny  pygn  cbcn  nngbK1:2 nbgg  pbgp  npgy* ppcy
+pyny  cypy  ccpy  ccnb  pgbg  pnbp  pnby  cbny
+pbny* pypy  gcpn  gcny  ygny  ygnp  gnny  gbny
+pbpp  pnpp  gnbn  gcbb  cccp  ynpp  bnpb  ynpb
+pbgy  nppp  bcyc  bpyb  cpcb  cygb  byyn  byyn
+gbgy  nbgyK1:2 ncgc  nggc  nggb  nggb  ygyn  bgyg
+solution: 0,1 ; use 0,0,6 ; 0,1 ; use 0,4,0 ; 4,1 ; 0,2 ; use 0,1,0 ; use 0,1,0 ; 0,1 ; 0,4 ; 6,3 ; 6,0 ; use 1,6,0 ; use 0,6,2 ; 0,0 ; use 0,0,0 ; use 0,5,1

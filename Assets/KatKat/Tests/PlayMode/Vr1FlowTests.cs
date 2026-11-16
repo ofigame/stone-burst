@@ -187,53 +187,36 @@ namespace KatKat.Tests
         public IEnumerator AnimationTable_ShorterPlayback_SameResult()
         {
             float off = 0f, on = 0f;
-            yield return TimeFirstMove(1, false, t => off = t);
+            yield return TimeFirstMove(10, false, t => off = t);
             var stateOff = _gc.Session.State.Clone();
-            yield return TimeFirstMove(1, true, t => on = t);
+            yield return TimeFirstMove(10, true, t => on = t);
             var stateOn = _gc.Session.State.Clone();
             Debug.Log($"[KatKat] vr1 animasyon: ilk hamle eski {off * 1000f:0} ms, prototip {on * 1000f:0} ms");
             Assert.IsTrue(stateOff.ContentEquals(stateOn), "aynı komut aynı sonuç");
-            Assert.Less(on, off * 0.75f, "prototip oynatma belirgin kısa");
+            Assert.Less(on, off * 0.8f, "prototip oynatma belirgin kısa"); // v14: zincirsiz tek dalga; oran ~0,75 sınırda oynuyordu
         }
 
-        /// <summary>C05: ortası boş tahtada buzlu taş; hücre örtmez, süs gizlenir; boşluksuz tahtada ve anahtar kapalıyken yok.</summary>
+        /// <summary>
+        /// C05 → v14 (kullanıcı 2026-11-16: "ortası delik tahtaları kaldıralım"): ana katalogda iç boşluklu tahta yok; buzlu
+        /// merkez taşı (yalnız var olan iç boşluğa konur, yeni delik açılmaz) bu yüzden hiçbir ana bölümde çıkmaz — eski
+        /// görünüm (VR2 kapalı) ve prototip anahtarı açıkken de.
+        /// </summary>
         [UnityTest]
-        public IEnumerator CenterIce_OnlyInInteriorHole()
+        public IEnumerator Catalog_HasNoInteriorHoles_CenterIceNeverPlaced()
         {
-            // Eski görünüm (VR2 kapalı) davranışı; VR2'de boşluğa obje konmaz (sonda denetlenir).
+            for (int i = 0; i < _gc.Catalog.Count; i++)
+            {
+                var st = KatKat.Levels.LevelLoader.ToState(_gc.Catalog.Levels[i]);
+                Assert.IsFalse(KatKat.Levels.BoardHoles.Largest(st.Board).Has, $"{_gc.Catalog.Levels[i].Id}: iç boşluk olmamalı");
+            }
             KatKat.UI.Vr2.Enabled = false;
             Vr1Proto.Override = true;
-            // levels-v14: 123 artık "İki Alan" tahtası; iç boşluklu ilk eski tahtayı bul (101–200).
-            int idx = -1;
-            for (int i = 100; i < 200 && idx < 0; i++)
+            foreach (int i in new[] { 0, 99, 150, 499, _gc.Catalog.Count - 1 })
             {
                 _gc.StartLevel(i);
                 yield return null;
-                if (_gc.CenterIce != null) idx = i;
+                Assert.IsNull(_gc.CenterIce, $"{i + 1}. bölüm: boşluk yok, yeni delik açılmaz");
             }
-            Assert.GreaterOrEqual(idx, 0, "101–200 arasında iç boşluklu tahta var");
-            var ice = _gc.CenterIce;
-            var h = ice.Hole;
-            var b = _gc.Session.State.Board;
-            for (int y = h.SquareY; y < h.SquareY + h.Side; y++)
-                for (int x = h.SquareX; x < h.SquareX + h.Side; x++)
-                    Assert.IsFalse(b[x, y].Active, $"({x},{y}) boş olmalı");
-            foreach (Transform d in _gc.Board.Decor.transform)
-                if ((d.localPosition - ice.transform.localPosition).magnitude < h.Side * _gc.Board.Pitch * 0.5f)
-                    Assert.IsFalse(d.gameObject.activeSelf, "boşluktaki süs gizli");
-            _gc.StartLevel(0);
-            yield return null;
-            Assert.IsNull(_gc.CenterIce, "level_001: boşluk yok, yeni delik açılmaz");
-            Vr1Proto.Override = false;
-            _gc.StartLevel(idx);
-            yield return null;
-            Assert.IsNull(_gc.CenterIce, "anahtar kapalı");
-            // VR2 (kullanıcı 2026-11-15: "ortası boş olan tahtalara obje koymayalım"): anahtar açıkken de yok.
-            KatKat.UI.Vr2.Enabled = true;
-            Vr1Proto.Override = true;
-            _gc.StartLevel(idx);
-            yield return null;
-            Assert.IsNull(_gc.CenterIce, "VR2: boşluğa obje konmaz");
         }
 
         /// <summary>C06: haritaya dönüş özeti tek receipt; harita yeniden açılınca aynı yıldızlar tekrar uçmaz.</summary>

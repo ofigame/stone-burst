@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil U (ayna); çözüm 7 hamle + 6 tepsi / limit 11 (pay +4, eski 17) hedef×1,10 bot 0,42 (hedef 0,42) plan 1; zincir v13: yeni çözüm 8 (eski 7), sınır 11→12, bot 27/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati (ayna); çözüm 10 + 9 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_119
-title: Buz Kraliçesi
-moves: 12
+moves: 11
 roll: off
 specials: on
-goals: blue 49, coral 47, star 3
+goals: yellow 43, green 34, blue 41
 grid:
-bcp   byp   bbp   #     bpcb  cpcb* cpcb
-pypc  pcp   bby   #     bbcy  bycb  cybc
-pbpci1 ycpb  ybbb  bbbb* bcb   byyc  byyc
-pppc  pcpc  ycbb  bbbb* bbyc  bcyc  cyyc
-bpc   ppp   pbpb  pbbpi2 pcb   pcc   ccy
-pbb   pcp   yypc  ccb   pccc  cbcpi1 cbypi2
-ybc   pyc   bpbi1 cppc  cppc  cbcp  pbcci1
-ccc   bcci1 bcp   cpc   ppc   pbcpi2 cp
-solution: 4,0 ; 5,0 ; 1,2 ; 4,1 ; use 0,0,1 ; 1,4 ; 4,0 ; use 0,4,1 ; use 0,3,2 ; 3,5 ; 0,0 ; use 3,2,0 ; use 0,2,0
+gyg   gyg   gbn   gnpy  gnpy  nnp   ybbp  ybpi1
+npgy  gpg   nbn   bny   bpyy  nbyy  ngyy  ngpy
+npg   nbg   nbn   gpp   bpp   pppb  pgy   ngp
+#     nbp   nbp   gbgy  bby   bgpb  pgy   #
+#     gbpb  bbpi1 bbgy  pbyp  pgn   ggny  #
+#     ggb   bbb   bbyy  ynyp  pnny  pnpy  #
+yyb   gbbn  gbb   nbby  nnb   ppn   pppb  gbn
+yyg   gyn   gyn   nyn   nybb  nyb   nypp  gbp
+gygp  gygp  yyn   nyny  pynb  pgn   pgnp  pgp
+solution: 3,0 ; use 0,2,0 ; 3,3 ; 1,4 ; use 0,0,0 ; use 0,2,0 ; 3,0 ; use 0,0,0 ; 6,5 ; use 0,0,0 ; 4,1 ; 4,1 ; 4,5 ; 3,0 ; use 2,0,0 ; 5,5 ; use 0,7,0 ; use 1,3,0 ; use 0,6,0

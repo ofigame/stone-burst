@@ -1,19 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [noSpecials+exact]; çözüm 16 / sınır 19 (v7 12); açgözlü kaybeder; bot48 0,13 (taban 0,04); bot 0,17; zincir v13: yeni çözüm 21 (eski 16), sınır 19→28, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 21, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil elmas (ayna); çözüm 12 + 7 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_620
-title: Bölüm 620
-moves: 21
+moves: 12
 roll: off
+specials: on
 type: boss
-rules: noSpecials, exact
-goals: coral 52, purple 38, yellow 17
+rules: scarce, exact
+goals: yellow 22, blue 14, coral 24
 grid:
-#     #     pycb  G1:bycc G1:byyy G1:bcyy #     #
-#     #     pbcc  bbbc  pbcp  pbyp  #     #
-cccp  pccp  bbyp  cpyc  pbcp  pbyp  pbyb  ycbb
-cycc  ppcc  cbcc  cbcp  pccp  pcbp  pbbp  pbbb
-bpyc  cbpp  pbyc  pbcp  pccp  pccp  bpcp  ybbb
-bcyc  bpcp  bcyb  pbcp  bccp  yccy  ypbp  bybb
-bccc  bycc  bycc  bbcc  bcpy  ycpyB1 ycbp  ybbc
-#     #     pbcc  pbcc  pccy  ycpb  #     #
-#     #     cbcc  pbcc  pbcb  cbpb  #     #
-solution: 4,1 ; 5,5 ; 6,2 ; 2,1 ; 5,1 ; 0,6 ; 4,6 ; 5,5 ; 0,3 ; 0,3 ; 0,2 ; 0,5 ; 1,3 ; 0,4 ; 2,4
+#     #     #     G1:cpyn G1:gyyn #     #     #
+#     #     cggc  cpyn  cyyn  gcnn  #     #
+#     pngb  yngc  ypgg  ppgg  gynn  gpcn  #
+cpbp  pnbp  bpcp  ppgp  pcbc  pcbc  cycb  pbcy
+cpcn  cncn  ynyn  gcgc  gcbc  pccc  bpyg  pbcb
+#     cbbn  bbbn  gbycB1 bccpR bccy  bccy  #
+#     #     bgpc  bgpc  bybgR bycy  #     #
+#     #     #     gygn  gyyn  #     #     #
+solution: rot 4,5 ; 5,5 ; 4,3 ; 0,4 ; use 1,1,5 ; 4,3 ; 4,3 ; 3,4 ; use 2,0,4 ; 3,0 ; 3,0 ; use 2,1,2 ; use 0,4,0 ; 1,2 ; 3,0 ; rot 4,6 ; use 0,5,1 ; use 0,3,7 ; use 0,2,2

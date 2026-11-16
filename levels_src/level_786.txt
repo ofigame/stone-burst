@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil çift göz 2x3+2x3; çözüm 6 hamle + 5 tepsi / limit 9 (pay +3, eski 12) hedef×0,97 bot 0,17 (hedef 0,17) plan 1; zincir v13: yeni çözüm 6 (eski 6), sınır 9→11, bot 7/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil dikdörtgen; çözüm 3 + 2 tepsi / sınır 8; rastgele 0,415; açgözlü kazanır; yumuşak 1,00
 id: level_786
-title: Bölüm 786
-moves: 11
+moves: 8
 roll: off
 specials: on
-paint: 1
-goals: yellow 51, blue 43, coral 28, envelope 2, sponge 1
+goals: yellow 16, green 7
 grid:
-ccyb  ycyb  yyybEb pyyb  pyyy  pbyy  pbbp
-ccyb  ccyb  pyyb  pyyy  pyby  pbbb  bbby
-bpcb  bcyb  pycc  yyyc  yyyc  ybyc  bbpy
-bycb  #     #     yyyc  #     #     bbpy
-bbcb  #     #     yyyp  #     #     pbpp
-pbcb  #     #     yypp  #     #     pbpy
-pbcp  bbcb  bypc  bypp  pcpc  pbpb  pbpb
-pbpcScb cbcp  cypc  ccpp  ycpc  yppcEy pbpc
-pbcb  bycp  byyp  yppp  yppc  cppp  pppc
-solution: 0,0 ; 2,2 ; use 1,0,7 ; use 0,2,0 ; 3,4 ; use 0,1,0 ; 1,6 ; 6,2 ; 2,0 ; use 0,5,0 ; use 0,2,0 ; use 0,5,1
+b     bg    b     b     bb    bb    yb    y
+bc    b     bb    bb    bb    bb    bb    y
+cc    c     b     b     bb    bb    bb    yc
+cc    c     c     y     y     bb    b     b
+yc    yc    y     y     y     y     b     c
+yb    y     y     y     b     yg    bg    bb
+bb    bb    bb    cc    b     b     b     yb
+bb    b     bb    c     c     cb    cb    yb
+gg    g     g     gb    c     c     c     y
+solution: 3,3 ; 0,8 ; use 0,1,0 ; 0,0 ; use 0,6,0

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 using KatKat.View;
@@ -130,6 +130,7 @@ namespace KatKat.UI
             BuildRankButton(shell);
             BuildLiveButton(shell); // canlı maç girişi (Sıralama altı)
             BuildPilotButton(shell); // vr1 pilot (prototip)
+            BuildConceptButton(shell); // konsept pilotu
             BuildStarGoal(shell);
 
             // 5) Yıldız kapsülü (700, 56, 208, 88) ve ayarlar (936, 52, 96, 96).

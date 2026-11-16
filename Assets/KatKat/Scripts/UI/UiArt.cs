@@ -119,7 +119,8 @@ namespace KatKat.UI
                 var c = new Color(rim.r, rim.g, rim.b, rimM.a);
                 if (faceM.a > 0f)
                 {
-                    var ic = atlas.GetPixelBilinear((cell.x + fu) * 0.5f, (cell.y + fv) * 0.5f);
+                    // Eski 2x2 işaret atlası: yeni renklerin (green/navy) işareti yok, düz yüz.
+                    var ic = LayerPalette.HasLegacySymbol(color) ? atlas.GetPixelBilinear((cell.x + fu) * 0.5f, (cell.y + fv) * 0.5f) : Color.clear;
                     var f = front * faceM.r;
                     f = Color.Lerp(f, front * 0.74f, ic.r);
                     f = Color.Lerp(f, f + new Color(0.16f, 0.16f, 0.16f), ic.g);

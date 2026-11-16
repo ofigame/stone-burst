@@ -75,23 +75,25 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void ThreeBlueUnderCoral_ChainsInOneMove_AndWinsOnLastMove()
+        public void ThreeBlueUnderCoral_RevealedNotPopped_SecondTapWins()
         {
-            var s = State(1, new[]
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): bir dokunuş = bir dalga; açılan mavi grup kendiliğinden patlamaz.
+            var s = State(2, new[]
             {
                 "bc bc bc y",
                 "y  p  p  y",
             }, (LayerColor.Coral, 3), (LayerColor.Blue, 3));
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
             Assert.IsTrue(r.Accepted);
-            Assert.AreEqual(2, r.Waves.Count);
+            Assert.AreEqual(1, r.Waves.Count);
             Assert.AreEqual(WaveKind.Tap, r.Waves[0].Kind);
-            Assert.AreEqual(WaveKind.Chain, r.Waves[1].Kind);
-            Assert.AreEqual(6, r.TotalPeeled);
+            Assert.AreEqual(3, r.TotalPeeled);
+            CollectionAssert.AreEqual(new[] { 3, 0 }, r.Waves[0].GoalProgressAfter);
+            Assert.AreEqual(GameStatus.Idle, s.Status);
+            var r2 = RulesEngine.TryApply(s, Command.Tap(0, 0));
+            Assert.AreEqual(1, r2.Waves.Count);
             Assert.AreEqual(0, s.MovesLeft);
             Assert.AreEqual(GameStatus.Won, s.Status);
-            CollectionAssert.AreEqual(new[] { 3, 0 }, r.Waves[0].GoalProgressAfter);
-            CollectionAssert.AreEqual(new[] { 3, 3 }, r.Waves[1].GoalProgressAfter);
         }
 
         [Test]
@@ -119,20 +121,20 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void NewGroupNextToExistingSameColor_PeelsOnlyNewStones()
+        public void NewGroupNextToExistingSameColor_StaysForNextTap()
         {
-            // v13 zincir: üç yeni mavi, önceden açık maviye (3,0) değse de birlikte çıktıkları için patlar; eski mavi katılmaz.
+            // v14: üç yeni mavi açılır ama patlamaz; eski maviyle birleşip sonraki dokunuşta 4'lü grup olur.
             var s = State(5, new[]
             {
                 "bc bc bc b",
                 "y  p  y  p",
             }, FarGoal);
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.AreEqual(2, r.Waves.Count);
-            Assert.AreEqual(WaveKind.Chain, r.Waves[1].Kind);
-            Assert.AreEqual(3, r.Waves[1].Cells.Count);
-            Assert.AreEqual(". . . b", $"{Cell(s, 0, 0)} {Cell(s, 1, 0)} {Cell(s, 2, 0)} {Cell(s, 3, 0)}");
-            Assert.AreEqual(GameStatus.LostNoLegalMoves, s.Status, "küçük tahtada 3'lü grup kalmadı");
+            Assert.AreEqual(1, r.Waves.Count);
+            Assert.AreEqual("b b b b", $"{Cell(s, 0, 0)} {Cell(s, 1, 0)} {Cell(s, 2, 0)} {Cell(s, 3, 0)}");
+            Assert.AreEqual(GameStatus.Idle, s.Status);
+            var r2 = RulesEngine.TryApply(s, Command.Tap(3, 0));
+            Assert.AreEqual(4, r2.Waves[0].Cells.Count);
         }
 
         [Test]
@@ -145,7 +147,7 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void TwoSeparateNewGroupsInSameWave_BothPeelOnceInSameChainWave()
+        public void BigTap_RevealsTwoGroups_NeitherPops()
         {
             var s = State(5, new[]
             {
@@ -156,20 +158,22 @@ namespace KatKat.Tests
             // Coral grubu: üst satır 4 + (3,1) + alt satır 4 = 9 hücre.
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
             Assert.AreEqual(9, r.TappedGroup.Count);
-            Assert.AreEqual(2, r.Waves.Count);
-            // Maviler (3) ve sarılar (6) ayrı bileşenler ama aynı zincir dalgasında.
-            Assert.AreEqual(9, r.Waves[1].Cells.Count);
-            Assert.AreEqual(18, r.TotalPeeled);
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): açılan maviler (3) ve sarılar (6) yerinde kalır.
+            Assert.AreEqual(1, r.Waves.Count);
+            Assert.AreEqual(9, r.TotalPeeled);
+            Assert.AreEqual("b", Cell(s, 0, 0));
+            Assert.AreEqual("y", Cell(s, 0, 2));
         }
 
         [Test]
-        public void MultiWaveChain_ContinuesUntilNoCandidate()
+        public void RevealedLayers_NeverCascade()
         {
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): her dokunuş tek katman soyar; alttaki aynı renkler sırayla açılır ama patlamaz.
             var s = State(5, new[] { "ybc ybc ybc", "p   p   p" }, FarGoal);
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.AreEqual(3, r.Waves.Count);
-            Assert.AreEqual(".", Cell(s, 0, 0));
-            Assert.AreEqual(9, r.TotalPeeled);
+            Assert.AreEqual(1, r.Waves.Count);
+            Assert.AreEqual("yb", Cell(s, 0, 0));
+            Assert.AreEqual(3, r.TotalPeeled);
         }
 
         [Test]
@@ -216,40 +220,41 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void ChainOfFive_AwardsNoRoll()
+        public void RollRevealingFive_NoChain_NoRoll()
         {
-            // Rulo bir satırı soyar; altta açılan beşli mavi zincir otomatik soyulur ama rulo üretmez.
+            // Rulo bir satırı soyar; altta açılan beşli mavi (v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın)) patlamaz ve rulo üretmez.
             var s = State(5, new[] { "bc bc bc bc bc", "y  p  y  p  y" }, FarGoal);
             s.RollEnabled = true;
             s.RollSlotFull = true;
             var r = RulesEngine.TryApply(s, Command.Roll(0));
-            Assert.AreEqual(2, r.Waves.Count);
-            Assert.AreEqual(5, r.Waves[1].Cells.Count);
+            Assert.AreEqual(1, r.Waves.Count);
+            Assert.AreEqual(5, r.Waves[0].Cells.Count);
+            Assert.AreEqual("b", Cell(s, 0, 0));
             Assert.IsFalse(r.RollAwarded);
             Assert.IsFalse(s.RollSlotFull);
         }
 
         [Test]
-        public void FiveTapWithFiveChain_AwardsExactlyOneRoll()
+        public void FiveTap_AwardsExactlyOneRoll_NoChainWave()
         {
             var s = State(5, new[] { "pb pb pb pb pb", "c  y  c  y  c" }, FarGoal);
             s.RollEnabled = true;
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
             Assert.IsTrue(r.RollAwarded);
-            Assert.AreEqual(2, r.Waves.Count);
+            Assert.AreEqual(1, r.Waves.Count, "v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın)");
             Assert.IsTrue(s.RollSlotFull);
         }
 
         [Test]
-        public void ChainWaves_NeverExceedPreviousWave_RollOnlyFromDirectGroup()
+        public void OneTapIsOneWave_RollOnlyFromDirectGroup()
         {
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): bir dokunuş = bir dalga (özel taş ateşlenmedikçe).
             var s = State(5, new[] { "bpc bpc bpc", "y   y   y" }, FarGoal);
             s.RollEnabled = true;
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.AreEqual(3, r.Waves.Count);
-            Assert.AreEqual(9, r.TotalPeeled);
-            Assert.IsFalse(r.RollAwarded, "Toplam 9 katman ama doğrudan grup 3: rulo yok.");
-            for (int i = 1; i < r.Waves.Count; i++) Assert.LessOrEqual(r.Waves[i].Cells.Count, r.Waves[i - 1].Cells.Count);
+            Assert.AreEqual(1, r.Waves.Count);
+            Assert.AreEqual(3, r.TotalPeeled);
+            Assert.IsFalse(r.RollAwarded, "doğrudan grup 3: rulo yok.");
         }
 
         [Test]
@@ -283,15 +288,17 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void Roll_UsesSameChainSystem()
+        public void Roll_RevealsGroup_NoChain_NextTapWins()
         {
             var s = State(5, new[] { "bc bc bc", "y  p  y" }, (LayerColor.Blue, 3));
             s.RollEnabled = true;
             s.RollSlotFull = true;
             var r = RulesEngine.TryApply(s, Command.Roll(0));
-            Assert.AreEqual(2, r.Waves.Count);
-            Assert.AreEqual(GameStatus.Won, s.Status);
+            Assert.AreEqual(1, r.Waves.Count, "v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın)");
+            Assert.AreEqual(GameStatus.Idle, s.Status);
             Assert.IsFalse(r.RollAwarded, "Rulo kullanımı yeni rulo üretmez.");
+            RulesEngine.TryApply(s, Command.Tap(0, 0));
+            Assert.AreEqual(GameStatus.Won, s.Status);
         }
 
         [Test]

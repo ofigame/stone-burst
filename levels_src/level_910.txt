@@ -1,21 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk yellow 71/70; çözüm 13 / sınır 15 (v7 12); açgözlü kaybeder; bot48 0,08 (taban 0,04); bot 0,00; zincir v13: yeni çözüm 10 (eski 13), sınır 15→16, bot 0/112; zincir v13 kolaylaştırma: hedef −%6, sınır 13, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U; çözüm 20 + 0 tepsi / sınır 20; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_910
-title: Bölüm 910
-moves: 13
+moves: 20
 roll: off
-specials: on
-paint: 1
 type: boss
-rules: scarce, exact
-goals: yellow 66, blue 39, coral 62, envelope 2
+rules: noSpecials, exact
+goals: coral 25, yellow 37, star 4, sponge 1
 grid:
-pccc  pycp  cpcp  #     #     yyyp  ypbbEy ypby
-ccpc  cyccEp cpcy  #     #     bpby  bpby  ypcy
-cppc  pbpp  pbpp  #     #     bpcc  bpcc  bpcp
-ccpc  ccbp  pcby  ppcp  bcyy  ycyy  cpyp  ypcp
-bcbc  bybp  ppbp  ppcp  bcyy  ycyy  ycpp  bpbp
-cypc  bypp  cycp  yycb  ycyb  ycyy  ycbp  ypbb
-cypc  bycc  cpcc  ypyb  ycyb  ycby  yyby  ycyy
-cccc  cycc  cpyc  ypyy  ycbp  yybp  ypby  bcbp
-pycc  pybc  ppbc  yybp  ycbp  pybp  pybp  bcpp
-solution: 0,0 ; 4,3 ; use 0,7,0 ; use 0,6,0 ; 0,2 ; 0,0 ; use 0,1,0 ; 1,4 ; use 0,6,0 ; use 0,0,0 ; 3,5 ; 6,4 ; use 0,1,0
+yngy  yygn  yycn  #     #     nyyy  ynyy  ynny
+yngc  yycc  ygcc  #     #     nyyySy ncyn  ncyy
+nnng  nnng  ygnn  #     #     nnyy  yycc  yycc
+ncng  ycng  ynnn  gggy  gcgy  ngcc  ngcy  ngnc
+ncng  yccn  nngn  nggy  yggy  ygyy  ngny  ngnc
+ngnc  ngcg  nncg  ngyy  ngyg  ggyg  gggy* ggny
+ngnc  ynng  nncg  ngyg  ngyg  gngn* gggg  gggg
+nnng  ynnn* yncn  yncy  ccgn  ccgn  cggg  cggg
+nnny  ynny  yccy  ycny  ycnn* ggnc  gggc  gggc
+solution: 5,0 ; 5,6 ; 1,5 ; 3,3 ; 6,2 ; 3,7 ; 0,5 ; 2,2 ; 2,7 ; 3,7 ; 3,3 ; 2,2 ; 5,5 ; 6,5 ; 0,2 ; 0,2 ; 1,6 ; 5,0 ; 5,0 ; 0,1

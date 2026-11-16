@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk yellow 35/34; çözüm 8 / sınır 11 (v7 11); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,00; adillik onarımı: sınır 11→12 (112 oyunda 7 galibiyet); zincir v13: yeni çözüm 11 (eski 8), sınır 12→19, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 11, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dikdörtgen; çözüm 18 + 12 tepsi / sınır 18; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_630
-title: Bölüm 630
-moves: 11
+moves: 18
 roll: off
 specials: on
 type: boss
-rules: scarce, exact
-goals: yellow 32, blue 64, coral 55
+rules: protect, exact
+goals: navy 29, yellow 28, green 31, envelope 2
 grid:
-bcby  pcbc  cccc  G1:bccc G1:bbpc G1:bbpb ppyb  ppyb
-byby  pbbb  pccb  pccb  pppc  bppc  pycb  ppyb
-byby  ybpb  ycpb  ycyc  ppyc  pppc  bpyy  ppyb
-bcbb  bbpb  yppb  #     #     bppp  pypc  ycyc
-ccybB1 bbpb  bpcp  #     #     bppp  bcpb  yccb
-ccpb  cppb  cpcp  #     #     ppyp  ppcc  ppcb
-ccyb  cppb  cpcb  pypb  pypp  pppp  ppbb  pbcc
-cpcb  cpcb  cpbp  ppyb  ppyc  pypb  pybc  pbbc
-cpbb  ypcb  yppb  pppb  ppcc  bcpc  pybc  bybc
-solution: 1,1 ; use 0,6,0 ; 6,3 ; 1,0 ; use 0,0,0 ; 6,0 ; use 0,0,0 ; use 0,0,1 ; 2,1 ; 0,4 ; use 0,0,0 ; 1,0
+bbpn  bppn  G1:ppbc G1:bppc G1:bnpg G1:bnng ypnp  ybyg
+ybyn  ppbn  pcbp  bgbc  pgpc  pgng  ybnp  nbyg
+ycyn  ycbb  pbbb  ppbb  pgpy  gpcy  ppcy  nccgP
+pnynB1 ynyn  pbyg  gbpy  ggpn  gpcn  gpcb  ccnb
+pygg  pyyy  pbyy  gyyy  gpcy  ggbn  ggbb  ccnb
+pygg  cgyy  pgcp  bgyp  bpcp  npbc  gpny  gcnyEg
+ppgnP gpbn  gbbp  gbyp  bbpc  ncbc  nyby  pnng
+ppcb  ppbg  ypbp  ncyp  bbpp  gynpEb nyby  pnng
+ppcb  pppg  ycpp  ncnp  npnyP gcny  gcnp  gbnp
+solution: 3,3 ; 0,0 ; use 1,5,1 ; 2,5 ; use 0,0,5 ; 0,1 ; 0,4 ; 6,3 ; use 2,0,3 ; use 0,0,0 ; use 0,6,0 ; use 0,0,4 ; 0,0 ; 3,3 ; 2,0 ; use 1,0,1 ; 4,0 ; 3,0 ; use 1,0,0 ; 6,0 ; use 1,0,3 ; 3,0 ; use 1,1,0 ; 1,6 ; 5,6 ; use 1,5,0 ; 6,6 ; 5,6 ; use 0,0,2 ; 5,7

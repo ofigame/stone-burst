@@ -1,6 +1,6 @@
 # Stone Burst — Oyun Dokümanı
 
-Son güncelleme: 2026-11-06 · Unity 6000.6.4f1 · Android (APK) ve Windows (önizleme exe)
+Son güncelleme: 2026-11-16 · Unity 6000.6.4f1 · Android (APK) ve Windows (önizleme exe)
 
 ## 1. Oyun nedir?
 
@@ -16,11 +16,11 @@ Stone Burst (2026-11-09; önceki adları TriKat ve Kat Kat), üst üste dizilmi�
 |---|---|
 | Grup | Aynı renkte en az 3 kenar-bitişik üst katman. Dokunulan grubun her yığınından **bir** katman soyulur. |
 | Hamle | Her geçerli dokunuş 1 hamle. Hamle bitince ve tepside kullanılabilir özel taş yoksa bölüm kaybedilir. |
-| Zincir (v13, 2026-11-08) | Soyduğun taşların altından **yan yana en az 3 aynı renk** taş birlikte çıkarsa onlar da kendiliğinden patlar; dalga dalga sürer, hamle harcamaz. Yalnız o dalgada altından yeni renk çıkan taşlar sayılır; yanlarındaki eski açık taşlar ne engeller ne katılır. (Önceki kural: yeni grubun tamamı yeni olmalı ve eski aynı renge değmemeli; arşivde.) |
+| Zincir yok (v14, 2026-11-16) | Kullanıcı: "zincir patlamaları iptal edelim … full mantık gerektiren bir çözüm olsun". Soyulan taşların altından çıkan aynı renk grubu kendiliğinden patlamaz; her patlama oyuncunun dokunuşu ya da kullandığı özel taşın etkisidir (roket, Altın Rulo). Büyük hamle (6+ grup ya da 8+ katman temizleyen özel taş) övgü ve ses alır (`Core/BigMove`). (v13 zincir kuralı arşivde.) |
 | Hedef | Renk sayısı, dip yıldızı, zarf ve sünger hedefleri. Hepsi dolunca bölüm kazanılır. |
-| Geri al | Son tam hamle (bütün zincirleriyle) geri alınabilir. |
+| Geri al | Son tam hamle (özel taş etkisiyle birlikte) geri alınabilir. |
 
-### Taşlar (4 renk, renk + şekil ile okunur)
+### Taşlar (6 renk, renk + şekil ile okunur; 2026-11-16 öncesi bölümler 4 renk)
 
 | Kimlik | Ekranda | Şekil |
 |---|---|---|
@@ -28,6 +28,8 @@ Stone Burst (2026-11-09; önceki adları TriKat ve Kat Kat), üst üste dizilmi�
 | Blue | Turkuaz | Üçgen |
 | Yellow | İnci (beyaz) | Çift dalga |
 | Purple | Mor | Elmas |
+| Green | Yeşil | Yaprak (2026-11-16) |
+| Navy | Lacivert | Yıldız (2026-11-16) |
 
 Veri kimlikleri (`Coral/Blue/Yellow/Purple`, `Rainbow`) eski adlarıyla kalır; ekranda inci ve "Altın Rulo" görünür.
 
@@ -82,8 +84,8 @@ Veri kimlikleri (`Coral/Blue/Yellow/Purple`, `Rainbow`) eski adlarıyla kalır; 
 
 | Bölüm | Mekanik | Kısa kural |
 |---|---|---|
-| 1–5 | Öğretici, rulo | Temel soyma; 5'li grup rulo yuvasını doldurur, rulo bir satırı soyar. |
-| 6+ | Özel taşlar ve tepsi | Roket, Altın Rulo (yukarıda). |
+| 1–5 | Vitrin (v14, 2026-11-16) | 7×8 tahta, bütün özellikler kolay sürümde: 1 dokun-soy ve katlar (tur) · 2 roket ve tepsi (tur) · 3 Altın Rulo, dip yıldızı, ataş, bağlı ataş (tur) · 4 buz, renk kilidi, zarf, sünger · 5 kristal koruma, kesin hamle, döner taban, geçit, boya. Mekanik tanıtımı vitrinde bir kez, takvimdeki bölümde yeniden çıkar. |
+| 6+ | Özel taşlar ve tepsi | Roket, Altın Rulo (yukarıda). 6–7 tek kat 3 renk, 8–14 iki kat, 15–30 üç kat 4 renk 2 görev; sonra her ~10 bölümde bir boyut (`docs/v14/ZORLUK.md`). |
 | 21+ | Ataş | Ataşlı yığın seçilemez; yanında soyma yapılınca ataşa vurulur (1–2). |
 | 41+ | Dip yıldızı | Yığın tamamen boşalınca yıldız toplanır. |
 | 61+ | Buz | Kenar komşusunda soyma olunca kırılır (1–2 vuruş). |
@@ -96,27 +98,26 @@ Veri kimlikleri (`Coral/Blue/Yellow/Purple`, `Rainbow`) eski adlarıyla kalır; 
 | 701+ | Boya damlası | Bir yığının üst rengini değiştirir (1 hamle, sınırlı). |
 | 801+ | Karışım | Önceki mekaniklerin birleşimi. |
 
-**Tahta şekilleri:** Bölümler dikdörtgen değil; karelerden oluşan dış hatlar: kesik köşe, L, T, artı, merdiven, kum saati, U, çatı, elmas (aynalı). 21. bölümden sonra her üçüncü bölüm (n % 3 = 0, art arda gelmez) **ortası boş** tahtadır: **halka** (ortada 2×2…3×3 boşluk), **çift göz** (yan yana ya da üst üste iki ayrı boşluk), **kesik halka** (ortada boşluk + iki çapraz köşe kesik). Boşluk her yönde en az bir sıra taşla çevrilidir, tahta kenarına değmez, tahta tek parça kalır; mekanik hücreleri oyulmaz (gerekirse boşluk bir hücre kayar, olmazsa dış hat şekli seçilir). Oyun, kapalı boş bölgeyi kendisi bulur ve içine süs (maskot, fener, kaya) çizer. Bunun dışında açılışta tahta içinde boşluk yoktur.
+**Tahta şekilleri (v14, 2026-11-16; kullanıcı: "ortası delik tahtaları kaldıralım", "dış hatlar çeşitli şekillerde olabilir"):** karelerden oluşan dış hatlar: kesik köşe, L, T, artı, merdiven, kum saati, U, çatı, elmas (aynalı), dikdörtgen ve kenar çentikleri. **İç boşluk yok:** her boş hücre boş hücrelerden geçerek tahta kutusunun dışına ulaşır; tahta tek parçadır, açılışta boş hücre yoktur (geçit hücresi tahtanın parçasıdır). Eski halka / çift göz / kesik halka tahtaları ve boşluğa konan süs ana katalogda yok (`LevelLab v14`, denetim: `ProductionLevelTests`, `BoardHolesTests`).
 
-### Bölüm türleri (v8, 2026-11-08)
+### Bölüm türleri (v8, 2026-11-08; v14 zincirsiz, 2026-11-16)
 
-Kural verilir, strateji verilmez. v7 tahtaları korunur; takvimdeki bölümler bir **tür** alır (`docs/v12/V8_URETIM.md`):
+Kural verilir, strateji verilmez. v14'te 1000 bölüm `LevelLab v14` ile yeniden üretildi (`docs/v14/PLAN.md`, ölçümler `docs/v14/ZORLUK.md`); takvimdeki bölümler bir **tür** alır:
 
 | Tür | Kural (oyuncuya gösterilen) | İlk bölüm |
 |---|---|---|
-| Kesin Hamle | Hamle sınırı = çözüm uzunluğu (1–99'da +1) | 27 |
+| Kesin Hamle | Hamle sınırı = çözüm uzunluğu (1–99'da +1) | 5 (vitrin), 27 |
 | Ters Düşünme | Kesin hamle; göz alıcı (açgözlü) hamle kaybettirir | 37 |
-| Tek Dokunuş | Küçük tahta, 1 hamle; doğru taş zinciri başlatır | 49, sonra her 50'de (99, 149…) |
-| Zincir Ustası | Hedef yalnız zincirle soyulan taşlarla dolar | 47 |
-| Kristal Koruma | Kristal yığından katman soyulursa kayıp (zincir/roket dahil) | 57 |
+| Kristal Koruma | Kristal yığından katman soyulursa kayıp (roket dahil) | 5 (vitrin), 57 |
 | Renk Kıtlığı | Hedef rengin neredeyse hepsi gerekir | 67 |
 | Saf Plan | Özel taş doğmaz | 77 |
 | Doğru An | Özel taşsız çözülemez; kesin hamle | 87 |
 | Kilit Sırası | Renk kilitleri doğru sırayla açılmalı | 127 |
-| Patron | Her 10. bölüm: kurallar birleşir + kesin hamle; her 100. bölüm 3 kural | 30 |
+| Usta (patron) | Her x0 bölümü: kesin hamle + kurallar birleşir (her 100. bölümde iki kural) | 10 |
 
-- 10'luk döngü: 7. ve 8. bölüm tür bölümü, 10. bölüm patron; diğerleri normal (v7 aynen).
-- **Tahta aileleri (vr1, 2026-11-11, `levels-v14`):** 21'den sonraki sade bölümlerin her ikincisi bir tahta ailesi taşır (307 bölüm):
+- 10'luk döngü: 7. ve 8. bölüm tür bölümü, x0 usta; 10'dan sonra her 6. bölüm (x0 hariç) **nefes** bölümü: 1–2 kat, büyük tahta ve gruplar, bol özel taş, +4 hamle.
+- v14'te kaldırılanlar: Tek Dokunuş ve Zincir Ustası (zincire bağlıydı), vr1 tahta aileleri (aşağıdaki tablo arşiv bilgisidir; v14 ana kataloğunda aile yok).
+- **Tahta aileleri (vr1, 2026-11-11, `levels-v14` vr1 listesi; v14 üretimiyle ana katalogdan çıktı):** 21'den sonraki sade bölümlerin her ikincisi bir tahta ailesi taşıyordu (307 bölüm):
 
   | Aile | Bölüm | İlk bölüm |
   |---|---|---|
@@ -137,8 +138,28 @@ Kural verilir, strateji verilmez. v7 tahtaları korunur; takvimdeki bölümler b
 - Kural simgeleri hedef kabuğunun sağında (dokununca kural cümlesi). Kural kartı yalnız türün ilk görüldüğü bölümde ve patronlarda (`meta.seenTypes`).
 - Aynı bölümde 2 kayıptan sonra kayıp kartında **İpucu**: bölüm baştan başlar, yalnız ilk doğru hamle gösterilir (ZPE'de yardımlı). 2026-11-11'den beri kayıtlı çözümün ilk adımı yeniden doğrulanır. Her komut türü (tepsi, döndürme, boya, rulo) reklamlı ipucuyla aynı görselle gösterilir; önceden yalnız dokunuş gösteriliyordu.
 - Yığına basılı tutunca (0,42 sn) bütün katmanlar görünür; dokunuş parmak kalkınca işler (bütün oturumlarda).
-- Günlük bulmaca (`daily-v3`): günün türü haftalık döner (kesin hamle → zincir → kristal → ters → kıt renk → saf plan → doğru an → kilit); oyuncunun grubunda açılmamış tür atlanır; her günlükte kural kartı.
+- Günlük bulmaca (`daily-v4`, v14 2026-11-16; 240 bulmaca `LevelLab daily14`, 6 renge kadar): günün türü döner (kesin hamle → kristal → ters → kıt renk → saf plan → doğru an → kilit sırası; zincir türü çıktı); oyuncunun grubunda açılmamış tür atlanır; her günlükte kural kartı; kayıtlı çözüm güçsüz kazanır.
+- Deneme seti (v14): 1 kesin hamle, 2 Derin Kuyu, 3 ters, 4 kıt renk, 5 Geniş Kıyı, 6 kristal, 7 saf plan, 8 doğru an, 9 kilit sırası, 10 patron (kristal + özel taş yok + kesin hamle). Pilot 08–10 mühür yerine düğmeli kanat.
 - **İlk günlük giriş ücretsiz** (2026-11-11): oyuncunun ilk günlük girişi reklamsız; sonraki günler ödüllü reklamla (reklam bulunamazsa reklamsız).
+
+### Konsept pilotu (2026-11-15)
+
+Ana 1000 bölümde yok; haritadaki **Konsept** düğmesiyle (deneme derlemesi) 10 bölüm. Tehdit her harcanan hamlede bir adım ilerler (tepsi ilerletmez), önceden görünür; hedef kartının altında durum satırı. Tehdit kazanırsa bölüm kaybedilir (kart nedeni söyler, Geri Al). Hedef rengin tahtada kalanı hedefe yetmezse de kayıp.
+
+| Konsept | Kural |
+|---|---|
+| Çürüyen Zemin | Her K hamlede en alt sıra çöker, taşlar düşer; alt sırada boşaltılan her yığın 1 hamle erteler. |
+| Fitil | Sayaçlı yığın 0 olmadan tamamen boşaltılmalı. |
+| Dönen Hedef | Yalnız etkin renk sayılır; renk K hamlede bir değişir. |
+| Kuzgun | Yol boyunca her hamlede bir hücre, konduğu taşı çalar; önündeki yığın boşsa bekler; yuvaya varırsa kayıp. |
+| Yağmur | K hamlede bir işaretli yığına taş düşer; sınırı aşan yığın kaybettirir. |
+| Gölge Rakip | Her hamlede 1 adım; 5+ grup hamlesinde 1 geri; bitişe varırsa kayıp. |
+| Yayılan Yosun | K hamlede komşuya yayılır (seçilemez örtü); yanında soyma temizler; sınır kaybettirir. |
+| Balonlar | K hamlede bir sıra yükselir; altındaki yığın boşalınca patlar (hedef); tahtadan çıkarsa kayıp. |
+| Sipariş Kuyruğu | Aşamalı hedeflerin her birinin hamle süresi var. |
+| Kombo Ateşi | 5+ grup hamlesi ateşi doldurur, küçük grup 1 azaltır; sönerse kayıp (v14: zincir yerine). |
+
+Ayrıntı: `docs/konsept/RAPOR.md`.
 
 ## 5. Puan ve yıldız
 
@@ -156,7 +177,13 @@ Yıldız eşikleri bölüm başına kayıtlı çözüm + kutlama puanından hesa
 
 ## 6. Zorluk
 
-Bölümler `LevelLab rebuild` (v7) ile üretildi. Zorluk hamle kıtlığından değil **plandan** gelir: hamle limiti, geniş ışın aramasının bulduğu çözüme makul pay eklenerek konur (6–20: +4–6, 21–60: +3–5, 61–300: +3–4, sonrası +2–4; x1–x2 bölümlerinde +1; bot çok zorlanırsa pay en çok +10'a açılır). Renk hedefi çarpanı, yumuşak açgözlü botun (24 oyun) kazanma oranı hedefe yaklaşacak biçimde seçilir: 6–15 ~%60, sonra v6'dan 0,06 daha düşük; ölçülen ortalama 6–20 %58, 21–100 %49, 101–300 %33, 301–600 %23, 601–1000 %17 (hiçbir bölüm %8'in altında değil). Hedefe yakın adaylar arasında açgözlü oyuncunun (ışın 1) ya da dar ışının (3, 10) çözemediği, yani doğru sıra / zincir kurma / tepsiyi doğru anda kullanma isteyen bölüm tercih edilir; her bölümün kaynağındaki `plan 0–3` bu derinliği yazar. Her 10'un katı bölüm biraz zor, x1–x2 bölümleri nefes alır. Her bölümün kayıtlı çözümü kazandığı ve botun en az bazen kazandığı otomatik doğrulanır (`LevelLab stress`).
+**v14 (2026-11-16, geçerli):** kullanıcı: "ileri bölümler kolay olmasın lütfen zorla", "oyuncu rastgele patlatmalarla değil plan ve mantık yürüterek bitirdiğini hissetsin". 1000 bölüm `LevelLab v14` ile yeniden üretildi (ayrıntı `docs/v14/PLAN.md`, ölçüm `docs/v14/ZORLUK.md`).
+- Eğri: 1–5 vitrin (7×8, 2–3 kat, 4 renk); 6–7 tek kat 3 renk 6×7; 8–14 iki kat; 15–30 üç kat 2 görev; sonra tahta 8×9'a, kat 4'e, renk 6'ya (201+), görev 3–4'e çıkar.
+- Hamle payı (sınır − en iyi çözüm): 6–30 3–5, 31–100 2–3, 101–300 1–2, 301+ 0–1; nefes bölümlerinde +4.
+- Rastgele dokunan bot nefes dışı bölümlerde ortalama 6–7 %34, 15–30 %3,6, 301+ ≈%0,1 kazanır; 31'den sonra açgözlü botlar nefes dışı 829 bölümün hepsinde kaybeder.
+- 132 nefes, 100 usta (x0), 164 tür bölümü.
+
+Aşağısı v7 dönemi (arşiv bilgisi): Bölümler `LevelLab rebuild` (v7) ile üretildi. Zorluk hamle kıtlığından değil **plandan** gelir: hamle limiti, geniş ışın aramasının bulduğu çözüme makul pay eklenerek konur (6–20: +4–6, 21–60: +3–5, 61–300: +3–4, sonrası +2–4; x1–x2 bölümlerinde +1; bot çok zorlanırsa pay en çok +10'a açılır). Renk hedefi çarpanı, yumuşak açgözlü botun (24 oyun) kazanma oranı hedefe yaklaşacak biçimde seçilir: 6–15 ~%60, sonra v6'dan 0,06 daha düşük; ölçülen ortalama 6–20 %58, 21–100 %49, 101–300 %33, 301–600 %23, 601–1000 %17 (hiçbir bölüm %8'in altında değil). Hedefe yakın adaylar arasında açgözlü oyuncunun (ışın 1) ya da dar ışının (3, 10) çözemediği, yani doğru sıra / zincir kurma / tepsiyi doğru anda kullanma isteyen bölüm tercih edilir; her bölümün kaynağındaki `plan 0–3` bu derinliği yazar. Her 10'un katı bölüm biraz zor, x1–x2 bölümleri nefes alır. Her bölümün kayıtlı çözümü kazandığı ve botun en az bazen kazandığı otomatik doğrulanır (`LevelLab stress`).
 
 ## 7. Ekranlar ve görünüm
 
@@ -164,11 +191,11 @@ Bölümler `LevelLab rebuild` (v7) ile üretildi. Zorluk hamle kıtlığından d
 - **Alt menü:** Yolculuk · Günlük · Taşlar (2026-11-11: "Harita" sekmesinin adı 9 dilde Yolculuk oldu. Seçili ikon büyüyüp küçülür. Günlük modalı açıkken Günlük seçili görünür ve menü modalın üstünde kalır. 2026-11-06: Oyna kalktı, bölüme haritadaki düğümden girilir; Ayarlar sağ üstte). Günlük ve Taşlar ekranlarında sol üstte geri düğmesi, sağ üstte Ayarlar.
 - **Açılış:** Beyaz zeminde OFIGAME logosu (~1,6 sn; oyun sahnesi arkada yüklenir). Kaynak: `E:\OFIGAME\Kurumsal\ofigame-logo-acik-zemin.png` → `Resources/Branding/ofigame-logo.png`.
 - **Oyun ekranı (VR2, 2026-11-14):** Ekranın tepesinden tam genişlikte krem üst panel: solda duraklat, sağda geri al, ortada maskotlu mor hamle kapsülü, altında yıldız çubuğu. Panelin altında, temanın taş zemini üstünde ayrı gömülü krem hedef yuvası (hedef simgeleri ve sayaçlar). Arka plan bölgenin teması: altı doku (Mavi Liman, Yeşil Vadi, Kum Vadisi, Fener Koyu, Vaha Yolu, İnci Sahili), bulanık, ekranı oran korunarak kaplar (tablette tam kompozisyon, telefonda orta bölüm). Tahta bölümün kendi şeklinde; içi arka plan renginin açık tonunda (tek renk), kenarlardan içe yumuşak gölge, taşlarla kenar arasında ~0,24 hücre boşluk (tek hücrelik boşluklarda daha az, boşluk açık kalır); çerçeve yok. Pasif hücrelerde ve boşluklarda arka plan görünür; taşı biten hücrenin yeri zeminde biraz koyu bir yuva olarak kalır. Altta özel taş tepsisi ve ipucu.
-- **İçi boş tahtalar:** VR2'de boşluklar yalnız arka planı gösterir; süs ve buzlu koleksiyon taşı konmaz (kullanıcı 2026-11-15). Eski görünümde (`Vr2.Enabled = false`) boşluklara hareketli süs konur (`BoardDecor`): zıplayan maskot, fener, çeşme, kaya kemeri/vaha.
-- **Öğretici turlar:** Odak alanı açık, çevresi karartılmış; yanında maskotlu konuşma kartı ve zıplayan ok (`TutorialOverlay`, `GameController.Tutorial`). Bölüm 1–3 baştan sona yönlendirmeli (yalnız gösterilen gruba dokunulur; 1'de ilk hamleden sonra hedef kartı ve hamle sayacı tanıtılır). Bölüm 6 (5'li grup → roket tepsiye), 7 (tepsi kullanımı iki adım), 9 (Altın Rulo), 12 (biriktirme). Her mekaniğin ilk çıktığı bölüm: o mekanikli hücre açık, kısa açıklama. Bilgi adımı ekrana dokununca geçer; tur bölüm kazanılınca bir daha gösterilmez.
+- **İçi boş tahtalar (v14 ana katalogda yok; yalnız eski görünüm/arşiv):** VR2'de boşluklar yalnız arka planı gösterir; süs ve buzlu koleksiyon taşı konmaz (kullanıcı 2026-11-15). Eski görünümde (`Vr2.Enabled = false`) boşluklara hareketli süs konur (`BoardDecor`): zıplayan maskot, fener, çeşme, kaya kemeri/vaha.
+- **Öğretici turlar:** Odak alanı açık, çevresi karartılmış; yanında maskotlu konuşma kartı ve zıplayan ok (`TutorialOverlay`, `GameController.Tutorial`). Bölüm 1–3 baştan sona yönlendirmeli (v14: 1 dokunuş ve katlar, 2 roket ve tepsi, 3 Altın Rulo; yalnız gösterilen gruba dokunulur). 4–5 vitrin bölümleri buz, kilit, zarf, sünger, kristal, döner taban, geçit ve boyayı tanıtır; gerçek tanıtım takvimdeki ilk bölümde yeniden çıkar. Bir bölümde birden çok yeni mekanik varsa hepsi sırayla tanıtılır. Her mekaniğin ilk çıktığı bölüm: o mekanikli hücre açık, kısa açıklama. Bilgi adımı ekrana dokununca geçer; tur bölüm kazanılınca bir daha gösterilmez.
 - **Ayarlar:** Resimsiz; turkuaz→krem renk geçişi, süzülen kabarcıklar. Krem kartta Ses ve Titreşim anahtarları, Dil (dokuz dil, her biri kendi yazısıyla), kısa not; altta sürüm. Dil değişince ekranlar yeni dille yeniden kurulur.
 - **Yazı tipi:** Nunito ExtraBold (başlık, düğme, sayılar) ve Nunito SemiBold (açıklama), OFL lisanslı. Arapça için Noto Sans Arabic, Japonca/Korece için Noto Sans KR yedek fontları. Hap düğmelerde yazı yüksekliğin ~%32'si, uzun metin sığana dek küçülür.
-- **Maskot:** Kristal maskot; gözleri etrafa bakar, göz kırpar; zincir, özel taş ve yıldızda zıplar; son 1–3 hamlede endişelenir.
+- **Maskot:** Kristal maskot; gözleri etrafa bakar, göz kırpar; büyük hamle, özel taş ve yıldızda zıplar; son 1–3 hamlede endişelenir.
 - **Uygulama ikonu:** Bulanık mavi su üstünde karşıya bakan maskot (Android uyarlanabilir ikon).
 
 ## 8. Proje yapısı

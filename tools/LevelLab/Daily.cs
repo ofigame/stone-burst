@@ -210,7 +210,7 @@ static partial class Program
     {
         var sb = new StringBuilder();
         sb.AppendLine("{");
-        sb.AppendLine("  \"_not\": \"v10 P3.4 günlük katalog (ana 1.000 bölümden ayrı). Grup, oyuncunun ulaştığı en yüksek bölüme göre; o gün ilk girişte sabitlenir. Kaynak: daily_src/ (LevelLab daily), derleme: KATKAT_SRC=daily_src KATKAT_OUT=Assets/KatKat/Resources/Daily dotnet run -c Release -- analyze. Gün seçimi yerelde gün numarasına göre; canlıda sunucu.\",");
+        sb.AppendLine("  \"_not\": \"v10 P3.4 günlük katalog (ana 1.000 bölümden ayrı). Grup, oyuncunun ulaştığı en yüksek bölüme göre; o gün ilk girişte sabitlenir. Kaynak: daily_src/ (v14: LevelLab daily14 → daily14install; zincirsiz, 6 renk). Gün seçimi yerelde gün numarasına göre; canlıda sunucu.\",");
         sb.AppendLine($"  \"contentVersion\": \"{DailyVersion}\",");
         sb.AppendLine("  \"tiers\": [");
         sb.AppendLine(string.Join(",\n", DailyTiers.Select((t, i) => $"    {{ \"tier\": {i + 1}, \"minLevel\": {t.Lo}, \"maxLevel\": {t.Hi} }}")));

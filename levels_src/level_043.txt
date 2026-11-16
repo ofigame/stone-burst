@@ -1,17 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil merdiven; çözüm 4 hamle + 3 tepsi / limit 8 (pay +4, eski 11) hedef×0,76 bot 0,50 (hedef 0,50) plan 0; zincir v13: yeni çözüm 4 (eski 4), sınır 8→8, bot 109/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati (ayna); çözüm 6 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,19
 id: level_043
-title: Derindeki
-moves: 8
+moves: 9
 roll: off
 specials: on
-goals: blue 10, coral 22, star 3
+goals: navy 29, blue 24, star 2
 grid:
-bcc   pcc*  ypc   #     #     #     #
-bcc   ycy   yyy   bpp   #     #     #
-bcc   ccb   bcc   cyy   cpy   #     #
-yyp   cyb   cyp   yyy   cpy   ccp   #
-yyb   cyb   ycp   ycy   ypc   ypp   cpp
-yyb   yyp   ybp   ybp   ybc   ypc   ypp
-yyp*  cbp   cbp   yyc   yyc   ppc   ccp
-ycy   ccp   cbp   cbc   cyc*  pyc   bcc
-solution: 2,3 ; 0,0 ; use 1,0,0 ; 4,4 ; 3,2 ; use 0,1,0 ; use 0,1,0
+cgb   cgg   nbb   ngb   ggb   ggc   ggc
+cggk1 ccg   ngg   ggn   ngbk2 ngc   ggc
+#     ncb   ncb   gbn   ccn   ncn   #
+#     bcb   bcc   gbc   gcg   ncn   #
+#     bcn   bcc   ggck1 gcg   gbn   #
+#     bcn   gcb   ggb   gbb   gbn   #
+ggn   gcg   gnn   gnn   bnb   cng   cng
+ggn*  ggn   ggn   ggg   bgg*  bng   cng
+solution: 0,6 ; 0,6 ; use 1,3,1 ; 0,6 ; use 1,0,0 ; 1,2 ; use 1,2,0 ; 0,0 ; 5,0 ; use 1,2,0 ; use 0,0,6

@@ -1,12 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). ; zincir v13: yeni çözüm 3 (eski 3), sınır 3→3, bot 112/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 vitrin; şekil merdiven (ayna); çözüm 4 + 2 tepsi / sınır 5; rastgele 0,000; açgözlü kazanır; yumuşak 0,31
 id: level_005
-title: Hazırlık
-moves: 3
+moves: 5
 roll: off
-goals: yellow 8
+specials: on
+paint: 1
+type: protect
+rules: protect, exact
+goals: coral 18, yellow 12
 grid:
-cb    cb    yb    yb
-yc    yc    yb    cb
-yc    bc    bc    cb
-by    by    yc    yc
-solution: 0,1 ; 0,3 ; 0,0
+#     #     #     #     G1:pcy G1:py G1:nn
+#     #     #     cy    cc    nc    nn
+#     #     nn    yyc   cc    yc    pnP
+#     cnn   nnn   yn    cyR   yc    pcc
+cny   cn    np    yp    np    pp    pcc
+ccP   cc    pp    np    nc    cyR   ypc
+pc    py    pyB1  py    pp    cp    ppc
+pc    pcy   cyn   cyn   cyn   cpn   pny
+solution: rot 5,5 ; 4,1 ; use 0,3,1 ; 2,4 ; paint 0,5,n ; use 0,3,1

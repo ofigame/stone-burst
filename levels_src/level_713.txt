@@ -1,19 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik köşe (ayna); çözüm 9 hamle + 4 tepsi / limit 11 (pay +2, eski 11) hedef×1,14 bot 0,17 (hedef 0,18) plan 1; zincir v13: çözüm aynı, sınır 11→11, bot 22/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T (ayna); çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_713
-title: Bölüm 713
-moves: 11
+moves: 9
 roll: off
 specials: on
-paint: 1
-goals: purple 53, yellow 31
+paint: 2
+goals: coral 27, blue 36, green 18
 grid:
-#     #     bppb  bpb   bbby  #     #
-#     bpp   cyc   bpcy  pbby  bcyy  #
-yypb  yypb  ccp   cpby  pbby  ppb   bybc
-yybb  ccp   cccc  ccb   ppb   ppb   ppbc
-yypb  ypp   cpc   cpbp  pycp  cbbp  bpbc
-yppb  yppb  cypb  cyc   cycp  cbc   bbb
-yyb   yyy   ccyb  cyc   ppc   pbcp  pbb
-#     yycy  ycc   pypc  ppp   pbpp  #
-#     #     pcy   ppp   cpp   #     #
-solution: 0,2 ; 1,1 ; use 0,4,0 ; 2,1 ; 1,4 ; use 0,2,1 ; 6,2 ; 2,0 ; use 0,2,0 ; 2,1 ; 1,6 ; 5,4 ; use 0,2,0
+cnbn  cnbg  G1:cnbb G1:nnbc G1:nync G1:yyyp yygp  ycgb
+cbbn  cbpn  gypb  nybb  nync  yyyp  ybgb  ybgb
+cbng  nnpg  nnpg  nnpc  nyyc  gyyy  gcyn  ypyn
+nnbp  nnpp  bcbp  bcbc  bbngB1 gbny  bccn  ypcn
+gnbb  gnbp  gccb  gcbc  gngy  bnpy  bypb  pbcp
+nnbg  nycg  nycg  nybn  pnpn  pnpb  pycb  pbcb
+#     #     ngbn  nbbn  ncbn  pycp  #     #
+#     #     cgnn  nbpn  ncpn  cycp  #     #
+#     #     cgnp  pgnn  ncpp  ccgp  #     #
+solution: 3,5 ; use 0,7,0 ; 4,5 ; use 0,1,0 ; 4,1 ; 2,1 ; use 0,1,0 ; 0,0 ; use 0,1,0 ; 4,2 ; 0,4 ; 6,2 ; use 0,0,0 ; use 1,0,3 ; use 1,3,0

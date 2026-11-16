@@ -8,11 +8,13 @@ namespace KatKat.View
     public static class TileSkin
     {
         public const float IceWidth = 1.02f;
-        public const float ClipWidth = 0.44f;
+        public const float ClipWidth = 0.8f; // önizleme rozeti (2026-11-16: Tripo altın ataç, ortada)
+        /// <summary>Tahtada ataç genişliği (Size oranı); 2026-11-16 kullanıcı: "daha büyük ve taşların tam ortasında".</summary>
+        public const float ClipBoardWidth = 1.4f;
         public const float RibbonWidth = 0.98f;
         public const float LockWidth = 0.30f;
         public const float EnvelopeWidth = 0.99f;
-        public static readonly Vector2 ClipOffset = new Vector2(0.25f, 0.24f);
+        public static readonly Vector2 ClipOffset = Vector2.zero;
         public static readonly Vector2 RibbonOffset = new Vector2(0f, -0.12f);
         public static readonly Vector2 LockOffset = new Vector2(-0.04f, -0.04f);
 

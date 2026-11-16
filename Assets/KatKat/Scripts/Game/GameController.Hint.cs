@@ -271,7 +271,7 @@ namespace KatKat.Game
             var r = RulesEngine.TryApply(next, c);
             if (!r.Accepted) return null;
             if (next.Status == GameStatus.Won) return Loc.T("hint.why.win");
-            foreach (var w in r.Waves) if (w.Kind == WaveKind.Chain) return Loc.T("hint.why.chain");
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): "zincir başlatır" gerekçesi kalktı.
             int gain = 0;
             for (int g = 0; g < s.Goals.Count && g < next.Goals.Count; g++) gain += next.Goals[g].DisplayProgress - s.Goals[g].DisplayProgress;
             return gain > 0 ? Loc.F("hint.why.goal", gain) : null;

@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 4; protect [protect+exact] (sıradaki tür; chain tutmadı); kristal 3; çözüm 8 / sınır 15 (v7 15); açgözlü kaybeder; bot48 0,06 (taban 0,04); zincir v13: yeni çözüm 9 (eski 8), sınır 15→20, bot 2/112; zincir v13 kolaylaştırma: hedef −%6, sınır 15, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 245 + tür protect; şekil çatı (ayna); çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d002_t4
 title: Günlük 2
-moves: 15
+moves: 7
 roll: on
 specials: on
 type: protect
 rules: protect, exact
-goals: blue 33, coral 19
+goals: purple 24, navy 18, envelope 2
 grid:
-byb   pbb   pbpp  pyp   yypP  yyyP  pyy
-ccbp  bbb   pyp   pyp   ycpb  ccp   ycpp
-cyb   bybb  bcb   ypp   pcpbLy8 cpcb  pcc
-ccpc  #     #     yyp   #     #     ypc
-ycp   #     #     yppp  #     #     ybc
-yyyP  #     #     bppp  #     #     bbbc
-ypyc  ybyc  yppc  bbbc  pbb   pbby  pbb
-byb   bbyy  yyy   ybpy  pbp   pbby  pcp
-bcyy  bby   ybp   bppy  pypy  pyp   pcp
-solution: 6,7 ; 5,6 ; use 0,6,2 ; 6,4 ; use 0,0,0 ; roll 1 ; 4,1 ; 6,1 ; 5,1 ; use 0,1,0
+#     #     #     pbycP pbyc  #     #     #
+#     nggg  gyyb  gyyc  gbyni2 bypci1 bypp  #
+nnbb  nngg  nnbb  nnbc  nbbn  nypc  cpgp  cbgp
+gpbb  bpgg  bnnc  bnnc  pbby  ppgc  cpgp  cbgp
+gypp  yppp  cbnp  ybng  pbgg  gcgg  cpgg  ccgp
+gyppP ccgp  cygp  yyggEn yygg  gcbn  cnbb  ccgb
+gypyi1 ppny  npnp  nccg  yccg  ccbc  cngb  ccgb
+gpbyP ppbg  npnc  nccc  bcgci1 bcgc  pngb  ccnb
+gpby  bpbp  bpbpEc bpcg  bccg  bncb  pngb  ppnb
+solution: 6,5 ; use 0,1,1 ; roll 4 ; 3,6 ; use 0,4,2 ; 6,1 ; use 0,1,1 ; 2,5 ; use 0,1,1 ; 6,2 ; 5,1 ; use 1,1,1 ; use 0,1,1

@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: resource [exact]; çözüm 9 / sınır 12 (v7 15); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 9 (eski 9), sınır 12→16, bot 1/112; zincir v13 kolaylaştırma: hedef −%6, sınır 15, bot 9/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil çatı (ayna); çözüm 9 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_597
-title: Bölüm 597
-moves: 15
+moves: 9
 roll: off
 specials: on
-type: resource
+type: order
 rules: exact
-goals: purple 56, yellow 26, blue 54
+goals: green 36, coral 32, yellow 24
 grid:
-bcpy  bbby  ybpb  bbbbK2:2 yybp  #     #
-bbpb  pcbb  pbpb  pbpb  pypp  pppb  #
-pbbb  cbbp  cbpp  pbpp  pyyc  bpybK1:1 pbbb
-pbpb  pypb  #     #     #     bypb  pppb
-ppbb  ppbb  #     #     #     pyyy  pppp
-bpbc  bpby  #     #     #     pyypK2:2 ppbp
-bpbc  bpcy  cpcy  cccy  yypy  cppb  pbbp
-#     bpcc  cpcc  cccc  ycpc  cbbbK1:1 ybyb
-#     #     ypcb  ycpcK2:2 ycbc  cbbc  bpbb
-solution: 2,0 ; use 0,0,0 ; 3,6 ; use 0,0,0 ; 1,0 ; 6,5 ; use 0,1,0 ; 2,6 ; use 0,4,0 ; 4,1 ; use 0,4,0 ; 6,3 ; use 0,4,1 ; 5,2 ; 5,7
+#     #     #     pyyg  cyyg  #     #     #
+#     cnpc  pgpnK1:1 pyyn  pyyg  cpny  cpny  #
+bnpg  bnpn  pncn  ggcb  ggnb  cnnb  cncg  cnng
+pcggLn3 bcgb  pcbb  bybc  pnbc  bnbc  bncg  bpnc
+pcgb  pngb  ccbb  bybn  ppbc  cpgn  bpcc  ppcc
+ncpg  nypb  nybn  bybc  nnyc  yygn  ypgn  ppcc
+pcpg  nypgLn4 pypn  pyyy  pnyc  gnnb  nngb  nngn
+ngpgK1:1 nybb  ncby  gcby  gggc  gggb  gnny  nngy
+bgpb  bgbb  gcbb  gcgy  gggc  nggb  gnny  nnnn
+solution: 3,3 ; 3,2 ; 4,2 ; use 0,3,0 ; use 0,3,0 ; use 0,5,1 ; 5,2 ; use 0,4,2 ; 0,5 ; 0,3 ; use 0,3,0 ; use 0,3,0 ; 3,7 ; 6,1 ; use 0,1,1 ; use 0,7,2 ; 5,1

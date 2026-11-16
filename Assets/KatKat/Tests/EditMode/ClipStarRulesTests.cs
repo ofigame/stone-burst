@@ -51,41 +51,42 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void TwoChainWavesNextToClip_GiveTwoHits_UnlockedLayerNotPeeledInSameWave()
+        public void RevealedGroupNextToClip_DoesNotPop_SingleHitPerTap()
         {
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): altından çıkan 3 mavi patlamaz; ataş tek hasar alır.
             var s = State(5, new[]
             {
                 "bc bc  bc",
                 "y  bk2 y",
             }, FarGoal);
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.AreEqual(2, r.Waves.Count);
-            Assert.AreEqual(WaveKind.Chain, r.Waves[1].Kind);
+            Assert.AreEqual(1, r.Waves.Count);
             Assert.AreEqual(1, r.Waves[0].ClipHits.Single().RemainingAfter);
-            Assert.AreEqual(0, r.Waves[1].ClipHits.Single().RemainingAfter);
-            // Açılan ataşın mavisi ikinci dalgada soyulmadı ve sonra da zincire katılmadı.
-            Assert.IsFalse(r.Waves.SelectMany(w => w.Cells).Any(c => c.X == 1 && c.Y == 1));
-            Assert.AreEqual("b", Cell(s, 1, 1));
-            Assert.AreEqual(0, s.Board[1, 1].ClipHitsRemaining);
+            Assert.AreEqual("b b b", $"{Cell(s, 0, 0)} {Cell(s, 1, 0)} {Cell(s, 2, 0)}");
+            Assert.AreEqual(1, s.Board[1, 1].ClipHitsRemaining);
             Assert.AreEqual(4, s.MovesLeft);
+            // İkinci dokunuş maviyi soyar ve ataşı açar.
+            var r2 = RulesEngine.TryApply(s, Command.Tap(0, 0));
+            Assert.AreEqual(1, r2.Waves.Count);
+            Assert.AreEqual(0, r2.Waves[0].ClipHits.Single().RemainingAfter);
+            Assert.AreEqual("b", Cell(s, 1, 1));
         }
 
         [Test]
-        public void UnlockedCell_IsNotChainSeed_AndDoesNotJoinChain()
+        public void UnlockedClip_RevealedYellowsStay_ForNextTap()
         {
-            // v13 zincir: mercanlar soyulunca üç sarı birlikte açılır ve patlar. Açılan ataşın sarısı onlara bağlı olsa da
-            // soyulmadığı için zincire katılmaz; yerinde kalır.
+            // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): mercanlar soyulunca üç sarı açılır ama patlamaz; açılan ataşın sarısı onlara katılır, sonraki dokunuşta 4'lü grup.
             var s = State(5, new[]
             {
                 "yc yc  yc",
                 "#  yk1 #",
             }, FarGoal);
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.AreEqual(2, r.Waves.Count);
-            Assert.AreEqual(3, r.Waves[1].Cells.Count);
+            Assert.AreEqual(1, r.Waves.Count);
             Assert.AreEqual(0, s.Board[1, 1].ClipHitsRemaining);
             Assert.AreEqual("y", Cell(s, 1, 1));
-            Assert.AreEqual(GameStatus.LostNoLegalMoves, s.Status, "küçük tahtada 3'lü grup kalmadı");
+            Assert.AreEqual(GameStatus.Idle, s.Status);
+            Assert.AreEqual(4, RulesEngine.TryApply(s, Command.Tap(0, 0)).Waves[0].Cells.Count);
         }
 
         [Test]
@@ -143,13 +144,14 @@ namespace KatKat.Tests
                 "y   p  y",
             }), 1);
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            // Üst mercan kalkar: hücre boşalmadı, yıldız yok. Maviler zincirle soyulur: yıldız bir kez.
-            Assert.AreEqual(2, r.Waves.Count);
+            // Üst mercan kalkar: hücre boşalmadı, yıldız yok. v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): maviler ikinci dokunuşla soyulur, yıldız bir kez.
+            Assert.AreEqual(1, r.Waves.Count);
             Assert.AreEqual(0, r.Waves[0].StarsCollected);
-            Assert.AreEqual(1, r.Waves[1].StarsCollected);
-            Assert.IsTrue(r.Waves[1].Cells.Single(c => c.X == 0).StarCollected);
             Assert.AreEqual(new[] { 0 }, r.Waves[0].GoalProgressAfter);
-            Assert.AreEqual(new[] { 1 }, r.Waves[1].GoalProgressAfter);
+            var r2 = RulesEngine.TryApply(s, Command.Tap(0, 0));
+            Assert.AreEqual(1, r2.Waves[0].StarsCollected);
+            Assert.IsTrue(r2.Waves[0].Cells.Single(c => c.X == 0).StarCollected);
+            Assert.AreEqual(new[] { 1 }, r2.Waves[0].GoalProgressAfter);
             Assert.IsFalse(s.Board[0, 0].HasBottomStar);
             Assert.AreEqual(GameStatus.Won, s.Status);
         }

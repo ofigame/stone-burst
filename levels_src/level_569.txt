@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil artı (ayna); çözüm 7 hamle + 5 tepsi / limit 13 (pay +6, eski 16) hedef×1,14 bot 0,13 (hedef 0,20) plan 1; zincir v13: yeni çözüm 7 (eski 7), sınır 13→17, bot 0/112; zincir v13 kolaylaştırma: hedef −%12, sınır 11, bot 27/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı; çözüm 12 + 12 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_569
-title: Bölüm 569
-moves: 11
+moves: 12
 roll: off
 specials: on
-goals: purple 30, yellow 34, blue 37
+goals: blue 61, yellow 31, coral 42
 grid:
-#     #     bpbc  pppb  bpcb  #     #
-#     #     pcbc  pcbc  pypc  #     #
-ppcp  ppcy  pcby  pcby  bybc  ybcc  ybcc
-cccc  cbcb  cccb  bybp  bycc  bbcp  ybyc
-cbccK1:2 cbcb  ccyc  cycc  cycc  bycc  ybyc
-ybcc  yycb  yycp  bpbc  bpcb  yppc  ypyy
-ybcc  bbcb  bbcp  bbycK1:2 byyc  yypc  ypby
-#     #     bbcp  bpyc  ppyc  #     #
-#     #     pbcy  ppyy  bbyp  #     #
-solution: 2,0 ; use 0,2,0 ; 5,2 ; 5,2 ; 4,2 ; use 1,4,1 ; use 1,2,0 ; 2,1 ; use 1,3,0 ; use 0,2,0
+#     #     #     nygp  cypn  #     #     #
+#     nbpn  nbgn  cbgpK1:1 cbyp  cybp  nybp  #
+cnbc  nppn  npgc  nbbn  ggyn  gbbn  ybcb  cbcc
+cnbc  cybc  ngbc  bgbn  bgyn  bgby  ypcbK1:1 cnby
+cgbc  cbgc  nbbc  nbbn  pbyb  gggy  ycgy  ynby
+ggyp  nngp  nnyb  gybb  pybb  gcyb  bccb  bncc
+gbgb  gngb  gnnb  gnnb  pnyb  cgyb  bgcb  bccc
+ybgn  yncy  gbyc  gbpp  gpyp  cpcc  cpcc  pcbg
+ypgn  gncy  gbyc  bbyp  bbyp  bbcg  nbcg  ncbg
+solution: 3,2 ; 3,2 ; 4,2 ; use 1,0,2 ; 0,2 ; 3,0 ; use 1,4,1 ; 4,1 ; use 2,1,1 ; use 1,5,1 ; 2,1 ; 2,1 ; use 0,7,2 ; 3,7 ; use 0,6,2 ; 6,5 ; use 2,0,8 ; 5,6 ; use 2,0,2 ; use 2,0,2 ; use 0,2,4 ; 2,3 ; use 1,1,1 ; use 0,0,7

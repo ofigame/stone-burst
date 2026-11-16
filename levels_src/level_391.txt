@@ -1,18 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kum saati; çözüm 6 hamle + 6 tepsi / limit 13 (pay +7, eski 12) hedef×1,13 bot 0,33 (hedef 0,31) plan 1; zincir v13: yeni çözüm 6 (eski 6), sınır 13→13, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L (ayna); çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_391
-title: Son Çarklar
-moves: 13
+moves: 9
 roll: off
 specials: on
-goals: blue 25, coral 70
+goals: green 33, yellow 35, navy 27
 grid:
-ppbp  pbp   bbpy  bypy  ycp   pcp   ycb
-bpc   bpp   pppc  pyb   pcyy  pcc   ycbc
-bpcy  bpy   ppbp  bppb  pccy  ycc   pcc
-#     ypcy  ycpy  pypp  cccp  yccR  #
-#     cpcb  ypp   ypp   cpyc  ccc   #
-#     ccc   yppy  ccpy  ccc   ccb   #
-ycby  yccy  ccy   ccy   ccyc  cccy  cccb
-bcbb  cpyb  cppR  ycyR  ycy   cycy  cccy
-cbc   bpy   yppy  ycy   ycyb  ybcy  yccy
-solution: 5,1 ; use 0,2,0 ; 0,0 ; use 0,2,0 ; 4,0 ; 3,0 ; 3,1 ; use 0,0,1 ; 0,0 ; use 0,3,0 ; use 0,4,3
+#     #     #     bygy  bygy  nccg  bccp  gcnn
+#     #     #     bygy  nyyg  npcg  bccp  gynn
+#     #     #     nbny  ypyg  ypyp  pypp  pypy
+#     #     #     nbny  bpby  ynyb  bycy  pbpy
+ncnc  gcbg  pbbg  nbny  bnby  bnbp  bncp  gbcp
+nngg  gngg  gbbg  nppg  bpby  cpby  bnbg  gncg
+cygg  cngn  bgcp  gcyp  gyyy  yyyy  nngnR nnbb
+cyyp  cygn  cygn  gcgb  gcyb  yybg  ngpp  ngpb
+gpyg  npgg  nngg  cngyR cnnc  ynbg  ygpp  ngpp
+solution: rot 3,8 ; 3,0 ; use 0,7,0 ; 1,4 ; use 0,3,0 ; 3,2 ; use 0,7,0 ; 6,0 ; 3,0 ; 4,2 ; use 0,4,1 ; use 0,4,1 ; 0,6 ; use 0,0,6

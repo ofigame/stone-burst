@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [chainOnly+exact]; zincir yellow 10; çözüm 8 / sınır 9 (v7 10); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; adillik onarımı: sınır 9→10 (112 oyunda 3 galibiyet); adillik onarımı: sınır 10→12 (112 oyunda 5 galibiyet); zincir v13: yeni çözüm 8 (eski 8), sınır 12→12, bot 11/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe; çözüm 18 + 0 tepsi / sınır 18; rastgele 0,005; açgözlü kaybeder; yumuşak 0,02
 id: level_970
-title: Bölüm 970
-moves: 12
+moves: 18
 roll: off
-specials: on
 type: boss
-rules: chainOnly, exact
-goals: blue 67, coral 40, chain yellow 10
+rules: noSpecials, exact
+goals: yellow 41, navy 29, purple 38, star 3
 grid:
-pybb  pcbb  G1:bbbc G1:bcpc G1:bcyb G1:pbyb G1:pbyc pbycR
-ycbbB1 ycbb  ybbb  bcpcR bcbb  bybb  pybb  pbyc
-bcby  ybbc  yybc  yypc  bybc  bybb  bypb  bypc
-ybpy  ybpy  cybc  ybpp  ycbp  cybp  bypb  bypb
-cbcy  cpcy  cpcy  ycpp  ycpy  bcbp  bcbc  bcyb
-ybbyR ybby  ycyy  ycbp  ycby  ppby  bcyc  bcyp
-#     #     ycyy  pccc  pcpc  ybyy  #     #
-#     #     ycpb  pccy  pcpy  byby  #     #
-#     #     ybyy  pppy  yyyc  byyy  #     #
-solution: 4,1 ; use 0,7,0 ; 4,4 ; use 0,0,0 ; 3,1 ; use 0,3,1 ; 0,2 ; 0,0 ; 0,3 ; 0,2 ; 0,0 ; use 3,2,0 ; use 2,0,0 ; use 0,2,0 ; use 0,2,0
+#     #     pngn  pygn  pygp  yygp  #     #
+#     nnny  nnyy  yynn  yygn  yygn  ypgn  #
+gpyg  gpng  ynyy  pynn  yynn  yyng  yygg  yyyg
+pyng  gpng  yyyg  pynp  nygp  nygn  yygy  yyyy
+pyng  ppnp  yyyy* pyyp  pyyp  nyyp  pppg  pyyy
+pyny  gpyy  ppyy  pnpg  pnpp  npyn  npyg  pyyg
+pgnp  ggpy  pypn  pypg  ppnn  nppn  pgyn  pppn
+#     pgpy  gnpy  gnpg* pnpg  pgpp  pgpp* #
+#     #     nnpg  gnng  gnng  pnpp  #     #
+solution: 2,4 ; 3,5 ; 3,3 ; 5,5 ; 1,6 ; 2,0 ; 0,2 ; 1,1 ; 2,1 ; 1,1 ; 3,1 ; 6,4 ; 6,3 ; 3,2 ; 1,2 ; 6,6 ; 5,6 ; 0,2

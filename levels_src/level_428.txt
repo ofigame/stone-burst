@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: pure [noSpecials+exact]; çözüm 17 / sınır 21 (v7 10); açgözlü kaybeder; bot48 0,10 (taban 0,06); bot 0,00; zincir v13: yeni çözüm 18 (eski 17), sınır 21→22, bot 22/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil T; çözüm 9 + 4 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_428
-title: Bölüm 428
-moves: 22
+moves: 9
 roll: off
-type: pure
-rules: noSpecials, exact
-goals: coral 27, purple 32, yellow 25, sponge 1
+specials: on
+type: reverse
+rules: exact
+goals: coral 40, purple 27, sponge 1
 grid:
-pypb  ppbc  pcpb  #     #     #     #
-pycb  pcbb  pcpb  ycby  #     #     #
-pycc  cbcbScb pbbb  pypy  cpcy  #     #
-pccc  ycbc  pcby  yypy  yycy  ypcp  #
-ppcc  cpyb  pycy  yybp  yppp  yyyp  cyyb
-ppbc  byyy  yycy  yycy  ypbb  ypyb  ppcc
-bpbc  pycb  pppb  bpcb  ppcb  ypcb  ccyy
-bbbc  pbbb  ppbc  ppcc  pbyy  pyyp  cbcp
-bbbb  ppbb  bpbc  bbyy  pbyy  pbyp  ycbb
-solution: 4,5 ; 0,2 ; 3,1 ; 0,0 ; 0,1 ; 1,3 ; 3,2 ; 4,7 ; 5,7 ; 5,4 ; 2,7 ; 0,6 ; 0,7 ; 2,6 ; 1,1 ; 1,0 ; 2,0 ; 2,0
+pngp  pbgp  ybbp  ygbb  cpcb  cpcb  cpcp  ppnpSbp
+bbgy  bncnR ybbcR cgbb  bpcn  cpcn  gnnn  pnnb
+ybgy  yppb  bnbnR bnby  bcby  bbcn  gnnb  pnnb
+bpyc  ypyb  cncb  ccbc  pccg  ygcp  ggnp  gcgb
+ypby  ppyy  cpcc  ypbc  yccg  ypcg  bgnn  bcgn
+yyby  pybc  cpgc  ppbc  ppbg  cpcp  cgnn  bcnn
+#     #     cggc  cpnc  ypyp  cpcp  #     #
+#     #     yngc  cngc  cbyp  cbgy  #     #
+#     #     yycc  cngy  cngy  cbgy  #     #
+solution: 4,3 ; 3,3 ; 1,2 ; use 0,0,0 ; 7,1 ; 4,1 ; 4,1 ; 2,0 ; use 1,4,0 ; use 1,4,0 ; 0,1 ; rot 1,1 ; use 2,4,0

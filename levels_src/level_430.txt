@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [scarce+exact]; kıt renk coral 53/52; çözüm 11 / sınır 12 (v7 12); açgözlü kaybeder; bot48 0,04 (taban 0,04); bot 0,00; zincir v13: yeni çözüm 13 (eski 11), sınır 12→15, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil artı (ayna); çözüm 10 + 0 tepsi / sınır 10; rastgele 0,015; açgözlü kaybeder; yumuşak 0,00
 id: level_430
-title: Bölüm 430
-moves: 15
+moves: 10
 roll: off
-specials: on
 type: boss
-rules: scarce, exact
-goals: yellow 52, blue 60, coral 49, sponge 1
+rules: noSpecials, exact
+goals: purple 27, envelope 3, sponge 1
 grid:
-ybby  ycby  cpyp  #     #     yypb  ycbb  yccb
-ybcy  ppyy  pccc  #     #     ycpb  yccb  ycbp
-ybcp  ypcp  ppcc  #     #     cccp  bccb  ybcp
-ybyc  ypby  yybp  yybp  ybby  ybby  bbcb  bccb
-ybbb  ypcy  yccp  yybp  bbcp  yyby  yybb  yybb
-pyby  ypby  yccy  bppp  bbcp  bybb  bybb  bybbScb
-pcpp  pcpb  pcyc  bpyb  pcpc  bcpb  yybb  ybyb
-ycbp  cbpc  ybpc  bbyb  bbpb  pbbb  pybc  pbbb
-ypbc  ypbp  cppc  bbpc  cbpb  bbpb  cbby  pbcb
-solution: 2,3 ; 1,3 ; 5,0 ; use 0,7,0 ; use 0,7,0 ; 7,1 ; use 0,0,0 ; 0,3 ; 0,2 ; 0,1 ; 2,4 ; use 0,1,1 ; 0,5 ; 5,0 ; use 0,2,1 ; 4,4 ; 0,0 ; use 1,0,0 ; 2,0 ; use 0,2,0
+#     #     ygyc  ggpc  gyggEg gypg  #     #
+#     #     pgpc  cypy  cgpg  cypg  #     #
+yccp  ycpy  pypcEy cypc  cgpc  ccpc  pypg  pypy
+ygyp  yyyy  cycc  pycc  pypc  pcpg  pypg  cygc
+cyyp  pycy  cyccEy ypcc  ypcc  yypc  cyyc  cygcSc
+pgpg  pgpg  cgcg  cgcy  gpcy  yypg  cyyg  cpgg
+pgcc  gpcg  gpcy  pccy  cpyy  gpyg  gcpg  ccpg
+#     #     cggp  ccgg  cpyc  ppyc  #     #
+#     #     ccgp  ccgg  cccg  ppcg  #     #
+solution: 1,2 ; 2,0 ; 2,3 ; 6,2 ; 2,1 ; 5,0 ; 3,1 ; 3,0 ; 3,2 ; 6,2

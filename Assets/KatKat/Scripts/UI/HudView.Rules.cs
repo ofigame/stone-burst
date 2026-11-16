@@ -152,6 +152,14 @@ namespace KatKat.UI
                 UiFactory.Place(probe.rectTransform, new Vector2(0f, 0.5f), new Vector2(132f + 296f, 0f), new Vector2(592f, rh - 40f));
                 y += rh + 16f;
             }
+            // 2026-11-16: kuralın amacı mini canlandırmayla (oyunun taşlarıyla) gösterilir.
+            var demoRule = RuleDemo.Pick(rules);
+            if (demoRule != null)
+            {
+                var demo = RuleDemo.Build(card, demoRule, 748f);
+                UiFactory.Place((RectTransform)demo.transform, new Vector2(0.5f, 1f), new Vector2(0f, Y(y, RuleDemo.Height)), new Vector2(748f, RuleDemo.Height));
+                y += RuleDemo.Height + 16f;
+            }
             y += 28f;
             Ui1.Button("Start", card, Loc.T("trial.start"), true, new Vector2(0.5f, 1f), new Vector2(0f, Y(y, 116f)), new Vector2(748f, 116f), () => HideRuleCard(true), UiArt.Icon(UiIcon.Play), 44);
             float h = y + 116f + 56f;
@@ -221,6 +229,7 @@ namespace KatKat.UI
         {
             if (_ruleIcons != null) UiFactory.Kill(_ruleIcons.gameObject);
             _ruleIcons = null;
+            FitGoalsRow(rules == null ? 0 : rules.Count);
             if (rules == null || rules.Count == 0 || _goalsBar == null) return;
             var holder = UiFactory.Rect("RuleIcons", _goalsBar.parent);
             holder.anchorMin = holder.anchorMax = new Vector2(1f, 0.5f);
@@ -235,6 +244,25 @@ namespace KatKat.UI
                 UiFactory.Place((RectTransform)b.transform, new Vector2(0f, 0.5f), new Vector2(33f + k * 66f, 0f), new Vector2(60f, 60f));
                 PressFeedback.Attach(b);
             }
+        }
+
+        /// <summary>
+        /// v14 (2026-11-16): 3–4 hedef + 2–3 kural simgesinde "0/16" yazısı simgelerin altına giriyordu. Çip sırası kural
+        /// simgelerinin solundaki alanda ortalanır; sığmazsa orantılı küçülür.
+        /// </summary>
+        private void FitGoalsRow(int ruleCount)
+        {
+            if (_goalsRow == null || _goalsBar == null) return;
+            float iconsW = ruleCount > 0 ? ruleCount * 66f + 14f : 0f;
+            _goalsRow.offsetMin = new Vector2(0f, _goalsRow.offsetMin.y);
+            _goalsRow.offsetMax = new Vector2(-iconsW, _goalsRow.offsetMax.y);
+            float total = 0f;
+            foreach (var c in _chips) total += ((RectTransform)c.Root).sizeDelta.x;
+            total += 8f * Mathf.Max(0, _chips.Count - 1);
+            Canvas.ForceUpdateCanvases();
+            float avail = _goalsBar.rect.width - iconsW - 6f;
+            float k = total > 0f && avail > 0f && total > avail ? avail / total : 1f;
+            _goalsRow.localScale = new Vector3(k, k, 1f);
         }
 
         /// <summary>Uzun basış: yığının bütün katmanları (alttan üste, üstteki en yukarıda) ekran konumunun üstünde.</summary>

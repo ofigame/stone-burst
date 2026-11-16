@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: reverse [exact]; çözüm 7 / sınır 8 (v7 9); açgözlü kaybeder; bot48 0,10 (taban 0,06); bot 0,08; zincir v13: yeni çözüm 6 (eski 7), sınır 8→8, bot 23/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil kum saati (ayna); çözüm 14 + 0 tepsi / sınır 15; rastgele 0,015; açgözlü kaybeder; yumuşak 0,00
 id: level_128
-title: Kolay Mandal
-moves: 8
+moves: 15
 roll: off
-specials: on
-type: reverse
-rules: exact
-goals: coral 35, purple 33
+type: pure
+rules: noSpecials
+goals: purple 48, coral 55, yellow 48
 grid:
-pbpy  pyb   ycbc  #     #     #     #
-bpp   ypbb  ycc   bby   #     #     #
-bpcc  bpb   ybb   pyyLy5 yyp   #     #
-bbcc  bcyc  pbp   pppb  ypp   byc   #
-bcc   bbbc  bbbc  pypp  ypyp  cpc   yycy
-cpy   bcpy  bcp   pypp  cpyp  ppy   cyy
-byby  bcby  bypy  pycy  cpc   pcby  pbyy
-yyb   cyb   yyc   cycy  ybyc  cbb   pbby
-cpb   cpby  cycy  cyc   pyb   pbb   ybb
-solution: 0,7 ; 0,5 ; use 0,2,0 ; 4,2 ; 4,4 ; use 0,0,1 ; 1,0 ; use 0,2,0 ; 0,0 ; use 0,0,0 ; use 0,0,0
+cpcy  pyc   ccc   ycc   ppcp  ppcp  pyc   pyy
+cpcy  pyp   cypk1 yypy  pycc  cypc  cypp  ycy
+cyc   cyp   yycc  yycy  pccc  pyp   pcp   ycp
+#     yypk2 yccc  ycc   ycc   pyy   pypc  #
+#     pypc  pcc   ccc   pccy  ppy   pyck1 #
+#     yyp   ycc   ccp   cccy  cpc   cycp  #
+yyp   yyp   yppy  cpp   cpc   cpc   ccpp  ycy
+yyc   yypy  yppy  cypp  cyc   cyp   ccp   ycyy
+pyc   pyc   pppp  pyppLc5 cpc   ypck2 yccy  ycyy
+solution: 4,1 ; 4,0 ; 5,1 ; 1,0 ; 2,5 ; 1,1 ; 2,6 ; 0,0 ; 6,2 ; 6,0 ; 4,0 ; 0,7 ; 1,5 ; 6,3

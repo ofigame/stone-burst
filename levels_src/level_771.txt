@@ -1,19 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil kesik halka 3x3 (ayna); çözüm 5 hamle + 4 tepsi / limit 9 (pay +4, eski 13) hedef×0,97 bot 0,21 (hedef 0,22) plan 0; zincir v13: yeni çözüm 7 (eski 5), sınır 9→11, bot 16/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 17 + 9 tepsi / sınır 18; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_771
-title: Bölüm 771
-moves: 11
+moves: 18
 roll: off
 specials: on
-paint: 1
-goals: blue 38, coral 32
+goals: yellow 26, coral 21, blue 23, star 3
 grid:
-cbp   cpby  cby   cyy   cbpy  #     #
-bby   bby   cbpp  cyp   ypp   cpyp  #
-bbyb  ccy   cyc   bypc  cpp   cpcb  ypyb
-bccb  bcy   #     #     #     ypc   ypcb
-bbcb  ybyb  #     #     #     ycpb  ypb
-byc   yyc   #     #     #     ccp   bcbc
-bycb  yyc   cyc   bcpb  ccb   ypb   pyb
-#     byc   bycc  byp   ccbc  cppp  pyb
-#     #     bypp  byp   byp   bypp  ppb
-solution: 1,0 ; use 0,2,0 ; 5,2 ; 0,1 ; 5,3 ; 2,6 ; use 0,1,2 ; 4,0 ; 3,0 ; use 2,0,2 ; use 0,4,0 ; use 0,0,2
+pcnb  gcnb  gcnb  pnpc  nnpc  #     #     nggb*
+#     ncnb  gbnnk1 pcnb  ncpbk1 cbpb  cbby  cbbb
+#     yynn  yypn  cgpc  yggy  ynpb  cbpb  bbyb
+ygyb  ygyb  ycgp  cgpp  yggy  ygnc  pbnp  pnypk2
+gyyb  gpyb  ypgp  npgp  npgy* cgpy  cgpy  pnbp
+#     #     cnyg  npyg  nnpy  cppyk1 pgyy  ygbn
+#     #     cnng  gcyg  ncgp  cpgp  ppypk1 ygnn
+gccn  yynn  ypnb  gypb  gcgc  ycgc* nnbg  nnbn
+gccbk2 ypcn  pppn  nppc  nnpc  nypg  nybg  ynbg
+solution: 2,5 ; 4,2 ; use 0,0,0 ; 0,0 ; use 0,0,0 ; 3,0 ; use 0,6,1 ; 5,1 ; 3,2 ; use 0,0,4 ; 3,4 ; 3,6 ; use 0,4,1 ; 2,2 ; use 2,5,1 ; 2,7 ; 6,7 ; 7,4 ; 5,8 ; use 3,7,0 ; 6,7 ; 4,2 ; 4,2 ; 3,0 ; use 2,0,0 ; use 0,7,0

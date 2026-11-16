@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v7: şekil L (ayna); çözüm 8 hamle + 6 tepsi / limit 10 (pay +2, eski 10) hedef×1,15 bot 0,29 (hedef 0,15) plan 1; zincir v13: yeni çözüm 10 (eski 8), sınır 10→12, bot 23/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U (ayna); çözüm 8 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_983
-title: Bölüm 983
-moves: 12
+moves: 9
 roll: off
 specials: on
-goals: blue 45, coral 41, envelope 2
+paint: 1
+goals: coral 40, navy 24, blue 34
 grid:
-#     #     #     ppc   pppb  pcpR  ccbc
-#     #     #     pbc   cbbb  ccbb  cyb
-#     #     #     pbb   pbbb  pcp   pyb
-#     #     #     bbb   bby   bbc   bbc
-pcpb  pcyb  ypy   yyyy  byp   bcyR  ybcEy
-pyp   pccR  ppcp  pypy  pypy  bcyc  yby
-pypEp bycy  ppc   ppby  bppb  bpyc  ybyc
-cycc  cycy  ccb   ppbb  bpyb  ypyb  yyy
-ccc   ccc   ccbc  pcyc  bpy   byy   yybb
-solution: 4,0 ; use 0,4,0 ; 4,3 ; 4,1 ; 5,0 ; use 0,6,0 ; 1,5 ; 6,4 ; use 1,3,0 ; 2,4 ; use 1,3,1 ; 1,6 ; 0,8 ; 1,4 ; use 1,6,0
+ycgb  ycgb  yggb  #     #     gccb  gccn  gccb
+gcgg  ggyg  ygyy  #     #     gpyg  gnyn  gnpn
+gcpp  ggbg  cggg  #     #     npyg  npcy  nnpn
+nbpn  nbpc  cbgb  cngb  nncc  nnbc  gncc  gpyb
+ncpn  pcbc  pggb  cbgp  ybcc  ybbn  gpbp  gpyp
+ncbg  gcbp  ggcb  cbgb  ybbc  pbbn  ngby  ngybLn4
+ccyg  ccbp  gccb  ccgc  bcbb  bbby  ygby  ygnb
+ynyg  ycgc  gccc  gcbc  bbbb  bccy  yccy  pcnp
+ynyg  nngc  gpgc  gpnc  gbnb  bcyy  bcyy  bppp
+solution: 2,3 ; 2,5 ; 0,1 ; use 1,6,0 ; use 1,0,0 ; 1,3 ; 6,5 ; 5,3 ; use 1,5,0 ; use 0,7,0 ; use 0,7,1 ; 4,4 ; 2,4 ; use 1,6,0 ; use 0,6,1 ; use 0,5,0

@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: chain [chainOnly+exact]; zincir blue 10; çözüm 8 / sınır 12 (v7 13); açgözlü kaybeder; bot48 0,08 (taban 0,06); bot 0,00; adillik onarımı: sınır 12→13 (112 oyunda 12 galibiyet); zincir v13: yeni çözüm 10 (eski 8), sınır 13→15, bot 6/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil U; çözüm 21 + 0 tepsi / sınır 21; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_937
-title: Bölüm 937
-moves: 15
+moves: 21
 roll: off
-specials: on
-type: chain
-rules: chainOnly, exact
-goals: purple 66, yellow 40, chain blue 10
+type: pure
+rules: noSpecials, exact
+goals: navy 33, green 46, blue 35, envelope 3
 grid:
-bcby  bcby  cccy  #     #     #     #
-bybyi1 byby  byby  ybcp  #     #     #
-cycc  ccyy  cyyy  yypp  pccc  #     #
-cypb  ccyc  byybi1 pypb  pypcK1:2 ccppi1 #
-cppb  ccpb  ycpb  bypci1 bypci2 ccpp  pcpc
-bppb  bcpb  bppy  cppy  ccpc  ccpp  yypc
-cppp  cppp  bppp  bppy  cpcy  byyp  bybpi2
-cppci2 bppp  bppp  bppc  cccy  bcyp  bcbpi1
-cppp  bppp  bpbc  ypbc  yccp  ycypK1:2 ypbp
-solution: 0,0 ; 0,3 ; 0,1 ; use 1,0,0 ; 3,1 ; 0,6 ; use 1,3,2 ; 2,2 ; use 3,0,2 ; 4,2 ; use 1,0,1 ; 3,3 ; 5,6 ; 4,7 ; use 0,6,4 ; use 0,5,8
+pgnn  pggn  gpgn  #     #     ggpb  gnpb  gngnR
+ggnb  pggn  ggnn  #     #     ggpb  gnpg  gnpgEn
+gbnb  gggb  pggpi1 #     #     ngpg  ngpp  bnbp
+ngbb  nggn  ppgpi2 ppbbi1 pnbgi1 nnpg  nnpn  bnbp
+ggbn  bgbn  bgbp  bpgb  bpgn  bpnn  bpnn  npgb
+gnbg  bnbg  bgbn  bgnb  bpng  ngng  ngnn  npgn
+gnbp  gpbb  ggpb  pgnpEn pgbp  nggnR gbgb  gbgb
+gpbp  pbbb  bgpb  bgnb  bgpgi1 nnpg  nngg  gppg
+ppbp  bbbp  bnpb  bgpg  bgbg  bnbg  pnbgEb gpbg
+solution: rot 5,6 ; 6,3 ; 1,6 ; 5,2 ; 3,3 ; 5,4 ; 5,2 ; 7,2 ; 7,2 ; 7,4 ; 4,7 ; 1,3 ; 0,1 ; 1,2 ; 1,4 ; 0,0 ; 5,5 ; 2,2 ; 1,0 ; 1,0 ; 3,4

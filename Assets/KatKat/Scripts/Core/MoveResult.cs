@@ -36,6 +36,9 @@ namespace KatKat.Core
         public LayerColor PaintFrom, PaintTo;
         /// <summary>Bu hamlenin toplam puanı (özel taş oluşma puanı dahil).</summary>
         public int ScoreGained;
+        /// <summary>Konsept pilotu: hamle sonu tehdit olayı ve etkilediği hücreler (yalnız sunum).</summary>
+        public HazardNote HazardNote;
+        public readonly List<Coord> HazardCells = new List<Coord>();
 
         public int TotalPeeled
         {

@@ -39,6 +39,26 @@ namespace KatKat.UI
         public Action PilotPressed;
         /// <summary>Deneme listesi pilot kataloğu için mi açılıyor (başlık ve alt yazı).</summary>
         public bool TrialListPilot;
+        /// <summary>Konsept pilotu listesi (başlık ve alt yazı).</summary>
+        public bool TrialListConcept;
+        public Action ConceptPressed;
+
+        private string TrialListTitleKey => TrialListConcept ? "concept.list.title" : TrialListPilot ? "vr1.pilot.list.title" : "trial.list.title";
+        private string TrialListSubKey => TrialListConcept ? "concept.list.sub" : TrialListPilot ? "vr1.pilot.list.sub" : "trial.list.sub";
+
+        /// <summary>Konsept pilotu girişi: Pilot düğmesinin altında, aynı koşulla (deneme derlemesi).</summary>
+        private void BuildConceptButton(RectTransform shell)
+        {
+            if (!Vr1Proto.On || !Vr1Proto.PilotAllowed || ConceptPressed == null) return;
+            var b = ShellRoundButton("ConceptButton", shell, RuleIcons.For("exact"), 120f, () => ConceptPressed?.Invoke());
+            UiFactory.Place((RectTransform)b.transform, new Vector2(0.5f, 1f), new Vector2(-V11ColumnX, -V11ColumnZpeTop - V11LeftShift - 66f - 3f * LiveButtonDrop), new Vector2(120f, 120f));
+            var cap = WhiteCapsule("ConceptLabel", b.transform, new Color32(0xC2, 0x41, 0x2D, 0xFF), new Vector2(0.5f, 0f), new Vector2(0f, -30f), new Vector2(170f, 50f), 5f);
+            cap.raycastTarget = true;
+            var t = UiFactory.Title("Text", cap.transform, Loc.T("concept.button"), 30, Color.white, new Color32(0x4A, 0x12, 0x0A, 0xFF));
+            t.raycastTarget = false;
+            UiFactory.Stretch(t.rectTransform, 12f, 12f, 2f, 4f);
+            FitText(t, 18);
+        }
 
         private void BuildPilotButton(RectTransform shell)
         {

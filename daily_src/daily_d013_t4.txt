@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v3: grup 4; scarce [scarce]; kıt renk purple 36/35; çözüm 10 / sınır 11 (v7 9); açgözlü kaybeder; bot48 0,04 (taban 0,04); zincir v13: yeni çözüm 10 (eski 10), sınır 11→12, bot 5/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 225 + tür resource; şekil artı (ayna); çözüm 7 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: daily_d013_t4
 title: Günlük 13
-moves: 12
+moves: 7
 roll: on
 specials: on
-type: scarce
-rules: scarce
-goals: purple 35, coral 30
+type: resource
+rules: exact
+goals: green 26, yellow 19, envelope 3
 grid:
-ybp   bpp   ypyy  #     #     #     #
-ybcb  bppp  yppp  cyc   #     #     #
-ybcb  bbp   bbbp  bybc  yyc   #     #
-cbcb  ccy   bycp  yyb   yyc   bcbb  #
-bpyb  bbyyi1 pycy  pyp   ycci1 ypcb  yppb
-bcp   byyy  yycy  pcpbi1 pcc   ypbb  ybp
-bbbb  yyb   yyb   yypb  bccb  pcb   pbp
-cpb   yycpLb7 cyb   yyy   pcyb  pcy   pbyc
-cpb   ccb   bbc   yyy   bcyb  bby   bby
-solution: 5,3 ; 3,1 ; use 0,0,0 ; 0,0 ; 3,1 ; roll 5 ; use 0,3,1 ; use 0,1,0 ; 4,2 ; roll 1 ; 1,0 ; roll 7 ; 6,6 ; use 0,2,4
+#     #     ncpn  gcpg  gbpg  gcgg  #     #
+#     #     gccy  gnpy  gbcg  bcgg  #     #
+nbcc  nbcc  nccy  nncg  nngg  bcgg  bgyy  pnyb
+nccb  nnpb  nnpy  pnpg  cgpg  ppngEg cnyy  cncb
+nccy  nnpy  pyppEb pypp  pybg  ppny  ybyy  pbcgEb
+nccy  nncy  gnpp  gyyp  yybp  ypnp  ybyg  pcyg
+#     #     gbyn  gbyn  ggpc  ggpcLc4 #     #
+#     #     pbpn  pbyn  pgpg  bgpg  #     #
+solution: 3,0 ; 3,3 ; roll 5 ; use 0,2,1 ; use 0,0,4 ; 5,0 ; roll 3 ; 2,1 ; 0,4 ; use 1,7,4 ; use 0,5,0 ; use 0,5,0

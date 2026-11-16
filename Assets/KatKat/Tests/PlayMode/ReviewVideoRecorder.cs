@@ -73,11 +73,11 @@ namespace KatKat.Tests
                 yield return Rec(2.6f);
                 PeekBiggest(false);
 
-                // 2) Zincir: üst katman soyulur, alttan çıkan 3+ aynı renk kendiliğinden patlar.
+                // 2) Katman: üst katman soyulur, alttan yeni renk çıkar (v14, kullanıcı 2026-11-16: zincir tamamen kaldırılsın).
                 _gc.StartLevel(1);
                 yield return Rec(0.6f);
                 _gc.Hud.HideRuleCard(false);
-                Caption("Tap 3+ touching stones: one layer peels.\nNewly revealed groups of 3 burst on their own.");
+                Caption("Tap 3+ touching stones: one layer peels.\nA new color appears underneath: plan your next tap.");
                 yield return Rec(1.2f);
                 foreach (var step in _gc.CurrentLevel.Solution)
                 {
@@ -126,9 +126,6 @@ namespace KatKat.Tests
                 yield return Rec(2.6f);
                 _gc.StartLevel(36);
                 Caption("Think Backwards: the tempting move loses.");
-                yield return Rec(2.4f);
-                _gc.StartLevel(46);
-                Caption("Chain Master: goals fill only through chains.");
                 yield return Rec(2.4f);
                 _gc.StartLevel(86);
                 Caption("The Right Moment: power stones, at the right time.");

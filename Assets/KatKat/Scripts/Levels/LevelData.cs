@@ -29,12 +29,15 @@ namespace KatKat.Levels
         public bool SpecialsEnabled => Capabilities.Contains("specials");
         /// <summary>v12 deneme: bölüm türü (ör. "exact", "aha", "reverse"…); kural kartı başlığı. Boşsa normal bölüm.</summary>
         public string TrialType;
-        /// <summary>v12 deneme: oyuncuya gösterilen kurallar ("exact", "protect", "chainOnly", "noSpecials", "scarce").</summary>
+        /// <summary>v12 deneme: oyuncuya gösterilen kurallar ("exact", "protect", "noSpecials", "scarce"). v14: "chainOnly" kaldırıldı, doğrulayıcı reddeder.</summary>
         public readonly List<string> Rules = new List<string>();
         public readonly List<GoalData> Goals = new List<GoalData>();
         public readonly List<CellData> Cells = new List<CellData>();
         public readonly List<StepData> Solution = new List<StepData>();
-        /// <summary>vr1 P3 zincir mührü: {wave, gate}; 0 = yok. Ana katalogda kullanılmaz (pilot içerik).</summary>
+        /// <summary>vr1 P3 zincir mührü: {wave, gate}; 0 = yok. v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): motor
+        /// kullanmaz; eski veri çökmesin diye okunur, doğrulayıcı "desteklenmiyor" der.</summary>
         public int SealWave, SealGate;
+        /// <summary>Konsept pilotu: hamle başı tehdit (yoksa null; ana katalogda kullanılmaz).</summary>
+        public HazardData Hazard;
     }
 }

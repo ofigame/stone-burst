@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v8: boss [exact] (yedek; istenen boss [noSpecials+exact]); çözüm 5 / sınır 6 (v7 9); açgözlü kaybeder; bot48 0,06 (taban 0,04); bot 0,42; zincir v13: yeni çözüm 5 (eski 5), sınır 6→6, bot 8/112
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil çatı (ayna); çözüm 9 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_140
-title: Renk Finali
-moves: 6
+moves: 9
 roll: off
 specials: on
 type: boss
-rules: exact
-goals: coral 29, purple 22, star 2
+rules: scarce, exact
+goals: yellow 36, green 26, coral 21
 grid:
-cppp  ypp   yyy   yyb   #     #     #     #
-ypy   yyyc  yyyp  yybp  ybp   #     #     #
-yybp  byy   bcy   bcy   bbp   cppb  #     #
-bybp  pyyb  byyb  byy   yyy   yyy   cyc   #
-pbbc  yyy   pbb   byc   bpcp  py    cpc   yccy
-pbb   bbb   cccc  ccc*  pycp  pyc   cpc   yccy
-yyp   bbbp  bbpp  yccLc10 yyc   byc   byc   yccy
-yybp  ybb   yypp  yccb  yccb  cbb   yccb  pcpy
-yycp* yy    byp   bcb   byy   ycbb  pb    pcp
-solution: 6,3 ; 5,6 ; use 1,0,0 ; 3,4 ; 2,5 ; use 1,1,1 ; 0,8 ; use 0,0,0
+#     #     #     gcp   ggpn  #     #     #
+#     pcy   pyc   gcp   ggp   ygpc  yng   #
+gyyc  pyy   pycg  nncg  nnp   ygpc  pyp   yyp
+ggy   gnn   gyc   gpcc  ngpc  pgyy  pgyn  nnc
+pyy   pyn   gyyn  gpnn  npn   pncy  pncy  yncn
+pgn   nyn   ggy   npcn  nnnn  pgn   ppn   ppn
+pgg   pngy  pnn   pny   ngc   cgn   ppn   npn
+cpcLy4 gnc   ggg   gcgp  nccp  ccny  ccny  ncn
+gpy   gcyy  pcgp  pcnp  pcc   cgpy  cyn   nynp
+solution: 1,3 ; use 0,2,1 ; 1,1 ; 3,0 ; use 0,0,2 ; use 0,3,0 ; 3,0 ; use 0,4,1 ; 4,2 ; 3,3 ; 1,7 ; 5,4 ; 7,6 ; use 0,5,1 ; use 1,6,1 ; use 0,6,1
