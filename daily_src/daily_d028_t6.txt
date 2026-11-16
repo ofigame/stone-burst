@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: order
 rules: exact
-goals: blue 21, yellow 26, green 33, star 4
+goals: blue 21, coral 26, green 33, star 4
 grid:
-npcn  pypb  pypn  pccp  bccp  #     gggb* gggb*
-npbn  npbbLn3 gcbn  bcbg  bccg  #     gggg  bygg
-npcp  ypcp  yppg  bnng  bcng  pbny  ppng  byny
-cppn  cgcn  yppp  cnpp  bnyg  pnny  ppng* #
-gnpc  ccpc  ycyp  cgyp  cgyg  pynb  pnnb  pynn
-gnpc  ncyn  ncyn  nnng  bgyg* byyg  bggbLn3 bygn
-gnbn  cgcn  cgyn  cgcg  pycg  pygn  pggg  bygn
-cgcp  ngcp  yybp  ygbb  yyyb  ypnn  ppng  pygn
-nbcp  ngcy  pyby  bgyb  byyb  #     gyng  gygn
+npyn  pcpb  pcpn  pyyp  byyp  #     gggb* gggb*
+npbn  npbbLn3 gybn  bybg  byyg  #     gggg  bcgg
+npyp  cpyp  cppg  bnng  byng  pbnc  ppng  bcnc
+yppn  ygyn  cppp  ynpp  bncg  pnnc  ppng* #
+gnpy  yypy  cycp  ygcp  ygcg  pcnb  pnnb  pcnn
+gnpy  nycn  nycn  nnng  bgcg* bccg  bggbLn3 bcgn
+gnbn  ygyn  ygcn  ygyg  pcyg  pcgn  pggg  bcgn
+ygyp  ngyp  ccbp  cgbb  cccb  cpnn  ppng  pcgn
+nbyp  ngyc  pcbc  bgcb  bccb  #     gcng  gcgn
 solution: 3,1 ; roll 6 ; use 0,1,0 ; 5,2 ; 6,0 ; use 0,6,0 ; 3,2 ; use 1,1,1 ; roll 0 ; 1,1 ; use 1,1,0 ; use 0,6,0 ; 5,2 ; use 0,4,0

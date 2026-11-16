@@ -1,16 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 vitrin; şekil kesik köşe; çözüm 4 + 0 tepsi / sınır 8; rastgele 0,955; açgözlü kazanır; yumuşak 1,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 vitrin; şekil çatı; çözüm 7 + 0 tepsi / sınır 11; rastgele 0,915; açgözlü kazanır; yumuşak 1,00
 id: level_001
-moves: 8
+moves: 11
 roll: off
 specials: on
-goals: purple 6, navy 6
+goals: yellow 11, blue 10
 grid:
-#     #     yp    gg    gp    #     #
-#     pn    yy    ny    gn    ng    #
-pp    ng    np    gy    yy    yn    yn
-pg    pn    pp    gn    yn    ng    nn
-ng    ny    gn    pn    gg    np    gg
-ng    np    yg    ny    pp    gp    np
-#     py    ng    yp    yy    py    #
-#     #     gg    yp    yp    #     #
-solution: 3,3 ; 5,4 ; 5,2 ; 3,6
+#     #     #     yy    #     #     #
+#     yy    yy    bb    bb    yy    #
+bb    bb    yy    bb    yy    bb    bb
+yy    yy    bb    yy    yy    bb    bb
+bb    bb    yy    bb    bb    yy    yy
+bb    yy    bb    yy    yy    bb    bb
+yy    yy    bb    bb    yy    bb    yy
+bb    bb    yy    yy    bb    yy    yy
+solution: 5,2 ; 5,2 ; 1,1 ; 1,1 ; 4,2 ; 3,1 ; 4,2

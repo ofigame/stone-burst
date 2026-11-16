@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 61 + tür exact; şekil elmas (ayna); çözüm 6 + 3 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 61 + tür exact; şekil artı; çözüm 6 + 4 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d018_t2
 title: Günlük 18
 moves: 7
@@ -6,14 +6,14 @@ roll: on
 specials: on
 type: exact
 rules: exact
-goals: yellow 8, blue 10, star 3
+goals: yellow 28, blue 22, star 3
 grid:
-#     #     #     cpnk1 bnn   #     #     #
-#     #     bpc   cpbk1 ybn   ybb   #     #
-#     bpc   bpc   cpc   ybn   ynck1 yyc   #
-nyn   npn   bpn   cpc   bbp   nnc   ypy*  ypy
-ncc   ncc   bcc   bpp   bbp   nbc*  ncy   npy
-#     ncy   bpy   bpp   pbb   pcn   pcn   #
-#     #     bpck2 pyb*  pyb   ncn   #     #
-#     #     #     pyc   pyc   #     #     #
-solution: 2,1 ; 2,1 ; roll 4 ; 4,3 ; use 1,6,3 ; use 0,3,0 ; 5,4 ; roll 3 ; use 0,6,2
+#     #     bcy   gcy   gby   gby   #     #
+#     #     ccy   cgy   cby   gby   #     #
+gbp*  bby   bcg   bgg   cbp   gby   pbp   pbp
+ypp   bpp   gybk2 ggg   gpp   gpp   gbgk1 gbp
+ypy   ygyk1 ggy   ggg   gcg   pcp   pbp   pbp
+yby   ybyk1 cby   cgg   ggg*  ggp   cyp   cbp
+#     #     cby   cyy   pgy   pgp   #     #
+#     #     pyy   pyy*  pyy   pyp   #     #
+solution: 2,4 ; use 0,2,0 ; 4,2 ; roll 2 ; use 0,4,0 ; 3,1 ; 3,3 ; roll 5 ; use 1,0,2 ; use 0,2,2

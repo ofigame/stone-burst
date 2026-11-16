@@ -9,12 +9,12 @@ rules: exact
 goals: blue 37, green 26, envelope 2
 grid:
 #     #     npnp  ppgp  ppgg  gppp  #     #
-#     pppp  npgp  ppgg  ngbg  ngbp  ynyg  #
-ncyc  pbpb  pbpc  pbbc  ppbc  ppyb  yyyg  gyyn
-ncyc  nynb  cbyc  gbyc  ypcb  yccb  ycgn  gggn
-ncbcEb bync  cnyc  ynyc  npbc  ncbb  bcgy  gcgn
-gybb  byng  ccnn  ycbnEy nybn  ybby  bcby  ggby
-gnbg  byng  bgbn  npbc  nbyc  ybyc  pgyy  pgby
-#     pnnc  pbpc  pppc  npbc  ypyy  pgyy  #
-#     #     pbpc  bbpb  bbpb  bbpb  #     #
+#     pppp  npgp  ppgg  ngbg  ngbp  cncg  #
+nycy  pbpb  pbpy  pbby  ppby  ppcb  cccg  gccn
+nycy  ncnb  ybcy  gbcy  cpyb  cyyb  cygn  gggn
+nybyEb bcny  yncy  cncy  npby  nybb  bygc  gygn
+gcbb  bcng  yynn  cybnEc ncbn  cbbc  bybc  ggbc
+gnbg  bcng  bgbn  npby  nbcy  cbcy  pgcc  pgbc
+#     pnny  pbpy  pppy  npby  cpcc  pgcc  #
+#     #     pbpy  bbpb  bbpb  bbpb  #     #
 solution: 2,2 ; use 0,2,3 ; 1,2 ; roll 5 ; use 0,4,0 ; 1,3 ; use 0,4,1 ; 2,0 ; 3,0 ; 2,3 ; 3,4 ; use 1,0,6 ; 3,6 ; 1,6 ; 7,2 ; use 0,6,3 ; use 0,7,3

@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 vitrin; şekil merdiven (ayna); çözüm 4 + 2 tepsi / sınır 5; rastgele 0,000; açgözlü kazanır; yumuşak 0,31
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 vitrin; şekil dikdörtgen; çözüm 4 + 1 tepsi / sınır 5; rastgele 0,000; açgözlü kaybeder; yumuşak 0,23
 id: level_005
 moves: 5
 roll: off
@@ -6,14 +6,14 @@ specials: on
 paint: 1
 type: protect
 rules: protect, exact
-goals: coral 18, yellow 12
+goals: yellow 12, blue 13
 grid:
-#     #     #     #     G1:pcy G1:py G1:nn
-#     #     #     cy    cc    nc    nn
-#     #     nn    yyc   cc    yc    pnP
-#     cnn   nnn   yn    cyR   yc    pcc
-cny   cn    np    yp    np    pp    pcc
-ccP   cc    pp    np    nc    cyR   ypc
-pc    py    pyB1  py    pp    cp    ppc
-pc    pcy   cyn   cyn   cyn   cpn   pny
-solution: rot 5,5 ; 4,1 ; use 0,3,1 ; 2,4 ; paint 0,5,n ; use 0,3,1
+bbP   bb    G1:bb G1:bbb G1:bb yb    yb
+byb   byb   yb    ybb   yb    yby   yby
+yb    bbb   yb    yy    bb    yby   yb
+yb    ybb   yby   yyy   bby   byy   byy
+byy   ybyR  yby   byy   byy   by    bb
+by    byy   by    by    ybb   yb    yby
+bby   yb    yyb   by    ybb   ybB1  bby
+ybR   yy    yyb   yyP   yb    yyb   byb
+solution: rot 0,7 ; 4,5 ; paint 3,7,b ; 5,1 ; use 0,1,0

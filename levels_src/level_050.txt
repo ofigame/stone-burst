@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe (ayna); çözüm 6 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil merdiven (ayna); çözüm 7 + 6 tepsi / sınır 8; rastgele 0,010; açgözlü kaybeder; yumuşak 0,00
 id: level_050
-moves: 7
+moves: 8
 roll: off
 specials: on
 type: boss
 rules: exact
-goals: green 38, coral 34, star 3
+goals: purple 41, coral 33, star 3
 grid:
-#     #     pbp   gcg   ccg   #     #
-#     ggg   ggg   ggg   ccg   cbc   #
-pbb   pbp   cgp   bgg   bbg   bbb   cbb
-gcp   pcp*  ccp   bcp   bgg   bgb   cbgk2
-gcb   ggb   gpb   cgb   cgb   bgb*  ccck1
-gcb   ggb   gpc   cpp   gcc   bcc   ccc
-#     ggc   ggck1 bpb   bbp*  bbp   #
-#     #     cgb   cgb   cgb   #     #
-solution: 5,2 ; use 0,5,1 ; 1,2 ; 3,0 ; 2,2 ; use 0,2,0 ; 5,1 ; use 0,3,0 ; 1,4 ; use 2,4,0 ; use 0,3,0
+#     #     #     #     ccy   ccp   ccc
+#     #     #     pyy   cpy   cpp   cpc
+#     #     yyc   pyc   cpc   ppc   cpc
+#     ppy   ppy   ccy   ppc   ppyk1 bcy
+ycyk1 ppy   ppb*  pcb   ycy   pcy   bcp*
+pcy   pcy   ccb   pybk2 yyy   pby   pyy
+pbb   cbp   cpp*  cpb   cyp   cby   cyb
+pbb   pbp   cpb   ppb   pbb   cbb   byb
+solution: 6,0 ; 4,0 ; use 0,5,0 ; 5,3 ; 4,0 ; use 0,6,3 ; 2,6 ; 0,5 ; use 2,0,4 ; use 0,5,1 ; 4,0 ; use 0,3,5 ; use 0,5,3

@@ -8,13 +8,13 @@ type: reverse
 rules: exact
 goals: navy 17, purple 28, blue 22, star 3
 grid:
-#     #     bcgp  bcgy  bcgy  bpby  #     #
-#     bgcn  bcnn  bbpn  npbn  npbn* pybn  #
-ggpc  bgpn  ycnb  ynpg  nnyg* ypgg  yggg  yggc
-gppc  byyc  yypb  ycpb  yygg  bygg  bbgg  bygc
-gppc  bpyp  yppb  ycpb  cypp  yyyp  byyn  cyyc
-gnpg  ybpy  ycpb  ycpp  cyyp  yyyp  ycyy  ycyy
-gncy  ybcy  yypb  pgcb  pbnp  pyyp  ycyn  ycyn
-#     pynn  pycg  ygcg  ygcn  yyyp  yyyn* #
-#     #     pncg  pncg  pncg  cyyn  #     #
+#     #     bygp  bygc  bygc  bpbc  #     #
+#     bgyn  bynn  bbpn  npbn  npbn* pcbn  #
+ggpy  bgpn  cynb  cnpg  nncg* cpgg  cggg  cggy
+gppy  bccy  ccpb  cypb  ccgg  bcgg  bbgg  bcgy
+gppy  bpcp  cppb  cypb  ycpp  cccp  bccn  yccy
+gnpg  cbpc  cypb  cypp  yccp  cccp  cycc  cycc
+gnyc  cbyc  ccpb  pgyb  pbnp  pccp  cycn  cycn
+#     pcnn  pcyg  cgyg  cgyn  cccp  cccn* #
+#     #     pnyg  pnyg  pnyg  yccn  #     #
 solution: 2,2 ; 2,3 ; use 0,1,1 ; roll 1 ; 1,4 ; use 0,2,0 ; roll 1 ; 4,4 ; 5,4 ; use 0,6,1 ; 3,2 ; use 0,1,1 ; roll 3 ; 4,2 ; roll 2 ; use 1,0,2

@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 106 + tür reverse; şekil T; çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 106 + tür reverse; şekil çatı (ayna); çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d010_t3
 title: Günlük 10
 moves: 7
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: reverse
 rules: exact
-goals: coral 60, purple 32, green 18
+goals: coral 19, yellow 53, purple 27
 grid:
-pcpc  pcpc  pcp   cypp  cgp   ngcn  ygcn  yngi1
-pnc   pnpc  pcgc  nnpp  cnc   nnn   cnc   cngc
-gycc  gncc  pnn   nnyp  cncn  nnc   cnc   ccgc
-gync  gycci1 ynnc  ync   cnc   ccp   ccn   ccn
-gync  gpn   nng   ccg   cnnp  cpp   yyp   ycg
-ycnc  ypnp  ncy   ncy   ppnp  ppg   nyg   ycg
-#     #     gyp   pcnc  ppc   pcc   #     #
-#     #     yny   pync  ppyc  ccy   #     #
-#     #     ynyp  pnn   ccy   ccy   #     #
-solution: 0,0 ; use 0,0,0 ; 6,1 ; use 0,4,0 ; 5,0 ; 4,0 ; use 0,0,0 ; use 0,0,0 ; 0,2 ; 0,2 ; roll 6 ; use 1,5,0 ; use 0,3,4
+#     #     #     ypyg  pyyg  #     #     #
+#     cgyp  ygy   ypyb  pgy   ygcc  gbbc  #
+pcy   gcy   gpyp  gpyb  bbyb  bgc   gyb   gyb
+gcby  gycp  gpcp  pcy   pcyb  pbcb  pygi1 gyb
+gyby  pybp  ppbp  pcyp  ggy   bgg   ycg   ycp
+byy   ppbg  ppb   pcbi1 gyy   gggp  ygc   ycp
+ggy   pyyg  gcbg  gcg   yyg   yyyp  ygc   pcb
+ggy   yyy   gybg  gyg   gbg   yyy   ygyb  ycyb
+pgb   pyby  pyb   ggb   ggb   gbby  bgy   ycy
+solution: 2,2 ; 3,1 ; 2,1 ; 5,1 ; use 2,1,1 ; use 0,7,2 ; use 1,1,1 ; 6,5 ; 7,2 ; 0,3 ; use 2,6,3 ; use 2,6,3 ; use 0,5,1

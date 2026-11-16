@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil U (ayna); çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil T; çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_157
 moves: 9
 roll: off
 specials: on
 type: protect
 rules: protect
-goals: yellow 39, purple 34, blue 22
+goals: purple 14, green 28, yellow 21
 grid:
-gngb  gng   gngp  #     #     ybyy  gby   ggg
-gygP  gyp   gnpy  #     #     ygyy  bgp   bgpn
-gng   pyg   pnpy  #     #     ygyy  bgn   ggnn
-nnyp  nyyp  yby   ybg   yypp  gppp  ppnp  gppn
-pgb   pnb   yny   ybg   gppy  gpp   ppb   gppn
-pyb   ybby  ygb   ynpy  nppy  nyp   yypn  gbb
-gyn   ybpb  yppb  ynby  gnby  yyp   yyb   ggp
-gyng  gbyn  ypybLg5 ypby  ppg   pgn   ggb   ggpb
-gyng  pnng  pnbp  ppbP  ppgy  pgg   gggb  ggpb
-solution: 7,1 ; 4,3 ; 6,6 ; 4,4 ; use 1,2,0 ; use 2,5,0 ; 7,6 ; use 0,2,0 ; 0,4 ; use 0,1,0 ; use 0,5,0 ; 7,0 ; 5,0 ; use 0,4,3 ; use 0,5,0
+pgy   ycyg  gcgLb3 gcbg  bcbg  pbp   bby   bpyP
+pgyP  ygyg  gggb  gyg   bcpg  pbp   pbc   bycb
+ccbc  ycb   ggbb  ggpg  bcgg  byg   bgc   bycb
+ccbc  ypbc  ccpb  ccp   pcg   gyp   pgc   pycb
+ypg   ypg   cpcp  pcc   pbgc  pbp   pyyy  pyyy
+cyg   gygg  gyg   gbg   cbbc  cbbc  cyyc  byyb
+#     #     gcy   bcg   ygb   ybbb  #     #
+#     #     ypyc  ypyc  cgbc  ccb   #     #
+#     #     ygb   ggb   ycbc  ycbc  #     #
+solution: 3,0 ; use 0,3,0 ; 0,4 ; use 0,5,0 ; 0,2 ; use 0,1,0 ; 0,4 ; 6,4 ; use 0,1,0 ; 1,0 ; use 0,0,3 ; 7,3 ; use 0,6,0 ; 6,3

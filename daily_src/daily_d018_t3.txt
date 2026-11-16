@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 111 + tür scarce; şekil merdiven (ayna); çözüm 9 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 111 + tür scarce; şekil merdiven (ayna); çözüm 7 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d018_t3
 title: Günlük 18
-moves: 10
+moves: 8
 roll: on
 specials: on
 type: scarce
 rules: scarce
-goals: purple 18, green 26, navy 9
+goals: blue 23, purple 22, green 39
 grid:
-#     #     #     #     gcn   gpnp  bpp   bgp
-#     #     #     gngc  gpcc  ggck2 bgbb  bgnb
-#     #     gbc   gbp   gbc   pgc   ggc   nggb
-#     ggc   gncg  gnb   pbcb  ggcb  pgpg  bggg
-ncn   npcp  pgbb  ccc   bgc   ggbp  cgcg  bgg
-bcng  ccck1 ngcb  nccb  cccb  nnb   cgnc  cgnc
-bgng  cgcg  ggbb  gcc   pngb  cngb  cnn   cbn
-gggg  gggi1 gcg   gcgbk1 gcpp  pcgi1 cnpc  cbni1
-solution: 2,4 ; use 0,5,0 ; 1,3 ; use 0,7,0 ; 5,5 ; roll 6 ; use 0,0,7 ; 0,6 ; roll 0 ; use 0,5,0 ; 4,0 ; 4,0 ; roll 1 ; use 1,4,1
+#     #     #     #     ggb   bgb   bgbp  cpy
+#     #     #     ggp   ggpp  cgcp  cgy   cpyy
+#     #     cgyg  pgb   pbp   pgc   ygy   ybg
+#     ycyy  ycy   ggcg  pbc   cgcg  cgyg  ypgg
+ybgpk1 ybg   ycgg  gycg  cyc   ccc   cbgg  pbgb
+yyy   yygy  ygb   ycbg  cybg  cybc  ppg   ppcb
+ygybi1 cgpb  cgpgi1 cgpg  cgbi1 byyc  gpgc  gpck1
+ypy   ypyb  ypp   cpp   ccyy  bycy  gyc   gpcck2
+solution: 7,0 ; 6,1 ; use 0,6,0 ; 3,3 ; use 0,4,0 ; 5,1 ; use 0,4,1 ; 4,0 ; use 0,4,0 ; 2,2 ; use 0,5,0 ; 7,3

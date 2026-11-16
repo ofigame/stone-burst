@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 105 + tür resource; şekil L (ayna); çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 105 + tür resource; şekil elmas (ayna); çözüm 7 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d006_t3
 title: Günlük 6
 moves: 7
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: resource
 rules: exact
-goals: blue 23, coral 44, navy 27
+goals: coral 29, purple 23, blue 18
 grid:
-#     #     #     bgp   gnbg  pnbg  bncg  bcg
-#     #     #     bbpg  gbcg  png   pcc   bccp
-#     #     #     cbc   ccc   cng   cpg   cpgp
-#     #     #     cgc   ccp   ccpp  pcnp  ppg
-nbc   npcc  bncn  bbcn  bbbn  cpb   ppn   ppn
-nngc  ppcc  bncc  pnb   ppcn  npb   ppb   pbbc
-nng   png   ppp   nnb   nnc   ngb   npbc  nbpc
-npgc  cgc   ngcp  ngc   pcgg  gcg   ncbc  ngb
-npcc  cgcc  ggcp  gcg   pcg   gpgg  gpp   gpp
-solution: 2,4 ; 4,0 ; use 0,6,0 ; 3,4 ; 7,1 ; use 0,4,0 ; use 0,4,0 ; 6,1 ; 0,5 ; use 0,7,1 ; use 0,0,4 ; 0,5 ; use 0,2,4
+#     #     #     gyy   gyy   #     #     #
+#     #     bypg  gypg  gycg  cyc   #     #
+#     cpbp  bypp  bpb   bbb   ccbg  gpb   #
+yyg   gpg   gyb   ppby  ycp   ycy   gpyy  ggby
+ypg   ccg   ycgg  ycby  ycpy  ycgy  gcg   gcg
+ypy   yccp  yccp  cpbp  ypg   ycgy  gcg   gyg
+#     yybp  ycb   cpc   cpy   cyy   cyy   #
+#     #     ycb   ybcy  cyyg  pycp  #     #
+#     #     #     ybc   ypyg  #     #     #
+solution: 3,3 ; use 0,2,1 ; 3,2 ; 2,1 ; 4,1 ; use 1,1,2 ; 4,3 ; 1,4 ; use 1,1,2 ; 3,0 ; use 1,5,1 ; use 1,2,1

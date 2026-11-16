@@ -1,16 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 5 + 5 tepsi / sınır 9; rastgele 0,055; açgözlü kazanır; yumuşak 0,17
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı (ayna); çözüm 5 + 4 tepsi / sınır 9; rastgele 0,250; açgözlü kazanır; yumuşak 0,21
 id: level_026
 moves: 9
 roll: off
 specials: on
-goals: coral 32, green 37
+goals: purple 27, coral 21
 grid:
-pgg   #     #     cpck2 #     #     cng
-pgc   nnc   gnp   cpc   cpg   cng   cng
-ngc   nnc   gnp   cnp   cpg   cpp   cpp
-#     gpc   gpp   gpp   cpg   pgp   #
-#     ccp   gpp   gpp   cgp   pgpk1 #
-ncg   pcg   ppp   gpc   cgc   cgc   pgc
-#     nggk1 ppc   pgc   pgc   ggc   #
-ncn   ngn   pnp   nnp   gng   gcg   gcg
-solution: 3,5 ; 2,1 ; 6,0 ; 4,1 ; use 0,0,1 ; 0,7 ; use 0,0,0 ; use 2,0,1 ; use 0,3,0 ; use 0,0,0
+#     #     pbp   pbp   pbp   #     #
+#     #     pby   pcp   pcck2 #     #
+ppb   ppp   pby   pby   ccc   ccy   ccy
+ppb   pcpk1 ycp   ccp   ccck1 cyy   ccy
+pyb   pyb   ybc   ybp   ccy   bpb   cpb
+ppb   pyb   bbc   ybc   yyy   byy   bpy
+#     #     yyp   yyy   byy   #     #
+#     #     byp   byy   byy   #     #
+solution: 0,2 ; 0,2 ; 5,2 ; 4,2 ; use 2,2,0 ; 3,1 ; use 0,4,0 ; use 0,0,4 ; use 0,4,0

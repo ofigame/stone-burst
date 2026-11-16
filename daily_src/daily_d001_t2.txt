@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 52 + tür exact; şekil kum saati (ayna); çözüm 7 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 52 + tür exact; şekil kum saati (ayna); çözüm 6 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d001_t2
 title: Günlük 1
-moves: 8
+moves: 7
 roll: on
 specials: on
 type: exact
 rules: exact
-goals: purple 53, navy 39, star 2
+goals: yellow 37, coral 47, star 2
 grid:
-gpp   gpn   nbn   bbn   bpn   npg   ppg   ppg
-gpp   gpp   ngn   bgn   nbg   ngg   ppp   ppp
-#     gpb   ggn   pnn   png   pgg   ngp   #
-#     gpb   npg   bpg   pnp   nbn   nbn   #
-#     gpb   npb   npg   nng   nbb   npb   #
-#     gpp   nbb   npn   npn   nbp   npb   #
-bnp   bbp*  ngb   pnn   pgn   pgp   pgb*  pgp
-bbp   nbp   ngp   pgp   pgp   bgp   bgp   bgp
-solution: 1,5 ; 1,2 ; roll 6 ; use 0,5,0 ; use 0,0,0 ; 1,0 ; roll 2 ; 5,3 ; use 0,0,0 ; 6,2 ; use 0,2,0 ; use 0,2,0
+pcb   pcb   pbb   ycb   ycy   bcy   ycy   ycy
+ycb   ycb   ybp   ycp   ybc   bpc   bpb   ycb
+#     ypb   bbp   ycb*  ybb   bpc   ypc   #
+#     ypb   yyp   ybb   bbb   byp   ypp   #
+#     bpp   byc   ybc   pcc   byp   byp   #
+#     bpp   byp   yyc   pcc   pyp   ccp   #
+ccy   bcy*  ccy   ccy   cbc   cyb   cyb   byb
+ccc   ccc   ccc   ccc   cbc   cyc   byb   bbb
+solution: 0,6 ; 2,4 ; use 0,0,0 ; 2,1 ; use 0,0,0 ; 3,0 ; 5,1 ; use 0,0,1 ; use 0,4,0 ; 5,0 ; use 0,4,0

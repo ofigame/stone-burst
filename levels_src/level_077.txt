@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil U (ayna); çözüm 10 + 0 tepsi / sınır 12; rastgele 0,010; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil artı; çözüm 14 + 0 tepsi / sınır 16; rastgele 0,075; açgözlü kaybeder; yumuşak 0,21
 id: level_077
-moves: 12
+moves: 16
 roll: off
 type: pure
 rules: noSpecials
-goals: purple 28, blue 25, coral 31
+goals: purple 45, yellow 40, blue 41
 grid:
-ccp   ccp   cbpc  #     #     cbpc  cbpb  cppi1
-bcp   bcpi1 bbpc  #     #     cbpc  cpp   cpp
-pcc   cbp   cbbc  ccbb  ccc   cbp   bbpc  bbp
-pcc   cbcp  ppb   ppbb  ppb   ppp   bbpc  bbc
-pccbi1 pcc   ppc   ppp   ppc   bpc   bbp   bbpb
-pbp   pbcp  bbc   bbc   pbpp  ccpp  pcpp  pcpb
-pbp   cbc   bbcci2 bcc   pcc   ccc   pcc   ccbb
-cppp  cpp   cpb   bpb   bbb   pbbp  pbc   cccb
-solution: 2,0 ; 0,0 ; 0,0 ; 2,0 ; 6,2 ; 6,1 ; 5,2 ; 2,1 ; 5,0 ; 2,3
+#     #     ppb   ppb   ypb   ppyb  #     #
+#     #     yppb  bpbb  bpb   ppb   #     #
+pyp   pypb  bpyb  byb   bpb   ppb   pyy   pppp
+pyybi1 ybp   ybyi2 yybb  bpb   pyp   pyyb  ppp
+pyyb  ybpi1 yyp   yybb  ypy   ybyp  pbp   ppp
+bby   bbp   yyp   yyp   yyyy  yby   pbpb  ppbi1
+#     #     yby   bppy  ypby  ypby  #     #
+#     #     bpyb  bpp   ypb   ypby  #     #
+solution: 2,0 ; 4,4 ; 2,4 ; 2,2 ; 2,0 ; 3,1 ; 6,3 ; 0,2 ; 7,2 ; 3,6 ; 4,5 ; 2,0 ; 2,6 ; 5,1

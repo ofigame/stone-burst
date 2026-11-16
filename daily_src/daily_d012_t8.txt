@@ -5,15 +5,15 @@ moves: 14
 roll: on
 type: pure
 rules: noSpecials, exact
-goals: purple 35, green 36, coral 35, envelope 2
+goals: purple 35, green 36, yellow 35, envelope 2
 grid:
-nccn  cncn  G1:cncn G1:cngg G1:cngg cpng  gpcc  gnnc
-#     nnnn  nncnEn cgng  cggc  ccnc  gncn  #
-#     pnnn  pncc  cccc  ccgc  ccgc  gngn  #
-nnpp  pnpc  pnpc  pnpn  gngn  cncn  gppcB1 gpcp
-gpnc  gpng  ppng  cgnp  ppnp  cppp  gppc  gpcp
-gpnc  gppc  cpnc  cgpn  pgpn  cgpcEc ggpp  gppp
-cppg  gppg  npcg  npcn  nggn  cggc  cgpp  gppp
-cggg  gpgg  gpcg  ggcn  nggc  cgnc  cpng  gpcg
-cggn  cpgn  #     #     #     #     cpcn  cpcn
+nyyn  ynyn  G1:ynyn G1:yngg G1:yngg ypng  gpyy  gnny
+#     nnnn  nnynEn ygng  yggy  yyny  gnyn  #
+#     pnnn  pnyy  yyyy  yygy  yygy  gngn  #
+nnpp  pnpy  pnpy  pnpn  gngn  ynyn  gppyB1 gpyp
+gpny  gpng  ppng  ygnp  ppnp  yppp  gppy  gpyp
+gpny  gppy  ypny  ygpn  pgpn  ygpyEy ggpp  gppp
+yppg  gppg  npyg  npyn  nggn  yggy  ygpp  gppp
+yggg  gpgg  gpyg  ggyn  nggy  ygny  ypng  gpyg
+yggn  ypgn  #     #     #     #     ypyn  ypyn
 solution: 3,3 ; 4,1 ; roll 6 ; 0,3 ; 0,0 ; roll 7 ; 0,4 ; 6,3 ; 6,3 ; roll 3 ; 3,0 ; roll 1 ; 6,0 ; roll 0

@@ -5,15 +5,15 @@ moves: 9
 roll: on
 type: pure
 rules: noSpecials, exact
-goals: yellow 29, green 31, navy 17
+goals: coral 29, green 31, navy 17
 grid:
-#     #     nppp  npgg  yppg  pnng  #     #
-#     #     npgyR ypgg  ypgp  pnnp  #     #
-pypg  ppng  pppg  ypgg  pgnp  ppnp  nppyR ppgp
-nyyg  gnng  gnng  gpng  ygng  ppyg  npgp  nngp
-ngyg  ggpg  ggpg  ypgy  ypgy  pyny  pnnn  pngp
-ggyg  gggg  pgyg  pgyy  gggn  pygp  pyyn  pnyp
-ggyg  gygg  yyyg  pgyy  pgyn  yygp  pyyp  ppyp
-#     #     ypyg  npynR pgyy  nygy  #     #
-#     #     ypyy  npyy  ngyy  nyyy  #     #
+#     #     nppp  npgg  cppg  pnng  #     #
+#     #     npgcR cpgg  cpgp  pnnp  #     #
+pcpg  ppng  pppg  cpgg  pgnp  ppnp  nppcR ppgp
+nccg  gnng  gnng  gpng  cgng  ppcg  npgp  nngp
+ngcg  ggpg  ggpg  cpgc  cpgc  pcnc  pnnn  pngp
+ggcg  gggg  pgcg  pgcc  gggn  pcgp  pccn  pncp
+ggcg  gcgg  cccg  pgcc  pgcn  ccgp  pccp  ppcp
+#     #     cpcg  npcnR pgcc  ncgc  #     #
+#     #     cpcc  npcc  ngcc  nccc  #     #
 solution: rot 2,1 ; 7,2 ; roll 6 ; 3,0 ; 0,3 ; roll 3 ; 6,3 ; 1,2 ; roll 5

@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kenar çentikleri; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe (ayna); çözüm 7 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_160
-moves: 8
+moves: 7
 roll: off
 type: boss
 rules: noSpecials, exact
-goals: purple 28, green 26, blue 43
+goals: coral 28, yellow 54, green 32
 grid:
-ggg   ggbg  pgbg  pgb   bbbg  bgbg  pgb   pbp
-bpb   bbbg  ppg   pgg   ggg   bbg   bbpb  pbp
-bpbb  gbbp  gpgp  gppp  gppb  bbgb  bbp   pbpb
-#     gpbg  gpb   bpp   bpp   bbp   bbp   #
-#     gbg   bbp   bbpg  bbpg  pbbgLg3 pbb   #
-#     bbg   pbp   pgp   ppp   pbp   pbb   #
-#     bbgp  bgg   bgpg  bbp   pbb   pbb   #
-bpb   pbbp  pgpp  bgp   bbb   gbb   ggb   ggg
-bpgb  ppbb  bpb   bgpb  bbbb  bbp   ggpb  pgpb
-solution: 0,0 ; 1,0 ; 3,4 ; 7,0 ; 7,0 ; 1,6 ; 1,3 ; 0,0
+#     #     gcy   gcy   gyyy  gygy  #     #
+#     ygy   ggyy  gcy   yyyy  yyy   ygyg  #
+yycc  yyyg  ccyg  ccy   yyyy  yyy   gggy  gcg
+gycc  gyyg  ccg   cgg   ccyc  cyyc  cygy  ycg
+gyc   gyy   gyc   gygg  gcyc  yyyc  cyy   yyyy
+ggg   ggc   gycy  gyc   gycc  yyc   cyyc  gycyLg5
+cyg   cgc   gycy  gyc   gycc  gycc  gyc   gycy
+#     cgcg  cyy   cyyg  cgy   yyc   gyc   #
+#     #     ygyy  ygy   ygy   ygc   #     #
+solution: 4,3 ; 1,2 ; 2,0 ; 3,3 ; 2,0 ; 4,0 ; 1,3

@@ -5,15 +5,15 @@ moves: 15
 roll: on
 type: pure
 rules: noSpecials, exact
-goals: blue 30, navy 32, yellow 34
+goals: blue 30, navy 32, coral 34
 grid:
-#     #     nyyc  cyyc  yncn  yccn  #     #
-#     #     ccyc  cyyn  yncnLn6 yncn  #     #
-cbcy  bncy  bcyy  bbnn  nbnn  bbbc  bbnn  bbcn
-bbbbK1:2 bnyn  bnyc  ybyc  bbyn  bnncLc5 bnnn  bncy
-cbbn  cbnn  ynnn  ycyc  bcyc  bcnc  bcny  bccy
-ybbn  ybnnK1:2 ybyn  bnyn  bnny  ynny  ynny  ycbc
-bcbb  ycbb  cnyb  cnyb  ybcb  yccy  ycyy  ycyyK1:2
-#     #     ynyc  ybyc  nbcb  nbnb  #     #
-#     #     ynyc  ynyc  ynnb  ynnb  #     #
+#     #     nccy  yccy  cnyn  cyyn  #     #
+#     #     yycy  yccn  cnynLn6 cnyn  #     #
+ybyc  bnyc  bycc  bbnn  nbnn  bbby  bbnn  bbyn
+bbbbK1:2 bncn  bncy  cbcy  bbcn  bnnyLy5 bnnn  bnyc
+ybbn  ybnn  cnnn  cycy  bycy  byny  bync  byyc
+cbbn  cbnnK1:2 cbcn  bncn  bnnc  cnnc  cnnc  cyby
+bybb  cybb  yncb  yncb  cbyb  cyyc  cycc  cyccK1:2
+#     #     cncy  cbcy  nbyb  nbnb  #     #
+#     #     cncy  cncy  cnnb  cnnb  #     #
 solution: 2,3 ; 0,2 ; 6,2 ; 0,3 ; roll 3 ; 4,0 ; roll 3 ; 0,3 ; roll 2 ; 3,2 ; roll 5 ; 5,5 ; 4,6 ; 2,6 ; roll 6

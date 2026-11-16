@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 1 (1–40); tarif 23 + tür exact; şekil U (ayna); çözüm 5 + 3 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 1 (1–40); tarif 23 + tür exact; şekil U (ayna); çözüm 5 + 4 tepsi / sınır 6; rastgele 0,000; açgözlü kazanır; yumuşak 0,02
 id: daily_d003_t1
 title: Günlük 3
 moves: 6
@@ -6,14 +6,14 @@ roll: on
 specials: on
 type: exact
 rules: exact
-goals: yellow 25, navy 31
+goals: yellow 32, blue 25
 grid:
-byg   gbg   bbn   #     nbn   ggy   ggn
-bgy   ggg   bgy   #     gnn   ggn   ggn
-bny   gny   bgy   nnn   gnn   gbn   gbn
-gnn   gnn   gbn   ynn   nng   bbg   bgg
-ggn   gbg   gbg   yny   nby   bgy   bgb
-ggb   ngb   nng   yny   ngg   ngb   ngb
-ggn   bgb   nny   ngg   bgg   bgb   ygb
-bbn   bby   bby   yby   yyy   yyy   ygy
-solution: 4,0 ; roll 5 ; use 0,5,0 ; 4,1 ; use 0,2,0 ; 0,0 ; use 0,0,0 ; roll 7
+ppp   ppy   ycy   #     pcc   yyp   yyp
+cpp   ypy   ypy   #     bcc   byp   pyb
+cbp   cpy   ypy   pcb   pcb   ppb   pyb
+cbc   cpy   ycy   pcb   ccb   cpc   pyc
+cbc   cbc   bpp   pcp   ccp   cyp   cyp
+bbp   bbc   bpc   bpc   bpb   yyb   yyb
+cbp   ycc   ycp   byp   pyp   pcc   pcy
+cpp   ybb   ybb   yyb   ybc   pbc   ycy
+solution: 1,0 ; roll 7 ; use 0,6,1 ; 4,0 ; use 0,6,1 ; 0,0 ; use 0,5,0 ; 1,2 ; use 0,5,1

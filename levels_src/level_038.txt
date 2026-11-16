@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil kesik köşe; çözüm 6 + 5 tepsi / sınır 7; rastgele 0,045; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil L; çözüm 9 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_038
-moves: 7
+moves: 10
 roll: off
 specials: on
 type: reverse
 rules: exact
-goals: coral 32, green 29
+goals: purple 28, coral 34
 grid:
-#     #     gyy   gyy   gcy   #     #
-#     ccc   gyy   gyg   gcg   ngc   #
-cgc   ccc   gcc   gcc   ncc   ncc   ncc
-cgn   cgn   ggn   gcg   ccgk1 ccg   ccn
-ygy   yyy   ngy   ngy   ngy   cgy   cyy
-yyy   yyy   gyy   nyy   nyy   nyy   cyy
-#     gyyk1 ggy   gyy   yyn   yynk1 #
-#     #     ygy   yyy   yyc   #     #
-solution: 0,4 ; use 0,3,1 ; 0,4 ; 1,1 ; 1,1 ; 0,3 ; use 0,4,1 ; 2,0 ; use 0,4,0 ; use 2,2,0 ; use 0,2,0
+ccy   bpy   cpyk1 cyyk1 #     #     #
+cpy   cbb   bbb   cby   #     #     #
+cpy   pcc   pcb   ccp   #     #     #
+cyy   pyy   cyb   pbb   cbc   cbc   pbp
+byp   cyp   cpc   cbbk1 cbb   cbp   pbp
+bbp   byy   cpc   ppc   cpc   bcy   bby
+ybp   yyy   cbp   pbp   cbp   pcb   bbb
+yyc   yyc   yyy   bby   pbb   pbb   bbb
+solution: 2,4 ; 1,1 ; 0,0 ; use 1,1,0 ; 2,6 ; 0,0 ; use 1,0,0 ; 0,3 ; 3,3 ; use 1,1,2 ; 4,3 ; use 3,0,5 ; 6,5 ; use 0,1,0 ; use 0,1,1

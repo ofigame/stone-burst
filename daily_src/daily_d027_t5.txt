@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: resource
 rules: exact
-goals: green 22, purple 20, coral 14
+goals: green 22, purple 20, yellow 14
 grid:
-#     #     #     pbgg  pbgy  #     #     #
-#     #     ybnp  pbnp  pbgy  ybgni2 #     #
-#     ypyn  ypyn  pbpn  ccpn  gcpn  gnbn  #
-ybcpi1 ybcn  nbyn  cbpn  ccpg  ccgg  gppn  gnpb
-ygyp  ynyn  cnpn  cncn  gbcc  gbgn  gpnb  bpgb
-ygyy  yngy  ccpy  cppyi1 gpnc  gngy  gnny  bpny
-#     cggy  cggn  gpbn  gpyn  ygyn  ggny  #
-#     #     ngpb  gbbc  gbppi1 ybyni2 #     #
-#     #     #     gbbc  gbbc  #     #     #
+#     #     #     pbgg  pbgc  #     #     #
+#     #     cbnp  pbnp  pbgc  cbgni2 #     #
+#     cpcn  cpcn  pbpn  yypn  gypn  gnbn  #
+cbypi1 cbyn  nbcn  ybpn  yypg  yygg  gppn  gnpb
+cgcp  cncn  ynpn  ynyn  gbyy  gbgn  gpnb  bpgb
+cgcc  cngc  yypc  yppci1 gpny  gngc  gnnc  bpnc
+#     yggc  yggn  gpbn  gpcn  cgcn  ggnc  #
+#     #     ngpb  gbby  gbppi1 cbcni2 #     #
+#     #     #     gbby  gbby  #     #     #
 solution: 1,2 ; roll 3 ; 2,1 ; roll 3 ; 4,2 ; 1,2 ; use 0,1,2 ; roll 5 ; use 0,0,5 ; 5,4 ; use 0,3,0 ; roll 6 ; use 1,1,6 ; use 0,3,0

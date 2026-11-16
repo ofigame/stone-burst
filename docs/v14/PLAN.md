@@ -15,6 +15,7 @@
 - "ileri bölümler kolay olmasın lütfen, zorla".
 - "bilgi metinleri bazen alanına sığmıyor, o alanları da yazıya göre ayarlayalım".
 - 6 taş rengi: yeşil yaprak ve lacivert yıldız eklendi (`LayerColor.Green`, `Navy`).
+- Renk açılışı (2026-11-16): "ilk beyaz ve turkuaz ile başla sonra kırmızı gelsin, sonra mor gelsin sonra yeşil sonra mavi. Bunu geniş bir bölüme yay tüm taşlar hemen çıkmasın" → inci + turkuaz 1, mercan 8, mor 21, yeşil 61, lacivert 201 (`V14ColorIntro`). Aşağıdaki eğrideki renk sayıları bu sırayla sınırlanır (vitrin ve 6–7 iki renk, 8–20 üç renk).
 
 ## Kurallar
 

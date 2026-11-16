@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 122 + tür scarce; şekil U; çözüm 9 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 122 + tür scarce; şekil dikdörtgen; çözüm 11 + 7 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d004_t3
 title: Günlük 4
-moves: 10
+moves: 12
 roll: on
 specials: on
 type: scarce
 rules: scarce
-goals: coral 24, navy 16, blue 29
+goals: yellow 14, coral 34, green 30
 grid:
-ybyb  nby   nbyy  #     #     cpb   cyb   byb
-ypy   nny   pcy   #     #     cpbb  bybb  bpbn
-ypy   cpy   ppb   #     #     ppbn  ypyn  ypyn
-ynnc  cnbc  cbbc  pnpc  cnn   ynb   yybn  yyb
-cnbn  cnb   bbyc  nby   yyny  cpb   nnb   pnby
-ypbn  cpy   cby   pyyp  pyn   nyb   npbp  bnb
-cbb   cny   ppp   ppbp  cpnp  cpb   npbp  byb
-ybpb  bbc   ppn   bnby  cnbp  cnbp  pybp  byb
-yby   ybc   pbny  bpny  bpby  bpy   ppnp  byp
-solution: 0,3 ; 3,5 ; use 1,7,1 ; 5,0 ; 2,2 ; use 1,0,3 ; use 1,1,3 ; 2,4 ; 4,5 ; roll 6 ; 1,0 ; use 0,0,6 ; use 1,0,1 ; 6,0 ; use 0,5,0 ; use 0,5,0
+cggb  cgpb  gyp   ypgc  cpb   ybb   bcc   gcg
+cgg   bgc   cycp  cggp  cgbp  bbb   bcc   gcg
+bbyp  bbpc  cbcc  cgbp  cgbg  pbbg  bggg  ccg
+bbc   bgbc  gcc   pccy  gcb   pgbg  pgb   pcgy
+ygp   ygb   gppg  ppcc  gcc   gcc   gcgp  ycg
+ybp   cbbp  cpp   cpc   ccc   cpg   gpgp  yppb
+gbc   ccby  cpp   gcyc  gcg   bbg   bpgg  bppb
+gygb  cbgb  cpc   gcb   bbc   bbcg  cpcg  ypcb
+gcg   gcgb  gpc   gccp  bbc   gbcg  gbc   gpcb
+solution: 3,4 ; roll 3 ; 1,1 ; 7,0 ; use 1,3,0 ; use 1,3,0 ; 2,0 ; use 1,2,0 ; 7,5 ; 0,3 ; 4,0 ; use 0,0,0 ; roll 7 ; 6,3 ; roll 4 ; use 0,0,2 ; use 0,6,0 ; use 0,2,1

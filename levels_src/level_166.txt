@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil elmas; çözüm 7 + 7 tepsi / sınır 9; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T (ayna); çözüm 10 + 9 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_166
-moves: 9
+moves: 12
 roll: off
 specials: on
-goals: coral 24, purple 17, navy 25
+goals: green 37, yellow 39, blue 44
 grid:
-#     #     #     gncb  bnn   #     #     #
-#     #     gbc   gcg   bgnck1 nppc  #     #
-#     gccn  gcc   gcg   bgpc  gbp   gbcn  #
-bcb   ncb   bcgn  bbg   ngc   bbc   pnc   pnnb
-ncg   nggb  cbgbk1 bbg   nggn  bcn   gcnn  pcnb
-ncgck1 bgb   cpg   pgg   bgg   bgbn  pcgn  nbgb
-#     bnbc  bpgk2 pcg   bcp   bppLc4 ppgn  #
-#     #     ppgg  pcg   ncnc  bppc  #     #
-#     #     #     npn   npnc  #     #     #
-solution: 3,1 ; 2,1 ; 6,2 ; use 0,2,2 ; use 0,4,0 ; 3,6 ; use 0,5,1 ; 0,3 ; 3,1 ; 1,2 ; use 0,4,0 ; use 0,1,3 ; use 1,2,1 ; use 0,5,1
+bccpk1 bcg   bcyp  ycyp  bpy   bpgc  byc   bycb
+bccg  bccg  bcb   yyyk2 bbg   gpg   gybg  gybg
+bccy  bccy  ccc   cyy   pyg   pcgk1 pygg  pybc
+bpc   bccy  ccyy  cby   yygb  bcbg  bcbg  pyb
+cgcy  cgcy  bgcbLg5 yby   ycbg  bcbg  bybc  pybc
+cpcy  cpcy  bgc   bbbc  gpbc  gpbc  ppp   pyp
+#     #     gpc   gyc   gyc   cyc   #     #
+#     #     cypp  pyg   ygcb  cygb  #     #
+#     #     cggp  pggb  cggb  cygk1 #     #
+solution: 4,1 ; use 0,7,0 ; 5,3 ; use 0,1,0 ; 3,1 ; 3,3 ; 1,0 ; use 0,4,0 ; 0,1 ; 1,0 ; 5,0 ; use 0,5,0 ; 2,0 ; use 3,0,0 ; 7,3 ; use 3,0,5 ; use 2,2,0 ; use 0,2,0 ; use 0,5,1

@@ -6,15 +6,15 @@ roll: on
 paint: 2
 type: pure
 rules: noSpecials, exact
-goals: coral 48, purple 36, blue 20
+goals: yellow 48, purple 36, blue 20
 grid:
-#     #     #     pcpp  pcpc  #     #     #
-#     pccc  pcbc  pcpck2 pcpc  ppcp  ypcy  #
-cycp  yycck2 cybb  cypb  ycpc  cpcp  cycp  cbcp
-cyyy  yycy  yycb  ypbb  ycbp  cpcpk1 yycp  bypc
-bpyc  ypyb  yycb  ypbp  cbbp  cccp  ypbp  bypc
-bycc  pypc  pccb  yccb  cccp  pcbc  ppbp  bypp
-ypcy  pppc  bpcb  cycc  cpcy  bpcck1 bpbc  cbpc
-ypcy  ppyy  bcyb  pycc  ppcy  bccp  bbcpk1 cbyp
-bppb  bppb  cyyb  cycc  cccp  bccyk1 bccy  cbcy
+#     #     #     pypp  pypy  #     #     #
+#     pyyy  pyby  pypyk2 pypy  ppyp  cpyc  #
+ycyp  ccyyk2 ycbb  ycpb  cypy  ypyp  ycyp  ybyp
+yccc  ccyc  ccyb  cpbb  cybp  ypypk1 ccyp  bcpy
+bpcy  cpcb  ccyb  cpbp  ybbp  yyyp  cpbp  bcpy
+bcyy  pcpy  pyyb  cyyb  yyyp  pyby  ppbp  bcpp
+cpyc  pppy  bpyb  ycyy  ypyc  bpyyk1 bpby  ybpy
+cpyc  ppcc  bycb  pcyy  ppyc  byyp  bbypk1 ybcp
+bppb  bppb  yccb  ycyy  yyyp  byyck1 byyc  ybyc
 solution: 5,1 ; 2,2 ; roll 3 ; 4,0 ; 3,0 ; roll 5 ; 4,0 ; roll 6 ; 5,5

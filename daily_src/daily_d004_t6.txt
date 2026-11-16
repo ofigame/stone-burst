@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 514 + tür scarce; şekil kenar çentikleri; çözüm 14 + 9 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 514 + tür scarce; şekil kenar çentikleri; çözüm 17 + 9 tepsi / sınır 17; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
 id: daily_d004_t6
 title: Günlük 4
-moves: 14
+moves: 17
 roll: on
 specials: on
 type: scarce
 rules: scarce
-goals: navy 22, coral 15, green 16
+goals: navy 35, yellow 23, green 25
 grid:
-bncb  pccp  pcby  ppbn  pbgn  cbyy  cbpp  pppp
-#     nycp  ppcp  yppg  pgpg  cypp  cypp  pnbn
-npbp  cybg  cpgg  ygng  pgcg  bgypK1:1 bgnp  pbby
-npby  gygbR cccc  ypgc  ypgc  bygc  bnnb  gbbn
-gpcy  gbcn  gccc  gcgc  gpgn  pcnbR pnbn  gbbg
-ppbb  gbbp  gbpc  gbyg  gbyc  gcyc  pngn  gbcg
-pbbb  gbbp  gppy  gpbg  gbyg  yyyg  pybg  gygc
-pnbb  #     #     gnbyK1:1 pbyy  pbyb  pyyc  ppyc
-pgbb  #     #     pcpy  pcyc  pbyg  pyyn  pppc
-solution: rot 1,3 ; 3,1 ; 4,2 ; use 1,3,0 ; 2,2 ; 7,5 ; use 0,0,5 ; 1,0 ; 6,3 ; 6,2 ; use 1,6,0 ; 4,5 ; roll 1 ; use 2,1,1 ; 0,5 ; use 0,1,1 ; 2,2 ; roll 7 ; use 3,0,0 ; 3,4 ; use 3,0,0 ; use 0,7,0 ; use 0,0,0
+bnyb  pyyp  pyby  ppbn  pbnn  ybny  ybpp  pnpp
+#     ncyp  ppyp  cppg  pgpg  ycpp  ycpp  pnbn
+npbp  ccbn  ypgg  cgng  pgng  bgcpK1:1 bgnp  pnby
+npby  ncgbR yyyy  cpgy  cpgy  bngy  bnnb  gbbn
+gpyy  gbyn  gyyy  gygy  gpgn  pynbR pnbn  gbbg
+ppbb  gbbp  gbpy  gbcg  gbcy  nycy  pnnn  gbcg
+pnbb  gbbp  gppc  gpbg  gbcg  yccg  pcbg  gcgy
+pnbb  #     #     gnbcK1:1 pbcc  pbcb  pccy  ppcy
+pnbb  #     #     pypc  pycc  pbcn  pccn  pppy
+solution: rot 5,4 ; 2,3 ; roll 4 ; 3,1 ; use 1,2,0 ; 2,4 ; use 1,3,0 ; 1,0 ; 4,1 ; 3,5 ; 7,1 ; 7,1 ; use 0,0,5 ; 6,0 ; use 0,4,0 ; 1,2 ; 0,6 ; roll 7 ; use 0,0,6 ; 0,2 ; roll 0 ; 0,0 ; use 0,0,0 ; use 0,6,2 ; use 0,1,1 ; use 0,1,1

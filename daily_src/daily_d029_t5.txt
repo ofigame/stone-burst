@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: exact
 rules: exact
-goals: purple 23, coral 16, star 3
+goals: purple 23, yellow 16, star 3
 grid:
-ybgp  ybyp  cbyp  cpbp  ppbb  cpgb  pggb  pgbb
-gbyb  gbyp  cyyp  npbc  ppbc  cbyb  pbyb  pgbb
-gbyb  gbybLb4 cyyb  ybyc  cbbg  cbyc  gbyc  pgbc
-#     ypgb  ppyb* ycpc  ybbg  ccbn  gbgn  #
-#     ypgb  ppyg  ppgb* ybgy  bcby* gbgn  #
-#     nggb  pbbg  nybg  npny  bcby  gcny  #
-cgnp  nggp  gbbp  gybg  npbg  ncbc  gcny  gbnc
-cnyy  gnpp  bnpb  bbpg  ybbg  ybyn  ycyn  ybgn
-gnyy  gngy  gnpy  ybgg  ybgg  ybgg  pbgy  pngy
+cbgp  cbcp  ybcp  ypbp  ppbb  ypgb  pggb  pgbb
+gbcb  gbcp  yccp  npby  ppby  ybcb  pbcb  pgbb
+gbcb  gbcbLb4 yccb  cbcy  ybbg  ybcy  gbcy  pgby
+#     cpgb  ppcb* cypy  cbbg  yybn  gbgn  #
+#     cpgb  ppcg  ppgb* cbgc  bybc* gbgn  #
+#     nggb  pbbg  ncbg  npnc  bybc  gync  #
+ygnp  nggp  gbbp  gcbg  npbg  nyby  gync  gbny
+yncc  gnpp  bnpb  bbpg  cbbg  cbcn  cycn  cbgn
+gncc  gngc  gnpc  cbgg  cbgg  cbgg  pbgc  pngc
 solution: 2,4 ; use 0,3,1 ; 4,0 ; use 0,0,0 ; 4,4 ; 0,1 ; 5,4 ; roll 4 ; use 1,4,1 ; 1,0 ; 2,3 ; use 0,2,0 ; use 0,2,0

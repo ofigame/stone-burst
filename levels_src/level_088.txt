@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil kum saati; çözüm 6 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil kenar çentikleri; çözüm 6 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_088
 moves: 7
 roll: off
 specials: on
 type: resource
 rules: exact
-goals: yellow 29, coral 26, star 3
+goals: purple 33, green 24, star 3
 grid:
-yyc   ycpp  ycpp  gbyy* gbyy  ygg   ycgi1 ccgc
-gpcg  ycy   ycy   ybyy  ppy   ygby  yppi1 ypgc*
-gppg  pbpb  pgy   pgy   pgyy  pgb   ypbi1 ypg
-#     bbpb  ppy   cyy   cby   cby   cbgc  #
-#     bbpp  bpp   cybg  ybb   cyp   cygc  #
-#     cbbp  cpb   bybc  ybb   bbcc  bgb   #
-cpcb  cpb   ybp   bbcc  bgcc  bgc   bgc   bgc
-cpcb  cpbb  pbpy  pbc   bgcc  ppcc  ypcc  ygy
-cpcb  ypb   ypby  bpbg  bpcg  ppyg* bcygi2 bcyg
-solution: 3,0 ; use 0,0,0 ; 3,6 ; 4,6 ; use 1,0,0 ; use 0,0,8 ; 2,6 ; use 0,3,0 ; 3,0 ; 4,1 ; use 0,0,0
+bggp  bpp   bbpp  #     #     pgyc  ggpc  gyp
+bbg   gppb  bbg   #     #     pgy   ggp   bypp*
+bbpi2 gbp   cpg   gpc   ycyg  ppygi1 gpp   bbpp
+pbg   ybb   ypbg  gpcc  ycc   yccg  ybp   gbbp
+#     #     bgb   pbpc  pbb*  pcb*  #     #
+#     #     bgbc  bbpc  bcp   pcb   #     #
+cbp   cbpbi1 bggp  bgyp  bgpi1 pgcb  pgcb  pycb
+cbp   #     cpgy  cpg   bgcy  cgcb  #     pgcb
+cbpb  #     cppy  cpgy  ppp   cppy  #     pgc
+solution: 4,4 ; use 0,0,0 ; 3,2 ; use 0,1,0 ; 2,4 ; 2,1 ; use 1,0,0 ; 1,0 ; use 1,1,1 ; use 0,0,1 ; 7,1

@@ -1,15 +1,15 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 3 + 0 tepsi / sınır 6; rastgele 0,350; açgözlü kazanır; yumuşak 1,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 4 + 0 tepsi / sınır 7; rastgele 0,530; açgözlü kazanır; yumuşak 1,00
 id: level_006
-moves: 6
+moves: 7
 roll: off
 specials: on
-goals: navy 12
+goals: blue 14
 grid:
-n     n     n     y     y     n
-p     p     n     y     n     #
-p     p     y     n     n     #
-y     n     p     p     p     #
-#     n     y     y     p     #
-n     n     y     p     n     n
-p     p     #     y     n     n
-solution: 0,0 ; 1,3 ; 4,5
+y     b     y     y     b     y
+b     y     y     b     b     y
+y     b     b     y     y     b
+b     b     y     b     b     y
+y     y     y     b     y     y
+b     b     b     y     b     b
+y     b     y     y     b     y
+solution: 1,2 ; 0,5 ; 4,0 ; 3,3

@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 115 + tür protect; şekil merdiven (ayna); çözüm 8 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 115 + tür protect; şekil çatı (ayna); çözüm 10 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d009_t3
 title: Günlük 9
-moves: 8
+moves: 10
 roll: on
 specials: on
 type: protect
 rules: protect, exact
-goals: blue 29, yellow 21, coral 27
+goals: coral 27, yellow 41, green 39
 grid:
-#     #     #     #     cbpp  cpp   cpgy  ypgyi2
-#     #     #     cpgg  cpg   cbcp  cbp   ygp
-#     #     bbg   bbgg  cpgy  cyg   pbpb  ygy
-#     yypy  pgy   ygy   ygy   cybg  pyb   ycyb
-yyp   pypp  pyppi1 pgy   ygy   ybby  pgpb  ygyb
-ygpP  ggb   gygp  pggp  pppy  gbpy  pgyb  cgy
-ggbp  gcb   ccbp  ccgp  pcp   gcpy  pcy   ccb
-bgb   bcc   ccpi1 pbc   ppcc  bpbc  pcb   bbbc
-bybP  bbcb  cbp   cbp   pccc  bcb   bbbc  bbbc
-solution: 4,2 ; 3,1 ; 6,2 ; 5,2 ; use 0,5,2 ; 7,6 ; roll 7 ; use 3,1,3 ; 4,0 ; use 0,4,1 ; 5,7 ; use 0,7,6 ; use 2,3,1
+#     #     #     cgbP  cgbc  #     #     #
+#     cgb   cgbc  cgbc  bggc  pgp   pgpg  #
+byb   bgc   bgy   bggb  bggb  pyg   pggg  pbgi1
+bybg  pbc   pby   bbc   gbcg  gpy   cpgg  cbg
+bycb  pycb  pgy   cgy   ybpg  gyyg  gyyp  gbg
+cgb   pcgg  pcgp  cbyc  ybgc  yygc  yyy   ybybi2
+cgb   pcgg  pypg  ybg   yygp  yyg   yyy   ycp
+pgb   ppy   byp   ycpp  yygp  pbgi1 bbyy  ycp
+ppbg  ppy   bybP  ycgp  ycg   pbgy  bcyy  bcpy
+solution: 4,6 ; 1,5 ; roll 6 ; use 1,4,0 ; 2,2 ; roll 5 ; use 1,4,1 ; 5,2 ; 3,4 ; roll 1 ; use 2,1,1 ; use 1,1,1 ; 0,2 ; roll 4 ; use 1,0,2

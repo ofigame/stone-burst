@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil çatı (ayna); çözüm 7 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil kum saati; çözüm 7 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10
 id: level_167
 moves: 8
 roll: off
 type: pure
 rules: noSpecials
-goals: yellow 46, green 38, navy 57
+goals: coral 51, green 42, purple 44
 grid:
-#     #     #     yyg   yygy  #     #     #
-#     nnn   ynyy  ynyy  ggyy  ggy   gyyn  #
-nyn   nyn   nny   nnn   ngny  ggng  ggyn  ggyn
-ynnn  nnny  ngny  nyn   nyn   ngny  gnn   ygny
-ygn   ygny  ygny  yygy  ygny  ngny  nny   ygyy
-ygn   ygnn  gynn  yyny  ygn   gynnLn4 ynn   yny
-ggg   gynn  ggn   ggyy  ggyg  ggng  nng   nny
-ngn   ygn   ynng  nnny  gnng  ngn   nngy  nnyy
-ngy   ygy   nyyg  nnng  ggg   nggn  nny   nny
-solution: 6,1 ; 4,0 ; 1,1 ; 5,1 ; 2,2 ; 3,3 ; 5,5
+pcc   pcp   gccc  gpg   cgcc  cgcg  cgcg  ccc
+pccp  pgp   ppc   cpc   cgc   pgcg  pccp  cccc
+cccp  cggp  pggp  cpcp  cpc   ppp   ppcpLp3 cpp
+#     cpgg  cgc   gpcp  cccp  ccpp  pcpp  #
+#     cpgg  cpc   cpcg  cpc   cpcp  ppcp  #
+#     gpcg  gpc   cgcg  ggp   pgp   pgc   #
+gcgg  ggc   ggcg  cgcc  gggc  pgp   pgc   pcc
+ccg   cpcp  ggcg  ggcg  pgg   ppgg  pcpg  ccc
+gpg   cpgp  gccp  gcg   gpgg  cpg   cpc   cpc
+solution: 1,0 ; 3,4 ; 0,0 ; 1,1 ; 1,0 ; 7,0 ; 2,5

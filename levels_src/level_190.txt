@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil merdiven; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil elmas (ayna); çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: level_190
-moves: 8
+moves: 9
 roll: off
 type: boss
 rules: noSpecials, exact
-goals: navy 26, green 33, purple 46
+goals: yellow 31, purple 34, green 26
 grid:
-nnpg  nnpg  nnp   gpgi2 #     #     #     #
-gnpg  pnpi1 nnp   gngn  gng   #     #     #
-gppgi1 nppg  npp   gpp   gpgg  gpnp  #     #
-ppp   ppnpLg3 gpn   gppg  gppg  ppnp  pgnp  #
-pnp   pgn   pgp   gppp  pgpp  pgnp  pgn   gggg
-nnp   ngnp  ggpp  ggp   pgnp  pnnp  gpgi1 gpg
-nnpg  nng   pngp  pgnn  pgnp  pgn   nggp  ngg
-pnpg  nppg  ppgn  ppnni2 pgnn  pnn   ngnp  pgnp
-pgng  pgp   pnp   pgng  pgn   pgn   pgnp  pgp
-solution: 4,1 ; 2,0 ; 0,6 ; 5,2 ; 6,3 ; 2,2 ; 3,2 ; 2,0
+#     #     #     ppyy  ppyy  #     #     #
+#     #     gpyp  gpp   ppy   ppgp  #     #
+#     ygy   gpy   gypp  gpy   gpgp  gyyp  #
+ppyi2 gyy   gyypi1 gypp  gyp   gpyp  pyy   ygggLy4
+ppyp  gyypi1 pgpp  ygp   gypi1 gyp   pyygi2 pggg
+ppyy  ppy   pyyy  gyp   gypg  pypp  pgp   ygyp
+#     pyyy  pyy   pyp   ggpg  pgp   pgpg  #
+#     #     ypyg  ypgg  gpp   gppy  #     #
+#     #     #     yyg   gygy  #     #     #
+solution: 3,0 ; 2,1 ; 3,1 ; 2,1 ; 0,3 ; 3,1 ; 4,4 ; 2,7 ; 6,2

@@ -1,16 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 vitrin; şekil artı; çözüm 4 + 3 tepsi / sınır 8; rastgele 0,195; açgözlü kazanır; yumuşak 0,88
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 vitrin; şekil U; çözüm 4 + 3 tepsi / sınır 8; rastgele 0,515; açgözlü kazanır; yumuşak 1,00
 id: level_002
 moves: 8
 roll: off
 specials: on
-goals: green 15, purple 18
+goals: blue 59, yellow 65
 grid:
-#     #     pgg   by    gyp   #     #
-#     #     bg    bg    gyp   #     #
-gy    pyg   byg   yg    gy    yy    yp
-pyb   pyb   bb    ybp   gyp   py    pyy
-pb    bgg   bg    bpg   bp    by    byg
-pyy   ppg   yg    bpg   bpp   byg   gbg
-#     #     bbp   bb    bp    #     #
-#     #     bpp   ypp   ypg   #     #
-solution: 2,0 ; use 0,4,0 ; 1,4 ; 3,3 ; 0,3 ; use 1,6,2 ; use 0,0,5
+ybb   bby   bbb   #     yyb   yy    yyb
+ybb   yb    ybb   #     yy    yy    yyb
+bb    bbb   byb   bb    bb    yy    by
+yby   bby   by    yby   byy   yy    bby
+yb    byb   bb    yyb   bb    bb    bby
+byy   byy   by    byy   byy   yyy   yyy
+byb   by    bb    bby   bbb   yyb   yy
+yy    yby   bb    yb    yb    yy    yyb
+solution: 2,6 ; use 0,0,4 ; 5,0 ; 0,0 ; 5,0 ; use 0,0,0 ; use 0,0,0

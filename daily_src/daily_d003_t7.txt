@@ -7,15 +7,15 @@ specials: on
 paint: 2
 type: reverse
 rules: exact
-goals: yellow 25, blue 31, purple 16
+goals: coral 25, blue 31, purple 16
 grid:
-npcc  cgcc  G1:cgyg G1:gbgn G1:ybnn G1:ycnn ycnn  ggbn
-npgc  cccg  ccng  ybgg  ycng  pcbc  pgcc  ggbn
-nngc  npyn  cynn  pycn  yygg  pgby  pnby  bybn
-#     cpyc  cpyc  ppyp  yngp  ygbc  bnbcB1 #
-#     gypc  gnpg  ppyg  bcyp  ycyp  bcbc  #
-#     gyyb  nyyb  ppyg  pccb  nccb  bccc  #
-nbgg  gbby  ncyn  pcyg  pcyb  nccb  nybb  bbbn
-bbgg  bbby  gcbn  gcgg  gcyg  nycc  pyyb  pbbn
-bngy  bbby  cbbc  cbgc  ccgc  cycc  pbyc  gbyc
+npyy  ygyy  G1:ygcg G1:gbgn G1:cbnn G1:cynn cynn  ggbn
+npgy  yyyg  yyng  cbgg  cyng  pyby  pgyy  ggbn
+nngy  npcn  ycnn  pcyn  ccgg  pgbc  pnbc  bcbn
+#     ypcy  ypcy  ppcp  cngp  cgby  bnbyB1 #
+#     gcpy  gnpg  ppcg  bycp  cycp  byby  #
+#     gccb  nccb  ppcg  pyyb  nyyb  byyy  #
+nbgg  gbbc  nycn  pycg  pycb  nyyb  ncbb  bbbn
+bbgg  bbbc  gybn  gygg  gycg  ncyy  pccb  pbbn
+bngc  bbbc  ybby  ybgy  yygy  ycyy  pbcy  gbcy
 solution: paint 3,5,b ; 1,5 ; roll 4 ; 3,4 ; 3,3 ; 5,3 ; use 0,5,2 ; use 0,5,2 ; 6,0 ; use 1,7,0 ; 6,4 ; use 2,6,2 ; 6,6 ; use 0,0,7

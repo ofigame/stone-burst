@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil kum saati (ayna); çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil elmas; çözüm 6 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_057
-moves: 10
+moves: 8
 roll: off
 specials: on
 type: protect
 rules: protect
-goals: green 43, purple 45, star 2
+goals: purple 23, blue 28, star 2
 grid:
-pgp   pgp   pcp   pgbP  pgc   pgc   pbc   pbc
-pgg   gpg   pcp   pbb   pgb   pgb   cbb   cbbP
-#     gcp   pcp   pcc   pgc   pgc   cgc   #
-#     bbp   ppg   bcc   pgp   pgp   pgp   #
-#     bbc   gpg   bgp   cgb   cgg   pcg   #
-#     ggb   gpb*  bgp   pgb   gbg   gcg   #
-gpc   pgp*  pbb   pbb   pgb   pbg   gbc   pcg
-gpc   gpc   ggc   pgc   pgc   pcc   gcc   gcg
-solution: 5,4 ; 6,4 ; 4,4 ; use 1,0,0 ; 2,3 ; use 1,2,3 ; 2,0 ; 0,0 ; use 1,0,1 ; 0,0 ; use 1,4,0 ; 3,3 ; use 0,5,0 ; use 1,5,0
+#     #     #     pcc   pbc   #     #     #
+#     #     bby   bcy   bbb   ycb   #     #
+#     ppb   pcb   bcp   ycb   ycb   ycb   #
+cbcP  cpb   ccb   pcp   ybc*  ybc   bpc   cpp
+pbcP  ybc   cpc   ppp   ycp   pbc   bbp   cbp
+#     ybb   ypb*  pyp   ycp   ybc   bbc   #
+#     #     ycb   yyc   ccc   cbc   #     #
+#     #     #     ypc   ccc   #     #     #
+solution: 1,5 ; 4,3 ; 4,1 ; 3,2 ; use 0,2,1 ; 3,0 ; use 0,4,0 ; 4,4 ; use 2,3,0 ; use 0,3,0 ; use 0,1,2

@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil dikdörtgen; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil T (ayna); çözüm 9 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_187
-moves: 8
+moves: 9
 roll: off
 specials: on
 type: reverse
 rules: exact
-goals: yellow 55, coral 24, blue 50
+goals: green 42, purple 21, blue 26
 grid:
-nyb   pyb   pnb   ynyp  pnyp  pybn  pyb   bpbp
-nnbn  nyb   bnby  npby  nnyb  byp   pyp   pnpp
-cnbn  bnpn  bnby  bpby  bny   bbpy  pbp   ynp
-yyy   pyyb  pyy   pbp   pbp   ybpc  ync   ync
-ycp   cyyb  ppy   pby   pbb   yybc  yyc   ybcb
-ccp   ccyc  npyc  yyyc  cpn   cpn   ypyLc5 ybyb
-bpbp  ccyp  npb   yybc  nyn   ccb   yyby  ybyb
-bpb   bpbc  ypbc  ybb   nbb   ncb   nyb   nyb
-solution: 7,4 ; 2,1 ; use 0,5,3 ; use 0,0,0 ; 0,3 ; 3,0 ; use 0,0,0 ; 0,0 ; use 0,5,0 ; 0,4 ; 0,5 ; 4,5 ; use 0,3,0 ; use 0,5,0 ; use 0,0,5
+ypy   ggy   bgg   bbg   gycy  pycy  pygg  pygg
+ypc   gbc   bbg   bbgc  bbc   byc   cggg  pycg
+ypcp  gby   gby   gpg   gbc   bbcp  cgbb  cygb
+ygcp  ygg   gby   gpgy  gpcy  bbcc  bgb   ccg
+ygpp  ygg   gypLb5 yyg   ypc   pccc  pcg   ccgy
+#     #     gypy  byg   yyb   yccg  #     #
+#     #     gcpy  bgg   bgcp  pcc   #     #
+#     #     ccg   bgg   bgp   pccb  #     #
+solution: 1,2 ; 3,1 ; 2,0 ; 3,0 ; use 1,0,2 ; 1,2 ; use 1,2,0 ; use 1,2,0 ; 5,2 ; use 0,0,2 ; 6,0 ; 1,3 ; use 0,0,2 ; 4,0 ; use 1,5,0 ; use 0,6,0 ; use 0,6,1

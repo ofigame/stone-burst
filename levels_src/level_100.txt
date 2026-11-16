@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil artı; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U (ayna); çözüm 11 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_100
-moves: 9
+moves: 11
 roll: off
 type: boss
 rules: protect, noSpecials, exact
-goals: yellow 22, green 25, coral 21
+goals: yellow 31, green 34, coral 20
 grid:
-#     #     gyyP  gyy   gyg   yyy   #     #
-#     #     yyy   ggg   yyg   yyyi1 #     #
-ggcy  ggc   gyyg  gyy   yyyy  yyyy  ccgyk2 yggg
-yccP  cccg  gcyg  gycg  ygcg  ygcg  ccy   yyc
-ycg   ccgc  gcgc  ccc   gcgk2 gccc  ccyc  cyc
-ccgk1 cyc   gcg   ccg   yggc  ygyc  ygy   cycy
-#     #     gggg  ggc   ggc   ygy   #     #
-#     #     cgy   cggk1 yggg  ygygi1 #     #
-solution: 2,5 ; 7,3 ; 3,2 ; 5,0 ; 5,0 ; 6,3 ; 6,3 ; 4,0 ; 5,5
+ccyc  ggyi1 gyyP  #     #     ccc   ycgP  ygg
+cgy   ggy   yyy   #     #     cgcy  ygc   cggg
+cgy   yyyy  yyyy  ygyg  ygyg  cgg   cggg  cygy
+cycg  cgcg  cgcy  ygc   ygg   cgg   gggg  cygy
+gyc   cgg   yggc  yyyg  cyy   gcy   ggg   cyg
+gyc   gggck1 gcgc  yyg   cygyk2 ycgc  yyg   yygk2
+gyck1 ggy   gcy   yggc  yggy  ycgyi1 yycy  yyc
+gyc   gcyg  gcyg  ggg   ycgg  ycg   yyg   yygy
+solution: 1,7 ; 1,6 ; 0,4 ; 4,6 ; 0,4 ; 0,3 ; 3,4 ; 5,4 ; 3,2 ; 3,4 ; 4,4

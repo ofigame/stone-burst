@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil elmas (ayna); çözüm 9 + 5 tepsi / sınır 10; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil artı; çözüm 10 + 9 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_197
-moves: 10
+moves: 11
 roll: off
 specials: on
 type: scarce
 rules: scarce
-goals: coral 18, navy 18, green 29
+goals: coral 30, green 17, yellow 28
 grid:
-#     #     #     ynyp  pncp  #     #     #
-#     #     cpyy  gpyp  ppc   ppy   #     #
-#     ynpk1 cnny  gnn   pngp  png   npgpk1 #
-ygp   ygp   pgc   ggp   ngnp  nngp  ngc   ggpc
-nnpg  ypc   gpp   ggg   pgn   ggcnk2 ygc   ynp
-nncg  npg   npc   gggyk1 gcn   gpgn  ypgnLg3 ypgn
-#     nnny  gpng  gcy   yggg  ncgg  ncg   #
-#     #     pcc   cgy   cpggk2 ypg   #     #
-#     #     #     ngg   nggg  #     #     #
-solution: 4,2 ; 4,2 ; 3,2 ; 5,5 ; use 0,4,1 ; 3,5 ; 2,3 ; use 1,3,6 ; 3,3 ; use 1,3,2 ; 0,3 ; 0,3 ; use 2,4,0 ; use 1,4,0
+#     #     bgp   pcpp  yypp  ycbp  #     #
+#     #     bgpb  bby   byp   ccp   #     #
+gppyk1 gbb   ggyb  byy   byby  cyy   yyc   yyp
+cgg   cbcg  ggcpk2 ccy   cpbc  ypyb  pyp   pyp
+cgg   ggyk2 bgyp  bcy   bgb   ygpck1 ygy   ycy
+ggyg  gby   gbyyk1 pbyy  pcbg  cyyg  cggg  bby
+bgyb  bbyb  bby   gyy   pcy   yyyc  cpy   bcc
+#     #     ygyb  ypy   bpcp  ycyc  #     #
+#     #     bgyb  bpy   bpc   yccLb4 #     #
+solution: 2,0 ; 3,1 ; use 0,0,4 ; use 0,2,0 ; 1,4 ; use 0,0,5 ; 4,5 ; 1,4 ; 2,4 ; use 1,5,1 ; 2,0 ; 2,2 ; 5,5 ; use 0,5,0 ; 3,5 ; use 1,0,3 ; use 0,5,0 ; use 0,3,0 ; use 0,3,0

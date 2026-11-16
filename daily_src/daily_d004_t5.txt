@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 389 + tür scarce; şekil T (ayna); çözüm 12 + 9 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 389 + tür scarce; şekil T (ayna); çözüm 13 + 6 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d004_t5
 title: Günlük 4
-moves: 12
+moves: 13
 roll: on
 specials: on
 type: scarce
 rules: scarce
-goals: purple 26, yellow 25, blue 29
+goals: purple 26, coral 25, blue 29
 grid:
-pyyg  pyny  nyny  nybg  nbpg  ncpy  bcpp  yypb
-pyng  npny  npny  nbgb  nbgb  pcgb  bcpyR yynb
-nbgg  npnc  ngny  ygnb  bbgb  pygc  bygc  cbnb
-pngn  bngc  gngc  ygbb  ycbb  pnbc  gngp  cbnb
-bpgn  cpbn  ypcn  ygnb  ccnb  cync  cnnp  cbnb
-cbnn  cbbn  pbcn  ycbn  bcbn  bbbn  cnbb  cbpb
-#     #     yncn  ygyn  cnyg  bbyn  #     #
-#     #     cnyn  bgyy  bnny  nbbgR #     #
-#     #     cpyn  cpyy  cycp  cycp  #     #
-solution: 0,3 ; use 0,1,0 ; 7,0 ; 1,2 ; use 0,3,3 ; use 0,5,0 ; 0,0 ; 1,0 ; use 0,0,0 ; 1,0 ; 3,0 ; 5,0 ; use 1,0,0 ; use 0,0,0 ; 7,1 ; rot 5,7 ; 3,0 ; roll 3 ; use 3,3,0 ; use 0,2,0 ; use 0,5,3
+pccg  pcnc  ncnc  ncbg  nbpg  nypy  bypp  ccpb
+pcng  npnc  npnc  nbgb  nbgb  pygb  bypcR ccnb
+nbgg  npny  ngnc  cgnb  bbgb  pcgy  bcgy  ybnb
+pngn  bngy  gngy  cgbb  cybb  pnby  gngp  ybnb
+bpgn  ypbn  ypyn  cgnb  yynb  yyny  ynnp  ybnb
+ybnn  ybbn  pbyn  cybn  bybn  bbbn  ynbb  ybpb
+#     #     cnyn  cgcn  yncg  bbcn  #     #
+#     #     cncn  bgcc  bnnc  nbbgR #     #
+#     #     ypcn  ypcc  ycyp  ycyp  #     #
+solution: 0,3 ; use 0,1,0 ; 7,0 ; 1,2 ; use 0,3,3 ; use 0,6,0 ; 0,0 ; 1,0 ; use 0,0,0 ; 3,0 ; roll 0 ; 0,0 ; 6,0 ; use 0,5,0 ; 7,1 ; rot 5,7 ; roll 3 ; 5,3 ; use 0,5,3

@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dikdörtgen; çözüm 10 + 5 tepsi / sınır 11; rastgele 0,025; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dikdörtgen; çözüm 7 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_087
-moves: 11
+moves: 8
 roll: off
 specials: on
 type: resource
 rules: exact
-goals: blue 21, green 41, star 2
+goals: green 40, blue 34, star 2
 grid:
-gby   bgy   bgyy  bbyy  gbyg  gpyg  npnp  nnnp
-gby   gbb   gbyy  ggy   bgy   bpb   npb   png
-nbbg  nbbg  nyny  pgyy  gpn   gpb   nggg  pggp
-bnbp  bng   byy   pgy   gpy   gpgy  nggy  nyypi1
-ypgp  bpg   bpg   bpb   ppb   pgyy  pgy   ggy
-gpyp  gng   gggy  ygyb* ygyb  ngn   ngng  gynp*
-ygyn  nng   nngy  ygyb  ppyb  ppy   gyyg  gygg
-ygyni1 ggyb  gnyy  gng   pngb  nng   nyy   npgg
-ygp   ygpb  gngb  gng   pngb  pngp  pbnp  bpn
-solution: 0,0 ; use 0,0,0 ; 6,2 ; 2,5 ; 0,0 ; use 0,2,0 ; 1,0 ; 2,0 ; use 2,7,0 ; 6,0 ; 1,5 ; 5,5 ; 5,2 ; use 0,4,0 ; use 0,3,1
+yppy  yppi1 ypp   bppc  pgcc  pgcc  cgcp  cgyp
+cygy  byg   ypc   pppg  pcp   gyp   ggy   cgy
+cyg   cygy  gpcg  pccg  pcpg  pyb   pyy   pgcg
+gbcy  gbcy  gpy   ycy   pcy   pyb   pbcg  cgcg
+gyby  gycy  cpc*  ycc   pcg   pcg   pbgg  pgc
+pcc   cccb  cbg   ycgy  pcby  pggp  bgy*  bgyb
+cccg  ccbb  bby   bbgy  bcbc  gccp  gcb   ggcb
+gybg  cyby  cycy  cbcyi1 cbg   bbcp  gbb   gyc
+gbgg  cbb   yycy  ybcy  ybg   bbcb  gbcb  gycb
+solution: 3,5 ; 1,2 ; use 0,1,1 ; 1,5 ; use 0,5,2 ; 2,1 ; 1,0 ; use 0,3,0 ; use 0,0,0 ; 5,1 ; use 0,1,1 ; 2,2

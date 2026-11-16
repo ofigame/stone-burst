@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil kum saati (ayna); çözüm 14 + 0 tepsi / sınır 15; rastgele 0,015; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil kum saati; çözüm 12 + 0 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_128
-moves: 15
+moves: 13
 roll: off
 type: pure
 rules: noSpecials
-goals: purple 48, coral 55, yellow 48
+goals: yellow 51, coral 62, purple 41
 grid:
-cpcy  pyc   ccc   ycc   ppcp  ppcp  pyc   pyy
-cpcy  pyp   cypk1 yypy  pycc  cypc  cypp  ycy
-cyc   cyp   yycc  yycy  pccc  pyp   pcp   ycp
-#     yypk2 yccc  ycc   ycc   pyy   pypc  #
-#     pypc  pcc   ccc   pccy  ppy   pyck1 #
-#     yyp   ycc   ccp   cccy  cpc   cycp  #
-yyp   yyp   yppy  cpp   cpc   cpc   ccpp  ycy
-yyc   yypy  yppy  cypp  cyc   cyp   ccp   ycyy
-pyc   pyc   pppp  pyppLc5 cpc   ypck2 yccy  ycyy
-solution: 4,1 ; 4,0 ; 5,1 ; 1,0 ; 2,5 ; 1,1 ; 2,6 ; 0,0 ; 6,2 ; 6,0 ; 4,0 ; 0,7 ; 1,5 ; 6,3
+ycyk1 ycyc  ycpLy5 ycp   cyp   ycpy  ypyy  ypy
+ypy   ypyc  yyp   ycp   yypc  ycyp  ppyp  pcpp
+cyc   ccc   yyc   yccpk2 yccc  yccp  ycp   pcp
+#     ccy   cyp   cppp  ycc   ycy   ycp   #
+#     cyyc  cyyc  cpp   cpyk2 pyyy  pcp   #
+#     cyc   pyy   ppy   pyy   pycy  pcy   #
+cypp  cyc   ccck1 ccyy  yyc   cpc   pcy   pccp
+ccp   ccc   ccyp  ccpy  yppy  cpp   pcc   pcc
+cycc  cyc   cyy   pypy  pcpp  ccp   ccc   cccp
+solution: 1,4 ; 1,3 ; 5,1 ; 4,1 ; 5,0 ; 2,3 ; 2,0 ; 1,0 ; 0,0 ; 0,2 ; 4,7 ; 5,6

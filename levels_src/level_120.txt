@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe; çözüm 19 + 8 tepsi / sınır 19; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil merdiven (ayna); çözüm 18 + 10 tepsi / sınır 18; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_120
-moves: 19
+moves: 18
 roll: off
 specials: on
 type: boss
 rules: protect, exact
-goals: navy 17, purple 17, star 3
+goals: coral 19, green 26, star 3
 grid:
-#     #     ggng  ggnP  bpcp  bnci1 #     #
-#     cpbb  nnn   nbn   bnc   pnc   pbcn  #
-cpp   gpg   nngb  nbc   gbbb  cbb   cbcc  cpbc
-gbn   gpnn  ggb   ngc   ggbb  cbbni1 bbcn  gpbc
-gpn   gpb   ggb   gccp  pcbg  ccbg  bbg   gbcc
-gpgb  gpgb  gggp  pngp  pnb   gnpg  gbcn  gbcn*
-ppg   pggb  gggp  pgg   ngb*  gcb   ccg   cncP
-#     pgg   pgnp  gpn   npg*  bcbbi1 bbgb  #
-#     #     gcnp  gcng  bpng  bcbg  #     #
-solution: 4,5 ; 3,6 ; use 0,4,0 ; 3,4 ; 2,7 ; 0,3 ; use 0,1,1 ; 0,2 ; 1,2 ; 3,6 ; use 1,6,1 ; 4,0 ; use 0,0,5 ; 6,1 ; 0,5 ; 2,2 ; 2,2 ; 3,2 ; 3,2 ; 4,2 ; 0,5 ; use 0,4,0 ; 5,2 ; 5,7 ; use 2,0,5 ; use 0,4,0 ; use 0,2,0
+#     #     #     #     ccbbi1 gcbb  ggb   ggbb
+#     #     #     ccy   cpyb  gpy   ggb   ggb
+#     #     pby   bcyy  gpy   gby   cbbg  cgb
+#     ypcp  ppy   bpyy  bpbg  gbp   cpcg  ygcP
+cby   pbcp  pbcg  pyyg  ppbg  ppp   pgc   ygc
+ccyb* pbypi1 pgbp  pgg   pybg  yygb  yggb  ygbb
+pcbb  pgb   ggbp  cggpi1 cygg  pyb   yggb* ybgb
+pcpP  ccp   ccg   gcg*  ggc   cgb   cggc  pgg
+pbp   cbcb  gcgb  gcgb  ggbb  cgbp  cgbp  ppb
+solution: 5,5 ; 4,3 ; 1,8 ; use 1,6,2 ; 5,5 ; 4,6 ; 3,1 ; use 0,3,1 ; 1,3 ; use 0,0,4 ; 0,4 ; use 3,1,3 ; 1,7 ; 5,0 ; use 2,4,0 ; 6,0 ; use 3,5,0 ; 5,0 ; 1,3 ; 3,3 ; use 3,0,5 ; 6,4 ; 4,2 ; use 3,6,0 ; use 0,4,0 ; 4,7 ; 0,4 ; use 2,0,5

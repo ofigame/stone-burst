@@ -31,6 +31,18 @@ Stone Burst (2026-11-09; önceki adları TriKat ve Kat Kat), üst üste dizilmi�
 | Green | Yeşil | Yaprak (2026-11-16) |
 | Navy | Lacivert | Yıldız (2026-11-16) |
 
+**Renklerin açılışı (2026-11-16):** renkler bölümlere sırayla girer.
+
+| Bölüm | Renkler |
+|---|---|
+| 1–7 | İnci (beyaz), turkuaz |
+| 8–20 | + mercan (kırmızı) |
+| 21–60 | + mor |
+| 61–200 | + yeşil |
+| 201+ | + lacivert (mavi) |
+
+Bir bölüm açılmış renklerin hepsini kullanmayabilir (ör. nefes ve saf plan bölümleri daha az renkle). Günlük bulmaca da aynı sırayı izler.
+
 Veri kimlikleri (`Coral/Blue/Yellow/Purple`, `Rainbow`) eski adlarıyla kalır; ekranda inci ve "Altın Rulo" görünür.
 
 ## 3. Özel taşlar ve tepsi (v6)
@@ -178,7 +190,7 @@ Yıldız eşikleri bölüm başına kayıtlı çözüm + kutlama puanından hesa
 ## 6. Zorluk
 
 **v14 (2026-11-16, geçerli):** kullanıcı: "ileri bölümler kolay olmasın lütfen zorla", "oyuncu rastgele patlatmalarla değil plan ve mantık yürüterek bitirdiğini hissetsin". 1000 bölüm `LevelLab v14` ile yeniden üretildi (ayrıntı `docs/v14/PLAN.md`, ölçüm `docs/v14/ZORLUK.md`).
-- Eğri: 1–5 vitrin (7×8, 2–3 kat, 4 renk); 6–7 tek kat 3 renk 6×7; 8–14 iki kat; 15–30 üç kat 2 görev; sonra tahta 8×9'a, kat 4'e, renk 6'ya (201+), görev 3–4'e çıkar.
+- Eğri: 1–5 vitrin (7×8, 2–3 kat); 6–7 tek kat 6×7; 8–14 iki kat; 15–30 üç kat 2 görev; sonra tahta 8×9'a, kat 4'e, görev 3–4'e çıkar. Renkler yukarıdaki açılış sırasıyla: 1–7 iki renk, 8 mercan, 21 mor, 61 yeşil, 201 lacivert.
 - Hamle payı (sınır − en iyi çözüm): 6–30 3–5, 31–100 2–3, 101–300 1–2, 301+ 0–1; nefes bölümlerinde +4.
 - Rastgele dokunan bot nefes dışı bölümlerde ortalama 6–7 %34, 15–30 %3,6, 301+ ≈%0,1 kazanır; 31'den sonra açgözlü botlar nefes dışı 829 bölümün hepsinde kaybeder.
 - 132 nefes, 100 usta (x0), 164 tür bölümü.

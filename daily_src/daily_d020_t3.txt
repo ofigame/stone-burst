@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 129 + tür resource; şekil dikdörtgen; çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 129 + tür resource; şekil artı; çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d020_t3
 title: Günlük 20
-moves: 8
+moves: 7
 roll: on
 specials: on
 type: resource
 rules: exact
-goals: green 42, navy 48, yellow 30
+goals: blue 15, purple 30, green 26
 grid:
-gngg  ggyg  pgng  pgn   ngp   nbpy  nbp   gng
-bnn   bnyg  pnyn  ynp   gpp   gpp   nnp   nngg
-ybny  ybg   pngn  yngn  pyb   ppb   npnb  bnb
-ybyy  pny   pngg  pyp   pybp  pybp  npbb  gpbb
-nny   pny   pnp   npp   nynp  pyp   gppy  gpp
-ppyp  pnyp  gnp   nppg  npnp  bpp   gppy  gpp
-ypg   ypgb  gypy  gnnp  gynp  byp   gyp   gpp
-ypnn  yngy  ngby  nnn   gnp   byp   bgn   ggn
-bgn   bgg   bgb   nbp   byp   byb   bgnb  ggnb
-solution: 3,3 ; use 0,3,0 ; 0,0 ; use 0,1,0 ; 5,6 ; use 0,0,0 ; 0,0 ; 3,0 ; use 0,7,0 ; use 0,0,0 ; 4,2 ; 3,1 ; roll 8 ; use 0,4,0
+#     #     ycgg  ccpg  cppy  gpp   #     #
+#     #     ccp   ccp   bcyy  gpyy  #     #
+pcyg  pcy   yyp   cypg  byyc  bpb   yccc  ycc
+bpcg  bccg  ycp   gypc  gycc  gybc  cpgc  cpcc
+cpc   cpp   ybpg  gbc   gyc   byc   bbgc  cppc
+ccg   cpc   ygc   cgc   pycg  gyyg  bby   bgpc
+ccgb  ccg   cgc   cypc  pyy   gyyp  gbp   ygpc
+#     #     pgc   cycc  cypp  ggcp  #     #
+#     #     pbyp  pby   pgc   ggc   #     #
+solution: 4,2 ; 7,4 ; use 0,2,0 ; 3,0 ; use 1,5,2 ; 0,3 ; use 1,5,0 ; 5,3 ; use 0,5,0 ; 5,5 ; roll 8 ; use 0,0,3 ; use 0,2,0

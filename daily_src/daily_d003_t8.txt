@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: reverse
 rules: exact
-goals: yellow 25, purple 35, green 38
+goals: coral 25, purple 35, green 38
 grid:
-#     #     gppg  ggng  ggny  cgny  #     #
-#     bbcg  bygbR gygcR ggnp  cgnp  ygyg  #
-cbyy  byyp  nygn  nypn  ggpp  cgnn  ygyp  cpgg
-cbyyK1:1 cbgp  ngpgR npnb  ppnb  ccnp  ycyp  cpyg
-bcyg  cccg  ygnc  pnnb  pcbb  ccnp  ybnp  ybng
-bbcg  bccp  ygnp  ggnb  pcbb  pccp  ybcp  pgpc
-bbbg  bbcg  yppb  gcybK1:1 pcgb  pccb  yccy  pgpyK1:1
-#     gppb  gppg  gpyg  ncgn  nggc  nggp  #
-#     #     gppb  gpyb  gpyn  npyc  #     #
+#     #     gppg  ggng  ggnc  ygnc  #     #
+#     bbyg  bcgbR gcgyR ggnp  ygnp  cgcg  #
+ybcc  bccp  ncgn  ncpn  ggpp  ygnn  cgcp  ypgg
+ybccK1:1 ybgp  ngpgR npnb  ppnb  yynp  cycp  ypcg
+bycg  yyyg  cgny  pnnb  pybb  yynp  cbnp  cbng
+bbyg  byyp  cgnp  ggnb  pybb  pyyp  cbyp  pgpy
+bbbg  bbyg  cppb  gycbK1:1 pygb  pyyb  cyyc  pgpcK1:1
+#     gppb  gppg  gpcg  nygn  nggy  nggp  #
+#     #     gppb  gpcb  gpcn  npcy  #     #
 solution: rot 2,1 ; 3,3 ; 2,2 ; use 0,2,0 ; 4,1 ; roll 8 ; use 1,4,0 ; 3,0 ; 3,0 ; 2,7 ; use 1,2,0 ; use 1,3,0 ; 7,2 ; use 2,6,1 ; use 0,7,2

@@ -1,4 +1,4 @@
-# v14 zorluk tablosu (LevelLab `v14`, 2026-11-16 05:11)
+# v14 zorluk tablosu (LevelLab `v14`, 2026-11-16 12:10)
 
 Kaynak: `docs/v14/PLAN.md`. Bütün sayılar üreticinin ölçümüdür (`levels_src_v14/_olcum/*.tsv`), tahmin değildir.
 
@@ -15,13 +15,13 @@ Denetim: 0 sorunlu bölüm (statik doğrulama, kayıtlı çözüm, iç boşluk, 
 
 | Bölüm | Tahta | Kat | Renk | Görev | Çözüm (ort.) | Pay (nefes dışı) | Pay (nefes) | Rastgele bot ort. / en çok (nefes dışı) | Açgözlü kazanır (nefes dışı) | Yumuşak bot ort. | Nefes | Usta | Tür | Yedek |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1–5 | 7×8 (5) | 2-3, 2-2 | 4 | 2–3 | 4,2 | 1–4 | — | %24,3 / %95,5 | 4/5 | %62 | 0 | 0 | 0 | 0 |
-| 6–7 | 6×7 (2) | 1-1 | 3 | 1 | 3,0 | 3 | — | %33,8 / %35,0 | 2/2 | %100 | 0 | 0 | 0 | 0 |
-| 8–14 | 6×7 (3), 7×7 (3), 7×8 (1) | 2-2, 1-2 | 3–4 | 1–2 | 3,9 | 1–5 | 9 | %7,8 / %33,0 | 3/6 | %37 | 1 | 1 | 0 | 0 |
-| 15–30 | 7×8 (11), 7×7 (5) | 3-3, 1-2 | 3–4 | 2 | 4,8 | 1–5 | 9 | %3,6 / %13,5 | 7/14 | %29 | 2 | 2 | 2 | 0 |
-| 31–60 | 7×8 (17), 8×8 (13) | 3-3, 1-2 | 3–4 | 2–3 | 5,8 | 1–3 | 7 | %2,0 / %12,5 | 0/26 | %14 | 4 | 3 | 5 | 0 |
-| 61–100 | 8×8 (21), 8×9 (18), 7×9 (1) | 3-4, 3-3, 1-2 | 3–5 | 2–3 | 6,7 | 0–3 | 7 | %0,4 / %6,0 | 0/35 | %14 | 5 | 4 | 7 | 0 |
-| 101–200 | 8×9 (82), 8×8 (10), 7×9 (8) | 3-4, 1-2 | 3–5 | 2–3 | 7,7 | 0–2 | 6 | %0,3 / %8,0 | 0/86 | %14 | 14 | 10 | 16 | 0 |
+| 1–5 | 7×8 (5) | 2-3, 2-2 | 2 | 2–3 | 4,6 | 1–4 | — | %42,6 / %91,5 | 4/5 | %73 | 0 | 0 | 0 | 0 |
+| 6–7 | 6×7 (2) | 1-1 | 2 | 1 | 4,0 | 3 | — | %49,0 / %53,0 | 2/2 | %100 | 0 | 0 | 0 | 0 |
+| 8–14 | 6×7 (3), 7×7 (3), 7×8 (1) | 2-2, 1-2 | 3 | 1–2 | 3,9 | 1–5 | 9 | %5,8 / %12,5 | 2/6 | %39 | 1 | 1 | 0 | 0 |
+| 15–30 | 7×8 (11), 7×7 (5) | 3-3, 1-2 | 3–4 | 2 | 4,9 | 1–5 | 9 | %13,1 / %61,5 | 6/14 | %37 | 2 | 2 | 2 | 1 |
+| 31–60 | 7×8 (17), 8×8 (13) | 3-3, 1-2 | 3–4 | 2–3 | 6,0 | 1–3 | 7 | %1,2 / %11,0 | 0/26 | %9 | 4 | 3 | 5 | 0 |
+| 61–100 | 8×8 (21), 8×9 (18), 7×9 (1) | 3-4, 3-3, 1-2 | 3–5 | 2–3 | 6,5 | 0–3 | 7 | %0,8 / %8,0 | 0/35 | %15 | 5 | 4 | 7 | 0 |
+| 101–200 | 8×9 (82), 8×8 (10), 7×9 (8) | 3-4, 1-2 | 3–5 | 2–3 | 7,5 | 0–2 | 6 | %0,2 / %6,5 | 0/86 | %12 | 14 | 10 | 16 | 0 |
 | 201–300 | 8×9 (79), 8×8 (12), 7×9 (9) | 4-4, 1-2 | 4–6 | 2–3 | 7,9 | 0–2 | 6 | %0,2 / %6,0 | 0/87 | %13 | 13 | 10 | 17 | 0 |
 | 301–500 | 8×9 (163), 7×9 (19), 8×8 (18) | 4-4, 1-2 | 3–6 | 1–3 | 9,4 | 0–1 | 5 | %0,0 / %2,0 | 0/173 | %12 | 27 | 20 | 33 | 2 |
 | 501–700 | 8×9 (162), 8×8 (20), 7×9 (18) | 4-4, 1-2 | 4–6 | 2–4 | 9,6 | 0–1 | 5 | %0,1 / %3,0 | 0/174 | %10 | 26 | 20 | 34 | 0 |
@@ -31,32 +31,32 @@ Denetim: 0 sorunlu bölüm (statik doğrulama, kayıtlı çözüm, iç boşluk, 
 ## PLAN ölçütleri (sayım)
 
 - Pay bandı dışında: 0 bölüm (kesin hamle türleri ve usta bölümleri: pay 1–99'da ≤ 1, sonra 0).
-- Rastgele bot tavanı aşan: 0 bölüm (öğretici turlu 1–3 hariç).
+- Rastgele bot tavanı aşan: 1 bölüm (öğretici turlu 1–3 hariç).
 - 31+ nefes dışı açgözlü botun kazandığı: 0 bölüm.
-- Yedek aday (bir ölçüt tutmadı, en yakın aday): 2 bölüm.
+- Yedek aday (bir ölçüt tutmadı, en yakın aday): 3 bölüm.
 
 ## Örnek bölümler
 
 | Bölüm | Tür | Tahta | Kat | Renk | Hedefler | Mekanik | Çözüm / sınır | Rastgele | Açgözlü | Şekil |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | vitrin | 7×8 | 2-2 | 4 | purple 6,navy 6 | - | 4 / 8 | %95,5 | kazanır | kesik köşe |
-| 2 | vitrin | 7×8 | 2-3 | 4 | green 15,purple 18 | - | 4+3t / 8 | %19,5 | kazanır | artı |
-| 3 | vitrin | 7×8 | 2-3 | 4 | coral 8,star 2 | clip,star,linkedClip | 5+5t / 9 | %3,5 | kaybeder | merdiven (ayna) |
-| 4 | vitrin | 7×8 | 2-3 | 4 | yellow 19,envelope 2,sponge 1 | ice,colorLock,envelope,sponge | 4+3t / 8 | %3,0 | kazanır | merdiven |
-| 5 | vitrin | 7×8 | 2-3 | 4 | coral 18,yellow 12 | rotor,gate,paint,crystal | 4+2t / 5 | %0,0 | kazanır | merdiven (ayna) |
-| 6 | normal | 6×7 | 1-1 | 3 | navy 12 | - | 3 / 6 | %35,0 | kazanır | kenar çentikleri |
-| 9 | normal | 6×7 | 2-2 | 3 | blue 12 | - | 4+1t / 7 | %33,0 | kaybeder | kesik köşe |
-| 15 | normal | 7×7 | 3-3 | 4 | coral 30,navy 38 | - | 6+5t / 10 | %1,5 | kaybeder | kum saati (ayna) |
-| 18 | nefes | 7×8 | 1-2 | 3 | coral 33,navy 4 | - | 3+1t / 12 | %98,0 | kazanır | merdiven |
-| 21 | normal | 7×8 | 3-3 | 4 | coral 25,yellow 45 | clip | 5+5t / 10 | %9,5 | kazanır | L |
-| 27 | tür:exact | 7×8 | 3-3 | 4 | coral 30,yellow 40 | clip | 5+4t / 6 | %0,0 | kaybeder | merdiven |
-| 40 | usta | 7×8 | 3-3 | 4 | coral 38,blue 33 | clip | 6+4t / 7 | %0,0 | kaybeder | T |
-| 41 | normal | 7×8 | 3-3 | 4 | purple 30,yellow 23,star 3 | star | 6+6t / 8 | %0,0 | kaybeder | T |
-| 57 | tür:protect | 8×8 | 3-3 | 4 | green 43,purple 45,star 2 | star,crystal | 8+6t / 10 | %0,0 | kaybeder | kum saati (ayna) |
-| 66 | nefes | 8×8 | 1-2 | 3 | blue 20,yellow 27 | - | 3+2t / 10 | %50,5 | kazanır | T (ayna) |
-| 100 | usta | 8×8 | 3-4 | 3 | yellow 22,green 25,coral 21 | clip,ice,crystal | 9 / 9 | %0,0 | kaybeder | artı |
-| 121 | normal | 8×9 | 3-4 | 5 | yellow 29,green 42,star 3 | star | 7+6t / 9 | %0,0 | kaybeder | çatı |
-| 127 | tür:order | 8×9 | 3-4 | 5 | coral 29,blue 29,navy 40 | ice,colorLock | 8+6t / 9 | %0,0 | kaybeder | L |
+| 1 | vitrin | 7×8 | 2-2 | 2 | yellow 11,blue 10 | - | 7 / 11 | %91,5 | kazanır | çatı |
+| 2 | vitrin | 7×8 | 2-3 | 2 | blue 59,yellow 65 | - | 4+3t / 8 | %51,5 | kazanır | U |
+| 3 | vitrin | 7×8 | 2-3 | 2 | blue 15,star 2 | clip,star,linkedClip | 4+3t / 8 | %66,0 | kazanır | merdiven (ayna) |
+| 4 | vitrin | 7×8 | 2-3 | 2 | yellow 39,envelope 2,sponge 1 | ice,colorLock,envelope,sponge | 4+2t / 8 | %4,0 | kazanır | kenar çentikleri |
+| 5 | vitrin | 7×8 | 2-3 | 2 | yellow 12,blue 13 | rotor,gate,paint,crystal | 4+1t / 5 | %0,0 | kaybeder | dikdörtgen |
+| 6 | normal | 6×7 | 1-1 | 2 | blue 14 | - | 4 / 7 | %53,0 | kazanır | dikdörtgen |
+| 9 | normal | 6×7 | 2-2 | 3 | coral 16 | - | 4+1t / 7 | %6,5 | kazanır | kum saati (ayna) |
+| 15 | normal | 7×7 | 3-3 | 3 | yellow 38,blue 35 | - | 5+4t / 8 | %32,5 | kazanır | kesik köşe (ayna) |
+| 18 | nefes | 7×8 | 1-2 | 3 | blue 15,coral 27 | - | 3+2t / 12 | %81,5 | kazanır | kum saati |
+| 21 | normal | 7×8 | 3-3 | 4 | purple 44,yellow 21 | clip | 5+4t / 10 | %26,0 | kazanır | kum saati (ayna) |
+| 27 | tür:exact | 7×8 | 3-3 | 4 | yellow 32,purple 39 | clip | 5+5t / 6 | %2,5 | kaybeder | kesik köşe |
+| 40 | usta | 7×8 | 3-3 | 4 | yellow 36,coral 39 | clip | 7+5t / 8 | %0,5 | kaybeder | kum saati (ayna) |
+| 41 | normal | 7×8 | 3-3 | 4 | purple 27,blue 47,star 3 | star | 7+5t / 9 | %0,5 | kaybeder | kum saati |
+| 57 | tür:protect | 8×8 | 3-3 | 4 | purple 23,blue 28,star 2 | star,crystal | 6+5t / 8 | %0,0 | kaybeder | elmas |
+| 66 | nefes | 8×8 | 1-2 | 3 | yellow 21,coral 15 | - | 3+2t / 10 | %68,0 | kazanır | L |
+| 100 | usta | 8×8 | 3-4 | 3 | yellow 31,green 34,coral 20 | clip,ice,crystal | 11 / 11 | %0,0 | kaybeder | U (ayna) |
+| 121 | normal | 8×9 | 3-4 | 5 | coral 24,green 25,star 3 | star | 12+9t / 14 | %2,0 | kaybeder | kum saati |
+| 127 | tür:order | 8×9 | 3-4 | 5 | coral 25,yellow 26,purple 16 | ice,colorLock | 9+7t / 10 | %0,0 | kaybeder | kenar çentikleri |
 | 201 | normal | 8×9 | 4-4 | 6 | navy 25,blue 33,envelope 3 | colorLock,envelope | 8+5t / 10 | %0,0 | kaybeder | U |
 | 246 | nefes | 8×9 | 1-2 | 4 | purple 21,blue 22 | - | 3+2t / 9 | %33,0 | kazanır | L (ayna) |
 | 301 | normal | 8×9 | 4-4 | 6 | navy 41,green 25,envelope 3 | ice,envelope | 10+8t / 11 | %0,0 | kaybeder | kenar çentikleri |
@@ -72,6 +72,7 @@ Denetim: 0 sorunlu bölüm (statik doğrulama, kayıtlı çözüm, iç boşluk, 
 
 ## Bayraklı bölümler
 
+- 17 (normal): YEDEK: rastgele;
 - 302 (normal): döndürmeyle başlar;
 - 303 (normal): döndürmeyle başlar;
 - 304 (normal): döndürmeyle başlar;

@@ -8,13 +8,13 @@ type: reverse
 rules: exact
 goals: green 31, purple 30, envelope 2
 grid:
-#     #     #     ncbn  ncby  ycby  ycnc  ycyc
-#     #     #     ncbn  nybn  gcby  ycnc  bgnp
-#     #     #     nbbn  cybn  cyby  bgpy  bgyy
-#     #     #     pbgc  cybc  cppy  ngpy  pgpb
-npby  nnby  cngy  cbgg  pyyc  cppy  ngpc  pgpc
-cpby  ynbg  cnng  pgpg  pyyp  cyyn  nypn  bypc
-cpbp  ybbg  bbbb  bgpg  ngyp  nggp  bgyc  bgpbEg
-ngbp  yppg  npyb  pppp  cggp  pbgy  pgycEn pggc
-nggp  yggg  ppyg  pbyp  bbgy  bbny  bbgy  pbgc
+#     #     #     nybn  nybc  cybc  cyny  cycy
+#     #     #     nybn  ncbn  gybc  cyny  bgnp
+#     #     #     nbbn  ycbn  ycbc  bgpc  bgcc
+#     #     #     pbgy  ycby  yppc  ngpc  pgpb
+npbc  nnbc  yngc  ybgg  pccy  yppc  ngpy  pgpy
+ypbc  cnbg  ynng  pgpg  pccp  yccn  ncpn  bcpy
+ypbp  cbbg  bbbb  bgpg  ngcp  nggp  bgcy  bgpbEg
+ngbp  cppg  npcb  pppp  yggp  pbgc  pgcyEn pggy
+nggp  cggg  ppcg  pbcp  bbgc  bbnc  bbgc  pbgy
 solution: 4,5 ; use 0,7,0 ; 4,0 ; 6,2 ; use 1,6,0 ; 3,4 ; use 0,5,3 ; use 0,7,2 ; roll 7 ; 1,7 ; roll 7 ; use 0,0,8

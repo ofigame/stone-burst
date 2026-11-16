@@ -6,15 +6,15 @@ roll: on
 paint: 2
 type: pure
 rules: noSpecials, exact
-goals: green 23, blue 42, coral 33, sponge 1
+goals: green 23, blue 42, yellow 33, sponge 1
 grid:
-bcpb  bcpb  gcpb  bccp  cbpp  #     #     #
-gbpg  bbgp  gbcb  bbcb  cbcc  #     #     #
-gppg  gpgg  gbgg  bggc  cbgc  #     #     #
-cppc  pppc  pgpg  bggg  cbgc  #     #     #
-cgbp  cgbb  bgpp  bbgp  bbcc  pbbb  cbgc  cbgc
-cgpp  bcpb  bgpb  bgpb  bccb  ccbbSp cbbc  gbgc
-cgpb  ccbb  bcbp  cccp  pccc  ccpc  cbpc  gbgp
-bcbb  bgbb  bccp  cpcp  pppb  bbpp  bbpc  bppp
-ccbg  bcbg  ccbg  cpcg  ppcb  bpgb  bgpp  bgpp
+bypb  bypb  gypb  byyp  ybpp  #     #     #
+gbpg  bbgp  gbyb  bbyb  ybyy  #     #     #
+gppg  gpgg  gbgg  bggy  ybgy  #     #     #
+yppy  pppy  pgpg  bggg  ybgy  #     #     #
+ygbp  ygbb  bgpp  bbgp  bbyy  pbbb  ybgy  ybgy
+ygpp  bypb  bgpb  bgpb  byyb  yybbSp ybby  gbgy
+ygpb  yybb  bybp  yyyp  pyyy  yypy  ybpy  gbgp
+bybb  bgbb  byyp  ypyp  pppb  bbpp  bbpy  bppp
+yybg  bybg  yybg  ypyg  ppyb  bpgb  bgpp  bgpp
 solution: 6,4 ; roll 6 ; 1,4 ; roll 5 ; 4,1 ; 0,1 ; roll 4 ; 1,2 ; 0,0 ; roll 8 ; 2,1 ; roll 4

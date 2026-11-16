@@ -5,15 +5,15 @@ moves: 8
 roll: on
 type: pure
 rules: noSpecials, exact
-goals: purple 22, blue 26, yellow 37
+goals: purple 22, blue 26, coral 37
 grid:
-ygpy  yggg  pygy  pbby  pbgb  gbgb  bpgp  bpgp
-ygpy  ygygk1 byyyk1 ppbyk1 ybgb  gbgg  bpggk2 byyg
-ygpy  ygpg  bppy  ppby  pbgy  gybgk2 ygby  byyy
-pgpy  pypg  bypg  pypg  pppy  yyby  ypby  bpbyk1
-ggyy  byyg  bbpg  bypg  bypb  bypy  ypyy  ypyy
-ggyy  byyg  bbyp  bpyp  bbpb  bgpb  yyyy  yyyy
-#     #     bpyp  ppyp  ybpb  ybyp  #     #
-#     #     bpbp  pgby  yybg  gyyg  #     #
-#     #     bpby  bgby  ggbg  gyyg  #     #
+cgpc  cggg  pcgc  pbbc  pbgb  gbgb  bpgp  bpgp
+cgpc  cgcgk1 bccck1 ppbck1 cbgb  gbgg  bpggk2 bccg
+cgpc  cgpg  bppc  ppbc  pbgc  gcbgk2 cgbc  bccc
+pgpc  pcpg  bcpg  pcpg  pppc  ccbc  cpbc  bpbck1
+ggcc  bccg  bbpg  bcpg  bcpb  bcpc  cpcc  cpcc
+ggcc  bccg  bbcp  bpcp  bbpb  bgpb  cccc  cccc
+#     #     bpcp  ppcp  cbpb  cbcp  #     #
+#     #     bpbp  pgbc  ccbg  gccg  #     #
+#     #     bpbc  bgbc  ggbg  gccg  #     #
 solution: 1,2 ; 1,2 ; 0,0 ; 2,3 ; 3,3 ; 7,2 ; 6,2 ; 4,0

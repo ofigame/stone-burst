@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kum saati; çözüm 5 + 5 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kum saati; çözüm 5 + 4 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_030
 moves: 6
 roll: off
 specials: on
 type: boss
 rules: exact
-goals: coral 39, purple 37
+goals: purple 38, coral 39
 grid:
-pcc   pcc   pcp   yyp   bpy   cpb   cyb
-ycck2 ycb   pyp   yyc   byc   bpp   cyp
-#     yyp   yyp   byb   byb   bpb   #
-#     ycp   ycp   pyp   byp   bypk1 #
-#     ccy   pcy   pcy   pcy   bpp   #
-#     ccc   ccc   cyc   bpc   bpy   #
-pcp   pcp   pby   cbyk1 cpy   yyy   ypy
-pcp   ccc   cpc   cpc   ypy   yyy   cpy
-solution: 2,0 ; use 0,0,0 ; 3,0 ; 1,4 ; use 0,2,0 ; 1,4 ; 4,0 ; use 1,5,0 ; use 0,0,1 ; use 0,0,0
+pyy   pyy   pyp   ccp   bpc   ypb   ycb
+cyyk2 cyb   pcp   ccy   bcy   bpp   ycp
+#     ccp   ccp   bcb   bcb   bpb   #
+#     cyp   cyp   pcp   bcp   bcpk1 #
+#     yyc   pyc   pyc   pyc   bpp   #
+#     yyy   yyy   ycy   bpy   bpc   #
+pyp   pyp   pbc   ybck1 ypc   ccc   cpc
+pyp   yyy   ypy   ypy   cpc   ccc   ypc
+solution: 2,0 ; use 0,0,0 ; 3,0 ; use 0,2,0 ; 1,4 ; 4,0 ; use 0,5,0 ; 5,6 ; use 0,3,0

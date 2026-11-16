@@ -1,16 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil kesik köşe (ayna); çözüm 3 + 3 tepsi / sınır 10; rastgele 0,485; açgözlü kaybeder; yumuşak 0,44
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil kesik köşe; çözüm 3 + 1 tepsi / sınır 10; rastgele 0,840; açgözlü kazanır; yumuşak 0,98
 id: level_042
 moves: 10
 roll: off
 specials: on
-goals: purple 24, yellow 40
+goals: coral 63, purple 3
 grid:
-#     #     py    py    p     py    #     #
-#     y     y     py    p     p     pp    #
-yy    y     p     py    p     yc    y     y
-yy    y     y     y     yc    yc    y     yy
-yy    p     yc    y     yc    y     y     y
-pc    pc    yc    yc    y     py    y     pp
-#     p     yc    p     p     py    py    #
-#     #     cy    py    py    py    #     #
-solution: 6,2 ; use 0,5,2 ; 2,0 ; 2,0 ; use 0,6,1 ; use 0,5,0
+#     #     cc    cc    c     cc    #     #
+#     cc    c     cc    cc    cc    c     #
+c     c     c     c     cc    cc    c     cc
+cp    cp    cp    c     c     cc    c     c
+c     cp    c     y     c     cy    cc    c
+c     c     cc    cc    c     cy    c     cy
+#     cc    cc    cy    cy    yy    cy    #
+#     #     cc    cy    c     c     #     #
+solution: 0,3 ; 5,4 ; 2,0 ; use 1,2,0

@@ -1,16 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 6 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 6 + 5 tepsi / sınır 9; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
 id: level_075
 moves: 9
 roll: off
 specials: on
-goals: blue 29, green 13, purple 36
+goals: purple 28, blue 15, yellow 32
 grid:
-pngn  pcb   pcbp  bcbp  bcb   bcb   pccni1 bccn
-cbbn  cbb   cpbc  bgbc  pbbi1 ppb   ppnn  bccn
-cgb   cgb   cgcc  pgb   cgb   cgb   #     #
-pcg   pngc  ngb   ppni2 cnp   cgp   #     #
-gbg   gng   gcb   npp   cpp   ccc   pcpn  ncp
-cbnb  cbg   gpnn  npcc  cppp  pcpp  ppp   ncpb
-cbn   bcp   bcn   ppcc  #     pcb   ncb   ncb
-ppgp  pbpp  pbcp  ppc   #     pgb   pnb   nnbc
-solution: 7,5 ; 4,3 ; use 1,2,0 ; 1,0 ; use 1,0,2 ; 1,0 ; 3,0 ; use 2,0,1 ; 4,2 ; use 1,1,0 ; use 0,0,0
+cccy  ypgy  bbg   bppg  bgpg  bpp   gpc   gpcy
+ypcy  ypgi1 ybp   bbpg  pgp   pgy   gbp   gpc
+ypgy  ypgi1 ybc   pgc   yyp   pgp   pbp   bcc
+ypg   gpg   ygp   pgpy  yyc   bcyp  bcc   bccg
+#     #     bygy  pypy  yycy  gyc   #     #
+#     #     ycyc  gyp   gyc   gyb   #     #
+#     cggg  ycy   ycy   yyb   pyby  ppby  #
+gggpi2 ggg   #     #     #     #     ppg   pyg
+solution: 0,0 ; 1,0 ; 1,0 ; use 0,1,0 ; 4,3 ; use 0,2,0 ; 4,2 ; use 0,4,0 ; use 0,3,0 ; 2,0 ; use 0,1,6

@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dikdörtgen; çözüm 4 + 4 tepsi / sınır 5; rastgele 0,005; açgözlü kazanır; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil T; çözüm 4 + 3 tepsi / sınır 5; rastgele 0,005; açgözlü kaybeder; yumuşak 0,02
 id: level_010
 moves: 5
 roll: off
 specials: on
 type: boss
 rules: exact
-goals: navy 33
+goals: blue 18
 grid:
-np    pp    nn    np    bb    np
-pp    nn    nb    pb    pn    bn
-pb    np    pn    pn    bb    pn
-bp    bp    pn    bn    pp    bn
-pn    np    np    bn    bb    np
-nb    nn    bb    nb    pb    nn
-nb    bb    pn    bn    nn    nn
-solution: 1,2 ; 1,1 ; use 1,0,0 ; 5,0 ; 3,3 ; use 1,0,0 ; use 0,2,0 ; use 0,2,0
+cy    cc    bb    cy    yb    cy
+cb    cy    yc    bb    bb    bc
+yy    by    cb    bb    yy    cc
+cy    bc    yy    bc    yc    cy
+yb    cb    cb    cc    yc    yc
+#     #     by    yy    #     #
+#     #     yc    yc    #     #
+solution: 0,4 ; 1,1 ; 4,0 ; 0,3 ; use 2,2,0 ; use 0,2,0 ; use 0,2,5

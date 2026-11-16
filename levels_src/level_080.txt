@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dikdörtgen; çözüm 8 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil artı; çözüm 6 + 4 tepsi / sınır 7; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
 id: level_080
-moves: 9
+moves: 7
 roll: off
 specials: on
 type: boss
 rules: scarce, exact
-goals: green 28, yellow 23, purple 21
+goals: green 23, yellow 25, blue 15
 grid:
-cypp  ppyp  ppypi1 gyy   cyng  ycp   yyp   ccg
-gypp  pyyyi2 ppn   yyy   gyng  gcp   gcpn  ccp
-gyn   pcyy  ccnn  gynn  gcnn  yyp   gcpn  gcp
-pnn   pnyn  ccp   ccp   pcgn  yyn   gcn   gcp
-ccy   nnyni1 cnpn  pny   pcn   yyn   ngg   ycnn
-gcn   pnn   cnp   nny   ccg   cccc  cgy   yyn
-pgp   pgpy  pngc  nnyc  cnny  nny   ngy   ppyn
-ngg   ncg   ngg   nny   cny   cny   pnc   gcy
-solution: 2,1 ; use 0,3,0 ; 0,2 ; use 0,0,0 ; 1,0 ; 5,0 ; use 0,3,0 ; 0,3 ; 4,0 ; 1,2 ; use 0,4,2 ; 4,0 ; use 2,4,1
+#     #     ccpy  bgbc  bgbgi1 bgyy  #     #
+#     #     bgb   bgbp  bcb   cgy   #     #
+yyc   cycb  ycgb  ygg   bgb   cgyy  cyy   pyyy
+ybc   cyg   gbgy  yyby  bybp  pyyp  pyyi2 cyyg
+ygc   cgc   cbcc  cyb   ccy   ppyg  bcb   gcb
+gyg   byy   gyyc  pybc  yby   pgy   ccb   bcb
+#     #     gpcc  cpci1 ypy   ygy   #     #
+#     #     ypc   cpc   cpyy  cpy   #     #
+solution: 0,2 ; use 0,2,0 ; 1,3 ; use 0,3,0 ; 3,0 ; use 0,3,0 ; 3,2 ; 3,0 ; 5,2 ; use 0,4,0

@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil çatı; çözüm 5 + 3 tepsi / sınır 6; rastgele 0,000; açgözlü kazanır; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil merdiven (ayna); çözüm 5 + 4 tepsi / sınır 6; rastgele 0,020; açgözlü kaybeder; yumuşak 0,04
 id: level_020
 moves: 6
 roll: off
 specials: on
 type: boss
 rules: exact
-goals: purple 22, green 27
+goals: blue 45, yellow 33
 grid:
-#     #     #     gcc   #     #     #
-#     pgc   pgg   ggg   gpc   ggc   #
-gcc   cyc   ppp   ggg   gpc   ccc   pyy
-gcc   gyg   gpy   gpy   ccy   ccp   pyy
-ccg   ccg   gcg   gcp   ggp   gcp   yyp
-ccc   ccp   pcc   pcp   ccc   pcc   yyg
-ccc   ccp   pcc   pcc   ccg   pcg   yyg
-solution: 2,3 ; 2,2 ; 2,1 ; 1,1 ; use 0,1,1 ; 2,5 ; use 0,1,1 ; use 0,3,1
+#     #     #     bcy   yby   cbc   cbc
+#     #     byy   bcy   bby   bbb   cbb
+#     ccc   byy   byy   byb   bbb   ycc
+bcc   bbc   byy   byc   byc   ycb   ycc
+ccy   ybb   ybc   ycc   ybc   ycc   ybc
+ccb   ycb   ybc   bcc   bbb   ycc   bbb
+cyy   ccy   ycc   bcc   bbb   ycb   ycb
+solution: 6,2 ; 3,0 ; use 0,3,0 ; 3,0 ; 2,1 ; use 0,5,0 ; 2,1 ; use 0,4,0 ; use 0,5,1

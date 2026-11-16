@@ -942,34 +942,40 @@ namespace KatKat.Tests
         [UnityTest]
         public IEnumerator PaidHint_NoPlan_NoAd()
         {
-            _gc.StartLevel(40);
-            _gc.Board.Director.TimeScale = Speed;
-            yield return WaitStable();
-            // Kayıtlı çözümden sap (kayıtlı yol aday olarak doğrulanamasın): son kabul edilen dokunuş.
-            Command? dev = null;
-            foreach (var c in LevelSolver.Moves(_gc.Session.State))
+            // Renk açılış sırasıyla (2026-11-16) 1–200 yeniden üretildi; 1 düğümle plan bulunamayan ilk aday bölüm kullanılır.
+            foreach (int level in new[] { 40, 44, 52, 64, 72, 84, 104, 152, 250, 400 })
             {
-                if (c.Type != CommandType.Tap) continue;
-                var probe = _gc.Session.State.Clone();
-                if (RulesEngine.TryApply(probe, c).Accepted && !probe.IsTerminal) dev = c;
+                _gc.StartLevel(level);
+                _gc.Board.Director.TimeScale = Speed;
+                yield return WaitStable();
+                // Kayıtlı çözümden sap (kayıtlı yol aday olarak doğrulanamasın): son kabul edilen dokunuş.
+                Command? dev = null;
+                foreach (var c in LevelSolver.Moves(_gc.Session.State))
+                {
+                    if (c.Type != CommandType.Tap) continue;
+                    var probe = _gc.Session.State.Clone();
+                    if (RulesEngine.TryApply(probe, c).Accepted && !probe.IsTerminal) dev = c;
+                }
+                if (!dev.HasValue) continue;
+                _gc.OnCellPressed(dev.Value.X, dev.Value.Y);
+                yield return WaitStable();
+                int nodes = GameController.HintNodeBudget;
+                GameController.HintNodeBudget = 1;
+                try
+                {
+                    var fake = GameController.FakeAds;
+                    int shown = fake.Shown;
+                    _gc.PressHintForTest();
+                    _gc.CompleteHintJobForTest(); _gc.ConfirmHintAdForTest();
+                    if (_gc.PaidHintCommand.HasValue) continue;
+                    Assert.AreEqual(shown, fake.Shown, "plan yoksa reklam yok");
+                    Assert.IsFalse(_gc.PaidHintUsed);
+                    Assert.IsFalse(_gc.HintCreditOpen);
+                    yield break;
+                }
+                finally { GameController.HintNodeBudget = nodes; }
             }
-            Assert.IsTrue(dev.HasValue);
-            _gc.OnCellPressed(dev.Value.X, dev.Value.Y);
-            yield return WaitStable();
-            int nodes = GameController.HintNodeBudget;
-            GameController.HintNodeBudget = 1;
-            try
-            {
-                var fake = GameController.FakeAds;
-                int shown = fake.Shown;
-                _gc.PressHintForTest();
-                _gc.CompleteHintJobForTest(); _gc.ConfirmHintAdForTest();
-                if (_gc.PaidHintCommand.HasValue) Assert.Inconclusive("1 düğümle de doğrulanmış yol bulundu");
-                Assert.AreEqual(shown, fake.Shown, "plan yoksa reklam yok");
-                Assert.IsFalse(_gc.PaidHintUsed);
-                Assert.IsFalse(_gc.HintCreditOpen);
-            }
-            finally { GameController.HintNodeBudget = nodes; }
+            Assert.Inconclusive("1 düğümle de doğrulanmış yol bulundu (bütün aday bölümlerde)");
         }
 
         /// <summary>Yeniden başlatma yeni denemedir: ipucu hakkı ve bedeli sıfırlanır (önceden bedel sonraki denemeye taşınıyordu).</summary>

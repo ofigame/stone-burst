@@ -8,13 +8,13 @@ type: resource
 rules: exact
 goals: navy 27, green 23, envelope 3
 grid:
-nynb  ypbb  ycbc  ycbp  pgbn  #     #     #
-nynp  gpnb  ypcpR gcbn  yybn  #     #     #
-gynp  gpbb  ypgc  ypnbR yybn  #     #     #
-byby  gybn  yygb  bgpn  ygpp  #     #     #
-nncy  bncy  bngb  bgpp  ygyp  ynyp  cnbb  cnbb
-nncy  bncg  bnnb  cnnpEp cnyp  gnyp  gnbb  cnbbEb
-ngnb  bnng  ggnb  bpgc  ycgc  pgyc  gpbp  cngp
-ygnb  yggg  ggccEp bpcc  gccn  pgcn  ppyy  cpgp
-ycgc  yggc  ggcc  gpcc  gpyn  ggyn  cyyy  cpgy
+ncnb  cpbb  cyby  cybp  pgbn  #     #     #
+ncnp  gpnb  cpypR gybn  ccbn  #     #     #
+gcnp  gpbb  cpgy  cpnbR ccbn  #     #     #
+bcbc  gcbn  ccgb  bgpn  cgpp  #     #     #
+nnyc  bnyc  bngb  bgpp  cgcp  cncp  ynbb  ynbb
+nnyc  bnyg  bnnb  ynnpEp yncp  gncp  gnbb  ynbbEb
+ngnb  bnng  ggnb  bpgy  cygy  pgcy  gpbp  yngp
+cgnb  cggg  ggyyEp bpyy  gyyn  pgyn  ppcc  ypgp
+cygy  cggy  ggyy  gpyy  gpcn  ggcn  yccc  ypgc
 solution: rot 3,2 ; 4,3 ; roll 5 ; use 0,2,0 ; 3,6 ; use 0,4,0 ; 1,6 ; 4,5 ; 2,6 ; roll 7 ; use 0,2,2 ; use 0,1,0 ; use 0,1,0 ; 1,0 ; use 0,0,1

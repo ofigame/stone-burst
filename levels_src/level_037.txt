@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil kenar çentikleri; çözüm 6 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil artı; çözüm 6 + 4 tepsi / sınır 7; rastgele 0,005; açgözlü kaybeder; yumuşak 0,23
 id: level_037
 moves: 7
 roll: off
 specials: on
 type: reverse
 rules: exact
-goals: yellow 29, purple 38
+goals: coral 28, yellow 22
 grid:
-cpc   cpc   #     pggk1 ggg   ggp   ygp
-cpc   cpc   #     pgg   ggg   gyp   pyp
-cpg   cpc   ygg   pgg   ygg   pyg   pyg
-cpp   cpp   ypp   pyp   pgg   cgy   pcg
-#     #     ypc   gyc   ygy   ccy   ycg
-ppck1 pcc   pcc   gpc   ygy   ygg   ygg
-ppc   cpc   cyg   gyc   cgy   pgg   pyg
-cyc   cpc   ypg   ypc   ycy   #     gyy
-solution: 4,0 ; use 0,0,0 ; 5,2 ; use 0,0,0 ; 3,0 ; use 0,6,0 ; 3,0 ; 3,0 ; 0,5 ; use 1,6,1 ; use 0,0,7
+#     #     pcc   pcc   pcb   #     #
+#     #     pcc   pcb   pbb   #     #
+cyy   byp   bcp   pcp   ccb   pcp   cbp
+pyy   pyy   pcp   bpp   ccb   pcpk1 cbp
+pyy   byy   bby   bpp   bpp   ppy   cpy
+pyy   byy   bbb   ypb   ypp   bpp   cpy
+#     #     cbb   ybb   ybpk1 #     #
+#     #     ccb   ccc   ycc   #     #
+solution: 1,2 ; 0,2 ; use 0,0,2 ; 5,2 ; use 0,2,0 ; 4,0 ; use 0,2,0 ; 2,4 ; 4,5 ; use 0,4,2

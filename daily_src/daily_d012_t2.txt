@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 59 + tür exact; şekil çatı (ayna); çözüm 7 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 59 + tür exact; şekil L (ayna); çözüm 6 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d012_t2
 title: Günlük 12
-moves: 8
+moves: 7
 roll: on
 specials: on
 type: exact
 rules: exact
-goals: yellow 38, blue 33, purple 35
+goals: blue 53, coral 38, purple 32
 grid:
-#     #     #     pcc   pyc   #     #     #
-#     pcp   ccp   ccc   ccb   ccb   bcp   #
-cyp   ccp   ccp   cbp   cbb   cbbk2 bcp   ycc
-byp   byp   yyp   yyc   yyb   ycb   yyp   ycc
-byb   byb   cbb   cyc   ppc   pcb   cyy   cyb
-bybk1 bbb   cbb   ccy   cpc   ppy   cpy   cyb
-pyc   byb   pyb   ccb   cyb   ppyk1 pyy   pyb
-pyc   pyy   pyy   cpb   cpb   ppp   ppp   pypk1
-solution: 1,1 ; use 0,4,1 ; 3,0 ; use 0,4,0 ; 4,4 ; 0,3 ; roll 7 ; use 0,4,0 ; use 0,2,3 ; 3,0 ; roll 2 ; use 0,7,2
+#     #     #     ycc   bcc   bpc   bcck1 yyc
+#     #     #     ypp   bpp   bpb   ccb   ycc
+#     #     #     bpp   bpc   ycc   ccc   ccc
+pbc   bpck1 bpc   bpp   bpy   yyy   yby   cyp
+pbc   bbc   ppc   bpc   bpb   byy   bbp   byp
+pby   ypck1 ppc   byc   bcb   byb   byp   byp
+pby   yby   yyc   byb   byb   bbb   cbc   cypk2
+pby   ypy   bpc   bbb   bbb   bbb   bbc   cyc
+solution: 4,4 ; use 0,3,0 ; 3,1 ; 0,5 ; use 0,5,1 ; use 0,5,0 ; 6,0 ; 5,2 ; 6,3 ; use 1,3,0 ; use 1,4,0 ; use 0,1,3

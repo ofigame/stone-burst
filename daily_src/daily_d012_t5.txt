@@ -5,15 +5,15 @@ moves: 10
 roll: on
 type: pure
 rules: noSpecials, exact
-goals: yellow 26, purple 30, navy 15
+goals: coral 26, purple 30, navy 15
 grid:
-#     #     gpny  gyny  gyny  gnny  #     #
-#     #     ypnp  ypgp  gyygR gypy  #     #
-pgpy  gppy  gpyp  ppgp  ggpn  gggy  gggy  yggn
-pggg  pppg  yyyg  ppgp  gyppk1 ggpyk2 gypy  gypn
-gggp  gpgn  ppgg  pppyR pypp  nypyk2 gppg  gynn
-gygp  ppgn  ppyn  ypyn  yynn  yypy  gpyy  gyyn
-nygg  nnpg  ngyg  ygggk1 gggn  nggyk1 gpyy  gpny
-#     #     ynpg  ynpg  gygn  yyny  #     #
-#     #     nnpp  nnpp  nppy  yypy  #     #
+#     #     gpnc  gcnc  gcnc  gnnc  #     #
+#     #     cpnp  cpgp  gccgR gcpc  #     #
+pgpc  gppc  gpcp  ppgp  ggpn  gggc  gggc  cggn
+pggg  pppg  cccg  ppgp  gcppk1 ggpck2 gcpc  gcpn
+gggp  gpgn  ppgg  pppcR pcpp  ncpck2 gppg  gcnn
+gcgp  ppgn  ppcn  cpcn  ccnn  ccpc  gpcc  gccn
+ncgg  nnpg  ngcg  cgggk1 gggn  nggck1 gpcc  gpnc
+#     #     cnpg  cnpg  gcgn  ccnc  #     #
+#     #     nnpp  nnpp  nppc  ccpc  #     #
 solution: rot 4,1 ; 1,4 ; roll 4 ; 2,1 ; roll 2 ; 5,3 ; 7,3 ; roll 5 ; 0,2 ; 2,0

@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil artı; çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil U (ayna); çözüm 7 + 7 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_148
 moves: 7
 roll: off
 specials: on
 type: reverse
 rules: exact
-goals: purple 36, green 23, navy 15
+goals: coral 27, yellow 41, purple 27
 grid:
-#     #     pngg  pnpg  pcp   ccbn  #     #
-#     #     pngg  pcp   cgp   ccb   #     #
-cpn   cpn   pcn   pcnc  cgpc  pcbp  ppb   ppgc
-ppnp  bpgp  bcpp  bcc   bnb   ngb   cggp  cpg
-pcnp  pgc   bgp   bbc   bbn   cngg  cpg   gppn
-pcn   gccb  ggp   gbn   bbn   cpg   ccg   ccp
-gcnb  gpc   gbcb  cbc   cbn   cpn   ppp   pcp
-#     #     pbp   gbbc  cbb   cbbn  #     #
-#     #     pcpc  gcp   gbpb  gbc   #     #
-solution: 0,2 ; 0,2 ; use 0,5,0 ; 4,3 ; 5,3 ; 6,3 ; use 0,2,0 ; use 1,3,0 ; 6,4 ; use 1,2,0 ; 4,0 ; use 1,4,0 ; use 0,4,0
+gpyc  gpcc  ppcc  #     #     ccb   cybg  bycg
+pgy   ypy   ppy   #     #     ycc   bcb   byb
+pgyg  ygyg  bpyb  #     #     ygc   bycb  bybb
+pybg  yyyp  yyy   yby   ypb   ygcg  pyb   bybb
+byg   yyg   yyy   ybc   ybby  ypp   ppgy  bpg
+bgcg  byp   byp   byb   bby   ypp   ppb   bpgp
+cgc   ggpg  gyp   gpb   byy   gbc   ybc   bby
+cccg  ycg   ypgc  gpcc  yyg   yggg  ygp   ygpc
+ccgg  ccgc  yccc  ycc   pycg  pygg  pbgg  pggc
+solution: 0,2 ; use 0,2,0 ; 0,1 ; use 0,0,0 ; 0,5 ; use 0,2,0 ; 4,7 ; 0,6 ; 4,4 ; use 0,0,0 ; 0,3 ; use 0,0,0 ; use 0,0,3 ; use 0,0,3

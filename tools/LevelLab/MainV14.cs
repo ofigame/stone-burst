@@ -45,6 +45,17 @@ static partial class Program
 
     static readonly string[] V14AllColors = { "coral", "blue", "yellow", "purple", "green", "navy" };
 
+    /// <summary>Renk açılış sırası (kullanıcı 2026-11-16: "ilk beyaz ve turkuaz ile başla sonra kırmızı gelsin, sonra mor
+    /// gelsin sonra yeşil sonra mavi. Bunu geniş bir bölüme yay tüm taşlar hemen çıkmasın"). Beyaz = inci (yellow),
+    /// turkuaz = blue, kırmızı = coral, mor = purple, yeşil = green, mavi = navy (lacivert yıldız).</summary>
+    static readonly (string color, int intro)[] V14ColorIntro =
+    {
+        ("yellow", 1), ("blue", 1), ("coral", 8), ("purple", 21), ("green", 61), ("navy", 201),
+    };
+
+    /// <summary>Bölüm n'de açılmış renkler (açılış sırasıyla).</summary>
+    static List<string> V14UnlockedColors(int n) => V14ColorIntro.Where(t => t.intro <= n).Select(t => t.color).ToList();
+
     /// <summary>Nefes bölümü: 10'dan sonra her 6. bölüm; usta bölümü olan x0 bölümlerine denk gelmez.</summary>
     static bool V14Breath(int n) => n > 10 && n % 6 == 0 && n % 10 != 0;
 
@@ -107,7 +118,7 @@ static partial class Program
             sp.BlobMin = 2; sp.BlobMax = 4; sp.Frac = 0.30;
             switch (n)
             {
-                case 1: sp.LMax = 2; sp.NoSpecialsInSolution = true; sp.LenLo = 3; sp.LenHi = 7; sp.Frac = 0.24; sp.MaxGroup = 4; break; // dokun-soy ve katlar
+                case 1: sp.LMax = 2; sp.NoSpecialsInSolution = true; sp.LenLo = 3; sp.LenHi = 7; sp.Frac = 0.24; sp.MaxGroup = 4; break; // dokun-soy ve katlar (2 renk: katlar üstle aynı renk, V14Make)
                 case 2: sp.ForcedSpecial = SpecialKind.RocketRow; sp.ColorGoals = 2; break;                              // roket ve tepsi
                 case 3: sp.ForcedSpecial = SpecialKind.Rainbow; sp.ColorGoals = 1; sp.Mech["stars"] = 2; sp.Mech["clip1"] = 2; sp.Mech["link"] = 2; break; // Altın Rulo, dip yıldızı, ataç, bağlı ataç
                 case 4: sp.ColorGoals = 1; sp.Mech["ice1"] = 2; sp.Mech["lock"] = 1; sp.Mech["env"] = 2; sp.Mech["sponge"] = 1; break; // buz, kilit, zarf, sünger
@@ -881,11 +892,14 @@ static partial class Program
         for (int b = 0; b < maxBoards && sw.Elapsed.TotalSeconds < budgetSec; b++)
         {
             res.Boards++;
-            // Palet: bölüm başına sabit tohumla 6 renkten seçilir (yeşil ve lacivert de erken görünür).
-            var palette = V14AllColors.OrderBy(_ => rng.Next()).Take(sp.Colors).ToList();
+            // Palet yalnız o bölümde açılmış renklerden seçilir; renk sayısı açılmış renk sayısını aşmaz (V14ColorIntro).
+            var unlocked = V14UnlockedColors(sp.N);
+            var palette = unlocked.OrderBy(_ => rng.Next()).Take(Math.Min(sp.Colors, unlocked.Count)).ToList();
             var goalColors = palette.OrderBy(_ => rng.Next()).ToList();
             var mult = Enumerable.Range(0, 4).Select(_ => 0.9 + rng.NextDouble() * 0.2).ToArray();
             var board = V14Board(sp, rng, palette, out var shape);
+            // Bölüm 1 iki renkle (beyaz, turkuaz): soyulan katın altı üstle aynı renk; gruplar birleşip roket doğurmaz (roket 2. bölümde).
+            if (sp.NoSpecialsInSolution) foreach (var c in board.Cells) for (int i = 0; i < c.Layers.Count; i++) c.Layers[i] = c.Layers[^1];
             if (sp.ForcedSpecial != SpecialKind.None)
             {
                 bool rainbow = sp.ForcedSpecial == SpecialKind.Rainbow;

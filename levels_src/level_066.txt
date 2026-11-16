@@ -1,16 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil T (ayna); çözüm 3 + 2 tepsi / sınır 10; rastgele 0,505; açgözlü kazanır; yumuşak 0,96
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil L; çözüm 3 + 2 tepsi / sınır 10; rastgele 0,680; açgözlü kazanır; yumuşak 0,94
 id: level_066
 moves: 10
 roll: off
 specials: on
-goals: blue 20, yellow 27
+goals: yellow 21, coral 15
 grid:
-c     c     yc    y     y     yc    b     b
-c     cc    yc    y     yc    yc    b     b
-c     c     cc    y     bc    b     by    c
-yy    y     yc    bc    bc    bc    cy    c
-yy    y     cc    yc    y     by    by    c
-#     #     b     y     y     y     #     #
-#     #     b     bb    y     yb    #     #
-#     #     bb    bb    yb    y     #     #
-solution: 6,2 ; 0,0 ; use 0,6,0 ; use 0,2,0 ; 3,6
+c     cg    g     g     g     #     #     #
+yg    y     c     g     gy    #     #     #
+yg    c     cc    cc    g     #     #     #
+yg    c     c     g     yg    yg    yg    y
+y     c     gg    gg    yg    y     y     y
+yg    c     c     g     y     yg    y     y
+yg    cg    cg    c     gg    y     yg    y
+y     cg    g     g     gg    y     y     yg
+solution: 0,5 ; 2,1 ; 4,2 ; use 0,1,1 ; use 0,0,0

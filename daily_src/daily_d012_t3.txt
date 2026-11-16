@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 124 + tür pure; şekil merdiven; çözüm 7 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 124 + tür pure; şekil kum saati (ayna); çözüm 8 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: daily_d012_t3
 title: Günlük 12
-moves: 8
+moves: 9
 roll: on
 type: pure
 rules: noSpecials
-goals: navy 28, yellow 42, purple 31
+goals: purple 48, coral 23, green 48
 grid:
-yyyp  yny   npp   #     #     #     #
-nyyp  nny   pnpn  pypn  #     #     #
-nyny  nyn   npp   nypn  nypn  #     #
-nyn   yyy   ppy   ppp   pyp   yyp   #
-nyn   yny   pnyp  ppp   ynpp  ynp   yyny
-yyn   nnpp  pnyp  ynp   ynyp  ynn   ynnp
-ypn   npp   ypp   ynyp  ynyp  nnyp  yynp
-yyn   yyyy  ypy   pnyp  nnyp  nnpp  pyp
-yyny  yypy  pyp   pyn   nynp  pny   pyy
-solution: 0,3 ; 3,3 ; 0,2 ; 0,2 ; 2,2 ; roll 5 ; 4,3
+cgpp  ggcp  ggc   gcg   gggc  gpg   gppp
+ggpp  ggcc  pgg   gcg   pgpc  ppgc  ppp
+ggp   ggp   ggp   ggp   pgp   ggp   ppp
+#     pgpc  pgp   pgpp  pgg   gggg  #
+#     cgc   cgpp  pgpp  ggp   pggg  #
+#     pcc   cccp  cgp   gcp   pcg   #
+cgcc  ggcc  gpcp  gpcp  gcp   pgpp  cgc
+cgcc  pgcg  pppp  ppc   pcpp  pgcg  cgc
+pgp   pgpg  ppp   ppp   cpg   ppgg  ppgg
+solution: 0,0 ; 1,3 ; roll 6 ; 3,0 ; 1,0 ; 1,0 ; 5,0 ; roll 1

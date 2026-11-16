@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 103 + tür pure; şekil T (ayna); çözüm 7 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,08
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 103 + tür pure; şekil kesik köşe; çözüm 8 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: daily_d019_t3
 title: Günlük 19
-moves: 8
+moves: 9
 roll: on
 type: pure
 rules: noSpecials
-goals: navy 25, yellow 27, coral 39
+goals: blue 34, coral 38, yellow 39
 grid:
-cny   cnny  cnnn  ccn   ycn   ycn   ycyy  ccy
-cccn  cyyy  cyy   ccnn  ycnn  ycyi1 ccy   ccy
-cycn  cyc   nyc   ncnn  ncny  ycyy  ycyy  ccn
-cyc   yyc   yynci1 ncnc  ycny  yyc   ccn   ccn
-cnyy  cnyi1 cync  ccny  ncny  nccy  ncc   yncc
-ycc   ycyc  yyy   ccnyi2 ccny  ncc   nncc  nny
-#     #     nyyn  ncyn  cccn  nny   #     #
-#     #     ccy   ccyn  ncny  nyy   #     #
-#     #     ccnc  cyy   cyny  cyc   #     #
-solution: 2,0 ; 6,0 ; roll 2 ; 3,0 ; 3,1 ; 0,0 ; 3,3
+#     #     ccyy  ccyy  ccy   bcyc  #     #
+#     ccb   bcb   bcyy  ccy   bcc   ycc   #
+yyy   ccyc  bby   bbcy  yccb  bybb  yycy  bbcc
+yyyc  ybcc  cbb   cbby  ybc   yybi1 yyby  byc
+ccc   yyyc  cyb   cyby  bbc   bcby  bcby  bcb
+cccy  ycyy  byb   bbby  bby   bcy   ycy   bcb
+ycc   ycy   yyb   yyby  cycc  cycc  yyb   bcbc
+#     ycyb  bcby  ycbyi1 bycci2 bbb   bbby  #
+#     #     ycb   ycbc  ccci1 cbcc  #     #
+solution: 2,0 ; 4,2 ; 4,0 ; roll 7 ; 1,1 ; 2,4 ; 1,1 ; 1,4

@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 856 + tür scarce; şekil artı (ayna); çözüm 12 + 6 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 856 + tür scarce; şekil artı (ayna); çözüm 12 + 7 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d018_t8
 title: Günlük 18
 moves: 12
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: scarce
 rules: scarce
-goals: yellow 26, navy 25, green 17, star 3
+goals: coral 26, navy 25, green 17, star 3
 grid:
-#     #     ggcn* G1:gbgc G1:nggc #     #
-#     #     nbcn  nbgc  nbgc  #     #
-nygn  nycn  ngcn  ynbc  pnnc* ggnc  gbbc
-ccyp  cpyp  cpcp  ynbyB1 ybyn  gbyy  gbyc
-ccyy  cpbg  bpbp  bnnb  bbbb  ccbp  cnyc
-ccyy  ncnb  pygn  gnnc  gngb  bcbp  bnbc
-cbgp  nbgy  nygc  gycc  gcgb  bcyy* bnbp
-#     #     bycn  yccn  ycbb  #     #
-#     #     bbcn  bbyn  bcbn  #     #
-solution: 2,0 ; 2,0 ; use 0,2,0 ; use 0,2,0 ; roll 3 ; 3,1 ; 2,1 ; use 0,0,2 ; use 0,0,2 ; roll 6 ; 3,5 ; roll 6 ; 6,2 ; use 0,4,0 ; 5,2 ; 3,7 ; 2,7 ; use 0,0,4
+#     #     ggyn* G1:gbgy G1:nggy #     #
+#     #     nbyn  nbgy  nbgy  #     #
+ncgn  ncyn  nnyn  cnby  ynny* ggny  gbby
+yycp  ypcp  ypyp  cnbcB1 cbcp  gbcc  gbcy
+yycc  ypbn  bpbp  bnnb  bbbb  yybp  yncy
+yycc  nynb  pcgn  gnny  gngb  bybp  bnby
+ybgp  nbgc  ncgy  gcyy  gygb  bycc* bnby
+#     #     bcyn  cyyn  cybb  #     #
+#     #     bbyn  bbcn  bybn  #     #
+solution: 2,0 ; 2,0 ; use 0,2,0 ; use 0,2,0 ; roll 3 ; 0,2 ; 3,1 ; 2,1 ; use 1,4,2 ; use 1,3,2 ; roll 2 ; 6,2 ; 5,2 ; roll 6 ; 3,5 ; roll 6 ; use 0,4,0 ; use 0,2,7 ; use 0,3,0
