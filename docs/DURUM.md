@@ -3,6 +3,7 @@
 Son güncelleme: 2026-11-16. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
 
 ## Şu an
+- **2026-11-16: iOS run 16 TestFlight'a yüklendi** (kullanıcı: "ios gönder"). Commit `d1bdf23` (renk açılış sırası + AppGallery değişiklikleri; iOS'ta canlı maç açık), https://github.com/ofigame/stone-burst/actions/runs/43899128906 başarılı, "TestFlight'a yükle" adımı geçti → yapı 16. TestFlight listesinde ve telefonda doğrulanmadı; App Store incelemesine gönderilmedi.
 - **2026-11-16: AppGallery 1.0.1 (kod 2) hazırlığı** (kullanıcı: "Huawei onayladı … huawei için canlı versiyonu hazırlayalım. Gerçek reklamlı. Canlı maç kapalı"; "mağaza görsellerini de yeniden oluştur ve mağazada güncelle"; "tablette göremiyorum … aktif edelim").
   - APK: `KATKAT_ANDROID_VERSION_CODE=2 KATKAT_ANDROID_VERSION_NAME=1.0.1 tools/unity.ps1 build-android-appgallery` → `Builds/Android/StoneBurst-AppGallery-1.0.1-2.apk` (144 MB). Sürüm adı yalnız bu pakette (`KATKAT_ANDROID_VERSION_NAME`, proje 1.0.0 kalır). Denetim: yükleme anahtarıyla imzalı (CN=OFIGAME); AdMob, Play Games ve Huawei sınıfı yok; Unity Ads gerçek kimlik (800434959, test modu kapalı); AdMob test/gerçek birimi yok. 1.0.0'a göre tek yeni izin POST_NOTIFICATIONS (bildirimler). Bölümler kilitli (KATKAT_UNLOCK_ALL yok).
   - Canlı maç AppGallery derlemesinde kapalı: `GameController.LiveMatchEnabled` (KATKAT_APPGALLERY'de false; anasayfa düğmesi kurulmaz). Mağaza çekimleri de kapatır. Google Play ve iOS değişmedi.
