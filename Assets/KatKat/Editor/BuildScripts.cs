@@ -154,10 +154,15 @@ namespace KatKat.EditorTools
                 return;
             }
             int code = int.TryParse(Environment.GetEnvironmentVariable("KATKAT_ANDROID_VERSION_CODE"), out var c) && c > 0 ? c : 1;
+            // Sürüm adı KATKAT_ANDROID_VERSION_NAME (yalnız bu paket; boşsa projedeki). AppGallery 1.0.0 onaylandı (2026-11-16), sonraki sürüm 1.0.1.
+            string verName = Environment.GetEnvironmentVariable("KATKAT_ANDROID_VERSION_NAME");
+            if (string.IsNullOrEmpty(verName)) verName = PlayerSettings.bundleVersion;
+            string verBefore = PlayerSettings.bundleVersion;
             string pass = File.ReadAllText(pf).Trim();
             _beforeBuild = () =>
             {
                 AppGalleryBuild.Begin(); // AdMobSetup.Apply'dan sonra: Google tanımlarını kaldırır
+                PlayerSettings.bundleVersion = verName;
                 PlayerSettings.Android.bundleVersionCode = code;
                 PlayerSettings.Android.useCustomKeystore = true;
                 PlayerSettings.Android.keystoreName = ks;
@@ -167,12 +172,13 @@ namespace KatKat.EditorTools
                 EditorUserBuildSettings.buildAppBundle = false;
             };
             _deferExit = true;
-            try { Build(BuildTarget.Android, "Builds/Android/StoneBurst-AppGallery-" + PlayerSettings.bundleVersion + "-" + code + ".apk"); }
+            try { Build(BuildTarget.Android, "Builds/Android/StoneBurst-AppGallery-" + verName + "-" + code + ".apk"); }
             finally
             {
                 _beforeBuild = null;
                 _deferExit = false;
                 AppGalleryBuild.End();
+                PlayerSettings.bundleVersion = verBefore;
                 PlayerSettings.Android.useCustomKeystore = false;
                 PlayerSettings.Android.keystoreName = "";
                 PlayerSettings.Android.keystorePass = "";

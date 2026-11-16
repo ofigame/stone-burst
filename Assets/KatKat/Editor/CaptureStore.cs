@@ -72,6 +72,8 @@ namespace KatKat.EditorTools
             GameController.ToursOverride = false;
             GameController.ClockOverride = new FixedDayClock { DayId = "2026-11-08" };
             GameController.CountryOverride = "TR";
+            bool keepLive = GameController.LiveMatchEnabled;
+            GameController.LiveMatchEnabled = false; // canlı maç mağaza sürümlerinde gösterilmez (2026-11-16)
             try
             {
                 foreach (var dn in devices)
@@ -100,7 +102,7 @@ namespace KatKat.EditorTools
                                     gc.SaveService.Data.meta.heartsStamp = 0;
                                     // Mağaza derlemesinde pilot girişi yok (Vr1Proto.PilotAllowed yalnız editörde/denemede);
                                     // editörde çekilen mağaza görselinde de görünmesin.
-                                    gc.Menu.PilotPressed = null;
+                                    gc.Menu.PilotPressed = null; gc.Menu.ConceptPressed = null; // mağaza derlemesinde ikisi de yok
                                     act(gc);
                                 });
                             }
@@ -199,6 +201,7 @@ namespace KatKat.EditorTools
             finally
             {
                 GameController.CountryOverride = null;
+                GameController.LiveMatchEnabled = keepLive;
                 GameController.ToursOverride = null;
                 GameController.ClockOverride = null;
                 GameController.HeartClock = null;
