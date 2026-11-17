@@ -12,7 +12,7 @@ namespace KatKat.EditorTools
     /// <summary>
     /// v11 yakalamaları (docs/v11/CLAUDE-v11-PROMPT.md). Aynı geçici kayıt ve kodla önce (v10 kabuk + eski simgeler,
     /// <see cref="MenuView.ForceLegacyShell"/> / <see cref="SpecialArt.ForceLegacy"/>) ve sonra (v11).
-    /// Kayıt: bölge 1, bölüm 5 aktif, 12 yıldız, 4 oyunluk ZPE. Çıktı: docs/captures/v11/&lt;alan&gt;/&lt;faz&gt;_*.png.
+    /// Kayıt: bölge 1, bölüm 5 aktif, 12 yıldız, 4 oyunluk ZPE. Çıktı: Logs/captures/v11/&lt;alan&gt;/&lt;faz&gt;_*.png.
     /// Canlı kayda ve bölüm dosyalarına yazılmaz.
     /// </summary>
     public static class CaptureV11

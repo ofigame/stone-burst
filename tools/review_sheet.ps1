@@ -1,10 +1,10 @@
 # App Review "Attachment" sayfası (2026-11-14, App Store 4.3): ilerideki kurallı bölümlerin ekranları tek görselde.
-# Girdi: docs/magaza/ham_review/iphone/en/*.png (KATKAT_STORE_SET=review tools/unity.ps1 capture-store)
-# Çıktı: docs/magaza/review/stone_burst_rule_levels.jpg
+# Girdi: Logs/magaza/ham_review/iphone/en/*.png (KATKAT_STORE_SET=review tools/unity.ps1 capture-store)
+# Çıktı: Logs/magaza/review/stone_burst_rule_levels.jpg
 Add-Type -AssemblyName System.Drawing
 $root = Split-Path -Parent $PSScriptRoot
-$src = Join-Path $root 'docs\magaza\ham_review\iphone\en'
-$outDir = Join-Path $root 'docs\magaza\review'
+$src = Join-Path $root 'Logs\magaza\ham_review\iphone\en'
+$outDir = Join-Path $root 'Logs\magaza\review'
 New-Item -ItemType Directory -Force $outDir | Out-Null
 
 $labels = [ordered]@{

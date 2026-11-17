@@ -48,7 +48,7 @@ namespace KatKat.EditorTools
                 AssetDatabase.SaveAssets();
             }
             GameCapture.CaptureVisualV3();
-            File.WriteAllText("docs/captures/visual-v3/DESIGN_CHECKS.txt",
+            File.WriteAllText("Logs/captures/visual-v3/DESIGN_CHECKS.txt",
                 "PASS: Turkish SDF glyphs; 512 face / 1024 atlas; four shared 512 UI chips; SDF title shader keywords.\n" +
                 "CaptureVisualV3 completed. Captures are editor renders, not Android device performance results.\n");
             Debug.Log("[KatKat Design] All visual smoke checks passed.");

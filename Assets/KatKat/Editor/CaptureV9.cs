@@ -12,7 +12,7 @@ namespace KatKat.EditorTools
     /// <summary>
     /// v9 görsel regresyon denetimi (docs/v9 yol haritası): A/B paketleri öncesi ve sonrası aynı ekranlar, aynı bölüm,
     /// aynı tema ve aynı boyutla yakalanır, piksel farkı raporlanır. İki boyut: 1080×1920 ve çentikli dar 1080×2400.
-    /// Batch: KatKat.EditorTools.CaptureV9.Before / After / Compare → docs/captures/v9/
+    /// Batch: KatKat.EditorTools.CaptureV9.Before / After / Compare → Logs/captures/v9/
     /// </summary>
     public static class CaptureV9
     {

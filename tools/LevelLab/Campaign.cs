@@ -344,8 +344,8 @@ static partial class Program
         md.AppendLine("| Bölüm | Tür [kurallar] | Ölçüm | Bot |");
         md.AppendLine("|---|---|---|---|");
         foreach (var r in rows.Where(r => r != null)) md.AppendLine(r);
-        File.WriteAllText(Path.Combine(Root, "docs", "v12", "V8_URETIM.md"), md.ToString(), new UTF8Encoding(false));
-        Console.WriteLine($"v8: {files.Count} bölüm, {kinds.Count(k => k != "normal")} tür bölümü, {failed} hata, {(DateTime.Now - started).TotalMinutes:0.0} dk → docs/v12/V8_URETIM.md");
+        File.WriteAllText(RaporYolu("V8_URETIM.md"), md.ToString(), new UTF8Encoding(false));
+        Console.WriteLine($"v8: {files.Count} bölüm, {kinds.Count(k => k != "normal")} tür bölümü, {failed} hata, {(DateTime.Now - started).TotalMinutes:0.0} dk → Logs/raporlar/V8_URETIM.md");
         return failed == 0 ? 0 : 1;
     }
 }
@@ -402,8 +402,8 @@ static partial class Program
         md.AppendLine("| Bulmaca | Tür [kurallar] | Ölçüm |");
         md.AppendLine("|---|---|---|");
         foreach (var r in rows) md.AppendLine(r);
-        File.WriteAllText(Path.Combine(Root, "docs", "v12", "GUNLUK_V3_URETIM.md"), md.ToString(), new UTF8Encoding(false));
-        Console.WriteLine($"daily3: {files.Count} bulmaca, {kinds.Count(k => k != "v2")} türlü, {(DateTime.Now - started).TotalMinutes:0.0} dk → docs/v12/GUNLUK_V3_URETIM.md");
+        File.WriteAllText(RaporYolu("GUNLUK_V3_URETIM.md"), md.ToString(), new UTF8Encoding(false));
+        Console.WriteLine($"daily3: {files.Count} bulmaca, {kinds.Count(k => k != "v2")} türlü, {(DateTime.Now - started).TotalMinutes:0.0} dk → Logs/raporlar/GUNLUK_V3_URETIM.md");
         return 0;
     }
 
@@ -476,8 +476,8 @@ static partial class Program
         md.AppendLine("| Bölüm | Tür | Hamle sınırı | Galibiyet |");
         md.AppendLine("|---|---|---|---|");
         foreach (var l in lines.OrderBy(l => int.Parse(l.Split('|')[1].Trim()))) md.AppendLine(l);
-        File.WriteAllText(Path.Combine(Root, "docs", "v12", "V8_ADILLIK.md"), md.ToString(), new UTF8Encoding(false));
-        Console.WriteLine($"fairfix: {changed} bölüm sınırı arttı, {stillLow} bölüm v7'ye döndü → docs/v12/V8_ADILLIK.md");
+        File.WriteAllText(RaporYolu("V8_ADILLIK.md"), md.ToString(), new UTF8Encoding(false));
+        Console.WriteLine($"fairfix: {changed} bölüm sınırı arttı, {stillLow} bölüm v7'ye döndü → Logs/raporlar/V8_ADILLIK.md");
         return 0;
     }
 }

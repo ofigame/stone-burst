@@ -11,7 +11,7 @@ using UnityEngine;
 namespace KatKat.EditorTools
 {
     /// <summary>
-    /// Oyun ve menü ekranlarını gerçek render ile farklı oranlarda yakalar (docs/captures/game_*.png).
+    /// Oyun ve menü ekranlarını gerçek render ile farklı oranlarda yakalar (Logs/captures/game_*.png).
     /// Zaman elle ilerletilir; sahne oynatılmadan GameController doğrudan kurulur, gerçek kayda yazılmaz.
     /// Batch: -executeMethod KatKat.EditorTools.GameCapture.CaptureAll
     /// </summary>
@@ -19,7 +19,7 @@ namespace KatKat.EditorTools
     {
         private static readonly Rect Notch = new Rect(0f, 0.02f, 1f, 0.94f);
 
-        /// <summary>Görsel Şartname v3 kanıtları (docs/captures/visual-v3). Batch: -executeMethod KatKat.EditorTools.GameCapture.CaptureVisualV3</summary>
+        /// <summary>Görsel Şartname v3 kanıtları (Logs/captures/visual-v3). Batch: -executeMethod KatKat.EditorTools.GameCapture.CaptureVisualV3</summary>
         [MenuItem("Kat Kat/Yakalama/Görsel v3 kanıtları")]
         public static void CaptureVisualV3()
         {
@@ -324,7 +324,7 @@ namespace KatKat.EditorTools
         /// <summary>Kayıtlı çözümden n adım oynar; son adımdan sonra afterMs kadar (negatifse sonuna kadar) ilerletir.</summary>
         /// <summary>
         /// v5 deneme bölümleri (Editor/Fixtures/v5): özel taş doğuşu, roket/gökkuşağı ateşleme anları, övgü yazısı,
-        /// puan çubuğu, bitiş kutlaması ve yıldızlı zafer kartı. Çıktı docs/captures/v5/.
+        /// puan çubuğu, bitiş kutlaması ve yıldızlı zafer kartı. Çıktı Logs/captures/v5/.
         /// </summary>
         public static void CaptureV5()
         {
@@ -478,7 +478,7 @@ namespace KatKat.EditorTools
         /// <summary>
         /// Kristal maskot doğrulaması (docs/Kristal-Maskot-Claude): oyun içi üst şerit (normal, yana bakış, göz kırpma,
         /// heyecan, son üç hamle), beş hedefli dar ekran, çentikli ekran, harita düğümü ve dönüş düğmesi.
-        /// Her oyun içi karenin üst 430 pikseli ayrıca "_crop" olarak kaydedilir. Çıktı docs/captures/mascot/.
+        /// Her oyun içi karenin üst 430 pikseli ayrıca "_crop" olarak kaydedilir. Çıktı Logs/captures/mascot/.
         /// </summary>
         public static void CaptureMascot()
         {
@@ -513,7 +513,7 @@ namespace KatKat.EditorTools
         /// <summary>
         /// v6 tepsi + şekilli tahta doğrulaması: Temp/v6json altındaki (LevelLab build, KATKAT_SRC=levels_src_v6)
         /// bölümleri katalog dışı oynatır: başlangıç, kayıtlı çözümün ilk tepsi kullanımından önceki an (tepside taş),
-        /// yuva seçili, kullanım sonrası. Çıktı docs/captures/v6tray/.
+        /// yuva seçili, kullanım sonrası. Çıktı Logs/captures/v6tray/.
         /// </summary>
         public static void CaptureTray()
         {
@@ -594,7 +594,7 @@ namespace KatKat.EditorTools
 
         /// <summary>
         /// Tahta boyutu seçenekleri (kullanıcı onayı için): A mevcut, B alan %88 + en çok 7 sütun boyu,
-        /// C alan %78 + en çok 8 sütun boyu; 1. ve 1000. bölüm. Çıktı docs/captures/tahta_boyu/.
+        /// C alan %78 + en çok 8 sütun boyu; 1. ve 1000. bölüm. Çıktı Logs/captures/tahta_boyu/.
         /// </summary>
         public static void CaptureBoardSize()
         {
@@ -624,7 +624,7 @@ namespace KatKat.EditorTools
         /// <summary>
         /// Tablet harita (yolculuk) denetimi (kullanıcı 2026-11-14: "tabletlerde yolculuk görseli ekrana sığmadığı için arkaplana
         /// başka görsel yerleştiriyorsun"): telefon, iPad 4:3, iPad 13" ve 10:16 Android tablette harita; çıktı
-        /// docs/captures/tablet_harita/ (depoya girmez).
+        /// Logs/captures/tablet_harita/ (depoya girmez).
         /// </summary>
         public static void CaptureTabletMap()
         {
@@ -688,7 +688,7 @@ namespace KatKat.EditorTools
             }
         }
 
-        /// <summary>Taşma raporunu yazar (docs/captures/TASMA_RAPORU.md) ve sayaçları sıfırlar.</summary>
+        /// <summary>Taşma raporunu yazar (Logs/captures/TASMA_RAPORU.md) ve sayaçları sıfırlar.</summary>
         private static void WriteOverflowReport(string title)
         {
             var path = Path.Combine(PeelCapture.OutDir, "TASMA_RAPORU.md");

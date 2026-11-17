@@ -10,11 +10,11 @@ namespace KatKat.EditorTools
 {
     /// <summary>
     /// Soyulma animasyonunu belirli zamanlarda gerçekten render edip PNG olarak kaydeder.
-    /// Batch: -executeMethod KatKat.EditorTools.PeelCapture.CaptureAll  → docs/captures/
+    /// Batch: -executeMethod KatKat.EditorTools.PeelCapture.CaptureAll  → Logs/captures/
     /// </summary>
     public static class PeelCapture
     {
-        public const string OutDir = "docs/captures";
+        public const string OutDir = "Logs/captures";
         private static readonly float[] StoryTimes = { 0f, 60f, 130f, 210f, 290f, 380f, 470f, 650f };
 
         [MenuItem("Kat Kat/Yakalama/Soyulma kareleri")]

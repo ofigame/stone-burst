@@ -11,7 +11,7 @@ namespace KatKat.EditorTools
     /// <summary>
     /// v10 oyun içi kabuk yakalamaları (docs/v10/TriKat-Oyun-Ici-Claude). Aynı bölüm, aynı durum ve boyutta
     /// önce/sonra: bölüm 38 (açılış), bölüm 38 soyulma karesi, bölüm 219 (5 hedef, 7×9) tepsi dolu.
-    /// Çıktı: docs/captures/v10/oyun/&lt;faz&gt;_*.png. Bölüm dosyalarına ve kayda yazılmaz.
+    /// Çıktı: Logs/captures/v10/oyun/&lt;faz&gt;_*.png. Bölüm dosyalarına ve kayda yazılmaz.
     /// </summary>
     public static class CaptureV10Game
     {

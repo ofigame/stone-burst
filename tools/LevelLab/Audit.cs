@@ -15,7 +15,7 @@ using KatKat.Levels;
 //   3) Uygunluk: mekanik tanıtım takvimi (OYUN.md §4) ve tür tanıtım takvimi (v8) öncesinde görünmez; bölge 1'de tür
 //      bölümleri öğretici kalır (üretim tabanı %10; denetimde gürültü payıyla ≥ %8); özel taşlı her bölümde bot en az bazen kazanır.
 //   4) Eğri: 100'lük dilimlerde normal / tür / patron ortalamaları (tür ve patron çevresinden zor olmalı).
-// Çıktı: docs/v12/V8_ZORLUK.md. Hata (uygunsuz bölüm) varsa çıkış kodu 1.
+// Çıktı: Logs/raporlar/V8_ZORLUK.md. Hata (uygunsuz bölüm) varsa çıkış kodu 1.
 static partial class Program
 {
     static readonly (string cap, int from)[] MechanicIntro =
@@ -100,8 +100,8 @@ static partial class Program
         md.AppendLine("## Sorunlu bölümler");
         if (bad == 0) md.AppendLine("Yok.");
         foreach (var r in rows.Where(r => r.issues.Count > 0)) md.AppendLine($"- level_{r.n:000} ({r.type}): {string.Join("; ", r.issues)}");
-        File.WriteAllText(Path.Combine(Root, "docs", "v12", "V8_ZORLUK.md"), md.ToString(), new UTF8Encoding(false));
-        Console.WriteLine($"audit: {files.Count - bad}/{files.Count} uygun, {(DateTime.Now - started).TotalMinutes:0.0} dk → docs/v12/V8_ZORLUK.md");
+        File.WriteAllText(RaporYolu("V8_ZORLUK.md"), md.ToString(), new UTF8Encoding(false));
+        Console.WriteLine($"audit: {files.Count - bad}/{files.Count} uygun, {(DateTime.Now - started).TotalMinutes:0.0} dk → Logs/raporlar/V8_ZORLUK.md");
         return bad == 0 ? 0 : 1;
     }
 }

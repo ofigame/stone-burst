@@ -16,7 +16,7 @@ namespace KatKat.EditorTools
     /// </summary>
     public static class CaptureV13Pages
     {
-        private static string Out = "../v13/"; // PeelCapture.OutDir (docs/captures) göreli → docs/v13
+        private static string Out = "../v13/"; // PeelCapture.OutDir (Logs/captures) göreli → docs/v13
 
         /// <summary>ui1 uygulama sonuçları: aynı sayfalar docs/ui1/uygulama_sonuclari klasörüne.</summary>
         public static void RunUi1() { Out = "../ui1/uygulama_sonuclari/"; try { Run(); } finally { Out = "../v13/"; } }
@@ -37,7 +37,7 @@ namespace KatKat.EditorTools
         }
 
         /// <summary>
-        /// ui3 uygulama sonuçları (docs/ui3_onayli_tasarim): 35 ekran docs/ui3_uygulama/. KATKAT_CAPTURE_ONLY ortam
+        /// ui3 uygulama sonuçları (docs/varliklar/ui3_tasarim): 35 ekran Logs/ui3_uygulama/. KATKAT_CAPTURE_ONLY ortam
         /// değişkeni (ör. "01,12,14") verilirse yalnız o numaralar.
         /// </summary>
         public static void RunUi3()
@@ -199,7 +199,7 @@ namespace KatKat.EditorTools
         }
         private static string[] _only;
 
-        /// <summary>Yakalama dili (2026-11-09 dil denetimi): KATKAT_CAPTURE_LANG (ör. "ar"); yoksa tr. Dilli çıktı docs/ui3_uygulama/diller/(dil)/.</summary>
+        /// <summary>Yakalama dili (2026-11-09 dil denetimi): KATKAT_CAPTURE_LANG (ör. "ar"); yoksa tr. Dilli çıktı Logs/ui3_uygulama/diller/(dil)/.</summary>
         private static string CapLang => string.IsNullOrEmpty(Environment.GetEnvironmentVariable("KATKAT_CAPTURE_LANG")) ? "tr" : Environment.GetEnvironmentVariable("KATKAT_CAPTURE_LANG");
 
         private static void Extras()

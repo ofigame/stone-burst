@@ -98,7 +98,7 @@ namespace KatKat.EditorTools
         }
 
         /// <summary>
-        /// ui3 onaylı tasarım (docs/ui3_onayli_tasarim/parcalar/asset-manifest.json → Resources/UI3): Sprite, sRGB,
+        /// ui3 onaylı tasarım (docs/varliklar/ui3_tasarim/parcalar/asset-manifest.json → Resources/UI3): Sprite, sRGB,
         /// alfa, mipmap kapalı, Bilinear, Clamp. 9 dilim manifestteki borderLTRB (Unity sırası sol, alt, sağ, üst).
         /// bg/Z1–Z5 opak tam ekran zemin (alfa yok). Android ASTC.
         /// </summary>

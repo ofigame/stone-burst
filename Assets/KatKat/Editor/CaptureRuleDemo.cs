@@ -11,7 +11,7 @@ namespace KatKat.EditorTools
     /// <summary>
     /// Kural kartı canlandırması ve yeni görseller (2026-11-16) kontrolü: deneme 1 (dar hamle), 4 (kıt renk), 7 (özel taş
     /// yok) kural kartları canlandırmanın birkaç anında; Tripo görselleri tahtada (ataç bölüm 21, dip yıldızı bölüm 41,
-    /// kristal deneme 10). Çıktı docs/captures/kural/.
+    /// kristal deneme 10). Çıktı Logs/captures/kural/.
     /// </summary>
     public static class CaptureRuleDemo
     {

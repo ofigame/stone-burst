@@ -9,7 +9,7 @@ namespace KatKat.EditorTools
 {
     /// <summary>
     /// v14 (2026-11-16) ekran denetimi: ilk 30 bölüm, örnek ileri bölümler (8×9, 6 renk, 4 kat), nefes bölümleri.
-    /// Çıktı docs/captures/v14/ (tools/unity.ps1 capture-v14).
+    /// Çıktı Logs/captures/v14/ (tools/unity.ps1 capture-v14).
     /// </summary>
     public static class CaptureV14
     {

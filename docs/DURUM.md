@@ -3,6 +3,12 @@
 Son güncelleme: 2026-11-16. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
 
 ## Şu an
+- **2026-11-18: docs temizliği** (kullanıcı: "oyun dosyamızda kullanmadığımız görsel ve dokumanları kaldırır mısın. Kullandığımız görselleri sesleri vs koru ve tek bir klasörde düzenli şekilde tut. O klasörü düzenli olarak güncel belgeler ile tutacağız"; plan onayı "Evet, başla").
+  - `docs` 4,9 GB → 1,4 GB. Arşive (silinmedi) 3,5 GB: ui1, ui2, ui2_uyarlama_onizleme, ui3_uygulama, v9–v13 (yayın belgeleri hariç), vr1 (canlı maç hariç), vr2, vr2_uygulama, captures, konsept, beğenilmeyen yeni sesler (`gorseller/sesler`), mağaza ara çekimleri → `KatKat_Arsiv_2026-11-06/docs_temizlik_2026-11-18`.
+  - Yeni düzen (`docs/OKU.md`): `varliklar/` (gorseller, taslar_3d, ui3_tasarim, ui3_sartname, magaza son görselleri, facebook, LISTE.md, oyunda/), `yayin/` (v13'ten mağaza/iOS/Play/AppGallery/gizlilik belgeleri), `bekleyen/` (canlı maç), `v14/`.
+  - `tools/varliklar_guncelle.ps1`: oyunun yüklediği 228 dosyanın (203 görsel, 11 ses, 5 yazı tipi, 9 model; 259 MB) yerel kopyası ve listesi.
+  - Yol güncellemeleri: yakalamalar `Logs/captures`, ui3 karşılaştırma `Logs/ui3_uygulama`, mağaza ara çekimleri `Logs/magaza` (son görseller `docs/varliklar/magaza`), canlı maç ölçümleri `docs/bekleyen/canli_mac`, eski LevelLab raporları `Logs/raporlar`; `ArtV6/prepare.ps1`, `ui3_hazirla.ps1`, `ui3_karsilastir.ps1` yeni kaynak yollarını okur.
+  - Oyunun kendi dosyaları (`Assets`) değişmedi. `docs/varliklar/gorseller/yeni_klasor` ("Yeni klasör" jpg'leri) ve `arayuz/icon*.png` depoya eklenmedi.
 - **2026-11-17 (2): Tepsi rengi, boşluk, öğretici, sesler** (kullanıcı: "tepsinin iç rengi taşların rengini kapatıyor … kenar renklerinin açık tonlarında … taş yuvaları da"; "Sesleri pek beğenmedim eski seslere dönelim"; "ilk 5 bölüm öğreticisini 3 e düşürelim … o 3 bölümde tüm taş renkleri de olsun"; "tepsi kenarları ile taşlar arasındaki boşluğu bir kademe arttıralım").
   - Tepsi iç zemini, yuvalar ve kenar altı kenar renginin açık tonunda (tema başına); boşluk 0,08 → 0,14 hücre. Yakalama `docs/captures/tepsi/ozet_v2.png`.
   - Sesler eski hâlinde (v10 WAV + sentez); yeni 7 ses arşivde (`sesler_v15_2026-11-17`).

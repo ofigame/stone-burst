@@ -1,4 +1,4 @@
-﻿# ui3 onaylı tasarım (docs/ui3_onayli_tasarim) varlıklarını Resources/UI3 altına hazırlar.
+﻿# ui3 onaylı tasarım (docs/varliklar/ui3_tasarim) varlıklarını Resources/UI3 altına hazırlar.
 #  - parcalar: modal-seramik, kart-seramik, buton-birincil, buton-ikincil, baslik-plakasi, ikon-dugmesi (aynen kopya;
 #    9 dilim sınırları asset-manifest.json'dan ShellAssetImporter.Ui3Texture'da).
 #  - arkaplanlar: Z1–Z5 → UI3/bg/Z1..Z5.png (aynen kopya).
@@ -8,7 +8,7 @@
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
 $root = Split-Path -Parent $PSScriptRoot
-$src = Join-Path $root 'docs\ui3_onayli_tasarim'
+$src = Join-Path $root 'docs\varliklar\ui3_tasarim'
 $dst = Join-Path $root 'Assets\KatKat\Resources\UI3'
 New-Item -ItemType Directory -Force $dst | Out-Null
 New-Item -ItemType Directory -Force (Join-Path $dst 'bg') | Out-Null

@@ -9,7 +9,7 @@ using KatKat.Levels;
 
 /// <summary>
 /// Konsept pilotu (kullanıcı, 2026-11-15: "10 bölüm yap pilota koy kontrol edeyim"; "mantık zeka gerektiren bulmaca olacaklar
-/// aynı zamanda"). Her konseptten bir bölüm: Resources/Concept/concept_NN.json, rapor docs/konsept/URETIM.md.
+/// aynı zamanda"). Her konseptten bir bölüm: Resources/Concept/concept_NN.json, rapor Logs/raporlar/URETIM.md.
 /// Kabul: (1) kayıtlı çözüm motorla kazanır; (2) tehdit bağlayıcı: açgözlü bot tehditle kaybeder, tehdit kaldırılınca aynı
 /// hamle sınırıyla kazanır (yani kaybettiren tehdittir, hamle sınırı değil); (3) her ilk hamle kazandırmaz. Tehdit ayarı
 /// (dönem, sayaç, sınır) en sıkıdan gevşeğe denenir; ilk geçen seçilir. Zorluk iddiası yok; ölçüm botlarla.
@@ -116,8 +116,8 @@ static partial class Program
             report.AppendLine("| # | Konsept | Amaç | Tahta | Hamle | En kısa çözüm | Tehdit ayarı | Kazandıran ilk hamle | Açgözlü botun kaybı | Deneme |");
             report.AppendLine("|---|---|---|---|---|---|---|---|---|---|");
             foreach (var r in rows) report.AppendLine(r);
-            Directory.CreateDirectory(Path.Combine(RepoRoot(), "docs", "konsept"));
-            File.WriteAllText(Path.Combine(RepoRoot(), "docs", "konsept", "URETIM.md"), report.ToString(), new UTF8Encoding(false));
+            Directory.CreateDirectory(Path.Combine(RepoRoot(), "Logs", "raporlar"));
+            File.WriteAllText(Path.Combine(RepoRoot(), "Logs", "raporlar", "URETIM.md"), report.ToString(), new UTF8Encoding(false));
         }
         return 0;
     }

@@ -14,9 +14,9 @@ namespace KatKat.EditorTools
     /// <summary>
     /// App Store ekran görüntüleri (kullanıcı, 2026-11-09: "mağaza için ekran görüntüleri", "iPad de olsun").
     /// 1) Ham çekim: iPhone 6,3" 1206×2622 ve iPad 13" 2064×2752, gerçek oyun ekranı, cihaz güvenli alanıyla
-    ///    → docs/magaza/ham/(cihaz)/(dil)/NN_ad.png.
+    ///    → Logs/magaza/ham/(cihaz)/(dil)/NN_ad.png.
     /// 2) Mağaza görseli: degrade zemin, üstte o dilde başlık (oyunun fontu, Arapça şekillendirme), altta yuvarlak
-    ///    köşeli ekran → docs/magaza/(cihaz)/(dil)/NN_ad.png (aynı boyut, RGB).
+    ///    köşeli ekran → docs/varliklar/magaza/(cihaz)/(dil)/NN_ad.png (aynı boyut, RGB).
     /// Ortam: KATKAT_STORE_DEVICES ("iphone,ipad"), KATKAT_STORE_LANGS ("en,tr,de,es,ar,ja"), KATKAT_STORE_ONLY ("1,3").
     /// </summary>
     public static class CaptureStore
@@ -57,15 +57,15 @@ namespace KatKat.EditorTools
             var langs = Env("KATKAT_STORE_LANGS", "en,tr,de,es,ar,ja");
             var onlyRaw = Environment.GetEnvironmentVariable("KATKAT_STORE_ONLY");
             var only = string.IsNullOrEmpty(onlyRaw) ? null : onlyRaw.Split(',');
-            // KATKAT_STORE_STYLE=sahne: eğik sahne + maskot + alt şerit (docs/magaza/sahne). KATKAT_STORE_RAW=1: ham çekim varsa yeniden çekme.
+            // KATKAT_STORE_STYLE=sahne: eğik sahne + maskot + alt şerit (Logs/magaza/sahne). KATKAT_STORE_RAW=1: ham çekim varsa yeniden çekme.
             bool scene = Environment.GetEnvironmentVariable("KATKAT_STORE_STYLE") == "sahne";
             bool reuseRaw = Environment.GetEnvironmentVariable("KATKAT_STORE_RAW") == "1";
             // KATKAT_STORE_SET=fark (2026-11-13, App Store 4.3 reddi): oyunu türdeşlerinden ayıran 8 ekran, sahne stilinde
-            // → docs/magaza/fark/(cihaz)/(dil)/, ham çekim docs/magaza/ham_fark/.
+            // → Logs/magaza/fark/(cihaz)/(dil)/, ham çekim Logs/magaza/ham_fark/.
             bool fark = Environment.GetEnvironmentVariable("KATKAT_STORE_SET") == "fark";
             if (fark) scene = true;
             // KATKAT_STORE_SET=review (2026-11-14): App Review "Attachment" için ilerideki kurallı bölümler (kural kartı, patron,
-            // kurallı tahta); yalnız ham çekim → docs/magaza/ham_review/(cihaz)/(dil)/. Birleştirme tools/review_sheet.ps1.
+            // kurallı tahta); yalnız ham çekim → Logs/magaza/ham_review/(cihaz)/(dil)/. Birleştirme tools/review_sheet.ps1.
             bool review = Environment.GetEnvironmentVariable("KATKAT_STORE_SET") == "review";
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var keepLang = Loc.Code;
@@ -84,7 +84,7 @@ namespace KatKat.EditorTools
                         string lang = l.Trim();
                         Loc.Set(lang, false);
                         string dir = (review ? "../magaza/ham_review/" : fark ? "../magaza/ham_fark/" : "../magaza/ham/") + dev.Name + "/" + lang + "/";
-                        string outDir = Path.Combine("docs", "magaza", dev.Name, lang);
+                        string outDir = Path.Combine("docs", "varliklar", "magaza", dev.Name, lang);
                         Directory.CreateDirectory(Path.Combine(PeelCapture.OutDir, dir));
                         void Shot(int n, string name, int bg, Action<GameController> act)
                         {
@@ -112,7 +112,7 @@ namespace KatKat.EditorTools
                             {
                                 var set = fark ? FarkCaptions : SceneCaptions;
                                 string sc = set.TryGetValue(lang, out var s2) ? s2[n - 1] : set["en"][n - 1];
-                                ComposeScene(rawPath, Path.Combine("docs", "magaza", fark ? "fark" : "sahne", dev.Name, lang, file), dev, n, sc);
+                                ComposeScene(rawPath, Path.Combine("Logs", "magaza", fark ? "fark" : "sahne", dev.Name, lang, file), dev, n, sc);
                                 return;
                             }
                             string caption = Captions.TryGetValue(lang, out var c) ? c[n - 1] : Captions["en"][n - 1];
@@ -384,7 +384,7 @@ namespace KatKat.EditorTools
             Graphics.Blit(mid, blur);
             RenderTexture.ReleaseTemporary(mid);
             bool left = n % 2 == 1;
-            var mascot = LoadPng(left ? "docs/gorseller/maskot/01-onayli-maskot.png" : "docs/gorseller/maskot/03-karsiya-bakan.png");
+            var mascot = LoadPng(left ? "docs/varliklar/gorseller/maskot/01-onayli-maskot.png" : "docs/varliklar/gorseller/maskot/03-karsiya-bakan.png");
 
             var camGo = new GameObject("ComposeCam");
             var cam = camGo.AddComponent<Camera>();

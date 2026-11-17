@@ -12,19 +12,19 @@ namespace KatKat.EditorTools
     /// <summary>
     /// Canlı maç prototipi araçları (docs/vr1/CLAUDE_CANLI_MAC.md, kullanıcı 2026-11-13).
     /// - Havuz: doğrulanmış ortak tahtalar → Assets/KatKat/Resources/Live/live_pool_v1.txt (tohumlu, tekrar üretilebilir).
-    /// - Ölçüm: botlarla iki sıralı maçlar → docs/vr1/canli_mac/OLCUM_RAPORU.md.
+    /// - Ölçüm: botlarla iki sıralı maçlar → docs/bekleyen/canli_mac/OLCUM_RAPORU.md.
     /// </summary>
     public static class LiveMatchTools
     {
         public const string PoolPath = "Assets/KatKat/Resources/Live/live_pool_v1.txt";
-        public const string ReportPath = "docs/vr1/canli_mac/OLCUM_RAPORU.md";
+        public const string ReportPath = "docs/bekleyen/canli_mac/OLCUM_RAPORU.md";
         public const string DiffPoolPath = "Assets/KatKat/Resources/Live/live_pool_diffhands_v2.txt";
         public const long PoolSeed = 20261113;
         public const int PoolCount = 150;
 
         /// <summary>
         /// Deneme boyu (kullanıcı 2026-11-13: "5×5 dene"): KATKAT_LIVE_SIZE=N ise N×N kurallarla ayrı havuz
-        /// (docs/vr1/canli_mac/havuz_NxN_v1.txt, oyuna girmez) ve ayrı rapor (OLCUM_RAPORU_NxN.md). Boşsa varsayılan 6×6.
+        /// (docs/bekleyen/canli_mac/havuz_NxN_v1.txt, oyuna girmez) ve ayrı rapor (OLCUM_RAPORU_NxN.md). Boşsa varsayılan 6×6.
         /// </summary>
         /// <summary>Varsayılan havuz (2026-11-14): farklı ama denk eller + alt katman üstten farklı (LM3); oyun bunu yükler.</summary>
         public const string PoolV3Path = "Assets/KatKat/Resources/Live/live_pool_v3.txt";
@@ -56,14 +56,14 @@ namespace KatKat.EditorTools
             rules.FullBoard = v == "v4" || v == "v5";
             if (v != "v5") { rules.Layers = 2; rules.Width = rules.Height = 6; }
             poolPath = v == "v1" ? PoolPath : v == "v2" ? DiffPoolPath : v == "v3" ? PoolV3Path : v == "v4" ? PoolV4Path : PoolV5Path;
-            reportPath = v == "v1" ? ReportPath : v == "v2" ? "docs/vr1/canli_mac/OLCUM_RAPORU_farkli_el.md" : v == "v3" ? "docs/vr1/canli_mac/OLCUM_RAPORU_v3.md" : v == "v4" ? "docs/vr1/canli_mac/OLCUM_RAPORU_v4.md" : "docs/vr1/canli_mac/OLCUM_RAPORU_v5.md";
+            reportPath = v == "v1" ? ReportPath : v == "v2" ? "docs/bekleyen/canli_mac/OLCUM_RAPORU_farkli_el.md" : v == "v3" ? "docs/bekleyen/canli_mac/OLCUM_RAPORU_v3.md" : v == "v4" ? "docs/bekleyen/canli_mac/OLCUM_RAPORU_v4.md" : "docs/bekleyen/canli_mac/OLCUM_RAPORU_v5.md";
             if (int.TryParse(Environment.GetEnvironmentVariable("KATKAT_LIVE_SIZE"), out int n) && n >= 3 && n != rules.Width)
             {
                 rules.Width = rules.Height = n;
                 string tag = v == "v1" ? "" : v == "v2" ? "_farkli_el" : v == "v3" ? "_alt_farkli" : v == "v4" ? "_tam" : "_3kat";
                 int gen = GenOf(rules);
-                poolPath = $"docs/vr1/canli_mac/havuz_{n}x{n}{tag}_v{gen}.txt";
-                reportPath = $"docs/vr1/canli_mac/OLCUM_RAPORU{tag}_{n}x{n}.md";
+                poolPath = $"docs/bekleyen/canli_mac/havuz_{n}x{n}{tag}_v{gen}.txt";
+                reportPath = $"docs/bekleyen/canli_mac/OLCUM_RAPORU{tag}_{n}x{n}.md";
             }
             return rules;
         }
@@ -163,7 +163,7 @@ namespace KatKat.EditorTools
             Debug.Log("[KatKat] Canlı maç ölçüm raporu → " + ReportPath);
         }
 
-        public const string ShotDir = "docs/vr1/canli_mac/ekranlar";
+        public const string ShotDir = "docs/bekleyen/canli_mac/ekranlar";
 
         /// <summary>Canlı maç ekran görüntüleri (toplu).</summary>
         public static void CaptureBatch()

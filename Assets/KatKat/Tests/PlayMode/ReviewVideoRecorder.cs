@@ -14,7 +14,7 @@ namespace KatKat.Tests
     /// <summary>
     /// App Review videosu (2026-11-14, App Store 4.3): gerçek oyun, sabit 30 kare/sn, İngilizce, ilerideki kurallı
     /// bölümler dahil. Test değildir; yalnız elle çalıştırılır:
-    /// <c>tools/unity.ps1 test-play -Filter ReviewVideoRecorder</c> → kareler <c>docs/magaza/review/frames/</c>,
+    /// <c>tools/unity.ps1 test-play -Filter ReviewVideoRecorder</c> → kareler <c>Logs/magaza/review/frames/</c>,
     /// video <c>tools/review_video.ps1</c> ile.
     /// </summary>
     [Explicit("Yalnız elle: App Review videosu kaydı")]
@@ -32,7 +32,7 @@ namespace KatKat.Tests
         [UnityTest]
         public IEnumerator Record()
         {
-            _dir = Path.Combine(Path.GetDirectoryName(Application.dataPath), "docs", "magaza", "review", "frames");
+            _dir = Path.Combine(Path.GetDirectoryName(Application.dataPath), "Logs", "magaza", "review", "frames");
             if (Directory.Exists(_dir)) Directory.Delete(_dir, true);
             Directory.CreateDirectory(_dir);
 

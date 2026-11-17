@@ -13,7 +13,7 @@ namespace KatKat.EditorTools
     /// <summary>
     /// VR2 oyun ekranı kontrolü (docs/vr2/CLAUDE_CODE.md "Kabul kontrolü"): altı tema × 19.5:9 / 20:9 telefon ve dikey
     /// 4:3 tablet (+ 16:9 telefon ve çentikli güvenli alan). Her tema kendi bölgesinden, maskesinde pasif hücre ya da iç
-    /// boşluk olan gerçek bir bölümle çekilir (mevcut maske; yeni şekil üretilmez). Çıktı docs/captures/vr2/ ve ölçüm
+    /// boşluk olan gerçek bir bölümle çekilir (mevcut maske; yeni şekil üretilmez). Çıktı Logs/captures/vr2/ ve ölçüm
     /// raporu OLCUM.md (iç alan rengi, maske dışı saydamlık, üst/alt iç kenar gölgesi, hedef yuvası ile panel arası).
     /// </summary>
     public static class CaptureVr2

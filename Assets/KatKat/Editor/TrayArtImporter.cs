@@ -5,7 +5,7 @@ using UnityEngine;
 namespace KatKat.EditorTools
 {
     /// <summary>
-    /// Tepsi görselleri (kullanıcı 2026-11-17, docs/gorseller/tepsi): Resources/TrayArt altındaki kenar şeridi, zemin ve
+    /// Tepsi görselleri (kullanıcı 2026-11-17, docs/varliklar/gorseller/tepsi): Resources/TrayArt altındaki kenar şeridi, zemin ve
     /// hücre yuvası. Tahta dokusu oyun içinde CPU'da bunlardan örneklenerek pişirilir (TrayArt.Bake) → okunabilir,
     /// sıkıştırmasız, mip yok. Doku bütçesi (BuildScripts.ApplyTextureBudget) okunabilir dokuları atlar.
     /// </summary>

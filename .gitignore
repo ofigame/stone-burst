@@ -26,16 +26,13 @@
 # GitHub (2026-11-09): büyük kaynak/arşiv dosyaları depoya girmez (tek dosya sınırı 100 MB).
 /.utmp/
 /ThirdParty/indirilen/
-/docs/taşlar/
-/docs/captures/
-/docs/ui1/
-/docs/ui2/
-/docs/ui2_uyarlama_onizleme/
-/docs/ui3_uygulama/
+# docs düzeni (2026-11-18): 3B taş kaynakları ve oyundaki dosyaların yerel kopyası depoya girmez.
+/docs/varliklar/taslar_3d/
+/docs/varliklar/oyunda/
 *.zip
 *.ipa
 # Mağaza ekran görüntüleri (2026-11-09): ~400 MB, tools/unity.ps1 capture-store ile yeniden üretilir.
-/docs/magaza/
+/docs/varliklar/magaza/
 
 # EDM her Android derlemesinde Firebase UPM paketinden yeniden üretir (24 MB)
 /Assets/GeneratedLocalRepo/

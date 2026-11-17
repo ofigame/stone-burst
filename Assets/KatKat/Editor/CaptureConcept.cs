@@ -11,7 +11,7 @@ namespace KatKat.EditorTools
 {
     /// <summary>
     /// Konsept pilotu ekran kontrolü: harita girişi, liste, her konseptin başlangıcı ve kayıtlı çözümün yarısı (tehdit
-    /// işaretleri ve durum satırı), bir kural kartı ve bir tehdit kaybı kartı. Çıktı docs/captures/konsept/.
+    /// işaretleri ve durum satırı), bir kural kartı ve bir tehdit kaybı kartı. Çıktı Logs/captures/konsept/.
     /// </summary>
     public static class CaptureConcept
     {

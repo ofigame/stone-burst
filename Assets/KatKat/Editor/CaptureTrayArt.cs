@@ -9,7 +9,7 @@ namespace KatKat.EditorTools
 {
     /// <summary>
     /// Ahşap tepsi (TrayArt, kullanıcı 2026-11-17) ekran denetimi: çeşitli şekilli bölümler, aynı bölümlerin taşsız hâli
-    /// (yuvalar ve kenar görünsün). Çıktı docs/captures/tepsi/ (tools/unity.ps1 capture-trayart).
+    /// (yuvalar ve kenar görünsün). Çıktı Logs/captures/tepsi/ (tools/unity.ps1 capture-trayart).
     /// </summary>
     public static class CaptureTrayArt
     {

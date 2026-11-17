@@ -24,6 +24,14 @@ static partial class Program
 {
     static string Root;
 
+    /// <summary>Eski komutların geçici raporları (2026-11-18 docs temizliği): Logs/raporlar/ad (klasörü oluşturur).</summary>
+    static string RaporYolu(string ad)
+    {
+        string dir = Path.Combine(Root, "Logs", "raporlar");
+        Directory.CreateDirectory(dir);
+        return Path.Combine(dir, ad);
+    }
+
     static int Main(string[] args)
     {
         Root = FindRoot();

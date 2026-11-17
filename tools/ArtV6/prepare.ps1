@@ -9,7 +9,7 @@
 param([switch]$StonesOnly)
 $ErrorActionPreference = 'Stop'
 $root = Resolve-Path (Join-Path $PSScriptRoot '..\..')
-$src = Join-Path $root 'docs\gorseller'
+$src = Join-Path $root 'docs\varliklar\gorseller'
 $dst = Join-Path $root 'Assets\KatKat\Resources\PremiumV6'
 New-Item -ItemType Directory -Force $dst | Out-Null
 
@@ -410,7 +410,7 @@ public static class ArtV6
 }
 '@
 
-# Kaynak klasörler (2026-11-06 düzeni): docs/gorseller/{taslar, mekanikler, maskot, harita, arayuz}.
+# Kaynak klasörler (2026-11-06 düzeni): docs/varliklar/gorseller/{taslar, mekanikler, maskot, harita, arayuz}.
 $stoneDir = Join-Path $src 'taslar'
 $mechDir = Join-Path $src 'mekanikler'
 Write-Host "tas kaynagi: $stoneDir"
@@ -437,7 +437,7 @@ foreach ($c in $crops) {
     $b.Save((Join-Path $dst "$($c[1]).png"), [System.Drawing.Imaging.ImageFormat]::Png); $b.Dispose()
 }
 
-# Ana ekran simgeleri (docs/gorseller/arayuz: region-*.png, map.png) → PremiumV6/ui/.
+# Ana ekran simgeleri (docs/varliklar/gorseller/arayuz: region-*.png, map.png) → PremiumV6/ui/.
 $uiSrc = Join-Path $src 'arayuz'
 if (Test-Path $uiSrc) {
     New-Item -ItemType Directory -Force (Join-Path $dst 'ui') | Out-Null
@@ -446,7 +446,7 @@ if (Test-Path $uiSrc) {
     }
 }
 
-# Ana sayfa logosu (docs/gorseller/arayuz/logo.png) → PremiumV6/ui/logo.png (kırıntılar silinir, görünen sınıra kırpılır).
+# Ana sayfa logosu (docs/varliklar/gorseller/arayuz/logo.png) → PremiumV6/ui/logo.png (kırıntılar silinir, görünen sınıra kırpılır).
 $logoSrc = Join-Path $uiSrc 'logo.png'
 if (Test-Path $logoSrc) {
     New-Item -ItemType Directory -Force (Join-Path $dst 'ui') | Out-Null
@@ -475,7 +475,7 @@ if (Test-Path (Join-Path $mascotSrc '01-onayli-maskot.png')) {
     }
 }
 
-# Harita şeridi (docs/gorseller/harita: sahil_a/b/c, bahce_a/b/c, col_a/b/c) → PremiumV6/map/<tema>-0..2.png + -path.txt.
+# Harita şeridi (docs/varliklar/gorseller/harita: sahil_a/b/c, bahce_a/b/c, col_a/b/c) → PremiumV6/map/<tema>-0..2.png + -path.txt.
 $mapSrc = Join-Path $src 'harita'
 if (Test-Path $mapSrc) {
     $mapDst = Join-Path $dst 'map'

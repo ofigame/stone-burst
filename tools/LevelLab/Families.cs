@@ -80,7 +80,7 @@ static partial class Program
         var keptOnly = new HashSet<int>(); var prevLines = new Dictionary<int, string>();
         if (refill)
         {
-            var reportPath = Path.Combine(Root, "docs", "vr1", "YENI_TAHTALAR_RAPORU.md");
+            var reportPath = RaporYolu("YENI_TAHTALAR_RAPORU.md");
             foreach (var line in File.ReadAllLines(reportPath))
             {
                 var cols = line.Split('|');
@@ -168,7 +168,7 @@ static partial class Program
         var counts = results.Values.Select(l => l.Split('|')[2].Trim().Split(' ')[0]).GroupBy(x => x).Select(g => $"{g.Key}: {g.Count()}");
         sb.AppendLine();
         sb.AppendLine("Dağılım: " + string.Join(", ", counts));
-        if (!FamDry) File.WriteAllText(Path.Combine(Root, "docs", "vr1", "YENI_TAHTALAR_RAPORU.md"), sb.ToString(), new UTF8Encoding(false));
+        if (!FamDry) File.WriteAllText(RaporYolu("YENI_TAHTALAR_RAPORU.md"), sb.ToString(), new UTF8Encoding(false));
         return 0;
     }
 

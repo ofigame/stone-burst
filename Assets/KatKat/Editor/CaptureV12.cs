@@ -12,7 +12,7 @@ namespace KatKat.EditorTools
     /// <summary>
     /// v12 yakalamaları: sıralama ekranı (docs/v12/siralama) ve test reklam ekranları. Geçici kayıt; canlı kayda ve bölüm
     /// dosyalarına yazılmaz. Sıralama listesi GELİŞTİRME örnek verisiyle (ekranda etiketli) ya da gerçek durum metinleriyle.
-    /// Çıktı: docs/captures/v12/&lt;alan&gt;/*.png.
+    /// Çıktı: Logs/captures/v12/&lt;alan&gt;/*.png.
     /// </summary>
     public static class CaptureV12
     {

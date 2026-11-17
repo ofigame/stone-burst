@@ -9,7 +9,7 @@ namespace KatKat.EditorTools
 {
     /// <summary>
     /// v10 Mavi Liman kabuğu yakalamaları (docs/v10/TriKat-Mavi-Liman-Claude). Geçici kayıt: bölge 1, aktif bölüm 5,
-    /// toplam 12 yıldız (canlı kayda yazılmaz). Çıktı: docs/captures/v10/kabuk/&lt;faz&gt;_*.png.
+    /// toplam 12 yıldız (canlı kayda yazılmaz). Çıktı: Logs/captures/v10/kabuk/&lt;faz&gt;_*.png.
     /// </summary>
     public static class CaptureV10Shell
     {

@@ -1,10 +1,10 @@
-# ui3 karşılaştırma: docs/ui3_onayli_tasarim/sayfalar/NN_*.png (hedef) | docs/ui3_uygulama/NN_*.png (uygulama)
+# ui3 karşılaştırma: docs/varliklar/ui3_tasarim/sayfalar/NN_*.png (hedef) | Logs/ui3_uygulama/NN_*.png (uygulama)
 # yan yana. Kullanım: tools/ui3_karsilastir.ps1 -Only 01,12 -Out <klasör>  (çıktı: <klasör>/kars_NN.jpg)
 param([string]$Only = "", [string]$Out = "")
 Add-Type -AssemblyName System.Drawing
 $root = Split-Path -Parent $PSScriptRoot
-$tgt = Join-Path $root 'docs\ui3_onayli_tasarim\sayfalar'
-$app = Join-Path $root 'docs\ui3_uygulama'
+$tgt = Join-Path $root 'docs\varliklar\ui3_tasarim\sayfalar'
+$app = Join-Path $root 'Logs\ui3_uygulama'
 if ($Out -eq "") { $Out = Join-Path $app 'karsilastirma' }
 New-Item -ItemType Directory -Force $Out | Out-Null
 $sel = if ($Only) { $Only.Split(',') } else { $null }

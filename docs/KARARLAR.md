@@ -4,6 +4,7 @@ Eski ayrıntılı karar günlüğü arşivde (`KatKat_Arsiv_2026-11-06/docs/KARA
 
 | Konu | Karar |
 |---|---|
+| docs düzeni (kullanıcı, 2026-11-18: "kullanmadığımız görsel ve dokumanları kaldırır mısın … kullandığımız görselleri sesleri vs koru ve tek bir klasörde düzenli şekilde tut") | `docs` kökünde yalnız güncel belgeler (DURUM, KARARLAR, OYUN, SEVIYE_DOGRULAMA, YAPILACAKLAR, `v14/`, `yayin/`, `bekleyen/`); görsel ve sesler `docs/varliklar/` altında (rehber `docs/OKU.md`). Oyunun asıl dosyaları `Assets/KatKat/Resources` ve `Art`'ta kalır; `tools/varliklar_guncelle.ps1` yerel kopyayı (`varliklar/oyunda`) ve `varliklar/LISTE.md`'yi yeniler. Araç çıktıları `Logs/` altına (captures, ui3_uygulama, magaza ara çekimleri, eski LevelLab raporları). Eski klasörler arşivde `docs_temizlik_2026-11-18`. |
 | Motor | Unity 6000.6.4f1, built-in RP, uGUI + TMP. Gereksiz motor yükseltmesi, render hattı dönüşümü veya yeni paket yok. |
 | Kurallar | Kural motoru Unity'siz ve deterministik (`Core`); sunum yalnız olay planını oynatır. |
 | Veri kimlikleri | `Coral/Blue/Yellow/Purple`, `Rainbow` değişmez; ekranda mercan/turkuaz/inci/mor ve "Altın Rulo". |

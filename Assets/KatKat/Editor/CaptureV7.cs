@@ -13,7 +13,7 @@ namespace KatKat.EditorTools
     /// <summary>
     /// v7 doğrulama yakalamaları (2026-11-06 istekleri): yükseltilmiş tepsi, yeni font ve düğme boyları, yeni ayarlar
     /// (dil seçimi), dokuz dil örnekleri, OFIGAME açılış ekranı, odaklı öğretici turlar, içi boş tahta süsleri.
-    /// Batch: -executeMethod KatKat.EditorTools.CaptureV7.Run → docs/captures/v7/
+    /// Batch: -executeMethod KatKat.EditorTools.CaptureV7.Run → Logs/captures/v7/
     /// </summary>
     public static class CaptureV7
     {
