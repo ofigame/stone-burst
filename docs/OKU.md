@@ -1,7 +1,7 @@
 # docs düzeni
 
-2026-11-18'de sadeleştirildi. Eski sürüm klasörleri (ui1, ui2, v9–v13, vr1, vr2, captures, konsept, mağaza ara çekimleri) silinmedi;
-`E:\OFIGAME\OYUNLAR\KatKat_Arsiv_2026-11-06\docs_temizlik_2026-11-18` altına taşındı.
+2026-11-18'de sadeleştirildi. Eski sürüm klasörleri (ui1, ui2, v9–v13, vr1, vr2, captures, konsept, mağaza ara çekimleri) önce arşive
+taşındı, aynı gün kullanıcı isteğiyle arşivin tamamı (`KatKat_Arsiv_2026-11-06`) kalıcı silindi. Depoya girmiş eskiler git geçmişinde durur.
 
 ## Güncel belgeler
 

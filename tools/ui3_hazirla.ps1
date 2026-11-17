@@ -21,12 +21,13 @@ foreach ($k in $bgMap.Keys) { Copy-Item (Join-Path $src "arkaplanlar\$($bgMap[$k
 
 # Simge kaynağı: UI1 simgeleri 2026-11-08 APK temizliğinde arşive taşındı (oyunda UI3 karşılıkları kullanılır).
 $ui1Src = Join-Path $root 'Assets\KatKat\Resources\UI1'
-$ui1Arc = 'E:\OFIGAME\OYUNLAR\KatKat_Arsiv_2026-11-06\apk_temizlik_2026-11-08\Resources\UI1'
-if (-not (Test-Path (Join-Path $ui1Src 'icon-back.png'))) { $ui1Src = $ui1Arc }
+# Arşiv 2026-11-18'de kullanıcı isteğiyle kalıcı silindi; UI1 simge kaynağı yoksa simge adımı atlanır (mevcut UI3 simgeleri korunur).
+$skipIcons = -not (Test-Path (Join-Path $ui1Src 'icon-back.png'))
+if ($skipIcons) { Write-Warning 'UI1 simge kaynakları yok (arşiv silindi): simgeler yeniden üretilmiyor.' }
 # Simge: disk + glif
 $disc = [System.Drawing.Bitmap]::FromFile((Join-Path $src 'parcalar\ikon-dugmesi.png'))
 $D = 256
-foreach ($f in Get-ChildItem $ui1Src -Filter 'icon-*.png') {
+foreach ($f in $(if ($skipIcons) { @() } else { Get-ChildItem $ui1Src -Filter 'icon-*.png' })) {
     if ($f.Name -eq 'icon-zpe.png') { continue }
     $ic = [System.Drawing.Bitmap]::FromFile($f.FullName)
     $w = $ic.Width; $h = $ic.Height; $cx = $w / 2.0; $cy = $h / 2.0; $R = [Math]::Min($w, $h) / 2.0
@@ -87,6 +88,8 @@ function Recolor($srcPath, $dstPath, [int[]]$dark, [int[]]$light) {
     $o.Save($dstPath, [System.Drawing.Imaging.ImageFormat]::Png); $o.Dispose(); $b.Dispose()
 }
 $rp = Join-Path $ui1Src 'ribbon-purple.png'
-Recolor $rp (Join-Path $dst 'ribbon-purple.png') @(0x42, 0x37, 0x4F) @(0x8E, 0x7B, 0xA8)
-Recolor $rp (Join-Path $dst 'ribbon-teal.png') @(0x06, 0x5A, 0x55) @(0x2B, 0xA8, 0x9C)
-Write-Host "kurdele: ribbon-purple, ribbon-teal"
+if (Test-Path $rp) {
+    Recolor $rp (Join-Path $dst 'ribbon-purple.png') @(0x42, 0x37, 0x4F) @(0x8E, 0x7B, 0xA8)
+    Recolor $rp (Join-Path $dst 'ribbon-teal.png') @(0x06, 0x5A, 0x55) @(0x2B, 0xA8, 0x9C)
+    Write-Host "kurdele: ribbon-purple, ribbon-teal"
+} else { Write-Warning 'UI1/ribbon-purple.png yok (arşiv silindi): kurdeleler yeniden üretilmiyor, mevcutlar korunur.' }
