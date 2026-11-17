@@ -224,7 +224,7 @@ namespace KatKat.EditorTools
 
         /// <summary>Uygulama ikonu (kullanıcı 2026-11-17: "yeni uygulama iconumuz bu"): docs/gorseller/arayuz/uygulama-ikonu-v3.png (maskot + 3 taş, turkuaz zemin; 1024'e küçültüldü).
         /// Önceki ikonlar arşivde: KatKat_Arsiv_2026-11-06/ikon_1.0_2026-11-10 ve ikon_1.0.1_2026-11-17.
-        /// Android uyarlanabilir: app-icon-bg = görselin zeminine uyan turkuaz radyal geçiş + ortada %68 ikon (kenarı yumuşak), app-icon-fg = saydam.</summary>
+        /// Android uyarlanabilir: app-icon-bg = ortada %68 orijinal görsel birebir (ışınlar dahil, kullanıcı: "orjinalini bozma"); dışı görselin kenar pikselleri uzatılıp hafif bulanıklaştırılarak doldurulur. app-icon-fg = saydam.</summary>
         private static Texture2D IconTex(string path)
         {
             var imp = AssetImporter.GetAtPath(path) as TextureImporter;
