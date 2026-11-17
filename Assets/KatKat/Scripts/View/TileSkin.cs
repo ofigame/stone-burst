@@ -9,8 +9,8 @@ namespace KatKat.View
     {
         public const float IceWidth = 1.02f;
         public const float ClipWidth = 0.8f; // önizleme rozeti (2026-11-16: Tripo altın ataç, ortada)
-        /// <summary>Tahtada ataç genişliği (Size oranı); 2026-11-16 kullanıcı: "daha büyük ve taşların tam ortasında".</summary>
-        public const float ClipBoardWidth = 1.4f;
+        /// <summary>Tahtada ataç genişliği (Size oranı); 2026-11-16 kullanıcı: "daha büyük ve taşların tam ortasında" → 1,4; 2026-11-17 "ataç ve yıldız, taşları taşıyor biraz küçükletelim" → 1,05.</summary>
+        public const float ClipBoardWidth = 1.05f;
         public const float RibbonWidth = 0.98f;
         public const float LockWidth = 0.30f;
         public const float EnvelopeWidth = 0.99f;

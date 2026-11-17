@@ -99,7 +99,8 @@ namespace KatKat.View
         public ThemeDefinition Theme => _theme;
 
         /// <summary>Boş hücre yuvası. VR2: iç alanın biraz koyu tonu (kullanıcı 2026-11-14: "taşlar tamamen kalkınca alt zemininde yerini belli eden hücresi olsun").</summary>
-        private Color32 SlotColor => KatKat.UI.Vr2.Ready ? KatKat.UI.Vr2.EmptySlot(_vr2Skin) : _theme.Slot;
+        // Tepside yuva görseli dokuya pişirilir (TrayArt) → düz renk kare çizilmez.
+        private Color32 SlotColor => TrayArt.Ready ? new Color32(0, 0, 0, 0) : KatKat.UI.Vr2.Ready ? KatKat.UI.Vr2.EmptySlot(_vr2Skin) : _theme.Slot;
 
         /// <summary>
         /// Tahtanın temasını değiştirir: iç tepsi, renkli çerçeve, boş hücre yuvası ve temas gölgesi birlikte.
@@ -149,6 +150,8 @@ namespace KatKat.View
             float margin = 2f * (TrayPad + FrameTube);
             // VR2: iç alan hücre kenarından Vr2.Inset taşar; tahta alanına bu pay da sığsın (hedef yuvasına/kenara değmesin).
             if (KatKat.UI.Vr2.Ready) margin = Mathf.Max(margin, 2f * KatKat.UI.Vr2.Inset + 0.06f);
+            // Ahşap tepsi: kalın kenar tahta alanına sığsın.
+            if (TrayArt.Ready) margin = Mathf.Max(margin, 2f * TrayArt.Reach + 0.04f);
             float contentK = (_height - 1) * rowK + (top - bottom);
             // Kullanıcı (Redmi): "taşlar çok büyük, tahtayı ve taşları küçültelim". Alan merkezden AreaScale kadar
             // daralır (her yandan); küçük tahtada taş en çok MinColumns sütunluk tahtadaki kadar büyür.
@@ -427,7 +430,7 @@ namespace KatKat.View
         public void SetVr2Skin(int skin)
         {
             _vr2Skin = Mathf.Clamp(skin, 0, KatKat.UI.Vr2.Skins.Length - 1);
-            if (_floorSr != null && _inShape.Length > 0 && KatKat.UI.Vr2.Ready) BakeFloor();
+            if (_floorSr != null && _inShape.Length > 0 && (KatKat.UI.Vr2.Ready || TrayArt.Ready)) BakeFloor();
             if (KatKat.UI.Vr2.Ready) foreach (var s in _stacks) s.SetPalette(SlotColor, _theme.ContactShadow);
         }
 
@@ -461,8 +464,61 @@ namespace KatKat.View
             if (_floorShadow != null) _floorShadow.enabled = false;
         }
 
+        // ---- Ahşap kenarlı krem tepsi (kullanıcı 2026-11-17, docs/gorseller/tepsi; TrayArt) -----------------------------
+        private const int ResTray = 112; // hücre başına piksel (kenar ≈ 13 px)
+        private Texture2D _floorTexTray;
+
+        private void BakeFloorTray()
+        {
+            int resY = Mathf.Max(1, Mathf.RoundToInt(ResTray * _rowPitch / Mathf.Max(1e-5f, _pitch)));
+            // Pay: dış hat + iç köşe kapamasının genişletme payı (doku kenarına değerse kapama orada geri daralamaz) + gölge.
+            int pad = Mathf.CeilToInt(ResTray * (TrayArt.Reach + TrayArt.ConcaveR + 0.08f));
+            // Yuva = eski boş hücre karesinin yeri (StackView: gövde -S/2, kare +S/2 − 1,1t → hücre merkezinden −1,1t).
+            StackExtent(out float top, out float bottom);
+            float t = FaceRatio * StackView.ThicknessRatio * StackView.ThicknessScale(_maxLayers) * _pitch;
+            float mid = (top + bottom) * 0.5f * _pitch;
+            float socketDy = (1.1f * t + mid) / _rowPitch;
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            // Kenar tonu: bölgenin arka plan teması (VR2 paleti, ana ton); VR2 yoksa özgün ahşap.
+            Color? tone = KatKat.UI.Vr2.Ready ? (Color)KatKat.UI.Vr2.Skins[Mathf.Clamp(_vr2Skin, 0, KatKat.UI.Vr2.Skins.Length - 1)].Base : (Color?)null;
+            var px = TrayArt.Bake(_inShape, _width, _height, ResTray, resY, pad, socketDy, FaceRatio * TrayArt.SocketOverFace, tone, out int tw, out int th);
+            if (_floorTexTray == null || _floorTexTray.width != tw || _floorTexTray.height != th)
+            {
+                if (_floorTexTray != null) DestroyImmediate(_floorTexTray);
+                _floorTexTray = new Texture2D(tw, th, TextureFormat.RGBA32, false) { hideFlags = HideFlags.DontSave, wrapMode = TextureWrapMode.Clamp, filterMode = FilterMode.Bilinear, name = "tray_floor" };
+            }
+            _floorTexTray.SetPixels32(px);
+            _floorTexTray.Apply(false, false);
+            LastTrayBakeMs = sw.ElapsedMilliseconds;
+            if (_floorSr.sprite != null) DestroyImmediate(_floorSr.sprite);
+            var sp = Sprite.Create(_floorTexTray, new Rect(0, 0, tw, th), new Vector2(0f, 0f), ResTray);
+            sp.hideFlags = HideFlags.DontSave;
+            _floorSr.sprite = sp;
+            _floorSr.color = Color.white;
+            float gridLeft = _floorWorld.xMin + 0.25f * _pitch, gridTop = _floorWorld.yMax - 0.25f * _rowPitch;
+            float padW = pad / (float)ResTray * _pitch;
+            _floorSr.transform.localPosition = new Vector3(gridLeft - padW, gridTop - _height * _rowPitch - padW, 0f);
+            _floorSr.transform.localScale = new Vector3(_pitch, _pitch, 1f);
+            // Hafif dış gölge: aynı şekil, koyu, biraz aşağıda (tepsi arka plandan ayrılsın).
+            if (_floorShadow == null)
+            {
+                _floorShadow = new GameObject("FloorShadow").AddComponent<SpriteRenderer>();
+                _floorShadow.transform.SetParent(transform, false);
+                _floorShadow.sortingOrder = 1;
+            }
+            _floorShadow.enabled = true;
+            _floorShadow.sprite = sp;
+            _floorShadow.color = new Color(0.10f, 0.07f, 0.04f, 0.30f);
+            _floorShadow.transform.localPosition = _floorSr.transform.localPosition + new Vector3(0f, -0.05f * _pitch, 0f);
+            _floorShadow.transform.localScale = _floorSr.transform.localScale;
+        }
+
+        /// <summary>Test/ölçüm: son tepsi pişirme süresi (ms).</summary>
+        public static long LastTrayBakeMs;
+
         private void BakeFloor()
         {
+            if (TrayArt.Ready) { BakeFloorTray(); return; }
             if (KatKat.UI.Vr2.Ready) { BakeFloorVr2(); return; }
             if (KatKat.UI.Ui3.Ready) { BakeFloorUi3(); return; }
             int pad = Mathf.RoundToInt(FloorRes * 0.25f);

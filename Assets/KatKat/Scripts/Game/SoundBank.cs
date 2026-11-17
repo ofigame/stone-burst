@@ -29,6 +29,22 @@ namespace KatKat.Game
 
         // v10 WAV efektleri (docs/v10/TriKat-Mavi-Liman-Ust-Parcalar/ses → Resources/Audio/TriKat). Yüklenemezse sentez.
         private AudioClip _pop, _chain4, _reward;
+        // 2026-11-17 yeni sesler: özel taş kazanma, yasak hamle, işlevsiz taşa dokunma, bölüm kaybetme.
+        private AudioClip _special, _forbidden, _dud, _lose;
+
+        /// <summary>Özel taş (roket / Altın Rulo) doğdu. Yeni ses yoksa vr1 şarj sesi.</summary>
+        public void PlaySpecialGain()
+        {
+            if (_special != null) PlayClip(_special, 1f, 1f);
+            else PlayVr1("special-charge");
+        }
+
+        /// <summary>İşlevsiz taşa dokunma (grup 3'ten küçük). Yeni ses yoksa yasak hamle sesi.</summary>
+        public void PlayDud()
+        {
+            if (_dud != null) PlayClip(_dud, 1f, 1f);
+            else Play(Sfx.Invalid);
+        }
 
         /// <summary>Dört vuruşlu zincir WAV'ı yüklü mü (yüklüyse hamle başına bir kez çalınır).</summary>
         public bool HasChainWav => _chain4 != null;
@@ -74,11 +90,17 @@ namespace KatKat.Game
                     return (Sine(t, f) * 0.6f + Sine(t, f * 2.01f) * 0.18f) * Decay(t < 0.09f ? t : t - 0.09f, 8f) * Attack(t, 0.003f) * 0.26f;
                 }),
             };
-            b._pop = Resources.Load<AudioClip>("Audio/TriKat/peel-pop");
-            b._chain4 = Resources.Load<AudioClip>("Audio/TriKat/chain-four");
-            b._reward = Resources.Load<AudioClip>("Audio/TriKat/level-reward");
+            // Yeni sesler (kullanıcı 2026-11-17: docs/gorseller/sesler "oyunun yeni sesleri" → Resources/Audio/V15); yoksa v10 WAV'ları.
+            AudioClip V15(string n) => Resources.Load<AudioClip>("Audio/V15/" + n);
+            b._pop = V15("stone-pop") ?? Resources.Load<AudioClip>("Audio/TriKat/peel-pop");
+            b._chain4 = V15("big-group") ?? Resources.Load<AudioClip>("Audio/TriKat/chain-four");
+            b._reward = V15("level-win") ?? Resources.Load<AudioClip>("Audio/TriKat/level-reward");
+            b._special = V15("special-gain");
+            b._forbidden = V15("forbidden");
+            b._dud = V15("dud-tap");
+            b._lose = V15("level-lose");
             // Kısa efektler önceden belleğe alınır (ilk çalmada gecikme olmasın).
-            foreach (var c in new[] { b._pop, b._chain4, b._reward }) if (c != null && c.loadState == AudioDataLoadState.Unloaded) c.LoadAudioData();
+            foreach (var c in new[] { b._pop, b._chain4, b._reward, b._special, b._forbidden, b._dud, b._lose }) if (c != null && c.loadState == AudioDataLoadState.Unloaded) c.LoadAudioData();
             return b;
         }
 
@@ -160,6 +182,9 @@ namespace KatKat.Game
             // v10 WAV'lar: soyulma pop'u ve dört vuruşlu zincir (perde yükseltmesi uygulanmaz).
             if (sfx == Sfx.Peel && _pop != null) { PlayClip(_pop, 1f, volume); return; }
             if (sfx == Sfx.Chain && _chain4 != null) { PlayClip(_chain4, 1f, volume); return; }
+            if (sfx == Sfx.Invalid && _forbidden != null) { PlayClip(_forbidden, 1f, volume); return; }
+            if (sfx == Sfx.Lose && _lose != null) { PlayClip(_lose, 1f, volume); return; }
+            if (sfx == Sfx.Win && _reward != null) { PlayClip(_reward, 1f, volume); return; }
             float pitch = Mathf.Min(1.35f, 1f + 0.07f * pitchStep);
             CaptureTap?.Invoke(_clips[(int)sfx], pitch, Mathf.Clamp01(volume));
             var src = _sources[_next];

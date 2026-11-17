@@ -499,7 +499,7 @@ namespace KatKat.Game
                 }
                 if (r.Reason == RejectReason.GroupTooSmall)
                 {
-                    _sound.Play(Sfx.Invalid);
+                    _sound.PlayDud(); // 2026-11-17: işlevsiz taşa dokunma sesi
                     Haptics.Light();
                     _board.ShakeCells(r.TappedGroup);
                     _hud.ShowToast(Loc.T("toast.min3"));
@@ -704,7 +704,7 @@ namespace KatKat.Game
             }
             if (wave.Index == 0 && r.SpecialCreated != SpecialKind.None)
             {
-                KatKat.UI.Vr1Proto.Play("special-charge");
+                _sound.PlaySpecialGain(); // 2026-11-17: özel taş kazanma sesi
                 _hud.ShowPraise(r.SpecialCreated == SpecialKind.Rainbow ? Loc.T("praise.rainbow") : Loc.T("praise.rocket"), Mathf.Max(1, level));
                 return;
             }

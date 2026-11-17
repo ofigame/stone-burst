@@ -403,6 +403,8 @@ namespace KatKat.View
         /// <summary>Yıldız rozetinin kök uzayındaki yeri: yığının ön alt kenarı, boşken taban ortası.</summary>
         // 2026-11-16 (kullanıcı: "taşların tam ortasında olsun"): yıldız üst yüzün ortasında.
         public Vector3 StarLocal => TopFaceLocal;
+        /// <summary>Dip yıldızı genişliği (Size oranı); 2026-11-17 kullanıcı: "ataç ve yıldız, taşları taşıyor biraz küçükletelim" (1,3 → 1,0).</summary>
+        public const float StarBoardWidth = 1.0f;
 
         private SpriteRenderer Mark(string name, Sprite sprite, int orderOffset)
         {
@@ -452,7 +454,7 @@ namespace KatKat.View
                 _star.sortingOrder = _renderer.sortingOrder + 5; // alttaki satırın yığını rozeti örtmesin
                 _star.transform.localPosition = StarLocal;
                 // Sprite boyutundan bağımsız (Tripo yıldızı 512 px; eski çizim 1 birim).
-                _star.transform.localScale = Vector3.one * Size * 1.3f / Mathf.Max(0.01f, _star.sprite.bounds.size.x);
+                _star.transform.localScale = Vector3.one * Size * StarBoardWidth / Mathf.Max(0.01f, _star.sprite.bounds.size.x);
                 _star.color = Color.white;
             }
         }

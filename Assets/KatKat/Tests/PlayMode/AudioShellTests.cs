@@ -60,6 +60,19 @@ namespace KatKat.Tests
             Assert.IsTrue(_gc.Sound.HasChainWav);
         }
 
+        /// <summary>2026-11-17 yeni sesler (docs/gorseller/sesler): yedisi yüklenir; yasak hamle, işlevsiz dokunuş, özel taş ve kayıp kendi klibini çalar.</summary>
+        [Test]
+        public void NewSounds_LoadAndMapToEvents()
+        {
+            foreach (var n in new[] { "stone-pop", "big-group", "special-gain", "forbidden", "dud-tap", "level-win", "level-lose" })
+                Assert.IsNotNull(Resources.Load<AudioClip>("Audio/V15/" + n), n);
+            _gc.Sound.Play(Sfx.Invalid); Assert.AreEqual("forbidden", _gc.Sound.LastClip);
+            _gc.Sound.PlayDud(); Assert.AreEqual("dud-tap", _gc.Sound.LastClip);
+            _gc.Sound.PlaySpecialGain(); Assert.AreEqual("special-gain", _gc.Sound.LastClip);
+            _gc.Sound.Play(Sfx.Lose); Assert.AreEqual("level-lose", _gc.Sound.LastClip);
+            _gc.Sound.Play(Sfx.Win); Assert.AreEqual("level-win", _gc.Sound.LastClip);
+        }
+
         [Test]
         public void MenuMusic_SingleSource_NoRestartOnRedraw_FadesOnLevel_FollowsSoundSetting()
         {
@@ -105,11 +118,11 @@ namespace KatKat.Tests
         {
             int c0 = _gc.Sound.PlayCount;
             _gc.Sound.Play(Sfx.Peel);
-            Assert.AreEqual("peel-pop", _gc.Sound.LastClip);
+            Assert.AreEqual("stone-pop", _gc.Sound.LastClip);
             _gc.Sound.Play(Sfx.Chain, 3);
-            Assert.AreEqual("chain-four", _gc.Sound.LastClip);
+            Assert.AreEqual("big-group", _gc.Sound.LastClip);
             _gc.Sound.PlayReward();
-            Assert.AreEqual("level-reward", _gc.Sound.LastClip);
+            Assert.AreEqual("level-win", _gc.Sound.LastClip);
             Assert.AreEqual(c0 + 3, _gc.Sound.PlayCount);
         }
 
@@ -134,7 +147,7 @@ namespace KatKat.Tests
             {
                 int chainBefore = chainPlays;
                 // Bitiş kutlamasının roketleri sayılmaz (oyuncu hamlesi değil).
-                _gc.Sound.OnPlayed = n => { if (n == "chain-four" && !_gc.IsCelebrating) chainPlays++; if (n == "level-reward") rewardPlays++; };
+                _gc.Sound.OnPlayed = n => { if (n == "big-group" && !_gc.IsCelebrating) chainPlays++; if (n == "level-win") rewardPlays++; };
                 _gc.PlayStep(step);
                 float limit = Time.realtimeSinceStartup + 20f;
                 while (_gc.CurrentPhase == GameController.Phase.Animating && Time.realtimeSinceStartup < limit) yield return null;
