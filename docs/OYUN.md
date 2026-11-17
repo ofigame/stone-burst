@@ -35,7 +35,8 @@ Stone Burst (2026-11-09; önceki adları TriKat ve Kat Kat), üst üste dizilmi�
 
 | Bölüm | Renkler |
 |---|---|
-| 1–7 | İnci (beyaz), turkuaz |
+| 1–3 | Öğretici: 6 rengin hepsi (2026-11-17) |
+| 4–7 | İnci (beyaz), turkuaz |
 | 8–20 | + mercan (kırmızı) |
 | 21–60 | + mor |
 | 61–200 | + yeşil |
@@ -96,7 +97,7 @@ Veri kimlikleri (`Coral/Blue/Yellow/Purple`, `Rainbow`) eski adlarıyla kalır; 
 
 | Bölüm | Mekanik | Kısa kural |
 |---|---|---|
-| 1–5 | Vitrin (v14, 2026-11-16) | 7×8 tahta, bütün özellikler kolay sürümde: 1 dokun-soy ve katlar (tur) · 2 roket ve tepsi (tur) · 3 Altın Rulo, dip yıldızı, ataş, bağlı ataş (tur) · 4 buz, renk kilidi, zarf, sünger · 5 kristal koruma, kesin hamle, döner taban, geçit, boya. Mekanik tanıtımı vitrinde bir kez, takvimdeki bölümde yeniden çıkar. |
+| 1–3 | Vitrin (v14; 2026-11-17 kullanıcı: "ilk 5 bölüm öğreticisini 3 e düşürelim", "o 3 bölümde tüm taş renkleri de olsun") | 7×8 tahta, 6 rengin hepsi: 1 dokun-soy ve katlar (tur) · 2 roket ve tepsi (tur) · 3 Altın Rulo, dip yıldızı, ataş, bağlı ataş (tur). Eski 4–5 vitrinleri (buz, kilit, zarf, sünger, kristal, kesin hamle, döner taban, geçit, boya) kalktı; bu mekanikler takvimdeki ilk bölümlerinde tanıtılır. 4–5 normal bölüm. |
 | 6+ | Özel taşlar ve tepsi | Roket, Altın Rulo (yukarıda). 6–7 tek kat 3 renk, 8–14 iki kat, 15–30 üç kat 4 renk 2 görev; sonra her ~10 bölümde bir boyut (`docs/v14/ZORLUK.md`). |
 | 21+ | Ataş | Ataşlı yığın seçilemez; yanında soyma yapılınca ataşa vurulur (1–2). |
 | 41+ | Dip yıldızı | Yığın tamamen boşalınca yıldız toplanır. |
@@ -118,9 +119,9 @@ Kural verilir, strateji verilmez. v14'te 1000 bölüm `LevelLab v14` ile yeniden
 
 | Tür | Kural (oyuncuya gösterilen) | İlk bölüm |
 |---|---|---|
-| Kesin Hamle | Hamle sınırı = çözüm uzunluğu (1–99'da +1) | 5 (vitrin), 27 |
+| Kesin Hamle | Hamle sınırı = çözüm uzunluğu (1–99'da +1) | 27 |
 | Ters Düşünme | Kesin hamle; göz alıcı (açgözlü) hamle kaybettirir | 37 |
-| Kristal Koruma | Kristal yığından katman soyulursa kayıp (roket dahil) | 5 (vitrin), 57 |
+| Kristal Koruma | Kristal yığından katman soyulursa kayıp (roket dahil) | 57 |
 | Renk Kıtlığı | Hedef rengin neredeyse hepsi gerekir | 67 |
 | Saf Plan | Özel taş doğmaz | 77 |
 | Doğru An | Özel taşsız çözülemez; kesin hamle | 87 |
@@ -190,7 +191,7 @@ Yıldız eşikleri bölüm başına kayıtlı çözüm + kutlama puanından hesa
 ## 6. Zorluk
 
 **v14 (2026-11-16, geçerli):** kullanıcı: "ileri bölümler kolay olmasın lütfen zorla", "oyuncu rastgele patlatmalarla değil plan ve mantık yürüterek bitirdiğini hissetsin". 1000 bölüm `LevelLab v14` ile yeniden üretildi (ayrıntı `docs/v14/PLAN.md`, ölçüm `docs/v14/ZORLUK.md`).
-- Eğri: 1–5 vitrin (7×8, 2–3 kat); 6–7 tek kat 6×7; 8–14 iki kat; 15–30 üç kat 2 görev; sonra tahta 8×9'a, kat 4'e, görev 3–4'e çıkar. Renkler yukarıdaki açılış sırasıyla: 1–7 iki renk, 8 mercan, 21 mor, 61 yeşil, 201 lacivert.
+- Eğri: 1–3 vitrin (7×8, 2–3 kat, 6 renk); 4–7 tek kat 6×7; 8–14 iki kat; 15–30 üç kat 2 görev; sonra tahta 8×9'a, kat 4'e, görev 3–4'e çıkar. Renkler yukarıdaki açılış sırasıyla (vitrin 1–3 hariç: 6 renk): 4–7 iki renk, 8 mercan, 21 mor, 61 yeşil, 201 lacivert.
 - Hamle payı (sınır − en iyi çözüm): 6–30 3–5, 31–100 2–3, 101–300 1–2, 301+ 0–1; nefes bölümlerinde +4.
 - Rastgele dokunan bot nefes dışı bölümlerde ortalama 6–7 %34, 15–30 %3,6, 301+ ≈%0,1 kazanır; 31'den sonra açgözlü botlar nefes dışı 829 bölümün hepsinde kaybeder.
 - 132 nefes, 100 usta (x0), 164 tür bölümü.
@@ -202,9 +203,9 @@ Aşağısı v7 dönemi (arşiv bilgisi): Bölümler `LevelLab rebuild` (v7) ile 
 - **Ana sayfa / harita:** Üstte iki satırlı Stone Burst logosu ve sağında Ayarlar dişlisi, bölge kartı (bölge simgesi, BÖLGE n, bölge adı, aralık, toplam yıldız). Kesintisiz dikey yol: üç bölge (sahil, bahçe, çöl) kendi el çizimi şeridiyle döner; bölgeler nehir ve köprüde birleşir. Düğümler resimdeki yolun ortasından geçer. Açılmamış bölümler numarasız ve doğal bulut örtüsü altında; ilerledikçe bulutlar açılır. Maskot mevcut bölümün üstünde zıplar; kaydırınca "bölümüme dön" düğmesi çıkar.
 - **Alt menü:** Yolculuk · Günlük · Taşlar (2026-11-11: "Harita" sekmesinin adı 9 dilde Yolculuk oldu. Seçili ikon büyüyüp küçülür. Günlük modalı açıkken Günlük seçili görünür ve menü modalın üstünde kalır. 2026-11-06: Oyna kalktı, bölüme haritadaki düğümden girilir; Ayarlar sağ üstte). Günlük ve Taşlar ekranlarında sol üstte geri düğmesi, sağ üstte Ayarlar.
 - **Açılış:** Beyaz zeminde OFIGAME logosu (~1,6 sn; oyun sahnesi arkada yüklenir). Kaynak: `E:\OFIGAME\Kurumsal\ofigame-logo-acik-zemin.png` → `Resources/Branding/ofigame-logo.png`.
-- **Oyun ekranı (VR2, 2026-11-14):** Ekranın tepesinden tam genişlikte krem üst panel: solda duraklat, sağda geri al, ortada maskotlu mor hamle kapsülü, altında yıldız çubuğu. Panelin altında, temanın taş zemini üstünde ayrı gömülü krem hedef yuvası (hedef simgeleri ve sayaçlar). Arka plan bölgenin teması: altı doku (Mavi Liman, Yeşil Vadi, Kum Vadisi, Fener Koyu, Vaha Yolu, İnci Sahili), bulanık, ekranı oran korunarak kaplar (tablette tam kompozisyon, telefonda orta bölüm). Tahta (2026-11-17, ahşap tepsi): bölümün kendi şeklini izleyen kalın, parlak cilalı ahşap kenar (rengi bölgenin arka plan tonunda, biraz koyu ve doygun: Mavi Liman turkuaz, Yeşil Vadi yeşil, Fener Koyu lacivert, Vaha Yolu turuncu…) (dış köşeler 0,26, iç köşeler 0,14 hücre yuvarlak), içi sıcak bej zemin, kenarın altında yumuşak iç gölge, hafif dış gölge; her hücrede yumuşak çukur yuva (taşı biten hücrede görünür). Görseller `docs/gorseller/tepsi`. Pasif hücrelerde ve boşluklarda arka plan görünür. Altta özel taş tepsisi ve ipucu.
+- **Oyun ekranı (VR2, 2026-11-14):** Ekranın tepesinden tam genişlikte krem üst panel: solda duraklat, sağda geri al, ortada maskotlu mor hamle kapsülü, altında yıldız çubuğu. Panelin altında, temanın taş zemini üstünde ayrı gömülü krem hedef yuvası (hedef simgeleri ve sayaçlar). Arka plan bölgenin teması: altı doku (Mavi Liman, Yeşil Vadi, Kum Vadisi, Fener Koyu, Vaha Yolu, İnci Sahili), bulanık, ekranı oran korunarak kaplar (tablette tam kompozisyon, telefonda orta bölüm). Tahta (2026-11-17, ahşap tepsi): bölümün kendi şeklini izleyen kalın, parlak cilalı ahşap kenar (rengi bölgenin arka plan tonunda, biraz koyu ve doygun: Mavi Liman turkuaz, Yeşil Vadi yeşil, Fener Koyu lacivert, Vaha Yolu turuncu…) (dış köşeler 0,26, iç köşeler 0,14 hücre yuvarlak), içi kenar renginin açık tonunda zemin ("tepsinin iç rengi taşların rengini kapatıyor"), kenarın altında yumuşak iç gölge, hafif dış gölge; her hücrede aynı açık tonda yumuşak çukur yuva; kenarla taşlar arası 0,14 hücre (taşı biten hücrede görünür). Görseller `docs/gorseller/tepsi`. Pasif hücrelerde ve boşluklarda arka plan görünür. Altta özel taş tepsisi ve ipucu.
 - **İçi boş tahtalar (v14 ana katalogda yok; yalnız eski görünüm/arşiv):** VR2'de boşluklar yalnız arka planı gösterir; süs ve buzlu koleksiyon taşı konmaz (kullanıcı 2026-11-15). Eski görünümde (`Vr2.Enabled = false`) boşluklara hareketli süs konur (`BoardDecor`): zıplayan maskot, fener, çeşme, kaya kemeri/vaha.
-- **Öğretici turlar:** Odak alanı açık, çevresi karartılmış; yanında maskotlu konuşma kartı ve zıplayan ok (`TutorialOverlay`, `GameController.Tutorial`). Bölüm 1–3 baştan sona yönlendirmeli (v14: 1 dokunuş ve katlar, 2 roket ve tepsi, 3 Altın Rulo; yalnız gösterilen gruba dokunulur). 4–5 vitrin bölümleri buz, kilit, zarf, sünger, kristal, döner taban, geçit ve boyayı tanıtır; gerçek tanıtım takvimdeki ilk bölümde yeniden çıkar. Bir bölümde birden çok yeni mekanik varsa hepsi sırayla tanıtılır. Her mekaniğin ilk çıktığı bölüm: o mekanikli hücre açık, kısa açıklama. Bilgi adımı ekrana dokununca geçer; tur bölüm kazanılınca bir daha gösterilmez.
+- **Öğretici turlar:** Odak alanı açık, çevresi karartılmış; yanında maskotlu konuşma kartı ve zıplayan ok (`TutorialOverlay`, `GameController.Tutorial`). Bölüm 1–3 baştan sona yönlendirmeli (v14: 1 dokunuş ve katlar, 2 roket ve tepsi, 3 Altın Rulo; yalnız gösterilen gruba dokunulur). Diğer mekanikler takvimdeki ilk bölümlerinde tanıtılır (2026-11-17: vitrin 5 → 3 bölüm). Bir bölümde birden çok yeni mekanik varsa hepsi sırayla tanıtılır. Her mekaniğin ilk çıktığı bölüm: o mekanikli hücre açık, kısa açıklama. Bilgi adımı ekrana dokununca geçer; tur bölüm kazanılınca bir daha gösterilmez.
 - **Ayarlar:** Resimsiz; turkuaz→krem renk geçişi, süzülen kabarcıklar. Krem kartta Ses ve Titreşim anahtarları, Dil (dokuz dil, her biri kendi yazısıyla), kısa not; altta sürüm. Dil değişince ekranlar yeni dille yeniden kurulur.
 - **Yazı tipi:** Nunito ExtraBold (başlık, düğme, sayılar) ve Nunito SemiBold (açıklama), OFL lisanslı. Arapça için Noto Sans Arabic, Japonca/Korece için Noto Sans KR yedek fontları. Hap düğmelerde yazı yüksekliğin ~%32'si, uzun metin sığana dek küçülür.
 - **Maskot:** Kristal maskot; gözleri etrafa bakar, göz kırpar; büyük hamle, özel taş ve yıldızda zıplar; son 1–3 hamlede endişelenir.

@@ -65,7 +65,7 @@ static partial class Program
     /// <summary>Hamle payı bandı (PLAN): 6–30 3–5; 31–100 2–3; 101–300 1–2; 301+ 0–1; nefes +4.</summary>
     static (int lo, int hi) V14SlackBand(int n)
     {
-        var b = n <= 5 ? (4, 5) : n <= 30 ? (3, 5) : n <= 100 ? (2, 3) : n <= 300 ? (1, 2) : (0, 1);
+        var b = n <= 3 ? (4, 5) : n <= 30 ? (3, 5) : n <= 100 ? (2, 3) : n <= 300 ? (1, 2) : (0, 1);
         if (V14Breath(n)) b = (b.Item1 + 4, b.Item2 + 4);
         return b;
     }
@@ -98,7 +98,7 @@ static partial class Program
     /// <summary>Bölüm numarasından tarif (eğri: PLAN "Eğri" tablosu).</summary>
     static V14Spec V14SpecFor(int n)
     {
-        var sp = new V14Spec { N = n, Breath = V14Breath(n), Master = V14Master(n), Showcase = n <= 5 };
+        var sp = new V14Spec { N = n, Breath = V14Breath(n), Master = V14Master(n), Showcase = n <= 3 }; // kullanıcı 2026-11-17: "ilk 5 bölüm öğreticisini 3 e düşürelim"
         var rng = new Random(n * 104729 + 14);
         var band = V14SlackBand(n);
         sp.SlackLo = band.lo; sp.SlackHi = band.hi;
@@ -114,20 +114,15 @@ static partial class Program
         if (sp.Showcase)
         {
             // Vitrin: geniş tahta (7×8), 2–3 kat, 4 renk, bol hamle; her bölüm bir özellik grubunu gösterir.
-            sp.W = 7; sp.H = 8; sp.LMin = 2; sp.LMax = 3; sp.Colors = 4; sp.ColorGoals = 2; sp.LenLo = 4; sp.LenHi = 10;
+            sp.W = 7; sp.H = 8; sp.LMin = 2; sp.LMax = 3; sp.Colors = 6; sp.ColorGoals = 2; sp.LenLo = 4; sp.LenHi = 10; // 6 renk: öğreticide hepsi
             sp.BlobMin = 2; sp.BlobMax = 4; sp.Frac = 0.30;
             switch (n)
             {
-                case 1: sp.LMax = 2; sp.NoSpecialsInSolution = true; sp.LenLo = 3; sp.LenHi = 7; sp.Frac = 0.24; sp.MaxGroup = 4; break; // dokun-soy ve katlar (2 renk: katlar üstle aynı renk, V14Make)
+                case 1: sp.LMax = 2; sp.NoSpecialsInSolution = true; sp.LenLo = 3; sp.LenHi = 7; sp.Frac = 0.24; sp.MaxGroup = 4; break; // dokun-soy ve katlar (katlar üstle aynı renk, V14Make)
                 case 2: sp.ForcedSpecial = SpecialKind.RocketRow; sp.ColorGoals = 2; break;                              // roket ve tepsi
                 case 3: sp.ForcedSpecial = SpecialKind.Rainbow; sp.ColorGoals = 1; sp.Mech["stars"] = 2; sp.Mech["clip1"] = 2; sp.Mech["link"] = 2; break; // Altın Rulo, dip yıldızı, ataç, bağlı ataç
-                case 4: sp.ColorGoals = 1; sp.Mech["ice1"] = 2; sp.Mech["lock"] = 1; sp.Mech["env"] = 2; sp.Mech["sponge"] = 1; break; // buz, kilit, zarf, sünger
-                case 5: // kristal koruma, dar hamle (+ döner taban, geçit, boya)
-                    sp.Type = "protect"; sp.Protect = true; sp.Exact = true; sp.Rules.Add("protect"); sp.Rules.Add("exact");
-                    sp.Mech["rotor"] = 2; sp.ForcedRotate = true; sp.Mech["gate"] = 3; sp.Mech["paint"] = 1; sp.ColorGoals = 2; sp.LenHi = 12;
-                    break;
             }
-            sp.Slack = n == 5 ? 1 : 4;
+            sp.Slack = 4;
             return sp;
         }
 
@@ -764,6 +759,8 @@ static partial class Program
         }
         if (replay.Status != GameStatus.Won) return "tekrar kazanmadı";
         if (sp.NoSpecialsInSolution && (ev.Specials > 0 || sol.Any(c => c.Type == CommandType.UseSpecial))) return "vitrin1 özel taş";
+        // Öğretici (1–3) tüm renkleri gösterir (kullanıcı 2026-11-17): tahtada 6 rengin hepsi bulunmalı.
+        if (sp.Showcase && d.Cells.SelectMany(c => c.Layers).Distinct().Count() < V14AllColors.Length) return "vitrin renk eksik";
         var mechFail = new List<string>();
         if (ev.Covers > 0 && ev.CoverUse == 0) mechFail.Add("örtü");
         if (d.Cells.Any(c => c.LockRemaining > 0) && ev.LockOpens == 0) mechFail.Add("kilit");
@@ -893,7 +890,8 @@ static partial class Program
         {
             res.Boards++;
             // Palet yalnız o bölümde açılmış renklerden seçilir; renk sayısı açılmış renk sayısını aşmaz (V14ColorIntro).
-            var unlocked = V14UnlockedColors(sp.N);
+            // Öğretici (vitrin, 1–3) tüm renkleri gösterir (kullanıcı 2026-11-17: "o 3 bölümde tüm taş renkleri de olsun"); sonra açılış sırası.
+            var unlocked = sp.Showcase ? V14AllColors.ToList() : V14UnlockedColors(sp.N);
             var palette = unlocked.OrderBy(_ => rng.Next()).Take(Math.Min(sp.Colors, unlocked.Count)).ToList();
             var goalColors = palette.OrderBy(_ => rng.Next()).ToList();
             var mult = Enumerable.Range(0, 4).Select(_ => 0.9 + rng.NextDouble() * 0.2).ToArray();

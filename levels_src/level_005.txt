@@ -1,19 +1,15 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 vitrin; şekil dikdörtgen; çözüm 4 + 1 tepsi / sınır 5; rastgele 0,000; açgözlü kaybeder; yumuşak 0,23
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 3 + 0 tepsi / sınır 7; rastgele 0,590; açgözlü kazanır; yumuşak 1,00
 id: level_005
-moves: 5
+moves: 7
 roll: off
 specials: on
-paint: 1
-type: protect
-rules: protect, exact
-goals: yellow 12, blue 13
+goals: blue 10
 grid:
-bbP   bb    G1:bb G1:bbb G1:bb yb    yb
-byb   byb   yb    ybb   yb    yby   yby
-yb    bbb   yb    yy    bb    yby   yb
-yb    ybb   yby   yyy   bby   byy   byy
-byy   ybyR  yby   byy   byy   by    bb
-by    byy   by    by    ybb   yb    yby
-bby   yb    yyb   by    ybb   ybB1  bby
-ybR   yy    yyb   yyP   yb    yyb   byb
-solution: rot 0,7 ; 4,5 ; paint 3,7,b ; 5,1 ; use 0,1,0
+b     b     y     b     y     y
+y     y     b     y     b     b
+y     b     y     y     y     b
+b     y     b     b     b     y
+y     b     y     y     y     b
+y     b     y     b     b     y
+y     b     b     y     y     y
+solution: 1,4 ; 4,1 ; 2,3

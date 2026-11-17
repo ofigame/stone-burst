@@ -13,11 +13,12 @@ namespace KatKat.View
     {
         public static bool Enabled = true;
         private static bool? _ready;
-        private static Color32[] _rim, _floor, _socket;
+        private static Color32[] _rim, _floor, _socket, _rimOrig, _floorOrig, _socketOrig;
         private static int _rw, _rh, _fw, _fh, _sw, _sh;
 
         /// <summary>Hücre kenarından kenarın iç çizgisine boşluk, kenar kalınlığı, köşe yarıçapları (hücre adımı).</summary>
-        public const float Gap = 0.08f, Rim = 0.23f, ConvexR = 0.26f, ConcaveR = 0.14f; // kullanıcı 2026-11-17: "daha kalın olmalı çerçeve köşeleri"
+        // Kullanıcı 2026-11-17: "daha kalın olmalı çerçeve köşeleri"; "tepsi kenarları ile taşlar arasındaki boşluğu bir kademe arttıralım" (Gap 0,08 → 0,14).
+        public const float Gap = 0.14f, Rim = 0.23f, ConvexR = 0.26f, ConcaveR = 0.14f;
         /// <summary>Hücre yuvası görselinin boyu / taş yüzü boyu (yuvanın çukuru taş yüzü kadar).</summary>
         public const float SocketOverFace = 1.12f;
         /// <summary>rim.png'de kenar kalınlığı (satır; kaynakta 318→460, yarı ölçek).</summary>
@@ -48,8 +49,10 @@ namespace KatKat.View
             _rim = rim.GetPixels32(); _rw = rim.width; _rh = rim.height;
             _floor = floor.GetPixels32(); _fw = floor.width; _fh = floor.height;
             _socket = socket.GetPixels32(); _sw = socket.width; _sh = socket.height;
+            _rimOrig = (Color32[])_rim.Clone(); _floorOrig = (Color32[])_floor.Clone();
             // Magenta anahtarından kalan pembe saçak: yarı saydam piksellerin rengi yuva dudağının kremi olur.
             for (int i = 0; i < _socket.Length; i++) if (_socket[i].a < 250) _socket[i] = new Color32(253, 239, 208, _socket[i].a);
+            _socketOrig = (Color32[])_socket.Clone();
             // Kullanıcı 2026-11-17: "tepsi iç zemini çok açık olmuş" → zemin, yuva ve şeridin kenar altı (iç gölge + zemin)
             // kısmı aynı sıcak tonla koyulaşır; ahşap kenar (satır < RimRows) değişmez.
             for (int i = 0; i < _floor.Length; i++) _floor[i] = Shade(_floor[i]);
@@ -67,7 +70,7 @@ namespace KatKat.View
         // Kullanıcı 2026-11-17: "tepsi kenarlarının renkleri … arkaplan görselinin renk tonuna göre olsun"; "aynı ton olsun,
         // biraz koyu ve belirgin olsun arkaplanda kaybolmasın". Ahşap şeridin her pikseli HSV'de: ton = temanın tonu,
         // doygunluk özgün doygunlukla orantılı (hedef en az ToneMinSat; parlama gibi az doygun pikseller beyazımsı kalır),
-        // parlaklık ToneValue ile koyulaşır. Damar, parlama ve gölge korunur. Kenar altı (iç gölge + zemin) değişmez.
+        // parlaklık ToneValue ile koyulaşır. Damar, parlama ve gölge korunur. Kenar altı (iç gölge + zemin) zeminle aynı açık tonda (FloorTone).
         public const float ToneMinSat = 0.60f, ToneMaxSat = 0.90f, ToneValue = 0.68f;
         private static readonly System.Collections.Generic.Dictionary<Color32, Color32[]> _toned = new System.Collections.Generic.Dictionary<Color32, Color32[]>();
 
@@ -79,6 +82,14 @@ namespace KatKat.View
             Color.RGBToHSV(tone, out float th, out float ts, out _);
             float targetSat = Mathf.Clamp(ts * 1.15f, ToneMinSat, ToneMaxSat);
             var dst = (Color32[])_rim.Clone();
+            // Kenar altı (iç gölge + zemin satırları): zeminle aynı açık ton (özgünden).
+            for (int y = 0; y < _rh; y++)
+            {
+                float kf = Mathf.Clamp01((y - (RimRows - 2f)) / 4f);
+                if (kf <= 0f) continue;
+                int row = (_rh - 1 - y) * _rw;
+                for (int x = 0; x < _rw; x++) dst[row + x] = Color32.Lerp(_rimOrig[row + x], FloorTone(_rimOrig[row + x], th), kf);
+            }
             for (int y = 0; y < _rh; y++)
             {
                 float k = 1f - Mathf.Clamp01((y - (RimRows - 2f)) / 4f); // yalnız ahşap satırları
@@ -89,14 +100,39 @@ namespace KatKat.View
                     Color src = _rim[row + x];
                     Color.RGBToHSV(src, out _, out float s, out float v);
                     var c = Color.HSVToRGB(th, Mathf.Clamp01(s * targetSat / 0.95f), v * ToneValue);
-                    dst[row + x] = Color32.Lerp(_rim[row + x], c, k);
+                    dst[row + x] = Color32.Lerp(dst[row + x], c, k);
                 }
             }
             _toned[key] = dst;
             return dst;
         }
 
-        /// <summary>İç zemin tonu (çarpan): krem → sıcak bej.</summary>
+        // Kullanıcı 2026-11-17: "tepsinin iç rengi taşların rengini kapatıyor. Tepsinin iç rengini tepsinin kenar renklerinin
+        // açık tonlarında yapalım. Taş yuvaları da öyle olsun." İç zemin, yuva ve kenar altı: ton = kenarın tonu, doygunluk
+        // özgün kremin doygunluğuyla orantılı (krem ≈ 0,17 → FloorSat), parlaklık FloorValue ile hafif kısılır. Gölgeler korunur.
+        public const float FloorSat = 0.24f, FloorValue = 0.97f;
+        private const float CreamSat = 0.17f;
+        private static readonly System.Collections.Generic.Dictionary<Color32, Color32[]> _tonedFloor = new System.Collections.Generic.Dictionary<Color32, Color32[]>(), _tonedSocket = new System.Collections.Generic.Dictionary<Color32, Color32[]>();
+
+        private static Color32 FloorTone(Color32 c, float hue)
+        {
+            Color.RGBToHSV(c, out _, out float s, out float v);
+            Color o = Color.HSVToRGB(hue, Mathf.Clamp01(s * FloorSat / CreamSat), v * FloorValue);
+            Color32 r = o; r.a = c.a;
+            return r;
+        }
+
+        private static Color32[] ToneArray(System.Collections.Generic.Dictionary<Color32, Color32[]> cache, Color32[] src, Color tone)
+        {
+            Color32 key = tone;
+            if (cache.TryGetValue(key, out var hit)) return hit;
+            Color.RGBToHSV(tone, out float th, out _, out _);
+            var dst = new Color32[src.Length];
+            for (int i = 0; i < src.Length; i++) dst[i] = FloorTone(src[i], th);
+            return cache[key] = dst;
+        }
+
+        /// <summary>İç zemin tonu (çarpan): krem → sıcak bej (tema tonu verilmezse).</summary>
         public static readonly Color FloorShade = new Color(0.90f, 0.86f, 0.80f, 1f);
 
         private static Color32 Shade(Color32 c) =>
@@ -156,6 +192,8 @@ namespace KatKat.View
 
             float res = resX;
             var rim = rimTone.HasValue ? ToneRim(rimTone.Value) : _rim;
+            var floorPx = rimTone.HasValue ? ToneArray(_tonedFloor, _floorOrig, rimTone.Value) : _floor;
+            var socketPx = rimTone.HasValue ? ToneArray(_tonedSocket, _socketOrig, rimTone.Value) : _socket;
             float rowsPerPx = RimRows / (Rim * res);
             float floorPer = _fw / (FloorCells * res);
             int blend0 = _rh - 24;
@@ -180,12 +218,12 @@ namespace KatKat.View
                     float s = ((a0 + (a1 - a0) * fx) * (1f - fy) + (b0 + (b1 - b0) * fx) * fy) * Q;
                     int o = orow + x;
                     if (s <= -0.5f) continue; // saydam (varsayılan 0)
-                    if (s >= vFloor) { px[o] = _floor[frow + fxs[x]]; continue; } // zemin: tam opak
+                    if (s >= vFloor) { px[o] = floorPx[frow + fxs[x]]; continue; } // zemin: tam opak
                     float v = s > 0f ? s * rowsPerPx : 0f;
                     // Uzunluk boyunca: x + y (yatay kenarda x, dikeyde y; köşede sürekli); ayna tekrar → ek yeri yok.
                     float u = Mathf.PingPong((x + y) * rowsPerPx, _rw - 1);
                     Color c = Sample(rim, _rw, _rh, u, v, false);
-                    if (v > blend0) c = Color.Lerp(c, _floor[frow + fxs[x]], (v - blend0) / (_rh - 1 - blend0));
+                    if (v > blend0) c = Color.Lerp(c, floorPx[frow + fxs[x]], (v - blend0) / (_rh - 1 - blend0));
                     c.a = Mathf.Clamp01(s + 0.5f);
                     px[o] = c;
                 }
@@ -196,7 +234,7 @@ namespace KatKat.View
             var sock = new Color32[ss * ss];
             for (int sy = 0; sy < ss; sy++)
             for (int sx = 0; sx < ss; sx++)
-                sock[sy * ss + sx] = Sample(_socket, _sw, _sh, (sx + 0.5f) * _sw / ss - 0.5f, (sy + 0.5f) * _sh / ss - 0.5f, false);
+                sock[sy * ss + sx] = Sample(socketPx, _sw, _sh, (sx + 0.5f) * _sw / ss - 0.5f, (sy + 0.5f) * _sh / ss - 0.5f, false);
             for (int cy = 0; cy < h; cy++)
             for (int cx = 0; cx < w; cx++)
             {
