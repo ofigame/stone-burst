@@ -104,9 +104,14 @@ namespace KatKat.EditorTools
                 return;
             }
             int code = int.TryParse(Environment.GetEnvironmentVariable("KATKAT_ANDROID_VERSION_CODE"), out var c) && c > 0 ? c : 1;
+            // Sürüm adı KATKAT_ANDROID_VERSION_NAME (2026-11-18, Play 1.0.2; yalnız bu paket, boşsa projedeki).
+            string verName = Environment.GetEnvironmentVariable("KATKAT_ANDROID_VERSION_NAME");
+            if (string.IsNullOrEmpty(verName)) verName = PlayerSettings.bundleVersion;
+            string verBefore = PlayerSettings.bundleVersion;
             string pass = File.ReadAllText(pf).Trim();
             _beforeBuild = () =>
             {
+                PlayerSettings.bundleVersion = verName;
                 PlayerSettings.Android.bundleVersionCode = code;
                 PlayerSettings.Android.useCustomKeystore = true;
                 PlayerSettings.Android.keystoreName = ks;
@@ -118,9 +123,10 @@ namespace KatKat.EditorTools
             // AAB veri paketi LZ4HC ile (2026-11-10 ilk denemede sıkıştırmasız veri 236 MB tutuyordu; APK 130 MB).
             _deferExit = true;
             _extraOptions = BuildOptions.CompressWithLz4HC;
-            try { Build(BuildTarget.Android, "Builds/Android/StoneBurst-" + PlayerSettings.bundleVersion + "-" + code + _storeSuffix + ".aab"); }
+            try { Build(BuildTarget.Android, "Builds/Android/StoneBurst-" + verName + "-" + code + _storeSuffix + ".aab"); }
             finally
             {
+                PlayerSettings.bundleVersion = verBefore;
                 _beforeBuild = null;
                 _deferExit = false;
                 _extraOptions = BuildOptions.None;
