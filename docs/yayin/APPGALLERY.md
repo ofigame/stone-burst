@@ -181,3 +181,4 @@ Kullanıcı: "huawei için yeni bir versiyon çıkaracağız fakat minör bir ve
 - Görseller: sahne stili, Android 1080×1920, 9 dil, yeni arka planlarla (`docs/varliklar/magaza/android/<dil>`).
 - Sürüm: 1.0.2, kod 3 (`KATKAT_ANDROID_VERSION_CODE=3 KATKAT_ANDROID_VERSION_NAME=1.0.2 tools/unity.ps1 build-android-appgallery`).
 - Mağazadaki değişiklikler ve gönderim kullanıcı onayıyla.
+- **Gönderildi (2026-11-18):** 1.0.2 (3) "Reviewing". 11 dil (en-US, en-GB, tr, ar, fr, de, it, ja, ko, es-ES, es-419), yeni ikon, her dilde 6 yeni görsel, gizlilik etiketlerine sıralama verisi eklendi. Metinler `APPGALLERY_1_0_2.md`.
