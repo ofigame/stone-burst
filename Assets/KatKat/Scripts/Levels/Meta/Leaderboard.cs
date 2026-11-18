@@ -44,6 +44,35 @@ namespace KatKat.Meta
     }
 
     /// <summary>
+    /// Puanı ekran açılmadan yazabilen sağlayıcı (kullanıcı 2026-11-18: oyuncu Sıralama'yı hiç açmasa da listede
+    /// görünsün). Bölüm kazanılınca çağrılır; giriş yoksa ya da puan 0 ise false döner.
+    /// </summary>
+    public interface ILeaderboardWriter
+    {
+        void Submit(LeaderboardEntry self, Action<bool> done);
+    }
+
+    /// <summary>
+    /// Kayıt hatırlatma takvimi (kullanıcı 2026-11-18: "Oyuncunun mutlaka kayıt yaptırması hatırlatılsın"). İlk
+    /// hatırlatma sıralamaya girilebilen bölüm sayısında (<see cref="RankScore.MinLevels"/>); "Sonra" denirse sonraki,
+    /// GÖSTERİLDİĞİ andaki tamamlanan bölüm sayısına aralık eklenerek bulunur (15, 25, 40, sonra hep 100). Böylece
+    /// ileri bölümdeki oyuncu art arda sıkıştırılmaz.
+    /// </summary>
+    public static class RankReminder
+    {
+        private static readonly int[] Gaps = { 15, 25, 40 };
+        public const int LaterGap = 100;
+
+        public static int First => RankScore.MinLevels;
+
+        /// <summary><paramref name="shown"/> kez gösterildikten sonra, <paramref name="completedAtShow"/> bölümdeyken sonraki eşik.</summary>
+        public static int Next(int shown, int completedAtShow) =>
+            completedAtShow + (shown >= 1 && shown <= Gaps.Length ? Gaps[shown - 1] : LaterGap);
+
+        public static bool Due(int completed, int nextAt) => completed >= Math.Max(First, nextAt);
+    }
+
+    /// <summary>
     /// Sıralama puanı (kullanıcı kararı 2026-11-08): 0–1000 = 10 × (0,5 × ZPE + 0,3 × bölüm ilerlemesi + 0,2 × yıldız
     /// oranı), her bileşen 0–100. Bölüm ilerlemesi = ulaşılan bölüm / toplam bölüm. Yıldız oranı = sıralama yıldızı
     /// (reklamla kazanılanlar hariç) / (3 × tamamlanan bölüm). Sıralamaya giriş: en az <see cref="MinLevels"/> bölüm.

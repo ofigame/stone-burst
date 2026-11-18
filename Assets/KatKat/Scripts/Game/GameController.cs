@@ -236,7 +236,8 @@ namespace KatKat.Game
             _menu.ZpeBadge = new MenuView.ZpeBadgeInfo { Has = true, Calibrating = zpe.Calibrating, Score = zpe.Score, Count = zpe.Count, Min = zpe.MinLevels };
             _menu.ShowLevels(_catalog.Count, ContinueIndex, i => _save.Data.IsCompleted(_catalog.IdAt(i)), ShowHome, -1, ShowSettings);
             _music.Enter();
-            if (!revealPending) FlushStoneToasts(false); // açılan taş: önce kabuk kırılır, vitrin sonra (vr1 P1)
+            // Açılan taş: önce kabuk kırılır, vitrin sonra (vr1 P1). Kayıt hatırlatması (2026-11-18) vitrinlerden sonra.
+            if (!revealPending) FlushStoneToasts(false, () => { if (_menu.IsMapShown) MaybeRemindSignIn(); });
             CloudRetry();
         }
 

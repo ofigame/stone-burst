@@ -650,7 +650,72 @@ namespace KatKat.UI
             t.raycastTarget = false;
             UiFactory.Stretch(t.rectTransform, 14f, 14f, 2f, 4f);
             FitText(t, 20);
+            // 2026-11-18: kayıtsız ve sıralamaya girebilecek oyuncuya kupanın sağ üstünde kırmızı uyarı noktası.
+            if (AccountsOn && RankNeedsAttention != null && RankNeedsAttention())
+            {
+                var dot = _rankDot = UiFactory.Image("AttentionDot", b.transform, Ui3.Rounded(16f, new Color32(0xE5, 0x3B, 0x2E, 0xFF), new Color32(0xE5, 0x3B, 0x2E, 0xFF), 3f, Color.white), Color.white);
+                dot.pixelsPerUnitMultiplier = 1f;
+                dot.raycastTarget = false;
+                UiFactory.Place(dot.rectTransform, new Vector2(1f, 1f), new Vector2(-14f, -14f), new Vector2(34f, 34f));
+            }
         }
+
+        /// <summary>Sıralama düğmesinde uyarı noktası gösterilsin mi (kayıtsız + en az 20 bölüm).</summary>
+        public Func<bool> RankNeedsAttention;
+        private UnityEngine.UI.Image _rankDot;
+
+        /// <summary>Kayıt olununca uyarı noktası kaldırılır (harita yeniden kurulmadan).</summary>
+        public void HideRankAttention()
+        {
+            if (_rankDot != null) UiFactory.Kill(_rankDot.gameObject);
+            _rankDot = null;
+        }
+
+        /// <summary>Testler: uyarı noktası görünüyor mu.</summary>
+        public bool RankAttentionShown => _rankDot != null;
+
+        private RectTransform _remindCard;
+
+        /// <summary>
+        /// Kayıt hatırlatması (kullanıcı 2026-11-18: "Oyuncunun mutlaka kayıt yaptırması hatırlatılsın"): kayıt olmadan
+        /// puanın diğer oyunculara görünmediğini söyler; "Kayıt ol" tek dokunuşla girer, "Sonra" kapatır.
+        /// </summary>
+        public void ShowRankReminder(Action signIn, Action later)
+        {
+            CloseRankReminder();
+            const float W = 860f, H = 760f;
+            var card = U3Modal(_page, "RankRemindCard", W, H, () => { CloseRankReminder(); later?.Invoke(); }, out var root);
+            _remindCard = root;
+            var title = U3Text("Title", card, Loc.T("rank.remind.title"), 50, true, Ui3.Ink);
+            title.textWrappingMode = TMPro.TextWrappingModes.Normal;
+            U3In(title.rectTransform, W, 70f, 46f, 720f, 120f);
+            FitText(title, 26);
+            var cup = RankArt("trophy");
+            if (cup != null)
+            {
+                var ic = UiFactory.Image("Cup", card, cup, Color.white);
+                ic.preserveAspect = true;
+                ic.raycastTarget = false;
+                U3In(ic.rectTransform, W, 360f, 172f, 140f, 140f);
+            }
+            var info = U3Text("Info", card, Loc.T("rank.remind.info"), 32, false, Ui3.InkSecondary);
+            info.textWrappingMode = TMPro.TextWrappingModes.Normal;
+            U3In(info.rectTransform, W, 60f, 322f, 740f, 150f);
+            FitText(info, 22);
+            Ui1.Button("SignIn", card, Loc.T("rank.remind.go"), true, new Vector2(0.5f, 1f), new Vector2(0f, -(500f + 56f)), new Vector2(748f, 112f),
+                () => { CloseRankReminder(); signIn?.Invoke(); }, null, 42);
+            Ui1.Button("Later", card, Loc.T("rank.remind.later"), false, new Vector2(0.5f, 1f), new Vector2(0f, -(626f + 46f)), new Vector2(748f, 92f),
+                () => { CloseRankReminder(); later?.Invoke(); }, null, 36);
+        }
+
+        public void CloseRankReminder()
+        {
+            if (_remindCard != null) UiFactory.Kill(_remindCard.gameObject);
+            _remindCard = null;
+        }
+
+        /// <summary>Testler: kayıt hatırlatması açık mı.</summary>
+        public bool RankReminderShown => _remindCard != null;
     }
 
     /// <summary>

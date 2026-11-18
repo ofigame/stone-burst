@@ -663,6 +663,58 @@ namespace KatKat.Tests
             }
         }
 
+        private sealed class FakeWriter : KatKat.Meta.ILeaderboardProvider, KatKat.Meta.ILeaderboardWriter
+        {
+            public int Submits;
+            public void Fetch(KatKat.Meta.LeaderboardScope scope, string country, KatKat.Meta.LeaderboardEntry self, System.Action<KatKat.Meta.LeaderboardResult> done) =>
+                done?.Invoke(new KatKat.Meta.LeaderboardResult { Status = KatKat.Meta.LeaderboardStatus.Empty, Self = self });
+            public void Submit(KatKat.Meta.LeaderboardEntry self, System.Action<bool> done) { Submits++; done?.Invoke(true); }
+        }
+
+        [UnityTest]
+        public IEnumerator RankReminder_ShownAt20_SignInSubmitsScore_DotGone()
+        {
+            // 2026-11-18: kayıtsız oyuncuya 20 bölümde hatırlatma; "Kayıt ol" → giriş, puan Sıralama açılmadan yazılır.
+            GameController.ClearAccountDeletedForTest();
+            GameController.ClearRemindForTest();
+            GameController.RemindInBatchForTest = true;
+            var keepProvider = GameController.LeaderboardProvider;
+            var writer = new FakeWriter();
+            GameController.LeaderboardProvider = writer;
+            try
+            {
+                var fake = new FakeCloudAccount();
+                _gc.SetAccountForTest(fake);
+                for (int i = 0; i < 19; i++) _gc.SaveService.MarkCompleted(_gc.Catalog.IdAt(i), i, _gc.Catalog.Count);
+                _gc.ShowLevels();
+                yield return null;
+                _gc.MaybeRemindSignInForTest();
+                Assert.IsFalse(_gc.Menu.RankReminderShown, "19 bölümde sorulmaz");
+                Assert.IsFalse(_gc.Menu.RankAttentionShown);
+
+                _gc.SaveService.MarkCompleted(_gc.Catalog.IdAt(19), 19, _gc.Catalog.Count);
+                _gc.ShowLevels();
+                yield return null;
+                Assert.IsTrue(_gc.Menu.RankAttentionShown, "kupada uyarı noktası");
+                _gc.MaybeRemindSignInForTest();
+                Assert.IsTrue(_gc.Menu.RankReminderShown, "20 bölümde hatırlatma");
+                GameObject.Find("RankRemindCard").transform.Find("Card/SignIn").GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
+                Assert.IsFalse(_gc.Menu.RankReminderShown);
+                Assert.AreEqual(AccountState.SignedIn, fake.State);
+                Assert.AreEqual(1, writer.Submits, "puan Sıralama açılmadan yazıldı");
+                Assert.IsFalse(_gc.Menu.RankAttentionShown, "nokta kalktı");
+
+                _gc.MaybeRemindSignInForTest();
+                Assert.IsFalse(_gc.Menu.RankReminderShown, "girişliye sorulmaz");
+            }
+            finally
+            {
+                GameController.LeaderboardProvider = keepProvider;
+                GameController.RemindInBatchForTest = false;
+                GameController.ClearRemindForTest();
+            }
+        }
+
         [UnityTest]
         public IEnumerator Cloud_AheadRestoresOnMap_NotMidLevel_NeverOverwritesBeforeCheck()
         {

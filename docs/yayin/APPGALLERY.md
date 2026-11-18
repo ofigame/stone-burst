@@ -19,8 +19,8 @@ powershell -ExecutionPolicy Bypass -File tools/unity.ps1 build-android-appgaller
 | Konu | Google Play | AppGallery |
 |---|---|---|
 | Reklam | AdMob (+ Unity Ads arabulucu), UMP rıza formu | Huawei Ads (`ads-lite 13.4.73.301`), kişiselleştirilmemiş reklam, rıza formu yok |
-| Hesap / bulut kaydı | Play Games | Kapalı: "İlerlemeyi kaydet" satırı ve sıralama kayıt düğmesi gizli |
-| Çevrimiçi sıralama | Firestore | Bağlı değil (yerel ilerleme görünür) |
+| Hesap / bulut kaydı | Play Games | 2026-11-18: anonim Firebase hesabı (REST); bulut kaydı yok, "Hesabı sil" var |
+| Çevrimiçi sıralama | Firestore | 2026-11-18: Firestore REST (aynı liste) |
 | Analitik | Firebase | Yok |
 | Tanımlar | `KATKAT_ADMOB;KATKAT_ONLINE` | `KATKAT_APPGALLERY` |
 
@@ -50,7 +50,7 @@ APK doğrulaması (2026-11-11):
 1. Huawei Ads Publisher hesabı ve gerçek reklam birimleri (kullanıcı).
 2. Mağaza bilgileri: açıklama, ekran görüntüleri, gizlilik politikası, içerik derecelendirmesi, ülkeler. Yükleme ve "incelemeye gönder" kullanıcı onayıyla.
 3. Huawei cihazda deneme (HMS Core'lu telefon). Bu sürüm Huawei cihazda hiç denenmedi.
-4. İleride: Huawei Account/Game Service ile hesap ve sıralama.
+4. ~~Huawei hesap ve sıralama~~ 2026-11-18: Firebase REST ile (`Online/FirebaseRest.cs`). Firebase konsolunda Anonymous girişi açılmalı; gizlilik etiketleri güncellenmeli.
 
 ## Mağaza bilgileri (2026-11-12, Claude girdi, taslak kaydedildi)
 
@@ -171,3 +171,13 @@ Yerleşik tarayıcı yerel dosya seçemiyor. Ayrıca beyanları kullanıcı işa
 - Hata bandı kalktı.
 - Telif kanıtı zorunlu görünmüyor (Çin hariç).
 - **2026-11-12: Kullanıcı incelemeye gönderdi.** Durum "Reviewing" (1.0.0). Huawei önce otomatik kontrol yapıyor; sorun bulursa birkaç saat içinde reddediyor, sonuç "report page"de.
+
+## 1.0.2 hazırlığı (2026-11-18)
+
+Kullanıcı: "huawei için yeni bir versiyon çıkaracağız fakat minör bir versiyon"; "Huawei de oyunun adı sadece Stone Burst oysa diğer mağazalarda yanında bulmaca oyunu yazıyor burada da yazsın"; "diğer dilleri de ekleyelim. Yeni mağaza görselleri oluşturalım".
+
+- Uygulama adı her dilde `MAGAZA_METINLERI.md` tablosundaki gibi: "Stone Burst: Bulmaca Oyunu", "Stone Burst: Puzzle Game" (en-US, en-GB), "Stone Burst: Juego de Puzles", "Stone Burst: Puzzlespiel", "Stone Burst: Gioco Puzzle", "Stone Burst: Jeu de Puzzle", "Stone Burst: パズルゲーム", "Stone Burst: 퍼즐 게임", "Stone Burst: لعبة ألغاز".
+- Yeni diller: es, de, it, fr, ja, ko, ar (açıklamalar `MAGAZA_ACIKLAMALARI.md`).
+- Görseller: sahne stili, Android 1080×1920, 9 dil, yeni arka planlarla (`docs/varliklar/magaza/android/<dil>`).
+- Sürüm: 1.0.2, kod 3 (`KATKAT_ANDROID_VERSION_CODE=3 KATKAT_ANDROID_VERSION_NAME=1.0.2 tools/unity.ps1 build-android-appgallery`).
+- Mağazadaki değişiklikler ve gönderim kullanıcı onayıyla.

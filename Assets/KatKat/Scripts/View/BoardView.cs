@@ -966,13 +966,18 @@ namespace KatKat.View
                     foreach (var c in w.Cells) targets.Add(new Coord(c.X, c.Y));
                     foreach (var c in w.Triggered) targets.Add(c);
                     foreach (var c in w.DirectHits) targets.Add(c);
+                    // 2026-11-18: yıldırım hedef taşın (patlayan) renginde; hücre bilgisi yoksa dalganın ilk rengi.
+                    var colorAt = new Dictionary<int, Color>();
+                    foreach (var c in w.Cells) colorAt[c.Y * 4096 + c.X] = LayerPalette.FrontColor(c.Removed);
+                    Color fallback = w.Cells.Count > 0 ? (Color)LayerPalette.FrontColor(w.Cells[0].Removed) : new Color(0.75f, 0.55f, 1f);
                     for (int i = 0; i < targets.Count; i++)
                     {
                         var t = targets[i];
                         if (t.X == w.FiredAt.X && t.Y == w.FiredAt.Y) continue;
                         var dst = StackAt(t.X, t.Y);
                         float life = SpecialDelay(w, t.X, t.Y) + 160f;
-                        var bolt = LightningBolt.Create(transform, from, dst.transform.position + dst.TopFaceLocal, _pitch, PeelDirector.PeelSortingOrder + 1000, 1000 + i * 7919);
+                        var boltCol = colorAt.TryGetValue(t.Y * 4096 + t.X, out var bc) ? bc : fallback;
+                        var bolt = LightningBolt.Create(transform, from, dst.transform.position + dst.TopFaceLocal, _pitch, PeelDirector.PeelSortingOrder + 1000, 1000 + i * 7919, boltCol);
                         _fx.Add(new Fx { Kind = FxKind.Bolt, T = bolt.transform, Bolt = bolt, Owned = true, Dur = life });
                     }
                 }
@@ -1692,8 +1697,10 @@ namespace KatKat.View
         /// <summary>Olay planı zaman çizgisini verilen süre (ms) kadar ilerletir.</summary>
         public void Advance(float ms)
         {
-            if (_fx.Count > 0) TickFx(ms);
+            // ms gerçek süre; olay planı Motion.Pace ile yavaşlar, parçacıklar gerçek zamanla (2026-11-18).
             Particles.Tick(ms); // parçacıklar (FxKit); erişim Active'i de bu tahtaya ayarlar
+            ms *= KatKat.UI.Motion.Pace;
+            if (_fx.Count > 0) TickFx(ms);
             TickBoardShake(ms);
             if (_timeline.Count > 0)
             {

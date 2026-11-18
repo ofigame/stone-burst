@@ -49,6 +49,9 @@ namespace KatKat.EditorTools
             ["es"] = new[] { "¡Pela las capas y descubre los colores!", "¡El Rollo Dorado elimina todo un color!", "1.000 niveles por descubrir", "¡Planea reacciones en cadena y gana 3 estrellas!", "Un nuevo puzle cada día", "Colecciona piedras raras" },
             ["ar"] = new[] { "قشّر الطبقات واكشف الألوان!", "اللفافة الذهبية تزيل لونا كاملا!", "1000 مرحلة لتستكشفها", "خطّط لسلسلة الانفجارات واربح 3 نجوم!", "لغز جديد كل يوم", "اجمع الأحجار النادرة" },
             ["ja"] = new[] { "レイヤーをはがして色を見つけよう！", "ゴールドロールで1色まるごと消せる！", "1,000ステージであそぼう！", "連鎖を計画して星3つをゲット！", "まいにち新しいパズル", "レアな石をコレクション" },
+            ["it"] = new[] { "Togli gli strati, scopri i colori!", "Il Rotolo d'oro elimina un intero colore!", "Nuovi puzzle da scoprire", "Pianifica le reazioni a catena, ottieni 3 stelle!", "Un nuovo puzzle ogni giorno", "Colleziona pietre rare" },
+            ["fr"] = new[] { "Retire les couches, révèle les couleurs !", "Le Rouleau d'or efface toute une couleur !", "De nouveaux puzzles à découvrir", "Prépare des réactions en chaîne, gagne 3 étoiles !", "Un nouveau puzzle chaque jour", "Collectionne des pierres rares" },
+            ["ko"] = new[] { "층을 벗기고 색을 찾아보세요!", "황금 롤이 한 가지 색을 모두 지워요!", "새로운 퍼즐을 발견하세요", "연쇄 반응을 계획하고 별 3개를 얻으세요!", "매일 새로운 퍼즐", "희귀한 돌을 수집하세요" },
         };
 
         public static void Run()
@@ -340,6 +343,10 @@ namespace KatKat.EditorTools
             ["es"] = new[] { "¡CUMPLE EL OBJETIVO!", "PLANEA TU PRÓXIMO MOVIMIENTO", "DESCUBRE NUEVOS PUZLES", "PIENSA Y GANA\n3 ESTRELLAS", "¡PELA LAS CAPAS!", "COLECCIONA PIEDRAS" },
             ["ar"] = new[] { "أكمل المهمة", "خطّط لحركتك التالية", "اكتشف ألغازا جديدة", "العب بذكاء واربح 3 نجوم", "قشّر الطبقات", "اجمع الأحجار" },
             ["ja"] = new[] { "ゴールを達成しよう", "次の一手を考えよう", "新しいパズルを発見", "かしこく解いて星3つ", "レイヤーをはがそう", "石をコレクション" },
+            // 2026-11-18 (kullanıcı: "diğer dilleri de ekleyelim"): AppGallery ve diğer mağazalar için 9 dilin kalan üçü.
+            ["it"] = new[] { "COMPLETA L'OBIETTIVO", "PIANIFICA LA PROSSIMA MOSSA", "SCOPRI NUOVI PUZZLE", "GIOCA D'ASTUZIA,\nOTTIENI 3 STELLE", "TOGLI GLI STRATI", "COLLEZIONA PIETRE" },
+            ["fr"] = new[] { "ATTEINS L'OBJECTIF", "PRÉPARE TON PROCHAIN COUP", "DÉCOUVRE DE NOUVEAUX PUZZLES", "JOUE MALIN,\nGAGNE 3 ÉTOILES", "RETIRE LES COUCHES", "COLLECTIONNE LES PIERRES" },
+            ["ko"] = new[] { "목표를 달성하세요", "다음 수를 계획하세요", "새로운 퍼즐을 발견하세요", "똑똑하게 플레이하고\n별 3개 획득", "층을 벗기세요", "돌을 수집하세요" },
         };
 
         /// <summary>

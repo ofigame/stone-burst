@@ -57,7 +57,7 @@ namespace KatKat.View
         public void Advance(float ms)
         {
             if (_active.Count == 0) return;
-            _clock += ms;
+            _clock += ms * KatKat.UI.Motion.Pace; // tahtayla aynı tempo (Motion.Pace, 2026-11-18)
             for (int i = _active.Count - 1; i >= 0; i--)
             {
                 float t = _clock - _started[i];

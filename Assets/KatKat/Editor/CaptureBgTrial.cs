@@ -57,6 +57,34 @@ namespace KatKat.EditorTools
                     gc.Board.Advance(1000f / 30f);
                     return;
                 }
+                // KATKAT_GAMEVIDEO_SPECIALS=1 (2026-11-18, tempo + yıldırım denemesi): tepsiden Altın Rulo, sonra roket,
+                // sonra kayıtlı çözümün ilk adımı.
+                if (Environment.GetEnvironmentVariable("KATKAT_GAMEVIDEO_SPECIALS") == "1")
+                {
+                    if (f == 1) gc.Hud.HideRuleCard(true); // kural kartı tahtayı kapatmasın
+                    if ((f == 15 || f == 125) && gc.CurrentPhase == GameController.Phase.Idle)
+                    {
+                        var st = gc.Session.State;
+                        st.Tray.Clear();
+                        st.Tray.Add(f == 15 ? KatKat.Core.SpecialKind.Rainbow : KatKat.Core.SpecialKind.RocketRow);
+                        gc.Hud.SetTrayVisible(true);
+                        gc.Hud.SetTray(st.Tray, -1);
+                        var b = st.Board;
+                        int cx = b.Width / 2, cy = b.Height / 2 + (f == 15 ? 0 : -1);
+                        for (int r = 0; r < b.Width * b.Height && !b[cx, cy].IsSelectable; r++)
+                        {
+                            cx = (cx + 1) % b.Width;
+                            if (cx == 0) cy = (cy + 1) % b.Height;
+                        }
+                        gc.PlayStep(new KatKat.Levels.StepData { Type = "use", Row = 0, X = cx, Y = cy });
+                        Debug.Log($"[KatKat] video özel taş kare {f}");
+                    }
+                    else if (f == 225 && gc.CurrentPhase == GameController.Phase.Idle && gc.CurrentLevel.Solution.Count > 0)
+                        gc.PlayStep(gc.CurrentLevel.Solution[0]);
+                    gc.Board.Advance(1000f / 30f);
+                    gc.Board.Director.Advance(1000f / 30f);
+                    return;
+                }
                 var sol = gc.CurrentLevel.Solution;
                 if (f % 60 == 20 && k < sol.Count && gc.CurrentPhase == GameController.Phase.Idle)
                 {
@@ -64,6 +92,7 @@ namespace KatKat.EditorTools
                     gc.PlayStep(sol[k++]);
                 }
                 gc.Board.Advance(1000f / 30f);
+                gc.Board.Director.Advance(1000f / 30f);
             });
             BgMotion.ClockOverride = null;
         }

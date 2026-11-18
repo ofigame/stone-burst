@@ -374,9 +374,12 @@ namespace KatKat.UI
             // 2026-11-11: 3. satır "Azaltılmış hareket" (vr1 erişilebilirlik); dil, kayıt, gizlilik birer aşağı.
             // 2026-11-13: "Hesabı sil" satırı kaydın altında (Apple 5.1.1(v)); 7 satırda aralık 144'e iner ki panel,
             // not ve sürüm yazısı alt menünün üstünde kalsın (panel = satır × aralık + 68; 4 satır = 724).
-            bool save = AccountsOn; // AppGallery: hesap hizmeti yok → "İlerlemeyi kaydet" ve "Hesabı sil" satırı yok
+            // Hesap yoksa "İlerlemeyi kaydet" ve "Hesabı sil" yok. AppGallery (2026-11-18, anonim REST hesabı): bulut
+            // kaydı yok → yalnız "Hesabı sil".
+            bool del = AccountsOn;
+            bool save = del && (CloudSaveEnabled == null || CloudSaveEnabled());
             // 2026-11-13: "Bildirimler" anahtarı dilin altında (5. satır); 8 satırda aralık 128.
-            int rows = 5 + (save ? 2 : 0) + (privacy ? 1 : 0);
+            int rows = 5 + (save ? 1 : 0) + (del ? 1 : 0) + (privacy ? 1 : 0);
             float RowStep = rows >= 8 ? 128f : rows >= 7 ? 144f : 164f;
             float PanelH = rows * RowStep + 68f;
             float RowY(int i) => (rows - 1) * RowStep * 0.5f - i * RowStep;
@@ -401,11 +404,8 @@ namespace KatKat.UI
             U3Divider(c, RowY(3) - RowStep * 0.5f);
             SwitchRowUi3(c, RowY(4), "icon-sound", Loc.T("ui.notify"), NotifyEnabled != null && NotifyEnabled(), v => NotifyChanged?.Invoke(v), HeartSprite(), true);
             int next = 5;
-            if (save)
-            {
-                U3Divider(c, RowY(next - 1) - RowStep * 0.5f); SaveRowUi3(c, RowY(next)); next++;
-                U3Divider(c, RowY(next - 1) - RowStep * 0.5f); DeleteRowUi3(c, RowY(next)); next++;
-            }
+            if (save) { U3Divider(c, RowY(next - 1) - RowStep * 0.5f); SaveRowUi3(c, RowY(next)); next++; }
+            if (del) { U3Divider(c, RowY(next - 1) - RowStep * 0.5f); DeleteRowUi3(c, RowY(next)); next++; }
             if (privacy) { U3Divider(c, RowY(next - 1) - RowStep * 0.5f); PrivacyRowUi3(c, RowY(next)); }
             var note = U3Text("Note", page, Loc.T("ui.settingsnote"), 28, false, Ui3.InkSecondary);
             note.textWrappingMode = TMPro.TextWrappingModes.Normal;

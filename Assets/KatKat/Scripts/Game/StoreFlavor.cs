@@ -16,5 +16,8 @@ namespace KatKat.Game
         /// <summary>Hesap (giriş, bulut kaydı, sıralama kaydı) gösterilsin mi. AppGallery'de gerçek hesap hizmeti
         /// bağlanana kadar kapalı (aksi hâlde "(test)" etiketli yerel test hesabı görünürdü).</summary>
         public static bool AccountsEnabled => !AppGallery || GameController.AccountProvider != null;
+
+        /// <summary>Bulut kaydı: AppGallery'deki anonim REST hesabı cihaza bağlı olduğundan orada yok (2026-11-18).</summary>
+        public static bool CloudSaveEnabled => !AppGallery;
     }
 }

@@ -15,7 +15,7 @@ namespace KatKat.Game.Online
     /// (kendinden yüksek puan sayısı + 1) okur. Kurallar ve dizinler: <c>firebase/</c> klasörü.
     /// YALNIZ KATKAT_ONLINE tanımlıyken derlenir. CİHAZDA DENENMEDİ.
     /// </summary>
-    public sealed class FirestoreLeaderboard : ILeaderboardProvider
+    public sealed class FirestoreLeaderboard : ILeaderboardProvider, ILeaderboardWriter
     {
         public const string Collection = "scores";
         private readonly Func<string> _playerName;
@@ -32,17 +32,25 @@ namespace KatKat.Game.Online
             var db = FirebaseFirestore.DefaultInstance;
             var col = db.Collection(Collection);
             if (self != null && self.Score > 0)
-            {
-                var doc = new Dictionary<string, object>
-                {
-                    { "name", Trim(_playerName?.Invoke()) }, { "country", GameController.DeviceCountry() ?? "" },
-                    { "score", self.Score }, { "zpe", self.Zpe }, { "level", self.Level }, { "stars", self.Stars },
-                    { "updated", FieldValue.ServerTimestamp },
-                };
-                col.Document(user.UserId).SetAsync(doc).ContinueWithOnMainThread(_ => Query(col, scope, country, self, user.UserId, r, done));
-            }
+                col.Document(user.UserId).SetAsync(Doc(self)).ContinueWithOnMainThread(_ => Query(col, scope, country, self, user.UserId, r, done));
             else Query(col, scope, country, self, user.UserId, r, done);
         }
+
+        /// <summary>Kazanılan bölümden sonra: Sıralama açılmadan kendi kaydını yazar (2026-11-18).</summary>
+        public void Submit(LeaderboardEntry self, Action<bool> done)
+        {
+            var user = FirebaseAuth.DefaultInstance.CurrentUser;
+            if (user == null || self == null || self.Score <= 0) { done?.Invoke(false); return; }
+            FirebaseFirestore.DefaultInstance.Collection(Collection).Document(user.UserId).SetAsync(Doc(self))
+                .ContinueWithOnMainThread(t => done?.Invoke(!t.IsFaulted && !t.IsCanceled));
+        }
+
+        private Dictionary<string, object> Doc(LeaderboardEntry self) => new Dictionary<string, object>
+        {
+            { "name", Trim(_playerName?.Invoke()) }, { "country", GameController.DeviceCountry() ?? "" },
+            { "score", self.Score }, { "zpe", self.Zpe }, { "level", self.Level }, { "stars", self.Stars },
+            { "updated", FieldValue.ServerTimestamp },
+        };
 
         private static void Query(CollectionReference col, LeaderboardScope scope, string country, LeaderboardEntry self,
             string uid, LeaderboardResult r, Action<LeaderboardResult> done)

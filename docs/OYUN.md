@@ -93,6 +93,12 @@ Veri kimlikleri (`Coral/Blue/Yellow/Purple`, `Rainbow`) eski adlarıyla kalır; 
 - Bulut (Game Center / Play Games girişiyle, Firestore `saves/{uid}`): açılıştaki girişten sonra önce buluttaki kayıt okunur. Bulut daha ilerideyse (daha çok tamamlanmış bölüm; eşitse daha çok yıldız, sonra açılan bölüm) cihazdaki kaydın yerine geçer ve "İlerlemen buluttan geri yüklendi" bildirimi çıkar. Bölüm oynanırken gelirse haritaya dönünce uygulanır. Ses ve titreşim ayarı cihazda kalır; eski dosya `.precloud` kopyası olarak saklanır.
 - Okuma bitmeden buluta hiç yazılmaz (yeni kurulumdaki boş kayıt buluttakini ezmez). Sonra her kazanılan bölümde (en çok 30 sn'de bir) ve uygulama arka plana geçince kayıt sessizce buluta gider. Ayarlar'daki "İlerlemeyi kaydet" düğmesi de aynı kurala uyar.
 
+### Sıralama kaydı ve hatırlatma (2026-11-18)
+
+- Girişli oyuncunun puanı her kazanılan bölümden sonra (değiştiyse) sıralamaya kendiliğinden yazılır; Sıralama ekranını açmak gerekmez. Açılıştaki sessiz giriş başarılıysa da yazılır.
+- Kayıtsız oyuncu en az 20 bölüm tamamlayınca haritaya dönüşte "Dünya sıralamasında yerini al!" penceresi açılır (Kayıt ol / Sonra); taş vitrinlerinden sonra gelir. "Sonra" denirse gösterildiği bölüm sayısına 15, 25, 40, sonra hep 100 eklenerek yeniden sorulur. Kayıtsız oyuncunun haritadaki kupa düğmesinde kırmızı uyarı noktası durur. Hesabını kendisi silen oyuncuya sorulmaz.
+- **AppGallery (Huawei):** Google servisleri olmadığından Firebase'e REST ile bağlanılır (anonim hesap, Identity Toolkit + Firestore REST); Android/iOS ile aynı dünya ve ülke listesi. Ad ilk kayıtta "Oyuncu 4821" biçiminde verilir ve değişmez. Bulut kaydı yok ("İlerlemeyi kaydet" satırı gizli); "Hesabı sil" var. Uygulama silinip yeniden kurulursa eski sıralama kaydına dönülemez.
+
 ## 4. Mekanikler ve bölüm takvimi
 
 | Bölüm | Mekanik | Kısa kural |

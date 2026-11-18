@@ -17,6 +17,8 @@ namespace KatKat.View
         private SpriteRenderer[] _core, _halo;
         private Vector3 _from, _to;
         private float _thick;
+        private Color _color;
+        private int _order;
         private System.Random _rng;
         private int _lastJitter = -1;
         private readonly Vector3[] _pts = new Vector3[Segments + 1];
@@ -43,7 +45,9 @@ namespace KatKat.View
 
         /// <param name="from">Dünya konumu (kaynak taşın üst yüzü).</param>
         /// <param name="pitch">Hücre aralığı (yerel birim); kalınlık ve kırılma genliği buna göre.</param>
-        public static LightningBolt Create(Transform parent, Vector3 from, Vector3 to, float pitch, int order, int seed)
+        /// <param name="color">Patlayan taşın rengi (kullanıcı 2026-11-18: "Yıldırımı da patlayan taşın renginde ve duman
+        /// çıkıyormuş gibi olsun şimşek çizgilerinden"): hale, çarpma ışığı ve duman bu renkte.</param>
+        public static LightningBolt Create(Transform parent, Vector3 from, Vector3 to, float pitch, int order, int seed, Color color)
         {
             var go = new GameObject("Lightning");
             go.transform.SetParent(parent, false);
@@ -53,12 +57,16 @@ namespace KatKat.View
             b._to = to;
             b._thick = pitch * ls;
             b._rng = new System.Random(seed);
+            b._color = color;
+            b._order = order;
             b._core = new SpriteRenderer[Segments];
             b._halo = new SpriteRenderer[Segments];
+            var haloCol = color;
+            var coreCol = Color.Lerp(color, Color.white, 0.55f);
             for (int i = 0; i < Segments; i++)
             {
-                b._halo[i] = Part(go.transform, "Halo", new Color(0.72f, 0.55f, 1f, 0.8f), order);
-                b._core[i] = Part(go.transform, "Core", new Color(1f, 1f, 0.95f, 1f), order + 1);
+                b._halo[i] = Part(go.transform, "Halo", new Color(haloCol.r, haloCol.g, haloCol.b, 0.85f), order);
+                b._core[i] = Part(go.transform, "Core", new Color(coreCol.r, coreCol.g, coreCol.b, 1f), order + 1);
                 // 2026-11-18 ("yıldırım … daha profesyonel"): eklemeli — hale ve çekirdek parlar, üst üste binince yoğunlaşır.
                 FxKit.MakeAdditive(b._halo[i]);
                 FxKit.MakeAdditive(b._core[i]);
@@ -68,7 +76,7 @@ namespace KatKat.View
             if (fx != null && !KatKat.UI.Motion.Reduced)
             {
                 float s = b._thick;
-                var violet = new Color(0.75f, 0.55f, 1f);
+                var violet = Color.Lerp(color, Color.white, 0.25f);
                 fx.Emit(FxKit.Glow, true, order + 2, from, Vector3.zero, 0.3f, s * 0.6f, s * 1.3f, new Color(1f, 1f, 1f, 0.8f), new Color(violet.r, violet.g, violet.b, 0f));
                 float hit = GrowMs / 1000f;
                 fx.Emit(FxKit.Glow, true, order + 2, to, Vector3.zero, 0.35f, s * 0.5f, s * 1.4f, new Color(1f, 1f, 1f, 0.9f), new Color(violet.r, violet.g, violet.b, 0f), delay: hit);
@@ -116,12 +124,42 @@ namespace KatKat.View
             float grow = Mathf.Clamp01(ms / GrowMs);
             float fade = x < 0.8f ? 1f : Mathf.Clamp01((1f - x) / 0.2f);
             float flicker = 0.75f + 0.25f * Mathf.Sin(ms * 0.09f);
+            if (j != _lastSmoke && ms > 0f && fade > 0.4f) { _lastSmoke = j; EmitSmoke(grow); }
             for (int i = 0; i < Segments; i++)
             {
                 float t0 = (float)i / Segments;
                 bool on = t0 < grow;
                 Place(_core[i], _pts[i], _pts[i + 1], _thick * 0.08f, on, fade);
                 Place(_halo[i], _pts[i], _pts[i + 1], _thick * 0.38f, on, fade * 0.65f * flicker);
+            }
+        }
+
+        private int _lastSmoke = -1;
+
+        /// <summary>
+        /// Şimşek çizgisinden yükselen duman (her kırılmada, görünen kısmın rastgele 2 noktasından): taş renginde koyu,
+        /// yarı saydam, genişleyerek yükselip sönen puf + üstünde ince renkli parıltı (eklemeli).
+        /// </summary>
+        private void EmitSmoke(float grow)
+        {
+            var fx = FxParticles.Active;
+            if (fx == null || KatKat.UI.Motion.Reduced) return;
+            float s = _thick;
+            var smoke = Color.Lerp(_color, new Color(0.72f, 0.74f, 0.78f), 0.4f);
+            var wisp = Color.Lerp(_color, Color.white, 0.3f);
+            for (int k = 0; k < 3; k++)
+            {
+                float t = (float)_rng.NextDouble() * Mathf.Max(0.1f, grow);
+                float ft = t * Segments;
+                int i = Mathf.Clamp(Mathf.FloorToInt(ft), 0, Segments - 1);
+                var p = Vector3.Lerp(_pts[i], _pts[i + 1], ft - i);
+                float r1 = (float)_rng.NextDouble(), r2 = (float)_rng.NextDouble();
+                var vel = new Vector3((r1 - 0.5f) * 0.5f, 0.55f + r2 * 0.5f, 0f) * s;
+                fx.Emit(FxKit.Puff, false, _order - 1, p, vel, 0.75f + r2 * 0.45f, s * (0.22f + r1 * 0.12f), s * (0.7f + r2 * 0.35f),
+                    new Color(smoke.r, smoke.g, smoke.b, 0.5f), new Color(smoke.r * 0.7f, smoke.g * 0.7f, smoke.b * 0.7f, 0f),
+                    gravity: s * 0.35f, drag: 1.6f, rot: r1 * 360f, rotVel: (r2 - 0.5f) * 120f);
+                fx.Emit(FxKit.Puff, true, _order, p, vel * 1.2f, 0.4f + r1 * 0.2f, s * 0.12f, s * 0.35f,
+                    new Color(wisp.r, wisp.g, wisp.b, 0.45f), new Color(_color.r, _color.g, _color.b, 0f), gravity: s * 0.3f, drag: 1.8f, rot: r2 * 360f);
             }
         }
 

@@ -19,6 +19,8 @@ namespace KatKat.UI
         /// <summary>Hesap özellikleri (sıralama kaydı, "İlerlemeyi kaydet") var mı; AppGallery derlemesinde false.</summary>
         public Func<bool> AccountsEnabled;
         private bool AccountsOn => AccountsEnabled == null || AccountsEnabled();
+        /// <summary>Bulut kaydı ("İlerlemeyi kaydet") var mı; AppGallery'de false (anonim hesap cihaza bağlı).</summary>
+        public Func<bool> CloudSaveEnabled;
         /// <summary>Ayarlar → "Gizlilik seçenekleri" satırı (yalnız UMP gerekli gördüğünde).</summary>
         public Func<bool> PrivacyOptionsVisible;
         public Action PrivacyOptionsPressed;

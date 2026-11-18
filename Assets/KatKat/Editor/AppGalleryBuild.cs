@@ -76,7 +76,46 @@ namespace KatKat.EditorTools
             foreach (var p in GooglePlugins) SetAndroid(p, false);
             SetAndroid(UnityBridgePath, true);
             SetAndroid(BridgePath, HuaweiAdsEnabled); // kapalıyken Huawei kütüphanesi yok → köprü de girmemeli
+            WriteRestConfig();
             AssetDatabase.SaveAssets();
+        }
+
+        /// <summary>Firebase REST yapılandırması (2026-11-18): google-services.json'dan proje kimliği ve bu paketin
+        /// istemci anahtarı. Git'e girmez (.gitignore); her AppGallery derlemesinde yeniden yazılır.</summary>
+        public const string RestConfigPath = "Assets/KatKat/Resources/Online/firebase_rest.json";
+        private const string GoogleServicesPath = "Assets/KatKat/Firebase/google-services.json";
+
+        private static void WriteRestConfig()
+        {
+            string json = BuildRestConfig(File.Exists(GoogleServicesPath) ? File.ReadAllText(GoogleServicesPath) : null,
+                PlayerSettings.GetApplicationIdentifier(NamedBuildTarget.Android));
+            if (json == null) { Debug.LogWarning("[KatKat] AppGallery: Firebase REST yapılandırması üretilemedi; hesap ve sıralama kapalı kalır"); return; }
+            Directory.CreateDirectory(Path.GetDirectoryName(RestConfigPath));
+            File.WriteAllText(RestConfigPath, json);
+            AssetDatabase.ImportAsset(RestConfigPath);
+        }
+
+        /// <summary>google-services.json metninden {apiKey, projectId}; paket bulunamazsa null (saf; testli).</summary>
+        public static string BuildRestConfig(string googleServices, string package)
+        {
+            if (string.IsNullOrEmpty(googleServices)) return null;
+            object root;
+            try { root = KatKat.Levels.MiniJson.Parse(googleServices); } catch { return null; }
+            if (!(root is Dictionary<string, object> d)) return null;
+            string project = (d.TryGetValue("project_info", out var pi) ? pi as Dictionary<string, object> : null) is Dictionary<string, object> p
+                && p.TryGetValue("project_id", out var pid) ? pid as string : null;
+            if (string.IsNullOrEmpty(project) || !(d.TryGetValue("client", out var cl) && cl is List<object> clients)) return null;
+            foreach (var c in clients.OfType<Dictionary<string, object>>())
+            {
+                var info = c.TryGetValue("client_info", out var ci) ? ci as Dictionary<string, object> : null;
+                var android = info != null && info.TryGetValue("android_client_info", out var ai) ? ai as Dictionary<string, object> : null;
+                string pkg = android != null && android.TryGetValue("package_name", out var pn) ? pn as string : null;
+                if (pkg != package || !(c.TryGetValue("api_key", out var ak) && ak is List<object> keys)) continue;
+                foreach (var k in keys.OfType<Dictionary<string, object>>())
+                    if (k.TryGetValue("current_key", out var key) && key is string s && s.Length > 0)
+                        return "{\"apiKey\":" + KatKat.Game.Online.FirestoreRestCodec.Q(s) + ",\"projectId\":" + KatKat.Game.Online.FirestoreRestCodec.Q(project) + "}";
+            }
+            return null;
         }
 
         /// <summary>Derleme sonrası: her şey eski hâline.</summary>

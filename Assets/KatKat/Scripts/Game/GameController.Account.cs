@@ -1,3 +1,4 @@
+using KatKat.Meta;
 using KatKat.Save;
 using KatKat.UI;
 using UnityEngine;
@@ -42,9 +43,61 @@ namespace KatKat.Game
             // Hesabını silen oyuncuda sessiz giriş yapılmaz (yoksa açılışta hesap kendiliğinden yeniden oluşurdu);
             // oyuncu bir hesap düğmesine kendisi basınca yeniden açılır.
             _menu.AccountsEnabled = () => StoreFlavor.AccountsEnabled;
+            _menu.CloudSaveEnabled = () => StoreFlavor.CloudSaveEnabled;
+            _menu.RankNeedsAttention = () => RankSignInWanted;
             if (!Application.isBatchMode && StoreFlavor.AccountsEnabled && !AccountDeletedByPlayer)
-                Account.SignIn(true, ok => { if (ok) CloudCheck(null); });
+                Account.SignIn(true, ok => { if (ok) { CloudCheck(null); RankAutoSubmit(); } });
         }
+
+        // ---- Sıralama kaydı ve kayıt hatırlatması (kullanıcı 2026-11-18) ---------------------------------------------
+        // "Oyuncu dünya sıralamasında diğer kullanıcılara görünmesi için ayarlardan kaydet demesi gerekiyor … Oyuncunun
+        // mutlaka kayıt yaptırması hatırlatılsın." Önceden puan yalnız Sıralama ekranı açılınca yazılıyordu.
+        private const string RemindShownKey = "katkat.rank.remind.shown", RemindNextKey = "katkat.rank.remind.next";
+        private string _rankSubmitted;
+
+        /// <summary>Kayıtsız, hesabını kendisi silmemiş ve sıralamaya girebilecek oyuncu.</summary>
+        private bool RankSignInWanted =>
+            StoreFlavor.AccountsEnabled && Account.State == AccountState.SignedOut && !AccountDeletedByPlayer
+            && RankScore.Eligible(_save.Data.completed.Count);
+
+        /// <summary>Girişliyse puanı Sıralama açılmadan yazar (yalnız değiştiyse).</summary>
+        private void RankAutoSubmit()
+        {
+            if (!(Provider is ILeaderboardWriter w) || Account.State != AccountState.SignedIn) return;
+            var self = SelfEntry();
+            if (self.Score <= 0) return;
+            string key = self.Score + "/" + self.Level + "/" + self.Stars + "/" + self.Zpe;
+            if (key == _rankSubmitted) return;
+            w.Submit(self, ok => { if (ok) _rankSubmitted = key; });
+        }
+
+        /// <summary>Haritaya dönüşte: takvim geldiyse kayıt hatırlatması (bkz. <see cref="RankReminder"/>).</summary>
+        private void MaybeRemindSignIn()
+        {
+            if (Application.isBatchMode && !RemindInBatchForTest) return;
+            if (!RankSignInWanted) return;
+            int completed = _save.Data.completed.Count;
+            int shown = PlayerPrefs.GetInt(RemindShownKey, 0);
+            if (!RankReminder.Due(completed, PlayerPrefs.GetInt(RemindNextKey, RankReminder.First))) return;
+            shown++;
+            PlayerPrefs.SetInt(RemindShownKey, shown);
+            PlayerPrefs.SetInt(RemindNextKey, RankReminder.Next(shown, completed));
+            PlayerPrefs.Save();
+            _menu.ShowRankReminder(SignInForRanking, null);
+        }
+
+        /// <summary>Test: toplu çalıştırmada da hatırlatma denetlensin.</summary>
+        public static bool RemindInBatchForTest;
+
+        /// <summary>Test: hatırlatma takvimini sıfırlar.</summary>
+        public static void ClearRemindForTest()
+        {
+            PlayerPrefs.DeleteKey(RemindShownKey);
+            PlayerPrefs.DeleteKey(RemindNextKey);
+        }
+
+        /// <summary>Test: haritaya dönüşteki hatırlatma denetimi.</summary>
+        public void MaybeRemindSignInForTest() => MaybeRemindSignIn();
 
         // ---- Hesap silme (Apple 5.1.1(v); kullanıcı 2026-11-13) -----------------------------------------------------
         private const string AccountDeletedKey = "katkat.account.deleted";
@@ -108,6 +161,8 @@ namespace KatKat.Game
                 if (!ok) { _menu.ShowToast(SignInFailText); return; }
                 _menu.ShowToast(Loc.F("acct.signed", Account.PlayerName));
                 if (_menu.IsRankShown) ShowRanking(_rankScope);
+                else RankAutoSubmit();
+                _menu.HideRankAttention();
                 CloudCheck(null);
             });
         }
@@ -178,6 +233,7 @@ namespace KatKat.Game
         {
             _cloudDirty = true;
             CloudAutoSave(false);
+            RankAutoSubmit();
         }
 
         /// <summary>Test: sahte hesap hizmeti (bulut kaydı denemesi; gerçek PlayerPrefs'e yazılmasın).</summary>
