@@ -3,6 +3,7 @@
 Son güncelleme: 2026-11-18. Oyunun tam tanımı: [OYUN.md](OYUN.md). Kararlar: [KARARLAR.md](KARARLAR.md).
 
 ## Şu an
+- **2026-11-18: iOS yapı 19 TestFlight'a yüklendi** (kullanıcı: "İos gönder"). Commit `d375673` (yeni efektler, grup kademeleri, arka plan ışıltıları); https://github.com/ofigame/stone-burst/actions/runs/44219159408 başarılı, "TestFlight'a yükle" geçti → yapı 19. TestFlight listesinde ve telefonda doğrulanmadı. Apple uyarısı (yapı 18): Nisan 2027'den itibaren iOS 27 SDK / Xcode 27 gerekli; iş akışı o zamana kadar Xcode 27'li sunucuya geçirilmeli.
 - **2026-11-18: Efektler yenilendi** (kullanıcı: alev "çok bütün duruyor ateşe benzemiyor daha şeffaf ve yaygın olmalı"; "efektleri daha profesyonel yapmanı istiyorum. Patlama efekti, yıldırım, özel patlatma taşlarının efektleri … bu tarz oyunlara uygun olsun").
   - Altyapı: eklemeli gölgelendirici `Resources/Shaders/KatKatAdditive.shader`, `View/FxKit.cs` (ışık topu, yıldız, şok halkası, puf, nokta dokuları; `FxParticles` havuzlu parçacık sistemi, tahta zamanıyla ilerler), `View/BoardView.Fx.cs` (efekt kalıpları).
   - Taş patlaması (her soyulan taş): taş renginde ışık, şok halkası, hız izli kıvılcımlar, yıldızlar (`PeelSequence.Break`).
