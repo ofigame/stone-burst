@@ -24,7 +24,20 @@ namespace KatKat.View
             public float Zoom;          // yakınlaşma genliği (0,02 = %2)
             public int Leaves;          // süzülerek düşen yaprak/taç yaprağı sayısı
             public Color LeafColor;
+            public int Twinkles;        // görseldeki parlak noktalarda (kristal, su, fener, yıldız) ara ara parlayan ışıltılar
         }
+
+        /// <summary>
+        /// Oyundaki hafif hareket (kullanıcı 2026-11-18: "arkaplan görsellerdeki uygun yerlerde ışıltılar olsun hareket katalım çok
+        /// yoğun olmayan"): her temada görselin parlak noktalarında 9 ışıltı ve 10 yavaş ışık tozu; şelaleli iki temada (0 Gizemli
+        /// Şelale, 1 Büyülü Bahçe) akan su parıltısı. Yakınlaşma/kayma ve hüzme yok.
+        /// </summary>
+        public static Profile ForSkin(int skin) => new Profile
+        {
+            Water = skin == 0 || skin == 1, WaterArea = new Rect(0.05f, 0.62f, 0.9f, 0.38f),
+            Motes = 10, MoteColor = new Color(1f, 0.93f, 0.7f), MoteRise = 0.008f,
+            Rays = null, Zoom = 0f, Leaves = 0, Twinkles = 9,
+        };
 
         // Kullanıcı 2026-11-18: "daha fazla hareket lazım" denendi (48 toz, yapraklar, hızlı su ve kayma), sonra "arkaplanın
         // hareketini azaltalım ilk yaptığın gibi olsun" → ilk sürüm: 26 toz, yaprak yok, su 12 kare/sn, %2,2 yakınlaşma 26 sn.
@@ -70,11 +83,108 @@ namespace KatKat.View
             var b = bg.sprite.bounds.size;
             _w = b.x; _h = b.y;
             float ppu = bg.sprite.pixelsPerUnit;
-            if (p.Water && src != null && src.isReadable) BuildWater(src, ppu);
+            Texture2D temp = null;
+            if (src != null && !src.isReadable && (p.Water || p.Twinkles > 0)) src = temp = ReadableCopy(src);
+            if (src != null && src.isReadable)
+            {
+                if (p.Water) BuildWater(src, ppu);
+                if (p.Twinkles > 0) BuildTwinkles(src);
+            }
+            if (temp != null) { if (Application.isPlaying) Destroy(temp); else DestroyImmediate(temp); }
             BuildRays();
             BuildMotes();
             BuildLeaves();
             Tick(Now);
+        }
+
+        /// <summary>Okunamayan (sıkıştırılmış) dokunun GPU üzerinden okunabilir kopyası (tek seferlik, ardından silinir).</summary>
+        private static Texture2D ReadableCopy(Texture2D src)
+        {
+            var rt = RenderTexture.GetTemporary(src.width, src.height, 0, RenderTextureFormat.ARGB32);
+            Graphics.Blit(src, rt);
+            var prev = RenderTexture.active;
+            RenderTexture.active = rt;
+            var t = new Texture2D(src.width, src.height, TextureFormat.RGBA32, false);
+            t.ReadPixels(new Rect(0, 0, src.width, src.height), 0, 0);
+            t.Apply(false, false);
+            RenderTexture.active = prev;
+            RenderTexture.ReleaseTemporary(rt);
+            return t;
+        }
+
+        /// <summary>Hareketi kaldırır (tema hareketsizse ya da azaltılmış hareket açıksa).</summary>
+        public void Detach()
+        {
+            Clear();
+            if (Application.isPlaying) Destroy(this); else DestroyImmediate(this);
+        }
+
+        // ---- Işıltılar: görselin parlak noktaları -------------------------------------------------------------------
+
+        private readonly List<(SpriteRenderer sr, float phase, float period, float size)> _twinkles = new List<(SpriteRenderer, float, float, float)>();
+        private static Sprite _star;
+
+        private void BuildTwinkles(Texture2D src)
+        {
+            int W = src.width, H = src.height, step = Mathf.Max(4, W / 160);
+            var px = src.GetPixels32();
+            var cand = new List<(float score, int x, int y, Color c)>();
+            for (int y = step; y < H - step; y += step)
+            for (int x = step; x < W - step; x += step)
+            {
+                float u = (float)x / W, v = (float)y / H;
+                // Tahta (orta) ve üst panel bölgesi dışında; kenarlara çok yapışmadan.
+                if (u > 0.1f && u < 0.9f && v > 0.16f && v < 0.8f) continue;
+                if (v > 0.9f) continue;
+                Color c = px[y * W + x];
+                Color.RGBToHSV(c, out _, out float s, out float val);
+                float lum = 0.299f * c.r + 0.587f * c.g + 0.114f * c.b;
+                float score = lum + 0.25f * s * val;
+                if (lum < 0.55f) continue;
+                cand.Add((score, x, y, c));
+            }
+            cand.Sort((a, b) => b.score.CompareTo(a.score));
+            var picked = new List<(int x, int y, Color c)>();
+            float minD = W * 0.11f;
+            foreach (var k in cand)
+            {
+                if (picked.Count >= _p.Twinkles) break;
+                bool far = true;
+                foreach (var q in picked) if ((q.x - k.x) * (q.x - k.x) + (q.y - k.y) * (q.y - k.y) < minD * minD) { far = false; break; }
+                if (far) picked.Add((k.x, k.y, k.c));
+            }
+            var star = Star();
+            foreach (var q in picked)
+            {
+                var go = new GameObject("BgMotion_isilti");
+                go.transform.SetParent(transform, false);
+                go.transform.localPosition = new Vector3(((float)q.x / W - 0.5f) * _w, ((float)q.y / H - 0.5f) * _h, 0f);
+                var sr = go.AddComponent<SpriteRenderer>();
+                sr.sprite = star; sr.sortingOrder = SortBase + 1;
+                var col = Color.Lerp(q.c, Color.white, 0.55f); col.a = 0f; sr.color = col;
+                _twinkles.Add((sr, (float)(_rng.NextDouble() * 6.28), 2.6f + 2.4f * (float)_rng.NextDouble(), _w * (0.035f + 0.025f * (float)_rng.NextDouble())));
+            }
+        }
+
+        private static Sprite Star()
+        {
+            if (_star != null) return _star;
+            const int N = 64;
+            var t = new Texture2D(N, N, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp, name = "BgMotion_yildiz" };
+            var p = new Color32[N * N];
+            for (int j = 0; j < N; j++)
+            for (int i = 0; i < N; i++)
+            {
+                float dx = (i + 0.5f) / N * 2f - 1f, dy = (j + 0.5f) / N * 2f - 1f;
+                float r = Mathf.Sqrt(dx * dx + dy * dy);
+                float arms = Mathf.Max(Mathf.Clamp01(1f - Mathf.Abs(dx) / 0.08f) * Mathf.Clamp01(1f - Mathf.Abs(dy)),
+                                       Mathf.Clamp01(1f - Mathf.Abs(dy) / 0.08f) * Mathf.Clamp01(1f - Mathf.Abs(dx)));
+                float glow = Mathf.Pow(Mathf.Clamp01(1f - r / 0.5f), 2f);
+                float a = Mathf.Clamp01(arms * arms + glow * 0.7f + Mathf.Clamp01(1f - r / 0.12f));
+                p[j * N + i] = new Color32(255, 255, 255, (byte)(a * 255));
+            }
+            t.SetPixels32(p); t.Apply(false, true);
+            return _star = Sprite.Create(t, new Rect(0, 0, N, N), new Vector2(0.5f, 0.5f), N);
         }
 
         private void Clear()
@@ -84,7 +194,10 @@ namespace KatKat.View
                 var c = transform.GetChild(i);
                 if (c.name.StartsWith("BgMotion")) { if (Application.isPlaying) Destroy(c.gameObject); else DestroyImmediate(c.gameObject); }
             }
-            _motes.Clear(); _rays.Clear(); _leaves.Clear(); _water = null; _waterFrames = null;
+            if (_waterFrames != null)
+                foreach (var f in _waterFrames)
+                    if (f != null) { var tx = f.texture; if (Application.isPlaying) { Destroy(f); Destroy(tx); } else { DestroyImmediate(f); DestroyImmediate(tx); } }
+            _motes.Clear(); _rays.Clear(); _leaves.Clear(); _twinkles.Clear(); _water = null; _waterFrames = null;
         }
 
         private static float Now => ClockOverride ?? Time.time;
@@ -118,6 +231,16 @@ namespace KatKat.View
                 var c = _p.LeafColor; c.a = 0.95f * Mathf.Clamp01(Mathf.Min(y + 0.05f, 1.05f - y) * 10f);
                 c = Color.Lerp(c, Color.white, flip < 0 ? 0.25f : 0f); // arka yüz açık
                 l.sr.color = c;
+            }
+            foreach (var tw in _twinkles)
+            {
+                // Çoğu zaman sönük; her periyotta kısa bir parlama (sinüsün tepesi, üs 4).
+                float k = Mathf.Max(0f, Mathf.Sin(t * Mathf.PI * 2f / tw.period + tw.phase));
+                k = k * k * k * k;
+                var c = tw.sr.color; c.a = k; tw.sr.color = c;
+                float s = tw.size * (0.35f + 0.65f * k);
+                tw.sr.transform.localScale = new Vector3(s, s, 1f);
+                tw.sr.transform.localEulerAngles = new Vector3(0f, 0f, t * 25f + tw.phase * 20f);
             }
             foreach (var m in _motes)
             {

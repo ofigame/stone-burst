@@ -57,8 +57,29 @@ namespace KatKat.View
             b._halo = new SpriteRenderer[Segments];
             for (int i = 0; i < Segments; i++)
             {
-                b._halo[i] = Part(go.transform, "Halo", new Color(0.78f, 0.62f, 1f, 0.8f), order);
-                b._core[i] = Part(go.transform, "Core", new Color(1f, 1f, 0.92f, 1f), order + 1);
+                b._halo[i] = Part(go.transform, "Halo", new Color(0.72f, 0.55f, 1f, 0.8f), order);
+                b._core[i] = Part(go.transform, "Core", new Color(1f, 1f, 0.95f, 1f), order + 1);
+                // 2026-11-18 ("yıldırım … daha profesyonel"): eklemeli — hale ve çekirdek parlar, üst üste binince yoğunlaşır.
+                FxKit.MakeAdditive(b._halo[i]);
+                FxKit.MakeAdditive(b._core[i]);
+            }
+            // Kaynakta parlama, hedefte (yıldırım varınca) çarpma: ışık, halka, kıvılcımlar.
+            var fx = FxParticles.Active;
+            if (fx != null && !KatKat.UI.Motion.Reduced)
+            {
+                float s = b._thick;
+                var violet = new Color(0.75f, 0.55f, 1f);
+                fx.Emit(FxKit.Glow, true, order + 2, from, Vector3.zero, 0.3f, s * 0.6f, s * 1.3f, new Color(1f, 1f, 1f, 0.8f), new Color(violet.r, violet.g, violet.b, 0f));
+                float hit = GrowMs / 1000f;
+                fx.Emit(FxKit.Glow, true, order + 2, to, Vector3.zero, 0.35f, s * 0.5f, s * 1.4f, new Color(1f, 1f, 1f, 0.9f), new Color(violet.r, violet.g, violet.b, 0f), delay: hit);
+                fx.Emit(FxKit.Ring, true, order + 2, to, Vector3.zero, 0.35f, s * 0.2f, s * 1.2f, new Color(0.9f, 0.8f, 1f, 1f), new Color(violet.r, violet.g, violet.b, 0f), delay: hit);
+                for (int i = 0; i < 6; i++)
+                {
+                    float a = (i + (float)b._rng.NextDouble()) / 6f * Mathf.PI * 2f;
+                    var dir = new Vector3(Mathf.Cos(a), Mathf.Sin(a), 0f);
+                    fx.Emit(FxKit.Dot, true, order + 3, to, dir * s * (3f + 2f * (float)b._rng.NextDouble()), 0.35f, s * 0.14f, s * 0.03f,
+                        Color.white, new Color(violet.r, violet.g, violet.b, 0f), gravity: -s * 3f, drag: 3f, delay: hit, stretch: 0.2f / Mathf.Max(0.01f, s));
+                }
             }
             b.Tick(0f, 0f);
             return b;
@@ -99,8 +120,8 @@ namespace KatKat.View
             {
                 float t0 = (float)i / Segments;
                 bool on = t0 < grow;
-                Place(_core[i], _pts[i], _pts[i + 1], _thick * 0.07f, on, fade);
-                Place(_halo[i], _pts[i], _pts[i + 1], _thick * 0.26f, on, fade * 0.8f * flicker);
+                Place(_core[i], _pts[i], _pts[i + 1], _thick * 0.08f, on, fade);
+                Place(_halo[i], _pts[i], _pts[i + 1], _thick * 0.38f, on, fade * 0.65f * flicker);
             }
         }
 

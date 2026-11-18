@@ -28,8 +28,50 @@ namespace KatKat.EditorTools
             EditorApplication.Exit(code);
         }
 
+        /// <summary>
+        /// Oyunun kendisiyle kısa video (KATKAT_GAMEVIDEO_LEVEL=N): gerçek tema ve arka plan hareketi, her 2 sn'de kayıtlı çözümün
+        /// bir adımı (tepsi ışıltısı grup boyutuna göre). 10 sn, 30 kare/sn → Logs/captures/oyun_video/kare_NNNN.jpg.
+        /// </summary>
+        private static void GameVideo(int level)
+        {
+            Directory.CreateDirectory(Path.Combine(PeelCapture.OutDir, "oyun_video"));
+            int k = 0;
+            GameCapture.FramesPublic("oyun_video/kare", 720, 1560, gc => gc.StartLevel(level - 1), 300, (gc, f) =>
+            {
+                BgMotion.ClockOverride = f / 30f;
+                var bm = gc.transform.Find("Backdrop").GetComponent<BgMotion>();
+                if (bm != null) bm.Tick(f / 30f);
+                // KATKAT_GAMEVIDEO_TIERS=1: çözüm yerine üç kademe ışıltı sırayla (3'lü mor, 5'li mercan, 6+ turkuaz).
+                if (Environment.GetEnvironmentVariable("KATKAT_GAMEVIDEO_TIERS") == "1")
+                {
+                    int tier = f == 20 ? 1 : f == 110 ? 2 : f == 200 ? 3 : 0;
+                    if (tier > 0)
+                    {
+                        var w = new KatKat.Core.PeelWave { Kind = KatKat.Core.WaveKind.Tap };
+                        var col = tier == 1 ? KatKat.Core.LayerColor.Purple : tier == 2 ? KatKat.Core.LayerColor.Coral : KatKat.Core.LayerColor.Blue;
+                        for (int i = 0; i < 3 + tier * 2; i++) w.Cells.Add(new KatKat.Core.CellPeel(0, 0, col, 0, default));
+                        gc.Board.TrayBurst(w, tier);
+                        gc.Board.ShakeBoard(0.012f * tier, 260f);
+                        Debug.Log($"[KatKat] video kademe {tier} kare {f}");
+                    }
+                    gc.Board.Advance(1000f / 30f);
+                    return;
+                }
+                var sol = gc.CurrentLevel.Solution;
+                if (f % 60 == 20 && k < sol.Count && gc.CurrentPhase == GameController.Phase.Idle)
+                {
+                    Debug.Log($"[KatKat] video adım {k} kare {f}");
+                    gc.PlayStep(sol[k++]);
+                }
+                gc.Board.Advance(1000f / 30f);
+            });
+            BgMotion.ClockOverride = null;
+        }
+
         public static void Run()
         {
+            var gv = Environment.GetEnvironmentVariable("KATKAT_GAMEVIDEO_LEVEL");
+            if (!string.IsNullOrEmpty(gv)) { EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single); GameVideo(int.Parse(gv)); return; }
             string outDir = Path.Combine(PeelCapture.OutDir, "arkaplan_deneme");
             Directory.CreateDirectory(outDir);
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);

@@ -219,6 +219,8 @@ namespace KatKat.Game
         public static int? BackgroundOverride;
         /// <summary>Yakalama/test: VR2 temasını (0..5) bölgeden bağımsız seç; null → <see cref="Vr2.SkinFor"/>.</summary>
         public static int? Vr2SkinOverride;
+        /// <summary>Arka plan hareketi (BgMotion) açık mı; yakalama/test için kapatılabilir.</summary>
+        public static bool BgMotionEnabled = true;
         public int BackgroundPick => _bgPick;
 
         public void ShowLevels()
@@ -342,6 +344,10 @@ namespace KatKat.Game
             if (Vr2.Ready) { var vbg = Vr2.Background(vr2); background = (Vr2.BlurBackground ? BlurredBackdrop.For(vbg) : null) ?? vbg ?? background; }
             _backdrop.SetSprite(background ?? PremiumArt.Background(index));
             _backdrop.Fit(_cam);
+            // 2026-11-18: arka plan görselinin parlak noktalarında ara ara ışıltı, yavaş tozlar, şelalede akan su (keskin VR2
+            // dokusunda; azaltılmış harekette yok).
+            bool motionOn = Vr2.Ready && !Vr2.BlurBackground && !KatKat.UI.Motion.Reduced && BgMotionEnabled;
+            _backdrop.SetMotion(motionOn ? background : null, motionOn ? BgMotion.ForSkin(vr2) : (BgMotion.Profile?)null);
             _board.SetTheme(theme);
             _board.SetVr2Skin(vr2);
             _hud.SetTheme(theme);
@@ -650,10 +656,18 @@ namespace KatKat.Game
                     // Dalga başına tek ana ses. v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): dört vuruşlu zincir
                     // WAV'ı artık büyük hamlenin (6+ grup ya da 8+ katmanlık özel taş) övgü dalgasında bir kez çalar;
                     // WAV yoksa övgü seviyesine göre kademeli sentez.
-                    if (!_chainSounded && BigMove.IsMomentWave(r, wave))
+                    // 2026-11-18: tepsinin arkasından patlayan taş renginde ışıltılar — dokunulan grubun boyutuna göre
+                    // (3–4 az, 5 daha çok + ateş kıvılcımı, 6+ en çok + alevler); büyük özel taş hamlesi de 6+ gibi.
+                    bool moment = !_chainSounded && BigMove.IsMomentWave(r, wave);
+                    if (wave.Kind == WaveKind.Tap && wave.Index == 0)
+                    {
+                        int n = r.TappedGroup.Count;
+                        _board.TrayBurst(wave, n >= 6 ? 3 : n >= 5 ? 2 : n >= 3 ? 1 : 0);
+                    }
+                    else if (moment) _board.TrayBurst(wave, 3);
+                    if (moment)
                     {
                         _chainSounded = true;
-                        _board.TrayBurst(wave); // 2026-11-18: tepsinin arkasından patlayan taş renginde ışıltılar
                         if (!_sound.HasChainWav) _sound.Play(Sfx.Chain, BigMove.Level(r) - 1);
                         else _sound.Play(Sfx.Chain);
                     }

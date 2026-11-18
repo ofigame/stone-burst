@@ -213,6 +213,10 @@ namespace KatKat.View
             if (!_rimReleased) { _rimReleased = true; _stack.ReleaseDetachedRim(this); }
             _sheet.End();
             if (_crack != null) { StoneShatter.Give(_crack); _crack = null; }
+            // 2026-11-18 ("efektleri daha profesyonel"): taş renginde parlak patlama, şok halkası, kıvılcımlar, yıldızlar.
+            if (!KatKat.UI.Motion.Reduced)
+                BoardView.StonePop(FxParticles.Active, _stack.transform.TransformPoint(faceLocal), _color,
+                    _stack.Size, _order + 6);
             for (int i = 0; i < ShardCount; i++)
             {
                 var sr = StoneShatter.Take(_fxParent);

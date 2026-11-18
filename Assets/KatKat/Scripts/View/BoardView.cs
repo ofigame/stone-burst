@@ -9,7 +9,7 @@ namespace KatKat.View
     /// Tahtanın görünümü. Kural çalıştırmaz: mantıksal durumdan çizer (Sync) ve kural motorunun ürettiği
     /// olay planını (MoveResult) dalga dalga oynatır. Hücre nesneleri bölüm boyunca yeniden kullanılır.
     /// </summary>
-    public sealed class BoardView : MonoBehaviour
+    public sealed partial class BoardView : MonoBehaviour
     {
         public const float FaceRatio = 0.95f;
         // v5: dalgalar arası nefes uzadı (kullanıcı: animasyonları yavaşlat); domino yine hızlanır.
@@ -1047,6 +1047,7 @@ namespace KatKat.View
                 glow.sprite = SpecialArt.Glow;
                 glow.color = new Color(1f, 0.86f, 0.4f, 0.75f);
                 glow.sortingOrder = sr.sortingOrder - 1;
+                FxKit.MakeAdditive(glow);
                 glow.transform.localScale = Vector3.one * (Mathf.Max(full.x, full.y) * 0.9f / SpecialArt.Glow.bounds.size.x);
             }
             else
@@ -1068,9 +1069,12 @@ namespace KatKat.View
             sr.sprite = SpecialArt.Glow;
             sr.color = color;
             sr.sortingOrder = 10 + _height * 4 + 6;
+            FxKit.MakeAdditive(sr); // 2026-11-18: parlayan ışık
             go.transform.position = s.transform.position + s.TopFaceLocal;
             go.transform.localScale = Vector3.one * (_pitch * sizeCells / sr.sprite.bounds.size.x);
             _fx.Add(new Fx { Kind = FxKind.Burst, T = go.transform, R = sr, Owned = true, BaseScale = go.transform.localScale, Dur = 360f });
+            // Özel taş vuruşu: halka + kıvılcım + yıldız patlaması.
+            if (!KatKat.UI.Motion.Reduced) ImpactBurst(go.transform.position, color, Mathf.Max(0.8f, sizeCells * 0.6f), PeelDirector.PeelSortingOrder + 1100);
         }
 
         /// <summary>Kaynaktan büyüyen ışık halkası (gökkuşağı).</summary>
@@ -1082,9 +1086,27 @@ namespace KatKat.View
             sr.sprite = SpecialArt.Glow;
             sr.color = new Color(1f, 0.97f, 1f, 0.85f);
             sr.sortingOrder = 10 + _height * 4 + 6;
+            FxKit.MakeAdditive(sr);
             go.transform.position = s.transform.position + s.TopFaceLocal;
             go.transform.localScale = Vector3.one * (_pitch * sizeCells / sr.sprite.bounds.size.x);
             _fx.Add(new Fx { Kind = FxKind.Expand, T = go.transform, R = sr, Owned = true, BaseScale = go.transform.localScale, Dur = ms });
+            if (KatKat.UI.Motion.Reduced) return;
+            // 2026-11-18: Altın Rulo dalgası — altın şok halkası, gökkuşağı renkli kıvılcım çemberi.
+            var pos = go.transform.position;
+            float sz = WorldPitch * sizeCells;
+            int order = PeelDirector.PeelSortingOrder + 1100;
+            Particles.Emit(FxKit.Ring, true, order, pos, Vector3.zero, ms / 1000f, sz * 0.1f, sz * 1.1f, new Color(1f, 0.9f, 0.55f, 1f), new Color(1f, 0.6f, 0.9f, 0f));
+            Particles.Emit(FxKit.Ring, true, order, pos, Vector3.zero, ms / 1000f * 1.2f, sz * 0.05f, sz * 0.8f, new Color(1f, 1f, 1f, 0.7f), new Color(0.6f, 0.8f, 1f, 0f), delay: 0.1f);
+            int n = 24;
+            for (int i = 0; i < n; i++)
+            {
+                float a = i / (float)n * Mathf.PI * 2f;
+                var dir = new Vector3(Mathf.Cos(a), Mathf.Sin(a), 0f);
+                var c = Color.HSVToRGB(i / (float)n, 0.55f, 1f);
+                Particles.Emit(FxKit.Star, true, order + 1, pos, dir * sz * R(0.9f, 1.3f), R(0.55f, 0.8f), WorldPitch * 0.5f, WorldPitch * 0.1f,
+                    new Color(c.r, c.g, c.b, 1f), new Color(c.r, c.g, c.b, 0f), drag: 1.5f, rot: R(0f, 45f), rotVel: R(-120f, 120f));
+            }
+            ImpactBurst(pos, new Color(1f, 0.85f, 0.4f), 1.2f, order + 2);
         }
 
         private float _shakeAmp, _shakeDur, _shakeTime;
@@ -1107,9 +1129,14 @@ namespace KatKat.View
         /// patlayan taş renginde ışıltılar olsun"): tepsinin dış kenarı boyunca, tepsinin arkasından (sıra 0; tepsi 2, gölge 1)
         /// dışa fırlayan dört kollu ışıltılar. Renk patlayan taşlardan (her ışıltı dalgadaki rastgele bir taşın rengi).
         /// </summary>
-        public void TrayBurst(PeelWave wave)
+        /// <param name="tier">
+        /// Kullanıcı 2026-11-18: "3 lü grup patlamada da yapalım. 3 lüde daha az olsun. 5 lide biraz daha çok ve arada hafif ateşler.
+        /// 5 üzerinde grup patlamasında ise taş rengi ve alevler çıksın." → 1: 3–4'lü grup (az, küçük, kısa), 2: 5'li (daha çok +
+        /// küçük ateş kıvılcımları), 3: 6+ grup ya da büyük özel taş hamlesi (en çok + tepsinin arkasından yükselen alevler).
+        /// </param>
+        public void TrayBurst(PeelWave wave, int tier = 3)
         {
-            if (wave == null || wave.Cells.Count == 0 || _inShape.Length == 0) return;
+            if (wave == null || wave.Cells.Count == 0 || _inShape.Length == 0 || tier <= 0) return;
             if (KatKat.UI.Motion.Reduced) return;
             // Dış kenar noktaları: şekil hücresinin şekil dışı (ya da tahta dışı) komşusuna bakan kenar ortası + dış normal.
             var edges = new List<(Vector3 p, Vector3 n)>();
@@ -1124,27 +1151,67 @@ namespace KatKat.View
                 if (!InShape(x, y + 1)) edges.Add((c + new Vector3(0f, -_rowPitch * 0.5f, 0f), Vector3.down));
             }
             if (edges.Count == 0) return;
-            var sprite = SparkSprite();
-            int count = Mathf.Clamp(edges.Count * 3, 40, 96);
+            int count = tier == 1 ? Mathf.Clamp(edges.Count, 12, 24) : tier == 2 ? Mathf.Clamp(edges.Count * 2, 28, 56) : Mathf.Clamp(edges.Count * 3, 40, 96);
+            float sizeK = tier == 1 ? 0.65f : tier == 2 ? 0.85f : 1f;
+            float travelK = tier == 1 ? 0.65f : tier == 2 ? 0.85f : 1f;
             float reach = TrayArt.Ready ? TrayArt.Reach * _pitch : 0.2f * _pitch;
+            float wp = WorldPitch;
+            // Parçacıklar eklemeli (parlak), tepsinin arkasında (sıra 0); dünya uzayında.
             for (int i = 0; i < count; i++)
             {
                 var e = edges[(i * 7 + UnityEngine.Random.Range(0, 3)) % edges.Count];
                 var along = new Vector3(-e.n.y, e.n.x, 0f) * UnityEngine.Random.Range(-0.45f, 0.45f) * _pitch;
                 var spread = (e.n + along.normalized * UnityEngine.Random.Range(-0.5f, 0.5f)).normalized;
-                var from = e.p + along + e.n * reach * 0.4f;
-                var to = from + spread * _pitch * UnityEngine.Random.Range(1.1f, 2.4f);
+                var from = transform.TransformPoint(e.p + along + e.n * reach * 0.4f);
+                var vel = transform.TransformDirection(spread) * wp * UnityEngine.Random.Range(2.4f, 4.6f) * travelK;
                 Color col = LayerPalette.FrontColor(wave.Cells[UnityEngine.Random.Range(0, wave.Cells.Count)].Removed);
-                col = Color.Lerp(col, Color.white, 0.25f); col.a = 1f;
-                var go = new GameObject("TraySpark");
-                go.transform.SetParent(transform, false);
-                go.transform.localPosition = from;
-                var sr = go.AddComponent<SpriteRenderer>();
-                sr.sprite = sprite; sr.color = col; sr.sortingOrder = 0;
-                float s = _pitch * UnityEngine.Random.Range(0.9f, 1.5f) / sprite.bounds.size.x;
-                go.transform.localScale = Vector3.one * s;
-                _fx.Add(new Fx { Kind = FxKind.Spark, T = go.transform, R = sr, Owned = true, From = from, To = to, BaseScale = go.transform.localScale, Tint = col, Lead = UnityEngine.Random.Range(0f, 90f), Dur = UnityEngine.Random.Range(700f, 1000f) });
+                col = Color.Lerp(col, Color.white, 0.2f); col.a = 1f;
+                // 5'li: aralarda küçük ateş kıvılcımları (közler, yukarı süzülür).
+                if (tier == 2 && i % 3 == 0) { EmitEmber(from, e.n, 0, UnityEngine.Random.Range(0f, 0.15f)); continue; }
+                float sizeR = UnityEngine.Random.Range(0.9f, 1.5f) * sizeK;
+                EmitTraySpark(from, vel, col, wp * sizeR * 0.8f, UnityEngine.Random.Range(0.65f, 0.95f) * (tier == 1 ? 0.8f : 1f));
             }
+            if (tier >= 3)
+            {
+                // 6+: tepsinin kenarlarından saydam, yaygın ateş (yükselen puflar + közler).
+                int fires = Mathf.Clamp(edges.Count / 2, 10, 22);
+                for (int i = 0; i < fires; i++)
+                {
+                    var e = edges[(i * 11 + UnityEngine.Random.Range(0, 5)) % edges.Count];
+                    var along = new Vector3(-e.n.y, e.n.x, 0f) * UnityEngine.Random.Range(-0.45f, 0.45f) * _pitch;
+                    var pos = transform.TransformPoint(e.p + along + e.n * reach * 0.95f);
+                    EmitFire(pos, e.n, 0, UnityEngine.Random.Range(0f, 0.25f));
+                }
+            }
+        }
+
+        private static Sprite _flame;
+
+        /// <summary>Alev dili: altı yuvarlak, üstü sivri damla; içi sarı-beyaz, dışı turuncu-kırmızı (kendi renkli; ton beyaz).</summary>
+        private static Sprite FlameSprite()
+        {
+            if (_flame != null) return _flame;
+            const int W = 64, H = 128;
+            var t = new Texture2D(W, H, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp, name = "tray_flame" };
+            var p = new Color32[W * H];
+            Color inner = new Color(1f, 0.95f, 0.6f), mid = new Color(1f, 0.62f, 0.12f), outer = new Color(0.95f, 0.25f, 0.05f);
+            for (int j = 0; j < H; j++)
+            for (int i = 0; i < W; i++)
+            {
+                float v = (j + 0.5f) / H;                       // 0 alt, 1 uç
+                float u = (i + 0.5f) / W * 2f - 1f;
+                // Genişlik: altta yuvarlak (v<0,3), yukarı doğru incelen dil.
+                float half = v < 0.3f ? Mathf.Sqrt(Mathf.Max(0f, 1f - Mathf.Pow((0.3f - v) / 0.3f, 2f))) * 0.85f : 0.85f * Mathf.Pow(1f - (v - 0.3f) / 0.7f, 1.4f);
+                float d = half <= 0.001f ? 9f : Mathf.Abs(u) / half;
+                float body = Mathf.Pow(Mathf.Clamp01(1f - d), 1.3f), halo = 0.35f * Mathf.Clamp01(1f - d / 1.8f);
+                float a = Mathf.Clamp01(Mathf.Max(body, halo)) * Mathf.Clamp01((1f - v) * 3f) * 0.9f;
+                float heat = Mathf.Clamp01(1f - d) * Mathf.Clamp01(1f - v * 1.1f);
+                Color c = heat > 0.5f ? Color.Lerp(mid, inner, (heat - 0.5f) * 2f) : Color.Lerp(outer, mid, heat * 2f);
+                c.a = a;
+                p[j * W + i] = c;
+            }
+            t.SetPixels32(p); t.Apply(false, true);
+            return _flame = Sprite.Create(t, new Rect(0, 0, W, H), new Vector2(0.5f, 0.1f), H);
         }
 
         private bool InShape(int x, int y) => x >= 0 && y >= 0 && x < _width && y < _height && _inShape[y * _width + x];
@@ -1420,6 +1487,8 @@ namespace KatKat.View
                         }
                         float m = f.Lead > 0f ? Mathf.Clamp01((f.Time - f.Lead) / Mathf.Max(1f, f.Dur - f.Lead)) : x;
                         f.T.position = Vector3.Lerp(f.From, f.To, m);
+                        // 2026-11-18: roket izi (sıcak ışık pufu + geriye savrulan kıvılcımlar).
+                        if (m > 0f && m < 0.95f && !KatKat.UI.Motion.Reduced) RocketTrail(f.T.position, (f.To - f.From).normalized, f.R.sortingOrder - 1);
                         var col = f.R.color;
                         col.a = m < 0.85f ? 1f : (1f - m) / 0.15f;
                         f.R.color = col;
@@ -1429,6 +1498,17 @@ namespace KatKat.View
                     case FxKind.Bolt:
                         if (f.Bolt != null) f.Bolt.Tick(f.Time, x);
                         break;
+                    case FxKind.Flame:
+                    {
+                        // Alev: yükselir, titrer (genişlik salınımı), uzayıp incelerek söner.
+                        f.T.localPosition = Vector3.LerpUnclamped(f.From, f.To, Ease.OutCubic(x));
+                        float flick = 1f + 0.18f * Mathf.Sin(x * 40f + f.Lead) + 0.08f * Mathf.Sin(x * 73f + f.Lead * 2f);
+                        float grow = Mathf.Clamp01(x / 0.2f);
+                        f.T.localScale = new Vector3(f.BaseScale.x * (0.5f + 0.5f * grow) * flick * (1f - 0.5f * x), f.BaseScale.y * (0.4f + 0.8f * grow) * (1f + 0.3f * x), 1f);
+                        var fc = f.Tint; fc.a = x < 0.45f ? 1f : 1f - (x - 0.45f) / 0.55f;
+                        f.R.color = fc;
+                        break;
+                    }
                     case FxKind.Spark:
                     {
                         // Tepsi arkasından dışa fırlayan ışıltı: hızlı çıkış, yavaşlama; önce büyür, sonra söner ve küçülür.
@@ -1613,6 +1693,7 @@ namespace KatKat.View
         public void Advance(float ms)
         {
             if (_fx.Count > 0) TickFx(ms);
+            Particles.Tick(ms); // parçacıklar (FxKit); erişim Active'i de bu tahtaya ayarlar
             TickBoardShake(ms);
             if (_timeline.Count > 0)
             {
@@ -1661,7 +1742,7 @@ namespace KatKat.View
             public float Start;
         }
 
-        private enum FxKind { Pop, Away, Fly, Streak, Tumble, Spin, Burst, Expand, Travel, Bolt, Spark }
+        private enum FxKind { Pop, Away, Fly, Streak, Tumble, Spin, Burst, Expand, Travel, Bolt, Spark, Flame }
 
         private struct Fx
         {

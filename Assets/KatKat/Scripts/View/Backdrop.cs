@@ -45,6 +45,26 @@ namespace KatKat.View
 
         public bool HasArt => _sr.sprite != null;
 
+        private Sprite _motionFor;
+
+        /// <summary>
+        /// Arka plan hareketi (BgMotion; kullanıcı 2026-11-18): gösterilen doku değişince yeniden kurulur, aynı dokuda korunur.
+        /// null → hareket kaldırılır.
+        /// </summary>
+        public void SetMotion(Sprite shown, BgMotion.Profile? profile)
+        {
+            var m = GetComponent<BgMotion>();
+            if (shown == null || profile == null || _sr.sprite != shown)
+            {
+                if (m != null) m.Detach();
+                _motionFor = null;
+                return;
+            }
+            if (m != null && _motionFor == shown) return;
+            BgMotion.Attach(_sr, shown.texture, profile.Value);
+            _motionFor = shown;
+        }
+
         public void SetSprite(Sprite sprite)
         {
             _sr.sprite = sprite;
