@@ -215,7 +215,7 @@ Aşağısı v7 dönemi (arşiv bilgisi): Bölümler `LevelLab rebuild` (v7) ile 
 - **Ayarlar:** Resimsiz; turkuaz→krem renk geçişi, süzülen kabarcıklar. Krem kartta Ses ve Titreşim anahtarları, Dil (dokuz dil, her biri kendi yazısıyla), kısa not; altta sürüm. Dil değişince ekranlar yeni dille yeniden kurulur.
 - **Yazı tipi:** Nunito ExtraBold (başlık, düğme, sayılar) ve Nunito SemiBold (açıklama), OFL lisanslı. Arapça için Noto Sans Arabic, Japonca/Korece için Noto Sans KR yedek fontları. Hap düğmelerde yazı yüksekliğin ~%32'si, uzun metin sığana dek küçülür.
 - **Maskot:** Kristal maskot; gözleri etrafa bakar, göz kırpar; büyük hamle, özel taş ve yıldızda zıplar; son 1–3 hamlede endişelenir.
-- **Uygulama ikonu (2026-11-17):** Turkuaz zemin, taş platform üstünde gülen maskot + mor (baklava), mercan (daire), turkuaz (üçgen) taşlar (`docs/varliklar/gorseller/arayuz/uygulama-ikonu-v4.png`; 2026-11-18: objeler ~%20 büyütüldü). Android uyarlanabilir ikonda orijinal görsel ortada %68, dışı kenar uzatma. Bildirim büyük simgesi aynı görsel.
+- **Uygulama ikonu (2026-11-17):** Turkuaz zemin, taş platform üstünde gülen maskot + iki mor (baklava) ve mercan (daire) taş (`docs/varliklar/gorseller/arayuz/uygulama-ikonu-v5.png`; 2026-11-18: objeler ~%20 büyütüldü, sağ alttaki turkuaz üçgen mor baklava oldu). Android uyarlanabilir ikonda orijinal görsel ortada %68, dışı kenar uzatma. Bildirim büyük simgesi aynı görsel.
 
 ## 8. Proje yapısı
 
