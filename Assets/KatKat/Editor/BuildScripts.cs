@@ -222,7 +222,7 @@ namespace KatKat.EditorTools
 
         public const string IconPath = "Assets/KatKat/Art/app-icon.png";
 
-        /// <summary>Uygulama ikonu (kullanıcı 2026-11-17: "yeni uygulama iconumuz bu"): docs/varliklar/gorseller/arayuz/uygulama-ikonu-v3.png (maskot + 3 taş, turkuaz zemin; 1024'e küçültüldü).
+        /// <summary>Uygulama ikonu (kullanıcı 2026-11-17: "yeni uygulama iconumuz bu"): docs/varliklar/gorseller/arayuz/uygulama-ikonu-v4.png (v3 ortadan kırpılıp büyütülmüş, 2026-11-18) (maskot + 3 taş, turkuaz zemin; 1024'e küçültüldü).
         /// Önceki ikonlar arşivde: KatKat_Arsiv_2026-11-06/ikon_1.0_2026-11-10 ve ikon_1.0.1_2026-11-17.
         /// Android uyarlanabilir: app-icon-bg = ortada %68 orijinal görsel birebir (ışınlar dahil, kullanıcı: "orjinalini bozma"); dışı görselin kenar pikselleri uzatılıp hafif bulanıklaştırılarak doldurulur. app-icon-fg = saydam.</summary>
         private static Texture2D IconTex(string path)

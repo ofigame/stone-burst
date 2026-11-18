@@ -1102,6 +1102,79 @@ namespace KatKat.View
             _shakeTime = 0f;
         }
 
+        /// <summary>
+        /// Büyük grup patlaması (kullanıcı 2026-11-18: "büyük grup patlama olduğunda tepsinin arkasından her bir tarafından çıkan
+        /// patlayan taş renginde ışıltılar olsun"): tepsinin dış kenarı boyunca, tepsinin arkasından (sıra 0; tepsi 2, gölge 1)
+        /// dışa fırlayan dört kollu ışıltılar. Renk patlayan taşlardan (her ışıltı dalgadaki rastgele bir taşın rengi).
+        /// </summary>
+        public void TrayBurst(PeelWave wave)
+        {
+            if (wave == null || wave.Cells.Count == 0 || _inShape.Length == 0) return;
+            if (KatKat.UI.Motion.Reduced) return;
+            // Dış kenar noktaları: şekil hücresinin şekil dışı (ya da tahta dışı) komşusuna bakan kenar ortası + dış normal.
+            var edges = new List<(Vector3 p, Vector3 n)>();
+            for (int y = 0; y < _height; y++)
+            for (int x = 0; x < _width; x++)
+            {
+                if (!_inShape[y * _width + x]) continue;
+                var c = CellCenter(x, y);
+                if (!InShape(x - 1, y)) edges.Add((c + new Vector3(-_pitch * 0.5f, 0f, 0f), Vector3.left));
+                if (!InShape(x + 1, y)) edges.Add((c + new Vector3(_pitch * 0.5f, 0f, 0f), Vector3.right));
+                if (!InShape(x, y - 1)) edges.Add((c + new Vector3(0f, _rowPitch * 0.5f, 0f), Vector3.up));
+                if (!InShape(x, y + 1)) edges.Add((c + new Vector3(0f, -_rowPitch * 0.5f, 0f), Vector3.down));
+            }
+            if (edges.Count == 0) return;
+            var sprite = SparkSprite();
+            int count = Mathf.Clamp(edges.Count * 3, 40, 96);
+            float reach = TrayArt.Ready ? TrayArt.Reach * _pitch : 0.2f * _pitch;
+            for (int i = 0; i < count; i++)
+            {
+                var e = edges[(i * 7 + UnityEngine.Random.Range(0, 3)) % edges.Count];
+                var along = new Vector3(-e.n.y, e.n.x, 0f) * UnityEngine.Random.Range(-0.45f, 0.45f) * _pitch;
+                var spread = (e.n + along.normalized * UnityEngine.Random.Range(-0.5f, 0.5f)).normalized;
+                var from = e.p + along + e.n * reach * 0.4f;
+                var to = from + spread * _pitch * UnityEngine.Random.Range(1.1f, 2.4f);
+                Color col = LayerPalette.FrontColor(wave.Cells[UnityEngine.Random.Range(0, wave.Cells.Count)].Removed);
+                col = Color.Lerp(col, Color.white, 0.25f); col.a = 1f;
+                var go = new GameObject("TraySpark");
+                go.transform.SetParent(transform, false);
+                go.transform.localPosition = from;
+                var sr = go.AddComponent<SpriteRenderer>();
+                sr.sprite = sprite; sr.color = col; sr.sortingOrder = 0;
+                float s = _pitch * UnityEngine.Random.Range(0.9f, 1.5f) / sprite.bounds.size.x;
+                go.transform.localScale = Vector3.one * s;
+                _fx.Add(new Fx { Kind = FxKind.Spark, T = go.transform, R = sr, Owned = true, From = from, To = to, BaseScale = go.transform.localScale, Tint = col, Lead = UnityEngine.Random.Range(0f, 90f), Dur = UnityEngine.Random.Range(700f, 1000f) });
+            }
+        }
+
+        private bool InShape(int x, int y) => x >= 0 && y >= 0 && x < _width && y < _height && _inShape[y * _width + x];
+
+        private static Sprite _spark;
+
+        /// <summary>Dört kollu ışıltı: ince ışınlar + yumuşak merkez parıltısı (beyaz; renk SpriteRenderer'dan).</summary>
+        private static Sprite SparkSprite()
+        {
+            if (_spark != null) return _spark;
+            const int N = 96;
+            var t = new Texture2D(N, N, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp, name = "tray_spark" };
+            var p = new Color32[N * N];
+            for (int j = 0; j < N; j++)
+            for (int i = 0; i < N; i++)
+            {
+                float dx = (i + 0.5f) / N * 2f - 1f, dy = (j + 0.5f) / N * 2f - 1f;
+                float r = Mathf.Sqrt(dx * dx + dy * dy);
+                float glow = Mathf.Pow(Mathf.Clamp01(1f - r / 0.7f), 1.6f);
+                float arms = Mathf.Max(Mathf.Clamp01(1f - Mathf.Abs(dx) / 0.1f) * Mathf.Clamp01(1f - Mathf.Abs(dy)),
+                                       Mathf.Clamp01(1f - Mathf.Abs(dy) / 0.1f) * Mathf.Clamp01(1f - Mathf.Abs(dx)));
+                float core = Mathf.Clamp01(1f - r / 0.16f);
+                float a = Mathf.Clamp01(Mathf.Max(arms * arms, glow * 0.75f) + core);
+                byte w = (byte)(Mathf.Lerp(0.75f, 1f, Mathf.Clamp01(core + arms)) * 255);
+                p[j * N + i] = new Color32(w, w, w, (byte)(a * 255));
+            }
+            t.SetPixels32(p); t.Apply(false, true);
+            return _spark = Sprite.Create(t, new Rect(0, 0, N, N), new Vector2(0.5f, 0.5f), N);
+        }
+
         private void TickBoardShake(float ms)
         {
             if (!_shaking) return;
@@ -1356,6 +1429,17 @@ namespace KatKat.View
                     case FxKind.Bolt:
                         if (f.Bolt != null) f.Bolt.Tick(f.Time, x);
                         break;
+                    case FxKind.Spark:
+                    {
+                        // Tepsi arkasından dışa fırlayan ışıltı: hızlı çıkış, yavaşlama; önce büyür, sonra söner ve küçülür.
+                        f.T.localPosition = Vector3.LerpUnclamped(f.From, f.To, Ease.OutCubic(x));
+                        float grow = Mathf.Clamp01(x / 0.18f);
+                        f.T.localScale = f.BaseScale * (0.4f + 0.8f * grow) * (1f - 0.55f * x);
+                        f.T.localRotation = Quaternion.Euler(0f, 0f, 120f * x + f.Lead);
+                        var sc = f.Tint; sc.a = f.Tint.a * (x < 0.55f ? 1f : 1f - (x - 0.55f) / 0.45f);
+                        f.R.color = sc;
+                        break;
+                    }
                     case FxKind.Away:
                         f.T.position = Vector3.Lerp(f.From, f.To, Ease.OutCubic(x));
                         f.T.localRotation = Quaternion.Euler(0f, 0f, -40f * x);
@@ -1577,7 +1661,7 @@ namespace KatKat.View
             public float Start;
         }
 
-        private enum FxKind { Pop, Away, Fly, Streak, Tumble, Spin, Burst, Expand, Travel, Bolt }
+        private enum FxKind { Pop, Away, Fly, Streak, Tumble, Spin, Burst, Expand, Travel, Bolt, Spark }
 
         private struct Fx
         {
@@ -1590,6 +1674,8 @@ namespace KatKat.View
             /// <summary>Travel: hareketten önce yerinde büyüme süresi (ms). Bolt: yıldırım nesnesi.</summary>
             public float Lead;
             public LightningBolt Bolt;
+            /// <summary>Spark: ışıltı rengi.</summary>
+            public Color Tint;
         }
     }
 }

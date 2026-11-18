@@ -23,7 +23,8 @@ namespace KatKat.Tests
         [Test]
         public void PaletteMatchesPaletJson()
         {
-            string[] floors = { "3FC9BB", "78C889", "F7AE40", "2B4E62", "D68156", "B7B3DB" };
+            // 2026-11-18 yeni arka planlar: zemin rengi görselin oyun alanı ortalaması (CaptureBgTrial.PaletteFrom).
+            string[] floors = { "245857", "426C42", "DC7B31", "2D276C", "336530", "2F6553" };
             for (int i = 0; i < floors.Length; i++)
                 Assert.AreEqual(floors[i], ColorUtility.ToHtmlStringRGB(Vr2.Skins[i].Floor), Vr2.Skins[i].Name);
         }

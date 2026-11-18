@@ -11,7 +11,7 @@ Son güncelleme: 2026-11-18
 | Klasör | Görsel | Ses | Yazı tipi | 3B model | Boyut |
 |---|---:|---:|---:|---:|---:|
 | Art/(kök) | 7 | 0 | 0 | 0 | 3,4 MB |
-| Resources/Audio | 0 | 11 | 0 | 0 | 6,1 MB |
+| Resources/Audio | 0 | 14 | 0 | 0 | 6,4 MB |
 | Resources/Branding | 1 | 0 | 0 | 0 | 0,2 MB |
 | Resources/Collection | 44 | 0 | 0 | 0 | 12,0 MB |
 | Resources/Models | 18 | 0 | 0 | 9 | 34,5 MB |
@@ -23,15 +23,18 @@ Son güncelleme: 2026-11-18
 | Resources/UI1 | 9 | 0 | 0 | 0 | 4,4 MB |
 | Resources/UI3 | 21 | 0 | 0 | 0 | 9,9 MB |
 | Resources/Vr1 | 3 | 0 | 0 | 0 | 3,6 MB |
-| Resources/VR2 | 6 | 0 | 0 | 0 | 64,9 MB |
-| **Toplam** | 203 | 11 | 5 | 9 | 259,2 MB |
+| Resources/VR2 | 6 | 0 | 0 | 0 | 12,1 MB |
+| **Toplam** | 203 | 14 | 5 | 9 | 206,7 MB |
 
-## Ses (11)
+## Ses (14)
 
 - `Resources/Audio/TriKat/chain-four.wav` (88 KB)
 - `Resources/Audio/TriKat/level-reward.wav` (284 KB)
 - `Resources/Audio/TriKat/menu-loop.wav` (5513 KB)
 - `Resources/Audio/TriKat/peel-pop.wav` (34 KB)
+- `Resources/Audio/V16/combo-blast.wav` (185 KB)
+- `Resources/Audio/V16/stone-pop.wav` (41 KB)
+- `Resources/Audio/V16/stone-tap.wav` (23 KB)
 - `Resources/Audio/Vr1/collection-reveal.wav` (125 KB)
 - `Resources/Audio/Vr1/gate-open.wav` (52 KB)
 - `Resources/Audio/Vr1/ice-crack.wav` (30 KB)
@@ -239,12 +242,12 @@ Son güncelleme: 2026-11-18
 - `Resources/Vr1/ice-rim.png` (939 KB)
 - `Resources/Vr1/nav-daily.png` (1367 KB)
 - `Resources/Vr1/nav-map.png` (1418 KB)
-- `Resources/VR2/bg/01-mavi-liman.png` (12217 KB)
-- `Resources/VR2/bg/02-yesil-vadi.png` (11844 KB)
-- `Resources/VR2/bg/03-kum-vadisi.png` (11737 KB)
-- `Resources/VR2/bg/04-fener-koyu.png` (9802 KB)
-- `Resources/VR2/bg/05-vaha-yolu.png` (10741 KB)
-- `Resources/VR2/bg/06-inci-sahili.png` (10145 KB)
+- `Resources/VR2/bg/01-mavi-liman.png` (2087 KB)
+- `Resources/VR2/bg/02-yesil-vadi.png` (2216 KB)
+- `Resources/VR2/bg/03-kum-vadisi.png` (2157 KB)
+- `Resources/VR2/bg/04-fener-koyu.png` (1814 KB)
+- `Resources/VR2/bg/05-vaha-yolu.png` (2057 KB)
+- `Resources/VR2/bg/06-inci-sahili.png` (2064 KB)
 
 ## Yazı Tipi (5)
 

@@ -226,18 +226,21 @@ namespace KatKat.UI
         private void BuildVr2Panel()
         {
             // Güvenli alanın üstünde kalan şerit (çentik/durum çubuğu): panelin üst rengiyle düz devam.
-            var cap = UiFactory.Image("Vr2PanelCap", _safe, null, Vr2.Hex(0xFFF3DE));
+            var capCol = (Color)Vr2.Hex(0xFFF3DE); capCol.a = Vr2.PanelAlpha;
+            var cap = UiFactory.Image("Vr2PanelCap", _safe, null, capCol);
             cap.raycastTarget = false;
             var cr = cap.rectTransform;
             cr.anchorMin = new Vector2(0f, 1f); cr.anchorMax = new Vector2(1f, 1f); cr.pivot = new Vector2(0.5f, 0f);
-            cr.offsetMin = new Vector2(-600f, 0f); cr.offsetMax = new Vector2(600f, 1200f);
-            var panel = UiFactory.Image("Vr2Panel", _safe, Vr2.PanelSprite(), Color.white);
+            cr.offsetMin = new Vector2(0f, 0f); cr.offsetMax = new Vector2(0f, 1200f); // 2026-11-18: yuvarlak alt köşeler görünsün diye panel ekran genişliğinde (önce ±600 taşma)
+            var panel = UiFactory.Image("Vr2Panel", _safe, Vr2.PanelSprite(), new Color(1f, 1f, 1f, Vr2.PanelAlpha));
+            panel.type = UnityEngine.UI.Image.Type.Sliced;
             panel.raycastTarget = false;
             _vr2Panel = panel.rectTransform;
             _vr2Panel.anchorMin = new Vector2(0f, 1f); _vr2Panel.anchorMax = new Vector2(1f, 1f); _vr2Panel.pivot = new Vector2(0.5f, 1f);
             // Kullanıcı 2026-11-14: "üst alanın alt kısmında dış gölge olmalı ki üst bir katman hissi versin" → belgedeki
             // 4–8 px yerine belirgin gölge (28 birim, %55; dışa doğru sönümlü).
-            var shade = UiFactory.Image("Vr2PanelShade", _safe, Vr2.PanelShadeSprite(), new Color(1f, 1f, 1f, 0.55f));
+            var shade = UiFactory.Image("Vr2PanelShade", _safe, Vr2.PanelShadeSprite(), new Color(1f, 1f, 1f, 0.55f * Vr2.PanelAlpha));
+            shade.type = UnityEngine.UI.Image.Type.Sliced;
             shade.raycastTarget = false;
             _vr2Shade = shade.rectTransform;
             _vr2Shade.anchorMin = new Vector2(0f, 1f); _vr2Shade.anchorMax = new Vector2(1f, 1f); _vr2Shade.pivot = new Vector2(0.5f, 1f);
@@ -248,8 +251,8 @@ namespace KatKat.UI
         {
             if (_vr2Panel == null) return;
             float bottom = Vr2PanelH + _headShift;
-            _vr2Panel.offsetMin = new Vector2(-600f, -bottom); _vr2Panel.offsetMax = new Vector2(600f, 0f);
-            _vr2Shade.offsetMin = new Vector2(-600f, -bottom - Vr2ShadeH); _vr2Shade.offsetMax = new Vector2(600f, -bottom);
+            _vr2Panel.offsetMin = new Vector2(0f, -bottom); _vr2Panel.offsetMax = new Vector2(0f, 0f);
+            _vr2Shade.offsetMin = new Vector2(0f, -bottom - Vr2.PanelShadeH); _vr2Shade.offsetMax = new Vector2(0f, -bottom + Vr2.PanelCorner);
         }
 
         /// <summary>VR2 teması (0..5, <see cref="Vr2.SkinFor"/>): hedef yuvasının kenar rengi paletten.</summary>

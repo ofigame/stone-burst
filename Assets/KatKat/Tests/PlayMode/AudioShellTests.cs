@@ -100,14 +100,24 @@ namespace KatKat.Tests
             Assert.IsTrue(_gc.Music.IsPlaying, "açılınca menüde sürer");
         }
 
+        /// <summary>V16 sesleri (kullanıcı 2026-11-18: "bu sesleri kullanalım"): dosyalar yüklenir, dokunma yeni klibi çalar.</summary>
+        [Test]
+        public void V16Sounds_LoadAndMapToEvents()
+        {
+            foreach (var n in new[] { "stone-tap", "stone-pop", "combo-blast" })
+                Assert.IsNotNull(Resources.Load<AudioClip>("Audio/V16/" + n), n);
+            _gc.Sound.Play(Sfx.Tap);
+            Assert.AreEqual("stone-tap", _gc.Sound.LastClip);
+        }
+
         [Test]
         public void PeelUsesPop_ChainWavOncePerMove()
         {
             int c0 = _gc.Sound.PlayCount;
             _gc.Sound.Play(Sfx.Peel);
-            Assert.AreEqual("peel-pop", _gc.Sound.LastClip);
+            Assert.AreEqual("stone-pop", _gc.Sound.LastClip);
             _gc.Sound.Play(Sfx.Chain, 3);
-            Assert.AreEqual("chain-four", _gc.Sound.LastClip);
+            Assert.AreEqual("combo-blast", _gc.Sound.LastClip);
             _gc.Sound.PlayReward();
             Assert.AreEqual("level-reward", _gc.Sound.LastClip);
             Assert.AreEqual(c0 + 3, _gc.Sound.PlayCount);
@@ -134,7 +144,7 @@ namespace KatKat.Tests
             {
                 int chainBefore = chainPlays;
                 // Bitiş kutlamasının roketleri sayılmaz (oyuncu hamlesi değil).
-                _gc.Sound.OnPlayed = n => { if (n == "chain-four" && !_gc.IsCelebrating) chainPlays++; if (n == "level-reward") rewardPlays++; };
+                _gc.Sound.OnPlayed = n => { if (n == "combo-blast" && !_gc.IsCelebrating) chainPlays++; if (n == "level-reward") rewardPlays++; };
                 _gc.PlayStep(step);
                 float limit = Time.realtimeSinceStartup + 20f;
                 while (_gc.CurrentPhase == GameController.Phase.Animating && Time.realtimeSinceStartup < limit) yield return null;

@@ -14,7 +14,7 @@ namespace KatKat.UI
         public static bool Enabled = true;
 
         /// <summary>Tam ekran doku bulanık mı (kullanıcı 2026-11-15: "arkaplan blurlu olsun").</summary>
-        public static bool BlurBackground = true;
+        public static bool BlurBackground = false; // 2026-11-18 yeni arka planlar: keskin ("bulanıklığı kaldır öyle göreyim" → "aktaralım")
 
         public readonly struct Skin
         {
@@ -27,12 +27,15 @@ namespace KatKat.UI
         /// <summary>palet.json sırası (01–06).</summary>
         public static readonly Skin[] Skins =
         {
-            new Skin("01-mavi-liman", "Mavi Liman", 0x70DFDB, 0x259D9F, 0x135C62, 0x3FC9BB),
-            new Skin("02-yesil-vadi", "Yeşil Vadi", 0xB1D396, 0x638C59, 0x344F3A, 0x78C889),
-            new Skin("03-kum-vadisi", "Kum Vadisi", 0xF8D691, 0xC58C43, 0x805525, 0xF7AE40),
-            new Skin("04-fener-koyu", "Fener Koyu", 0x83ACC9, 0x3E6583, 0x1F3549, 0x2B4E62),
-            new Skin("05-vaha-yolu", "Vaha Yolu", 0xF0B19A, 0xAE6549, 0x733B2A, 0xD68156),
-            new Skin("06-inci-sahili", "İnci Sahili", 0xD8DAF3, 0x979ABF, 0x555977, 0xB7B3DB),
+            // Kullanıcı 2026-11-18: docs/yeni_v1/arkaplan "bu arkaplanları dener misin … tepsinin renkleri yine arkaplana göre" →
+            // "aktaralım". Dosya adları (kimlik) aynı kaldı, görseller yeni; palet görselin oyun alanı ortalamasından
+            // (CaptureBgTrial.PaletteFrom). Eski görseller arşivde (arkaplan_vr2_eski_2026-11-18).
+            new Skin("01-mavi-liman", "Gizemli Şelale", 0x7CBFBF, 0x1D6161, 0x102E2E, 0x245857),
+            new Skin("02-yesil-vadi", "Büyülü Bahçe", 0x98C597, 0x3A6C3A, 0x1F361F, 0x426C42),
+            new Skin("03-kum-vadisi", "Çöl Harabeleri", 0xF2B281, 0x9E5218, 0x522A0C, 0xDC7B31),
+            new Skin("04-fener-koyu", "Kozmik Harabeler", 0x8079C5, 0x21196C, 0x131036, 0x2D276C),
+            new Skin("05-vaha-yolu", "Yeşil Vaha", 0x87BF83, 0x296525, 0x173215, 0x336530),
+            new Skin("06-inci-sahili", "Mistik Orman", 0x82BFAA, 0x24654F, 0x153329, 0x2F6553),
         };
 
         /// <summary>Tahta iç gölgesi. frame.mjs: #101C27, opaklık .76, kalınlık .30, σ .085, aşağı .10 (hücre). Kullanıcı 2026-11-14:
@@ -96,8 +99,15 @@ namespace KatKat.UI
         }
 
         /// <summary>Temanın tam ekran dokusu. Yalnız etkin tema bellekte tutulur: başka tema istenince önceki boşaltılır.</summary>
+        /// <summary>Krem üst panelin opaklığı (kullanıcı 2026-11-18: "üst kısmın opaklığını azaltalım arkaplan görünsün" → 0,5; "çok saydam olmuş" → 0,78; önce 1).</summary>
+        public const float PanelAlpha = 0.78f;
+
+        /// <summary>Yalnız editör denemesi (CaptureBgTrial): doluysa bütün temalarda bu doku kullanılır.</summary>
+        public static Sprite PreviewBackground;
+
         public static Sprite Background(int skin)
         {
+            if (PreviewBackground != null) return PreviewBackground;
             skin = Mathf.Clamp(skin, 0, Skins.Length - 1);
             for (int i = 0; i < Skins.Length; i++) KatKat.View.ResourceUsage.Note("VR2/bg/" + Skins[i].Id);
             if (_bg != null && _bgSkin == skin) return _bg;
@@ -113,11 +123,24 @@ namespace KatKat.UI
 
         private static Sprite _panel, _panelShade;
 
-        /// <summary>ust-panel.svg: krem dikey gradyan (#FFF3DE → .48 #FCE9CB → #F5DDB9), çizgisiz, köşesiz.</summary>
+        /// <summary>Panelin alt köşe yarıçapı (UI birimi; kullanıcı 2026-11-18: üst panelin alt uç köşeleri "yuvarlak yapalım").</summary>
+        public const int PanelCorner = 40;
+        /// <summary>Panel altı gölgesinin yüksekliği (UI birimi).</summary>
+        public const int PanelShadeH = 28;
+
+        /// <summary>Yuvarlak köşe kenarında 1 px yumuşak geçiş: (cx, cy) merkezli R yarıçaplı çeyrek dairenin dışında 0.</summary>
+        private static float CornerCover(float x, float y, float cx, float cy, float r)
+        {
+            float dx = x - cx, dy = y - cy;
+            return Mathf.Clamp01(r - Mathf.Sqrt(dx * dx + dy * dy) + 0.5f);
+        }
+
+        /// <summary>ust-panel.svg: krem dikey gradyan (#FFF3DE → .48 #FCE9CB → #F5DDB9), çizgisiz. Alt köşeler
+        /// <see cref="PanelCorner"/> yarıçaplı yuvarlak; 9 dilim (sol/sağ/alt kenar = yarıçap), gövde yatay ve dikey esner.</summary>
         public static Sprite PanelSprite()
         {
             if (_panel != null) return _panel;
-            const int w = 4, h = 320;
+            const int R = PanelCorner, w = 2 * R + 4, h = 320;
             var tex = NewTex("vr2_panel", w, h);
             var px = new Color32[w * h];
             Color a = Hex(0xFFF3DE), b = Hex(0xFCE9CB), c = Hex(0xF5DDB9);
@@ -125,29 +148,44 @@ namespace KatKat.UI
             {
                 float t = 1f - (j + 0.5f) / h; // 0 üst
                 Color col = t < 0.48f ? Color.Lerp(a, b, t / 0.48f) : Color.Lerp(b, c, (t - 0.48f) / 0.52f);
-                for (int i = 0; i < w; i++) px[j * w + i] = col;
+                for (int i = 0; i < w; i++)
+                {
+                    float x = i + 0.5f, y = j + 0.5f, cov = 1f;
+                    if (y < R && x < R) cov = CornerCover(x, y, R, R, R);
+                    else if (y < R && x > w - R) cov = CornerCover(x, y, w - R, R, R);
+                    var k = col; k.a = cov;
+                    px[j * w + i] = k;
+                }
             }
             tex.SetPixels32(px);
             tex.Apply(false, true);
-            return _panel = Sprite.Create(tex, new Rect(0, 0, w, h), new Vector2(0.5f, 1f), 100f);
+            return _panel = Sprite.Create(tex, new Rect(0, 0, w, h), new Vector2(0.5f, 1f), 100f, 0, SpriteMeshType.FullRect, new Vector4(R + 1, R + 1, R + 1, 0));
         }
 
-        /// <summary>Panelin altındaki dış gölge (üst katman hissi; kullanıcı 2026-11-14): üstte koyu, aşağı sönen dikey şerit.</summary>
+        /// <summary>Panelin altındaki dış gölge (üst katman hissi; kullanıcı 2026-11-14): panel biçiminin (yuvarlak alt köşeler)
+        /// dışında, kenara uzaklıkla sönen koyu bant. Panelin alt <see cref="PanelCorner"/> birimiyle örtüşecek biçimde yerleşir;
+        /// 9 dilim (sol/sağ = yarıçap).</summary>
         public static Sprite PanelShadeSprite()
         {
             if (_panelShade != null) return _panelShade;
-            const int w = 4, h = 32;
+            const int R = PanelCorner, S = PanelShadeH, w = 2 * R + 4, h = R + S;
             var tex = NewTex("vr2_panel_shade", w, h);
             var px = new Color32[w * h];
             for (int j = 0; j < h; j++)
+            for (int i = 0; i < w; i++)
             {
-                float t = 1f - (j + 0.5f) / h; // 0 üst
-                float a = Mathf.Pow(1f - t, 1.5f);
-                for (int i = 0; i < w; i++) px[j * w + i] = new Color(0.07f, 0.09f, 0.11f, a);
+                float x = i + 0.5f, y = j + 0.5f;
+                // Panel biçimine uzaklık: alt kenar y = S; köşelerde (R, S+R) ve (w−R, S+R) merkezli R yarıçaplı daire.
+                float d;
+                if (x < R && y < S + R) d = Mathf.Sqrt((x - R) * (x - R) + (y - S - R) * (y - S - R)) - R;
+                else if (x > w - R && y < S + R) d = Mathf.Sqrt((x - w + R) * (x - w + R) + (y - S - R) * (y - S - R)) - R;
+                else d = S - y;
+                float a = d <= 0f ? 0f : Mathf.Pow(Mathf.Clamp01(1f - d / S), 1.5f) * Mathf.Clamp01(d * 2f);
+                px[j * w + i] = new Color(0.07f, 0.09f, 0.11f, a);
             }
             tex.SetPixels32(px);
             tex.Apply(false, true);
-            return _panelShade = Sprite.Create(tex, new Rect(0, 0, w, h), new Vector2(0.5f, 1f), 100f);
+            return _panelShade = Sprite.Create(tex, new Rect(0, 0, w, h), new Vector2(0.5f, 1f), 100f, 0, SpriteMeshType.FullRect, new Vector4(R + 1, 0, R + 1, 0));
         }
 
         // ---- Hedef yuvası --------------------------------------------------------------------------------------------

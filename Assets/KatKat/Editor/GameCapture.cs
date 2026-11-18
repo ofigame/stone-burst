@@ -702,7 +702,11 @@ namespace KatKat.EditorTools
         public static void ShotPublic(string file, int w, int h, Action<GameController> act) => Shot(file, w, h, null, act);
         public static void ShotPublic(string file, int w, int h, Rect? safe, Action<GameController> act) => Shot(file, w, h, safe, act);
 
-        private static void Shot(string file, int w, int h, Rect? safe, Action<GameController> act)
+        /// <summary>Kare dizisi (arka plan hareketi videosu): her karede <paramref name="step"/> çağrılır, kare file_NNNN.jpg.</summary>
+        public static void FramesPublic(string filePrefix, int w, int h, Action<GameController> act, int frames, Action<GameController, int> step)
+            => Shot(filePrefix, w, h, null, act, frames, step);
+
+        private static void Shot(string file, int w, int h, Rect? safe, Action<GameController> act, int frames = 0, Action<GameController, int> step = null)
         {
             SafeAreaFitter.NormalizedOverride = safe ?? new Rect(0f, 0f, 1f, 1f);
             UiAspect.Override = (float)w / h; // iPad: tuval yüksekliğe eşlenir, güvenli alan ortada sütun
@@ -732,14 +736,19 @@ namespace KatKat.EditorTools
             Canvas.ForceUpdateCanvases();
             Debug.Log($"[KatKat] {file}: faz={gc.CurrentPhase} durum={gc.Session?.State.Status} mantık katman={gc.Session?.State.Board.TotalLayers()}");
             OverflowCheck(file, root);
-            cam.Render();
-            var prev = RenderTexture.active;
-            RenderTexture.active = rt;
             var tex = new Texture2D(w, h, TextureFormat.RGB24, false);
-            tex.ReadPixels(new Rect(0, 0, w, h), 0, 0);
-            tex.Apply();
-            RenderTexture.active = prev;
-            File.WriteAllBytes(Path.Combine(PeelCapture.OutDir, file), tex.EncodeToPNG());
+            for (int f = 0; f < Math.Max(1, frames); f++)
+            {
+                if (frames > 0) step?.Invoke(gc, f);
+                cam.Render();
+                var prev = RenderTexture.active;
+                RenderTexture.active = rt;
+                tex.ReadPixels(new Rect(0, 0, w, h), 0, 0);
+                tex.Apply();
+                RenderTexture.active = prev;
+                if (frames > 0) File.WriteAllBytes(Path.Combine(PeelCapture.OutDir, $"{file}_{f:0000}.jpg"), tex.EncodeToJPG(92));
+                else File.WriteAllBytes(Path.Combine(PeelCapture.OutDir, file), tex.EncodeToPNG());
+            }
 
             UnityEngine.Object.DestroyImmediate(tex);
             cam.targetTexture = null;

@@ -28,7 +28,11 @@ namespace KatKat.Game
         }
 
         // v10 WAV efektleri (docs/v10/TriKat-Mavi-Liman-Ust-Parcalar/ses → Resources/Audio/TriKat). Yüklenemezse sentez.
-        private AudioClip _pop, _chain4, _reward;
+        private AudioClip _tap, _pop, _chain4, _reward;
+
+        /// <summary>V16 dosyaları eskilerden ~11 dB yüksek (tepe −2,4…−3,9 dB; v10 −15…−16 dB): eski miks düzeyine yakın kazanç.
+        /// Cihazda dinlenip ayarlanacak.</summary>
+        public const float TapGain = 0.45f, PopGain = 0.4f, BlastGain = 0.5f;
 
         /// <summary>Dört vuruşlu zincir WAV'ı yüklü mü (yüklüyse hamle başına bir kez çalınır).</summary>
         public bool HasChainWav => _chain4 != null;
@@ -74,11 +78,16 @@ namespace KatKat.Game
                     return (Sine(t, f) * 0.6f + Sine(t, f * 2.01f) * 0.18f) * Decay(t < 0.09f ? t : t - 0.09f, 8f) * Attack(t, 0.003f) * 0.26f;
                 }),
             };
-            b._pop = Resources.Load<AudioClip>("Audio/TriKat/peel-pop");
-            b._chain4 = Resources.Load<AudioClip>("Audio/TriKat/chain-four");
+            // V16 (kullanıcı 2026-11-18: docs/yeni_v1/sesler "bu sesleri kullanalım"): dokunma, taş patlaması, büyük hamle.
+            // Yoksa v10 WAV / sentez.
+            b._tap = Resources.Load<AudioClip>("Audio/V16/stone-tap");
+            b._pop = Resources.Load<AudioClip>("Audio/V16/stone-pop");
+            if (b._pop == null) b._pop = Resources.Load<AudioClip>("Audio/TriKat/peel-pop");
+            b._chain4 = Resources.Load<AudioClip>("Audio/V16/combo-blast");
+            if (b._chain4 == null) b._chain4 = Resources.Load<AudioClip>("Audio/TriKat/chain-four");
             b._reward = Resources.Load<AudioClip>("Audio/TriKat/level-reward");
             // Kısa efektler önceden belleğe alınır (ilk çalmada gecikme olmasın).
-            foreach (var c in new[] { b._pop, b._chain4, b._reward }) if (c != null && c.loadState == AudioDataLoadState.Unloaded) c.LoadAudioData();
+            foreach (var c in new[] { b._tap, b._pop, b._chain4, b._reward }) if (c != null && c.loadState == AudioDataLoadState.Unloaded) c.LoadAudioData();
             return b;
         }
 
@@ -158,8 +167,9 @@ namespace KatKat.Game
         {
             if (!Enabled) return;
             // v10 WAV'lar: soyulma pop'u ve dört vuruşlu zincir (perde yükseltmesi uygulanmaz).
-            if (sfx == Sfx.Peel && _pop != null) { PlayClip(_pop, 1f, volume); return; }
-            if (sfx == Sfx.Chain && _chain4 != null) { PlayClip(_chain4, 1f, volume); return; }
+            if (sfx == Sfx.Tap && _tap != null) { PlayClip(_tap, 1f, volume * TapGain); return; }
+            if (sfx == Sfx.Peel && _pop != null) { PlayClip(_pop, 1f, volume * (_pop.name == "stone-pop" ? PopGain : 1f)); return; }
+            if (sfx == Sfx.Chain && _chain4 != null) { PlayClip(_chain4, 1f, volume * (_chain4.name == "combo-blast" ? BlastGain : 1f)); return; }
             float pitch = Mathf.Min(1.35f, 1f + 0.07f * pitchStep);
             CaptureTap?.Invoke(_clips[(int)sfx], pitch, Mathf.Clamp01(volume));
             var src = _sources[_next];

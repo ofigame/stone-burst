@@ -653,6 +653,7 @@ namespace KatKat.Game
                     if (!_chainSounded && BigMove.IsMomentWave(r, wave))
                     {
                         _chainSounded = true;
+                        _board.TrayBurst(wave); // 2026-11-18: tepsinin arkasından patlayan taş renginde ışıltılar
                         if (!_sound.HasChainWav) _sound.Play(Sfx.Chain, BigMove.Level(r) - 1);
                         else _sound.Play(Sfx.Chain);
                     }
