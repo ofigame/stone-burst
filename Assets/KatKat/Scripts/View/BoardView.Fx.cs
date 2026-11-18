@@ -122,6 +122,33 @@ namespace KatKat.View
                 gravity: s * 0.6f, drag: 1.2f, delay: delay, stretch: 0.08f / Mathf.Max(0.01f, s));
         }
 
+        /// <summary>
+        /// Sarmaşık vuruşu (2026-11-18): yapraklar dışa savrulur, dönerek ve sallanarak düşer, söner; birkaç yeşil
+        /// toz zerresi. <paramref name="size"/> taş yüzü (dünya).
+        /// </summary>
+        private void LeafBurst(Vector3 pos, float size, int count, int order)
+        {
+            if (KatKat.UI.Motion.Reduced) return;
+            var leaf = SpecialArt.VineLeaf;
+            if (leaf == null) return;
+            var fx = Particles;
+            for (int i = 0; i < count; i++)
+            {
+                float a = (i + R(-0.4f, 0.4f)) / count * Mathf.PI * 2f;
+                var dir = new Vector3(Mathf.Cos(a), Mathf.Sin(a) * 0.7f + 0.35f, 0f);
+                float s = size * R(0.18f, 0.28f);
+                var tint = Color.Lerp(Color.white, new Color(0.8f, 1f, 0.6f), R(0f, 0.5f));
+                fx.Emit(leaf, false, order, pos + dir * size * 0.15f, dir * size * R(1.6f, 2.8f), R(0.9f, 1.3f), s, s * 0.85f,
+                    tint, new Color(tint.r, tint.g, tint.b, 0f), gravity: -size * 3.2f, drag: 2.4f, rot: R(0f, 360f), rotVel: R(-260f, 260f));
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                var d = new Vector3(R(-1f, 1f), R(-0.2f, 1f), 0f);
+                fx.Emit(FxKit.Dot, true, order + 1, pos, d * size * R(1.5f, 2.5f), R(0.35f, 0.55f), size * 0.07f, size * 0.02f,
+                    new Color(0.75f, 1f, 0.5f, 0.9f), new Color(0.3f, 0.8f, 0.2f, 0f), gravity: -size * 2f, drag: 2f);
+            }
+        }
+
         /// <summary>Tepsi ışıltısı (tepsinin arkasından dışa): eklemeli yıldız + yumuşak hale, hız izli.</summary>
         private void EmitTraySpark(Vector3 pos, Vector3 vel, Color col, float size, float life)
         {

@@ -10,7 +10,7 @@ namespace KatKat.View
         public const float IceWidth = 1.02f;
         public const float ClipWidth = 0.8f; // önizleme rozeti (2026-11-16: Tripo altın ataç, ortada)
         /// <summary>Tahtada ataç genişliği (Size oranı); 2026-11-16 kullanıcı: "daha büyük ve taşların tam ortasında" → 1,4; 2026-11-17 "ataç ve yıldız, taşları taşıyor biraz küçükletelim" → 1,05.</summary>
-        public const float ClipBoardWidth = 1.05f;
+        public const float ClipBoardWidth = 1.12f; // 2026-11-18 sarmaşık: görselin kenar boşluğu var
         public const float RibbonWidth = 0.98f;
         public const float LockWidth = 0.30f;
         public const float EnvelopeWidth = 0.99f;
@@ -38,8 +38,8 @@ namespace KatKat.View
         private static readonly Dictionary<string, string> V6Override = new Dictionary<string, string>
         {
             { "mechanics/envelope-closed", "envelope" },
-            { "mechanics/clip-closed", "clip" },
-            { "mechanics/clip-open", "clip" },
+            { "mechanics/clip-closed", "tripo/vine-thick" }, // 2026-11-18: ataş → sarmaşık
+            { "mechanics/clip-open", "tripo/vine-thin" },
         };
 
         /// <summary>v6 zarfında mühür yüzün ortasında (v4'te biraz aşağıdaydı); renk mührü buraya oturur.</summary>

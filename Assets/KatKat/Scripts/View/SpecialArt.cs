@@ -92,11 +92,27 @@ namespace KatKat.View
 
         public static Sprite Clip(bool open)
         {
+            // 2026-11-18 (kullanıcı: "Ataç olmasın ataç kötü duruyor" → "Sarmaşık"): ataş görseli sarmaşık oldu; kural aynı.
+            var vine = Vine(open ? 1 : 2);
+            if (vine != null) return vine;
             // v6 tek ataş görseli var; açık hâl aynı görselle (BoardView açılışı hareketle anlatır).
             if (open)
                 return _clipOpen ? _clipOpen : (_clipOpen = V6("tripo/clip-open") ?? V6("clip") ?? Make("clip_open", (x, y) => ClipPixel(x, y, true)));
             return _clipClosed ? _clipClosed : (_clipClosed = V6("tripo/clip-closed") ?? V6("clip") ?? Make("clip_closed", (x, y) => ClipPixel(x, y, false)));
         }
+
+        private static Sprite _vineThick, _vineThin, _vineLeaf, _vineFlower;
+
+        /// <summary>Sarmaşık (Editor/VineArt.cs): 2+ vuruş kalın (iki dal), 1 vuruş ince (tek dal).</summary>
+        public static Sprite Vine(int hits) => hits >= 2
+            ? (_vineThick ? _vineThick : (_vineThick = V6("tripo/vine-thick")))
+            : (_vineThin ? _vineThin : (_vineThin = V6("tripo/vine-thin")));
+
+        /// <summary>Vuruşta saçılan yaprak (parçacık).</summary>
+        public static Sprite VineLeaf => _vineLeaf ? _vineLeaf : (_vineLeaf = V6("tripo/vine-leaf"));
+
+        /// <summary>Bağlı sarmaşık çiçeği (beyaz; grup rengi SpriteRenderer.color ile).</summary>
+        public static Sprite VineFlower => _vineFlower ? _vineFlower : (_vineFlower = V6("tripo/vine-flower"));
 
         private static Color ClipPixel(float x, float y, bool open)
         {

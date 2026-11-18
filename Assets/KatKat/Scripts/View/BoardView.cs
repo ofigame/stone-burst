@@ -1269,13 +1269,15 @@ namespace KatKat.View
         {
             var clip = stack.ClipRenderer;
             if (clip == null) return;
+            // Sarmaşık (2026-11-18): her vuruşta yapraklar kopup saçılır; kalın → ince, son vuruşta dal kalkıp kaybolur.
+            LeafBurst(clip.transform.position, stack.Size * Mathf.Max(1e-4f, transform.lossyScale.x), remaining > 0 ? 6 : 10, clip.sortingOrder + 4);
             if (remaining > 0)
             {
                 stack.SetClipHits(remaining);
                 _fx.Add(new Fx { Kind = FxKind.Pop, T = clip.transform, BaseScale = clip.transform.localScale, Dur = 220f });
                 return;
             }
-            // Kilit açıldı: ataş açık durumuna geçip hafifçe kalkar, döner ve kaybolur; yığın serbest kalır.
+            // Kilit açıldı: ince sarmaşık hafifçe kalkar, döner ve kaybolur; yığın serbest kalır.
             var ghost = Ghost(clip, stack.transform);
             SwapState(ghost, SpecialArt.Clip(true));
             stack.SetClipHits(0);

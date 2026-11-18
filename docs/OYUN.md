@@ -52,7 +52,7 @@ Veri kimlikleri (`Coral/Blue/Yellow/Purple`, `Rainbow`) eski adlarıyla kalır; 
 - **8+ taşlık grup →** **Altın Rulo**.
 - Doğan özel taş tahtada durmaz; ekranın sol altındaki **tepsiye** uçar (en çok **4** yuva; doluysa yalnız puan).
 - **Kullanım:** tepsideki taşa, sonra tahtada bir taşa dokun.
-  - Roket o taşın satırını / sütununu soyar, örtülere (buz, ataş…) vurur.
+  - Roket o taşın satırını / sütununu soyar, örtülere (buz, sarmaşık…) vurur.
   - Altın Rulo dokunulan taşın **rengindeki** bütün açık üst katmanları toplar.
 - Tepsi kullanımı **hamle harcamaz**. Hamle bitse de tepside işe yarayan taş varsa oyun sürer.
 - Kazanınca tepside kalan özel taşlar ve kalan her hamle (roket olarak) **bitiş kutlamasında** ateşlenir (puan).
@@ -103,16 +103,16 @@ Veri kimlikleri (`Coral/Blue/Yellow/Purple`, `Rainbow`) eski adlarıyla kalır; 
 
 | Bölüm | Mekanik | Kısa kural |
 |---|---|---|
-| 1–3 | Vitrin (v14; 2026-11-17 kullanıcı: "ilk 5 bölüm öğreticisini 3 e düşürelim", "o 3 bölümde tüm taş renkleri de olsun") | 7×8 tahta, 6 rengin hepsi: 1 dokun-soy ve katlar (tur) · 2 roket ve tepsi (tur) · 3 Altın Rulo, dip yıldızı, ataş, bağlı ataş (tur). Eski 4–5 vitrinleri (buz, kilit, zarf, sünger, kristal, kesin hamle, döner taban, geçit, boya) kalktı; bu mekanikler takvimdeki ilk bölümlerinde tanıtılır. 4–5 normal bölüm. |
+| 1–3 | Vitrin (v14; 2026-11-17 kullanıcı: "ilk 5 bölüm öğreticisini 3 e düşürelim", "o 3 bölümde tüm taş renkleri de olsun") | 7×8 tahta, 6 rengin hepsi: 1 dokun-soy ve katlar (tur) · 2 roket ve tepsi (tur) · 3 Altın Rulo, dip yıldızı, sarmaşık, çiçekli sarmaşık (tur). Eski 4–5 vitrinleri (buz, kilit, zarf, sünger, kristal, kesin hamle, döner taban, geçit, boya) kalktı; bu mekanikler takvimdeki ilk bölümlerinde tanıtılır. 4–5 normal bölüm. |
 | 6+ | Özel taşlar ve tepsi | Roket, Altın Rulo (yukarıda). 6–7 tek kat 3 renk, 8–14 iki kat, 15–30 üç kat 4 renk 2 görev; sonra her ~10 bölümde bir boyut (`docs/v14/ZORLUK.md`). |
-| 21+ | Ataş | Ataşlı yığın seçilemez; yanında soyma yapılınca ataşa vurulur (1–2). |
+| 21+ | Sarmaşık (2026-11-18 öncesi ataş) | Sarmaşıklı yığın seçilemez; yanında soyma yapılınca sarmaşığa vurulur (1–2): kalın sarmaşık 2, ince 1 vuruş; her vuruşta yapraklar saçılır. |
 | 41+ | Dip yıldızı | Yığın tamamen boşalınca yıldız toplanır. |
 | 61+ | Buz | Kenar komşusunda soyma olunca kırılır (1–2 vuruş). |
 | 121+ | Renk kilidi | Kendi renginden belirtilen sayıda katman toplanınca açılır. |
 | 201+ | Zarf | Yanında mühür renginde katman soyulunca açılır, hedefe uçar. |
 | 301+ | Döner taban | Yığının katman sırasını döndürür (1 hamle). |
 | 401+ | Sünger | Yanından istenen renkler soyulunca dolar, toplanır. |
-| 501+ | Bağlı ataş | Aynı gruptaki ataşlar birlikte hasar alır. |
+| 501+ | Çiçekli sarmaşık (eski bağlı ataş) | Aynı renk çiçekli sarmaşıklar birlikte hasar alır. |
 | 601+ | Düğme / geçit | Dipteki düğme basılınca kapalı geçit hücreleri açılır. |
 | 701+ | Boya damlası | Bir yığının üst rengini değiştirir (1 hamle, sınırlı). |
 | 801+ | Karışım | Önceki mekaniklerin birleşimi. |

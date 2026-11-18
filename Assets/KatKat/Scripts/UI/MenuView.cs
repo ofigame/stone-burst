@@ -1371,7 +1371,7 @@ namespace KatKat.UI
                 {
                     case "gate": return (View.SpecialArt.Button, Color.white);
                     case "paint": return (View.SpecialArt.Drop, Color.white);
-                    case "linkedClip": return (TileSkin.Sprite("mechanics/clip-closed") ?? ProceduralArt.ClipSprite, new Color(0.55f, 0.9f, 0.95f));
+                    case "linkedClip": return (TileSkin.Sprite("mechanics/clip-closed") ?? ProceduralArt.ClipSprite, Color.white); // sarmaşık (2026-11-18): renk yok
                     case "sponge": return (View.SpecialArt.Sponge, Color.white);
                     case "rotor": return (PremiumArt.V4("mechanics/rotor-base") ?? ProceduralArt.StarSprite, Color.white);
                     case "envelope": return (PremiumArt.Get("ov_envelope"), Color.white);

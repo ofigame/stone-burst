@@ -232,7 +232,6 @@ namespace KatKat.View
         private SpriteRenderer _sponge, _button, _ghost;
         private SpriteRenderer[] _spongeSlots;
         private int _spongeNeed, _spongeHave;
-        private static readonly Color[] LinkTints = { new Color(0.55f, 0.9f, 0.95f), new Color(1f, 0.72f, 0.45f), new Color(0.95f, 0.6f, 0.85f), new Color(0.7f, 0.95f, 0.6f) };
 
         public SpriteRenderer SpongeRenderer => _sponge;
         public SpriteRenderer ButtonRenderer => _button;
@@ -281,8 +280,24 @@ namespace KatKat.View
         /// <summary>M10: bağlı ataş = ataş görseli, gruba göre renk tonu (aynı renk aynı grup).</summary>
         public void SetLinkTint(int linkId)
         {
-            if (_clip == null) return;
-            _clip.color = linkId > 0 ? LinkTints[(linkId - 1) % LinkTints.Length] : Color.white;
+            // 2026-11-18 sarmaşık: grup rengi sarmaşığı boyamaz; aynı renk çiçek açar (aynı çiçekliler birlikte açılır).
+            _linkId = linkId;
+            UpdateFlower();
+        }
+
+        private SpriteRenderer _flower;
+        private int _linkId;
+        private static readonly Color[] FlowerTints = { new Color(1f, 0.55f, 0.78f), new Color(1f, 0.82f, 0.3f), new Color(0.62f, 0.6f, 1f), new Color(1f, 0.45f, 0.35f) };
+
+        private void UpdateFlower()
+        {
+            bool on = _linkId > 0 && _clip != null && _clipHits > 0 && SpecialArt.VineFlower != null;
+            if (!on) { if (_flower != null) _flower.gameObject.SetActive(false); return; }
+            if (_flower == null) _flower = Mark("VineFlower", SpecialArt.VineFlower, 3);
+            _flower.gameObject.SetActive(true);
+            _flower.sortingOrder = _renderer.sortingOrder + 3;
+            _flower.color = FlowerTints[(_linkId - 1) % FlowerTints.Length];
+            FitOnFace(_flower, TopFaceLocal, new Vector2(0.02f, 0.02f), 0.36f);
         }
 
         /// <summary>M11: dipteki düğme (yığının sol alt köşesi).</summary>
@@ -431,6 +446,8 @@ namespace KatKat.View
             {
                 _clip.gameObject.SetActive(_clipHits > 0);
                 _clip.sortingOrder = _renderer.sortingOrder + 1;
+                // Sarmaşık (2026-11-18): 2 vuruşta kalın, 1 vuruşta ince.
+                if (_clipHits > 0) { var v = SpecialArt.Vine(_clipHits); if (v != null) _clip.sprite = v; }
                 // v4 ataş kıskacı: renk kilidinin altın asma kilidiyle karışmasın diye büyük ve gümüş, yüzün üst yarısında.
                 FitOnFace(_clip, face, Vector2.zero, TileSkin.ClipBoardWidth); // 2026-11-16: tam ortada, büyük
                 _clip.color = Color.white;
@@ -448,6 +465,7 @@ namespace KatKat.View
             UpdateLock(face);
             UpdateEnvelope(face);
             UpdateRotor();
+            UpdateFlower();
             if (_star != null)
             {
                 _star.gameObject.SetActive(_hasStar);

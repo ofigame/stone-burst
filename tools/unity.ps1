@@ -52,6 +52,7 @@ switch ($Command) {
     'capture-rules' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureRuleDemo.RunBatch') 'capture-rules' }
     'capture-v14' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureV14.RunBatch') 'capture-v14' }
     'capture-bgtrial' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureBgTrial.RunBatch') 'capture-bgtrial' }
+    'vine-art'        { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.VineArt.RunBatch') 'vine-art' }
     'capture-trayart' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureTrayArt.RunBatch') 'capture-trayart' }
     'capture-tray'    { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CaptureTray') 'capture-tray' }
     'capture-mascot'  { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CaptureMascot') 'capture-mascot' }
