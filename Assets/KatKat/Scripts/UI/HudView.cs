@@ -232,6 +232,7 @@ namespace KatKat.UI
             var cr = cap.rectTransform;
             cr.anchorMin = new Vector2(0f, 1f); cr.anchorMax = new Vector2(1f, 1f); cr.pivot = new Vector2(0.5f, 0f);
             cr.offsetMin = new Vector2(0f, 0f); cr.offsetMax = new Vector2(0f, 1200f); // 2026-11-18: yuvarlak alt köşeler görünsün diye panel ekran genişliğinde (önce ±600 taşma)
+            _vr2Cap = cr; // geniş ekranda LayoutVr2Panel yanlara uzatır
             var panel = UiFactory.Image("Vr2Panel", _safe, Vr2.PanelSprite(), new Color(1f, 1f, 1f, Vr2.PanelAlpha));
             panel.type = UnityEngine.UI.Image.Type.Sliced;
             panel.raycastTarget = false;
@@ -247,12 +248,38 @@ namespace KatKat.UI
             LayoutVr2Panel();
         }
 
+        private RectTransform _vr2Cap;
+        private float _vr2PadL = -1f, _vr2PadR = -1f;
+
         private void LayoutVr2Panel()
         {
             if (_vr2Panel == null) return;
+            // Kullanıcı 2026-11-18: "Oyun alanındaki üst kısım ekran genişlediğinde full olmuyor full olsun sağdan soldan".
+            // Geniş ekranda güvenli alan ortada telefon genişliğinde bir sütun (UiAspect.Column); panel, gölge ve tepe
+            // şeridi bu sütunun dışına, kökün iki kenarına kadar uzatılır.
+            // Çapalar güvenli alana göre oran: kökün sol kenarı = -a/(b-a), sağ kenarı = (1-a)/(b-a) (a,b güvenli alanın
+            // kökteki yatay çapaları). Piksel genişliğinden bağımsız; tuval boyutlanmadan önce de doğru.
+            float a = _safe.anchorMin.x, b = _safe.anchorMax.x, span = Mathf.Max(1e-4f, b - a);
+            float x0 = -a / span, x1 = (1f - a) / span;
+            _vr2PadL = a; _vr2PadR = b;
             float bottom = Vr2PanelH + _headShift;
+            Span(_vr2Panel, x0, x1); Span(_vr2Shade, x0, x1);
             _vr2Panel.offsetMin = new Vector2(0f, -bottom); _vr2Panel.offsetMax = new Vector2(0f, 0f);
             _vr2Shade.offsetMin = new Vector2(0f, -bottom - Vr2.PanelShadeH); _vr2Shade.offsetMax = new Vector2(0f, -bottom + Vr2.PanelCorner);
+            if (_vr2Cap != null) { Span(_vr2Cap, x0, x1); _vr2Cap.offsetMin = new Vector2(0f, 0f); _vr2Cap.offsetMax = new Vector2(0f, 1200f); }
+        }
+
+        private static void Span(RectTransform r, float x0, float x1)
+        {
+            r.anchorMin = new Vector2(x0, r.anchorMin.y);
+            r.anchorMax = new Vector2(x1, r.anchorMax.y);
+        }
+
+        /// <summary>Güvenli alan değişince (döndürme, pencere boyutu) paneli yeniden yayar.</summary>
+        private void TickVr2PanelWidth()
+        {
+            if (_vr2Panel == null) return;
+            if (Mathf.Abs(_safe.anchorMin.x - _vr2PadL) > 1e-4f || Mathf.Abs(_safe.anchorMax.x - _vr2PadR) > 1e-4f) LayoutVr2Panel();
         }
 
         /// <summary>VR2 teması (0..5, <see cref="Vr2.SkinFor"/>): hedef yuvasının kenar rengi paletten.</summary>
@@ -1345,7 +1372,7 @@ namespace KatKat.UI
         }
 
         /// <summary>Güvenli alanı hemen uygular (oynatma dışı araçlar için).</summary>
-        public void ApplySafeArea() => _safe.GetComponent<SafeAreaFitter>().Apply(true);
+        public void ApplySafeArea() { _safe.GetComponent<SafeAreaFitter>().Apply(true); LayoutVr2Panel(); }
 
         /// <summary>Açık sonuç kartına ZPE değişim rozeti.</summary>
         public void SetResultBadge(string text) => _panel?.SetBadge(text);
@@ -1368,6 +1395,7 @@ namespace KatKat.UI
             TickScore(Time.unscaledDeltaTime);
             TickPraise(Time.unscaledDeltaTime);
             TickHintMark();
+            TickVr2PanelWidth();
             if (_targeting)
             {
                 // Satır seçme modunda altın hale düşük genlikle ~1.8 s periyotla nabız atar (v3 §7).

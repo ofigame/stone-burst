@@ -99,6 +99,15 @@ namespace KatKat.EditorTools
 
         public static void Run()
         {
+            // KATKAT_WIDE_SHOT=1 (2026-11-18, üst panel geniş ekranda tam genişlik mi): iPad ve katlanabilir oranda oyun ekranı.
+            if (Environment.GetEnvironmentVariable("KATKAT_WIDE_SHOT") == "1")
+            {
+                EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+                Directory.CreateDirectory(Path.Combine(PeelCapture.OutDir, "genis"));
+                foreach (var (name, w, h) in new[] { ("ipad", 2064, 2752), ("katlanabilir", 1800, 2000), ("telefon", 1080, 2340) })
+                    GameCapture.ShotPublic("genis/" + name + ".png", w, h, gc => { gc.StartLevel(37); gc.Hud.HideRuleCard(true); });
+                return;
+            }
             var gv = Environment.GetEnvironmentVariable("KATKAT_GAMEVIDEO_LEVEL");
             if (!string.IsNullOrEmpty(gv)) { EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single); GameVideo(int.Parse(gv)); return; }
             string outDir = Path.Combine(PeelCapture.OutDir, "arkaplan_deneme");
