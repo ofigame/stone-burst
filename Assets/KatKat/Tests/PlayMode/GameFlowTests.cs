@@ -671,10 +671,63 @@ namespace KatKat.Tests
             public void Submit(KatKat.Meta.LeaderboardEntry self, System.Action<bool> done) { Submits++; done?.Invoke(true); }
         }
 
-        [UnityTest]
-        public IEnumerator RankReminder_ShownAt20_SignInSubmitsScore_DotGone()
+        private sealed class FakeRenamableAccount : IAccountService, IRenamableAccount
         {
-            // 2026-11-18: kayıtsız oyuncuya 20 bölümde hatırlatma; "Kayıt ol" → giriş, puan Sıralama açılmadan yazılır.
+            public AccountState State { get; private set; }
+            public string PlayerName { get; private set; } = "Oyuncu 1234";
+            public string PlayerId => "rest";
+            public bool IsTest => false;
+            public bool HasChosenName { get; private set; }
+            public void Rename(string name) { PlayerName = name; HasChosenName = true; }
+            public void SignIn(bool silent, System.Action<bool> done) { State = AccountState.SignedIn; done?.Invoke(true); }
+            public void SaveProgress(string json, System.Action<bool> done) => done?.Invoke(false);
+            public void LoadProgress(System.Action<bool, string> done) => done?.Invoke(true, null);
+            public void DeleteAccount(System.Action<bool> done) { State = AccountState.SignedOut; done?.Invoke(true); }
+        }
+
+        [UnityTest]
+        public IEnumerator RankSignIn_RenamableAccount_AsksName_RejectsShort_SavesAndSubmits()
+        {
+            // 2026-11-19 (kullanıcı: "huaweide sıralamaya üye olduğunda ismini kendi versin").
+            GameController.ClearAccountDeletedForTest();
+            GameController.ClearRemindForTest();
+            GameController.RemindInBatchForTest = true;
+            var keepProvider = GameController.LeaderboardProvider;
+            var writer = new FakeWriter();
+            GameController.LeaderboardProvider = writer;
+            try
+            {
+                var acct = new FakeRenamableAccount();
+                _gc.SetAccountForTest(acct);
+                for (int i = 0; i < KatKat.Meta.RankScore.MinLevels; i++) { _gc.SaveService.MarkCompleted(_gc.Catalog.IdAt(i), i, _gc.Catalog.Count); KatKat.Meta.RankStars.Record(_gc.SaveService.Data.meta, _gc.Catalog.IdAt(i), 3); } // puan = yıldız + ZPE (2026-11-19): yıldızsız puan 0, gönderilmez
+                _gc.ShowLevels();
+                yield return null;
+                _gc.MaybeRemindSignInForTest();
+                GameObject.Find("RankRemindCard").transform.Find("Card/SignIn").GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
+                Assert.IsTrue(_gc.Menu.NameEditorShown, "ad soruldu");
+                Assert.AreEqual(0, writer.Submits, "ad seçilmeden puan gitmez");
+
+                _gc.Menu.SubmitNameForTest(" ab ");
+                Assert.IsTrue(_gc.Menu.NameEditorShown, "kısa ad: pencere açık kalır");
+                Assert.IsFalse(string.IsNullOrEmpty(_gc.Menu.NameErrorText), "hata yazıldı");
+
+                _gc.Menu.SubmitNameForTest("  Ayşe   42 ");
+                Assert.IsFalse(_gc.Menu.NameEditorShown);
+                Assert.AreEqual("Ayşe 42", acct.PlayerName);
+                Assert.AreEqual(1, writer.Submits, "puan yeni adla yazıldı");
+            }
+            finally
+            {
+                GameController.LeaderboardProvider = keepProvider;
+                GameController.RemindInBatchForTest = false;
+                GameController.ClearRemindForTest();
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator RankReminder_ShownAt10_SignInSubmitsScore_DotGone()
+        {
+            // 2026-11-18: kayıtsız oyuncuya eşikte (2026-11-19: 10 bölüm) hatırlatma; "Kayıt ol" → giriş, puan Sıralama açılmadan yazılır.
             GameController.ClearAccountDeletedForTest();
             GameController.ClearRemindForTest();
             GameController.RemindInBatchForTest = true;
@@ -685,19 +738,19 @@ namespace KatKat.Tests
             {
                 var fake = new FakeCloudAccount();
                 _gc.SetAccountForTest(fake);
-                for (int i = 0; i < 19; i++) _gc.SaveService.MarkCompleted(_gc.Catalog.IdAt(i), i, _gc.Catalog.Count);
+                for (int i = 0; i < 9; i++) { _gc.SaveService.MarkCompleted(_gc.Catalog.IdAt(i), i, _gc.Catalog.Count); KatKat.Meta.RankStars.Record(_gc.SaveService.Data.meta, _gc.Catalog.IdAt(i), 3); }
                 _gc.ShowLevels();
                 yield return null;
                 _gc.MaybeRemindSignInForTest();
-                Assert.IsFalse(_gc.Menu.RankReminderShown, "19 bölümde sorulmaz");
+                Assert.IsFalse(_gc.Menu.RankReminderShown, "9 bölümde sorulmaz");
                 Assert.IsFalse(_gc.Menu.RankAttentionShown);
 
-                _gc.SaveService.MarkCompleted(_gc.Catalog.IdAt(19), 19, _gc.Catalog.Count);
+                _gc.SaveService.MarkCompleted(_gc.Catalog.IdAt(9), 9, _gc.Catalog.Count);
                 _gc.ShowLevels();
                 yield return null;
                 Assert.IsTrue(_gc.Menu.RankAttentionShown, "kupada uyarı noktası");
                 _gc.MaybeRemindSignInForTest();
-                Assert.IsTrue(_gc.Menu.RankReminderShown, "20 bölümde hatırlatma");
+                Assert.IsTrue(_gc.Menu.RankReminderShown, "10 bölümde hatırlatma");
                 GameObject.Find("RankRemindCard").transform.Find("Card/SignIn").GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
                 Assert.IsFalse(_gc.Menu.RankReminderShown);
                 Assert.AreEqual(AccountState.SignedIn, fake.State);

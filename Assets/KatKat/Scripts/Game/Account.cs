@@ -40,6 +40,72 @@ namespace KatKat.Game
     }
 
     /// <summary>
+    /// Adını oyuncunun kendisinin seçtiği hesap (AppGallery anonim REST hesabı; kullanıcı 2026-11-19: "huaweide
+    /// sıralamaya üye olduğunda ismini kendi versin"). Play Games ve Game Center adı kendi hizmetinden gelir.
+    /// </summary>
+    public interface IRenamableAccount
+    {
+        /// <summary>Oyuncu bir ad seçti mi (seçmediyse "Oyuncu 1234" kullanılır).</summary>
+        bool HasChosenName { get; }
+        /// <summary>Adı kalıcı olarak değiştirir; <paramref name="name"/> <see cref="PlayerNameRules.Clean"/>'den geçmiş olmalı.</summary>
+        void Rename(string name);
+    }
+
+    /// <summary>
+    /// Oyuncunun yazdığı ad: baştaki/sondaki ve art arda boşluklar atılır; yalnız harf, rakam, boşluk ve . _ -
+    /// kalır (emoji ve denetim karakterleri düşer). 3–16 karakter. Kaba sözcük içeren ad kabul edilmez.
+    /// </summary>
+    public static class PlayerNameRules
+    {
+        public const int MinLength = 3, MaxLength = 16;
+
+        // Kısa, bilinçli olarak dar liste (tr/en/ar en yaygınlar ve hizmet adı taklidi). Kısa sözcükler (≤4) yalnız tam
+        // sözcük olarak ("Klasik", "Iraq" geçer), uzunlar ayraçsız adın içinde de aranır ("xFuckerx" geçmez).
+        private static readonly string[] BlockedWords = { "amk", "aq", "piç", "pic", "sik", "göt", "got", "oç", "oc", "dick", "cunt", "porn", "nazi", "كس", "زب" };
+        private static readonly string[] BlockedParts =
+        {
+            "orospu", "yarrak", "ibne", "kahpe", "pezevenk", "gavat", "siktir", "sikis", "sikiş", "amcık", "amcik",
+            "fuck", "shit", "bitch", "pussy", "nigger", "nigga", "whore", "slut", "hitler",
+            "شرموط", "منيوك", "قحبة",
+            "admin", "ofigame", "moderator",
+        };
+
+        public static string Clean(string raw)
+        {
+            if (string.IsNullOrEmpty(raw)) return "";
+            var sb = new System.Text.StringBuilder(raw.Length);
+            bool space = false;
+            foreach (char ch in raw)
+            {
+                if (char.IsLetterOrDigit(ch) || ch == '.' || ch == '_' || ch == '-')
+                {
+                    if (space && sb.Length > 0) sb.Append(' ');
+                    sb.Append(ch);
+                    space = false;
+                }
+                else if (char.IsWhiteSpace(ch)) space = true;
+            }
+            var s = sb.ToString();
+            return s.Length > MaxLength ? s.Substring(0, MaxLength).TrimEnd() : s;
+        }
+
+        /// <summary>Temizlenmiş ad için hata anahtarı (yerelleştirme); uygunsa null.</summary>
+        public static string Problem(string cleaned)
+        {
+            if (string.IsNullOrEmpty(cleaned) || cleaned.Length < MinLength) return "acct.name.short";
+            string low = cleaned.ToLowerInvariant();
+            var words = low.Split(new[] { ' ', '.', '_', '-' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var w in words)
+                foreach (var b in BlockedWords)
+                    if (w == b) return "acct.name.bad";
+            string compact = string.Concat(words);
+            foreach (var b in BlockedParts)
+                if (compact.Contains(b)) return "acct.name.bad";
+            return null;
+        }
+    }
+
+    /// <summary>
     /// Yerel test hesabı: sessiz girişte daha önce kayıt olunduysa oturum açılır; düğmeyle anında "Oyuncu 1234 (test)"
     /// oluşturulur. "Bulut" kaydı PlayerPrefs'e yazar (yalnız akışı denemek için; cihaz değişince taşınmaz).
     /// </summary>

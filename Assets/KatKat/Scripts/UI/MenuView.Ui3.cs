@@ -379,8 +379,10 @@ namespace KatKat.UI
             bool del = AccountsOn;
             bool save = del && (CloudSaveEnabled == null || CloudSaveEnabled());
             // 2026-11-13: "Bildirimler" anahtarı dilin altında (5. satır); 8 satırda aralık 128.
-            int rows = 5 + (save ? 1 : 0) + (del ? 1 : 0) + (privacy ? 1 : 0);
-            float RowStep = rows >= 8 ? 128f : rows >= 7 ? 144f : 164f;
+            // 2026-11-19: "Sıralamadaki adın" satırı (yalnız adı oyuncunun seçtiği girişli hesap; AppGallery) kaydın altında.
+            bool nameRow = del && NameRowOn;
+            int rows = 5 + (save ? 1 : 0) + (nameRow ? 1 : 0) + (del ? 1 : 0) + (privacy ? 1 : 0);
+            float RowStep = rows >= 9 ? 116f : rows >= 8 ? 128f : rows >= 7 ? 144f : 164f;
             float PanelH = rows * RowStep + 68f;
             float RowY(int i) => (rows - 1) * RowStep * 0.5f - i * RowStep;
             var panel = Ui1.Card("Card", page, new Vector2(0.5f, 1f), new Vector2(0f, -(PanelTop + PanelH * 0.5f)), new Vector2(860f, PanelH));
@@ -405,6 +407,7 @@ namespace KatKat.UI
             SwitchRowUi3(c, RowY(4), "icon-sound", Loc.T("ui.notify"), NotifyEnabled != null && NotifyEnabled(), v => NotifyChanged?.Invoke(v), HeartSprite(), true);
             int next = 5;
             if (save) { U3Divider(c, RowY(next - 1) - RowStep * 0.5f); SaveRowUi3(c, RowY(next)); next++; }
+            if (nameRow) { U3Divider(c, RowY(next - 1) - RowStep * 0.5f); NameRowUi3(c, RowY(next)); next++; }
             if (del) { U3Divider(c, RowY(next - 1) - RowStep * 0.5f); DeleteRowUi3(c, RowY(next)); next++; }
             if (privacy) { U3Divider(c, RowY(next - 1) - RowStep * 0.5f); PrivacyRowUi3(c, RowY(next)); }
             var note = U3Text("Note", page, Loc.T("ui.settingsnote"), 28, false, Ui3.InkSecondary);

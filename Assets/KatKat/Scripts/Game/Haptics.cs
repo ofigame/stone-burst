@@ -19,14 +19,19 @@ namespace KatKat.Game
 #endif
 
         public static void Light() => Pulse(14);
+        /// <summary>Taş akışı varış "tıkı" (çok kısa; 2026-11-19).</summary>
+        public static void Tick() => Pulse(8);
+        /// <summary>Taş akışı yükselişi: kombo kademesine göre hafif (0) → orta (1) → güçlü (2).</summary>
+        public static void Level(int level) => Pulse(level <= 0 ? 12 : level == 1 ? 24 : 40);
         public static void Medium() => Pulse(28);
+        public static void Strong() => Pulse(40);
 
         private static void Pulse(long ms)
         {
             if (!Enabled) return;
 #if UNITY_IOS && !UNITY_EDITOR
             // iOS: UIImpactFeedbackGenerator (Assets/Plugins/iOS/KatKatNative.mm); süre yerine hafif/orta.
-            KatKat_Haptic(ms < 20 ? 0 : 1);
+            KatKat_Haptic(ms < 20 ? 0 : ms < 36 ? 1 : 2);
 #endif
 #if UNITY_ANDROID && !UNITY_EDITOR
             if (_failed) return;

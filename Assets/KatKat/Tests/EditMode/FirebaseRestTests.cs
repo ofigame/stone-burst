@@ -93,10 +93,10 @@ namespace KatKat.Tests
         [Test]
         public void Reminder_Schedule()
         {
-            Assert.IsFalse(RankReminder.Due(19, RankReminder.First));
-            Assert.IsTrue(RankReminder.Due(20, RankReminder.First));
-            // İlk gösterim 20'de → 35; ileri bölümdeki oyuncu (300) ilk gösterimden sonra hemen yeniden sorulmaz.
-            Assert.AreEqual(35, RankReminder.Next(1, 20));
+            Assert.IsFalse(RankReminder.Due(9, RankReminder.First));
+            Assert.IsTrue(RankReminder.Due(10, RankReminder.First));
+            // İlk gösterim 10.da → 25; ileri bölümdeki oyuncu (300) ilk gösterimden sonra hemen yeniden sorulmaz.
+            Assert.AreEqual(25, RankReminder.Next(1, 10));
             Assert.AreEqual(315, RankReminder.Next(1, 300));
             Assert.AreEqual(60, RankReminder.Next(2, 35));
             Assert.AreEqual(100, RankReminder.Next(3, 60));

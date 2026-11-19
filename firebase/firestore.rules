@@ -1,5 +1,6 @@
 rules_version = '2';
 // Stone Burst sıralaması (docs/v13/KAYIT_PLANI.md). Herkes girişliyse okur; yalnız kendi kaydını yazar.
+// 2026-11-19: puan = toplam yıldız + ZPE (en çok 100) → puan ≤ yıldız + 100. Eski 0–1000 formülü reddedilir (kullanıcı: "gerçek hiçbir kullanıcımız yok henüz").
 service cloud.firestore {
   match /databases/{database}/documents {
     match /scores/{uid} {
@@ -19,9 +20,9 @@ service cloud.firestore {
       return d.keys().hasOnly(['name', 'country', 'score', 'zpe', 'level', 'stars', 'updated'])
         && d.name is string && d.name.size() > 0 && d.name.size() <= 40
         && d.country is string && (d.country.size() == 0 || d.country.matches('^[A-Z]{2}$'))
-        && d.score is int && d.score > 0 && d.score <= 1000
+        && d.score is int && d.score > 0 && d.score <= d.stars + 100
         && d.zpe is int && d.zpe >= 0 && d.zpe <= 100
-        && d.level is int && d.level >= 20 && d.level <= 10000
+        && d.level is int && d.level >= 10 && d.level <= 10000
         && d.stars is int && d.stars >= 0 && d.stars <= 3 * d.level
         && d.updated == request.time;
     }

@@ -46,6 +46,12 @@ namespace KatKat.View
         public int Height => _height;
         public float Pitch => _pitch;
         public bool IsPlaying => _timeline.Count > 0 || (_director != null && _director.ActiveCount > 0);
+
+        /// <summary>
+        /// true: Play, taşlar hedefe varana dek sürer (bölümü bitiren hamle, canlı maç). false: yığın işi bitince biter;
+        /// havadaki uçuş ve varış geri çağrıları arka planda sürer (2026-11-19, girdiyi kilitlememek için).
+        /// </summary>
+        public bool HoldUntilArrive { get; set; } = true;
         public PeelDirector Director => _director;
         /// <summary>Süren görsel efekt (uçuş, patlama) var mı; oynatma dışı yakalama bekler.</summary>
         public bool HasFx => _fx.Count > 0;
@@ -611,6 +617,19 @@ namespace KatKat.View
 
         public StackView StackAt(int x, int y) => _stacks[y * _width + x];
 
+        /// <summary>
+        /// Taş akışının ortak toplanma noktası (2026-11-19, kullanıcı: "taşlar animasyonla ekranın ortasında birleşecek
+        /// yükseğe çıkmış gibi, sonra oradan yerlerine akacak"): tahtanın yatay ortası, dikey ortasının biraz üstü.
+        /// </summary>
+        public Vector3 GatherPoint()
+        {
+            var a = StackAt(0, 0).transform.position;
+            var b = StackAt(_width - 1, _height - 1).transform.position;
+            var c = (a + b) * 0.5f;
+            c.y += Mathf.Abs(b.y - a.y) * 0.32f;
+            return c;
+        }
+
         /// <summary>Bütün hücreleri mantıksal durumdan yeniden çizer.</summary>
         public void Sync(LevelState state)
         {
@@ -707,6 +726,8 @@ namespace KatKat.View
                 return;
             }
             bool created = result.SpecialCreated != SpecialKind.None;
+            int flowWave = 0, flowTick = 0;
+            float flowArrive = -1f;
             foreach (var wave in result.Waves)
             {
                 var w = wave;
@@ -716,6 +737,10 @@ namespace KatKat.View
                 if (special) At(start, () => FireFx(w));
                 else if (w.Index >= 1) At(start, () => ShakeBoard(0.012f * Mathf.Min(4, w.Index), 260f));
                 float spread = 0f;
+                // 2026-11-19 (kullanıcı: "Kombolarda çok daha fazla taş akacak"): zincir dalgası, büyük grup ve özel taş
+                // (roket, rulo…) hücre başına daha çok taş akıtır (1–4).
+                int stones = Mathf.Clamp(1 + Mathf.Min(2, w.Index) + (w.Cells.Count >= 9 ? 2 : w.Cells.Count >= 6 ? 1 : 0)
+                    + (special || w.Kind == WaveKind.Roll ? 1 : 0), 1, PeelSequence.MaxStones);
                 foreach (var c in w.Cells)
                 {
                     var cp = c;
@@ -726,14 +751,43 @@ namespace KatKat.View
                     At(start + delay, () =>
                     {
                         var stack = StackAt(cp.X, cp.Y);
-                        // v10: görev rengiyse parçaların yarısı görev simgesine, kalanı yıldız çubuğuna; değilse hepsi çubuğa.
+                        // 2026-11-19: görev rengiyse bütün taş görev simgesine, yıldızlar yıldız çubuğuna; değilse taş yıldızlara döner.
                         bool isGoal = IsGoalColor == null || IsGoalColor(cp.Removed);
                         var star = ScoreTarget != null ? ScoreTarget() : goalTarget(cp.Removed);
-                        if (stack.Layers.Count > 0) _director.Peel(stack, goalTarget(cp.Removed), star, ScoreTarget == null ? 1f : isGoal ? 0.5f : 0f, null);
+                        if (stack.Layers.Count > 0)
+                        {
+                            var removed = cp.Removed;
+                            bool focusGoal = isGoal && IsGoalColor != null;
+                            FlowStarted(removed, focusGoal);
+                            _director.Peel(stack, goalTarget(removed), star, ScoreTarget == null ? 1f : isGoal ? 0.5f : 0f,
+                                _ => FlowEnded(removed, focusGoal), 0f, stones, GatherPoint());
+                            RaiseVeil(isGoal ? goalTarget(cp.Removed) : (Vector3?)null);
+                        }
                         else Debug.LogError($"[KatKat] Görünüm mantıktan ayrıştı: ({cp.X},{cp.Y}) boş");
                     });
                     if (cp.StarCollected)
                         At(start + delay + StarRiseAt, () => LaunchStar(StackAt(cp.X, cp.Y), starTarget != null ? starTarget() : transform.position + Vector3.up * 5f));
+                }
+                // 2026-11-19 (kullanıcı: "taşlar patladığında yükseğe doğru çıkarken titreşim efekti verelim kombolarda kademeli
+                // artarak … hedefe giderken kazanç, kasa doluyormuş ses efektide verelim. Taşın sayısına göre ses tekrarlasın …
+                // Senkronize bir efekt olsun"): yükseliş darbeleri ve varış tıkları aynı zaman çizelgesinden.
+                if (w.Cells.Count > 0)
+                {
+                    int level = Mathf.Clamp((stones - 1) + flowWave, 0, 2);
+                    int pulses = Mathf.Clamp(1 + w.Cells.Count / 3, 1, 5);
+                    for (int p = 0; p < pulses; p++)
+                        At(start + PeelSequence.BreakAt + 30f + p * 50f, () => FlowRise?.Invoke(level));
+                    int ticks = Mathf.Clamp(w.Cells.Count * stones, 1, 12);
+                    float arrive = start + spread + PeelSequence.ArriveAt;
+                    float earliest = start + PeelSequence.FlyStart;
+                    float gap = Mathf.Min(55f, (arrive - earliest) / Mathf.Max(1, ticks));
+                    for (int i = 0; i < ticks; i++)
+                    {
+                        int idx = flowTick++;
+                        At(arrive - (ticks - 1 - i) * gap, () => FlowTick?.Invoke(idx));
+                    }
+                    flowArrive = Mathf.Max(flowArrive, arrive);
+                    flowWave++;
                 }
                 foreach (var h in w.ClipHits)
                 {
@@ -806,8 +860,10 @@ namespace KatKat.View
                     // Sayaç, ilgili renk katmanları kalkıp okunur hâle geldiğinde düşer.
                     At(start + PeelSequence.ReadableAt, () => HitLock(StackAt(hit.X, hit.Y), hit.RemainingAfter));
                 }
-                At(start + spread + PeelSequence.ReleaseEnd, () => onWaveArrived?.Invoke(w));
-                last = Mathf.Max(last, start + spread + PeelSequence.Duration + 30f);
+                At(start + spread + PeelSequence.ArriveAt, () => onWaveArrived?.Invoke(w)); // 2026-11-19: taş hedefe varınca
+                // 2026-11-19: uçuş yavaşladı; HoldUntilArrive kapalıysa hamle yığın işi bitince biter (girdi kilitlenmez),
+                // taşlar/yıldızlar uçmaya ve HUD sayaçları varışta (onWaveArrived) güncellenmeye devam eder.
+                last = Mathf.Max(last, start + spread + (HoldUntilArrive ? PeelSequence.Duration : PeelSequence.StackDoneAt) + 30f);
                 // Özel taş dalgasında sıradaki dalga süpürme bitince; dönüşüm dalgası (hücresiz) kısa.
                 float step = special ? (w.Cells.Count == 0 ? 120f + 90f * w.Triggered.Count : spread + PeelSequence.ReadableAt) : interval;
                 // M11: açılan geçit hücreleri sonraki dalgada soyulabilir; görünüm onları açmadan sıradaki dalga başlamasın.
@@ -816,6 +872,7 @@ namespace KatKat.View
                 interval = Mathf.Max(MinChainInterval, interval * 0.85f);
             }
             if (created) last = Mathf.Max(last, PeelSequence.ReadableAt + StarFlight + 160f); // tepsiye uçuş bitsin
+            if (flowArrive >= 0f) At(flowArrive + 20f, () => FlowFinal?.Invoke()); // kapanış "ka-ching"
             At(last, FinishPlay);
         }
 
@@ -893,6 +950,87 @@ namespace KatKat.View
         public Func<Vector3> TrayTarget { get; set; }
         /// <summary>v10: yıldız (puan) çubuğu hedefi ve rengin görev olup olmadığı (kırılan taş parçalarının yönü).</summary>
         public Func<Vector3> ScoreTarget { get; set; }
+        /// <summary>Yıldız çubuğunun dünya dikdörtgeni: taş akışı perdesinde aydınlık kalır (2026-11-19).</summary>
+        public Func<Rect> ScoreBarRect { get; set; }
+
+        /// <summary>Taş akışı perdesinin kamerası; atanmamışsa perde yok (testler, eski yakalamalar).</summary>
+        public Camera VeilCamera { get; set; }
+        private FlowVeil _veil;
+        private float _veilIdleMs;
+        public FlowVeil Veil => _veil;
+
+        /// <summary>Kırılan taş havalanırken perdeyi indirir; hedefi (görev rengiyse simgesi) ve yıldız çubuğu aydınlık kalır.</summary>
+        /// <summary>Karartma perdesi açık mı. 2026-11-19 kapatıldı (kullanıcı: "taşların patlamasında karartma yapmayalım");
+        /// kod duruyor, yerine hedefler büyür (<see cref="GoalFocus"/>, <see cref="StarFocus"/>).</summary>
+        public static bool VeilOn = false;
+
+        /// <summary>Akışta olan görev rengi: true ilk taş kalkınca, false o rengin son taşı varınca (HUD simgesi büyür/küçülür).</summary>
+        public Action<LayerColor, bool> GoalFocus { get; set; }
+        /// <summary>Herhangi bir taş/yıldız akışta mı: true akış başlayınca, false son taş varınca (sıradaki yıldız büyür/küçülür).</summary>
+        public Action<bool> StarFocus { get; set; }
+        /// <summary>Taşlar havalanırken titreşim darbesi; argüman kademe (0 hafif, 1 orta, 2 güçlü; kombo ve dalgayla artar).</summary>
+        public Action<int> FlowRise { get; set; }
+        /// <summary>Taşlar hedefe varırken ritmik "kasa" tıkı (ses + titreşim); argüman hamle içi sıra (perde yükselir).</summary>
+        public Action<int> FlowTick { get; set; }
+        /// <summary>Hamlenin son taşı vardığında kapanış "ka-ching".</summary>
+        public Action FlowFinal { get; set; }
+        private readonly Dictionary<LayerColor, int> _flowCount = new Dictionary<LayerColor, int>();
+        private int _flowTotal;
+
+        private void FlowStarted(LayerColor color, bool goal)
+        {
+            if (goal)
+            {
+                _flowCount.TryGetValue(color, out int n);
+                _flowCount[color] = n + 1;
+                if (n == 0) GoalFocus?.Invoke(color, true);
+            }
+            if (_flowTotal++ == 0) StarFocus?.Invoke(true);
+        }
+
+        /// <summary>Akış zorla bittiğinde (geri al, yeniden başla) büyümüş hedefleri bırakır.</summary>
+        private void ResetFlowFocus()
+        {
+            foreach (var kv in _flowCount) if (kv.Value > 0) GoalFocus?.Invoke(kv.Key, false);
+            _flowCount.Clear();
+            if (_flowTotal > 0) StarFocus?.Invoke(false);
+            _flowTotal = 0;
+        }
+
+        private void FlowEnded(LayerColor color, bool goal)
+        {
+            if (goal && _flowCount.TryGetValue(color, out int n) && n > 0)
+            {
+                _flowCount[color] = n - 1;
+                if (n == 1) GoalFocus?.Invoke(color, false);
+            }
+            if (_flowTotal > 0 && --_flowTotal == 0) StarFocus?.Invoke(false);
+        }
+
+        private void RaiseVeil(Vector3? goal)
+        {
+            if (!VeilOn || VeilCamera == null) return;
+            if (_veil == null) _veil = FlowVeil.Create(transform, VeilCamera);
+            _veil.Raise(goal, ScoreBarRect != null ? ScoreBarRect() : Rect.zero, WorldPitch * 0.75f);
+            _veilIdleMs = 0f;
+        }
+
+        /// <summary>Uçuş sırasında tahtaya dokunuş: perde 0,1 sn'de kalkar (akış bitene dek inmez).</summary>
+        public void DropVeil() => _veil?.Drop();
+
+        private void TickVeil(float realMs)
+        {
+            if (_veil == null) return;
+            bool flying = _director != null && _director.ActiveCount > 0;
+            if (flying) _veilIdleMs = 0f;
+            else
+            {
+                _veilIdleMs += realMs;
+                // Akış bitti (son taş/yıldız vardı, sayaç işlendi): kısa bekleme sonra kalk; kombo dalgaları arasında yanıp sönmez.
+                if (_veilIdleMs > 80f) { _veil.Lower(); _veil.Rearm(); }
+            }
+            _veil.Advance(realMs);
+        }
         public Func<LayerColor, bool> IsGoalColor { get; set; }
 
         /// <summary>
@@ -1677,6 +1815,8 @@ namespace KatKat.View
         {
             _timeline.Clear();
             _director?.CompleteAll();
+            _veil?.Clear();
+            ResetFlowFocus();
             foreach (var s in _shakes) if (s.Stack) s.Stack.transform.localRotation = Quaternion.identity;
             _shakes.Clear();
             while (_fx.Count > 0) EndFx(_fx.Count - 1);
@@ -1701,6 +1841,7 @@ namespace KatKat.View
         {
             // ms gerçek süre; olay planı Motion.Pace ile yavaşlar, parçacıklar gerçek zamanla (2026-11-18).
             Particles.Tick(ms); // parçacıklar (FxKit); erişim Active'i de bu tahtaya ayarlar
+            TickVeil(ms);
             ms *= KatKat.UI.Motion.Pace;
             if (_fx.Count > 0) TickFx(ms);
             TickBoardShake(ms);

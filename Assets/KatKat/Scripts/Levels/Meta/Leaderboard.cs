@@ -14,7 +14,7 @@ namespace KatKat.Meta
         public int Zpe;             // 0–100
         public int Level;           // ulaşılan bölüm (1 tabanlı)
         public int Stars;           // sıralama yıldızı (reklamsız)
-        public int Score;           // sıralama puanı 0–1000
+        public int Score;           // sıralama puanı = yıldız + ZPE (2026-11-19)
         public bool IsSelf;
     }
 
@@ -73,24 +73,21 @@ namespace KatKat.Meta
     }
 
     /// <summary>
-    /// Sıralama puanı (kullanıcı kararı 2026-11-08): 0–1000 = 10 × (0,5 × ZPE + 0,3 × bölüm ilerlemesi + 0,2 × yıldız
-    /// oranı), her bileşen 0–100. Bölüm ilerlemesi = ulaşılan bölüm / toplam bölüm. Yıldız oranı = sıralama yıldızı
-    /// (reklamla kazanılanlar hariç) / (3 × tamamlanan bölüm). Sıralamaya giriş: en az <see cref="MinLevels"/> bölüm.
+    /// Sıralama puanı (kullanıcı kararı 2026-11-19, önceki %50 ZPE + %30 bölüm + %20 yıldız oranı formülü yerine: "Yeni
+    /// başlayan biri ilk 20 basit bölümü başarıyla geçiyor ve sıralamada 400. bölümdeki kişinin bile önüne geçebiliyor"
+    /// → "A ile yap"): puan = toplam sıralama yıldızı (reklamla kazanılanlar hariç; bölüm başına en çok 3) + ZPE (0–100).
+    /// Yıldız hem ilerlemeyi hem kaliteyi ölçer; ZPE yıldızı eşit olanları ayıran küçük ek puandır. Üst sınır yok
+    /// (bölüm sayısıyla büyür; Firestore kuralı puan ≤ yıldız + 100). Sıralamaya giriş: en az <see cref="MinLevels"/> bölüm.
     /// </summary>
     public static class RankScore
     {
-        public const double WZpe = 0.5, WLevel = 0.3, WStars = 0.2;
-        public const int MinLevels = 20;
+        public const int MaxZpeBonus = 100;
+        public const int MinLevels = 10; // 2026-11-19 kullanıcı: "kaydetmeyi 20. bölümde yapıyor. 10. bölümde yapsın"
 
         public static bool Eligible(int completedLevels) => completedLevels >= MinLevels;
 
-        public static int Compute(int zpe, int reachedLevel, int totalLevels, int rankStars, int completedLevels)
-        {
-            double z = Clamp(zpe, 0, 100);
-            double lv = totalLevels > 0 ? Clamp(reachedLevel * 100.0 / totalLevels, 0, 100) : 0;
-            double st = completedLevels > 0 ? Clamp(rankStars * 100.0 / (3.0 * completedLevels), 0, 100) : 0;
-            return (int)Math.Round(10.0 * (WZpe * z + WLevel * lv + WStars * st));
-        }
+        public static int Compute(int zpe, int rankStars) =>
+            Math.Max(0, rankStars) + Math.Min(MaxZpeBonus, Math.Max(0, zpe));
 
         private static double Clamp(double v, double a, double b) => v < a ? a : v > b ? b : v;
     }
@@ -135,7 +132,7 @@ namespace KatKat.Meta
                 r.Top.Add(new LeaderboardEntry
                 {
                     Rank = i + 1, Name = Names[(i + seed) % Names.Length], Zpe = zpe, Level = lv, Stars = stars,
-                    Score = RankScore.Compute(zpe, lv, 1000, stars, lv),
+                    Score = RankScore.Compute(zpe, stars),
                 });
             }
             r.Status = LeaderboardStatus.Ready;

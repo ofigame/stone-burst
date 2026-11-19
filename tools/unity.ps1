@@ -82,9 +82,13 @@ switch ($Command) {
     'usage-ui3'       { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureV13Pages.UsageUi3') 'usage-ui3' }
     'trailer-frames'  { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.TrailerCapture.Run') 'trailer-frames' }
     'trailer-punch'   { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.TrailerCapture.RunPunch') 'trailer-punch' }
+    'trailer-ad'      { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.TrailerCapture.RunAd') 'trailer-ad' } # Meta reklamı (2026-11-19), kurgu tools/trailer-ad.ps1
+    'anim-demo'       { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.TrailerCapture.RunAnimDemo') 'anim-demo' } # taş akışı izleme videosu (2026-11-19), kurgu tools/anim-demo.ps1
+    'map-demo'        { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.TrailerCapture.RunMapDemo') 'map-demo' } # yolculuk haritası hareketi videosu (2026-11-19), kurgu tools/map-demo.ps1
     'capture-v7'      { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureV7.Run') 'capture-v7' }
     'export-art'      { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.ArtExport.ExportAll') 'export-art' }
     'capture-game'    { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CaptureAll') 'capture-game' }
+    'capture-pop'     { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CapturePop') 'capture-pop' } # taş akışı ara kareleri (2026-11-19)
     'build-android'   { $c = Invoke-Unity @('-quit', '-buildTarget', 'Android', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildAndroid') 'build-android' }
     'build-android-acik' { $c = Invoke-Unity @('-quit', '-buildTarget', 'Android', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildAndroidUnlockAll') 'build-android-acik' }
     'build-android-notifytest' { $c = Invoke-Unity @('-quit', '-buildTarget', 'Android', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildAndroidNotifyTest') 'build-android-notifytest' }

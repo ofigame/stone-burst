@@ -6,6 +6,7 @@
 
 static UIImpactFeedbackGenerator *katkatLight;
 static UIImpactFeedbackGenerator *katkatMedium;
+static UIImpactFeedbackGenerator *katkatHeavy; // 2026-11-19: taş akışı kombo kademesi (strength 2)
 
 extern "C" {
 
@@ -15,9 +16,12 @@ void KatKat_Haptic(int strength)
         if (strength <= 0) {
             if (!katkatLight) katkatLight = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
             [katkatLight impactOccurred];
-        } else {
+        } else if (strength == 1) {
             if (!katkatMedium) katkatMedium = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
             [katkatMedium impactOccurred];
+        } else {
+            if (!katkatHeavy) katkatHeavy = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy];
+            [katkatHeavy impactOccurred];
         }
     });
 }

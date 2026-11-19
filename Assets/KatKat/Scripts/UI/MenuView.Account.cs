@@ -120,6 +120,126 @@ namespace KatKat.UI
         /// <summary>Testler: silme onayı açık mı.</summary>
         public bool DeleteConfirmShown => _deleteCard != null;
 
+        // ---- Oyuncunun seçtiği ad (AppGallery; kullanıcı 2026-11-19: "huaweide sıralamaya üye olduğunda ismini kendi versin") ----
+        /// <summary>Düzenlenebilir ad (girişli, adı oyuncunun seçtiği hesap); null: Ayarlar'da ad satırı yok.</summary>
+        public Func<string> EditableName;
+        public Action ChangeNamePressed;
+        private RectTransform _nameCard;
+        private TMPro.TextMeshProUGUI _nameRowValue;
+        private bool NameRowOn => EditableName != null && !string.IsNullOrEmpty(EditableName());
+
+        /// <summary>Ayarlar kartındaki "Sıralamadaki adın" satırı: üstte küçük başlık, altında ad; sağda "Değiştir".</summary>
+        private void NameRowUi3(RectTransform card, float y)
+        {
+            var row = UiFactory.Rect("PlayerName", card);
+            UiFactory.Place(row, new Vector2(0.5f, 0.5f), new Vector2(0f, y), new Vector2(748f, 132f));
+            var ic = UiFactory.Image("Icon", row, Ui3.Art("ikon-dugmesi"), Color.white);
+            ic.preserveAspect = true;
+            ic.raycastTarget = false;
+            UiFactory.Place(ic.rectTransform, new Vector2(0f, 0.5f), new Vector2(36f, 0f), new Vector2(72f, 72f));
+            var mark = U3Text("Mark", ic.transform, "Aa", 30, true, Ui3.OnTeal);
+            UiFactory.Stretch(mark.rectTransform);
+            var cap = U3Text("Caption", row, Loc.T("acct.name"), 26, false, Ui3.InkSecondary, TextAnchor.MiddleLeft);
+            UiFactory.Place(cap.rectTransform, new Vector2(0f, 0.5f), new Vector2(104f + 170f, 22f), new Vector2(340f, 40f));
+            FitText(cap, 18);
+            _nameRowValue = U3Text("Value", row, EditableName?.Invoke() ?? "", 36, true, Ui3.Ink, TextAnchor.MiddleLeft);
+            UiFactory.Place(_nameRowValue.rectTransform, new Vector2(0f, 0.5f), new Vector2(104f + 170f, -20f), new Vector2(340f, 52f));
+            FitText(_nameRowValue, 22);
+            Ui1.Button("Change", row, Loc.T("acct.name.btn"), false, new Vector2(1f, 0.5f), new Vector2(-140f, 0f), new Vector2(280f, 88f), () => ChangeNamePressed?.Invoke(), null, 38);
+        }
+
+        /// <summary>Ad değişince Ayarlar'daki ad satırını günceller (sayfa açık değilse bir şey yapmaz).</summary>
+        public void RefreshSettings()
+        {
+            if (_nameRowValue != null) _nameRowValue.text = EditableName?.Invoke() ?? "";
+        }
+
+        /// <summary>
+        /// Ad penceresi: başlık, açıklama, metin kutusu (en çok <see cref="KatKat.Game.PlayerNameRules.MaxLength"/>),
+        /// hata satırı, "Kaydet" ve <paramref name="firstTime"/>'da "Sonra" (yoksa "Vazgeç"). Ad
+        /// <see cref="KatKat.Game.PlayerNameRules"/>'tan geçmezse pencere kapanmaz, hata yazılır.
+        /// </summary>
+        public void ShowNameEditor(string current, bool firstTime, Action<string> save, Action later)
+        {
+            CloseNameEditor();
+            const float W = 860f, H = 760f;
+            Action skip = () => { CloseNameEditor(); later?.Invoke(); };
+            var card = U3Modal(_page, "NameCard", W, H, skip, out var root);
+            _nameCard = root;
+            var title = U3Text("Title", card, Loc.T("acct.name.title"), 50, true, Ui3.Ink);
+            title.textWrappingMode = TMPro.TextWrappingModes.Normal;
+            U3In(title.rectTransform, W, 56f, 46f, 748f, 110f);
+            FitText(title, 28);
+            var info = U3Text("Info", card, Loc.F("acct.name.info", KatKat.Game.PlayerNameRules.MinLength, KatKat.Game.PlayerNameRules.MaxLength), 30, false, Ui3.InkSecondary);
+            info.textWrappingMode = TMPro.TextWrappingModes.Normal;
+            U3In(info.rectTransform, W, 60f, 160f, 740f, 100f);
+            FitText(info, 20);
+
+            var box = UiFactory.Image("Field", card, Ui3.Rounded(30f, Color.white, Ui3.IvoryTop, 3f, Ui3.Brass), Color.white, true);
+            box.pixelsPerUnitMultiplier = 1f;
+            U3In(box.rectTransform, W, 56f, 280f, 748f, 120f);
+            box.gameObject.SetActive(false);
+            var area = UiFactory.Stretch(UiFactory.Rect("TextArea", box.transform), 32f, 32f, 12f, 12f);
+            area.gameObject.AddComponent<RectMask2D>();
+            var ph = U3Text("Placeholder", area, Loc.T("acct.name.hint"), 40, false, Ui3.InkMuted, TextAnchor.MiddleLeft);
+            UiFactory.Stretch(ph.rectTransform);
+            ph.enableAutoSizing = false;
+            var tx = U3Text("Text", area, "", 46, true, Ui3.Ink, TextAnchor.MiddleLeft);
+            UiFactory.Stretch(tx.rectTransform);
+            tx.enableAutoSizing = false;
+            tx.richText = false;
+            var input = box.gameObject.AddComponent<TMPro.TMP_InputField>();
+            input.textViewport = area;
+            input.textComponent = tx;
+            input.placeholder = ph;
+            input.lineType = TMPro.TMP_InputField.LineType.SingleLine;
+            input.characterLimit = KatKat.Game.PlayerNameRules.MaxLength;
+            input.richText = false;
+            box.gameObject.SetActive(true);
+            // İlk kez soruluyorsa kutu boş başlar (yer tutucu görünür); değiştirmede mevcut ad yazılı gelir.
+            input.text = firstTime ? "" : (current ?? "");
+            _nameInput = input;
+
+            var err = U3Text("Error", card, "", 28, true, Ui3.Coral);
+            err.textWrappingMode = TMPro.TextWrappingModes.Normal;
+            U3In(err.rectTransform, W, 60f, 408f, 740f, 56f);
+            FitText(err, 20);
+            _nameError = err;
+
+            Action submit = () =>
+            {
+                string clean = KatKat.Game.PlayerNameRules.Clean(input.text);
+                string problem = KatKat.Game.PlayerNameRules.Problem(clean);
+                if (problem != null) { Loc.Set(err, Loc.F(problem, KatKat.Game.PlayerNameRules.MinLength)); return; }
+                CloseNameEditor();
+                save?.Invoke(clean);
+            };
+            input.onSubmit.AddListener(_ => submit());
+            Ui1.Button("Save", card, Loc.T("acct.name.save"), true, new Vector2(0.5f, 1f), new Vector2(0f, -(480f + 56f)), new Vector2(748f, 112f), submit, null, 42);
+            Ui1.Button("Later", card, Loc.T(firstTime ? "rank.remind.later" : "acct.delete.cancel"), false, new Vector2(0.5f, 1f), new Vector2(0f, -(612f + 46f)), new Vector2(748f, 92f), skip, null, 36);
+        }
+
+        private TMPro.TMP_InputField _nameInput;
+        private TMPro.TextMeshProUGUI _nameError;
+
+        public void CloseNameEditor()
+        {
+            if (_nameCard != null) UiFactory.Kill(_nameCard.gameObject);
+            _nameCard = null;
+            _nameInput = null;
+            _nameError = null;
+        }
+
+        /// <summary>Testler: ad penceresi açık mı; metni yazıp "Kaydet"e basar; hata satırı.</summary>
+        public bool NameEditorShown => _nameCard != null;
+        public void SubmitNameForTest(string text)
+        {
+            if (_nameInput == null) return;
+            _nameInput.text = text;
+            _nameCard.Find("Card/Save").GetComponent<Button>().onClick.Invoke();
+        }
+        public string NameErrorText => _nameError != null ? _nameError.text : null;
+
         /// <summary>Ayarlar kartındaki "Gizlilik seçenekleri" satırı (reklam rızası; Google UMP formu).</summary>
         private void PrivacyRowUi3(RectTransform card, float y)
         {

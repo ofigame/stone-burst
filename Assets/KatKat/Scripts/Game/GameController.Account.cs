@@ -38,6 +38,8 @@ namespace KatKat.Game
             _menu.PrivacyOptionsPressed = global::KatKat.Game.Ads.PrivacyOptions.Show;
             _menu.RankSignInPressed = SignInForRanking;
             _menu.DeleteAccountPressed = DeleteAccount;
+            _menu.EditableName = () => EditableName;
+            _menu.ChangeNamePressed = ChangePlayerName;
             // Toplu çalıştırmada (testler) sessiz giriş bile yapılmaz: kayıt durumu testleri etkilemesin.
             // AppGallery: hesap hizmeti yok → sessiz giriş (yerel test hesabı) da yapılmaz; kayıt/bulut düğmeleri gizli.
             // Hesabını silen oyuncuda sessiz giriş yapılmaz (yoksa açılışta hesap kendiliğinden yeniden oluşurdu);
@@ -159,13 +161,40 @@ namespace KatKat.Game
             Account.SignIn(false, ok =>
             {
                 if (!ok) { _menu.ShowToast(SignInFailText); return; }
-                _menu.ShowToast(Loc.F("acct.signed", Account.PlayerName));
-                if (_menu.IsRankShown) ShowRanking(_rankScope);
-                else RankAutoSubmit();
                 _menu.HideRankAttention();
-                CloudCheck(null);
+                // AppGallery (2026-11-19, kullanıcı: "huaweide sıralamaya üye olduğunda ismini kendi versin"): ad hiç
+                // seçilmediyse önce ad sorulur; "Sonra" denirse "Oyuncu 1234" ile devam (Ayarlar'dan değiştirilebilir).
+                if (Account is IRenamableAccount r && !r.HasChosenName)
+                    _menu.ShowNameEditor(Account.PlayerName, true, name => { r.Rename(name); AfterRankSignIn(); }, AfterRankSignIn);
+                else AfterRankSignIn();
             });
         }
+
+        private void AfterRankSignIn()
+        {
+            _menu.ShowToast(Loc.F("acct.signed", Account.PlayerName));
+            _rankSubmitted = null;
+            if (_menu.IsRankShown) ShowRanking(_rankScope);
+            else RankAutoSubmit();
+            CloudCheck(null);
+        }
+
+        /// <summary>Ayarlar → "Sıralamadaki adın" → değiştir: yeni ad hemen sıralama kaydına yazılır.</summary>
+        private void ChangePlayerName()
+        {
+            if (!(Account is IRenamableAccount r) || Account.State != AccountState.SignedIn) return;
+            _menu.ShowNameEditor(Account.PlayerName, false, name =>
+            {
+                r.Rename(name);
+                _rankSubmitted = null;
+                RankAutoSubmit();
+                _menu.ShowToast(Loc.F("acct.name.saved", name));
+                _menu.RefreshSettings();
+            }, null);
+        }
+
+        /// <summary>Ayarlar'da ad satırı: adı oyuncunun seçtiği, girişli hesap.</summary>
+        private string EditableName => Account is IRenamableAccount && Account.State == AccountState.SignedIn ? Account.PlayerName : null;
 
         /// <summary>Buluttaki kaydı okur; ilerideyse geri yükler (ya da haritaya dönüşe bırakır). Sonra <paramref name="then"/>.</summary>
         private void CloudCheck(System.Action then)

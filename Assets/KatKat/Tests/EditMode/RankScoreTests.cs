@@ -3,27 +3,33 @@ using NUnit.Framework;
 
 namespace KatKat.Tests
 {
-    /// <summary>v12 sıralama puanı (kullanıcı kararı 2026-11-08): %50 ZPE + %30 ulaşılan bölüm + %20 yıldız oranı, 0–1000.</summary>
+    /// <summary>Sıralama puanı (kullanıcı kararı 2026-11-19, "A ile yap"): toplam sıralama yıldızı + ZPE (0–100).</summary>
     public class RankScoreTests
     {
         [Test]
-        public void Formula_Weights_And_Range()
+        public void Formula_StarsPlusZpe()
         {
-            Assert.AreEqual(1000, RankScore.Compute(100, 1000, 1000, 3000, 1000), "her şey tam");
-            Assert.AreEqual(0, RankScore.Compute(0, 0, 1000, 0, 0));
-            Assert.AreEqual(500, RankScore.Compute(100, 0, 1000, 0, 10), "yalnız ZPE = %50");
-            Assert.AreEqual(300, RankScore.Compute(0, 1000, 1000, 0, 10), "yalnız bölüm = %30");
-            Assert.AreEqual(200, RankScore.Compute(0, 0, 1000, 30, 10), "yalnız yıldız oranı = %20");
-            // 72 ZPE, 500. bölüm, 400 bölümde 1000 yıldız (%83,3): 10 × (36 + 15 + 16,67) = 677
-            Assert.AreEqual(677, RankScore.Compute(72, 500, 1000, 1000, 400));
-            Assert.That(RankScore.Compute(150, 2000, 1000, 9999, 1), Is.InRange(0, 1000), "taşma sınırlanır");
+            Assert.AreEqual(1090, RankScore.Compute(70, 1020));
+            Assert.AreEqual(0, RankScore.Compute(0, 0));
+            Assert.AreEqual(100, RankScore.Compute(150, 0), "ZPE en çok 100");
+            Assert.AreEqual(30, RankScore.Compute(-5, 30), "eksi ZPE sayılmaz");
         }
 
         [Test]
-        public void Eligibility_Needs20Levels()
+        public void Beginner_CannotPass_Veteran()
         {
-            Assert.IsFalse(RankScore.Eligible(19));
-            Assert.IsTrue(RankScore.Eligible(20));
+            // Kullanıcının örneği: kusursuz yeni başlayan (20 bölüm, 60 yıldız, ZPE 100) vs 400. bölümdeki oyuncu
+            // (ortalama 2 yıldız, ZPE 40). Eski formülde yeni başlayan öndeydi.
+            Assert.Less(RankScore.Compute(100, 60), RankScore.Compute(40, 800));
+            // Yıldızları eşit olanları ZPE ayırır.
+            Assert.Greater(RankScore.Compute(80, 500), RankScore.Compute(60, 500));
+        }
+
+        [Test]
+        public void Eligibility_Needs10Levels()
+        {
+            Assert.IsFalse(RankScore.Eligible(9));
+            Assert.IsTrue(RankScore.Eligible(10));
         }
 
         [Test]

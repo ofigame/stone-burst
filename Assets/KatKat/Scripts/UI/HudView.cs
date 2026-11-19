@@ -1203,6 +1203,15 @@ namespace KatKat.UI
         }
 
         /// <summary>Yıldız (puan) çubuğunda dolumun ucu: kırılan taş parçalarının uçtuğu nokta.</summary>
+        /// <summary>Yıldız (puan) çubuğunun dünya dikdörtgeni (taş akışı perdesinde ışık deliği; 2026-11-19). Yoksa boş.</summary>
+        public Rect ScoreBarWorldRect()
+        {
+            if (_scoreTrack == null || !_scoreTrack.gameObject.activeInHierarchy) return Rect.zero;
+            var c = new Vector3[4];
+            _scoreTrack.GetWorldCorners(c);
+            return Rect.MinMaxRect(Mathf.Min(c[0].x, c[2].x), Mathf.Min(c[0].y, c[2].y), Mathf.Max(c[0].x, c[2].x), Mathf.Max(c[0].y, c[2].y));
+        }
+
         public Vector3 ScoreTarget()
         {
             if (_scoreFill != null && _scoreFill.gameObject.activeInHierarchy && _scoreFill.rect.width > 6f)
@@ -1539,12 +1548,38 @@ namespace KatKat.UI
             }
             for (int i = 0; i < 3; i++)
             {
-                if (_starPop[i] > 1f) continue;
+                // Sıradaki (dolmak üzere olan) yıldız akış boyunca büyür (2026-11-19, kullanıcı: "Yıldız çubuğunda dolmak üzere
+                // olan yıldız büyüsün"); akış bitince yumuşakça normal boyuta döner.
+                float ft = _starFocusOn && i == _starsLit ? 1f : 0f;
+                bool moved = !Mathf.Approximately(_starFocusV[i], ft);
+                _starFocusV[i] = Mathf.MoveTowards(_starFocusV[i], ft, dt / (ft > 0f ? 0.22f : 0.3f));
+                float fe = _starFocusV[i] * _starFocusV[i] * (3f - 2f * _starFocusV[i]);
+                float focus = Mathf.Lerp(1f, StarFocusScale, fe);
+                if (_starPop[i] > 1f)
+                {
+                    if (moved || _starFocusV[i] > 0f) _scoreStars[i].rectTransform.localScale = Vector3.one * focus;
+                    continue;
+                }
                 _starPop[i] += dt / 0.45f;
                 float x = Mathf.Clamp01(_starPop[i]);
-                _scoreStars[i].rectTransform.localScale = Vector3.one * (1f + 0.8f * Mathf.Sin(x * Mathf.PI) * (1f - x * 0.4f));
+                _scoreStars[i].rectTransform.localScale = Vector3.one * focus * (1f + 0.8f * Mathf.Sin(x * Mathf.PI) * (1f - x * 0.4f));
                 _scoreStars[i].rectTransform.localRotation = Quaternion.Euler(0f, 0f, 30f * Mathf.Sin(x * Mathf.PI));
             }
+        }
+
+        // ---- Taş akışı odağı (2026-11-19) ----
+        public const float StarFocusScale = 1.35f;
+        private bool _starFocusOn;
+        private readonly float[] _starFocusV = new float[3];
+
+        /// <summary>Akış sürerken sıradaki yıldız büyür; akış bitince küçülür.</summary>
+        public void SetStarFocus(bool on) => _starFocusOn = on;
+
+        /// <summary>Patlatılan rengin görev simgesi akış sürerken büyür; o rengin son taşı varınca küçülür.</summary>
+        public void SetFlowFocus(LayerColor color, bool on)
+        {
+            foreach (var c in _chips)
+                if (c.Goal.Type == GoalType.CollectColor && c.Goal.Color == color) c.Focus = on;
         }
 
         private void ApplyScore()

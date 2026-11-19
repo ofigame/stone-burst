@@ -77,6 +77,21 @@ namespace KatKat.Game
                     float f = t < 0.09f ? 1175f : 1568f;
                     return (Sine(t, f) * 0.6f + Sine(t, f * 2.01f) * 0.18f) * Decay(t < 0.09f ? t : t - 0.09f, 8f) * Attack(t, 0.003f) * 0.26f;
                 }),
+                // 2026-11-19 (kullanıcı: "hedefe giderken kazanç, kasa doluyormuş ses efektide verelim. Taşın sayısına göre ses
+                // tekrarlasın"): jeton şıngırtısı — uyumsuz metal kısmi tonlar + kısa vuruş tıkı, hızlı sönüm.
+                Make("coin", 0.16f, (t, d) =>
+                    (Sine(t, 2489f) * 0.42f + Sine(t, 3729f) * 0.26f + Sine(t, 5588f) * 0.12f) * Decay(t, 26f) * Attack(t, 0.002f) * 0.28f
+                    + Noise(t) * Decay(t, 180f) * 0.06f),
+                // Kapanış "ka-ching": iki jeton vuruşu, ardından parlak çan akoru (G6-C7-E7) yavaş söner.
+                Make("coinFinal", 0.6f, (t, d) =>
+                {
+                    float hit = (Sine(t, 2489f) * 0.4f + Sine(t, 3729f) * 0.22f) * Decay(t, 30f)
+                              + (t > 0.07f ? (Sine(t, 2794f) * 0.4f + Sine(t, 4186f) * 0.2f) * Decay(t - 0.07f, 28f) : 0f);
+                    float bell = t > 0.07f
+                        ? (Sine(t, 1568f) * 0.32f + Sine(t, 2093f) * 0.28f + Sine(t, 2637f) * 0.22f + Sine(t, 4186f) * 0.08f) * Decay(t - 0.07f, 5.5f)
+                        : 0f;
+                    return (hit + bell) * Attack(t, 0.002f) * 0.26f + Noise(t) * Decay(t, 160f) * 0.05f;
+                }),
             };
             // V16 (kullanıcı 2026-11-18: docs/yeni_v1/sesler "bu sesleri kullanalım"): dokunma, taş patlaması, büyük hamle.
             // Yoksa v10 WAV / sentez.

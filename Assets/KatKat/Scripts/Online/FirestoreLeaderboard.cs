@@ -10,7 +10,7 @@ namespace KatKat.Game.Online
 {
     /// <summary>
     /// Firestore sıralaması (kullanıcı kararı 2026-11-09). Koleksiyon <c>scores/{firebaseUid}</c>:
-    /// name (Play Games adı), country (ISO alfa-2 ya da ""), score 0–1000, zpe, level, stars, updated.
+    /// name (Play Games adı), country (ISO alfa-2 ya da ""), score (yıldız + ZPE; 2026-11-19 öncesi 0–1000), zpe, level, stars, updated.
     /// Fetch: oyuncu uygunsa (Score &gt; 0) önce kendi kaydını yazar, sonra ilk 10'u ve kendi sırasını
     /// (kendinden yüksek puan sayısı + 1) okur. Kurallar ve dizinler: <c>firebase/</c> klasörü.
     /// YALNIZ KATKAT_ONLINE tanımlıyken derlenir. CİHAZDA DENENMEDİ.

@@ -21,6 +21,11 @@ namespace KatKat.UI
         private RectTransform _check;
         private Image _sparkle, _glow;
         private float _pulse;
+        // Taş akışı odağı (2026-11-19, kullanıcı: "hedef taşlardada hangi renk patlatılmış ise o büyüsün yerine gelincede normal
+        // boyutuna dönsünler"): 1 iken simge ~1,3x; yumuşak geçiş.
+        public bool Focus;
+        private float _focus;
+        public const float FocusScale = 1.3f;
         private float _flash = 1f;
 
         public static GoalChip Create(RectTransform parent, GoalState goal, bool compact = false, bool divider = false)
@@ -166,10 +171,14 @@ namespace KatKat.UI
 
         public void Tick(float dt)
         {
-            if (_pulse > 0f)
+            float target = Focus ? 1f : 0f;
+            bool scaleDirty = _pulse > 0f || !Mathf.Approximately(_focus, target);
+            _focus = Mathf.MoveTowards(_focus, target, dt / (Focus ? 0.22f : 0.3f));
+            if (_pulse > 0f) _pulse = Mathf.Max(0f, _pulse - dt * 4f);
+            if (scaleDirty || _focus > 0f)
             {
-                _pulse = Mathf.Max(0f, _pulse - dt * 4f);
-                float s = 1f + 0.22f * Mathf.Sin(_pulse * Mathf.PI);
+                float f = _focus * _focus * (3f - 2f * _focus);
+                float s = Mathf.Lerp(1f, FocusScale, f) * (1f + 0.22f * Mathf.Sin(_pulse * Mathf.PI));
                 Icon.localScale = new Vector3(s, s, 1f);
             }
             if (_flash < 1f)

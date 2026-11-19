@@ -198,7 +198,7 @@ namespace KatKat.EditorTools
             Shot("game_l20_win_tablet_1536x2048.png", 1536, 2048, null, gc => { gc.StartLevel(19); Steps(gc, 99, -1f); gc.Hud.AdvancePanel(2400f); });
             Shot("game_l4_lose_panel_9x16.png", 1080, 1920, null, gc => { gc.StartLevel(3); LoseQuickly(gc); gc.Hud.AdvancePanel(1000f); });
             Shot("game_l20_pause_panel_9x16.png", 1080, 1920, null, gc => { gc.StartLevel(19); gc.OpenPauseForCapture(); gc.Hud.AdvancePanel(1000f); });
-            Shot("game_l3_goal_flash_9x16.png", 1080, 1920, null, gc => { gc.StartLevel(2); Steps(gc, 1, PeelSequence.ReleaseEnd + 120f); });
+            Shot("game_l3_goal_flash_9x16.png", 1080, 1920, null, gc => { gc.StartLevel(2); Steps(gc, 1, PeelSequence.ArriveAt + 120f); });
             Shot("game_l11_roll_ready_9x16.png", 1080, 1920, null, gc => { gc.StartLevel(10); Steps(gc, 1, -1f); });
             Shot("game_l11_roll_preview_20x9_notch.png", 1080, 2400, Notch, gc => { gc.StartLevel(10); Steps(gc, 1, -1f); gc.PressRollSlot(); gc.OnCellPressed(0, 2); });
             Shot("game_l11_roll_mid_9x16.png", 1080, 1920, null, gc => { gc.StartLevel(10); Steps(gc, 2, 300f); });
@@ -480,6 +480,24 @@ namespace KatKat.EditorTools
         /// heyecan, son üç hamle), beş hedefli dar ekran, çentikli ekran, harita düğümü ve dönüş düğmesi.
         /// Her oyun içi karenin üst 430 pikseli ayrıca "_crop" olarak kaydedilir. Çıktı Logs/captures/mascot/.
         /// </summary>
+        /// <summary>
+        /// 2026-11-19 taş akışı ara kareleri (kırılma → havada bütün taş → görev/yıldız çubuğuna akış):
+        /// tools/unity.ps1 capture-pop → Logs/.../pop/.
+        /// </summary>
+        public static void CapturePop()
+        {
+            const string V = "pop/";
+            Directory.CreateDirectory(Path.Combine(PeelCapture.OutDir, "pop"));
+            EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            foreach (var lv in new[] { 2, 1 })
+            foreach (var ms in new[] { 200f, 420f, 640f, 800f, 980f, 1150f })
+            {
+                float at = ms; int l = lv;
+                Shot($"{V}pop_l{l + 1}_{(int)at}ms.png", 1080, 1920, null, gc => { gc.StartLevel(l); Steps(gc, 1, at); });
+            }
+            EditorApplication.Exit(0);
+        }
+
         public static void CaptureMascot()
         {
             const string V = "mascot/";

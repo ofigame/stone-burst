@@ -25,8 +25,8 @@ namespace KatKat.View
         public PeelSequence Peel(StackView stack, Vector3 goalWorld, Action<PeelSequence> onArrive, float delayMs = 0f)
             => Peel(stack, goalWorld, goalWorld, 1f, onArrive, delayMs);
 
-        /// <summary>v10 taş kırılması: parçaların <paramref name="goalShare"/> oranı görev simgesine, kalanı yıldız çubuğuna.</summary>
-        public PeelSequence Peel(StackView stack, Vector3 goalWorld, Vector3 starWorld, float goalShare, Action<PeelSequence> onArrive, float delayMs = 0f)
+        /// <summary>Taş kırılması (2026-11-19): <paramref name="goalShare"/> &gt; 0 ise bütün taş görev simgesine, yıldızlar yıldız çubuğuna; <paramref name="stones"/> kombo taş sayısı (1–4).</summary>
+        public PeelSequence Peel(StackView stack, Vector3 goalWorld, Vector3 starWorld, float goalShare, Action<PeelSequence> onArrive, float delayMs = 0f, int stones = 1, Vector3? gatherWorld = null)
         {
             var sheet = _pool.Count > 0 ? _pool.Pop() : PeelSheet.Create(transform);
             var seq = new PeelSequence(stack, sheet, goalWorld, starWorld, goalShare, PeelSortingOrder + _active.Count * 12, s =>
@@ -34,7 +34,7 @@ namespace KatKat.View
                 s.Sheet.transform.SetParent(transform, false);
                 _pool.Push(s.Sheet);
                 onArrive?.Invoke(s);
-            }, transform);
+            }, transform, stones, gatherWorld);
             _active.Add(seq);
             _started.Add(_clock + delayMs);
             return seq;

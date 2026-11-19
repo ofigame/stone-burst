@@ -1100,6 +1100,7 @@ namespace KatKat.UI
                 var raw = rt.gameObject.AddComponent<RawImage>();
                 raw.raycastTarget = false;
                 float cy = (k + 0.5f) * tileH, tileW = StripW;
+                Sprite motionPart = null;
                 if (useStrip)
                 {
                     var sp = road.Sprites[StripPartOf(k)];
@@ -1107,6 +1108,10 @@ namespace KatKat.UI
                     var r0 = sp.textureRect;
                     float tw = sp.texture.width, th = sp.texture.height;
                     raw.uvRect = new Rect(r0.x / tw, r0.y / th, r0.width / tw, r0.height / th);
+                    // 2026-11-19: su, yaprak ve çiçek hareketi (maskesi olan parçalarda; MapMotion).
+                    var motion = MapMotion.For(sp);
+                    if (motion != null) raw.material = motion;
+                    motionPart = motion != null ? sp : null;
                 }
                 else
                 {
@@ -1123,6 +1128,7 @@ namespace KatKat.UI
                     if (k % 2 == 1) rt.localScale = new Vector3(-1f, 1f, 1f);
                 }
                 Pos(rt, new Vector2(0f, cy), new Vector2(tileW, tileH));
+                if (motionPart != null) MapMotion.AddLife(rt, motionPart, k);
                 // Şeritten şeride eklem nehrin ortasıdır (iki şeritte de su + köprü): sis gerekmez.
                 if (!useStrip || !belowStrip)
                 {
@@ -1270,6 +1276,8 @@ namespace KatKat.UI
         /// yıldızlar; mevcut = büyük, hale, üstünde zıplayan maskot iğnesi. Bölümün mekaniği küçük karakter simgesi olarak
         /// kilitli düğümde bile görünür (oyuncu ileride ne geleceğini görür); 10'un katı final bölümleri altın halkalı.
         /// </summary>
+        private static readonly Color CurrentNodeRed = new Color(0.93f, 0.27f, 0.24f), CurrentNodeRedDark = new Color(0.45f, 0.08f, 0.07f);
+
         private void Node(RectTransform content, Vector2 pos, int index, bool unlocked, bool done, bool isCurrent, Sprite nodeSprite, bool tappable = false)
         {
             bool final = (index + 1) % 10 == 0;
@@ -1280,7 +1288,8 @@ namespace KatKat.UI
                 _halo = halo.rectTransform;
             }
             float size = isCurrent ? 150f : unlocked ? 112f : 78f;
-            var tint = !unlocked ? new Color(0.96f, 0.92f, 0.84f) : isCurrent ? new Color(0.35f, 0.9f, 0.86f) : new Color(0.28f, 0.74f, 0.66f);
+            // 2026-11-19 (kullanıcı: "yolculukta olduğumuz bölüm mavi değil kırmızı renkte olsun"): bulunulan bölüm kırmızı.
+            var tint = !unlocked ? new Color(0.96f, 0.92f, 0.84f) : isCurrent ? CurrentNodeRed : new Color(0.28f, 0.74f, 0.66f);
             var node = UiFactory.Image("Level" + (index + 1), content, nodeSprite ?? UiArt.Circle, tint);
             node.preserveAspect = true;
             node.raycastTarget = unlocked || tappable;
@@ -1294,7 +1303,7 @@ namespace KatKat.UI
             if (unlocked)
             {
                 var num = UiFactory.Title("Num", node.transform, (index + 1).ToString(), index + 1 >= 1000 ? (isCurrent ? 40 : 32) : index + 1 >= 100 ? (isCurrent ? 50 : 40) : (isCurrent ? 60 : 48),
-                    UiArt.Cream, UiArt.HudTealDark);
+                    UiArt.Cream, isCurrent ? CurrentNodeRedDark : UiArt.HudTealDark);
                 UiFactory.Stretch(num.rectTransform, 6, 6, 0, 8);
                 num.fontSizeMax = num.fontSize;
                 num.fontSizeMin = 22;
@@ -1653,6 +1662,7 @@ namespace KatKat.UI
         public void Tick(float dt)
         {
             _clock += dt;
+            MapMotion.Tick(_clock); // yolculuk haritası su/yaprak/çiçek hareketi (2026-11-19)
             TickToast();
             TickReturn(dt);
             TickClouds();

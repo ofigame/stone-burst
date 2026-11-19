@@ -135,7 +135,7 @@ namespace KatKat.Tests
             yield return null;
             Assert.IsNull(GameObject.Find("Row1"));
             Assert.IsNotNull(GameObject.Find("Message"));
-            StringAssert.Contains("5/20", Text(Child("SelfCard", "Foot")));
+            StringAssert.Contains("5/" + KatKat.Meta.RankScore.MinLevels, Text(Child("SelfCard", "Foot")));
             Assert.AreEqual("—", Text(Child("SelfCard", "RankPill/Rank")));
         }
     }

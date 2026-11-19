@@ -127,6 +127,14 @@ namespace KatKat.Game
             _board.SpongeTarget = () => _hud.TokenTarget(GoalType.CollectSponges);
             _board.EnvelopeTarget = _hud.EnvelopeTarget;
             _board.ScoreTarget = _hud.ScoreTarget;
+            _board.ScoreBarRect = _hud.ScoreBarWorldRect;
+            _board.VeilCamera = _cam; // taş akışı perdesi (2026-11-19)
+            _board.GoalFocus = _hud.SetFlowFocus; // akıştaki rengin görev simgesi büyür (2026-11-19)
+            _board.StarFocus = _hud.SetStarFocus; // sıradaki yıldız büyür
+            // Taş akışı titreşim ve kasa sesi (2026-11-19): Titreşim ve Ses ayarlarına bağlı (Haptics.Enabled, SoundBank.Enabled).
+            _board.FlowRise = lvl => Haptics.Level(lvl);
+            _board.FlowTick = i => { _sound.Play(Sfx.Coin, i / 2, 0.75f); Haptics.Tick(); };
+            _board.FlowFinal = () => { _sound.Play(Sfx.CoinFinal, 0, 0.85f); Haptics.Medium(); };
             _board.IsGoalColor = _hud.IsGoalColor;
             _sound = SoundBank.Create(transform);
             SetupVr1();
@@ -484,6 +492,7 @@ namespace KatKat.Game
         /// <summary>Tahta hücresine dokunuş. Testler ve yakalama aracı doğrudan çağırabilir.</summary>
         public void OnCellPressed(int x, int y)
         {
+            _board.DropVeil(); // uçuş sırasında dokunuş: perde 0,1 sn'de kalkar
             if (CurrentPhase == Phase.Targeting)
             {
                 SelectRollRow(y);
@@ -643,6 +652,8 @@ namespace KatKat.Game
             for (int g = 0; g < goals.Count; g++) shown[g] = -1;
             int scoreShown = _session.State.Score - r.ScoreGained;
             _chainSounded = false;
+            // 2026-11-19: yavaş taş akışı girdiyi kilitlemesin; yalnız bölümü bitiren hamle taşların varmasını bekler.
+            _board.HoldUntilArrive = _session.State.Status != GameStatus.Idle;
             _board.Play(r, _hud.GoalTarget, _hud.StarTarget,
                 wave =>
                 {
@@ -868,6 +879,7 @@ namespace KatKat.Game
                 _board.StackAt(at.X, at.Y).SetSpecial(step.SpecialCreated, default);
                 _board.StackAt(at.X, at.Y).PopSpecial();
             }
+            _board.HoldUntilArrive = false; // kutlama adımları uçuşu beklemez; EndCelebration kalan uçuşu bitirir
             _board.Play(step, _hud.GoalTarget, _hud.StarTarget,
                 w => _sound.Play(Sfx.RollUse),
                 w => { before += w.Score; _hud.SetScore(before, _session.State.StarThresholds, true); },
@@ -892,6 +904,7 @@ namespace KatKat.Game
             if (!_celebrating) return;
             _celebrating = false;
             var s = _session.State;
+            _board.CompleteImmediately(); // kutlama adımlarının havadaki uçuşları
             _board.Sync(s);
             _hud.SetMoves(0);
             _hud.SetScore(s.Score, s.StarThresholds, false);
@@ -913,7 +926,8 @@ namespace KatKat.Game
             var s = _session.State;
             OutcomeMoves(s); // kutlama kalan hamleleri harcamadan önce
             _board.Sync(s);
-            _hud.SetGoalsImmediate(s.Goals);
+            // 2026-11-19: hamle uçuşlar bitmeden biterse sayaçlar taşlar vardıkça (onWaveArrived) güncellenir; erken doldurulmaz.
+            if (_board.HoldUntilArrive || !_board.IsPlaying) _hud.SetGoalsImmediate(s.Goals);
             _hud.SetGoalStages(s.Goals, s.ActiveStage); // vr1 P3 (tek aşamalıda etkisiz)
             _hud.SetMoves(s.MovesLeft);
             _hud.SetTray(s.Tray, _traySlot = -1);
@@ -1043,6 +1057,7 @@ namespace KatKat.Game
 
         private void ResyncAll()
         {
+            _board.CompleteImmediately(); // havadaki taşlar ve bekleyen varış güncellemeleri eski hamleye ait (geri al / yeniden başla)
             _board.HideRowPreview();
             _previewRow = -1;
             var s = _session.State;

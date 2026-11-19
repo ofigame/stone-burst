@@ -272,7 +272,8 @@ namespace KatKat.EditorTools
         /// Ölçü 0: sert giriş (davul + bas + akor vuruşu); 1–6: dörtlük davul, el çırpma, ofbit bas, 16'lık arpej;
         /// 7: gerilim (yükselen gürültü, davul seyrekleşir); 8–11: tam enerji; 12+: kapanış akoru ve çan, sönüş.
         /// </summary>
-        private static float[] PunchMusic(float seconds)
+        /// <remarks>outroBar/riserBar: kapanış ve gerilim ölçüsü (varsayılan 12 ve 6 = 2026-11-12 kurgusu; Meta reklamı 8 ve 7).</remarks>
+        private static float[] PunchMusic(float seconds, int outroBar = 12, int riserBar = 6)
         {
             const int Sr = SoundBank.SampleRate;
             int n = (int)(seconds * Sr);
@@ -293,12 +294,12 @@ namespace KatKat.EditorTools
             Func<float, float> clap = t => Noise() * (Mathf.Exp(-t * 26f) + 0.5f * Mathf.Exp(-Mathf.Abs(t - 0.012f) * 200f));
             Func<float, float> hat = t => Noise() * Mathf.Exp(-t * 90f);
             int bars = Mathf.CeilToInt(seconds / bar);
-            const int Outro = 12;
+            int Outro = outroBar;
             for (int b = 0; b < bars; b++)
             {
                 float t0 = b * bar;
                 var ch = chords[b % 4];
-                bool riser = b == 6, outro = b >= Outro; // 12–14 sn gerilim, 14 sn patlama (kurgudaki büyük grup)
+                bool riser = b == riserBar, outro = b >= Outro; // 12–14 sn gerilim, 14 sn patlama (kurgudaki büyük grup)
                 // Pad (testere benzeri, yumuşak; her vuruşta "pompalama").
                 foreach (var m in ch)
                 {
@@ -359,7 +360,7 @@ namespace KatKat.EditorTools
                         Func<float, float> pl = t => (Mathf.Sin(2f * Mathf.PI * f * t) + 0.3f * Mathf.Sin(4f * Mathf.PI * f * t) * Mathf.Exp(-t * 20f)) * Mathf.Exp(-t * 11f) * Mathf.Clamp01(t / 0.002f);
                         float g = e % 4 == 0 ? 0.07f : 0.05f;
                         Add(L, te, 0.4f, pl, g); Add(R, te + 0.006f, 0.4f, pl, g * 0.85f);
-                        if (b >= 7) { float f2 = f * 2f; Func<float, float> p2 = t => Mathf.Sin(2f * Mathf.PI * f2 * t) * Mathf.Exp(-t * 14f); Add(R, te, 0.3f, p2, 0.025f); Add(L, te + 0.01f, 0.3f, p2, 0.02f); }
+                        if (b >= riserBar + 1) { float f2 = f * 2f; Func<float, float> p2 = t => Mathf.Sin(2f * Mathf.PI * f2 * t) * Mathf.Exp(-t * 14f); Add(R, te, 0.3f, p2, 0.025f); Add(L, te + 0.01f, 0.3f, p2, 0.02f); }
                     }
                 }
                 // Gerilim: yükselen filtreli gürültü ve hızlanan tıkırtı.

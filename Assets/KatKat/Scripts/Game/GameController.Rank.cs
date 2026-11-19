@@ -9,7 +9,7 @@ namespace KatKat.Game
 {
     /// <summary>
     /// v12 Sıralama ekranı denetimi (docs/v12/siralama, PLAN.md §4). Puan: <see cref="RankScore"/> (kullanıcı
-    /// kararı %50 ZPE + %30 ulaşılan bölüm + %20 yıldız, 0–1000, giriş eşiği 20 bölüm). Sunucu (Firebase) henüz yok:
+    /// kararı 2026-11-19: toplam sıralama yıldızı + ZPE (önce %50 ZPE + %30 bölüm + %20 yıldız oranı, 0–1000), giriş eşiği 10 bölüm (2026-11-19, önce 20)). Sunucu (Firebase) henüz yok:
     /// varsayılan sağlayıcı <see cref="NotConnectedLeaderboard"/> (ekranda "bağlı değil"); örnek veri yalnız
     /// <see cref="DevLeaderboardSample"/> açıkken (editör/geliştirme) ve ekranda etiketli.
     /// </summary>
@@ -66,7 +66,7 @@ namespace KatKat.Game
             return new LeaderboardEntry
             {
                 Name = Loc.T("rank.you"), IsSelf = true, Zpe = zpe, Level = reached, Stars = stars,
-                Score = RankScore.Eligible(completed) ? RankScore.Compute(zpe, reached, _catalog.Count, stars, completed) : 0,
+                Score = RankScore.Eligible(completed) ? RankScore.Compute(zpe, stars) : 0,
             };
         }
 

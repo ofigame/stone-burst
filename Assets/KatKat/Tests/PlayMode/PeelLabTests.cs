@@ -30,7 +30,8 @@ namespace KatKat.Tests
             // Alt katmanlar soyulma sırasında yerinde kalır, sıra değişmez.
             CollectionAssert.AreEqual(new[] { LayerColor.Yellow, LayerColor.Blue }, _lab.Stack.Layers);
 
-            yield return new WaitForSecondsRealtime(PeelSequence.Duration / 1000f + 0.2f);
+            // Yönetmen saati Motion.Pace ile yavaşlar (2026-11-18); taş akışı 2026-11-19 uzadı.
+            yield return new WaitForSecondsRealtime(PeelSequence.Duration / 1000f / KatKat.UI.Motion.Pace + 0.3f);
             Assert.IsTrue(seq.IsDone);
             Assert.AreEqual(0, _lab.Director.ActiveCount);
             Assert.IsFalse(seq.Sheet.gameObject.activeSelf, "Soyulma ağı havuza dönmeli.");

@@ -330,9 +330,9 @@ namespace KatKat.Game.Online
     /// (cihazda saklanır; dil değişse de aynı kalır). Bulut kaydı yok (anonim hesap cihaza bağlı; Ayarlar'da
     /// "İlerlemeyi kaydet" satırı gizli). Hesap silme: sıralama kaydı + Firebase kullanıcısı.
     /// </summary>
-    public sealed class RestAccountService : IAccountService
+    public sealed class RestAccountService : IAccountService, IRenamableAccount
     {
-        private const string PrefName = "katkat.rest.name";
+        private const string PrefName = "katkat.rest.name", PrefChosen = "katkat.rest.name.chosen";
         private readonly FirebaseRestClient _client;
 
         public RestAccountService(FirebaseRestClient client) { _client = client; }
@@ -381,6 +381,19 @@ namespace KatKat.Game.Online
             return string.Format(CultureInfo.InvariantCulture, pattern, num);
         }
 
+        /// <summary>2026-11-19 (kullanıcı: "ismini kendi versin"): oyuncunun yazdığı ad cihazda saklanır; puan bir sonraki
+        /// yazımda bu adla gider.</summary>
+        public bool HasChosenName => PlayerPrefs.GetInt(PrefChosen, 0) == 1;
+
+        public void Rename(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return;
+            PlayerName = name;
+            PlayerPrefs.SetString(PrefName, name);
+            PlayerPrefs.SetInt(PrefChosen, 1);
+            PlayerPrefs.Save();
+        }
+
         public void SaveProgress(string json, Action<bool> done) => done?.Invoke(false);
         public void LoadProgress(Action<bool, string> done) => done?.Invoke(true, null);
 
@@ -394,6 +407,7 @@ namespace KatKat.Game.Online
                 {
                     if (!del) { done?.Invoke(false); return; }
                     PlayerPrefs.DeleteKey(PrefName);
+                    PlayerPrefs.DeleteKey(PrefChosen);
                     PlayerPrefs.Save();
                     PlayerName = null;
                     State = AccountState.SignedOut;

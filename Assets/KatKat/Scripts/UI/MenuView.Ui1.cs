@@ -382,9 +382,9 @@ namespace KatKat.UI
             intro.enableAutoSizing = true; intro.fontSizeMax = 38; intro.fontSizeMin = 22;
             var rows = new (string title, string desc, string pct, Sprite icon)[]
             {
-                (Loc.T("rank.part.zpe"), Loc.T("rank.part.zpe.desc"), "%50", Ui1.Art("icon-zpe")),
-                (Loc.T("rank.part.level"), Loc.T("rank.part.level.desc"), "%30", RuleIcons.For("exact")),
-                (Loc.T("rank.part.stars"), Loc.T("rank.part.stars.desc"), "%20", PremiumArt.V4("icons/star") ?? ProceduralArt.StarSprite),
+                // 2026-11-19 (kullanıcı: "A ile yap"): puan = toplam yıldız (her yıldız 1) + ZPE (en çok 100).
+                (Loc.T("rank.part.stars"), Loc.T("rank.part.stars.desc"), "×1", PremiumArt.V4("icons/star") ?? ProceduralArt.StarSprite),
+                (Loc.T("rank.part.zpe"), Loc.T("rank.part.zpe.desc"), "+100", Ui1.Art("icon-zpe")),
             };
             float y = -630f;
             foreach (var r in rows)
