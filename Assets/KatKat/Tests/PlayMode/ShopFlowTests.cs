@@ -67,10 +67,10 @@ namespace KatKat.Tests
             yield return null;
             int before = Meta.ingots;
             _gc.Menu.ClaimGiftPressed("stone_tide");
-            Assert.AreEqual(before + 150, Meta.ingots);
+            Assert.AreEqual(before + 50, Meta.ingots);
             Assert.Contains("stone_tide", Meta.stones, "taş koleksiyonda kalır");
             _gc.Menu.ClaimGiftPressed("stone_tide");
-            Assert.AreEqual(before + 150, Meta.ingots, "bir kez");
+            Assert.AreEqual(before + 50, Meta.ingots, "bir kez");
             _gc.ShowLevels();
             yield return null;
             Assert.IsFalse(_gc.Menu.GiftMarkShown, "işaret kalktı");

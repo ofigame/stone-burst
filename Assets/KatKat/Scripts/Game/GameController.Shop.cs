@@ -160,10 +160,12 @@ namespace KatKat.Game
                 case Booster.Moves: UseMovesBooster(); break;
                 case Booster.Bomb:
                     _boosterMode = b;
+                    _hud.PlayBoosterBurst(b, false);
                     _hud.ShowToast(Loc.T("booster.bomb.pick"), 2.4f);
                     break;
                 case Booster.Recolor:
                     _boosterMode = b;
+                    _hud.PlayBoosterBurst(b, false);
                     _recolorPicks.Clear();
                     _hud.ShowToast(Loc.F("booster.recolor.pick", ShopCatalog.RecolorStones), 2.6f);
                     break;
@@ -197,7 +199,10 @@ namespace KatKat.Game
             if (!_session.GrantMoves(ShopCatalog.MovesAmount)) return;
             BoosterUsed(Booster.Moves);
             if (_outcome != null) _outcome.MoveBonus += ShopCatalog.MovesAmount;
-            _hud.SetMoves(_session.State.MovesLeft);
+            // 2026-11-20 (kullanıcı: güçlendirici kullanımı "daha görsel şölenli"): "+3" yıldız iziyle hamle sayacına uçar, varınca
+            // sayı güncellenir ve zıplar; tahtanın çevresinde altın ışık dalgası.
+            _hud.PlayMovesGain(ShopCatalog.MovesAmount, () => { if (_session != null) _hud.SetMoves(_session.State.MovesLeft); });
+            _board.RimSweep(new Color(1f, 0.85f, 0.35f), new Color(1f, 0.98f, 0.75f), 1.1f);
             _hud.ShowToast(Loc.F("booster.moves.done", ShopCatalog.MovesAmount), 1.6f);
             _sound.Play(Sfx.CoinFinal);
             Haptics.Medium();
@@ -226,6 +231,8 @@ namespace KatKat.Game
             _session.DropUndo(); // külçeyle ödenen etki geri alınmaz
             BoosterUsed(Booster.Bomb);
             _hud.HideToast();
+            _hud.PlayBoosterBurst(Booster.Bomb, true);
+            _board.RimSweep(new Color(1f, 0.55f, 0.15f), new Color(1f, 0.9f, 0.45f), 1.5f, fire: true);
             HintAfterCommand();
             _sound.Play(Sfx.Win);
             Haptics.Strong();
@@ -270,7 +277,9 @@ namespace KatKat.Game
             if (done.Count == 0) { _hud.ShowToast(Loc.T("toast.paint.same")); return true; }
             BoosterUsed(Booster.Recolor);
             _hud.HideToast();
+            _hud.PlayBoosterBurst(Booster.Recolor, true);
             _board.PlayRecolor(done, color);
+            _board.RimSweep(KatKat.View.LayerPalette.FrontColor(color), Color.white, 1.2f);
             _sound.Play(Sfx.CoinFinal);
             Haptics.Medium();
             HintAfterCommand();

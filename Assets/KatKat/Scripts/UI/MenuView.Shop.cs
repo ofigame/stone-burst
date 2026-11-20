@@ -57,6 +57,7 @@ namespace KatKat.UI
             var icon = Decor("Ingot", cap.transform, ShopArt("ingot") ?? PremiumArt.V4("icons/star") ?? ProceduralArt.StarSprite);
             icon.preserveAspect = true;
             UiFactory.Place(icon.rectTransform, new Vector2(0f, 0.5f), new Vector2(52f, 2f), new Vector2(76f, 76f));
+            Twinkle.Attach(icon.rectTransform, 2, 30f, 0.55f); // 2026-11-20: külçede ışıltılı yıldızlar
             var n = U3Text("Ingots", cap.transform, (IngotCount?.Invoke() ?? 0).ToString(), 50, true, Ui3.Ink);
             UiFactory.Place(n.rectTransform, new Vector2(0f, 0.5f), new Vector2(144f, 0f), new Vector2(112f, 62f));
             FitText(n, 28);
@@ -195,6 +196,7 @@ namespace KatKat.UI
             var icon = Decor("Icon", ct, art);
             icon.preserveAspect = true;
             UiFactory.Place(icon.rectTransform, new Vector2(0f, 1f), new Vector2(130f, -120f), new Vector2(210f, 190f));
+            Twinkle.Attach(icon.rectTransform, 4, 46f, 0.5f);
             var t = U3Text("Name", ct, title, 40, true, Ui3.Ink, TextAnchor.MiddleLeft);
             t.textWrappingMode = TMPro.TextWrappingModes.Normal;
             UiFactory.Place(t.rectTransform, new Vector2(0f, 1f), new Vector2(240f + (w - 260f) * 0.5f, -62f), new Vector2(w - 260f, 90f));
@@ -242,15 +244,18 @@ namespace KatKat.UI
                 FitText(u, 18);
                 return;
             }
-            IngotButton(ct, "Buy1", "", ShopCatalog.Price(b), ingots, new Vector2(0f, 128f), new Vector2(w - 40f, 74f), () => BuyBoosterPressed?.Invoke(b, 1));
-            IngotButton(ct, "Buy3", "3× ", ShopCatalog.Price3(b), ingots, new Vector2(0f, 46f), new Vector2(w - 40f, 74f), () => BuyBoosterPressed?.Invoke(b, 3));
+            IngotButton(ct, "Buy1", "", ShopCatalog.Price(b), ingots, new Vector2(0f, 116f), new Vector2(w - 90f, 62f), () => BuyBoosterPressed?.Invoke(b, 1));
+            IngotButton(ct, "Buy3", "3× ", ShopCatalog.Price3(b), ingots, new Vector2(0f, 44f), new Vector2(w - 90f, 62f), () => BuyBoosterPressed?.Invoke(b, 3));
         }
 
-        /// <summary>Külçe fiyatlı düğme: [külçe] fiyat; yetmiyorsa soluk (basınca yine çağrılır: denetleyici "Külçe al" der).</summary>
+        /// <summary>
+        /// Külçe fiyatlı düğme: [külçe] fiyat; yeşil gradyan, büyüyüp küçülür (2026-11-20). Yetmiyorsa soluk (basınca yine
+        /// çağrılır: denetleyici "Külçe al" der).
+        /// </summary>
         private void IngotButton(RectTransform parent, string name, string prefix, int price, int ingots, Vector2 pos, Vector2 size, Action act)
         {
             bool afford = ingots >= price;
-            var btn = Ui1.Button(name, parent, prefix + price, afford, new Vector2(0.5f, 0f), pos, size, act, ShopArt("ingot"), 34);
+            var btn = Ui1.PriceButton(name, parent, prefix + price, new Vector2(0.5f, 0f), pos, size, act, ShopArt("ingot"), 34);
             if (!afford)
             {
                 var cg = btn.gameObject.AddComponent<CanvasGroup>();
@@ -265,12 +270,14 @@ namespace KatKat.UI
             var icon = Decor("Icon", ct, ShopArt(p.Art));
             icon.preserveAspect = true;
             UiFactory.Place(icon.rectTransform, new Vector2(0f, 0.5f), new Vector2(130f, 6f), new Vector2(210f, 210f));
-            var amt = U3Text("Amount", ct, p.Ingots.ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("tr-TR")), 50, true, Ui3.Ink);
+            Twinkle.Attach(icon.rectTransform, 4 + Array.IndexOf(ShopCatalog.Packs, p), 50f, 0.5f); // büyük pakette daha çok yıldız
+            var amt =U3Text("Amount", ct, p.Ingots.ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("tr-TR")), 50, true, Ui3.Ink);
             UiFactory.Place(amt.rectTransform, new Vector2(1f, 1f), new Vector2(-130f, -64f), new Vector2(210f, 70f));
             FitText(amt, 30);
             var ing = Decor("AmountIcon", ct, ShopArt("ingot"));
             ing.preserveAspect = true;
             UiFactory.Place(ing.rectTransform, new Vector2(1f, 1f), new Vector2(-250f, -64f), new Vector2(56f, 56f));
+            Twinkle.Attach(ing.rectTransform, 1, 26f, 0.5f);
             if (p.BonusPercent > 0)
             {
                 var tag = UiFactory.Image("Bonus", ct, Ui3.Rounded(20f, Ui3.Success, Ui3.Success, 0f, default), Color.white, true);

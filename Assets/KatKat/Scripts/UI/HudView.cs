@@ -309,6 +309,7 @@ namespace KatKat.UI
             }
             _headShift = shift;
             LayoutVr2Panel();
+            PlaceSkillBar();
         }
         private const float GoalsCardW = 1000f, GoalsPadU1 = 40f;
 
@@ -454,10 +455,17 @@ namespace KatKat.UI
             shellHolder.anchoredPosition = new Vector2(0f, -60f);
             // Kullanıcı (2026-11-08): güçlerin arkasında krem/altın alt kabuk yok; doğrudan oyun zemininde.
             var bottom = UiFactory.Band(UiFactory.Rect("BottomBar", _safe), false, BottomGap, BottomH);
-            BuildRoll(bottom);
+            // 2026-11-20 (kullanıcı: "oyun tahtasından kazanılan skiller görev çubuğu ile tahtanın arasındaki boşlukta olsun"):
+            // rulo ve tepsi üst bantta (SkillBar); alt şeritte güçlendiriciler ortada, boya ve taş gücü yanlarda.
+            _skillBar = UiFactory.Rect("SkillBar", _safe);
+            _skillBar.anchorMin = new Vector2(0f, 1f);
+            _skillBar.anchorMax = new Vector2(1f, 1f);
+            _skillBar.pivot = new Vector2(0.5f, 1f);
+            _skillBar.sizeDelta = new Vector2(0f, SkillBandH);
+            BuildRoll(_skillBar);
             BuildStonePower(bottom);
             BuildPaint(bottom);
-            BuildTray(bottom);
+            BuildTray(_skillBar);
             BuildBoosters(bottom);
             BuildHint(bottom);
 
@@ -476,23 +484,7 @@ namespace KatKat.UI
             _tutorial.enableAutoSizing = true;
             _tutorialBox.gameObject.SetActive(false);
 
-            var toastSprite = UiFactory.Art("ui/hud-moves-pill", "hud_moves");
-            var toastBg = UiFactory.Image("Toast", _safe, toastSprite ?? UiArt.Box, toastSprite != null ? Color.white : new Color(1f, 1f, 1f, 0.92f), true);
-            // Kullanıcı (2026-11-09): "bilgilendirme şeritlerine yazılar sığmıyor. Ve onu tahtanın üst kısmında çıkartalım.
-            // tahta ile görev taşları arasına". Şerit üstten, hedef kartının altına yerleşir (ShowToast konumu tazeler);
-            // yazı sığmazsa iki satıra geçer ve 20 punta kadar küçülür.
-            _toastBox = UiFactory.Band(toastBg.rectTransform, true, GoalsBottom + ToastGap, ToastH);
-            _toastBox.offsetMin = new Vector2(48f, _toastBox.offsetMin.y);
-            _toastBox.offsetMax = new Vector2(-48f, _toastBox.offsetMax.y);
-            UiFactory.FitSliced(toastBg, ToastH);
-            _toast = UiFactory.Text("Text", toastBg.transform, "", 32, UiArt.Brown);
-            UiFactory.Stretch(_toast.rectTransform, 44, 44, 4, 8);
-            _toast.textWrappingMode = TMPro.TextWrappingModes.Normal;
-            _toast.enableAutoSizing = true;
-            _toast.fontSizeMax = 32;
-            _toast.fontSizeMin = 20;
-            _toast.lineSpacing = -18f;
-            _toastBox.gameObject.SetActive(false);
+            BuildToastPopup();
         }
 
         private static readonly Vector2 BottomButton = new Vector2(122f, 122f);
@@ -760,65 +752,101 @@ namespace KatKat.UI
         private void LayoutBottom()
         {
             if (_bottomBar == null || _trayRoot == null) return;
-            var items = new List<RectTransform>();
+            PlaceSkillBar();
+
+            // ---- Üst güç bandı: tahtadan kazanılan güçler (rulo + tepsi), ortalı ----
+            var top = new List<RectTransform>();
             bool roll = _roll != null && _roll.gameObject.activeSelf;
             bool tray = _trayRoot.gameObject.activeSelf;
-            bool paint = _paint != null && _paint.gameObject.activeSelf;
-            if (roll) items.Add((RectTransform)_roll.transform);
-            int trayFirst = items.Count;
-            if (tray) for (int i = 0; i < LevelState.TrayCapacity; i++) items.Add((RectTransform)_traySlots[i].transform);
-            // 2026-11-20 güçlendiriciler: tepsinin hemen sağında.
-            if (_boosters[0] != null && _boosters[0].gameObject.activeSelf) for (int i = 0; i < 3; i++) items.Add((RectTransform)_boosters[i].transform);
-            if (paint) items.Add((RectTransform)_paint.transform);
-            bool stone = _stone != null && _stone.gameObject.activeSelf;
-            if (stone) items.Add((RectTransform)_stone.transform);
-            if (_hintBtn != null && _hintBtn.gameObject.activeSelf) items.Add((RectTransform)_hintBtn.transform);
-            if (items.Count == 0) return;
-            // 2026-11-20: güçlendiricilerle şerit 8–11 öğeye çıkabilir; genişlik 1000'e, öğeler aralığa sığacak kadar küçülür.
-            float step = Mathf.Min(244f, 1000f / items.Count);
-            // 2026-11-20 (kullanıcı: "tahtadan kazandığımız skiller üst üste biniyor"): ölçek düğmeye değil görünen simgeye göre
-            // (roket/Altın Rulo simgesi yuvanın ~1,3 katı); komşu simgeler arasında en az ~12 birim boşluk kalır.
-            _bottomScale = Mathf.Clamp((step - 12f) / (TraySlot * 1.3f), 0.5f, 1f);
-            _boosterScale = Mathf.Clamp((step - 8f) / BoosterSize, 0.5f, 1f); // güçlendirici düğmesi aralığın neredeyse tamamı
-            float x0 = -(items.Count - 1) * step * 0.5f;
-            for (int k = 0; k < items.Count; k++)
+            if (roll) top.Add((RectTransform)_roll.transform);
+            int trayFirst = top.Count;
+            if (tray) for (int i = 0; i < LevelState.TrayCapacity; i++) top.Add((RectTransform)_traySlots[i].transform);
+            if (top.Count > 0)
             {
-                float x = x0 + k * step;
-                if (tray && k >= trayFirst && k < trayFirst + LevelState.TrayCapacity) continue; // tepsi kökü ayrıca
-                var rt = items[k];
-                rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
-                bool boosterSel = false, isBooster = false;
-                for (int bi = 0; bi < 3; bi++) if (_boosters[bi] != null && rt == (RectTransform)_boosters[bi].transform) { isBooster = true; boosterSel = bi == _boosterSelected; }
-                rt.localScale = Vector3.one * (isBooster ? _boosterScale : _bottomScale) * (boosterSel ? TraySelScale : 1f);
-                rt.anchoredPosition = new Vector2(x, rt == (RectTransform)_roll?.transform ? 0f : rt.anchoredPosition.y);
-                if (rt == (RectTransform)_roll?.transform) _rollGlow.rectTransform.anchoredPosition = new Vector2(x, 0f);
-                if (_stone != null && rt == (RectTransform)_stone.transform) _stoneGlow.rectTransform.anchoredPosition = new Vector2(x, 0f);
-            }
-            if (_boosterPlate != null && _boosters[0] != null && _boosters[0].gameObject.activeSelf)
-            {
-                // Güçlendirici zemini: üç düğmeyi kapsayan plaka (düğmelerle aynı ölçekte).
-                float a0 = ((RectTransform)_boosters[0].transform).anchoredPosition.x, a2 = ((RectTransform)_boosters[2].transform).anchoredPosition.x;
-                float s = BoosterSize * _boosterScale;
-                var prt = _boosterPlate.rectTransform;
-                prt.anchorMin = prt.anchorMax = new Vector2(0.5f, 0.5f);
-                prt.anchoredPosition = new Vector2((a0 + a2) * 0.5f, 10f);
-                prt.sizeDelta = new Vector2(a2 - a0 + s + 40f, s + 34f);
-            }
-            if (tray)
-            {
-                // Tepsi kökü yuvaları kapsar (öğretici odağı ve nabız için); yuvalar kök içinde.
-                float a = x0 + trayFirst * step, b = x0 + (trayFirst + LevelState.TrayCapacity - 1) * step;
-                _trayRoot.anchorMin = _trayRoot.anchorMax = new Vector2(0.5f, 0.5f);
-                _trayRoot.anchoredPosition = new Vector2((a + b) * 0.5f, 0f);
-                _trayRoot.sizeDelta = new Vector2(b - a + TraySlot + 24f, TraySlot + 24f);
-                for (int i = 0; i < LevelState.TrayCapacity; i++)
+                float step = Mathf.Min(SkillStep, 1000f / top.Count);
+                // Ölçek görünen simgeye göre (roket/Altın Rulo simgesi yuvanın ~1,3 katı); bant yüksekliğini de aşmaz.
+                _bottomScale = Mathf.Clamp((step - 12f) / (TraySlot * 1.3f), 0.5f, SkillScaleMax);
+                float x0 = -(top.Count - 1) * step * 0.5f;
+                if (roll)
                 {
-                    var srt = (RectTransform)_traySlots[i].transform;
-                    srt.anchorMin = srt.anchorMax = new Vector2(0.5f, 0.5f);
-                    srt.anchoredPosition = new Vector2(a + i * step - (a + b) * 0.5f, srt.anchoredPosition.y);
-                    srt.localScale = Vector3.one * _bottomScale * (i == _traySelected ? TraySelScale : 1f);
+                    var rrt = (RectTransform)_roll.transform;
+                    rrt.anchorMin = rrt.anchorMax = new Vector2(0.5f, 0.5f);
+                    rrt.localScale = Vector3.one * _bottomScale;
+                    rrt.anchoredPosition = new Vector2(x0, 0f);
+                    _rollGlow.rectTransform.anchoredPosition = new Vector2(x0, 0f);
+                }
+                if (tray)
+                {
+                    // Tepsi kökü yuvaları kapsar (öğretici odağı ve nabız için); yuvalar kök içinde.
+                    float a = x0 + trayFirst * step, b = x0 + (trayFirst + LevelState.TrayCapacity - 1) * step;
+                    _trayRoot.anchorMin = _trayRoot.anchorMax = new Vector2(0.5f, 0.5f);
+                    _trayRoot.anchoredPosition = new Vector2((a + b) * 0.5f, 0f);
+                    _trayRoot.sizeDelta = new Vector2(b - a + TraySlot + 24f, TraySlot + 24f);
+                    for (int i = 0; i < LevelState.TrayCapacity; i++)
+                    {
+                        var srt = (RectTransform)_traySlots[i].transform;
+                        srt.anchorMin = srt.anchorMax = new Vector2(0.5f, 0.5f);
+                        srt.anchoredPosition = new Vector2(a + i * step - (a + b) * 0.5f, srt.anchoredPosition.y);
+                        srt.localScale = Vector3.one * _bottomScale * (i == _traySelected ? TraySelScale : 1f);
+                    }
                 }
             }
+
+            // ---- Alt şerit: güçlendiriciler tam ortada (kullanıcı 2026-11-20: "altta ortalı ve daha büyük"); boya, taş
+            // gücü ve ipucu güçlendiricilerin iki yanında (sağdan başlayarak dönüşümlü). Güçlendirici yoksa eşit aralıklı.
+            bool boosters = _boosters[0] != null && _boosters[0].gameObject.activeSelf;
+            var extras = new List<RectTransform>();
+            if (_paint != null && _paint.gameObject.activeSelf) extras.Add((RectTransform)_paint.transform);
+            if (_stone != null && _stone.gameObject.activeSelf) extras.Add((RectTransform)_stone.transform);
+            if (_hintBtn != null && _hintBtn.gameObject.activeSelf) extras.Add((RectTransform)_hintBtn.transform);
+            _extraScale = 1f;
+            if (boosters)
+            {
+                // Genişlik: üç güçlendirici + yanlardaki öğeler 1040'a sığmalı.
+                float sides = Mathf.Ceil(extras.Count / 2f);
+                float need = 3f * (BoosterSize + BoosterGap) + sides * 2f * ExtraStep;
+                float k = Mathf.Min(1f, 1040f / need);
+                _boosterScale = k;
+                _extraScale = Mathf.Clamp(k * 0.9f, 0.5f, 1f);
+                float bstep = (BoosterSize + BoosterGap) * k;
+                for (int i = 0; i < 3; i++)
+                {
+                    var rt = (RectTransform)_boosters[i].transform;
+                    rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+                    rt.anchoredPosition = new Vector2((i - 1) * bstep, BoosterLift);
+                    rt.localScale = Vector3.one * _boosterScale * (i == _boosterSelected ? TraySelScale : 1f);
+                }
+                for (int e = 0; e < extras.Count; e++)
+                {
+                    float side = e % 2 == 0 ? 1f : -1f;
+                    int ring = e / 2;
+                    PlaceExtra(extras[e], side * (1.5f * bstep + (ring + 0.5f) * ExtraStep * k + 12f));
+                }
+                if (_boosterPlate != null)
+                {
+                    // Güçlendirici zemini: üç düğmeyi kapsayan plaka (düğmelerle aynı ölçekte).
+                    float s = BoosterSize * _boosterScale;
+                    var prt = _boosterPlate.rectTransform;
+                    prt.anchorMin = prt.anchorMax = new Vector2(0.5f, 0.5f);
+                    prt.anchoredPosition = new Vector2(0f, BoosterLift - 2f);
+                    prt.sizeDelta = new Vector2(2f * bstep + s + 44f, s + 30f);
+                }
+            }
+            else if (extras.Count > 0)
+            {
+                float step = Mathf.Min(244f, 1000f / extras.Count);
+                _extraScale = Mathf.Clamp((step - 12f) / (TraySlot * 1.3f), 0.5f, 1f);
+                float x0 = -(extras.Count - 1) * step * 0.5f;
+                for (int e = 0; e < extras.Count; e++) PlaceExtra(extras[e], x0 + e * step);
+            }
+        }
+
+        private void PlaceExtra(RectTransform rt, float x)
+        {
+            rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+            rt.localScale = Vector3.one * _extraScale;
+            rt.anchoredPosition = new Vector2(x, rt.anchoredPosition.y);
+            if (_stone != null && rt == (RectTransform)_stone.transform) _stoneGlow.rectTransform.anchoredPosition = new Vector2(x, 0f);
         }
 
         // ---- v6 özel taş tepsisi (v10: alt kabukta mor yuvalar) ---------------------------------------------
@@ -831,7 +859,7 @@ namespace KatKat.UI
         private float _trayPulse = 9f;
         private const float TraySlot = 122f;
         /// <summary>Tepsi yuvaları alt çubuktan bu kadar yukarıda (seçili yuva ayrıca <see cref="TraySelLift"/>).</summary>
-        private const float TrayRaise = 26f, TraySelLift = 14f, TraySelScale = 1.24f;
+        private const float TrayRaise = 0f, TraySelLift = 4f, TraySelScale = 1.24f; // 2026-11-20: üst güç bandının ortasında
         private readonly Image[] _traySel = new Image[LevelState.TrayCapacity];
         private readonly Image[][] _twinkles = new Image[LevelState.TrayCapacity][];
         private readonly bool[] _trayFull = new bool[LevelState.TrayCapacity];
@@ -893,7 +921,7 @@ namespace KatKat.UI
                 _traySlots[i].interactable = full;
                 _trayDiscs[i].color = full ? SlotOn : SlotEmpty;
                 // 2026-11-20: boş yuva soluk daire (tepsi alanı belli olsun, güçlendiriciler sağda tek başına kalmasın); dolu yuvada yok.
-                ((Image)_traySlots[i].targetGraphic).color = full ? new Color(1f, 1f, 1f, 0f) : new Color(1f, 0.96f, 0.86f, 0.16f);
+                ((Image)_traySlots[i].targetGraphic).color = full ? new Color(1f, 1f, 1f, 0f) : new Color(1f, 0.96f, 0.86f, 0.1f);
                 SetSkill(_traySlots[i], full ? icon : null, full && tray[i] != SpecialKind.Rainbow ? RocketGlow : Color.white, full, full && tray[i] == SpecialKind.Rainbow);
                 if (full)
                 {
@@ -1178,8 +1206,23 @@ namespace KatKat.UI
             _tutorialBox.gameObject.SetActive(on);
             float h = TutorialH;
             if (on) { Loc.Set(_tutorial, text); h = FitBand(_tutorialBox, _tutorial, TutorialH, 32f, 40f); }
-            _boardBottom = ShellH + 22f + (on ? h + 18f : 0f);
+            _tutorialExtra = on ? h + 18f : 0f;
+            _boardBottom = BottomBase + _tutorialExtra;
         }
+
+        private float _tutorialExtra;
+
+        /// <summary>
+        /// Alt şeritte (güçlendirici, boya, günlük taş gücü) öğe olacak mı: tahta kurulmadan önce denetleyici söyler. Yoksa
+        /// tahta aşağı doğru büyür (2026-11-20: tepsi üst banda taşındı, ilk bölümlerde alt şerit boş).
+        /// </summary>
+        public bool ReserveBottom
+        {
+            get => _reserveBottom;
+            set { _reserveBottom = value; _boardBottom = BottomBase + _tutorialExtra; }
+        }
+        private bool _reserveBottom = true;
+        private float BottomBase => _reserveBottom ? ShellH + 22f : 150f;
 
         /// <summary>
         /// Kullanıcı (2026-11-16): "bilgi metinleri bazen alanına sığmıyor, o alanları yazıya göre ayarlayalım". Bant yazının
@@ -1202,20 +1245,8 @@ namespace KatKat.UI
             return h;
         }
 
-        /// <summary>Bilgi şeridi: hedef kartının hemen altında, tahtanın üstünde (BoardWorldRect bu kadar yer bırakır).</summary>
+        /// <summary>Hedef kartı ile alt bantlar (görev şeridi, güç bandı) arasındaki boşluk; ToastH görev/yerleştirme şeritleri için.</summary>
         public const float ToastH = 84f, ToastGap = 8f;
-
-        public void ShowToast(string text, float seconds = 1.6f)
-        {
-            _toastBox.anchoredPosition = new Vector2(0f, -(GoalsBottom + _headShift + ToastGap));
-            Loc.Set(_toast, text);
-            _toast.lineSpacing = 0f;
-            FitBand(_toastBox, _toast, ToastH, 30f, 30f);
-            _toastBox.gameObject.SetActive(true);
-            _toastUntil = Time.unscaledTime + seconds;
-        }
-
-        public void HideToast() => _toastBox.gameObject.SetActive(false);
 
         /// <summary>Bu renk bir renk toplama görevi mi (kırılan taş parçaları görev alanına gider).</summary>
         public bool IsGoalColor(LayerColor color)
@@ -1289,8 +1320,8 @@ namespace KatKat.UI
             float refH = canvasRef.y, refW = canvasRef.x;
             var n = UiAspect.Column(SafeAreaFitter.CurrentNormalizedRaw(), cam.aspect);
             float left = n.xMin * refW + 16f, right = n.xMax * refW - 16f;
-            // Hedef kartı ile tahta arasında bilgi şeridine yer (kullanıcı 2026-11-09: "tahtanın üst kısmında çıkartalım").
-            float bottom = n.yMin * refH + _boardBottom, top = n.yMax * refH - (GoalsBottom + _headShift + ToastGap + ToastH + 6f);
+            // Hedef kartı ile tahta arasında güç bandı (2026-11-20; bilgi metinleri artık açılır pencere, yer ayırmaz).
+            float bottom = n.yMin * refH + _boardBottom, top = n.yMax * refH - TopReserve;
             float k = cam.orthographicSize * 2f / refH;
             WorldPerRef = k;
             var c = cam.transform.position;
@@ -1418,7 +1449,8 @@ namespace KatKat.UI
 
         private void Update()
         {
-            if (_toastBox.gameObject.activeSelf && Time.unscaledTime > _toastUntil) HideToast();
+            TickToast(Time.unscaledDeltaTime);
+            TickBoosterFx(Time.unscaledDeltaTime);
             foreach (var c in _chips) c.Tick(Time.unscaledDeltaTime);
             TickBottomButtons(Time.unscaledDeltaTime);
             TickTray(Time.unscaledDeltaTime);
@@ -1628,6 +1660,8 @@ namespace KatKat.UI
             TickScore(ms / 1000f);
             TickPraise(ms / 1000f);
             _mascot?.Advance(ms);
+            TickToast(ms / 1000f);
+            TickBoosterFx(ms / 1000f);
         }
 
         /// <summary>Şu ana dek yanan yıldız sayısı (zafer kartı bunu gösterir).</summary>

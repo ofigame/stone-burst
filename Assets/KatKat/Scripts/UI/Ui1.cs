@@ -159,6 +159,56 @@ namespace KatKat.UI
             return b;
         }
 
+        public static readonly Color PriceTop = new Color32(0x86, 0xE8, 0x5A, 0xFF), PriceBottom = new Color32(0x1F, 0x9E, 0x3C, 0xFF),
+            PriceEdge = new Color32(0x14, 0x6B, 0x2A, 0xFF), PriceInner = new Color32(0xC4, 0xF7, 0x9E, 0xFF), PriceInk = new Color32(0x0F, 0x55, 0x22, 0xFF);
+
+        /// <summary>
+        /// Fiyat düğmesi (kullanıcı, 2026-11-20: "fiyat butonları yeşil gradient olsun ve büyüyüp küçülsün"): açık yeşilden koyu
+        /// yeşile dikey gradyan, koyu yeşil kontur, üst yarıda parlak cam yansıması, beyaz konturlu yazı. <paramref name="pulse"/>
+        /// açıkken yüz (görsel) yavaşça büyüyüp küçülür; dokunma alanı sabit, basış geri bildirimi kökte.
+        /// </summary>
+        public static Button PriceButton(string name, Transform parent, string text, Vector2 anchor, Vector2 pos, Vector2 size, Action act,
+            Sprite icon = null, int fontSize = 40, bool pulse = true)
+        {
+            var b = UiFactory.SpriteButton(name, parent, null, size, act);
+            b.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+            UiFactory.Place((RectTransform)b.transform, anchor, pos, size);
+            var face = UiFactory.Rect("Face", b.transform);
+            UiFactory.Stretch(face);
+            float r = size.y * 0.5f;
+            var bg = UiFactory.Image("Bg", face, Ui3.Rounded(r, PriceTop, PriceBottom, 3f, PriceEdge, 2f, PriceInner, Mathf.RoundToInt(size.y)), Color.white, true);
+            bg.pixelsPerUnitMultiplier = 1f;
+            bg.raycastTarget = false;
+            UiFactory.Stretch(bg.rectTransform);
+            var gloss = UiFactory.Image("Gloss", face, Ui3.Rounded(r - 8f, new Color(1f, 1f, 1f, 0.5f), new Color(1f, 1f, 1f, 0.05f), 0f, default, 0f, default,
+                Mathf.RoundToInt(size.y * 0.42f)), Color.white, true);
+            gloss.pixelsPerUnitMultiplier = 1f;
+            gloss.raycastTarget = false;
+            gloss.rectTransform.anchorMin = new Vector2(0f, 1f);
+            gloss.rectTransform.anchorMax = new Vector2(1f, 1f);
+            gloss.rectTransform.pivot = new Vector2(0.5f, 1f);
+            gloss.rectTransform.offsetMin = new Vector2(14f, -size.y * 0.46f);
+            gloss.rectTransform.offsetMax = new Vector2(-14f, -6f);
+            float tx = 0f;
+            if (icon != null)
+            {
+                var ic = UiFactory.Image("Icon", face, icon, Color.white);
+                ic.preserveAspect = true;
+                ic.raycastTarget = false;
+                float s = size.y * 0.62f;
+                UiFactory.Place(ic.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-size.x * 0.5f + size.y * 0.55f, 2f), new Vector2(s, s));
+                tx = (size.y * 0.8f - 40f) * 0.5f + 6f;
+            }
+            var t = UiFactory.Title("Text", face, text, fontSize, Color.white, PriceInk);
+            t.raycastTarget = false;
+            t.fontStyle = TMPro.FontStyles.Bold; // 2026-11-20 (kullanıcı: "butonlardaki yazılar kalın puntolu olsun")
+            UiFactory.Place(t.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(tx, 3f), new Vector2(icon != null ? size.x - size.y * 0.8f - 52f : size.x - 70f, size.y - 16f));
+            t.enableAutoSizing = true; t.fontSizeMax = fontSize; t.fontSizeMin = Mathf.Max(22, Mathf.RoundToInt(fontSize * 0.5f));
+            t.textWrappingMode = TMPro.TextWrappingModes.NoWrap;
+            if (pulse) face.gameObject.AddComponent<IconBreath>(); // basış ölçeği kökte (SpriteButton), nefes yüzde
+            return b;
+        }
+
         /// <summary>Krem kapsül (hedef/tarih/bölüm etiketi); içerik ayrı.</summary>
         public static Image Chip(string name, Transform parent, Vector2 anchor, Vector2 pos, Vector2 size)
         {

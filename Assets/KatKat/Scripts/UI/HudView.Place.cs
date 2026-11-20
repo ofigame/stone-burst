@@ -58,6 +58,7 @@ namespace KatKat.UI
                 _placeChips.Add(rt);
             }
             SetPlaceSelected(selected);
+            PlaceSkillBar(); // şerit güç bandının yerinde: bant gizlenir
         }
 
         public void SetPlaceSelected(int selected)
@@ -93,6 +94,7 @@ namespace KatKat.UI
             if (_placeRow != null) UiFactory.Kill(_placeRow.gameObject);
             _placeRow = null;
             _placeChips.Clear();
+            PlaceSkillBar(); // güç bandı yerine döner
         }
     }
 }

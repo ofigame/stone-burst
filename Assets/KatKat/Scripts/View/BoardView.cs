@@ -1250,8 +1250,8 @@ namespace KatKat.View
         /// </summary>
         private void BombBlast(StackView s)
         {
-            Flash(s, new Color(1f, 0.62f, 0.25f, 1f), 3.6f);
-            ShakeBoard(0.06f, 460f);
+            Flash(s, new Color(1f, 0.62f, 0.25f, 1f), 4.4f);
+            ShakeBoard(0.085f, 560f); // 2026-11-20: daha güçlü (kullanıcı: güçlendiriciler "çok pasif")
             if (KatKat.UI.Motion.Reduced) return;
             var pos = s.transform.position + s.TopFaceLocal;
             float sz = WorldPitch * 3.4f;
@@ -1259,9 +1259,10 @@ namespace KatKat.View
             Particles.Emit(FxKit.Glow, true, order, pos, Vector3.zero, 0.32f, sz * 0.4f, sz * 1.25f, new Color(1f, 0.95f, 0.8f, 1f), new Color(1f, 0.45f, 0.1f, 0f));
             Particles.Emit(FxKit.Ring, true, order + 1, pos, Vector3.zero, 0.42f, sz * 0.15f, sz * 1.15f, new Color(1f, 0.85f, 0.45f, 1f), new Color(1f, 0.4f, 0.1f, 0f));
             Particles.Emit(FxKit.Ring, true, order + 1, pos, Vector3.zero, 0.55f, sz * 0.08f, sz * 0.9f, new Color(1f, 1f, 1f, 0.8f), new Color(1f, 0.7f, 0.3f, 0f), delay: 0.08f);
-            for (int i = 0; i < 28; i++)
+            Particles.Emit(FxKit.Ring, true, order + 1, pos, Vector3.zero, 0.7f, sz * 0.3f, sz * 2.2f, new Color(1f, 0.6f, 0.2f, 0.85f), new Color(1f, 0.3f, 0.05f, 0f), delay: 0.14f);
+            for (int i = 0; i < 48; i++)
             {
-                float a = i / 28f * Mathf.PI * 2f + R(-0.1f, 0.1f);
+                float a = i / 48f * Mathf.PI * 2f + R(-0.1f, 0.1f);
                 var dir = new Vector3(Mathf.Cos(a), Mathf.Sin(a), 0f);
                 bool spark = i % 2 == 0;
                 var c = spark ? new Color(1f, R(0.6f, 0.9f), 0.25f, 1f) : new Color(0.45f, 0.35f, 0.28f, 1f);
@@ -1337,21 +1338,11 @@ namespace KatKat.View
         {
             if (wave == null || wave.Cells.Count == 0 || _inShape.Length == 0 || tier <= 0) return;
             if (KatKat.UI.Motion.Reduced) return;
-            // Dış kenar noktaları: şekil hücresinin şekil dışı (ya da tahta dışı) komşusuna bakan kenar ortası + dış normal.
-            var edges = new List<(Vector3 p, Vector3 n)>();
-            for (int y = 0; y < _height; y++)
-            for (int x = 0; x < _width; x++)
-            {
-                if (!_inShape[y * _width + x]) continue;
-                var c = CellCenter(x, y);
-                if (!InShape(x - 1, y)) edges.Add((c + new Vector3(-_pitch * 0.5f, 0f, 0f), Vector3.left));
-                if (!InShape(x + 1, y)) edges.Add((c + new Vector3(_pitch * 0.5f, 0f, 0f), Vector3.right));
-                if (!InShape(x, y - 1)) edges.Add((c + new Vector3(0f, _rowPitch * 0.5f, 0f), Vector3.up));
-                if (!InShape(x, y + 1)) edges.Add((c + new Vector3(0f, -_rowPitch * 0.5f, 0f), Vector3.down));
-            }
+            var edges = OuterEdges();
             if (edges.Count == 0) return;
-            int count = tier == 1 ? Mathf.Clamp(edges.Count, 12, 24) : tier == 2 ? Mathf.Clamp(edges.Count * 2, 28, 56) : Mathf.Clamp(edges.Count * 3, 40, 96);
-            float sizeK = tier == 1 ? 0.65f : tier == 2 ? 0.85f : 1f;
+            // 2026-11-20 (kullanıcı: "oyun tahtasının çevresinden çıkan efektler daha fazla olsun"): sayılar ~1,7 katı.
+            int count = tier == 1 ? Mathf.Clamp(edges.Count * 2, 24, 44) : tier == 2 ? Mathf.Clamp(edges.Count * 3, 48, 96) : Mathf.Clamp(edges.Count * 5, 72, 160);
+            float sizeK = tier == 1 ? 0.75f : tier == 2 ? 0.9f : 1.05f;
             float travelK = tier == 1 ? 0.65f : tier == 2 ? 0.85f : 1f;
             float reach = TrayArt.Ready ? TrayArt.Reach * _pitch : 0.2f * _pitch;
             float wp = WorldPitch;
@@ -1373,7 +1364,7 @@ namespace KatKat.View
             if (tier >= 3)
             {
                 // 6+: tepsinin kenarlarından saydam, yaygın ateş (yükselen puflar + közler).
-                int fires = Mathf.Clamp(edges.Count / 2, 10, 22);
+                int fires = Mathf.Clamp(edges.Count, 16, 36);
                 for (int i = 0; i < fires; i++)
                 {
                     var e = edges[(i * 11 + UnityEngine.Random.Range(0, 5)) % edges.Count];
@@ -1381,6 +1372,72 @@ namespace KatKat.View
                     var pos = transform.TransformPoint(e.p + along + e.n * reach * 0.95f);
                     EmitFire(pos, e.n, 0, UnityEngine.Random.Range(0f, 0.25f));
                 }
+            }
+        }
+
+        /// <summary>Dış kenar noktaları: şekil hücresinin şekil dışı (ya da tahta dışı) komşusuna bakan kenar ortası + dış normal (yerel).</summary>
+        private List<(Vector3 p, Vector3 n)> OuterEdges()
+        {
+            var edges = new List<(Vector3 p, Vector3 n)>();
+            for (int y = 0; y < _height; y++)
+            for (int x = 0; x < _width; x++)
+            {
+                if (!_inShape[y * _width + x]) continue;
+                var c = CellCenter(x, y);
+                if (!InShape(x - 1, y)) edges.Add((c + new Vector3(-_pitch * 0.5f, 0f, 0f), Vector3.left));
+                if (!InShape(x + 1, y)) edges.Add((c + new Vector3(_pitch * 0.5f, 0f, 0f), Vector3.right));
+                if (!InShape(x, y - 1)) edges.Add((c + new Vector3(0f, _rowPitch * 0.5f, 0f), Vector3.up));
+                if (!InShape(x, y + 1)) edges.Add((c + new Vector3(0f, -_rowPitch * 0.5f, 0f), Vector3.down));
+            }
+            return edges;
+        }
+
+        /// <summary>
+        /// Tahta çevresi ışık dalgası (kullanıcı 2026-11-20: "skil kullanımında da tahta çevresinden animasyonlar oluşsun";
+        /// güçlendiriciler "daha görsel şölenli"): tepsinin arkasından, tahtanın merkezi etrafında dönen bir ışık süpürmesi —
+        /// her kenar noktası açısına göre sırayla dışa yıldız, ışık ve iz fırlatır (~0,7 sn'de bir tur). Renk açı boyunca
+        /// <paramref name="a"/> → <paramref name="b"/> arasında; <paramref name="rainbow"/> açıkken tam gökkuşağı.
+        /// <paramref name="fire"/> açıkken kenarlardan ateş de yükselir (bomba).
+        /// </summary>
+        public void RimSweep(Color a, Color b, float strength = 1f, bool rainbow = false, bool fire = false)
+        {
+            if (_inShape.Length == 0 || KatKat.UI.Motion.Reduced) return;
+            var edges = OuterEdges();
+            if (edges.Count == 0) return;
+            float reach = TrayArt.Ready ? TrayArt.Reach * _pitch : 0.2f * _pitch;
+            float wp = WorldPitch;
+            var center = Vector3.zero;
+            foreach (var e in edges) center += e.p;
+            center /= edges.Count;
+            const float Sweep = 0.7f;
+            int rounds = strength >= 1.4f ? 2 : 1;
+            for (int r = 0; r < rounds; r++)
+            for (int i = 0; i < edges.Count; i++)
+            {
+                var e = edges[i];
+                var d = e.p - center;
+                float ang = Mathf.Repeat(Mathf.Atan2(d.y, d.x) / (Mathf.PI * 2f) + 0.25f, 1f); // üstten başlar
+                float delay = ang * Sweep + r * 0.35f;
+                var col = rainbow ? Color.HSVToRGB(Mathf.Repeat(ang + r * 0.5f, 1f), 0.6f, 1f) : Color.Lerp(a, b, Mathf.PingPong(ang * 2f, 1f));
+                col.a = 1f;
+                var from = transform.TransformPoint(e.p + e.n * reach * 0.5f);
+                var outw = transform.TransformDirection(e.n);
+                var side = new Vector3(-outw.y, outw.x, 0f);
+                for (int k = 0; k < 2; k++)
+                {
+                    var vel = (outw * R(2.6f, 4.6f) + side * R(-0.9f, 0.9f)) * wp * strength;
+                    var p0 = from + side * R(-0.4f, 0.4f) * wp;
+                    Particles.Emit(FxKit.Star, true, 0, p0, vel, R(0.6f, 0.9f), wp * R(0.55f, 0.85f) * strength, wp * 0.08f,
+                        Color.Lerp(col, Color.white, 0.35f), new Color(col.r, col.g, col.b, 0f), gravity: -wp * 0.6f, drag: 2.4f,
+                        delay: delay + k * 0.05f, rot: R(0f, 45f), rotVel: R(-140f, 140f));
+                }
+                Particles.Emit(FxKit.Glow, true, 0, from, outw * wp * 0.6f, 0.5f, wp * 0.9f * strength, wp * 1.6f * strength,
+                    new Color(col.r, col.g, col.b, 0.55f), new Color(col.r, col.g, col.b, 0f), delay: delay);
+                if (i % 2 == 0)
+                    Particles.Emit(FxKit.Dot, true, 0, from, outw * wp * R(4f, 6.5f) * strength, R(0.35f, 0.55f), wp * 0.16f, wp * 0.03f,
+                        Color.white, new Color(col.r, col.g, col.b, 0f), drag: 2.8f, delay: delay, stretch: 0.22f / Mathf.Max(0.01f, wp));
+                if (fire && r == 0 && i % 2 == 0)
+                    EmitFire(transform.TransformPoint(e.p + e.n * reach * 0.95f), e.n, 0, delay + R(0f, 0.15f));
             }
         }
 

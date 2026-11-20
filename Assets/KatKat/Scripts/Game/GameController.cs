@@ -377,6 +377,9 @@ namespace KatKat.Game
             // Eski alt öğretici bandı yerine odaklı tur (GameController.Tutorial); band tahta alanını daraltmaz.
             _hud.ShowTutorial(null);
             _hud.SetDailyLayout(_sessionKind == KatKat.Meta.SessionKind.Daily && Ui1.Ready); // ui1/17: başlık plakasına yer
+            // 2026-11-20: güç bandı ve alt şerit tahtadan yer alır yalnız gerekirse (görev şeridi, güçlendirici/boya/günlük taş).
+            _hud.ReserveHazard = _session.State.Hazard != null;
+            _hud.ReserveBottom = BoostersVisible || _session.State.PaintLeft > 0 || _sessionKind != KatKat.Meta.SessionKind.Normal;
             _board.Build(_session.State, _hud.BoardWorldRect(_cam));
             ConceptHud(); // konsept pilotu (tehditsiz bölümde gizler)
             Vr1CenterIceBegin(); // vr1 P1 prototipi: ortası boş tahtada buzlu koleksiyon taşı
@@ -649,6 +652,8 @@ namespace KatKat.Game
             {
                 _hud.SetRoll(false, false, false);
                 _hud.PlayRollUsed();
+                // 2026-11-20 (kullanıcı: "skil kullanımında da tahta çevresinden animasyonlar oluşsun").
+                _board.RimSweep(new Color(0.25f, 0.9f, 0.85f), new Color(1f, 0.88f, 0.4f), 1.1f);
             }
             var goals = _session.State.Goals;
             var shown = new int[goals.Count];
@@ -677,7 +682,7 @@ namespace KatKat.Game
                     if (wave.Kind == WaveKind.Tap && wave.Index == 0)
                     {
                         int n = r.TappedGroup.Count;
-                        _board.TrayBurst(wave, n >= 6 ? 3 : n >= 5 ? 2 : n >= 3 ? 1 : 0);
+                        _board.TrayBurst(wave, n >= 6 ? 3 : n >= 5 ? 2 : n >= 2 ? 1 : 0); // 2026-11-20: ikili grupta da ("daha fazla olsun")
                     }
                     else if (moment) _board.TrayBurst(wave, 3);
                     if (moment)
@@ -771,6 +776,7 @@ namespace KatKat.Game
 
         private void UseTraySlot(int x, int y)
         {
+            var usedKind = _traySlot < _session.State.Tray.Count ? _session.State.Tray[_traySlot] : SpecialKind.None;
             var r = _session.Submit(Command.UseSpecial(_traySlot, x, y));
             if (!r.Accepted)
             {
@@ -784,6 +790,9 @@ namespace KatKat.Game
             _hud.SetTray(_session.State.Tray, -1);
             _hud.HideToast();
             _hintActive = false;
+            // 2026-11-20: tepsi gücü kullanımında tahtanın çevresinde ışık dalgası (Altın Rulo gökkuşağı, roket turkuaz-altın).
+            if (usedKind == SpecialKind.Rainbow) _board.RimSweep(Color.white, Color.white, 1.3f, rainbow: true);
+            else _board.RimSweep(new Color(0.25f, 0.9f, 0.85f), new Color(1f, 0.85f, 0.35f), 1.15f);
             HintAfterCommand();
             _hint.Hide(); // ücretli ipucu tahta durunca (SetPhase Idle) yeniden görünür
             Haptics.Medium();
