@@ -226,6 +226,8 @@ namespace KatKat.UI
             }
             else if (!it.On) UiFactory.Place(ic.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(104f, 104f));
             else UiFactory.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -52f), new Vector2(88f, 88f));
+            // 2026-11-20 (kullanıcı: "menü iconlarının normal hallerini de biraz büyütelim"): seçili olmayan %18 büyük.
+            if (!it.On) ic.rectTransform.sizeDelta *= 1.18f;
             if (it.On)
             {
                 // 2026-11-20 (kullanıcı: "seçiliyken iconu daha büyük yapalım"): %30 büyük, yazıya binmesin diye yukarı taşar.
