@@ -44,9 +44,26 @@ namespace KatKat.Meta
             new IngotPack("ingots_1700", 1700, 40, "pack4"),
         };
 
+        /// <summary>
+        /// Can teklifleri (kullanıcı 2026-11-20: "mağazada can da satın alınsın … bu tarz oyunlarda nasıl oluyor araştır"). Türdeki
+        /// yaygın model: canlar 30 dk'da bir dolar; oyuncu premium parayla bütün canları bir anda doldurur ya da süreli "sınırsız
+        /// can" alır (süre kısaltma yaygın değil). Fiyatlar güçlendiricilere göre: doldurma ucuz, süreli sınırsız daha değerli.
+        /// </summary>
+        public static readonly HeartOffer[] HeartOffers = { HeartOffer.Refill, HeartOffer.Unlimited1h, HeartOffer.Unlimited3h };
+
+        public static int HeartPrice(HeartOffer o) => o == HeartOffer.Refill ? 40 : o == HeartOffer.Unlimited1h ? 90 : 220;
+
+        /// <summary>Sınırsız can süresi (sn); doldurmada 0.</summary>
+        public static int HeartSeconds(HeartOffer o) => o == HeartOffer.Unlimited1h ? 3600 : o == HeartOffer.Unlimited3h ? 3 * 3600 : 0;
+
+        public static string HeartKey(HeartOffer o) => o == HeartOffer.Refill ? "refill" : o == HeartOffer.Unlimited1h ? "inf1h" : "inf3h";
+
         public const string StarterId = "starter_pack", NoAdsId = "no_ads";
         public const int StarterIngots = 200, NoAdsIngots = 150;
     }
+
+    /// <summary>Can teklifi: bütün canları doldur ya da süreli sınırsız can.</summary>
+    public enum HeartOffer { Refill = 0, Unlimited1h = 1, Unlimited3h = 2 }
 
     public readonly struct IngotPack
     {
@@ -86,6 +103,18 @@ namespace KatKat.Meta
             if (price < 0 || m.ingots < price) return false;
             m.ingots -= price;
             Add(m, b, qty);
+            return true;
+        }
+
+        /// <summary>Can teklifini SB Gold ile alır. Yetmezse ya da canlar zaten dolu ve teklif doldurmaysa false.</summary>
+        public static bool BuyHearts(MetaSave m, HeartOffer o, long now)
+        {
+            int price = ShopCatalog.HeartPrice(o);
+            if (m.ingots < price) return false;
+            if (o == HeartOffer.Refill && Hearts.Count(m, now) >= Hearts.Max) return false;
+            m.ingots -= price;
+            if (o == HeartOffer.Refill) Hearts.Refill(m);
+            else Hearts.AddUnlimited(m, now, ShopCatalog.HeartSeconds(o));
             return true;
         }
 
@@ -140,6 +169,7 @@ namespace KatKat.Meta
             target.boostMoves = Math.Max(target.boostMoves, local.boostMoves);
             target.boostRecolor = Math.Max(target.boostRecolor, local.boostRecolor);
             target.boostBomb = Math.Max(target.boostBomb, local.boostBomb);
+            target.heartsInfiniteUntil = Math.Max(target.heartsInfiniteUntil, local.heartsInfiniteUntil);
             target.noAds |= local.noAds;
             target.starterBought |= local.starterBought;
             foreach (var g in local.stoneGifts) if (!target.stoneGifts.Contains(g)) target.stoneGifts.Add(g);

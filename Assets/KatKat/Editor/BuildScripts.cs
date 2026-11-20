@@ -215,7 +215,11 @@ namespace KatKat.EditorTools
             // GameCI (unity-builder) ortam değişkenlerini Unity kapsayıcısına aktarmıyor; çıkış yolunu -customBuildPath ile
             // veriyor (2026-11-09 ilk CI denemesi: proje Builds/iOS'a yazılmış, Mac adımı bulamamıştı).
             string output = CommandLineArg("-customBuildPath") ?? Environment.GetEnvironmentVariable("KATKAT_IOS_OUT");
-            Build(BuildTarget.iOS, string.IsNullOrEmpty(output) ? "Builds/iOS" : output);
+            // 2026-11-20 test yapısı (kullanıcı: "ios a test yolla ve sınırsız külçem olsun"): iş akışı "-katkatTestGold 1" verirse SB Gold
+            // bitmez (KATKAT_TEST_GOLD). GameCI ortam değişkeni aktarmadığı için komut satırı parametresi.
+            if (CommandLineArg("-katkatTestGold") == "1") _extraDefines = new[] { "KATKAT_TEST_GOLD" };
+            try { Build(BuildTarget.iOS, string.IsNullOrEmpty(output) ? "Builds/iOS" : output); }
+            finally { _extraDefines = null; }
         }
 
         private static string CommandLineArg(string name)

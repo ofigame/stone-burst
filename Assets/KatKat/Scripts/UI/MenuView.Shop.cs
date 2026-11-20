@@ -30,6 +30,8 @@ namespace KatKat.UI
         public Action<Booster, int> BuyBoosterPressed;
         /// <summary>Gerçek para ürünü (paket, başlangıç, reklamsız). Satın alma açık değilken çağrılmaz.</summary>
         public Action<string> BuyProductPressed;
+        /// <summary>Mağazada ya da kalp kartında SB Gold ile kalp teklifi (2026-11-20).</summary>
+        public Action<HeartOffer> BuyHeartsPressed;
 
         public struct ShopModel
         {
@@ -128,6 +130,13 @@ namespace KatKat.UI
             FeatureCard(content, "NoAds", new Vector2(m.StarterBought ? 0f : (FeatW + 20f) * 0.5f, y - FeatH * 0.5f), m.StarterBought ? W : FeatW, FeatH,
                 ShopArt("noads"), Loc.T("shop.noads"), Loc.F("shop.noads.desc", ShopCatalog.NoAdsIngots), null, m.NoAds, ShopCatalog.NoAdsId);
             y -= FeatH + 30f;
+
+            // 1b) Kalpler (2026-11-20; kullanıcı: "mağazada can da satın alınsın"): doldur, sınırsız 1 saat, sınırsız 3 saat.
+            y = SectionTitle(content, Loc.T("hearts.title"), y);
+            const float HW = 320f, HH = 420f;
+            for (int i = 0; i < ShopCatalog.HeartOffers.Length; i++)
+                HeartCard(content, ShopCatalog.HeartOffers[i], new Vector2((i - 1) * (HW + 20f), y - HH * 0.5f), HW, HH, m.Ingots);
+            y -= HH + 30f;
 
             // 2) Güçlendiriciler.
             y = SectionTitle(content, Loc.T("shop.boosters"), y);
@@ -246,6 +255,28 @@ namespace KatKat.UI
             }
             IngotButton(ct, "Buy1", "", ShopCatalog.Price(b), ingots, new Vector2(0f, 116f), new Vector2(w - 90f, 62f), () => BuyBoosterPressed?.Invoke(b, 1));
             IngotButton(ct, "Buy3", "3× ", ShopCatalog.Price3(b), ingots, new Vector2(0f, 44f), new Vector2(w - 90f, 62f), () => BuyBoosterPressed?.Invoke(b, 3));
+        }
+
+        private void HeartCard(RectTransform content, HeartOffer o, Vector2 pos, float w, float h, int ingots)
+        {
+            var card = ShopCard(content, "Heart_" + ShopCatalog.HeartKey(o), pos, w, h);
+            var ct = card.rectTransform;
+            var heart = Decor("Icon", ct, HeartSprite());
+            heart.preserveAspect = true;
+            UiFactory.Place(heart.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -100f), new Vector2(150f, 140f));
+            var n = HeartNumber(heart.transform, o == HeartOffer.Refill ? 64 : 72);
+            Loc.Set(n, o == HeartOffer.Refill ? Hearts.Max.ToString() : "∞");
+            heart.gameObject.AddComponent<IconBreath>();
+            Twinkle.Attach(heart.rectTransform, 3, 40f, 0.5f, new Color(1f, 0.85f, 0.9f, 1f));
+            var t = U3Text("Name", ct, Loc.T("heart.offer." + ShopCatalog.HeartKey(o)), 32, true, Ui3.Ink);
+            t.textWrappingMode = TMPro.TextWrappingModes.Normal;
+            UiFactory.Place(t.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -212f), new Vector2(w - 30f, 80f));
+            FitText(t, 20);
+            var d = U3Text("Desc", ct, Loc.T(o == HeartOffer.Refill ? "heart.offer.refill.desc" : "heart.offer.inf.desc"), 24, false, Ui3.InkSecondary);
+            d.textWrappingMode = TMPro.TextWrappingModes.Normal;
+            UiFactory.Place(d.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -290f), new Vector2(w - 36f, 64f));
+            FitText(d, 15);
+            IngotButton(ct, "Buy", "", ShopCatalog.HeartPrice(o), ingots, new Vector2(0f, 44f), new Vector2(w - 90f, 62f), () => BuyHeartsPressed?.Invoke(o));
         }
 
         /// <summary>

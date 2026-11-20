@@ -120,5 +120,32 @@ namespace KatKat.Tests
             Assert.AreNotEqual(LayerColor.Green, session.State.Board[1, 1].Top, "4. seçim yok");
             Assert.AreEqual(0, session.RecolorTops(new List<Coord> { new Coord(4, 4) }, LayerColor.Green).Count, "aynı renk atlanır");
         }
+
+        [Test]
+        public void HeartOffers_RefillAndUnlimited()
+        {
+            const long now = 1_000_000;
+            var m = new MetaSave { ingots = 500 };
+            Hearts.Spend(m, now); Hearts.Spend(m, now);
+            Assert.AreEqual(3, Hearts.Count(m, now));
+            Assert.IsTrue(Wallet.BuyHearts(m, HeartOffer.Refill, now));
+            Assert.AreEqual(Hearts.Max, Hearts.Count(m, now));
+            Assert.AreEqual(500 - ShopCatalog.HeartPrice(HeartOffer.Refill), m.ingots);
+            Assert.IsFalse(Wallet.BuyHearts(m, HeartOffer.Refill, now), "dolu iken doldurma satılmaz");
+
+            Assert.IsTrue(Wallet.BuyHearts(m, HeartOffer.Unlimited1h, now));
+            Assert.IsTrue(Hearts.Unlimited(m, now + 3599));
+            Assert.IsTrue(Hearts.Spend(m, now + 10));
+            Assert.AreEqual(Hearts.Max, Hearts.Count(m, now + 10), "sınırsızda kalp gitmez");
+            Assert.IsTrue(Wallet.BuyHearts(m, HeartOffer.Unlimited1h, now + 100), "süre üstüne biner");
+            Assert.AreEqual(2 * 3600, Hearts.UnlimitedSeconds(m, now));
+            Assert.IsFalse(Hearts.Unlimited(m, now + 2 * 3600));
+            Hearts.Spend(m, now + 2 * 3600);
+            Assert.AreEqual(Hearts.Max - 1, Hearts.Count(m, now + 2 * 3600), "süre bitince normal");
+
+            var poor = new MetaSave { ingots = 10 };
+            Assert.IsFalse(Wallet.BuyHearts(poor, HeartOffer.Unlimited3h, now));
+            Assert.AreEqual(10, poor.ingots);
+        }
     }
 }

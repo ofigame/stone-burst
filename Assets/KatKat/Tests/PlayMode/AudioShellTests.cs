@@ -67,7 +67,7 @@ namespace KatKat.Tests
             _gc.ShowLevels();
             Assert.IsTrue(_gc.Music.Wanted);
             Assert.IsTrue(_gc.Music.IsPlaying, "haritada çalıyor");
-            Assert.AreEqual("menu-loop", _gc.Music.Clip.name);
+            Assert.AreEqual("game-music", _gc.Music.Clip.name); // 2026-11-20: docs/muzik parçası
             var src = _gc.Music.GetComponent<AudioSource>();
             Assert.IsTrue(src.loop);
             Assert.AreEqual(1, _gc.Music.GetComponents<AudioSource>().Length);

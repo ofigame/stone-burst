@@ -202,7 +202,7 @@ namespace KatKat.EditorTools
         {
             if (!assetPath.StartsWith(Audio, StringComparison.Ordinal)) return;
             var ai = (AudioImporter)assetImporter;
-            bool music = assetPath.EndsWith("menu-loop.wav", StringComparison.Ordinal);
+            bool music = assetPath.EndsWith("menu-loop.wav", StringComparison.Ordinal) || assetPath.EndsWith("game-music.mp3", StringComparison.Ordinal);
             ai.forceToMono = false; // stereo kaynak korunur
             ai.loadInBackground = music;
             var set = ai.defaultSampleSettings;

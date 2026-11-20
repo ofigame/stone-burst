@@ -30,7 +30,7 @@ namespace KatKat.UI
         private int _boosterSelected = -1;
         private float _bottomScale = 1f, _boosterScale = 1f, _extraScale = 1f;
         // 2026-11-20: 118 → 140 (kullanıcı: "iconlar küçük"), sonra 172 denendi, "çok büyük olmuşlar" → 150, "makul ölçülerde büyük" → 132 (eski görünen boy ~118).
-        private const float BoosterSize = 132f, BoosterGap = 28f, BoosterLift = 8f, ExtraStep = 200f;
+        private const float BoosterSize = 132f, BoosterGap = 64f, BoosterLift = 8f, ExtraStep = 200f;
         private static readonly Color BoosterGlow = new Color(1f, 0.86f, 0.38f, 1f);
 
         private void BuildBoosters(RectTransform bottom)

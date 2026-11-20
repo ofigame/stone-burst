@@ -29,7 +29,7 @@ namespace KatKat.Game
             {
                 var m = _save.Data.meta;
                 long now = HeartNow;
-                return new MenuView.HeartsModel { Count = Hearts.Count(m, now), Max = Hearts.Max, SecondsToNext = Hearts.SecondsToNext(m, now) };
+                return new MenuView.HeartsModel { Count = Hearts.Count(m, now), Max = Hearts.Max, SecondsToNext = Hearts.SecondsToNext(m, now), UnlimitedSeconds = Hearts.UnlimitedSeconds(m, now) };
             };
             _menu.HeartsPressed = () => ShowHeartsCard(null);
         }
@@ -121,7 +121,7 @@ namespace KatKat.Game
                     }
                     if (o == AdOutcome.Failed) _menu.ShowToast(Loc.T("ad.nofill"), 2.4f);
                 });
-            });
+            }, o => BuyHearts(o, after));
         }
 
         /// <summary>Test: kalp kartındaki reklam düğmesi (sahte reklamla ödül).</summary>

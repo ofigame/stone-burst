@@ -36,6 +36,7 @@ namespace KatKat.Meta
         public static int Count(MetaSave m, long now)
         {
             Settle(m, now);
+            if (Unlimited(m, now)) return Max;
             return Max - m.heartsMissing;
         }
 
@@ -43,7 +44,7 @@ namespace KatKat.Meta
         public static int SecondsToNext(MetaSave m, long now)
         {
             Settle(m, now);
-            if (m.heartsMissing == 0) return 0;
+            if (m.heartsMissing == 0 || Unlimited(m, now)) return 0;
             return (int)Math.Max(0, RegenSeconds - (now - m.heartsStamp));
         }
 
@@ -51,10 +52,24 @@ namespace KatKat.Meta
         public static bool Spend(MetaSave m, long now)
         {
             Settle(m, now);
+            if (Unlimited(m, now)) return true; // sınırsız can: harcanmaz
             if (m.heartsMissing >= Max) return false;
             if (m.heartsMissing == 0) m.heartsStamp = now;
             m.heartsMissing++;
             return true;
+        }
+
+        /// <summary>Sınırsız can süresi içinde mi (2026-11-20; mağazadan SB Gold ile).</summary>
+        public static bool Unlimited(MetaSave m, long now) => m.heartsInfiniteUntil > now;
+
+        /// <summary>Sınırsız canın kalan saniyesi; yoksa 0.</summary>
+        public static int UnlimitedSeconds(MetaSave m, long now) => (int)Math.Max(0, m.heartsInfiniteUntil - now);
+
+        /// <summary>Sınırsız can ekler (süre varsa üstüne biner) ve kalpleri doldurur.</summary>
+        public static void AddUnlimited(MetaSave m, long now, int seconds)
+        {
+            m.heartsInfiniteUntil = Math.Max(m.heartsInfiniteUntil, now) + seconds;
+            Refill(m);
         }
 
         public static void Refill(MetaSave m)

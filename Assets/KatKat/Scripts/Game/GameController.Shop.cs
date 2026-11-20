@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using KatKat.Core;
 using KatKat.Meta;
@@ -31,6 +32,7 @@ namespace KatKat.Game
             _menu.ClaimGiftPressed = ClaimStoneGift;
             _menu.BuyBoosterPressed = BuyBoosterFromShop;
             _menu.BuyProductPressed = id => _menu.ShowToast(Loc.T("shop.soon.note"));
+            _menu.BuyHeartsPressed = o => BuyHearts(o, null);
             _hud.BoosterPressed += OnBoosterPressed;
             if (TestUnlockAll)
             {
@@ -40,6 +42,7 @@ namespace KatKat.Game
                 if (Meta.ingots < 2000) Meta.ingots = 2000;
                 _save.Save();
             }
+            TopUpTestGold();
         }
 
         // ---- Mağaza sayfası --------------------------------------------------------------------------------------------
@@ -79,8 +82,41 @@ namespace KatKat.Game
             _sound.Play(Sfx.CoinFinal);
             Haptics.Light();
             GameAnalytics.Log("booster_buy", ("booster", ShopCatalog.Key(b)), ("qty", qty), ("ingots_left", Meta.ingots));
+            TopUpTestGold();
             _menu.RefreshIngots();
             return true;
+        }
+
+        /// <summary>Test yapısında (KATKAT_TEST_GOLD) SB Gold her harcamadan sonra yeniden dolar.</summary>
+        private void TopUpTestGold()
+        {
+            if (!TestGold || Meta.ingots >= TestGoldAmount) return;
+            Meta.ingots = TestGoldAmount;
+            _save.Save();
+            _menu.RefreshIngots();
+        }
+
+        public const int TestGoldAmount = 99999;
+
+        // ---- Kalp satın alma (2026-11-20) ---------------------------------------------------------------------------
+
+        /// <summary>SB Gold ile kalp teklifi; başarılıysa <paramref name="after"/> (ör. bekleyen bölüme giriş).</summary>
+        private void BuyHearts(HeartOffer o, Action after)
+        {
+            long now = HeartNow;
+            if (o == HeartOffer.Refill && Hearts.Count(Meta, now) >= Hearts.Max) { _menu.ShowToast(Loc.T("hearts.already")); return; }
+            if (!Wallet.BuyHearts(Meta, o, now)) { _menu.ShowToast(Loc.T("shop.noingots")); return; }
+            _save.Save();
+            _sound.Play(Sfx.CoinFinal);
+            Haptics.Medium();
+            GameAnalytics.Log("hearts_buy", ("offer", ShopCatalog.HeartKey(o)), ("ingots_left", Meta.ingots));
+            TopUpTestGold();
+            _menu.RefreshIngots();
+            bool wasCard = _menu.IsHeartsCardShown;
+            _menu.CloseHeartsCard();
+            _menu.ShowToast(Loc.T(o == HeartOffer.Refill ? "hearts.got" : "hearts.inf.got"), 2f);
+            if (_menu.IsShopShown && !wasCard) ShowShopKeepScroll();
+            after?.Invoke();
         }
 
         // ---- Koleksiyon taşı hediyesi ----------------------------------------------------------------------------------

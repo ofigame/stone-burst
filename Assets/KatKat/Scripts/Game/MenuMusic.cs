@@ -44,7 +44,9 @@ namespace KatKat.Game
             m._src.loop = true;
             m._src.spatialBlend = 0f;
             m._src.volume = 0f;
-            m._src.clip = Resources.Load<AudioClip>("Audio/TriKat/menu-loop");
+            // 2026-11-20 (kullanıcı: "docs/muzik'teki müziği oyunumuzun müziği yapalım"): A Pocketful of Marbles (91 sn, akış
+            // yüklemeli). Yoksa eski 32 sn döngü.
+            m._src.clip = Resources.Load<AudioClip>("Audio/TriKat/game-music") ?? Resources.Load<AudioClip>("Audio/TriKat/menu-loop");
             return m;
         }
 

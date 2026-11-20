@@ -100,6 +100,15 @@ namespace KatKat.EditorTools
                     gc.ShowLevels();
                     Hold(gc, rec, 20);
                 });
+                // 2026-11-20 bölge simgesi denetimi: Mavi Liman (fener ışığı) ve Yeşil Vadi (çeşme suyu).
+                foreach (var (name, hi) in new[] { ("s1b_liman", 40), ("s1c_vadi", 140) })
+                    TrailerCapture.Scene(name, (gc, rec) =>
+                    {
+                        gc.Menu.LivePressed = null; gc.Menu.PilotPressed = null; gc.Menu.ConceptPressed = null;
+                        gc.SaveService.Data.highestUnlocked = hi;
+                        gc.ShowLevels();
+                        Hold(gc, rec, 4);
+                    });
                 TrailerCapture.Scene("s2_magaza", (gc, rec) =>
                 {
                     gc.AddIngotsForTest(350);

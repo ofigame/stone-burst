@@ -39,6 +39,8 @@ namespace KatKat.Meta
         /// <summary>Kalp sistemi (2026-11-09): eksik kalp sayısı (0 = dolu) ve dolum sayacının başladığı an (Unix sn). Bkz. <see cref="Hearts"/>.</summary>
         public int heartsMissing;
         public long heartsStamp;
+        /// <summary>2026-11-20 sınırsız can: bu Unix saniyesine kadar kalp harcanmaz, sayaç dolu görünür (0 = yok).</summary>
+        public long heartsInfiniteUntil;
         /// <summary>Uygulama içi puan isteği (2026-11-09): kaç kez istendi, son istek (Unix sn).</summary>
         public int reviewAsks;
         public long reviewLast;

@@ -204,6 +204,17 @@ namespace KatKat.Game
             false;
 #endif
 
+        /// <summary>
+        /// Test yapısı: SB Gold hiç bitmez (kullanıcı 2026-11-20: "ios a test yolla ve sınırsız külçem olsun"). Yalnız
+        /// KATKAT_TEST_GOLD derlemesi (iOS iş akışında "Sınırsız SB Gold" seçeneği); bu yapı App Store incelemesine gönderilmez.
+        /// </summary>
+        public static bool TestGold =
+#if KATKAT_TEST_GOLD
+            true;
+#else
+            false;
+#endif
+
         /// <summary>v5: ana sayfa = harita (eski ana ekran yakalama/karşılaştırma için korunur).</summary>
         public static bool UseMapAsHome = true;
 

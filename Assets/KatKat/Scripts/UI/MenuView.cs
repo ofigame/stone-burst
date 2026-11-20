@@ -1286,6 +1286,9 @@ namespace KatKat.UI
                 var halo = UiFactory.Image("Halo", content, UiFactory.Art("effects/glow", "fx_glow") ?? UiArt.Circle, new Color(1f, 0.85f, 0.35f, 0.6f));
                 Pos(halo.rectTransform, pos, new Vector2(260f, 260f));
                 _halo = halo.rectTransform;
+                // 2026-11-20: düğmenin altında dönen ışıltılı halka.
+                var cr = CurrentNodeRing.Create(content, 230f);
+                Pos((RectTransform)cr.transform, pos, new Vector2(230f, 230f));
             }
             float size = isCurrent ? 150f : unlocked ? 112f : 78f;
             // 2026-11-19 (kullanıcı: "yolculukta olduğumuz bölüm mavi değil kırmızı renkte olsun"): bulunulan bölüm kırmızı.

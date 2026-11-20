@@ -16,7 +16,10 @@ namespace KatKat.UI
         public struct HeartsModel
         {
             public int Count, Max, SecondsToNext;
+            /// <summary>Sınırsız kalbin kalan saniyesi (2026-11-20); 0 = yok.</summary>
+            public int UnlimitedSeconds;
             public bool Full => Count >= Max;
+            public bool Unlimited => UnlimitedSeconds > 0;
         }
 
         /// <summary>Güncel kalp durumu (GameController); null ise gösterge çizilmez.</summary>
@@ -64,12 +67,19 @@ namespace KatKat.UI
         }
 
         /// <summary>Kalp kartı: büyük kalp ve sayı, sonraki kalbe kalan süre, reklamla 5 kalp, Kapat.</summary>
-        public void ShowHeartsCard(Action watchAd)
+        /// <param name="buy">2026-11-20: SB Gold ile kalp teklifi (doldur, sınırsız 1/3 saat); null ise düğmeler yok.</param>
+        public void ShowHeartsCard(Action watchAd, Action<HeartOffer> buy = null)
         {
             CloseHeartsCard();
             if (HeartsInfo == null) return;
             var m = HeartsInfo();
-            const float W = 860f, H = 760f;
+            // Satır düzeni (y üstten): reklam 540, SB Gold teklifleri 110 aralıkla, sonra Kapat.
+            var offers = new System.Collections.Generic.List<HeartOffer>();
+            if (buy != null) foreach (var o in ShopCatalog.HeartOffers) if (o != HeartOffer.Refill || (!m.Full && !m.Unlimited)) offers.Add(o);
+            bool ad = !m.Full && watchAd != null;
+            float y0 = ad ? 680f : 540f;
+            float closeY = y0 + offers.Count * 110f;
+            float W = 860f, H = closeY + 130f;
             var card = U3Modal(_page, "HeartsCard", W, H, CloseHeartsCard, out var root);
             _heartsCard = root;
             var title = U3Text("Title", card, Loc.T(m.Count == 0 ? "hearts.empty" : "hearts.title"), 54, true, Ui3.Ink);
@@ -95,7 +105,13 @@ namespace KatKat.UI
             tick.Refresh();
             if (!m.Full && watchAd != null)
                 AdButton("Refill", card, Loc.F("hearts.refill", m.Max), new Vector2(0.5f, 1f), new Vector2(0f, -(540f + 62f)), new Vector2(748f, 124f), watchAd);
-            Ui1.Button("Close", card, Loc.T("ui.close"), m.Full || watchAd == null, new Vector2(0.5f, 1f), new Vector2(0f, -(m.Full ? 560f : 672f) - 50f), new Vector2(748f, 100f), CloseHeartsCard);
+            for (int i = 0; i < offers.Count; i++)
+            {
+                var o = offers[i];
+                Ui1.PriceButton("Buy_" + ShopCatalog.HeartKey(o), card, ShopCatalog.HeartPrice(o) + "  ·  " + Loc.T("heart.offer." + ShopCatalog.HeartKey(o)),
+                    new Vector2(0.5f, 1f), new Vector2(0f, -(y0 + i * 110f) - 48f), new Vector2(748f, 96f), () => buy(o), ShopArt("ingot"), 36);
+            }
+            Ui1.Button("Close", card, Loc.T("ui.close"), !ad && offers.Count == 0, new Vector2(0.5f, 1f), new Vector2(0f, -closeY - 50f), new Vector2(748f, 100f), CloseHeartsCard);
         }
 
         public void CloseHeartsCard()
@@ -192,6 +208,9 @@ namespace KatKat.UI
             return _heart;
         }
 
+        /// <summary>Sınırsız kalp süresi: 1 saatten uzunsa "2:59:12", değilse "59:12".</summary>
+        internal static string HeartsClockLong(int s) => s >= 3600 ? (s / 3600) + ":" + Hearts.Clock(s % 3600) : Hearts.Clock(s);
+
         /// <summary>Saniyede iki kez sayı ve "Dolu"/geri sayım yazısını günceller.</summary>
         private sealed class HeartTicker : MonoBehaviour
         {
@@ -211,8 +230,9 @@ namespace KatKat.UI
             {
                 if (Info == null) return;
                 var m = Info();
-                if (Number != null) Loc.Set(Number, m.Count.ToString());
+                if (Number != null) Loc.Set(Number, m.Unlimited ? "∞" : m.Count.ToString());
                 if (State == null) return;
+                if (m.Unlimited) { Loc.Set(State, Long ? Loc.F("hearts.unlimited", HeartsClockLong(m.UnlimitedSeconds)) : HeartsClockLong(m.UnlimitedSeconds)); return; }
                 string s = m.Full ? Loc.T(Long ? "hearts.fullnote" : "hearts.full")
                     : Long ? Loc.F("hearts.next", Hearts.Clock(m.SecondsToNext)) : Hearts.Clock(m.SecondsToNext);
                 Loc.Set(State, s);

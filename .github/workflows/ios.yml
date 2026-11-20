@@ -11,6 +11,10 @@ on:
         description: "TestFlight'a yükle"
         type: boolean
         default: false
+      test_gold:
+        description: "Sınırsız SB Gold (yalnız test; bu yapı App Store'a gönderilmez)"
+        type: boolean
+        default: false
 
 env:
   UNITY_VERSION: 6000.6.4f1
@@ -39,6 +43,7 @@ jobs:
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: iOS
           buildMethod: KatKat.EditorTools.BuildScripts.BuildIOS
+          customParameters: ${{ inputs.test_gold && '-katkatTestGold 1' || '' }}
       # Xcode projesinin nereye yazıldığı derleme aracına bağlı (build/iOS/iOS ya da Builds/iOS): bulunup tek klasöre alınır.
       - name: Xcode projesini bul
         run: |
