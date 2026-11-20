@@ -49,6 +49,10 @@ namespace KatKat.Core
         public int Area;
         /// <summary>Konsept pilotu "Yayılan Yosun": yosunlu yığın seçilemez (örtü); kenar komşusunda soyma ya da doğrudan vuruş temizler.</summary>
         public bool Moss;
+        /// <summary>2026-11-21 çakıl örtüsü (kullanıcı: "Oyun tahtamızın bir bölümünde taşların üzeri çakıl taşları ile örtülü olacak.
+        /// Örtülü olmayan alanda kazanılan özel skil ile bu çakıl taşları temizlenecek"): örtülü yığın seçilemez, rulo atlar;
+        /// komşu soyulma, roket, Altın Rulo ve bomba çakıla işlemez. Yalnız Kürek (<see cref="SpecialKind.Shovel"/>) temizler.</summary>
+        public bool Gravel;
 
         public static int Bit(LayerColor c) => 1 << (int)c;
 
@@ -56,7 +60,7 @@ namespace KatKat.Core
         public bool IsRotatable => HasRotor && Active && !HasCover && !HasSpecial && Layers.Count >= 2;
 
         public bool IsEmpty => Layers.Count == 0;
-        public bool HasCover => ClipHitsRemaining > 0 || IceHitsRemaining > 0 || LockRemaining > 0 || HasEnvelope || SpongeNeed != 0 || LinkHits > 0 || Moss;
+        public bool HasCover => ClipHitsRemaining > 0 || IceHitsRemaining > 0 || LockRemaining > 0 || HasEnvelope || SpongeNeed != 0 || LinkHits > 0 || Moss || Gravel;
         public bool IsSelectable => Active && Layers.Count > 0 && !HasCover && !HasSpecial;
         public LayerColor Top => Layers[Layers.Count - 1];
 
@@ -69,7 +73,7 @@ namespace KatKat.Core
                 HasEnvelope = HasEnvelope, EnvelopeColor = EnvelopeColor, HasRotor = HasRotor,
                 Special = Special, SpecialColor = SpecialColor,
                 SpongeNeed = SpongeNeed, SpongeHave = SpongeHave, LinkId = LinkId, LinkHits = LinkHits,
-                ButtonGate = ButtonGate, GateId = GateId, Protected = Protected, Area = Area, Moss = Moss,
+                ButtonGate = ButtonGate, GateId = GateId, Protected = Protected, Area = Area, Moss = Moss, Gravel = Gravel,
             };
             c.Layers.AddRange(Layers);
             c.GateLayers.AddRange(GateLayers);
@@ -83,7 +87,7 @@ namespace KatKat.Core
                 || HasEnvelope != o.HasEnvelope || (HasEnvelope && EnvelopeColor != o.EnvelopeColor) || HasRotor != o.HasRotor
                 || Special != o.Special || (Special == SpecialKind.Rainbow && SpecialColor != o.SpecialColor)
                 || SpongeNeed != o.SpongeNeed || SpongeHave != o.SpongeHave || LinkId != o.LinkId || LinkHits != o.LinkHits
-                || ButtonGate != o.ButtonGate || GateId != o.GateId || Protected != o.Protected || Area != o.Area || Moss != o.Moss || GateLayers.Count != o.GateLayers.Count) return false;
+                || ButtonGate != o.ButtonGate || GateId != o.GateId || Protected != o.Protected || Area != o.Area || Moss != o.Moss || Gravel != o.Gravel || GateLayers.Count != o.GateLayers.Count) return false;
             for (int i = 0; i < GateLayers.Count; i++) if (GateLayers[i] != o.GateLayers[i]) return false;
             if (Layers.Count != o.Layers.Count) return false;
             for (int i = 0; i < Layers.Count; i++) if (Layers[i] != o.Layers[i]) return false;

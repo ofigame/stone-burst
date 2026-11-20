@@ -236,6 +236,8 @@ namespace KatKat.UI
                 irt.anchoredPosition += new Vector2(0f, irt.sizeDelta.y * 0.23f);
             }
             if (it.On) ic.gameObject.AddComponent<IconBreath>(); // seçili ikon büyüyüp küçülür (2026-11-11)
+            // 2026-11-21 (kullanıcı: "… gölge değil. çevresini beyaz border yapalım"): seçili simgenin silüetini izleyen beyaz kontur.
+            if (it.On) IconOutline.Attach(ic, 7f);
             // Yazı (16, 108, 264, 48) nav 32/800; seçili kapsül (28, 100, 240, 64) tabSelected, yazı onTeal.
             if (it.On)
             {

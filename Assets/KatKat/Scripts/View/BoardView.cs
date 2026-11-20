@@ -646,6 +646,7 @@ namespace KatKat.View
                     s.SetLayers(System.Array.Empty<LayerColor>());
                     s.SetMarks(0, false);
                     s.SetCovers(0, default, 0);
+                    s.SetGravel(false);
                     s.SetRotor(false, false);
                     s.SetSpecial(SpecialKind.None, default);
                     s.SetSponge(0, 0);
@@ -661,6 +662,7 @@ namespace KatKat.View
                 s.SetSponge(cell.SpongeNeed, cell.SpongeHave);
                 s.SetButton(cell.ButtonGate > 0);
                 s.SetCovers(cell.IceHitsRemaining, cell.LockColor, cell.LockRemaining, cell.HasEnvelope, cell.EnvelopeColor);
+                s.SetGravel(cell.Gravel, x * 7 + y * 5);
                 s.SetRotor(cell.HasRotor, cell.IsRotatable);
                 s.SetSpecial(cell.Special, cell.SpecialColor);
                 s.SetProtected(cell.Protected);
@@ -735,7 +737,16 @@ namespace KatKat.View
                 bool special = w.Kind == WaveKind.Special;
                 At(start, () => onWaveStart?.Invoke(w));
                 if (special) At(start, () => FireFx(w));
-                else if (w.Index >= 1) At(start, () => ShakeBoard(0.012f * Mathf.Min(4, w.Index), 260f));
+                // 2026-11-21 (kullanıcı: "patlamadaki tahtanın sallanması patlama anında olsun"): sarsıntı dalga başında değil,
+                // taşlar havada titreyip patladığı anda (ilk taşın PeelSequence.BreakAt'i).
+                if (w.Cells.Count > 0)
+                {
+                    float firstDelay = float.MaxValue;
+                    if (special) foreach (var c in w.Cells) firstDelay = Mathf.Min(firstDelay, SpecialDelay(w, c.X, c.Y));
+                    else firstDelay = 0f;
+                    PopShake(w, created && w.Index == 0, out float amp, out float dur);
+                    if (amp > 0f) At(start + firstDelay + PeelSequence.BreakAt, () => ShakeBoard(amp, dur));
+                }
                 float spread = 0f;
                 // 2026-11-19 (kullanıcı: "Kombolarda çok daha fazla taş akacak"): zincir dalgası, büyük grup ve özel taş
                 // (roket, rulo…) hücre başına daha çok taş akıtır (1–4).
@@ -798,6 +809,11 @@ namespace KatKat.View
                 {
                     var hit = h;
                     At(start + (special ? SpecialDelay(w, hit.X, hit.Y) : 0f) + ClipHitAt, () => HitIce(StackAt(hit.X, hit.Y), hit.RemainingAfter));
+                }
+                foreach (var g in w.GravelCleared)
+                {
+                    var gc = g;
+                    At(start + (special ? SpecialDelay(w, gc.X, gc.Y) : 0f) + 60f, () => ClearGravel(StackAt(gc.X, gc.Y), gc.X - w.FiredAt.X, gc.Y - w.FiredAt.Y));
                 }
                 foreach (var e in w.EnvelopeOpens)
                 {
@@ -957,6 +973,24 @@ namespace KatKat.View
         // ---- v5 özel taş sunumu ---------------------------------------------------------------------
 
         /// <summary>Özel taş dalgasında hücrenin soyulma gecikmesi: roket satır/sütunda, ışık kaynaktan uzaklıkla yayılır.</summary>
+        /// <summary>
+        /// Dalganın patlama sarsıntısı (2026-11-21, taşların patladığı anda çalınır): roket ve Altın Rulo (ikilisi daha güçlü),
+        /// özel taş doğuran dokunuş ve sonraki dalgalar. Bomba kendi patlamasında sarsar; küçük dokunuş sarsmaz.
+        /// </summary>
+        private static void PopShake(PeelWave w, bool createdHere, out float amp, out float dur)
+        {
+            amp = 0f; dur = 0f;
+            bool combo = w.ComboWith != SpecialKind.None;
+            if (w.Kind == WaveKind.Special)
+            {
+                if (w.Fired == SpecialKind.Rainbow || w.ComboWith == SpecialKind.Rainbow) { amp = combo ? 0.05f : 0.025f; dur = combo ? 600f : 320f; }
+                else if (w.Fired.IsRocket()) { amp = combo ? 0.04f : 0.022f; dur = combo ? 420f : 280f; }
+                return;
+            }
+            if (w.Index >= 1) { amp = 0.012f * Mathf.Min(4, w.Index); dur = 260f; }
+            else if (createdHere) { amp = 0.02f; dur = 220f; }
+        }
+
         private static float SpecialDelay(PeelWave w, int x, int y)
         {
             float dx = x - w.FiredAt.X, dy = y - w.FiredAt.Y;
@@ -1062,7 +1096,7 @@ namespace KatKat.View
             var stack = StackAt(at.X, at.Y);
             var glowColor = r.SpecialCreated == SpecialKind.Rainbow ? new Color(1f, 0.95f, 1f, 0.9f) : new Color(1f, 0.85f, 0.4f, 0.9f);
             Flash(stack, glowColor, 1.8f);
-            ShakeBoard(0.02f, 220f);
+            // Sarsıntı taşların patladığı anda (PopShake, 2026-11-21).
             var go = new GameObject("TrayToken");
             go.transform.SetParent(transform, false);
             var sr = go.AddComponent<SpriteRenderer>();
@@ -1114,11 +1148,16 @@ namespace KatKat.View
                 BombBlast(src);
                 return;
             }
+            if (w.Fired == SpecialKind.Shovel)
+            {
+                ShovelScoop(src);
+                return;
+            }
             if (aRain || bRain)
             {
                 // Tek gökkuşağı ya da gökkuşağı + gökkuşağı: kaynakta büyüyen ışık halkası; ikilide bütün tahtaya yayılır.
                 Expand(src, combo ? Mathf.Max(_width, _height) * 1.4f : 3.2f, combo ? 900f : 520f);
-                ShakeBoard(combo ? 0.05f : 0.025f, combo ? 600f : 320f);
+                // Sarsıntı taşların patladığı anda (PopShake, 2026-11-21).
                 // Kullanıcı (2026-11-08): "patlayacak olan tüm renklere yıldırım gibi ağ fırlatılsın". Kaynaktan her hedef
                 // taşa titreşen bir yıldırım; o taş soyulana kadar yanar (ikili gökkuşağında bütün tahta ışıkla gider).
                 if (!combo)
@@ -1159,7 +1198,7 @@ namespace KatKat.View
                 Travel(src, w.FiredAt.X, w.FiredAt.Y, 0, -1);
                 Travel(src, w.FiredAt.X, w.FiredAt.Y, 0, 1);
             }
-            ShakeBoard(combo ? 0.04f : 0.022f, combo ? 420f : 280f);
+            // Sarsıntı taşların patladığı anda (PopShake, 2026-11-21).
         }
 
         /// <summary>Simgenin hayaleti büyüyüp söner; gerçek simge hemen kalkar.</summary>
@@ -1248,6 +1287,69 @@ namespace KatKat.View
         /// 2026-11-20 Bomba güçlendiricisi: turuncu-beyaz parlama, 3×3 alanı saran şok halkası, dışa savrulan kıvılcım ve
         /// taş kırıntıları, güçlü sarsıntı. Azaltılmış harekette yalnız parlama.
         /// </summary>
+        /// <summary>
+        /// 2026-11-21 Kürek ateşlemesi: hedefte büyüyüp eğilen kürek hayaleti (kazıma hareketi), 3×3 alanı çevreleyen toz halkası
+        /// ve hafif sarsıntı. Çakıllar <see cref="ClearGravel"/> ile ayrı ayrı saçılır.
+        /// </summary>
+        private void ShovelScoop(StackView s)
+        {
+            Flash(s, new Color(1f, 0.93f, 0.75f, 1f), 3.4f);
+            ShakeBoard(0.04f, 360f);
+            var pos = s.transform.position + s.TopFaceLocal;
+            int order = PeelDirector.PeelSortingOrder + 1100;
+            if (!KatKat.UI.Motion.Reduced)
+            {
+                float sz = WorldPitch * 3.2f;
+                Particles.Emit(FxKit.Ring, true, order + 1, pos, Vector3.zero, 0.45f, sz * 0.2f, sz * 1.1f, new Color(1f, 0.92f, 0.7f, 0.9f), new Color(0.9f, 0.75f, 0.5f, 0f));
+                Particles.Emit(FxKit.Glow, true, order, pos, Vector3.zero, 0.3f, sz * 0.3f, sz, new Color(1f, 0.97f, 0.85f, 0.8f), new Color(1f, 0.8f, 0.5f, 0f));
+                for (int i = 0; i < 10; i++)
+                {
+                    var dir = new Vector3(R(-1f, 1f), R(-0.3f, 1f), 0f).normalized;
+                    Particles.Emit(FxKit.Puff, false, order, pos + dir * WorldPitch * 0.6f, dir * sz * 0.3f, R(0.6f, 1f), WorldPitch * 0.7f, WorldPitch * 1.7f,
+                        new Color(0.86f, 0.78f, 0.66f, 0.6f), new Color(0.8f, 0.72f, 0.62f, 0f), drag: 2.4f);
+                }
+            }
+            // Kürek hayaleti: yukarıdan iner, öne eğilerek kazır, sonra yukarı kalkıp söner.
+            var go = new GameObject("ShovelFx");
+            go.transform.SetParent(transform, false);
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sprite = GravelArt.Shovel;
+            sr.sortingOrder = order + 3;
+            float scale = WorldPitch * 1.6f / sr.sprite.bounds.size.x;
+            go.transform.localScale = Vector3.one * scale;
+            go.transform.position = pos + new Vector3(WorldPitch * 0.2f, WorldPitch * 0.9f, 0f);
+            _fx.Add(new Fx { Kind = FxKind.Away, T = go.transform, R = sr, Owned = true, From = go.transform.position, To = pos + new Vector3(-WorldPitch * 0.25f, WorldPitch * 0.15f, 0f), BaseScale = go.transform.localScale, Dur = 420f });
+        }
+
+        /// <summary>Çakıl temizlenir: yığın hayaleti kalkıp küçülerek söner, çakıl taneleri kazıma yönünde saçılır, toz kalkar.</summary>
+        private void ClearGravel(StackView stack, int dx, int dy)
+        {
+            var pile = stack.GravelRenderer;
+            stack.SetGravel(false);
+            Flash(stack, new Color(1f, 0.95f, 0.8f, 0.9f), 1.3f);
+            var pos = stack.transform.position + stack.TopFaceLocal;
+            var away = new Vector3(dx == 0 ? R(-0.4f, 0.4f) : Mathf.Sign(dx), dy == 0 ? 0.6f : -Mathf.Sign(dy) * 0.8f + 0.3f, 0f).normalized;
+            if (pile != null)
+            {
+                var ghost = Ghost(pile, stack.transform);
+                var from = ghost.transform.position;
+                _fx.Add(new Fx { Kind = FxKind.Away, T = ghost.transform, R = ghost, Owned = true, From = from, To = from + away * stack.Size * 0.5f + new Vector3(0f, stack.Size * 0.25f, 0f), BaseScale = ghost.transform.localScale, Dur = 320f });
+            }
+            if (KatKat.UI.Motion.Reduced) return;
+            int order = PeelDirector.PeelSortingOrder + 1102;
+            for (int i = 0; i < 14; i++)
+            {
+                var dir = (away + new Vector3(R(-0.9f, 0.9f), R(-0.3f, 1.1f), 0f)).normalized;
+                float g = R(0.7f, 1.1f);
+                var c = Color.Lerp(new Color(0.62f, 0.56f, 0.5f, 1f), new Color(0.92f, 0.88f, 0.8f, 1f), R(0f, 1f));
+                Particles.Emit(GravelArt.Pebble, false, order, pos + new Vector3(R(-0.3f, 0.3f), R(-0.3f, 0.3f), 0f) * stack.Size, dir * WorldPitch * R(1.6f, 3.2f), R(0.5f, 0.8f),
+                    WorldPitch * R(0.16f, 0.3f) * g, WorldPitch * 0.12f * g, c, new Color(c.r, c.g, c.b, 0f), gravity: -WorldPitch * 9f, drag: 0.8f, rot: R(0f, 180f), rotVel: R(-360f, 360f));
+            }
+            for (int i = 0; i < 3; i++)
+                Particles.Emit(FxKit.Puff, false, order - 1, pos, (away + Vector3.up * 0.5f) * WorldPitch * R(0.3f, 0.7f), R(0.5f, 0.8f), stack.Size * 0.6f, stack.Size * 1.3f,
+                    new Color(0.9f, 0.83f, 0.72f, 0.5f), new Color(0.88f, 0.8f, 0.7f, 0f), drag: 2f);
+        }
+
         private void BombBlast(StackView s)
         {
             Flash(s, new Color(1f, 0.62f, 0.25f, 1f), 4.4f);

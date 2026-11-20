@@ -113,7 +113,7 @@ namespace KatKat.Game
             return tour;
         }
 
-        private static readonly string[] Mechanics = { "clip", "star", "ice", "colorLock", "envelope", "rotor", "sponge", "linkedClip", "gate", "paint" };
+        private static readonly string[] Mechanics = { "clip", "star", "ice", "colorLock", "envelope", "rotor", "sponge", "linkedClip", "gate", "paint", "gravel" };
 
         /// <summary>v14 vitrini (1–5. bölüm) bütün mekanikleri bir kez gösterir; takvimdeki gerçek tanıtım (ataç 21, yıldız 41…)
         /// vitrinden sonraki ilk bölümde yeniden çıkar ("vitrinden sonra gerçek tanıtım", docs/v14/PLAN.md).</summary>
@@ -152,6 +152,7 @@ namespace KatKat.Game
                     "rotor" => c.HasRotor,
                     "sponge" => c.SpongeNeed != 0,
                     "gate" => c.GateId > 0 || c.ButtonGate > 0,
+                    "gravel" => c.Gravel,
                     _ => false,
                 };
                 if (hit) return new Coord(x, y);

@@ -55,6 +55,7 @@ namespace KatKat.View
         /// </summary>
         public static Sprite For(SpecialKind k)
         {
+            if (k == SpecialKind.Shovel) return GravelArt.Shovel; // 2026-11-21 çakıl
             if (HasV11)
                 return k == SpecialKind.Rainbow ? V11Color : k == SpecialKind.RocketRow ? V11Row : k == SpecialKind.RocketColumn ? V11Col : null;
             return k == SpecialKind.Rainbow ? Rainbow : k.IsRocket() ? Rocket : null;

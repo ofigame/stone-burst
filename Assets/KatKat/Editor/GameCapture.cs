@@ -489,11 +489,46 @@ namespace KatKat.EditorTools
             const string V = "pop/";
             Directory.CreateDirectory(Path.Combine(PeelCapture.OutDir, "pop"));
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            foreach (var lv in new[] { 2, 1 })
-            foreach (var ms in new[] { 200f, 420f, 640f, 800f, 980f, 1150f })
+            // 2026-11-21: yerinde yükselme → titreme + ışık → patlama (BreakAt) → akış.
+            foreach (var lv in new[] { 2 })
+            foreach (var ms in new[] { 150f, 300f, 450f, 540f, 640f, 900f, 1300f })
             {
                 float at = ms; int l = lv;
-                Shot($"{V}pop_l{l + 1}_{(int)at}ms.png", 1080, 1920, null, gc => { gc.StartLevel(l); Steps(gc, 1, at); });
+                Shot($"{V}pop_l{l + 1}_{(int)at}ms.png", 1080, 1920, null, gc => { gc.StartLevel(l); Steps5(gc, 0, at); });
+            }
+            // 2026-11-21 çakıl: üst iki sıra çakıllı, tepside Kürek; seçili ve kullanım anları.
+            Action<GameController> gravel = gc =>
+            {
+                gc.StartLevel(40);
+                var st = gc.Session.State;
+                for (int i = 0; i < st.Board.Count; i++)
+                    if (st.Board.Y(i) <= 1 && st.Board[i].Active && st.Board[i].Layers.Count > 0 && !st.Board[i].HasCover) st.Board[i].Gravel = true;
+                st.Tray.Clear();
+                st.Tray.Add(KatKat.Core.SpecialKind.Shovel);
+                st.Tray.Add(KatKat.Core.SpecialKind.RocketRow);
+                gc.Board.Sync(st);
+                gc.Hud.SetTrayVisible(true);
+                gc.Hud.SetTray(st.Tray, -1);
+            };
+            Shot($"{V}cakil_tahta.png", 1080, 1920, null, gc => gravel(gc));
+            Shot($"{V}cakil_kurek_secili.png", 1080, 1920, null, gc => { gravel(gc); gc.PressTraySlot(0); });
+            foreach (var ms in new[] { 120f, 260f, 600f })
+            {
+                float at = ms;
+                Shot($"{V}cakil_kurek_{(int)at}ms.png", 1080, 1920, null, gc =>
+                {
+                    gravel(gc);
+                    var b = gc.Session.State.Board;
+                    int cx = b.Width / 2;
+                    gc.PlayStep(new KatKat.Levels.StepData { Type = "use", Row = 0, X = cx, Y = 0 });
+                    for (float t = 0f; t < at; t += 16f) Tick(gc, 16f);
+                });
+            }
+            // Seçili menü simgesinin hareketli gölgesi (iki an).
+            foreach (var k in new[] { 5, 25 })
+            {
+                int n = k;
+                Shot($"{V}menu_secili_{n}.png", 1080, 1920, null, gc => { gc.Menu.ShowLevels(gc.Catalog.Count, 24, i => i < 24, () => { }, 0); for (int j = 0; j < n; j++) { gc.Menu.Tick(0.02f);  } });
             }
             EditorApplication.Exit(0);
         }

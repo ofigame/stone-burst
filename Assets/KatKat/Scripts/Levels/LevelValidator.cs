@@ -18,7 +18,7 @@ namespace KatKat.Levels
         public static readonly ValidationScope SecondStage = new ValidationScope { AllowedSizes = new[] { 4, 5, 6 }, MaxLayers = 4, AllowClips = true, AllowStars = true };
 
         /// <summary>schemaVersion 2'de geçerli yetenek adları (Premium-v2 rehberi §12).</summary>
-        public static readonly string[] KnownCapabilities = { "clip", "star", "ice", "colorLock", "envelope", "rotor", "specials", "sponge", "linkedClip", "gate", "paint", "stages", "seal", "areas" }; // vr1 P3: stages/seal/areas yalnız pilot katalog (v14: seal tanınır ama reddedilir)
+        public static readonly string[] KnownCapabilities = { "clip", "star", "ice", "colorLock", "envelope", "rotor", "specials", "sponge", "linkedClip", "gate", "paint", "stages", "seal", "areas", "gravel" }; // vr1 P3: stages/seal/areas yalnız pilot katalog (v14: seal tanınır ama reddedilir)
 
         /// <summary>
         /// schemaVersion 1: belge Bölüm 15 — ilk 20 bölümde ataş, yıldız, 6x6 ve dört katman yok (kimlik "level_###").
@@ -117,6 +117,8 @@ namespace KatKat.Levels
                 if (c.IceHits < 0 || c.IceHits > 2) e.Add($"{at} buz 0-2 olmalı");
                 if (c.IceHits > 0 && c.Layers.Count == 0) e.Add($"{at} boş hücrede buz olamaz");
                 if (c.IceHits > 0 && !scope.AllowIce) e.Add($"{at} buz bu bölümün kapsamı dışında");
+                if (c.Gravel && c.Layers.Count == 0) e.Add($"{at} boş hücrede çakıl olamaz");
+                if (c.Gravel && !d.Capabilities.Contains("gravel")) e.Add($"{at} çakıl için gravel yeteneği gerekli");
                 if (!string.IsNullOrEmpty(c.LockColor) || c.LockRemaining != 0)
                 {
                     if (!ColorIds.TryParse(c.LockColor, out _)) e.Add($"{at} kilitte bilinmeyen renk '{c.LockColor}'");

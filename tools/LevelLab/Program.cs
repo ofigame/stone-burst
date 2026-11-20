@@ -447,6 +447,7 @@ static partial class Program
         if (c.HasRotor) s += "R";
         if (c.HasBottomStar) s += "*";
         if (c.Protected) s += "P";
+        if (c.Gravel) s += "G";
         return s;
     }
 
@@ -458,6 +459,7 @@ static partial class Program
         if (!string.IsNullOrEmpty(c.EnvelopeColor)) return $"{{ \"kind\": \"envelope\", \"sealColor\": \"{c.EnvelopeColor}\" }}";
         if (c.SpongeColors.Count > 0) return $"{{ \"kind\": \"sponge\", \"colors\": [{string.Join(", ", c.SpongeColors.Select(l => $"\"{l}\""))}] }}";
         if (c.LinkHits > 0) return $"{{ \"kind\": \"linkedClip\", \"linkId\": {c.LinkId}, \"hits\": {c.LinkHits} }}";
+        if (c.Gravel) return "{ \"kind\": \"gravel\" }";
         return "{ \"kind\": \"none\" }";
     }
 

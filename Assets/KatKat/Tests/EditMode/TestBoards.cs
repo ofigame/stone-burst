@@ -34,6 +34,7 @@ namespace KatKat.Tests
                     c.Active = true;
                     if (cells[x] == ".") continue;
                     var t = cells[x];
+                    if (t.EndsWith("G")) { c.Gravel = true; t = t.Substring(0, t.Length - 1); } // 2026-11-21 çakıl (en sonda)
                     if (t.EndsWith("*")) { c.HasBottomStar = true; t = t.Substring(0, t.Length - 1); }
                     if (t.EndsWith("R")) { c.HasRotor = true; t = t.Substring(0, t.Length - 1); }
                     int k = t.IndexOf('k');

@@ -43,6 +43,7 @@ namespace KatKat.Levels
                 cell.ButtonGate = c.ButtonGate;
                 cell.Protected = c.Protected;
                 cell.Area = c.Area;
+                cell.Gravel = c.Gravel;
                 if (c.GateId > 0)
                 {
                     cell.GateId = c.GateId;

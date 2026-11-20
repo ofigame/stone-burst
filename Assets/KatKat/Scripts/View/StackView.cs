@@ -203,6 +203,34 @@ namespace KatKat.View
             UpdateMarks();
         }
 
+        /// <summary>2026-11-21 çakıl örtüsü: yüzü tamamen örten çakıl yığını (çeşit hücreye göre).</summary>
+        public void SetGravel(bool on, int variant = 0)
+        {
+            _gravelOn = on;
+            _gravelVariant = variant;
+            UpdateMarks();
+        }
+
+        public bool HasGravel => _gravelOn;
+        public SpriteRenderer GravelRenderer => _gravel;
+        private bool _gravelOn;
+        private int _gravelVariant;
+        private SpriteRenderer _gravel;
+        /// <summary>Çakıl yığını genişliği (Size oranı): yüzü taşar, alttaki rengin yalnız kenarı sezilir.</summary>
+        public const float GravelWidth = 1.08f;
+
+        private void UpdateGravel(Vector3 face)
+        {
+            if (_gravelOn && _gravel == null) _gravel = Mark("Gravel", GravelArt.Pile(_gravelVariant), 6);
+            if (_gravel == null) return;
+            _gravel.gameObject.SetActive(_gravelOn);
+            if (!_gravelOn) return;
+            _gravel.sprite = GravelArt.Pile(_gravelVariant);
+            _gravel.sortingOrder = _renderer.sortingOrder + 6;
+            _gravel.color = Color.white;
+            FitOnFace(_gravel, face, new Vector2(0f, 0.02f), GravelWidth);
+        }
+
         public void SetIceHits(int hits)
         {
             _iceHits = hits;
@@ -463,6 +491,7 @@ namespace KatKat.View
             }
             UpdateIce(face);
             UpdateLock(face);
+            UpdateGravel(face);
             UpdateEnvelope(face);
             UpdateRotor();
             UpdateFlower();

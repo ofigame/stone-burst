@@ -34,7 +34,7 @@ namespace KatKat.UI
         {
             if (_toastBox == null)
             {
-                var bg = UiFactory.Image("MenuToast", _safe, Ui3.Rounded(40f, Ui3.Ink, Ui3.Ink, 2f, Ui3.Brass), new Color(1f, 1f, 1f, 0.95f), true);
+                var bg = UiFactory.Image("MenuToast", _safe, Ui3.Rounded(40f, Ui3.Ink, Ui3.Ink, 2f, Ui3.Brass), Color.white, true);
                 bg.pixelsPerUnitMultiplier = 1f;
                 bg.raycastTarget = false;
                 _toastBox = bg.rectTransform;
@@ -43,6 +43,11 @@ namespace KatKat.UI
                 _toastText.textWrappingMode = TMPro.TextWrappingModes.Normal;
                 UiFactory.Stretch(_toastText.rectTransform, 30f, 30f, 8f, 8f);
                 FitText(_toastText, 22);
+                // 2026-11-21 (kullanıcı: "mağazadan güçlendirici aldığımda çıkan bilgilendirme yazısı ekrandaki objelerin altında
+                // kalıyor"): satın alımdan sonra sayfa yeniden kurulup üstüne biniyordu. Kendi tuvali her zaman en üstte çizer.
+                var cv = _toastBox.gameObject.AddComponent<Canvas>();
+                cv.overrideSorting = true;
+                cv.sortingOrder = (_canvas != null ? _canvas.sortingOrder : 0) + 200;
             }
             Loc.Set(_toastText, text);
             _toastBox.SetAsLastSibling();

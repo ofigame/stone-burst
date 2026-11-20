@@ -261,7 +261,7 @@ namespace KatKat.Game
                 case CommandType.UseSpecial:
                     var tray = _session.State.Tray;
                     var kind = c.Slot >= 0 && c.Slot < tray.Count ? tray[c.Slot] : SpecialKind.None;
-                    return kind == SpecialKind.RocketRow ? Loc.T("hint.why.row") : kind == SpecialKind.RocketColumn ? Loc.T("hint.why.col") : kind == SpecialKind.Rainbow ? Loc.T("hint.why.rainbow") : null;
+                    return kind == SpecialKind.RocketRow ? Loc.T("hint.why.row") : kind == SpecialKind.RocketColumn ? Loc.T("hint.why.col") : kind == SpecialKind.Rainbow ? Loc.T("hint.why.rainbow") : kind == SpecialKind.Shovel ? Loc.T("hint.why.shovel") : null;
                 case CommandType.Roll: return Loc.T("hint.why.roll");
                 case CommandType.Paint: return Loc.T("hint.why.paint");
                 case CommandType.Rotate: return Loc.T("hint.why.rotate");

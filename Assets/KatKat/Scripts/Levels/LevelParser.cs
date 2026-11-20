@@ -83,6 +83,7 @@ namespace KatKat.Levels
                         case "none": break;
                         case "clip": cell.ClipHitsRemaining = Int(oo, "hits", where); break;
                         case "ice": cell.IceHits = Int(oo, "hits", where); break;
+                        case "gravel": cell.Gravel = true; break;
                         case "envelope": cell.EnvelopeColor = Str(oo, "sealColor", where); break;
                         case "colorLock":
                             cell.LockColor = Str(oo, "color", where);

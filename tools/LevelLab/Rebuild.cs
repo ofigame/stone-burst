@@ -70,7 +70,7 @@ static partial class Program
     }
 
     static bool IsMechanic(CellData c) => c.ClipHitsRemaining > 0 || c.IceHits > 0 || c.LockRemaining > 0 || !string.IsNullOrEmpty(c.EnvelopeColor)
-        || c.HasBottomStar || c.HasRotor || c.SpongeColors.Count > 0 || c.LinkHits > 0 || c.ButtonGate > 0 || c.GateId > 0;
+        || c.HasBottomStar || c.HasRotor || c.SpongeColors.Count > 0 || c.LinkHits > 0 || c.ButtonGate > 0 || c.GateId > 0 || c.Gravel;
 
     /// <summary>Etkin + geçit hücreleri 4-bağlı mı.</summary>
     static bool Connected(LevelData d)

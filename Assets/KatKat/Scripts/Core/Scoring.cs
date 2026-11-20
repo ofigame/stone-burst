@@ -9,6 +9,7 @@ namespace KatKat.Core
         public const int BottomStar = 50;
         public const int RocketCreated = 50;
         public const int RainbowCreated = 100;
+        public const int ShovelCreated = 30;
 
         /// <summary>Dalga sırasına göre katman puanı: hamlenin sonraki dalgaları (v14: yalnız özel taş dalgaları; zincir yok) daha değerli.</summary>
         public static int Layer(int waveIndex) => LayerBase * (1 + waveIndex);

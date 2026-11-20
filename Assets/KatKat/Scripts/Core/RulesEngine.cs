@@ -17,6 +17,9 @@ namespace KatKat.Core
         public const int RollGroupSize = 5;
         /// <summary>v5 §2: dokunulan grup bu boyuttaysa rulo roketi, <see cref="RainbowGroupSize"/> ve üstüyse gökkuşağı doğar.</summary>
         public const int RocketGroupSize = 5;
+        /// <summary>2026-11-21 çakıl: tahtada çakıl varken bu boyuttaki dokunuş grubu (roket eşiğinin altı) Kürek doğurur.
+        /// Özel taşlar kapalı bölümde (saf) çakıl varsa her 4+ grup Kürek verir.</summary>
+        public const int ShovelGroupSize = 4;
         public const int RainbowGroupSize = 8;
 
         public static MoveResult TryApply(LevelState state, Command cmd)
@@ -222,10 +225,26 @@ namespace KatKat.Core
         public static bool BombHasEffect(BoardState board, int x, int y)
         {
             foreach (var i in BombArea(board, x, y))
-            {
-                var o = board[i];
-                if (o.Active && (o.Layers.Count > 0 || o.HasCover || o.HasSpecial)) return true;
-            }
+                if (Hittable(board[i])) return true;
+            return false;
+        }
+
+        /// <summary>Roket, Altın Rulo ve bombanın işleyebileceği hücre: etkin ve çakılsız; soyulacak katman, vurulacak örtü ya da
+        /// ateşlenecek özel taş var (çakıla yalnız Kürek işler).</summary>
+        public static bool Hittable(CellState o) => o.Active && !o.Gravel && (o.Layers.Count > 0 || o.HasCover || o.HasSpecial);
+
+        /// <summary>Tahtada çakıl kaldı mı (Kürek doğumu bunu ister).</summary>
+        public static bool HasGravel(BoardState board)
+        {
+            for (int i = 0; i < board.Count; i++) if (board[i].Active && board[i].Gravel) return true;
+            return false;
+        }
+
+        /// <summary>Kürek alanı (bomba gibi 3×3) çakıl içeriyor mu.</summary>
+        public static bool ShovelHasEffect(BoardState board, int x, int y)
+        {
+            foreach (var i in BombArea(board, x, y))
+                if (board[i].Active && board[i].Gravel) return true;
             return false;
         }
 
@@ -233,13 +252,14 @@ namespace KatKat.Core
         {
             var c = board[x, y];
             if (!c.Active) return false;
+            if (kind == SpecialKind.Shovel) return ShovelHasEffect(board, x, y);
             if (kind == SpecialKind.Rainbow) return c.IsSelectable;
             bool areas = HasAreas(board);
             for (int k = 0; k < (kind == SpecialKind.RocketRow ? board.Width : board.Height); k++)
             {
                 var o = kind == SpecialKind.RocketRow ? board[k, y] : board[x, k];
                 if (areas && o.Area != c.Area) continue;
-                if (o.Active && (o.Layers.Count > 0 || o.HasCover || o.HasSpecial)) return true;
+                if (Hittable(o)) return true;
             }
             return false;
         }
@@ -317,6 +337,7 @@ namespace KatKat.Core
             {
                 var kind = state.Tray[0];
                 state.Tray.RemoveAt(0);
+                if (kind == SpecialKind.Shovel) continue; // Kürek taş soymaz: kutlamada ateşlenmez
                 var candidates = new List<int>();
                 for (int i = 0; i < board.Count; i++)
                     if (board[i].IsSelectable) candidates.Add(i);
@@ -462,7 +483,8 @@ namespace KatKat.Core
 
                     var pw = ApplyWave(wave, kind, fired);
                     // v5 §2: özel taş yalnızca doğrudan dokunulan ilk gruptan doğar.
-                    if (firstWave && kind == WaveKind.Tap && tappedCell >= 0 && _state.SpecialsEnabled) Create(first, tappedCell, pw);
+                    // Çakıllı tahtada Kürek özel taşlar kapalıyken de doğar.
+                    if (firstWave && kind == WaveKind.Tap && tappedCell >= 0 && (_state.SpecialsEnabled || HasGravel(_board))) Create(first, tappedCell, pw);
                     firstWave = false;
 
                     // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): dalgadan sonra yalnız sıradaki özel taş ateşlenir.
@@ -479,6 +501,14 @@ namespace KatKat.Core
                 var peel = new List<int>();
                 if (!p.FromTray) Clear(p.Cell);
                 if (p.ComboCell >= 0) Clear(p.ComboCell);
+
+                if (p.Kind == SpecialKind.Shovel)
+                {
+                    // Kürek: 3×3 alandaki çakıl kalkar (alttaki yığın açılır); taş soyulmaz, başka örtüye işlemez.
+                    foreach (var i in BombArea(_board, _board.X(p.Cell), _board.Y(p.Cell)))
+                        if (_board[i].Active && _board[i].Gravel) _shovelled.Add(i);
+                    return peel;
+                }
 
                 var area = new List<int>();
                 bool aRocket = p.Kind.IsRocket(), bRocket = p.ComboKind.IsRocket();
@@ -525,7 +555,7 @@ namespace KatKat.Core
                 {
                     if (!seen.Add(i)) continue;
                     var c = _board[i];
-                    if (!c.Active) continue;
+                    if (!c.Active || c.Gravel) continue; // çakıla yalnız Kürek işler
                     if (c.HasSpecial)
                     {
                         if (!_queued[i]) { EnqueueSingle(i); _pendingTriggered.Add(i); }
@@ -538,6 +568,7 @@ namespace KatKat.Core
             }
 
             private readonly List<int> _pendingTriggered = new List<int>();
+            private readonly List<int> _shovelled = new List<int>();
 
             private void Clear(int cell)
             {
@@ -635,6 +666,13 @@ namespace KatKat.Core
                     score += Scoring.CoverHit;
                     pw.MossCleared.Add(new Coord(board.X(i), board.Y(i)));
                 }
+                foreach (var i in _shovelled)
+                {
+                    board[i].Gravel = false;
+                    score += Scoring.CoverHit;
+                    pw.GravelCleared.Add(new Coord(board.X(i), board.Y(i)));
+                }
+                _shovelled.Clear();
                 foreach (var i in envelopes)
                 {
                     board[i].HasEnvelope = false;
@@ -759,9 +797,17 @@ namespace KatKat.Core
             /// </summary>
             private void Create(List<int> group, int tapped, PeelWave pw)
             {
-                if (group == null || group.Count < RocketGroupSize) return;
+                if (group == null || group.Count < ShovelGroupSize) return;
                 SpecialKind kind;
-                if (group.Count >= RainbowGroupSize)
+                bool gravel = HasGravel(_board);
+                if (gravel && (group.Count < RocketGroupSize || !_state.SpecialsEnabled))
+                {
+                    kind = SpecialKind.Shovel;
+                    _state.Score += Scoring.ShovelCreated;
+                    pw.Score += Scoring.ShovelCreated;
+                }
+                else if (group.Count < RocketGroupSize || !_state.SpecialsEnabled) return;
+                else if (group.Count >= RainbowGroupSize)
                 {
                     kind = SpecialKind.Rainbow;
                     _state.Score += Scoring.RainbowCreated;

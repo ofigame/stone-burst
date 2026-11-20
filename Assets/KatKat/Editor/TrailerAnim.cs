@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using KatKat.Core;
@@ -114,6 +114,14 @@ namespace KatKat.EditorTools
                     gc.AddIngotsForTest(350);
                     gc.ShowLevels(); gc.ShowShop();
                     Hold(gc, rec, 12);
+                });
+                // 2026-11-21: satın alma bildirimi sayfa yeniden kurulduktan sonra da en üstte mi.
+                TrailerCapture.Scene("s2b_magaza_bildirim", (gc, rec) =>
+                {
+                    gc.AddIngotsForTest(350);
+                    gc.ShowLevels(); gc.ShowShop();
+                    gc.Menu.BuyBoosterPressed?.Invoke(KatKat.Meta.Booster.Bomb, 1);
+                    Hold(gc, rec, 6);
                 });
                 TrailerCapture.Scene("s3_magaza_alt", (gc, rec) =>
                 {

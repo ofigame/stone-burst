@@ -547,6 +547,7 @@ namespace KatKat.Game
                     else if (cell.IceHitsRemaining > 0) _hud.ShowToast(Loc.T("toast.ice"));
                     else if (cell.HasEnvelope) _hud.ShowToast(Loc.F("toast.envelope", LayerPalette.ColorName(cell.EnvelopeColor)));
                     else if (cell.Moss) _hud.ShowToast(Loc.T("concept.toast.moss")); // konsept pilotu
+                    else if (cell.Gravel) _hud.ShowToast(Loc.T("toast.gravel"));
                     else _hud.ShowToast(Loc.F("toast.lock", cell.LockRemaining, LayerPalette.ColorName(cell.LockColor)));
                 }
                 return;
@@ -751,7 +752,7 @@ namespace KatKat.Game
             if (wave.Index == 0 && r.SpecialCreated != SpecialKind.None)
             {
                 KatKat.UI.Vr1Proto.Play("special-charge");
-                _hud.ShowPraise(r.SpecialCreated == SpecialKind.Rainbow ? Loc.T("praise.rainbow") : Loc.T("praise.rocket"), Mathf.Max(1, level));
+                _hud.ShowPraise(r.SpecialCreated == SpecialKind.Rainbow ? Loc.T("praise.rainbow") : r.SpecialCreated == SpecialKind.Shovel ? Loc.T("praise.shovel") : Loc.T("praise.rocket"), Mathf.Max(1, level));
                 return;
             }
             if (level > 0) _hud.ShowPraise(words[level - 1], level);
@@ -780,7 +781,8 @@ namespace KatKat.Game
             var kind = tray[_traySlot];
             _sound.Play(Sfx.Tap);
             if (_tourOn) { TourShowCurrent(); return; } // tur kendi açıklamasını gösterir
-            _hud.ShowToast(kind == SpecialKind.Rainbow ? Loc.T("toast.use.rainbow")
+            _hud.ShowToast(kind == SpecialKind.Shovel ? Loc.T("toast.use.shovel")
+                : kind == SpecialKind.Rainbow ? Loc.T("toast.use.rainbow")
                 : kind == SpecialKind.RocketRow ? Loc.T("toast.use.row")
                 : Loc.T("toast.use.col"), 2.6f);
         }
@@ -803,6 +805,7 @@ namespace KatKat.Game
             _hintActive = false;
             // 2026-11-20: tepsi gücü kullanımında tahtanın çevresinde ışık dalgası (Altın Rulo gökkuşağı, roket turkuaz-altın).
             if (usedKind == SpecialKind.Rainbow) _board.RimSweep(Color.white, Color.white, 1.3f, rainbow: true);
+            else if (usedKind == SpecialKind.Shovel) _board.RimSweep(new Color(0.95f, 0.85f, 0.62f), new Color(0.55f, 0.85f, 0.8f), 1.0f);
             else _board.RimSweep(new Color(0.25f, 0.9f, 0.85f), new Color(1f, 0.85f, 0.35f), 1.15f);
             HintAfterCommand();
             _hint.Hide(); // ücretli ipucu tahta durunca (SetPhase Idle) yeniden görünür

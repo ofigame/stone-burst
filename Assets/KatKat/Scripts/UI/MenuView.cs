@@ -1375,12 +1375,13 @@ namespace KatKat.UI
         {
             var caps = CapsOf?.Invoke(index);
             if (caps == null) return (null, Color.white);
-            string[] order = { "gate", "paint", "linkedClip", "sponge", "rotor", "envelope", "colorLock", "ice", "clip", "star" };
+            string[] order = { "gravel", "gate", "paint", "linkedClip", "sponge", "rotor", "envelope", "colorLock", "ice", "clip", "star" };
             foreach (var cap in order)
             {
                 if (!caps.Contains(cap)) continue;
                 switch (cap)
                 {
+                    case "gravel": return (View.GravelArt.Pile(0), Color.white);
                     case "gate": return (View.SpecialArt.Button, Color.white);
                     case "paint": return (View.SpecialArt.Drop, Color.white);
                     case "linkedClip": return (TileSkin.Sprite("mechanics/clip-closed") ?? ProceduralArt.ClipSprite, Color.white); // sarmaşık (2026-11-18): renk yok
@@ -1449,6 +1450,7 @@ namespace KatKat.UI
         {
             var caps = CapsOf?.Invoke(index);
             if (caps == null) return Loc.T("intro.default");
+            if (caps.Contains("gravel")) return Loc.T("intro.gravel");
             if (caps.Contains("gate")) return Loc.T("intro.gate");
             if (caps.Contains("paint")) return Loc.T("intro.paint");
             if (caps.Contains("linkedClip")) return Loc.T("intro.linkedClip");

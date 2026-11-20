@@ -37,6 +37,7 @@ namespace KatKat.Levels
                 foreach (var l in c.Layers) sb.Append(Label(relabel, l));
                 if (c.ClipHitsRemaining > 0) sb.Append('k').Append(c.ClipHitsRemaining);
                 if (c.IceHits > 0) sb.Append('i').Append(c.IceHits);
+                if (c.Gravel) sb.Append('g');
                 if (c.LockRemaining > 0) sb.Append('L').Append(Label(relabel, c.LockColor)).Append(c.LockRemaining);
                 if (!string.IsNullOrEmpty(c.EnvelopeColor)) sb.Append('E').Append(Label(relabel, c.EnvelopeColor));
                 if (c.HasBottomStar) sb.Append('*');

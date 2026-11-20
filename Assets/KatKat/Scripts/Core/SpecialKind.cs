@@ -12,6 +12,9 @@ namespace KatKat.Core
         Rainbow = 3,
         /// <summary>2026-11-20 güçlendirici bombası: tahtaya konmaz, yalnız <see cref="CommandType.Bomb"/> ile 3×3 alanda ateşlenir.</summary>
         Bomb = 4,
+        /// <summary>2026-11-21 Kürek: çakıllı tahtada 4 taşlık grup patlatınca tepsiye girer; seçilen hücre merkezli 3×3 alandaki
+        /// çakılı temizler (taş soymaz). Hamle harcamaz.</summary>
+        Shovel = 5,
     }
 
     public static class SpecialKindExt

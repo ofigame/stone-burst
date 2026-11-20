@@ -44,24 +44,37 @@ namespace KatKat.View
         /// <summary>Alt renk okunur hâle geldiği an: zincirin sonraki dalgası buradan başlayabilir.</summary>
         public static float ReadableAt => 300f * Slow;
 
-        /// <summary>Kırılma anı: çatlak tamamlanır, yüz parçalara ayrılır.</summary>
-        public static float BreakAt => AnticipationEnd;
+        /// <summary>
+        /// 2026-11-21 (kullanıcı: "patlatmada, patlayacak taşlar olduğu yerden havaya kalksınlar aynı konumlarında
+        /// yükselsinler titresinler ışık saçarak ve patlasınlar"): sıkışmadan sonra taş kendi yerinde yükselir
+        /// (<see cref="RiseStart"/>–<see cref="RiseEnd"/>), havada artan titremeyle sarsılıp ışık saçar ve <see cref="BreakAt"/>
+        /// anında patlar. Sonraki akış (parçalar, bütün taş, uçuş) aynı aralıkla kayar.
+        /// </summary>
+        public static float RiseStart => AnticipationEnd * 0.6f;
+        public static float RiseEnd => AnticipationEnd + 190f * Flow;
+        /// <summary>Kırılma (patlama) anı: titreme biter, yüz parçalara ayrılır. Tahta sarsıntısı da bu anda (kullanıcı,
+        /// 2026-11-21: "patlamadaki tahtanın sallanması patlama anında olsun"; BoardView).</summary>
+        public static float BreakAt => RiseEnd + 160f * Flow;
+        /// <summary>Havada yükselme yüksekliği ve büyüme (taş boyu oranı).</summary>
+        public const float LiftHeight = 0.85f, LiftGrow = 0.14f;
+        /// <summary>Eski akışa göre kayma: yükselme ve titreme süresi.</summary>
+        private static float Shift => BreakAt - AnticipationEnd;
         /// <summary>Parçaların kısa dışa patlamasının sonu; ardından yavaşça yükselirler.</summary>
         public static float BurstEnd => BreakAt + 60f * Flow;
         /// <summary>Parçaların havadaki noktada toplanma sonu.</summary>
-        public static float GatherAt => 520f * Flow;
+        public static float GatherAt => 520f * Flow + Shift;
         /// <summary>Bütün taşın belirmeye başladığı an ve büyüme süresi.</summary>
-        public static float FormStart => 430f * Flow;
+        public static float FormStart => 430f * Flow + Shift;
         public static float FormDur => 140f * Flow;
         /// <summary>Taşın (ve yıldızların) hedefe uçuşa başladığı an.</summary>
-        public static float FlyStart => 620f * Flow;
+        public static float FlyStart => 620f * Flow + Shift;
         /// <summary>Taşlar ve yıldızlar hedefe varır (HUD sayacı bu anda güncellenir).</summary>
-        public static float ArriveAt => 960f * Flow;
+        public static float ArriveAt => 960f * Flow + Shift;
         public static float Duration => ArriveAt;
         /// <summary>Kombo taşları arasındaki gecikme.</summary>
         public static float StoneLag => 45f * Flow;
         /// <summary>Yığın tarafının bittiği an (sekme sonu): bundan sonra tahta serbest, yalnız uçuş sürer.</summary>
-        public static float StackDoneAt => BounceEnd;
+        public static float StackDoneAt => Mathf.Max(BounceEnd, BreakAt + 20f);
         /// <summary>Toplanma noktası: kaynaktan görev simgesine doğru yatayda %65, dikeyde %50, en az 2,2 taş yukarı (aynı renk bir araya gelir, hedefe uzun uçuş kalır).</summary>
         private const float GatherX = 0.65f, GatherY = 0.5f;
 
@@ -91,6 +104,8 @@ namespace KatKat.View
         private readonly float[] _trailMs = new float[MaxStones];
         private readonly bool[] _landed = new bool[MaxStones];
         private SpriteRenderer[] _starHalos;
+        private SpriteRenderer _preGlow, _preCore;
+        private float _sparkMs = -1000f;
         private float[] _starTrailMs;
         private bool[] _starLanded;
         private static readonly System.Collections.Generic.Stack<SpriteRenderer> _haloPool = new System.Collections.Generic.Stack<SpriteRenderer>();
@@ -215,13 +230,41 @@ namespace KatKat.View
             var faceLocal = _stack.FaceCenterLocal(_layerIndex);
             if (ms < BreakAt)
             {
-                // Kırılmadan önce: yüz yerinde (düz), üstünde çatlak belirir ve sarsılır.
+                // Kırılmadan önce (2026-11-21): taş kendi yerinde havaya kalkar ve büyür; havada artan titremeyle sarsılır,
+                // arkasında taş renginde ışık büyür, çevresine pırıltı saçar; üstünde çatlak belirir.
                 var t = _sheet.transform;
-                float shake = Mathf.Sin(ms * 0.35f) * 0.012f * size * Mathf.Clamp01(ms / BreakAt);
-                t.localPosition = _stack.BodyLocalToRoot(faceLocal + new Vector3(shake, size * 0.5f, 0f));
-                t.localScale = new Vector3(body.x, body.y, 1f);
+                float rise = Mathf.Clamp01((ms - RiseStart) / (RiseEnd - RiseStart));
+                float re = 1f - (1f - rise) * (1f - rise) * (1f - rise);
+                float lift = LiftHeight * size * re;
+                float tremble = Mathf.Clamp01((ms - (RiseEnd - 70f)) / (BreakAt - RiseEnd + 70f));
+                float tr = KatKat.UI.Motion.Reduced ? 0f : tremble * tremble;
+                float shx = (Mathf.Sin(ms * 0.95f) + 0.5f * Mathf.Sin(ms * 1.7f + 1.3f)) * 0.045f * size * tr;
+                float shy = Mathf.Sin(ms * 1.25f + 0.7f) * 0.025f * size * tr;
+                float grow = 1f + LiftGrow * re + 0.05f * tr;
+                t.localPosition = _stack.BodyLocalToRoot(faceLocal + new Vector3(shx, size * 0.5f + lift + shy, 0f));
+                t.localScale = new Vector3(body.x * grow, body.y * grow, 1f);
+                t.localRotation = Quaternion.Euler(0f, 0f, Mathf.Sin(ms * 1.1f + 0.4f) * 7f * tr);
                 _sheet.Pose(0f, 0.24f * size, 0f, Vector2.zero, 1f, 0f);
-                float ck = Mathf.Clamp01((ms - 25f) / (BreakAt - 40f));
+                var center = _stack.transform.TransformPoint(faceLocal + new Vector3(shx, lift + shy, 0f));
+                center.z -= 0.01f;
+                var bright = UnityEngine.Color.Lerp(_color, UnityEngine.Color.white, 0.45f);
+                float glow = Mathf.Clamp01(rise * 0.6f + tremble * 0.9f);
+                float flick = 0.85f + 0.15f * Mathf.Sin(ms * 0.6f);
+                Halo(ref _preGlow, FxKit.Glow, center, size * grow * (1.6f + 1.1f * tremble), new Color(bright.r, bright.g, bright.b, 0.85f * glow * flick), _order - 1);
+                Halo(ref _preCore, FxKit.Glow, center, size * grow * 1.1f, new Color(1f, 1f, 1f, 0.45f * tremble * flick), _order + 4);
+                var pfx = FxParticles.Active;
+                if (pfx != null && !KatKat.UI.Motion.Reduced && rise > 0.3f && ms - _sparkMs >= 34f)
+                {
+                    _sparkMs = ms;
+                    float a = Hash(_layerIndex + 3, ms) * Mathf.PI * 2f;
+                    var dir = new Vector3(Mathf.Cos(a), Mathf.Sin(a), 0f);
+                    pfx.Emit(FxKit.Star, true, _order + 5, center + dir * size * 0.42f * grow, dir * size * (1.2f + 1.6f * tremble), 0.38f,
+                        size * (0.22f + 0.18f * tremble), size * 0.04f, UnityEngine.Color.white, new Color(bright.r, bright.g, bright.b, 0f), drag: 2.5f, rot: a * 57f);
+                    if (tremble > 0.2f)
+                        pfx.Emit(FxKit.Dot, true, _order + 5, center, -dir * size * 1.4f, 0.3f, size * 0.12f, size * 0.02f,
+                            new Color(bright.r, bright.g, bright.b, 1f), new Color(_color.r, _color.g, _color.b, 0f), drag: 3f);
+                }
+                float ck = Mathf.Clamp01((ms - RiseEnd + 40f) / (BreakAt - RiseEnd));
                 if (ck > 0f)
                 {
                     if (_crack == null)
@@ -230,14 +273,15 @@ namespace KatKat.View
                         _crack.sprite = StoneShatter.Crack;
                         _crack.sortingOrder = _order + 1;
                     }
-                    _crack.transform.localPosition = t.localPosition - new Vector3(0f, size * 0.5f, 0f) + new Vector3(0f, 0f, -0.001f);
-                    _crack.transform.localScale = new Vector3(size * body.x * (0.6f + 0.4f * ck), size * body.y * (0.6f + 0.4f * ck), 1f);
+                    _crack.transform.localPosition = t.localPosition - new Vector3(0f, size * 0.5f * grow, 0f) + new Vector3(0f, 0f, -0.001f);
+                    _crack.transform.localRotation = t.localRotation;
+                    _crack.transform.localScale = new Vector3(size * t.localScale.x * (0.6f + 0.4f * ck), size * t.localScale.y * (0.6f + 0.4f * ck), 1f);
                     _crack.color = new Color(1f, 1f, 1f, ck);
                 }
                 return;
             }
 
-            if (!_broken) Break(faceLocal);
+            if (!_broken) Break(faceLocal + new Vector3(0f, LiftHeight * size, 0f));
 
             if (ms >= StackDoneAt)
             {
@@ -579,7 +623,9 @@ namespace KatKat.View
             _origin = _stack.transform.TransformPoint(faceLocal);
             if (!_rimReleased) { _rimReleased = true; _stack.ReleaseDetachedRim(this); }
             _sheet.End();
-            if (_crack != null) { StoneShatter.Give(_crack); _crack = null; }
+            if (_crack != null) { _crack.transform.localRotation = Quaternion.identity; StoneShatter.Give(_crack); _crack = null; }
+            GiveHalo(_preGlow); _preGlow = null; GiveHalo(_preCore); _preCore = null;
+            _sheet.transform.localRotation = Quaternion.identity;
             // 2026-11-18 ("efektleri daha profesyonel"): taş renginde parlak patlama, şok halkası, kıvılcımlar, yıldızlar.
             if (!KatKat.UI.Motion.Reduced)
                 BoardView.StonePop(FxParticles.Active, _origin, _color,
@@ -611,6 +657,7 @@ namespace KatKat.View
             if (_stars != null) for (int j = 0; j < _stars.Length; j++) { Give(_stars[j]); _stars[j] = null; }
             for (int k = 0; k < MaxStones; k++) { GiveHalo(_halos[k]); _halos[k] = null; GiveHalo(_rims[k]); _rims[k] = null; GiveHalo(_cores[k]); _cores[k] = null; }
             if (_starHalos != null) for (int j = 0; j < _starHalos.Length; j++) { GiveHalo(_starHalos[j]); _starHalos[j] = null; }
+            GiveHalo(_preGlow); _preGlow = null; GiveHalo(_preCore); _preCore = null;
         }
 
         /// <summary>Havuza iade; havuzdaki nesne sonraki kullanımda ölçek/dönüş/görünürlük taşımasın.</summary>

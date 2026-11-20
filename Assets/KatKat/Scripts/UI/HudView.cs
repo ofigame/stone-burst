@@ -929,7 +929,7 @@ namespace KatKat.UI
                     icon.sprite = SpecialArt.For(kind);
                     icon.rectTransform.localRotation = Quaternion.Euler(0f, 0f, SpecialArt.Angle(kind)); // v11: dikey simge kendi yönünde
                     // Kullanıcı (2026-11-08): biraz daha büyük (yuva çerçevesi kalktı).
-                    float s = kind == SpecialKind.Rainbow ? (SpecialArt.HasV11 ? 1.22f : 1.0f) : (SpecialArt.HasV11 ? 1.38f : 1.1f);
+                    float s = kind == SpecialKind.Shovel ? 1.45f : kind == SpecialKind.Rainbow ? (SpecialArt.HasV11 ? 1.22f : 1.0f) : (SpecialArt.HasV11 ? 1.38f : 1.1f);
                     icon.rectTransform.sizeDelta = new Vector2(TraySlot * s, TraySlot * s);
                 }
                 bool sel = i == selected;

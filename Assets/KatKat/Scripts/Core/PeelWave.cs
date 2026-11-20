@@ -37,6 +37,8 @@ namespace KatKat.Core
         public readonly List<Coord> GateOpens = new List<Coord>();
         /// <summary>Konsept pilotu: bu dalgada temizlenen yosunlar.</summary>
         public readonly List<Coord> MossCleared = new List<Coord>();
+        /// <summary>2026-11-21: bu dalgada Kürekle temizlenen çakıl hücreleri.</summary>
+        public readonly List<Coord> GravelCleared = new List<Coord>();
         /// <summary>vr1 P3: bu dalgada aşama tamamlandı; dalga sonrası etkin aşama.</summary>
         public bool StageAdvanced;
         public int StageAfter;
