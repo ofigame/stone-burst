@@ -302,19 +302,29 @@ namespace KatKat.Tests
         public IEnumerator V11_Special_CreatedToTray_Targeted_Used_Undone_WithNewIcons()
         {
             Assert.IsTrue(KatKat.View.SpecialArt.HasV11, "v11 simgeleri yüklü");
-            _gc.StartLevel(1); // v14: 2. bölüm ilk dokunuşta roket doğurur, ikinci adımda tepsiden kullanır
+            _gc.StartLevel(1); // 2026-11-20: 2. bölüm iki katlı; kayıtlı çözüm iki dokunuşta roket doğurur, üçüncü adımda tepsiden kullanır
             _gc.Board.Director.TimeScale = Speed;
             var sol = _gc.CurrentLevel.Solution;
             int useAt = sol.FindIndex(s => s.Type == "use");
-            Assert.AreEqual(1, useAt, "bölüm 2 çözümünün ikinci adımı tepsi kullanımı");
-            for (int i = 0; i < useAt; i++) { _gc.PlayStep(sol[i]); yield return WaitStable(); }
+            Assert.Greater(useAt, 0, "bölüm 2 çözümünde tepsi kullanımı var");
+            for (int i = 0; i < useAt; i++)
+            {
+                _gc.PlayStep(sol[i]);
+                yield return WaitStable();
+                // 2026-11-19 taş akışı girdiyi kilitlemez: tepsi görünümü hamle animasyonu bitince eşitlenir.
+                for (float until = Time.realtimeSinceStartup + 10f; _gc.Board.IsPlaying && Time.realtimeSinceStartup < until;) yield return null;
+            }
 
             var tray = _gc.Session.State.Tray;
             Assert.Greater(tray.Count, 0, "özel taş normal yoldan tepsiye geldi");
-            var kind = tray[0];
+            var kind0 = tray[0];
             var icon = _gc.Hud.TrayIcon(0);
+            // Tepsi simgesi taş yuvaya uçup varınca güncellenir (taş akışı, 2026-11-19): en çok 3 sn beklenir.
+            for (float until = Time.realtimeSinceStartup + 3f; icon.sprite != KatKat.View.SpecialArt.For(kind0) && Time.realtimeSinceStartup < until;) yield return null;
+            // 2026-11-20: yeni 2. bölümde tepside iki taş olabilir; ateşleme denetimi kayıtlı adımın kullandığı yuvanın taşıyla.
+            var kind = tray[Mathf.Clamp(sol[useAt].Row, 0, tray.Count - 1)];
             Assert.IsTrue(icon.gameObject.activeSelf);
-            Assert.AreSame(KatKat.View.SpecialArt.For(kind), icon.sprite, "tepsi yeni simgeyi kullanır");
+            Assert.AreSame(KatKat.View.SpecialArt.For(kind0), icon.sprite, "tepsi yeni simgeyi kullanır");
             Assert.AreEqual(0f, icon.rectTransform.localEulerAngles.z, 0.01f, "dikey simge de döndürülmez");
 
             // Hedefleme ve çalıştırma: kayıtlı "use" adımı yuvayı seçer (hedefleme) ve hücreye uygular.
@@ -339,7 +349,7 @@ namespace KatKat.Tests
             {
                 _gc.Undo();
                 Assert.IsTrue(_gc.Session.State.ContentEquals(before), "geri alma özel taşı tepsiye geri getirir");
-                Assert.AreSame(KatKat.View.SpecialArt.For(kind), _gc.Hud.TrayIcon(0).sprite);
+                Assert.AreSame(KatKat.View.SpecialArt.For(kind0), _gc.Hud.TrayIcon(0).sprite, "geri alınınca ilk yuva yine aynı taş");
                 AssertViewMatchesState();
             }
         }

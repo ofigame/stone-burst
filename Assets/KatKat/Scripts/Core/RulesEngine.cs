@@ -48,6 +48,19 @@ namespace KatKat.Core
                 return result;
             }
 
+            if (cmd.Type == CommandType.Bomb)
+            {
+                // 2026-11-20 Bomba güçlendiricisi (kullanıcı: "kullanıldığı alanda altlı üstlü toplam 9 hücredeki taşları
+                // patlatır"): 3×3 alandaki her yığından bir kat soyulur, örtülere vurulur, alandaki özel taşlar ateşlenir. Hamle harcamaz.
+                result.UsedSpecial = SpecialKind.Bomb;
+                result.UsedAt = new Coord(cmd.X, cmd.Y);
+                var resolver = new Resolver(state, result);
+                resolver.EnqueueFromTray(state.Board.Index(cmd.X, cmd.Y), SpecialKind.Bomb, default);
+                resolver.Run(null, WaveKind.Special, -1);
+                Finish(state, result, scoreBefore);
+                return result;
+            }
+
             state.MovesLeft--;
 
             if (cmd.Type == CommandType.Rotate)
@@ -114,7 +127,7 @@ namespace KatKat.Core
         private static void Finish(LevelState state, MoveResult result, int scoreBefore)
         {
             // Konsept pilotu: hamle harcayan komuttan sonra tehdit bir adım (tepsi hamle harcamaz → ilerletmez; kazandıran hamlede yok).
-            if (state.Hazard != null && result.Command.Type != CommandType.UseSpecial && !state.ProtectedBroken && !state.AllGoalsComplete)
+            if (state.Hazard != null && result.Command.Type != CommandType.UseSpecial && result.Command.Type != CommandType.Bomb && !state.ProtectedBroken && !state.AllGoalsComplete)
                 HazardRules.Tick(state, result);
             state.Status = Evaluate(state);
             result.MovesLeftAfter = state.MovesLeft;
@@ -133,6 +146,11 @@ namespace KatKat.Core
                 if (cmd.Slot < 0 || cmd.Slot >= state.Tray.Count) return RejectReason.TrayEmpty;
                 if (!board.InBounds(cmd.X, cmd.Y)) return RejectReason.OutOfBounds;
                 return TrayHasEffect(board, state.Tray[cmd.Slot], cmd.X, cmd.Y) ? RejectReason.None : RejectReason.TrayNoEffect;
+            }
+            if (cmd.Type == CommandType.Bomb)
+            {
+                if (!board.InBounds(cmd.X, cmd.Y) || !board[cmd.X, cmd.Y].Active) return RejectReason.OutOfBounds;
+                return BombHasEffect(board, cmd.X, cmd.Y) ? RejectReason.None : RejectReason.TrayNoEffect;
             }
             if (state.MovesLeft <= 0) return RejectReason.NoMovesLeft;
             if (cmd.Type == CommandType.Tap)
@@ -180,6 +198,34 @@ namespace KatKat.Core
         public static bool HasAreas(BoardState board)
         {
             for (int i = 0; i < board.Count; i++) if (board[i].Area != 0) return true;
+            return false;
+        }
+
+        /// <summary>Bomba alanı: (x, y) merkezli 3×3, tahta içindeki hücreler (iki alanlı tahtada yalnız merkezin alanı).</summary>
+        public static List<int> BombArea(BoardState board, int x, int y)
+        {
+            var list = new List<int>();
+            bool areas = HasAreas(board);
+            int a = board[x, y].Area;
+            for (int dy = -1; dy <= 1; dy++)
+            for (int dx = -1; dx <= 1; dx++)
+            {
+                int nx = x + dx, ny = y + dy;
+                if (!board.InBounds(nx, ny)) continue;
+                if (areas && board[nx, ny].Area != a) continue;
+                list.Add(board.Index(nx, ny));
+            }
+            return list;
+        }
+
+        /// <summary>Bomba alanında soyulacak, vurulacak ya da ateşlenecek bir şey var mı.</summary>
+        public static bool BombHasEffect(BoardState board, int x, int y)
+        {
+            foreach (var i in BombArea(board, x, y))
+            {
+                var o = board[i];
+                if (o.Active && (o.Layers.Count > 0 || o.HasCover || o.HasSpecial)) return true;
+            }
             return false;
         }
 
@@ -444,6 +490,7 @@ namespace KatKat.Core
                     if (p.Kind == SpecialKind.RocketRow) Row(y, area);
                     else if (p.Kind == SpecialKind.RocketColumn) Column(x, area);
                     else if (aRain) ColorCells(p.Color, area);
+                    else if (p.Kind == SpecialKind.Bomb) area.AddRange(BombArea(_board, x, y));
                 }
                 else if (aRocket && bRocket)
                 {

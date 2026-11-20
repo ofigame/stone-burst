@@ -20,11 +20,13 @@ namespace KatKat.Core
         public static Command Paint(int x, int y, LayerColor color) => new Command(CommandType.Paint, x, y, -1, color);
         /// <summary>v6: tepsinin <paramref name="slot"/>. özel taşını (x, y) hücresinde ateşler (Row = yuva).</summary>
         public static Command UseSpecial(int slot, int x, int y) => new Command(CommandType.UseSpecial, x, y, slot);
+        /// <summary>2026-11-20 Bomba güçlendiricisi: (x, y) merkezli 3×3 alan.</summary>
+        public static Command Bomb(int x, int y) => new Command(CommandType.Bomb, x, y, -1);
 
         public int Slot => Row;
 
         public override string ToString() =>
             Type == CommandType.Tap ? $"tap({X},{Y})" : Type == CommandType.Rotate ? $"rotate({X},{Y})"
-            : Type == CommandType.Paint ? $"paint({X},{Y},{Color})" : Type == CommandType.UseSpecial ? $"use({Row},{X},{Y})" : $"roll(row {Row})";
+            : Type == CommandType.Paint ? $"paint({X},{Y},{Color})" : Type == CommandType.UseSpecial ? $"use({Row},{X},{Y})" : Type == CommandType.Bomb ? $"bomb({X},{Y})" : $"roll(row {Row})";
     }
 }

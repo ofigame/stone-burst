@@ -10,5 +10,7 @@
         Paint = 3,
         /// <summary>v6 özel taş tepsisi: tepsideki (Row = yuva) roket/Altın Rulo hedef hücrede ateşlenir; hamle harcamaz.</summary>
         UseSpecial = 4,
+        /// <summary>2026-11-20 güçlendirici (külçeyle): hedefin 3×3 çevresindeki her yığından bir kat soyar, örtülere vurur; hamle harcamaz.</summary>
+        Bomb = 5,
     }
 }

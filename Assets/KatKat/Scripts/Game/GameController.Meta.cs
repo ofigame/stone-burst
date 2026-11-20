@@ -131,7 +131,7 @@ namespace KatKat.Game
         {
             if (o == null || o.Kind != SessionKind.Normal || string.IsNullOrEmpty(o.LevelId)) return;
             // v12 (kullanıcı, 2026-11-08): reklam yardımıyla (ek hamle) oynanan oturum ZPE'ye girmez.
-            if (o.Has(AssistFlags.RewardedAd)) return;
+            if (o.Has(AssistFlags.RewardedAd) || o.Has(AssistFlags.Booster)) return; // 2026-11-20: güçlendirici de
             var before = CurrentZpe();
             _zpeBefore = before.Calibrating ? -1 : before.Score;
             _zpeLastOutcome = o;
@@ -576,6 +576,7 @@ namespace KatKat.Game
                         Hidden = hidden,
                         Warm = s.Accent == "warm",
                         Selected = owned && active == s.StoneId,
+                        GiftIngots = owned && s.Ingots > 0 && !_save.Data.meta.stoneGifts.Contains(s.StoneId) ? s.Ingots : 0,
                     });
                 }
             _menu.ShowCollection(items, ShowDaily, ShowLevels, ShowSettings);

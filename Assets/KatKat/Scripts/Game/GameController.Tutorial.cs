@@ -94,9 +94,10 @@ namespace KatKat.Game
                 // v14 (2026-11-16, docs/v14/PLAN.md "Ekran ve metin": "Öğretici turlar yeni bölümlere göre: 1 dokunuş; 2 roket ve
                 // tepsi; 3 Altın Rulo"). Zincir dersi (eski 2. bölüm, tut.l2.domino) kaldırıldı. Turlar kayıtlı çözümü adım adım
                 // yürütür: 2. bölümün çözümü ilk dokunuşta roket doğurup hemen tepsiden kullanır, 3. bölümünki Altın Rulo ile.
+                // 2026-11-20 (kullanıcı: "Öğretici ilk 3 bölüm fazla geliyor sanki. İlk bölümde öğretsin sonra … 2 katmanlı
+                // sınırlı renkte taşlarla başlayalım" → "uygulayalım"): yalnız 1. bölüm yönlendirmeli. Roket ve Altın Rulo
+                // ayrı bölümde anlatılmaz; ilk oluştukları anda kısa bilgi (TourOnAccepted, oyuncu başına bir kez).
                 case 0: _guideUntil = all; _guideText[0] = "tut.l1.tap"; break;
-                case 1: _guideUntil = all; _guideText[0] = "tut.l6.big"; break;   // roket ve tepsi
-                case 2: _guideUntil = all; _guideText[0] = "tut.l9.big"; break;   // Altın Rulo
                 case 7: _tourQueue.Add(new TourInfo { Key = "tut.save", Hole = () => _hud.TrayRect() }); break; // biriktirme (ilk iki katlı gerçek bölüm)
                 default: tour = false; break;
             }
@@ -116,7 +117,7 @@ namespace KatKat.Game
 
         /// <summary>v14 vitrini (1–5. bölüm) bütün mekanikleri bir kez gösterir; takvimdeki gerçek tanıtım (ataç 21, yıldız 41…)
         /// vitrinden sonraki ilk bölümde yeniden çıkar ("vitrinden sonra gerçek tanıtım", docs/v14/PLAN.md).</summary>
-        private const int ShowcaseLevels = 5;
+        private const int ShowcaseLevels = 1; // 2026-11-20: vitrin yalnız 1. bölüm
 
         private List<string> NewCapabilities(int index)
         {
@@ -308,6 +309,7 @@ namespace KatKat.Game
         /// <summary>Komut kabul edildi (oynatma başlamadan): yönlendirme bir adım ilerler, katman gizlenir.</summary>
         private void TourOnAccepted(MoveResult r)
         {
+            SpecialJustInTime(r);
             if (!_tourOn) return;
             if (Guiding) _tourCursor++;
             HideTour();
@@ -316,12 +318,33 @@ namespace KatKat.Game
                 _tourQueue.Add(new TourInfo { Key = "tut.goals", Hole = () => _hud.GoalsRect() });
                 _tourQueue.Add(new TourInfo { Key = "tut.moves", Hole = () => _hud.MovesRect() });
             }
-            if (r != null && r.SpecialCreated != SpecialKind.None && _tourSpecialSeen == 0 && (_levelIndex == 1 || _levelIndex == 2)) // v14: roket turu 2., Altın Rulo turu 3. bölüm
-            {
-                _tourSpecialSeen++;
-                string key = r.SpecialCreated == SpecialKind.Rainbow ? "tut.rainbow" : "tut.tray";
-                _tourQueue.Add(new TourInfo { Key = key, Hole = () => _hud.TraySlotRect(Mathf.Max(0, _session.State.Tray.Count - 1)) });
-            }
+        }
+
+        private const string JitPrefix = "katkat.jit.";
+
+        /// <summary>
+        /// 2026-11-20: roket ve Altın Rulo ilk kez tepsiye geldiğinde (hangi bölümde olursa) kısa bilgi: tepsi yuvası
+        /// aydınlık, "Devam" ile kapanır. Oyuncu başına türü başına bir kez (PlayerPrefs). Günlük ve deneme bölümlerinde de.
+        /// </summary>
+        private void SpecialJustInTime(MoveResult r)
+        {
+            if (r == null || r.SpecialCreated == SpecialKind.None || _level == null) return;
+            if (!(ToursOverride ?? !Application.isBatchMode)) return;
+            bool rain = r.SpecialCreated == SpecialKind.Rainbow;
+            string pref = JitPrefix + (rain ? "rainbow" : "rocket");
+            if (PlayerPrefs.GetInt(pref, 0) == 1) return;
+            PlayerPrefs.SetInt(pref, 1);
+            PlayerPrefs.Save();
+            _tourOn = true;
+            _tourSpecialSeen++;
+            _tourQueue.Add(new TourInfo { Key = rain ? "tut.rainbow" : "tut.tray", Hole = () => _hud.TraySlotRect(Mathf.Max(0, _session.State.Tray.Count - 1)) });
+        }
+
+        /// <summary>Testler: anında bilgi kayıtlarını siler.</summary>
+        public static void ClearJitForTest()
+        {
+            PlayerPrefs.DeleteKey(JitPrefix + "rocket");
+            PlayerPrefs.DeleteKey(JitPrefix + "rainbow");
         }
 
         private bool _tourSpecialPending => _tourQueue.Count > 0;

@@ -128,6 +128,7 @@ namespace KatKat.Save
             Upgrade(d);
             d.sound = Data.sound;
             d.vibration = Data.vibration;
+            KatKat.Meta.Wallet.MergeInto(d.meta, Data.meta); // 2026-11-20: külçe ve güçlendiriciler geri yüklemede kaybolmaz
             if (File.Exists(_path)) KeepCopy(_path, _path + ".precloud", overwrite: true);
             Data = d;
             Save();

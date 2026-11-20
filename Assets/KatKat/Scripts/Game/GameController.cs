@@ -182,6 +182,7 @@ namespace KatKat.Game
             SetupAds(cam);
             SetupHearts();
             SetupAccount();
+            SetupShop(); // 2026-11-20 mağaza, külçe, güçlendiriciler
             _menu.NeedsSignIn = () => Account.State != AccountState.SignedIn;
             _menu.StonePreviewRequested = id => ShowStone(id, false);
             _menu.ZpePressed = ShowZpeStats;
@@ -370,6 +371,7 @@ namespace KatKat.Game
             _hud.SetTrayVisible(_session.State.SpecialsEnabled);
             _hud.SetTray(_session.State.Tray, _traySlot = -1);
             _board.SetLevelPalette(index);
+            BoostersAtLevelStart();
             _celebrating = false;
             _celebration.Clear();
             // Eski alt öğretici bandı yerine odaklı tur (GameController.Tutorial); band tahta alanını daraltmaz.
@@ -500,6 +502,7 @@ namespace KatKat.Game
             }
             if (CurrentPhase != Phase.Idle) return;
             if (!TourAllowsCell(x, y)) return;
+            if (BoosterCellPressed(x, y)) return; // Bomba hedefi ya da Taş Değiştir seçimi
             if (TryPlaceAt(x, y)) return; // reklam ödülü: seçili taşı koy
             if (_paintMode) { PickPaintCell(x, y); return; }
             if (_traySlot >= 0) { UseTraySlot(x, y); return; }
@@ -827,6 +830,7 @@ namespace KatKat.Game
 
         private void OnPaintColor(LayerColor color)
         {
+            if (BoosterColorChosen(color)) return;
             if (!_paintMode || CurrentPhase != Phase.Idle) return;
             var r = _session.Submit(Command.Paint(_paintCell.X, _paintCell.Y, color));
             _hud.HidePalette();
@@ -970,7 +974,7 @@ namespace KatKat.Game
             // v12: sıralama yıldızı yalnız reklamsız kazanımdan (kullanıcı kararı); geçiş reklamı sayacı.
             if (_sessionKind == KatKat.Meta.SessionKind.Normal)
             {
-                if (_outcome == null || !_outcome.Has(KatKat.Meta.AssistFlags.RewardedAd))
+                if (_outcome == null || !(_outcome.Has(KatKat.Meta.AssistFlags.RewardedAd) || _outcome.Has(KatKat.Meta.AssistFlags.Booster)))
                     KatKat.Meta.RankStars.Record(_save.Data.meta, _level.Id, EarnedStars);
                 _interstitial?.LevelCompleted(_levelIndex + 1);
             }
@@ -1070,6 +1074,9 @@ namespace KatKat.Game
             _hud.HidePalette();
             _hud.SetPaint(s.PaintLeft, false);
             _hud.SetTray(s.Tray, _traySlot = -1);
+            _boosterMode = null;
+            _recolorPicks.Clear();
+            RefreshBoosters();
             ConceptHud();
             SetPhase(Phase.Idle);
         }

@@ -39,10 +39,15 @@ namespace KatKat.UI
         public void SetHintButton(bool visible, bool used)
         {
             if (_hintBtn == null) return;
+            // 2026-11-20 (kullanıcı: "ipucunu kaldıralım sağ alttaki"): alt şeritte ipucu düğmesi gösterilmez; yer güçlendiricilere.
+            visible = visible && ShowHintButton;
             _hintBtn.gameObject.SetActive(visible);
             _hintGroup.alpha = used ? 0.5f : 1f;
             LayoutBottom();
         }
+
+        /// <summary>İpucu düğmesi alt şeritte gösterilsin mi (2026-11-20'den beri kapalı; testler açabilir).</summary>
+        public static bool ShowHintButton = false;
 
         /// <summary>Testler: ipucu düğmesi görünür mü.</summary>
         public bool HintButtonVisible => _hintBtn != null && _hintBtn.gameObject.activeSelf;

@@ -33,6 +33,8 @@ namespace KatKat.Meta
         public string Accent = "cool";
         /// <summary>Önizleme/kazanım ışıltı rengi "#RRGGBB" (yalnız görünüm; görselin baskın renginden). Boşsa vurgudan.</summary>
         public string Glow = "";
+        /// <summary>2026-11-20: taş kazanılınca koleksiyonda "Taştan hediyeni al" ile verilen külçe (0: hediye yok).</summary>
+        public int Ingots;
     }
 
     /// <summary>v10 P2.1: koleksiyon öğesi kategorileri.</summary>
@@ -108,6 +110,7 @@ namespace KatKat.Meta
                 if (o.ContainsKey("rarity")) s.Rarity = Str(o, "rarity");
                 if (o.ContainsKey("accent")) s.Accent = Str(o, "accent") == "warm" ? "warm" : "cool";
                 if (o.ContainsKey("glow")) s.Glow = Str(o, "glow");
+                if (o.TryGetValue("ingots", out var ing) && ing != null) s.Ingots = Math.Max(0, Convert.ToInt32(ing, CultureInfo.InvariantCulture));
                 if (string.IsNullOrEmpty(s.StoneId)) throw new FormatException("stones.json: stoneId boş");
                 if (Array.IndexOf(StoneCategory.All, s.Category) < 0) throw new FormatException($"stones.json: {s.StoneId} bilinmeyen kategori '{s.Category}'");
                 if (Array.IndexOf(StoneRarity.All, s.Rarity) < 0) throw new FormatException($"stones.json: {s.StoneId} bilinmeyen nadirlik '{s.Rarity}'");

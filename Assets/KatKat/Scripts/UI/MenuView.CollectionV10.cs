@@ -34,6 +34,8 @@ namespace KatKat.UI
         }
 
         private ScrollRect _collectionScroll;
+        /// <summary>Koleksiyon kaydırma konumu (0 = alt, 1 = üst); sayfa yokken 1.</summary>
+        public float CollectionScrollY => _collectionScroll != null ? _collectionScroll.verticalNormalizedPosition : 1f;
 
         /// <summary>Test/yakalama: koleksiyon kaydırması (0 = alt, 1 = üst).</summary>
         public void ScrollCollectionForTest(float normalizedY)
@@ -184,7 +186,7 @@ namespace KatKat.UI
                     sectionTops.Add((y, it.Section, it.SectionTitle, owned, total));
                     section = it.Section;
                 }
-                CollCard(content, it, new Vector2((col - 1) * (CollCardW + CollGap), y - CollCardH * 0.5f), StonePreviewRequested);
+                CollCard(content, it, new Vector2((col - 1) * (CollCardW + CollGap), y - CollCardH * 0.5f), StonePreviewRequested, ClaimGiftPressed);
                 if (++col == 3) { col = 0; y -= CollCardH + CollGap; }
             }
             if (col != 0) y -= CollCardH + CollGap;
@@ -240,7 +242,7 @@ namespace KatKat.UI
         /// <summary>v10: kazanılmış karta dokununca taş vitrini (3D model ya da büyük görsel). Kilitli kart açılmaz.</summary>
         public Action<string> StonePreviewRequested;
 
-        private static void CollCard(RectTransform content, StoneItem it, Vector2 pos, Action<string> preview)
+        private static void CollCard(RectTransform content, StoneItem it, Vector2 pos, Action<string> preview, Action<string> gift = null)
         {
             var card = UiFactory.Rect("Item_" + it.Id, content);
             UiFactory.Place(card, new Vector2(0.5f, 1f), pos, new Vector2(CollCardW, CollCardH));
@@ -349,6 +351,22 @@ namespace KatKat.UI
             n.raycastTarget = false;
             UiFactory.Stretch(n.rectTransform, 12, 12, 2, 4);
             n.enableAutoSizing = true; n.fontSizeMax = 29; n.fontSizeMin = 15;
+            if (it.Owned && it.GiftIngots > 0 && gift != null)
+            {
+                // 2026-11-20 (kullanıcı: "koleksiyonlara gittiğinde orada taştan hediyeni al ibaresi olsun"): açıklama yerine
+                // hediye düğmesi; kart altın parıltıyla nabız atar. Taş koleksiyonda kalır.
+                var halo2 = Decor("GiftGlow", card, SpecialArt.Glow);
+                halo2.color = new Color(1f, 0.86f, 0.35f, 0.75f);
+                UiFactory.Stretch(halo2.rectTransform, -40f, -40f, -40f, -40f);
+                halo2.transform.SetAsFirstSibling();
+                halo2.gameObject.AddComponent<IconBreath>();
+                string sid = it.Id;
+                var gb = Ui1.Button("Gift", card, Loc.T("collection.gift"), true, new Vector2(0.5f, 0f), new Vector2(0f, 48f), new Vector2(CollCardW - 20f, 78f),
+                    () => gift(sid), ShopArt("ingot"), 26);
+                var gt = gb.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+                if (gt != null) { gt.enableAutoSizing = true; gt.fontSizeMax = 26; gt.fontSizeMin = 14; gt.textWrappingMode = TMPro.TextWrappingModes.Normal; }
+                return;
+            }
             var d = UiFactory.Text("Desc", card, it.Desc, 22, Color.white, TextAnchor.UpperCenter, FontStyle.Normal);
             d.raycastTarget = false;
             UiFactory.Place(d.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -305f), new Vector2(CollCardW - 26f, 84f));

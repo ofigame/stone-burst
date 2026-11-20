@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace KatKat.Core
 {
@@ -71,6 +72,39 @@ namespace KatKat.Core
             _undo = null;
             return true;
         }
+
+        /// <summary>
+        /// 2026-11-20 güçlendiriciler külçeyle ödenir: kullanımdan sonra geri alma noktası silinir (geri almak ödenmiş etkiyi
+        /// geri vermesin).
+        /// </summary>
+        public void DropUndo() => _undo = null;
+
+        /// <summary>
+        /// 2026-11-20 Taş Değiştir güçlendiricisi (kullanıcı: "1 hak ile seçtiği 3 taşın rengini değiştirebilsin"): seçilen
+        /// en çok 3 yığının yalnız üst katı <paramref name="color"/> olur. Yığın etkin, örtüsüz, özel taşsız, kristal değil
+        /// olmalı ve rengi farklı olmalı; uygun olmayan hücre atlanır. En az biri değiştiyse true; hamle harcamaz, geri
+        /// alma noktası silinir.
+        /// </summary>
+        public List<Coord> RecolorTops(IList<Coord> cells, LayerColor color)
+        {
+            var done = new List<Coord>();
+            if (State.Status != GameStatus.Idle || _victoryRecorded || cells == null) return done;
+            var b = State.Board;
+            foreach (var c in cells)
+            {
+                if (done.Count >= 3 || !b.InBounds(c.X, c.Y)) continue;
+                var cell = b[c.X, c.Y];
+                if (!CanRecolor(cell, color) || done.Contains(c)) continue;
+                cell.Layers[cell.Layers.Count - 1] = color;
+                done.Add(c);
+            }
+            if (done.Count > 0) _undo = null;
+            return done;
+        }
+
+        /// <summary>Taş Değiştir için seçilebilir yığın (renk verilmezse yalnız yığın uygunluğu).</summary>
+        public static bool CanRecolor(CellState cell, LayerColor? color = null) =>
+            cell.IsSelectable && !cell.Protected && (color == null || cell.Top != color.Value);
 
         public void Restart()
         {

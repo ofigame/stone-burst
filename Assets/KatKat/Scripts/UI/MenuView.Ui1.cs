@@ -48,7 +48,7 @@ namespace KatKat.UI
                 logo.preserveAspect = true;
                 UiFactory.Place(logo.rectTransform, new Vector2(0.5f, 1f), new Vector2(back != null ? -190f : -280f, -80f), new Vector2(330f, 136f)); // iki satırlı logo kutuya sığar
             }
-            if (Ui3.Ready) { U3StarCapsule(page, 700f, 56f, ShellStarSum()); if (settings != null) U3Gear(page, settings); return; }
+            if (Ui3.Ready) { U3IngotCapsule(page, 700f, 56f); if (settings != null) U3Gear(page, settings); return; } // 2026-11-20: yıldız yerine külçe
             var capArt = V11("star-capsule");
             if (capArt != null)
             {
@@ -581,7 +581,7 @@ namespace KatKat.UI
                     tops.Add((y, it.SectionTitle, owned, total));
                     section = it.Section;
                 }
-                CollCardUi1(content, it, new Vector2((col == 0 ? -1 : 1) * (U1CardW + U1CardGap) * 0.5f, y - U1CardH * 0.5f), StonePreviewRequested);
+                CollCardUi1(content, it, new Vector2((col == 0 ? -1 : 1) * (U1CardW + U1CardGap) * 0.5f, y - U1CardH * 0.5f), StonePreviewRequested, ClaimGiftPressed);
                 if (++col == 2) { col = 0; y -= U1CardH + U1CardGap; }
             }
             if (col != 0) y -= U1CardH + U1CardGap;
@@ -616,7 +616,7 @@ namespace KatKat.UI
         /// ui1 koleksiyon kartı: krem kart; kazanılmış taş net + "Koleksiyonda"; kilitli taş yoğun bulanık + ortada kilit +
         /// açılma koşulu (veriden). Dokunma: yalnız kazanılmış kart vitrini açar.
         /// </summary>
-        private static void CollCardUi1(RectTransform content, StoneItem it, Vector2 pos, Action<string> preview)
+        private static void CollCardUi1(RectTransform content, StoneItem it, Vector2 pos, Action<string> preview, Action<string> gift = null)
         {
             var card = UiFactory.Rect("Item_" + it.Id, content);
             UiFactory.Place(card, new Vector2(0.5f, 1f), pos, new Vector2(U1CardW, U1CardH));
@@ -666,6 +666,22 @@ namespace KatKat.UI
             var n = Ui1.Label("Name", pill.transform, it.Name, 42, Ui1.Navy);
             UiFactory.Stretch(n.rectTransform, 30, 30, 4, 8);
             n.enableAutoSizing = true; n.fontSizeMax = 42; n.fontSizeMin = 22;
+            if (it.Owned && it.GiftIngots > 0 && gift != null)
+            {
+                // 2026-11-20 (kullanıcı: "taştan hediyeni al ibaresi olsun"): "Koleksiyonda" satırı yerine hediye düğmesi,
+                // kartın arkasında altın nabız. Taş koleksiyonda kalır.
+                var glow = Decor("GiftGlow", card, SpecialArt.Glow);
+                glow.color = new Color(1f, 0.84f, 0.3f, 0.85f);
+                UiFactory.Stretch(glow.rectTransform, -50f, -50f, -50f, -50f);
+                glow.transform.SetAsFirstSibling();
+                glow.gameObject.AddComponent<IconBreath>();
+                string sid = it.Id;
+                var gb = Ui1.Button("Gift", card, Loc.T("collection.gift"), true, new Vector2(0.5f, 0f), new Vector2(0f, 46f), new Vector2(U1CardW - 40f, 78f),
+                    () => gift(sid), ShopArt("ingot"), 30);
+                var gt = gb.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+                if (gt != null) { gt.enableAutoSizing = true; gt.fontSizeMax = 30; gt.fontSizeMin = 16; }
+                return;
+            }
             bool starLine = !it.Owned && it.Stars > 0;
             string line = it.Owned ? Loc.T("collection.owned") : starLine ? Loc.F("collection.unlock.stars", it.Stars) : it.Desc;
             bool icon = it.Owned || starLine;

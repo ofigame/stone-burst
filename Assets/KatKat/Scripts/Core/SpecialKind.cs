@@ -10,6 +10,8 @@ namespace KatKat.Core
         RocketColumn = 2,
         /// <summary>Gökkuşağı kıvrımı: kendi rengindeki bütün açık yığınlar.</summary>
         Rainbow = 3,
+        /// <summary>2026-11-20 güçlendirici bombası: tahtaya konmaz, yalnız <see cref="CommandType.Bomb"/> ile 3×3 alanda ateşlenir.</summary>
+        Bomb = 4,
     }
 
     public static class SpecialKindExt

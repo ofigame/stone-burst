@@ -1,4 +1,4 @@
-# v14 zorluk tablosu (LevelLab `v14`, 2026-11-17 04:33)
+# v14 zorluk tablosu (LevelLab `v14`, 2026-11-20 05:36)
 
 Kaynak: `docs/v14/PLAN.md`. Bütün sayılar üreticinin ölçümüdür (`levels_src_v14/_olcum/*.tsv`), tahmin değildir.
 
@@ -15,8 +15,8 @@ Denetim: 0 sorunlu bölüm (statik doğrulama, kayıtlı çözüm, iç boşluk, 
 
 | Bölüm | Tahta | Kat | Renk | Görev | Çözüm (ort.) | Pay (nefes dışı) | Pay (nefes) | Rastgele bot ort. / en çok (nefes dışı) | Açgözlü kazanır (nefes dışı) | Yumuşak bot ort. | Nefes | Usta | Tür | Yedek |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1–5 | 7×8 (3), 6×7 (2) | 2-3, 1-1, 2-2 | 2–6 | 1–2 | 3,8 | 3–4 | — | %31,8 / %59,0 | 4/5 | %85 | 0 | 0 | 0 | 0 |
-| 6–7 | 6×7 (2) | 1-1 | 2 | 1 | 4,0 | 3 | — | %49,0 / %53,0 | 2/2 | %100 | 0 | 0 | 0 | 0 |
+| 1–5 | 6×7 (4), 7×8 (1) | 2-2 | 2–3 | 1–2 | 3,4 | 4–5 | — | %56,0 / %82,0 | 4/5 | %94 | 0 | 0 | 0 | 0 |
+| 6–7 | 6×7 (2) | 2-2 | 2 | 1 | 3,0 | 4–5 | — | %81,5 / %90,0 | 2/2 | %100 | 0 | 0 | 0 | 0 |
 | 8–14 | 6×7 (3), 7×7 (3), 7×8 (1) | 2-2, 1-2 | 3 | 1–2 | 3,9 | 1–5 | 9 | %5,8 / %12,5 | 2/6 | %39 | 1 | 1 | 0 | 0 |
 | 15–30 | 7×8 (11), 7×7 (5) | 3-3, 1-2 | 3–4 | 2 | 4,9 | 1–5 | 9 | %13,1 / %61,5 | 6/14 | %37 | 2 | 2 | 2 | 1 |
 | 31–60 | 7×8 (17), 8×8 (13) | 3-3, 1-2 | 3–4 | 2–3 | 6,0 | 1–3 | 7 | %1,2 / %11,0 | 0/26 | %9 | 4 | 3 | 5 | 0 |
@@ -31,7 +31,7 @@ Denetim: 0 sorunlu bölüm (statik doğrulama, kayıtlı çözüm, iç boşluk, 
 ## PLAN ölçütleri (sayım)
 
 - Pay bandı dışında: 1 bölüm (kesin hamle türleri ve usta bölümleri: pay 1–99'da ≤ 1, sonra 0).
-- Rastgele bot tavanı aşan: 1 bölüm (öğretici turlu 1–3 hariç).
+- Rastgele bot tavanı aşan: 5 bölüm (öğretici turlu 1–3 hariç).
 - 31+ nefes dışı açgözlü botun kazandığı: 0 bölüm.
 - Yedek aday (bir ölçüt tutmadı, en yakın aday): 3 bölüm.
 
@@ -39,12 +39,12 @@ Denetim: 0 sorunlu bölüm (statik doğrulama, kayıtlı çözüm, iç boşluk, 
 
 | Bölüm | Tür | Tahta | Kat | Renk | Hedefler | Mekanik | Çözüm / sınır | Rastgele | Açgözlü | Şekil |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | vitrin | 7×8 | 2-2 | 6 | green 4,coral 4 | - | 3 / 7 | %8,5 | kazanır | L |
-| 2 | vitrin | 7×8 | 2-3 | 6 | green 18,purple 13 | - | 4+3t / 8 | %31,0 | kazanır | merdiven |
-| 3 | vitrin | 7×8 | 2-3 | 6 | purple 9,star 2 | clip,star,linkedClip | 6+3t / 10 | %4,0 | kaybeder | U (ayna) |
-| 4 | normal | 6×7 | 1-1 | 2 | yellow 9 | - | 3 / 6 | %56,5 | kazanır | U (ayna) |
-| 5 | normal | 6×7 | 1-1 | 2 | blue 10 | - | 3 / 7 | %59,0 | kazanır | dikdörtgen |
-| 6 | normal | 6×7 | 1-1 | 2 | blue 14 | - | 4 / 7 | %53,0 | kazanır | dikdörtgen |
+| 1 | vitrin | 7×8 | 2-2 | 3 | coral 8,blue 7 | - | 5 / 9 | %45,5 | kazanır | çatı (ayna) |
+| 2 | normal | 6×7 | 2-2 | 2 | blue 34 | - | 3+2t / 8 | %41,0 | kazanır | U |
+| 3 | normal | 6×7 | 2-2 | 2 | blue 33 | - | 3+2t / 8 | %43,5 | kaybeder | artı |
+| 4 | normal | 6×7 | 2-2 | 2 | blue 27 | - | 3+1t / 8 | %68,0 | kazanır | kesik köşe |
+| 5 | normal | 6×7 | 2-2 | 2 | yellow 31 | - | 3+1t / 8 | %82,0 | kazanır | artı (ayna) |
+| 6 | normal | 6×7 | 2-2 | 2 | blue 32 | - | 3+2t / 8 | %90,0 | kazanır | merdiven (ayna) |
 | 9 | normal | 6×7 | 2-2 | 3 | coral 16 | - | 4+1t / 7 | %6,5 | kazanır | kum saati (ayna) |
 | 15 | normal | 7×7 | 3-3 | 3 | yellow 38,blue 35 | - | 5+4t / 8 | %32,5 | kazanır | kesik köşe (ayna) |
 | 18 | nefes | 7×8 | 1-2 | 3 | blue 15,coral 27 | - | 3+2t / 12 | %81,5 | kazanır | kum saati |

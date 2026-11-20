@@ -249,13 +249,14 @@ namespace KatKat.Tests
             Assert.IsTrue(_gc.Menu.PressForTest(map), "ayarlar: Harita sekmesi");
             Assert.IsTrue(_gc.Menu.IsMapShown);
 
-            // Alt menü: Harita | Günlük | Taşlar (Oyna yok); Ayarlar haritada sağ üstte.
-            string daily = KatKat.UI.Loc.T("daily.short"), stones = KatKat.UI.Loc.T("collection.short");
+            // Alt menü: Harita | Günlük | Mağaza (Oyna yok; 2026-11-20 Taşlar yerine Mağaza); Ayarlar haritada sağ üstte.
+            string daily = KatKat.UI.Loc.T("daily.short"), stones = KatKat.UI.Loc.T("shop.tab");
             Assert.IsFalse(_gc.Menu.PressForTest("Play"), "alt menüde Oyna yok");
             Assert.IsTrue(_gc.Menu.PressForTest(daily), "harita: Günlük sekmesi");
             Assert.IsTrue(_gc.Menu.IsMapShown && _gc.Menu.IsDailyShown, "günlük harita üstünde modal");
             _gc.Menu.CloseDaily();
-            Assert.IsTrue(_gc.Menu.PressForTest(stones), "harita: Taşlar sekmesi");
+            Assert.IsTrue(_gc.Menu.PressForTest(stones), "harita: Mağaza sekmesi");
+            Assert.IsTrue(_gc.Menu.IsShopShown, "mağaza açıldı");
             Assert.IsTrue(_gc.Menu.PressForTest(map));
             Assert.IsTrue(_gc.Menu.PressForTest(settings), "harita: sağ üst Ayarlar");
             Assert.IsFalse(_gc.Menu.IsMapShown);

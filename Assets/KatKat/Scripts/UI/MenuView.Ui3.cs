@@ -133,8 +133,9 @@ namespace KatKat.UI
             BuildConceptButton(shell); // konsept pilotu
             BuildStarGoal(shell);
 
-            // 5) Yıldız kapsülü (700, 56, 208, 88) ve ayarlar (936, 52, 96, 96).
-            U3StarCapsule(shell, 700f, 56f, stars);
+            // 5) Külçe kapsülü (700, 56, 208, 88; 2026-11-20 kullanıcı: "külçe miktarımız … kalbin yanındaki yıldızın yerine")
+            // ve ayarlar (936, 52, 96, 96). Toplam yıldız taş dolum göstergesinde ve koleksiyonda görünür.
+            U3IngotCapsule(shell, 700f, 56f);
             BuildHeartsWidget(shell); // 2026-11-09: logo ile yıldız arasında kalp
             if (settings != null) U3Gear(page, settings);
         }

@@ -203,7 +203,8 @@ namespace KatKat.Game
             // Puan isteği geçiş reklamıyla aynı anda olmaz: reklam gösterilecekse o geçişte istenmez.
             int number = _levelIndex + 1;
             double now = Time.realtimeSinceStartup;
-            if (_sessionKind == SessionKind.Normal && _interstitial != null && _interstitial.ShouldShow(number, now))
+            // 2026-11-20: "Reklamsız oyna" alınmışsa geçiş reklamı yok (ödüllü reklamlar isteğe bağlı kalır).
+            if (_sessionKind == SessionKind.Normal && !_save.Data.meta.noAds && _interstitial != null && _interstitial.ShouldShow(number, now))
             {
                 Ads.ShowInterstitial(AdPlacements.LevelComplete, shown =>
                 {

@@ -24,6 +24,8 @@ namespace KatKat.Meta
         Guidance = 8,
         /// <summary>Ödüllü reklamla alınan yardım (henüz yok; sözlükte ayrılmış).</summary>
         RewardedAd = 16,
+        /// <summary>2026-11-20: külçeyle alınan güçlendirici (+3 Hamle, Taş Değiştir, Bomba). Reklam yardımı gibi sıralama yıldızına ve ZPE'ye yazılmaz.</summary>
+        Booster = 32,
     }
 
     /// <summary>

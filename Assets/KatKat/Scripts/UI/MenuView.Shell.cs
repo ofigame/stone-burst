@@ -334,7 +334,17 @@ namespace KatKat.UI
         {
             var g = NextStarGoal;
             Vr1Fx = null;
-            if (!g.Has) return;
+            if (!g.Has)
+            {
+                // Bütün yıldız taşları kazanıldı: Taşlar sekmesi kalktığı için (2026-11-20) koleksiyona yine buradan girilir.
+                var sc = UiFactory.Rect("StarGoal", shell);
+                float st = UseV11 ? V11ColumnStoneTop : 380f;
+                UiFactory.Place(sc, new Vector2(0.5f, 1f), new Vector2(V11ColumnX, -st - 80f), new Vector2(160f, 160f));
+                var cb = ShellRoundButton("Collection", sc, V11("icon-stones") ?? ShellArt("icon-crystal") ?? CrystalIconTemp(), 150f, () => CollectionPressed?.Invoke());
+                UiFactory.Stretch((RectTransform)cb.transform);
+                GiftMark(sc);
+                return;
+            }
 
             const float W = 190f, H = 262f;
             var card = UiFactory.Rect("StarGoal", shell);
@@ -403,6 +413,34 @@ namespace KatKat.UI
             UiFactory.Stretch(n.rectTransform, 26, 8, 0, 2);
             FitText(n, 16);
             if (iceRefs != null) { iceRefs.Count = n; StartVr1Return(iceRefs, shell); }
+            GiftMark(card);
+        }
+
+        /// <summary>
+        /// 2026-11-20 (kullanıcı: "orada alınmayı bekleyen hediye var ise üzerinde işaret olsun"): taş göstergesinin sağ
+        /// üstünde zıplayan hediye rozeti (kırmızı daire + hediye kutusu simgesi).
+        /// </summary>
+        private void GiftMark(RectTransform card)
+        {
+            if (GiftPending == null || !GiftPending()) return;
+            var dot = UiFactory.Image("GiftMark", card, Ui3.Rounded(30f, new Color32(0xE5, 0x3B, 0x2E, 0xFF), new Color32(0xC8, 0x2A, 0x20, 0xFF), 4f, Color.white), Color.white);
+            dot.pixelsPerUnitMultiplier = 1f;
+            dot.raycastTarget = false;
+            UiFactory.Place(dot.rectTransform, new Vector2(1f, 1f), new Vector2(-18f, -18f), new Vector2(64f, 64f));
+            var gift = Decor("Gift", dot.transform, ShopArt("starter"));
+            gift.preserveAspect = true;
+            UiFactory.Stretch(gift.rectTransform, 8f, 8f, 8f, 8f);
+            dot.gameObject.AddComponent<IconBreath>();
+        }
+
+        /// <summary>Testler: taş göstergesinde hediye işareti var mı.</summary>
+        public bool GiftMarkShown => _page != null && FindDeep(_page, "GiftMark") != null;
+
+        private static Transform FindDeep(Transform t, string name)
+        {
+            if (t.name == name) return t;
+            foreach (Transform c in t) { var f = FindDeep(c, name); if (f != null) return f; }
+            return null;
         }
 
         // ---- v10 P5: ZPE (Zekâ Performans Endeksi; IQ değildir) ana sayfa kapsülü ve istatistik paneli -----------
@@ -820,7 +858,7 @@ namespace KatKat.UI
             bool mapOn = active == 1;
             ShellTab(rt, 0, baseY, Loc.T("ui.map"), MapIcon(), mapOn, mapOn ? null : levels);
             ShellTab(rt, 1, baseY, Loc.T("daily.short"), CalendarIcon(), active == TabDaily, active == TabDaily ? null : (Action)(() => DailyPressed?.Invoke()));
-            ShellTab(rt, 2, baseY, Loc.T("collection.short"), ShellArt("icon-crystal") ?? CrystalIconTemp(), active == TabCollection, active == TabCollection ? null : (Action)(() => CollectionPressed?.Invoke()));
+            ShellTab(rt, 2, baseY, Loc.T("shop.tab"), ShopArt("tab-shop") ?? ShellArt("icon-chest") ?? ChestIconTemp(), active == TabShop, active == TabShop ? null : (Action)(() => ShopPressed?.Invoke()));
         }
 
         /// <summary>Menü öğesi (v11 düzeni için: ad, simge, seçili mi, eylem).</summary>
@@ -845,7 +883,9 @@ namespace KatKat.UI
             {
                 new TabItem { Label = Loc.T("ui.map"), Icon = Vr1Proto.On && Vr1Proto.NavMap ? Vr1Proto.NavMap : MapIcon(), On = mapOn, Act = mapOn ? null : levels },
                 new TabItem { Label = Loc.T("daily.short"), Icon = Vr1Proto.On && Vr1Proto.NavDaily ? Vr1Proto.NavDaily : CalendarIcon(), On = active == TabDaily, Act = active == TabDaily ? null : (Action)(() => DailyPressed?.Invoke()) },
-                new TabItem { Label = Loc.T("collection.short"), Icon = Vr1Proto.NavStones ? Vr1Proto.NavStones : V11("icon-stones") ?? ShellArt("icon-crystal") ?? CrystalIconTemp(), On = active == TabCollection, Act = active == TabCollection ? null : (Action)(() => CollectionPressed?.Invoke()) },
+                // 2026-11-20 (kullanıcı: "menüde dükkanı nereye koyalım. Taşları kaldıralım"): Taşlar yerine Mağaza; koleksiyona
+                // haritadaki taş dolum göstergesinden girilir.
+                new TabItem { Label = Loc.T("shop.tab"), Icon = ShopArt("tab-shop") ?? ShellArt("icon-chest") ?? ChestIconTemp(), On = active == TabShop, Act = active == TabShop ? null : (Action)(() => ShopPressed?.Invoke()) },
             };
             BuildTabBarV11(holder, baseY, items);
         }

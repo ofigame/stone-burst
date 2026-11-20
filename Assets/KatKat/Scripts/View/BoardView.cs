@@ -921,6 +921,25 @@ namespace KatKat.View
         }
 
         /// <summary>M12 boya: üst renk yumuşak boya dalgasıyla değişir.</summary>
+        /// <summary>2026-11-20 Taş Değiştir: seçilen yığınların üst katı sırayla (90 ms arayla) yeni renge döner; parıltı ve sekme.</summary>
+        public void PlayRecolor(IList<Coord> cells, LayerColor to)
+        {
+            var color = LayerPalette.FrontColor(to);
+            for (int i = 0; i < cells.Count; i++)
+            {
+                var stack = StackAt(cells[i].X, cells[i].Y);
+                if (stack == null) continue;
+                At(i * 90f, () => Flash(stack, new Color(color.r / 255f, color.g / 255f, color.b / 255f, 0.95f), 1.8f));
+                At(i * 90f + 140f, () =>
+                {
+                    var layers = new List<LayerColor>(stack.Layers);
+                    if (layers.Count > 0) layers[layers.Count - 1] = to;
+                    stack.SetLayers(layers);
+                    _fx.Add(new Fx { Kind = FxKind.Pop, T = stack.transform, BaseScale = Vector3.one, Dur = 260f });
+                });
+            }
+        }
+
         private void PlayPaint(MoveResult r)
         {
             var stack = StackAt(r.Painted.X, r.Painted.Y);
@@ -1090,6 +1109,11 @@ namespace KatKat.View
                 ShakeBoard(0.03f, 360f);
                 return;
             }
+            if (w.Fired == SpecialKind.Bomb)
+            {
+                BombBlast(src);
+                return;
+            }
             if (aRain || bRain)
             {
                 // Tek gökkuşağı ya da gökkuşağı + gökkuşağı: kaynakta büyüyen ışık halkası; ikilide bütün tahtaya yayılır.
@@ -1218,6 +1242,38 @@ namespace KatKat.View
             _fx.Add(new Fx { Kind = FxKind.Burst, T = go.transform, R = sr, Owned = true, BaseScale = go.transform.localScale, Dur = 360f });
             // Özel taş vuruşu: halka + kıvılcım + yıldız patlaması.
             if (!KatKat.UI.Motion.Reduced) ImpactBurst(go.transform.position, color, Mathf.Max(0.8f, sizeCells * 0.6f), PeelDirector.PeelSortingOrder + 1100);
+        }
+
+        /// <summary>
+        /// 2026-11-20 Bomba güçlendiricisi: turuncu-beyaz parlama, 3×3 alanı saran şok halkası, dışa savrulan kıvılcım ve
+        /// taş kırıntıları, güçlü sarsıntı. Azaltılmış harekette yalnız parlama.
+        /// </summary>
+        private void BombBlast(StackView s)
+        {
+            Flash(s, new Color(1f, 0.62f, 0.25f, 1f), 3.6f);
+            ShakeBoard(0.06f, 460f);
+            if (KatKat.UI.Motion.Reduced) return;
+            var pos = s.transform.position + s.TopFaceLocal;
+            float sz = WorldPitch * 3.4f;
+            int order = PeelDirector.PeelSortingOrder + 1100;
+            Particles.Emit(FxKit.Glow, true, order, pos, Vector3.zero, 0.32f, sz * 0.4f, sz * 1.25f, new Color(1f, 0.95f, 0.8f, 1f), new Color(1f, 0.45f, 0.1f, 0f));
+            Particles.Emit(FxKit.Ring, true, order + 1, pos, Vector3.zero, 0.42f, sz * 0.15f, sz * 1.15f, new Color(1f, 0.85f, 0.45f, 1f), new Color(1f, 0.4f, 0.1f, 0f));
+            Particles.Emit(FxKit.Ring, true, order + 1, pos, Vector3.zero, 0.55f, sz * 0.08f, sz * 0.9f, new Color(1f, 1f, 1f, 0.8f), new Color(1f, 0.7f, 0.3f, 0f), delay: 0.08f);
+            for (int i = 0; i < 28; i++)
+            {
+                float a = i / 28f * Mathf.PI * 2f + R(-0.1f, 0.1f);
+                var dir = new Vector3(Mathf.Cos(a), Mathf.Sin(a), 0f);
+                bool spark = i % 2 == 0;
+                var c = spark ? new Color(1f, R(0.6f, 0.9f), 0.25f, 1f) : new Color(0.45f, 0.35f, 0.28f, 1f);
+                Particles.Emit(spark ? FxKit.Star : FxKit.Dot, spark, order + 2, pos, dir * sz * R(0.8f, 1.4f), R(0.45f, 0.75f),
+                    WorldPitch * (spark ? 0.45f : 0.22f), WorldPitch * 0.06f, c, new Color(c.r, c.g, c.b, 0f), drag: 1.8f, rot: R(0f, 90f), rotVel: R(-200f, 200f));
+            }
+            for (int i = 0; i < 6; i++)
+            {
+                var dir = new Vector3(R(-1f, 1f), R(-0.4f, 1f), 0f).normalized;
+                Particles.Emit(FxKit.Puff, false, order, pos, dir * sz * 0.35f, R(0.6f, 0.9f), WorldPitch * 0.8f, WorldPitch * 1.6f,
+                    new Color(0.95f, 0.88f, 0.8f, 0.55f), new Color(0.9f, 0.85f, 0.8f, 0f), drag: 2.2f);
+            }
         }
 
         /// <summary>Kaynaktan büyüyen ışık halkası (gökkuşağı).</summary>

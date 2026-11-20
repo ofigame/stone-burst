@@ -94,6 +94,12 @@ Veri kimlikleri (`Coral/Blue/Yellow/Purple`, `Rainbow`) eski adlarıyla kalır; 
 - Bulut (Game Center / Play Games girişiyle, Firestore `saves/{uid}`): açılıştaki girişten sonra önce buluttaki kayıt okunur. Bulut daha ilerideyse (daha çok tamamlanmış bölüm; eşitse daha çok yıldız, sonra açılan bölüm) cihazdaki kaydın yerine geçer ve "İlerlemen buluttan geri yüklendi" bildirimi çıkar. Bölüm oynanırken gelirse haritaya dönünce uygulanır. Ses ve titreşim ayarı cihazda kalır; eski dosya `.precloud` kopyası olarak saklanır.
 - Okuma bitmeden buluta hiç yazılmaz (yeni kurulumdaki boş kayıt buluttakini ezmez). Sonra her kazanılan bölümde (en çok 30 sn'de bir) ve uygulama arka plana geçince kayıt sessizce buluta gider. Ayarlar'daki "İlerlemeyi kaydet" düğmesi de aynı kurala uyar.
 
+### Mağaza, külçe ve güçlendiriciler (2026-11-20)
+
+- **Külçe:** oyunun parası. Haritanın üstünde kalbin yanında durur; dokununca mağaza açılır. Yalnız koleksiyon taşlarından hediye olarak (taş kazanılınca koleksiyonda "Taştan hediyeni al") ve uygulama içi satın almayla gelir. Hediye bekleyen taş varsa haritadaki taş göstergesinde kırmızı hediye işareti durur.
+- **Güçlendiriciler** (oyun ekranında alt şeritte, tepsinin sağında; 11. bölümden önce görünmez): **+3 Hamle** (bölüme 3 hamle ekler), **Taş Değiştir** (en çok 3 taş seçilir, yeni renk seçilir; yalnız üst kat değişir), **Bomba** (dokunulan taşın 3×3 çevresinde her yığından bir kat soyar, buz/sarmaşık gibi örtülere vurur). Hamle harcamaz, geri alınamaz. Açıldıkları bölüm 11 / 16 / 25; ilk açılışta 2'şer bedava. Bitince "… bitti" penceresi: külçeyle al ya da mağazaya git. Güçlendirici kullanılan bölüm sıralama yıldızına ve ZPE'ye yazılmaz.
+- **Mağaza** (alt menüde Taşlar'ın yerinde): başlangıç paketi (tek seferlik), reklamsız oyna (zorunlu reklamlar kalkar, ödüllü reklamlar isteğe bağlı kalır, +150 külçe), güçlendiriciler (tek ve 3'lü), külçe paketleri. Gerçek para ile satın alma henüz kapalı ("Yakında").
+
 ### Sıralama kaydı ve hatırlatma (2026-11-18)
 
 - **Sıralama puanı (2026-11-19):** reklamsız kazanılan toplam yıldız + ZPE (0–100). Her bölüm en çok 3 yıldız verir; puan hem ilerlemeyle hem kaliteyle büyür, üst sınırı yoktur. ZPE, yıldızı eşit olanları ayıran küçük ek puandır. Örnek: kusursuz 20 bölüm (60 yıldız, ZPE 100) = 160; 400 bölüm, ortalama 2 yıldız, ZPE 40 = 840.
@@ -105,8 +111,8 @@ Veri kimlikleri (`Coral/Blue/Yellow/Purple`, `Rainbow`) eski adlarıyla kalır; 
 
 | Bölüm | Mekanik | Kısa kural |
 |---|---|---|
-| 1–3 | Vitrin (v14; 2026-11-17 kullanıcı: "ilk 5 bölüm öğreticisini 3 e düşürelim", "o 3 bölümde tüm taş renkleri de olsun") | 7×8 tahta, 6 rengin hepsi: 1 dokun-soy ve katlar (tur) · 2 roket ve tepsi (tur) · 3 Altın Rulo, dip yıldızı, sarmaşık, çiçekli sarmaşık (tur). Eski 4–5 vitrinleri (buz, kilit, zarf, sünger, kristal, kesin hamle, döner taban, geçit, boya) kalktı; bu mekanikler takvimdeki ilk bölümlerinde tanıtılır. 4–5 normal bölüm. |
-| 6+ | Özel taşlar ve tepsi | Roket, Altın Rulo (yukarıda). 6–7 tek kat 3 renk, 8–14 iki kat, 15–30 üç kat 4 renk 2 görev; sonra her ~10 bölümde bir boyut (`docs/v14/ZORLUK.md`). |
+| 1 | Vitrin (2026-11-20: yalnız 1. bölüm, 3 renk; önce 1–3, 6 renk) | 7×8 tahta, 3 renk, 2 kat: dokun-soy ve katlar (yönlendirmeli tur). Roket ve Altın Rulo ilk oluştukları anda kısa bilgiyle anlatılır (ayrı bölüm yok). Eski 4–5 vitrinleri (buz, kilit, zarf, sünger, kristal, kesin hamle, döner taban, geçit, boya) kalktı; bu mekanikler takvimdeki ilk bölümlerinde tanıtılır. 4–5 normal bölüm. |
+| 6+ | Özel taşlar ve tepsi | Roket, Altın Rulo (yukarıda). 2–7 iki kat 2 renk tek görev (2026-11-20; önce 4–7 tek kat), 8–14 iki kat, 15–30 üç kat 4 renk 2 görev; sonra her ~10 bölümde bir boyut (`docs/v14/ZORLUK.md`). |
 | 21+ | Sarmaşık (2026-11-18 öncesi ataş) | Sarmaşıklı yığın seçilemez; yanında soyma yapılınca sarmaşığa vurulur (1–2): kalın sarmaşık 2, ince 1 vuruş; her vuruşta yapraklar saçılır. |
 | 41+ | Dip yıldızı | Yığın tamamen boşalınca yıldız toplanır. |
 | 61+ | Buz | Kenar komşusunda soyma olunca kırılır (1–2 vuruş). |

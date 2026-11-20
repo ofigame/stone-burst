@@ -458,6 +458,7 @@ namespace KatKat.UI
             BuildStonePower(bottom);
             BuildPaint(bottom);
             BuildTray(bottom);
+            BuildBoosters(bottom);
             BuildHint(bottom);
 
             // Öğretici bandı ve kısa bildirim: krem hap üzerinde gerçek metin.
@@ -766,12 +767,19 @@ namespace KatKat.UI
             if (roll) items.Add((RectTransform)_roll.transform);
             int trayFirst = items.Count;
             if (tray) for (int i = 0; i < LevelState.TrayCapacity; i++) items.Add((RectTransform)_traySlots[i].transform);
+            // 2026-11-20 güçlendiriciler: tepsinin hemen sağında.
+            if (_boosters[0] != null && _boosters[0].gameObject.activeSelf) for (int i = 0; i < 3; i++) items.Add((RectTransform)_boosters[i].transform);
             if (paint) items.Add((RectTransform)_paint.transform);
             bool stone = _stone != null && _stone.gameObject.activeSelf;
             if (stone) items.Add((RectTransform)_stone.transform);
             if (_hintBtn != null && _hintBtn.gameObject.activeSelf) items.Add((RectTransform)_hintBtn.transform);
             if (items.Count == 0) return;
-            float step = Mathf.Min(244f, 960f / items.Count);
+            // 2026-11-20: güçlendiricilerle şerit 8–11 öğeye çıkabilir; genişlik 1000'e, öğeler aralığa sığacak kadar küçülür.
+            float step = Mathf.Min(244f, 1000f / items.Count);
+            // 2026-11-20 (kullanıcı: "tahtadan kazandığımız skiller üst üste biniyor"): ölçek düğmeye değil görünen simgeye göre
+            // (roket/Altın Rulo simgesi yuvanın ~1,3 katı); komşu simgeler arasında en az ~12 birim boşluk kalır.
+            _bottomScale = Mathf.Clamp((step - 12f) / (TraySlot * 1.3f), 0.5f, 1f);
+            _boosterScale = Mathf.Clamp((step - 8f) / BoosterSize, 0.5f, 1f); // güçlendirici düğmesi aralığın neredeyse tamamı
             float x0 = -(items.Count - 1) * step * 0.5f;
             for (int k = 0; k < items.Count; k++)
             {
@@ -779,9 +787,22 @@ namespace KatKat.UI
                 if (tray && k >= trayFirst && k < trayFirst + LevelState.TrayCapacity) continue; // tepsi kökü ayrıca
                 var rt = items[k];
                 rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+                bool boosterSel = false, isBooster = false;
+                for (int bi = 0; bi < 3; bi++) if (_boosters[bi] != null && rt == (RectTransform)_boosters[bi].transform) { isBooster = true; boosterSel = bi == _boosterSelected; }
+                rt.localScale = Vector3.one * (isBooster ? _boosterScale : _bottomScale) * (boosterSel ? TraySelScale : 1f);
                 rt.anchoredPosition = new Vector2(x, rt == (RectTransform)_roll?.transform ? 0f : rt.anchoredPosition.y);
                 if (rt == (RectTransform)_roll?.transform) _rollGlow.rectTransform.anchoredPosition = new Vector2(x, 0f);
                 if (_stone != null && rt == (RectTransform)_stone.transform) _stoneGlow.rectTransform.anchoredPosition = new Vector2(x, 0f);
+            }
+            if (_boosterPlate != null && _boosters[0] != null && _boosters[0].gameObject.activeSelf)
+            {
+                // Güçlendirici zemini: üç düğmeyi kapsayan plaka (düğmelerle aynı ölçekte).
+                float a0 = ((RectTransform)_boosters[0].transform).anchoredPosition.x, a2 = ((RectTransform)_boosters[2].transform).anchoredPosition.x;
+                float s = BoosterSize * _boosterScale;
+                var prt = _boosterPlate.rectTransform;
+                prt.anchorMin = prt.anchorMax = new Vector2(0.5f, 0.5f);
+                prt.anchoredPosition = new Vector2((a0 + a2) * 0.5f, 10f);
+                prt.sizeDelta = new Vector2(a2 - a0 + s + 40f, s + 34f);
             }
             if (tray)
             {
@@ -795,6 +816,7 @@ namespace KatKat.UI
                     var srt = (RectTransform)_traySlots[i].transform;
                     srt.anchorMin = srt.anchorMax = new Vector2(0.5f, 0.5f);
                     srt.anchoredPosition = new Vector2(a + i * step - (a + b) * 0.5f, srt.anchoredPosition.y);
+                    srt.localScale = Vector3.one * _bottomScale * (i == _traySelected ? TraySelScale : 1f);
                 }
             }
         }
@@ -870,7 +892,8 @@ namespace KatKat.UI
                 icon.gameObject.SetActive(full);
                 _traySlots[i].interactable = full;
                 _trayDiscs[i].color = full ? SlotOn : SlotEmpty;
-                ((Image)_traySlots[i].targetGraphic).color = new Color(1f, 1f, 1f, 0f); // yuva yok: yalnız dokunma alanı
+                // 2026-11-20: boş yuva soluk daire (tepsi alanı belli olsun, güçlendiriciler sağda tek başına kalmasın); dolu yuvada yok.
+                ((Image)_traySlots[i].targetGraphic).color = full ? new Color(1f, 1f, 1f, 0f) : new Color(1f, 0.96f, 0.86f, 0.16f);
                 SetSkill(_traySlots[i], full ? icon : null, full && tray[i] != SpecialKind.Rainbow ? RocketGlow : Color.white, full, full && tray[i] == SpecialKind.Rainbow);
                 if (full)
                 {
@@ -883,7 +906,7 @@ namespace KatKat.UI
                 }
                 bool sel = i == selected;
                 _trayFull[i] = full;
-                _traySlots[i].transform.localScale = Vector3.one * (sel ? TraySelScale : 1f);
+                _traySlots[i].transform.localScale = Vector3.one * _bottomScale * (sel ? TraySelScale : 1f);
                 var srt = (RectTransform)_traySlots[i].transform;
                 srt.anchoredPosition = new Vector2(srt.anchoredPosition.x, TrayRaise + (sel ? TraySelLift : 0f));
                 _trayRings[i].color = new Color(1f, 0.85f, 0.35f, sel ? 0.95f : (full ? 0.4f : 0f));

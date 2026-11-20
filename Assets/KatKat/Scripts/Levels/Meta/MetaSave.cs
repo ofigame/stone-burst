@@ -51,6 +51,13 @@ namespace KatKat.Meta
         /// <summary>vr1 P1 (03 "pendingPresentation"): kazanılmış ama sunumu (vitrin) henüz görülmemiş taşlar. Uygulama
         /// sunumdan önce kapanırsa sonraki açılışta yeniden gösterilir; ödül yeniden verilmez (taş zaten <see cref="stones"/>'da).</summary>
         public List<string> pendingReveal = new List<string>();
+        /// <summary>2026-11-20 mağaza: külçe, güçlendirici adetleri, deneme adedi verilmiş güçlendiriciler ("moves"…), külçe hediyesi
+        /// alınmış taşlar, reklamsız ve başlangıç paketi. Bkz. <see cref="Wallet"/>.</summary>
+        public int ingots;
+        public int boostMoves, boostRecolor, boostBomb;
+        public List<string> boostTrials = new List<string>();
+        public List<string> stoneGifts = new List<string>();
+        public bool noAds, starterBought;
 
         public void Sanitize()
         {
@@ -66,6 +73,12 @@ namespace KatKat.Meta
             trialDone ??= new List<string>();
             seenTypes ??= new List<string>();
             pendingReveal ??= new List<string>();
+            boostTrials ??= new List<string>();
+            stoneGifts ??= new List<string>();
+            if (ingots < 0) ingots = 0;
+            if (boostMoves < 0) boostMoves = 0;
+            if (boostRecolor < 0) boostRecolor = 0;
+            if (boostBomb < 0) boostBomb = 0;
             if (zpeGames < 0 || double.IsNaN(zpeSum) || zpeSum < 0) { zpeGames = 0; zpeSum = 0; }
             if (dailyStars < 0) dailyStars = 0;
             if (heartsMissing < 0 || heartsMissing > Hearts.Max) heartsMissing = 0;

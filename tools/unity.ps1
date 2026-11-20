@@ -85,6 +85,8 @@ switch ($Command) {
     'trailer-ad'      { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.TrailerCapture.RunAd') 'trailer-ad' } # Meta reklamı (2026-11-19), kurgu tools/trailer-ad.ps1
     'anim-demo'       { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.TrailerCapture.RunAnimDemo') 'anim-demo' } # taş akışı izleme videosu (2026-11-19), kurgu tools/anim-demo.ps1
     'map-demo'        { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.TrailerCapture.RunMapDemo') 'map-demo' } # yolculuk haritası hareketi videosu (2026-11-19), kurgu tools/map-demo.ps1
+    'shop-shots'      { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.TrailerCapture.RunShopShots') 'shop-shots' } # mağaza ekran görüntüleri (2026-11-20) → Logs/shop_shots
+    'booster-demo'    { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.TrailerCapture.RunBoosterDemo') 'booster-demo' } # güçlendirici efektleri videosu (2026-11-20) → Logs/booster_demo
     'capture-v7'      { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureV7.Run') 'capture-v7' }
     'export-art'      { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.ArtExport.ExportAll') 'export-art' }
     'capture-game'    { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CaptureAll') 'capture-game' }

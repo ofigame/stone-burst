@@ -44,6 +44,8 @@ namespace KatKat.UI
             public bool Owned, Selected, Hidden, Warm;
             /// <summary>ui1/03: yıldız eşiğiyle açılan kilitli taşta eşik (stones.json); diğerlerinde 0.</summary>
             public int Stars;
+            /// <summary>2026-11-20: alınmayı bekleyen külçe hediyesi (0: yok ya da alındı).</summary>
+            public int GiftIngots;
         }
 
         private RectTransform MetaPage(string title, out RectTransform card, float cardH, Action back)

@@ -65,7 +65,7 @@ static partial class Program
     /// <summary>Hamle payı bandı (PLAN): 6–30 3–5; 31–100 2–3; 101–300 1–2; 301+ 0–1; nefes +4.</summary>
     static (int lo, int hi) V14SlackBand(int n)
     {
-        var b = n <= 3 ? (4, 5) : n <= 30 ? (3, 5) : n <= 100 ? (2, 3) : n <= 300 ? (1, 2) : (0, 1);
+        var b = n <= 7 ? (4, 5) : n <= 30 ? (3, 5) : n <= 100 ? (2, 3) : n <= 300 ? (1, 2) : (0, 1);
         if (V14Breath(n)) b = (b.Item1 + 4, b.Item2 + 4);
         return b;
     }
@@ -98,7 +98,7 @@ static partial class Program
     /// <summary>Bölüm numarasından tarif (eğri: PLAN "Eğri" tablosu).</summary>
     static V14Spec V14SpecFor(int n)
     {
-        var sp = new V14Spec { N = n, Breath = V14Breath(n), Master = V14Master(n), Showcase = n <= 3 }; // kullanıcı 2026-11-17: "ilk 5 bölüm öğreticisini 3 e düşürelim"
+        var sp = new V14Spec { N = n, Breath = V14Breath(n), Master = V14Master(n), Showcase = n <= 1 }; // 2026-11-17 "ilk 5 bölüm öğreticisini 3 e düşürelim"; 2026-11-20 "İlk bölümde öğretsin sonra … 2 katmanlı sınırlı renkte" → yalnız 1. bölüm
         var rng = new Random(n * 104729 + 14);
         var band = V14SlackBand(n);
         sp.SlackLo = band.lo; sp.SlackHi = band.hi;
@@ -118,7 +118,7 @@ static partial class Program
             sp.BlobMin = 2; sp.BlobMax = 4; sp.Frac = 0.30;
             switch (n)
             {
-                case 1: sp.LMax = 2; sp.NoSpecialsInSolution = true; sp.LenLo = 3; sp.LenHi = 7; sp.Frac = 0.24; sp.MaxGroup = 4; break; // dokun-soy ve katlar (katlar üstle aynı renk, V14Make)
+                case 1: sp.LMax = 2; sp.Colors = 3; sp.NoSpecialsInSolution = true; sp.LenLo = 3; sp.LenHi = 7; sp.Frac = 0.24; sp.MaxGroup = 4; break; // dokun-soy ve katlar; 2026-11-20: 3 renk (kalabalık olmasın)
                 case 2: sp.ForcedSpecial = SpecialKind.RocketRow; sp.ColorGoals = 2; break;                              // roket ve tepsi
                 case 3: sp.ForcedSpecial = SpecialKind.Rainbow; sp.ColorGoals = 1; sp.Mech["stars"] = 2; sp.Mech["clip1"] = 2; sp.Mech["link"] = 2; break; // Altın Rulo, dip yıldızı, ataç, bağlı ataç
             }
@@ -127,7 +127,9 @@ static partial class Program
         }
 
         // Boyutlar: 6–7 tek kat 3 renk; 8–14 iki kat; 15–30 üç kat 4 renk 2 görev; 31+ her ~10 bölümde bir boyut.
-        if (n <= 7) { sp.W = 6; sp.H = 7; sp.LMin = sp.LMax = 1; sp.Colors = 3; sp.ColorGoals = 1; sp.LenLo = 3; sp.LenHi = 8; sp.BlobMin = 3; sp.BlobMax = 4; sp.Frac = 0.75; sp.MaxGroup = 4; }
+        // 2026-11-20 (kullanıcı: "tek katmanlı bölümlerle değilde 2 katmanlı sınırlı renkte taşlarla başlayalım"): 2–7 iki kat,
+        // renk açılış takvimine göre (8'e kadar 2 renk), tek görev, cömert pay; 5'lik grup (roket) mümkün.
+        if (n <= 7) { sp.W = 6; sp.H = 7; sp.LMin = sp.LMax = 2; sp.Colors = 3; sp.ColorGoals = 1; sp.LenLo = 3; sp.LenHi = 9; sp.BlobMin = 2; sp.BlobMax = 4; sp.Frac = 0.55; sp.MaxGroup = 5; }
         else if (n <= 14)
         {
             sp.W = n <= 10 ? 6 : 7; sp.H = 7; sp.LMin = sp.LMax = 2; sp.Colors = n <= 10 ? 3 : 4; sp.ColorGoals = n <= 12 ? 1 : 2;
@@ -760,7 +762,7 @@ static partial class Program
         if (replay.Status != GameStatus.Won) return "tekrar kazanmadı";
         if (sp.NoSpecialsInSolution && (ev.Specials > 0 || sol.Any(c => c.Type == CommandType.UseSpecial))) return "vitrin1 özel taş";
         // Öğretici (1–3) tüm renkleri gösterir (kullanıcı 2026-11-17): tahtada 6 rengin hepsi bulunmalı.
-        if (sp.Showcase && d.Cells.SelectMany(c => c.Layers).Distinct().Count() < V14AllColors.Length) return "vitrin renk eksik";
+        if (sp.Showcase && d.Cells.SelectMany(c => c.Layers).Distinct().Count() < Math.Min(sp.Colors, V14AllColors.Length)) return "vitrin renk eksik";
         var mechFail = new List<string>();
         if (ev.Covers > 0 && ev.CoverUse == 0) mechFail.Add("örtü");
         if (d.Cells.Any(c => c.LockRemaining > 0) && ev.LockOpens == 0) mechFail.Add("kilit");
@@ -820,7 +822,7 @@ static partial class Program
             ev.NeedsSpecialsOk = BeamSolve(LevelLoader.ToState(ns), 60, limit + 12) == null;
         }
         double v = 0;
-        bool exempt = sp.N <= 3; // öğretici turlar kayıtlı çözümü adım adım oynatır
+        bool exempt = sp.N <= 7; // 1: öğretici turu kayıtlı çözümü oynatır; 2–7 (2026-11-20) bilerek kolay
         if (!exempt && ev.Rand > sp.RandomCap) v += 10 + (ev.Rand - sp.RandomCap) * 100;
         if (sp.GreedyMustLose && (ev.GreedyBig || ev.GreedyGoal)) v += 8;
         if (!ev.NeedsSpecialsOk) v += 6;
@@ -891,7 +893,7 @@ static partial class Program
             res.Boards++;
             // Palet yalnız o bölümde açılmış renklerden seçilir; renk sayısı açılmış renk sayısını aşmaz (V14ColorIntro).
             // Öğretici (vitrin, 1–3) tüm renkleri gösterir (kullanıcı 2026-11-17: "o 3 bölümde tüm taş renkleri de olsun"); sonra açılış sırası.
-            var unlocked = sp.Showcase ? V14AllColors.ToList() : V14UnlockedColors(sp.N);
+            var unlocked = sp.Showcase ? V14AllColors.Take(sp.N == 1 ? 3 : V14AllColors.Length).ToList() : V14UnlockedColors(sp.N); // 1. bölüm: açılış sırasının ilk 3 rengi
             var palette = unlocked.OrderBy(_ => rng.Next()).Take(Math.Min(sp.Colors, unlocked.Count)).ToList();
             var goalColors = palette.OrderBy(_ => rng.Next()).ToList();
             var mult = Enumerable.Range(0, 4).Select(_ => 0.9 + rng.NextDouble() * 0.2).ToArray();
