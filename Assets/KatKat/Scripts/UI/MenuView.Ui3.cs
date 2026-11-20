@@ -46,86 +46,6 @@ namespace KatKat.UI
             return _u3Stripes;
         }
 
-        private static Sprite _u3Pattern;
-
-        /// <summary>
-        /// Menü dokusu (kullanıcı, 2026-11-20: "menünün arkaplanını desenli yapalım pürüzsüz olmasın" → "çizgi deseni istemiyorum.
-        /// doku yap" → "oyunun tarzına uygun yapay oyuncak hissi olacak"): kabarık oyuncak plastiği — altıgen dizilmiş yumuşak
-        /// kabarcıklar; her birinin sol üstünde parlak sır yansıması, sağ altında yumuşak gölge, aralarında ince plastik gren.
-        /// Çizgi yok. 168 × 194 döşenen karo (altıgen dizi sarar). Beyaz/kahve düşük alfa: yüzeyin kendi rengi korunur.
-        /// </summary>
-        internal static Sprite U3Pattern()
-        {
-            if (_u3Pattern) return _u3Pattern;
-            // Altıgen dizi: yatay aralık S, dikey aralık S·√3/2; karo 6 sütun × 7 satır... döşenebilsin diye W = 6S, H = 2·satır aralığı·k.
-            const float S = 28f;
-            const int W = 168; // 6 × 28
-            float rowH = S * 0.8660254f; // 24,25
-            const int Rows = 8;           // çift sayı: kaydırmalı satırlar sarar
-            int H = Mathf.RoundToInt(rowH * Rows); // 194
-            float sy = H / (float)Rows;   // tam bölünen satır aralığı
-            const float R = 10.5f;        // kabarcık yarıçapı
-            var rng = new System.Random(20261120);
-            var px = new Color[W * H];
-            for (int y = 0; y < H; y++)
-            for (int x = 0; x < W; x++)
-            {
-                // En yakın kabarcık merkezi (komşu satır ve sütunlara sararak bakılır).
-                float best = 1e9f, bx = 0f, by = 0f;
-                int r0 = Mathf.FloorToInt(y / sy);
-                for (int dr = -1; dr <= 1; dr++)
-                {
-                    int row = r0 + dr;
-                    float cy = row * sy + sy * 0.5f;
-                    float off = ((row % 2) + 2) % 2 == 1 ? S * 0.5f : 0f;
-                    int c0 = Mathf.FloorToInt((x - off) / S);
-                    for (int dc = -1; dc <= 1; dc++)
-                    {
-                        float cx = (c0 + dc) * S + off + S * 0.5f;
-                        float ddx = x + 0.5f - cx, ddy = y + 0.5f - cy;
-                        float d2 = ddx * ddx + ddy * ddy;
-                        if (d2 < best) { best = d2; bx = ddx; by = ddy; }
-                    }
-                }
-                float d = Mathf.Sqrt(best) / R; // 0 merkez, 1 kenar
-                float light = 0f, dark = 0f;
-                if (d < 1.25f)
-                {
-                    // Kubbe normali: kenara doğru eğim; ışık sol üstten (ekranda y aşağı → doku y yukarı).
-                    float nx = bx / R, ny = by / R;
-                    float lambert = (-nx * 0.7f + ny * 0.7f) * Mathf.Clamp01(d * 1.4f);
-                    light += Mathf.Max(0f, lambert) * 0.55f * Mathf.Clamp01((1.05f - d) * 6f);
-                    dark += Mathf.Max(0f, -lambert) * 0.5f * Mathf.Clamp01((1.1f - d) * 5f);
-                    // Parlak sır beneği (sol üst).
-                    float hx = nx + 0.38f, hy = ny - 0.38f;
-                    light += Mathf.Clamp01(1f - Mathf.Sqrt(hx * hx + hy * hy) / 0.32f) * 0.8f;
-                    // Kabarcığın sağ altına düşen yumuşak gölge (kubbe dışında).
-                    float shx = nx - 0.22f, shy = ny + 0.22f;
-                    float sd = Mathf.Sqrt(shx * shx + shy * shy);
-                    if (d > 0.95f) dark += Mathf.Clamp01(1f - Mathf.Abs(sd - 1.05f) / 0.22f) * 0.35f;
-                }
-                float grain = ((float)rng.NextDouble() - 0.5f) * 0.05f;
-                float s = light - dark + grain;
-                px[y * W + x] = s >= 0f ? new Color(1f, 1f, 1f, Mathf.Clamp01(s) * 0.55f) : new Color(0.35f, 0.2f, 0.08f, Mathf.Clamp01(-s) * 0.45f);
-            }
-            var tex = new Texture2D(W, H, TextureFormat.RGBA32, false) { name = "ui3_toy", wrapMode = TextureWrapMode.Repeat, filterMode = FilterMode.Bilinear, hideFlags = HideFlags.DontSave };
-            tex.SetPixels(px);
-            tex.Apply(false, false);
-            _u3Pattern = Sprite.Create(tex, new Rect(0, 0, W, H), new Vector2(0.5f, 0.5f), 100f);
-            _u3Pattern.hideFlags = HideFlags.DontSave;
-            return _u3Pattern;
-        }
-
-        /// <summary>Yüzeyin üstüne döşenen desen katmanı (dokunma yakalamaz).</summary>
-        internal static Image U3PatternLayer(Transform surface, float alpha = 1f)
-        {
-            var p = UiFactory.Image("Pattern", surface, U3Pattern(), new Color(1f, 1f, 1f, alpha));
-            p.type = Image.Type.Tiled;
-            p.raycastTarget = false;
-            UiFactory.Stretch(p.rectTransform);
-            return p;
-        }
-
         /// <summary>Panel üst ortasındaki küçük pirinç baklava (makette plaka/menü süsü).</summary>
         internal static Image U3Diamond(Transform parent, Vector2 anchor, Vector2 pos, float s = 18f)
         {
@@ -265,9 +185,6 @@ namespace KatKat.UI
             var sh = bar.gameObject.AddComponent<Shadow>();
             sh.effectColor = new Color(Ui3.Shadow.r, Ui3.Shadow.g, Ui3.Shadow.b, 0.18f);
             sh.effectDistance = new Vector2(0f, 6f);
-            // 2026-11-20 doku: çubuğun yuvarlak şeklinde kırpılır (Mask, çubuğun kendi görseliyle).
-            bar.gameObject.AddComponent<Mask>().showMaskGraphic = true;
-            U3PatternLayer(bar.transform, 1f);
             U3Diamond(holder, new Vector2(0.5f, 0f), new Vector2(0f, baseY + H));
 
             int n = items?.Length ?? 0;
