@@ -77,11 +77,13 @@ namespace KatKat.Tests
             _gc.ShowLevels();
             Assert.IsTrue(_gc.Music.IsPlaying);
 
-            // Bölüm başlarken söner (200 ms) ve durur.
+            // Bölüm başlarken durmaz, çok kısılır (2026-11-20: "müzik oyun sırasında çok kısık olsun").
             _gc.StartLevel(0);
             Assert.IsFalse(_gc.Music.Wanted);
-            _gc.Music.Step(MenuMusic.FadeOutMs + 50f);
-            Assert.IsFalse(_gc.Music.IsPlaying, "bölümde müzik yok");
+            Assert.IsTrue(_gc.Music.InGame);
+            _gc.Music.Step(MenuMusic.FadeInMs + 50f);
+            Assert.IsTrue(_gc.Music.IsPlaying, "bölümde kısık çalar");
+            Assert.AreEqual(MenuMusic.InGameVolume, src.volume, 0.001f);
 
             // Menüye dönüş: yumuşak başlar.
             _gc.ShowLevels();
