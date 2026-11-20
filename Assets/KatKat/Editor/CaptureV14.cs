@@ -26,11 +26,14 @@ namespace KatKat.EditorTools
             Directory.CreateDirectory(Path.Combine(PeelCapture.OutDir, "v14"));
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             const int W = 1080, H = 2340;
-            for (int i = 0; i < 30; i++)
+            // KATKAT_V14_COUNT=10: yalnız ilk N bölüm (ileri örnekler atlanır).
+            int.TryParse(Environment.GetEnvironmentVariable("KATKAT_V14_COUNT"), out int only);
+            for (int i = 0; i < (only > 0 ? only : 30); i++)
             {
                 int ix = i;
                 GameCapture.ShotPublic($"v14/bolum_{ix + 1:000}.png", W, H, gc => gc.StartLevel(ix));
             }
+            if (only <= 0)
             foreach (var n in new[] { 50, 100, 150, 201, 300, 456, 500, 700, 906, 1000 })
             {
                 int ix = n - 1;

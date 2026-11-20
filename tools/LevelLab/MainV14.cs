@@ -60,12 +60,12 @@ static partial class Program
     static bool V14Breath(int n) => n > 10 && n % 6 == 0 && n % 10 != 0;
 
     /// <summary>Usta bölümü: her x0 bölümü (tek doğru yola yakın).</summary>
-    static bool V14Master(int n) => n >= 10 && n % 10 == 0;
+    static bool V14Master(int n) => n >= 20 && n % 10 == 0; // 2026-11-20: 10. bölüm de kolay ilk on içinde (usta 20'den)
 
     /// <summary>Hamle payı bandı (PLAN): 6–30 3–5; 31–100 2–3; 101–300 1–2; 301+ 0–1; nefes +4.</summary>
     static (int lo, int hi) V14SlackBand(int n)
     {
-        var b = n <= 7 ? (4, 5) : n <= 30 ? (3, 5) : n <= 100 ? (2, 3) : n <= 300 ? (1, 2) : (0, 1);
+        var b = n <= 10 ? (4, 5) : n <= 30 ? (3, 5) : n <= 100 ? (2, 3) : n <= 300 ? (1, 2) : (0, 1);
         if (V14Breath(n)) b = (b.Item1 + 4, b.Item2 + 4);
         return b;
     }
@@ -129,7 +129,17 @@ static partial class Program
         // Boyutlar: 6–7 tek kat 3 renk; 8–14 iki kat; 15–30 üç kat 4 renk 2 görev; 31+ her ~10 bölümde bir boyut.
         // 2026-11-20 (kullanıcı: "tek katmanlı bölümlerle değilde 2 katmanlı sınırlı renkte taşlarla başlayalım"): 2–7 iki kat,
         // renk açılış takvimine göre (8'e kadar 2 renk), tek görev, cömert pay; 5'lik grup (roket) mümkün.
-        if (n <= 7) { sp.W = 6; sp.H = 7; sp.LMin = sp.LMax = 2; sp.Colors = 3; sp.ColorGoals = 1; sp.LenLo = 3; sp.LenHi = 9; sp.BlobMin = 2; sp.BlobMax = 4; sp.Frac = 0.55; sp.MaxGroup = 5; }
+        // 2026-11-20 (kullanıcı: "10 bölüme kadar ise bol patlatmalı kolay bölümler olacak … il 10 bölümde tahta şekillerinide
+        // değiştirelim. Çünkü bu 10 bölümde müşterimizi elimizde tutarız"): 2–10 elle çizilmiş şekiller (artı, piksel yuvarlak,
+        // basamaklı çanak), iki kat, iri renk lekeleri (sık roket ve Altın Rulo), grup sınırı yok, tek görev, cömert pay.
+        if (n <= 10)
+        {
+            var (ew, eh) = V14EarlySize(n);
+            // İlk denemede (lekeler 4–8, grup sınırsız) iki renkli tahta 2 dokunuşta eriyordu; gruplar 6'ya kadar (roket bol),
+            // iki renk görevi, çözüm 5–10 hamle.
+            sp.W = ew; sp.H = eh; sp.LMin = sp.LMax = 2; sp.Colors = 3; sp.ColorGoals = 2; sp.LenLo = 4; sp.LenHi = 10;
+            sp.BlobMin = 3; sp.BlobMax = 6; sp.Frac = 0.6; sp.MaxGroup = 6;
+        }
         else if (n <= 14)
         {
             sp.W = n <= 10 ? 6 : 7; sp.H = 7; sp.LMin = sp.LMax = 2; sp.Colors = n <= 10 ? 3 : 4; sp.ColorGoals = n <= 12 ? 1 : 2;
@@ -323,6 +333,62 @@ static partial class Program
         return all;
     }
 
+    /// <summary>2–10. bölümlerin sabit şekilleri (kullanıcının çizimleri, 2026-11-20): kollar eşit artı, köşeleri piksel piksel
+    /// yuvarlak tahta, üstten basamaklı çanak (ve ters çevrilmiş kemer).</summary>
+    static readonly (string kind, int w, int h)[] V14EarlyShapes =
+    {
+        ("artı", 7, 7), ("yuvarlak", 7, 7), ("çanak", 7, 7), ("artı", 8, 8), ("yuvarlak", 8, 8),
+        ("çanak", 8, 8), ("kemer", 8, 8), ("artı", 8, 8), ("yuvarlak", 8, 9),
+    };
+
+    static (int w, int h) V14EarlySize(int n)
+    {
+        if (n < 2 || n > 10) return (6, 7);
+        var s = V14EarlyShapes[n - 2];
+        return (s.w, s.h);
+    }
+
+    static HashSet<(int, int)> V14EarlyShape(int n, out string name)
+    {
+        name = null;
+        if (n < 2 || n > 10) return null;
+        var (kind, w, h) = V14EarlyShapes[n - 2];
+        var cells = new HashSet<(int, int)>();
+        for (int y = 0; y < h; y++)
+        for (int x = 0; x < w; x++)
+        {
+            bool keep;
+            switch (kind)
+            {
+                case "artı":
+                {
+                    // Kollar eşit: kare tahtada dört köşeden 2×2 kesilir (7×7: kol genişliği 3; 8×8: 4; kol boyu 2).
+                    const int cut = 2;
+                    keep = !((x < cut || x >= w - cut) && (y < cut || y >= h - cut));
+                    break;
+                }
+                case "yuvarlak":
+                {
+                    // Piksel daire/elips: hücre merkezi elipsin içindeyse (7×7: 3-5-7-7-7-5-3; 8×8: 4-6-8-8-8-8-6-4).
+                    double dx = (x + 0.5 - w / 2.0) / (w / 2.0), dy = (y + 0.5 - h / 2.0) / (h / 2.0);
+                    keep = dx * dx + dy * dy <= 1.0;
+                    break;
+                }
+                default:
+                {
+                    // Çanak: üst kenarda ortadan iki basamaklı çentik (en üst satırda yalnız köşe sütunları, ikinci satırda
+                    // ikişer sütun, sonra düz). Kemer: aynısı alt kenarda.
+                    int r = kind == "kemer" ? h - 1 - y : y;
+                    keep = r >= 2 || x <= r || x >= w - 1 - r;
+                    break;
+                }
+            }
+            if (keep) cells.Add((x, y));
+        }
+        name = $"{kind} {w}×{h}";
+        return cells;
+    }
+
     static bool SetConnected(HashSet<(int, int)> set)
     {
         if (set.Count == 0) return false;
@@ -376,7 +442,9 @@ static partial class Program
     static LevelData V14Board(V14Spec sp, Random rng, List<string> palette, out string shape)
     {
         int w = sp.W, h = sp.H;
-        var cells = V14Shape(w, h, rng, out shape);
+        shape = null;
+        var cells = sp.Showcase ? null : V14EarlyShape(sp.N, out shape);
+        if (cells == null) cells = V14Shape(w, h, rng, out shape);
         var d = new LevelData { SchemaVersion = 2, Id = $"level_{sp.N:000}", Width = w, Height = h };
         var depth = new Dictionary<int, int>();
         foreach (var (x, y) in cells.OrderBy(c => c.Item2).ThenBy(c => c.Item1))
@@ -822,14 +890,17 @@ static partial class Program
             ev.NeedsSpecialsOk = BeamSolve(LevelLoader.ToState(ns), 60, limit + 12) == null;
         }
         double v = 0;
-        bool exempt = sp.N <= 7; // 1: öğretici turu kayıtlı çözümü oynatır; 2–7 (2026-11-20) bilerek kolay
+        bool exempt = sp.N <= 10; // 1: öğretici turu kayıtlı çözümü oynatır; 2–10 (2026-11-20) bilerek kolay
         if (!exempt && ev.Rand > sp.RandomCap) v += 10 + (ev.Rand - sp.RandomCap) * 100;
         if (sp.GreedyMustLose && (ev.GreedyBig || ev.GreedyGoal)) v += 8;
         if (!ev.NeedsSpecialsOk) v += 6;
+        // 2–10 kolay (2026-11-20): rastgele oynayan bile çoğunlukla kazanmalı.
+        bool tooHard = sp.N >= 2 && sp.N <= 10 && ev.Rand < 0.5;
+        if (tooHard) v += 10 + (0.5 - ev.Rand) * 100;
         ev.Violation = v;
         if (v > 0)
         {
-            ev.Fail = !exempt && ev.Rand > sp.RandomCap ? "rastgele" : sp.GreedyMustLose && (ev.GreedyBig || ev.GreedyGoal) ? "açgözlü" : "tür";
+            ev.Fail = tooHard ? "zor" : !exempt && ev.Rand > sp.RandomCap ? "rastgele" : sp.GreedyMustLose && (ev.GreedyBig || ev.GreedyGoal) ? "açgözlü" : "tür";
             return ev;
         }
 
@@ -917,7 +988,8 @@ static partial class Program
                 if (Environment.GetEnvironmentVariable("KATKAT_DEBUG") == "1") Console.WriteLine($"  {n:000} tahta {b} adım {step} oran {frac:0.00} pay {slack}: {(ev.Ok ? "TAMAM" : ev.Fail)} L={ev.L} rastgele {ev.Rand:0.00}");
                 if (best == null || (ev.Sol != null && (best.Sol == null || ev.Violation < best.Violation))) { best = ev; bestShape = shape; }
                 if (ev.Ok) { res.D = ev.D; res.Ev = ev; res.Shape = shape; res.Seconds = sw.Elapsed.TotalSeconds; return Finish(res); }
-                if (ev.Fail == "beam" || ev.Fail == "vitrin zor") frac *= 0.86;
+                if (ev.Fail == "zor") { if (slack < sp.SlackHi + 3) slack++; else frac *= 0.9; }
+                else if (ev.Fail == "beam" || ev.Fail == "vitrin zor") frac *= 0.86;
                 else if (ev.Fail == "uzun") frac *= 0.88;
                 else if (ev.Fail == "kısa") frac = Math.Min(0.95, frac * 1.15);
                 else if (ev.Fail == "rastgele" || ev.Fail == "açgözlü" || ev.Fail == "tür")

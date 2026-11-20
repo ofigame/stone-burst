@@ -1,16 +1,15 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 vitrin; şekil U (ayna); çözüm 6 + 3 tepsi / sınır 10; rastgele 0,040; açgözlü kaybeder; yumuşak 0,25
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil yuvarlak 7×7; çözüm 4 + 2 tepsi / sınır 12; rastgele 0,485; açgözlü kazanır; yumuşak 0,96; YEDEK: zor;
 id: level_003
-moves: 10
+moves: 12
 roll: off
 specials: on
-goals: purple 9, star 2
+goals: blue 36, yellow 34
 grid:
-ygK1:1 yg    ybc   #     ypb*  np    cn
-ygc   cg    ybc   #     yp    npb   ny
-cgK1:1 cb    cbc   bn    bnn   pyn   py
-cgb   yn    yn    cyyk1 cy    pgn   pgn
-cg    cn    yyn   cyn   cp    gp    gbp
-gg    gb    cyn*  cyc   cp    gbp   gp
-pgy   pb    bp    cyc   cbp   gbp   gp
-ppy   ppk1  cpn   cp    pgc   cb    cbg
-solution: 4,4 ; use 0,6,0 ; 1,3 ; 2,6 ; 4,3 ; use 1,4,0 ; 5,3 ; 4,0 ; use 0,0,0
+#     #     by    yy    yy    #     #
+#     yb    by    bb    yy    bb    #
+bb    yb    by    bb    yb    by    bb
+bb    by    yb    by    yy    bb    yb
+yy    by    by    yb    bb    yy    yb
+#     by    yy    yb    by    by    #
+#     #     yb    yb    by    #     #
+solution: 1,3 ; 1,1 ; 2,0 ; use 1,2,0 ; use 1,3,0 ; 5,1

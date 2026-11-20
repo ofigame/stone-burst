@@ -1,4 +1,4 @@
-# v14 zorluk tablosu (LevelLab `v14`, 2026-11-20 05:36)
+# v14 zorluk tablosu (LevelLab `v14`, 2026-11-20 18:12)
 
 Kaynak: `docs/v14/PLAN.md`. Bütün sayılar üreticinin ölçümüdür (`levels_src_v14/_olcum/*.tsv`), tahmin değildir.
 
@@ -15,9 +15,9 @@ Denetim: 0 sorunlu bölüm (statik doğrulama, kayıtlı çözüm, iç boşluk, 
 
 | Bölüm | Tahta | Kat | Renk | Görev | Çözüm (ort.) | Pay (nefes dışı) | Pay (nefes) | Rastgele bot ort. / en çok (nefes dışı) | Açgözlü kazanır (nefes dışı) | Yumuşak bot ort. | Nefes | Usta | Tür | Yedek |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1–5 | 6×7 (4), 7×8 (1) | 2-2 | 2–3 | 1–2 | 3,4 | 4–5 | — | %56,0 / %82,0 | 4/5 | %94 | 0 | 0 | 0 | 0 |
-| 6–7 | 6×7 (2) | 2-2 | 2 | 1 | 3,0 | 4–5 | — | %81,5 / %90,0 | 2/2 | %100 | 0 | 0 | 0 | 0 |
-| 8–14 | 6×7 (3), 7×7 (3), 7×8 (1) | 2-2, 1-2 | 3 | 1–2 | 3,9 | 1–5 | 9 | %5,8 / %12,5 | 2/6 | %39 | 1 | 1 | 0 | 0 |
+| 1–5 | 7×7 (3), 7×8 (1), 8×8 (1) | 2-2 | 2–3 | 2 | 4,2 | 4–8 | — | %58,1 / %74,5 | 5/5 | %90 | 0 | 0 | 0 | 1 |
+| 6–7 | 8×8 (2) | 2-2 | 2 | 2 | 4,0 | 8 | — | %56,3 / %59,5 | 2/2 | %94 | 0 | 0 | 0 | 0 |
+| 8–14 | 7×7 (3), 8×8 (2), 8×9 (1), 7×8 (1) | 2-2, 1-2 | 3 | 1–2 | 3,9 | 3–8 | 9 | %30,4 / %58,0 | 4/6 | %71 | 1 | 0 | 0 | 1 |
 | 15–30 | 7×8 (11), 7×7 (5) | 3-3, 1-2 | 3–4 | 2 | 4,9 | 1–5 | 9 | %13,1 / %61,5 | 6/14 | %37 | 2 | 2 | 2 | 1 |
 | 31–60 | 7×8 (17), 8×8 (13) | 3-3, 1-2 | 3–4 | 2–3 | 6,0 | 1–3 | 7 | %1,2 / %11,0 | 0/26 | %9 | 4 | 3 | 5 | 0 |
 | 61–100 | 8×8 (21), 8×9 (18), 7×9 (1) | 3-4, 3-3, 1-2 | 3–5 | 2–3 | 6,5 | 0–3 | 7 | %0,8 / %8,0 | 0/35 | %15 | 5 | 4 | 7 | 0 |
@@ -30,22 +30,22 @@ Denetim: 0 sorunlu bölüm (statik doğrulama, kayıtlı çözüm, iç boşluk, 
 
 ## PLAN ölçütleri (sayım)
 
-- Pay bandı dışında: 1 bölüm (kesin hamle türleri ve usta bölümleri: pay 1–99'da ≤ 1, sonra 0).
-- Rastgele bot tavanı aşan: 5 bölüm (öğretici turlu 1–3 hariç).
+- Pay bandı dışında: 9 bölüm (kesin hamle türleri ve usta bölümleri: pay 1–99'da ≤ 1, sonra 0).
+- Rastgele bot tavanı aşan: 3 bölüm (öğretici turlu 1–3 hariç).
 - 31+ nefes dışı açgözlü botun kazandığı: 0 bölüm.
-- Yedek aday (bir ölçüt tutmadı, en yakın aday): 3 bölüm.
+- Yedek aday (bir ölçüt tutmadı, en yakın aday): 5 bölüm.
 
 ## Örnek bölümler
 
 | Bölüm | Tür | Tahta | Kat | Renk | Hedefler | Mekanik | Çözüm / sınır | Rastgele | Açgözlü | Şekil |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 1 | vitrin | 7×8 | 2-2 | 3 | coral 8,blue 7 | - | 5 / 9 | %45,5 | kazanır | çatı (ayna) |
-| 2 | normal | 6×7 | 2-2 | 2 | blue 34 | - | 3+2t / 8 | %41,0 | kazanır | U |
-| 3 | normal | 6×7 | 2-2 | 2 | blue 33 | - | 3+2t / 8 | %43,5 | kaybeder | artı |
-| 4 | normal | 6×7 | 2-2 | 2 | blue 27 | - | 3+1t / 8 | %68,0 | kazanır | kesik köşe |
-| 5 | normal | 6×7 | 2-2 | 2 | yellow 31 | - | 3+1t / 8 | %82,0 | kazanır | artı (ayna) |
-| 6 | normal | 6×7 | 2-2 | 2 | blue 32 | - | 3+2t / 8 | %90,0 | kazanır | merdiven (ayna) |
-| 9 | normal | 6×7 | 2-2 | 3 | coral 16 | - | 4+1t / 7 | %6,5 | kazanır | kum saati (ayna) |
+| 2 | normal | 7×7 | 2-2 | 2 | blue 21,yellow 26 | - | 4+2t / 12 | %58,0 | kazanır | artı 7×7 |
+| 3 | normal | 7×7 | 2-2 | 2 | blue 36,yellow 34 | - | 4+2t / 12 | %48,5 | kazanır | yuvarlak 7×7 |
+| 4 | normal | 7×7 | 2-2 | 2 | yellow 26,blue 33 | - | 4+2t / 12 | %74,5 | kazanır | çanak 7×7 |
+| 5 | normal | 8×8 | 2-2 | 2 | blue 44,yellow 40 | - | 4+3t / 12 | %64,0 | kazanır | artı 8×8 |
+| 6 | normal | 8×8 | 2-2 | 2 | yellow 47,blue 40 | - | 4+3t / 12 | %59,5 | kazanır | yuvarlak 8×8 |
+| 9 | normal | 8×8 | 2-2 | 3 | blue 22,yellow 27 | - | 4+2t / 10 | %49,5 | kazanır | artı 8×8 |
 | 15 | normal | 7×7 | 3-3 | 3 | yellow 38,blue 35 | - | 5+4t / 8 | %32,5 | kazanır | kesik köşe (ayna) |
 | 18 | nefes | 7×8 | 1-2 | 3 | blue 15,coral 27 | - | 3+2t / 12 | %81,5 | kazanır | kum saati |
 | 21 | normal | 7×8 | 3-3 | 4 | purple 44,yellow 21 | clip | 5+4t / 10 | %26,0 | kazanır | kum saati (ayna) |
@@ -72,6 +72,8 @@ Denetim: 0 sorunlu bölüm (statik doğrulama, kayıtlı çözüm, iç boşluk, 
 
 ## Bayraklı bölümler
 
+- 3 (normal): YEDEK: zor;
+- 9 (normal): YEDEK: zor;
 - 17 (normal): YEDEK: rastgele;
 - 302 (normal): döndürmeyle başlar;
 - 303 (normal): döndürmeyle başlar;
