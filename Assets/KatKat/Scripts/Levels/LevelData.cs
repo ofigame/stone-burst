@@ -19,6 +19,8 @@ namespace KatKat.Levels
         public int Width;
         public int Height;
         public int MoveLimit;
+        /// <summary>2026-11-21 süreli bölüm (kullanıcı: "süreli bölümlerde hamle sınırsız olsun süre olsun sadece"): saniye; 0 → süresiz.</summary>
+        public int TimeLimit;
         public bool RollEnabled;
         public bool StartingRoll;
         /// <summary>v5 §5: 2 ve 3 yıldız puan eşikleri; yoksa null.</summary>

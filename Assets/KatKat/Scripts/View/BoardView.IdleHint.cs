@@ -68,6 +68,8 @@ namespace KatKat.View
         private void LateUpdate()
         {
             if (_idleStacks.Count > 0) TickIdleHint(Time.unscaledDeltaTime);
+            TickHeartbeat(Time.unscaledDeltaTime); // süreli bölüm (BoardView.Timed)
+            TickFall(Time.unscaledDeltaTime);
         }
 
         private void TickIdleHint(float dt)

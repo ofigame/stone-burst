@@ -148,10 +148,12 @@ namespace KatKat.View
         /// <paramref name="socketSize"/>: yuva görselinin boyu (hücre adımı oranı).
         /// </summary>
         public static Color32[] Bake(bool[] inShape, int w, int h, int resX, int resY, int pad, float socketDy, float socketSize, out int tw, out int th) =>
-            Bake(inShape, w, h, resX, resY, pad, socketDy, socketSize, null, out tw, out th);
+            Bake(inShape, w, h, resX, resY, pad, socketDy, socketSize, null, resX, out tw, out th);
 
         /// <param name="rimTone">Kenarın tema tonu (null: özgün bal rengi ahşap). Bkz. <see cref="ToneRim"/>.</param>
-        public static Color32[] Bake(bool[] inShape, int w, int h, int resX, int resY, int pad, float socketDy, float socketSize, Color? rimTone, out int tw, out int th)
+        /// <param name="unit">2026-11-21: kenar kalınlığı, köşe yarıçapı ve yuva boyunun piksel birimi (taş adımı başına); hücre en/boyu
+        /// (resX/resY) taştan büyük olabilir, kenar ve yuva taş boyunda kalır.</param>
+        public static Color32[] Bake(bool[] inShape, int w, int h, int resX, int resY, int pad, float socketDy, float socketSize, Color? rimTone, int unit, out int tw, out int th)
         {
             tw = w * resX + 2 * pad;
             th = h * resY + 2 * pad;
@@ -171,8 +173,9 @@ namespace KatKat.View
                 mask[y * lw + x] = fx >= 0f && fy >= 0f && cx < w && cy < h && inShape[cy * w + cx];
             }
             // Dış hat: kare genişletme (köşeler keskin) → açma (dış köşe yuvarlanır) → kapama (iç köşe yuvarlanır).
-            var shape = Vr2Floor.SquareDilate(mask, lw, lh, Mathf.RoundToInt(Reach * lres));
-            float rv = ConvexR * lres, rc = ConcaveR * lres;
+            float lu = unit / (float)Q;
+            var shape = Vr2Floor.SquareDilate(mask, lw, lh, Mathf.RoundToInt(Reach * lu));
+            float rv = ConvexR * lu, rc = ConcaveR * lu;
             var d = Vr2Floor.Edt(shape, lw, lh, true);
             var tmp = new bool[ln];
             for (int i = 0; i < ln; i++) tmp[i] = d[i] > rv;
@@ -190,7 +193,7 @@ namespace KatKat.View
             // bulanıklaştırılır: düz kenar değişmez (doğrusal alan), yuvarlak köşeler pürüzsüzleşir.
             Vr2Floor.Blur(sd, lw, lh, 1.2f);
 
-            float res = resX;
+            float res = unit;
             var rim = rimTone.HasValue ? ToneRim(rimTone.Value) : _rim;
             var floorPx = rimTone.HasValue ? ToneArray(_tonedFloor, _floorOrig, rimTone.Value) : _floor;
             var socketPx = rimTone.HasValue ? ToneArray(_tonedSocket, _socketOrig, rimTone.Value) : _socket;

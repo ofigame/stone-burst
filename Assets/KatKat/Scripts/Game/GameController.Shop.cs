@@ -141,10 +141,12 @@ namespace KatKat.Game
         private int LevelNumberNow => _levelIndex + 1;
 
         /// <summary>Normal bölümde ve en az bir güçlendirici açıldıysa şerit görünür.</summary>
-        private bool BoostersVisible => _sessionKind == SessionKind.Normal && BoosterOpen(Booster.Moves);
+        // 2026-11-21: Test Bölümlerinde (pilot listesi) güçlendiriciler açık; renk değiştirme, bomba ve +süre orada denenir.
+        private bool InTestSet => _sessionKind == SessionKind.Trial && _pilot;
+        private bool BoostersVisible => (_sessionKind == SessionKind.Normal || InTestSet) && BoosterOpen(Booster.Moves);
 
         /// <summary>Açık mı (deneme APK'sında hep açık).</summary>
-        private bool BoosterOpen(Booster b) => TestUnlockAll || Wallet.Unlocked(b, LevelNumberNow);
+        private bool BoosterOpen(Booster b) => TestUnlockAll || InTestSet || Wallet.Unlocked(b, LevelNumberNow);
 
         /// <summary>Bölüm başı: yeni açılan güçlendiricinin deneme adedi verilir, şerit kurulur.</summary>
         private void BoostersAtLevelStart()
@@ -201,10 +203,17 @@ namespace KatKat.Game
                     _hud.ShowToast(Loc.T("booster.bomb.pick"), 2.4f);
                     break;
                 case Booster.Recolor:
+                    // 2026-11-21 (kullanıcı: "renk değiştirme güçlendiricisi seçildiği anda üst kısmında taş seçenekleri geçecek önce taşı
+                    // seçecek sonra oyun tahtasında hangi taşa dokunursa o taş değişecek"; 3 taş anlaşılmıyordu): renkler hemen açılır;
+                    // renk seçilince her dokunuş bir taşı değiştirir, sayaç 3 → 0; erken bitirmek için güçlendiriciye yeniden dokunulur.
                     _boosterMode = b;
                     _hud.PlayBoosterBurst(b, false);
                     _recolorPicks.Clear();
-                    _hud.ShowToast(Loc.F("booster.recolor.pick", ShopCatalog.RecolorStones), 2.6f);
+                    _recolorColor = null;
+                    _recolorLeft = ShopCatalog.RecolorStones;
+                    _recolorPaid = false;
+                    ShowRecolorPalette();
+                    _hud.ShowToast(Loc.T("booster.recolor.pick"), 4f);
                     break;
             }
             RefreshBoosters();
@@ -213,7 +222,11 @@ namespace KatKat.Game
         private void CancelBoosterMode()
         {
             if (_boosterMode == null) return;
+            bool recolorDone = _boosterMode == Booster.Recolor && _recolorPaid;
             _boosterMode = null;
+            _recolorColor = null;
+            _recolorPaid = false;
+            if (recolorDone) { _hud.PlayBoosterBurst(Booster.Recolor, true); HintAfterCommand(); RefreshHint(); }
             _recolorPicks.Clear();
             _hud.HidePalette();
             _hud.HideToast();
@@ -233,6 +246,8 @@ namespace KatKat.Game
 
         private void UseMovesBooster()
         {
+            // 2026-11-21 (kullanıcı: "+ hamle kullanırsa artı süre almış olur"): süreli bölümde +15 sn.
+            if (TimedActive) { AddTime(TimedBonusSeconds); BoosterUsed(Booster.Moves); _board.RimSweep(new Color(1f, 0.85f, 0.35f), new Color(1f, 0.98f, 0.75f), 1.1f); _sound.Play(Sfx.CoinFinal); Haptics.Medium(); return; }
             if (!_session.GrantMoves(ShopCatalog.MovesAmount)) return;
             BoosterUsed(Booster.Moves);
             if (_outcome != null) _outcome.MoveBonus += ShopCatalog.MovesAmount;
@@ -283,51 +298,85 @@ namespace KatKat.Game
             });
         }
 
-        private void PickRecolorCell(int x, int y)
+        private LayerColor? _recolorColor;
+        private int _recolorLeft;
+        private bool _recolorPaid;
+
+        /// <summary>Taş Değiştir: kalan taş sayısı (testler).</summary>
+        public int RecolorLeft => _recolorLeft;
+
+        private void ShowRecolorPalette()
         {
             var b = _session.State.Board;
-            var c = new Coord(x, y);
-            if (!b.InBounds(x, y) || !GameSession.CanRecolor(b[x, y]))
-            {
-                _sound.Play(Sfx.Invalid);
-                _hud.ShowToast(Loc.T("booster.recolor.invalid"));
-                return;
-            }
-            if (_recolorPicks.Contains(c)) _recolorPicks.Remove(c);
-            else if (_recolorPicks.Count < ShopCatalog.RecolorStones) _recolorPicks.Add(c);
-            else { _hud.ShowToast(Loc.F("booster.recolor.max", ShopCatalog.RecolorStones)); return; }
-            _sound.Play(Sfx.Tap);
-            Haptics.Light();
-            _board.ShakeCells(_recolorPicks);
-            if (_recolorPicks.Count == 0) { _hud.HidePalette(); return; }
-            // Palet: tahtadaki renkler (seçili taşların hepsiyle aynı olan renk de seçilebilir; aynı renktekiler atlanır).
             var options = new List<LayerColor>();
             for (int i = 0; i < LayerColors.Count; i++)
             {
                 var col = (LayerColor)i;
                 if (b.CountLayers(col) > 0) options.Add(col);
             }
-            _hud.ShowPalette(b[_recolorPicks[0].X, _recolorPicks[0].Y].Top, options);
-            _hud.ShowToast(Loc.F("booster.recolor.color", _recolorPicks.Count, ShopCatalog.RecolorStones), 2.4f);
+            _hud.ShowPalette(_recolorColor ?? LayerColor.Coral, options, _recolorColor);
         }
 
-        /// <summary>Palet seçimi Taş Değiştir kipindeyse işlenir (true: tüketildi).</summary>
+        private void PickRecolorCell(int x, int y)
+        {
+            var b = _session.State.Board;
+            if (_recolorColor == null)
+            {
+                _sound.Play(Sfx.Invalid);
+                _hud.ShowToast(Loc.T("booster.recolor.pick"), 2.4f);
+                return;
+            }
+            if (!b.InBounds(x, y) || !GameSession.CanRecolor(b[x, y]))
+            {
+                _sound.Play(Sfx.Invalid);
+                _hud.ShowToast(Loc.T("booster.recolor.invalid"));
+                return;
+            }
+            var color = _recolorColor.Value;
+            if (b[x, y].Top == color) { _hud.ShowToast(Loc.T("toast.paint.same")); return; }
+            var done = _session.RecolorTops(new List<Coord> { new Coord(x, y) }, color);
+            if (done.Count == 0) { _hud.ShowToast(Loc.T("toast.paint.same")); return; }
+            if (!_recolorPaid)
+            {
+                // Hak ilk taş değişince düşer (hiç taş değiştirmeden vazgeçilirse düşmez).
+                _recolorPaid = true;
+                Wallet.Consume(Meta, Booster.Recolor);
+                _save.Save();
+                OutcomeAssist(AssistFlags.Booster);
+                GameAnalytics.Log("booster_use", ("booster", ShopCatalog.Key(Booster.Recolor)), ("level_number", LevelNumberNow), ("left", Wallet.Count(Meta, Booster.Recolor)));
+            }
+            _recolorLeft--;
+            _board.PlayRecolor(done, color);
+            _sound.Play(Sfx.Tap);
+            Haptics.Medium();
+            if (_recolorLeft <= 0)
+            {
+                _hud.HidePalette();
+                _hud.HideToast();
+                _hud.PlayBoosterBurst(Booster.Recolor, true);
+                _board.RimSweep(KatKat.View.LayerPalette.FrontColor(color), Color.white, 1.2f);
+                _sound.Play(Sfx.CoinFinal);
+                _boosterMode = null;
+                _recolorColor = null;
+                _recolorPaid = false;
+                _recolorPicks.Clear();
+                RefreshBoosters();
+                HintAfterCommand();
+                RefreshHint();
+                return;
+            }
+            _hud.ShowToast(Loc.F("booster.recolor.left", _recolorLeft), 6f);
+        }
+
+        /// <summary>Palet seçimi Taş Değiştir kipindeyse işlenir (true: tüketildi). Renk seçilir; taşlar sonra tek tek değişir.</summary>
         private bool BoosterColorChosen(LayerColor color)
         {
             if (_boosterMode != Booster.Recolor) return false;
-            if (_recolorPicks.Count == 0 || CurrentPhase != Phase.Idle) return true;
-            var done = _session.RecolorTops(_recolorPicks, color);
-            _hud.HidePalette();
-            if (done.Count == 0) { _hud.ShowToast(Loc.T("toast.paint.same")); return true; }
-            BoosterUsed(Booster.Recolor);
-            _hud.HideToast();
-            _hud.PlayBoosterBurst(Booster.Recolor, true);
-            _board.PlayRecolor(done, color);
-            _board.RimSweep(KatKat.View.LayerPalette.FrontColor(color), Color.white, 1.2f);
-            _sound.Play(Sfx.CoinFinal);
-            Haptics.Medium();
-            HintAfterCommand();
-            RefreshHint();
+            _recolorColor = color;
+            ShowRecolorPalette();
+            _sound.Play(Sfx.Tap);
+            Haptics.Light();
+            _hud.ShowToast(Loc.F("booster.recolor.left", _recolorLeft), 6f);
             return true;
         }
 
@@ -336,5 +385,6 @@ namespace KatKat.Game
         public void AddIngotsForTest(int n) { Meta.ingots += n; _save.Save(); }
         public void PressBoosterForTest(Booster b) => OnBoosterPressed(b);
         public void ChooseRecolorForTest(LayerColor c) => BoosterColorChosen(c);
+        public void PickRecolorForTest(int x, int y) => PickRecolorCell(x, y);
     }
 }

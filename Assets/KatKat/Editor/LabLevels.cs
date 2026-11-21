@@ -21,7 +21,7 @@ namespace KatKat.EditorTools
     public static class LabLevels
     {
         private const string OutDir = "Assets/KatKat/Resources/Lab";
-        private static readonly string[] Palette = { "coral", "blue", "yellow", "purple", "green" };
+        private static readonly string[] Palette = { "coral", "blue", "yellow", "purple", "navy" }; // 2026-11-21: yeşil yok
 
         private sealed class Spec
         {
@@ -30,22 +30,28 @@ namespace KatKat.EditorTools
             public Func<int, int, bool> Gravel = (x, y) => false;
             public Func<int, int, bool> Hole = (x, y) => false;
             public int Protect, Clips, Ice, Stars, GoalColors = 2;
+            /// <summary>Süreli bölüm (sn); 0 → hamleli. Süreli bölümde hamle sınırsız; açgözlü oyuncu süre/4 hamle oynar.</summary>
+            public int Timed;
+            public int SimMoves => Timed > 0 ? Timed / 4 : Moves;
             public float GoalShare = 0.7f;
         }
 
+        // 2026-11-21 (kullanıcı: "10 test bölümde son istediğim özelliklerin tamamını test edebileceğim 10 bölüm olsun ve başka bir şey
+        // olmasın"): her bölümde bütün hücreler aynı katlı (2 ya da 3); çakıl + Kürek + yayılma, bombalı yığın, süreli bölüm,
+        // lacivert, yeşil yok, şekilli tahta. Güçlendiriciler (bomba, renk değiştirme, +hamle/+süre) her bölümde kullanılabilir.
         private static List<Spec> Specs() => new List<Spec>
         {
-            new Spec { Title = "Çakıl ve Kürek", Seed = 101, Gravel = (x, y) => (x * 2 + y * 3) % 5 == 0 },
-            new Spec { Title = "Yayılan Çakıl", Seed = 202, Gravel = (x, y) => y <= 1 && x >= 2 && x <= 4, Moves = 22 },
-            new Spec { Title = "Bombaya Dokunma", Seed = 303, Protect = 3, Gravel = (x, y) => (x + y * 2) % 6 == 0 && y < 5 },
-            new Spec { Title = "Sürükle ve Tamamla", Seed = 404, Colors = 4, MinL = 1, MaxL = 2, Gravel = (x, y) => (x == 0 || x == 6) && y % 3 == 1 },
-            new Spec { Title = "Çakıl ve Ataş", Seed = 505, Clips = 5, Gravel = (x, y) => (x * 3 + y) % 7 == 2 },
-            new Spec { Title = "Çakıl ve Buz", Seed = 606, Ice = 5, Gravel = (x, y) => (x + y) % 5 == 0 && y > 0 },
-            new Spec { Title = "Yıldız Avı", Seed = 707, Stars = 3, Gravel = (x, y) => y == 0 && x % 2 == 0 || y == 7 && x % 3 == 1 },
-            new Spec { Title = "Haç Tahta", Seed = 808, Hole = (x, y) => (x <= 1 || x >= 5) && (y <= 1 || y >= 6), Gravel = (x, y) => (x * 2 + y) % 5 == 1 },
-            new Spec { Title = "Hepsi Bir Arada", Seed = 909, Protect = 2, Clips = 3, Ice = 3, Stars = 2, Gravel = (x, y) => (x * 2 + y * 3) % 6 == 0, Moves = 22 },
-            new Spec { Title = "Patron", Seed = 1010, W = 8, H = 9, Colors = 4, Protect = 3, Clips = 3, Ice = 3, Stars = 2, GoalColors = 3, GoalShare = 0.8f,
-                Hole = (x, y) => (x == 0 || x == 7) && (y == 0 || y == 8), Gravel = (x, y) => (x + y * 2) % 5 == 0, Moves = 24 },
+            new Spec { Title = "İki Kat: Çakıl ve Kürek", Seed = 101, MinL = 2, MaxL = 2, Hole = (x, y) => (x == 0 || x == 6) && (y == 0 || y == 7), Gravel = (x, y) => (x * 2 + y * 3) % 5 == 0 },
+            new Spec { Title = "Üç Kat: Yayılan Çakıl", Seed = 202, MinL = 3, MaxL = 3, Hole = (x, y) => y <= 3 && x == 3, Gravel = (x, y) => y <= 1 && x >= 2 && x <= 4, Moves = 24 },
+            new Spec { Title = "Bombaya Dokunma", Seed = 303, MinL = 2, MaxL = 2, Hole = (x, y) => Math.Abs(x - 3) + Math.Abs(y - 3.5) > 5.1, Protect = 3, Gravel = (x, y) => (x + y * 2) % 6 == 0 && y < 5 },
+            new Spec { Title = "Süreli: 90 Saniye", Seed = 404, MinL = 2, MaxL = 2, Hole = (x, y) => (y == 3 || y == 4) && (x <= 1 || x >= 5), Timed = 90 },
+            new Spec { Title = "Süreli Çakıl", Seed = 505, MinL = 3, MaxL = 3, Hole = (x, y) => y >= 3 && (x <= 1 || x >= 5), Timed = 80, Gravel = (x, y) => (x * 3 + y) % 7 == 2 },
+            new Spec { Title = "Beş Renk", Seed = 606, MinL = 2, MaxL = 2, Hole = (x, y) => (x == 0 && y % 2 == 0) || (x == 6 && y % 2 == 1), Colors = 5, Gravel = (x, y) => (x + y) % 6 == 0 && y > 0, Moves = 22 },
+            new Spec { Title = "Güçlendirici Atölyesi", Seed = 707, MinL = 3, MaxL = 3, Hole = (x, y) => (y == 0 && (x <= 1 || x >= 5)) || (y == 1 && (x == 0 || x == 6)), Protect = 2, Moves = 18, Gravel = (x, y) => y == 0 && x % 2 == 0 },
+            new Spec { Title = "Haç Tahta", Seed = 808, MinL = 3, MaxL = 3, Hole = (x, y) => (x <= 1 || x >= 5) && (y <= 1 || y >= 6), Gravel = (x, y) => (x * 2 + y) % 5 == 1 },
+            new Spec { Title = "Süreli Bomba", Seed = 909, MinL = 2, MaxL = 2, Hole = (x, y) => (y <= 1 || y >= 6) && x == 3, Timed = 70, Protect = 2, Gravel = (x, y) => (x * 2 + y * 3) % 7 == 0 },
+            new Spec { Title = "Patron", Seed = 1010, W = 8, H = 9, MinL = 3, MaxL = 3, Colors = 5, Protect = 3, GoalColors = 3, GoalShare = 0.75f,
+                Hole = (x, y) => Math.Min(x, 7 - x) + Math.Min(y, 8 - y) < 2, Gravel = (x, y) => (x + y * 2) % 5 == 0, Moves = 26 },
         };
 
         [MenuItem("KatKat/Test bölümlerini üret (Lab)")]
@@ -71,9 +77,9 @@ namespace KatKat.EditorTools
                     if (errs.Count > 0) { Debug.LogWarning($"[Lab] {id} deneme {attempt}: {string.Join("; ", errs)}"); continue; }
                     var probe = LevelLoader.ToState(d);
                     foreach (var g in probe.Goals) g.Amount = 99999;
-                    got = Greedy(probe, sp.Moves, out score, out _);
+                    got = Greedy(probe, sp.SimMoves, out score, out _);
                     int total = 0; foreach (var v in got.Values) total += v;
-                    if (total >= sp.Moves * 3) { json = Compose(sp, id, new System.Random(sp.Seed * 131 + attempt), got, score, 0); break; }
+                    if (total >= sp.SimMoves * 3) { json = Compose(sp, id, new System.Random(sp.Seed * 131 + attempt), got, score, 0); break; }
                     got = null;
                 }
                 if (got == null) throw new Exception($"[Lab] {id}: uygun tahta bulunamadı");
@@ -84,7 +90,7 @@ namespace KatKat.EditorTools
                     d = LevelParser.Parse(json, id);
                     var errs = LevelValidator.ValidateStatic(d, LevelValidator.ScopeFor(d));
                     if (errs.Count > 0) throw new Exception($"[Lab] {id}: {string.Join("; ", errs)}");
-                    Greedy(LevelLoader.ToState(d), sp.Moves, out _, out var status);
+                    Greedy(LevelLoader.ToState(d), sp.SimMoves, out _, out var status);
                     verdict = status.ToString();
                     if (status == GameStatus.Won) break;
                     json = Compose(sp, id, null, got, score, shrink + 1, json);
@@ -93,7 +99,7 @@ namespace KatKat.EditorTools
                 File.WriteAllText(Path.Combine(OutDir, id + ".json"), json, new UTF8Encoding(false));
                 var goals = new StringBuilder();
                 foreach (var g in d.Goals) goals.Append(g.Color).Append(' ').Append(g.Amount).Append(", ");
-                report.Append($"| {n + 1} | {sp.Title} | {sp.W}x{sp.H} | {sp.Moves} | {goals.ToString().TrimEnd(',', ' ')} | {verdict} |\n");
+                report.Append($"| {n + 1} | {sp.Title} | {sp.W}x{sp.H} | {(sp.Timed > 0 ? sp.Timed + " sn" : sp.Moves + " hamle")} | {goals.ToString().TrimEnd(',', ' ')} | {verdict} |\n");
                 Debug.Log($"[Lab] {id} {sp.Title}: {verdict}");
             }
             File.WriteAllText("Logs/lab_levels.md", report.ToString());
@@ -121,7 +127,9 @@ namespace KatKat.EditorTools
             sb.Append("  \"capabilities\": [").Append(string.Join(", ", caps.ConvertAll(c => "\"" + c + "\""))).Append("],\n");
             sb.Append("  \"title\": \"").Append(sp.Title).Append("\",\n  \"trialType\": \"lab\",\n");
             sb.Append("  \"rules\": [").Append(sp.Protect > 0 ? "\"protect\"" : "").Append("],\n");
-            sb.Append($"  \"width\": {sp.W},\n  \"height\": {sp.H},\n  \"moveLimit\": {sp.Moves},\n  \"rollEnabled\": false,\n  \"startingRoll\": false,\n");
+            sb.Append($"  \"width\": {sp.W},\n  \"height\": {sp.H},\n  \"moveLimit\": {(sp.Timed > 0 ? 99 : sp.Moves)},\n");
+            if (sp.Timed > 0) sb.Append($"  \"timeLimit\": {sp.Timed},\n");
+            sb.Append("  \"rollEnabled\": false,\n  \"startingRoll\": false,\n");
             int s1 = Math.Max(100, (int)(score * 0.55f) / 10 * 10), s2 = Math.Max(s1 + 50, (int)(score * 0.8f) / 10 * 10);
             sb.Append($"  \"stars\": [{s1}, {s2}],\n  \"goals\": [\n");
             if (got == null)
@@ -221,8 +229,8 @@ namespace KatKat.EditorTools
         private static Dictionary<string, int> Greedy(LevelState s, int maxMoves, out int score, out GameStatus status)
         {
             var got = new Dictionary<string, int>();
-            int guard = 0;
-            while (s.Status == GameStatus.Idle && s.MovesLeft > 0 && guard++ < maxMoves * 3)
+            int guard = 0, made = 0;
+            while (s.Status == GameStatus.Idle && s.MovesLeft > 0 && made < maxMoves && guard++ < maxMoves * 4)
             {
                 MoveResult best = null;
                 LevelState bestState = null;
@@ -249,8 +257,6 @@ namespace KatKat.EditorTools
                     for (int i = 0; i < b.Count; i++) if (b[i].Active && b[i].HasSpecial) Try(Command.Tap(b.X(i), b.Y(i)));
                 }
                 if (best == null)
-                    for (int i = 0; i < b.Count; i++) for (int dir = 0; dir < 4; dir++) Try(Command.Swap(b.X(i), b.Y(i), dir));
-                if (best == null)
                     for (int slot = 0; slot < s.Tray.Count && best == null; slot++)
                         for (int i = 0; i < b.Count; i++) Try(Command.UseSpecial(slot, b.X(i), b.Y(i)));
                 if (best == null) break;
@@ -260,6 +266,7 @@ namespace KatKat.EditorTools
                         string key = ColorIds.ToId(c.Removed);
                         got[key] = got.TryGetValue(key, out var v) ? v + 1 : 1;
                     }
+                if (best.Command.Type != CommandType.UseSpecial) made++; // tepsi hamle harcamaz
                 s = bestState;
             }
             score = s.Score;

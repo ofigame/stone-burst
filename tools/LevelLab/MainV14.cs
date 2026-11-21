@@ -43,14 +43,15 @@ static partial class Program
         ("exact", 27), ("reverse", 37), ("protect", 57), ("scarce", 67), ("pure", 77), ("resource", 87), ("order", 127),
     };
 
-    static readonly string[] V14AllColors = { "coral", "blue", "yellow", "purple", "green", "navy" };
+    // 2026-11-21 (kullanıcı: "Sadece yeşili iptal et kaldır oyundan"; "lacivert 61'de açılsın"): yeşil yok, beş renk.
+    static readonly string[] V14AllColors = { "coral", "blue", "yellow", "purple", "navy" };
 
     /// <summary>Renk açılış sırası (kullanıcı 2026-11-16: "ilk beyaz ve turkuaz ile başla sonra kırmızı gelsin, sonra mor
     /// gelsin sonra yeşil sonra mavi. Bunu geniş bir bölüme yay tüm taşlar hemen çıkmasın"). Beyaz = inci (yellow),
     /// turkuaz = blue, kırmızı = coral, mor = purple, yeşil = green, mavi = navy (lacivert yıldız).</summary>
     static readonly (string color, int intro)[] V14ColorIntro =
     {
-        ("yellow", 1), ("blue", 1), ("coral", 8), ("purple", 21), ("green", 61), ("navy", 201),
+        ("yellow", 1), ("blue", 1), ("coral", 8), ("purple", 21), ("navy", 61),
     };
 
     /// <summary>Bölüm n'de açılmış renkler (açılış sırasıyla).</summary>
@@ -65,7 +66,9 @@ static partial class Program
     /// <summary>Hamle payı bandı (PLAN): 6–30 3–5; 31–100 2–3; 101–300 1–2; 301+ 0–1; nefes +4.</summary>
     static (int lo, int hi) V14SlackBand(int n)
     {
-        var b = n <= 10 ? (4, 5) : n <= 30 ? (3, 5) : n <= 100 ? (2, 3) : n <= 300 ? (1, 2) : (0, 1);
+        // 2026-11-21 (kullanıcı: "hamle payını biraz arttırabiliriz zor bölümlerde ama bu sefer hamle sayısı artsın ki oyun eğlenceli olsun"):
+        // 101–300 ve 301+ birer hamle daha bol.
+        var b = n <= 10 ? (4, 5) : n <= 30 ? (3, 5) : n <= 100 ? (2, 3) : n <= 300 ? (2, 3) : (1, 2);
         if (V14Breath(n)) b = (b.Item1 + 4, b.Item2 + 4);
         return b;
     }
@@ -176,7 +179,9 @@ static partial class Program
         // Bölüm türleri: 10'luk döngüde 7 ve 8 (27'den), usta x0.
         if (sp.Master)
         {
-            sp.Type = "boss"; sp.Exact = true; sp.Rules.Clear();
+            // 2026-11-21: usta bölümü dar hamle değil, +2 hamle payı (kullanıcı: zor bölümlerde hamle artsın).
+            sp.Type = "boss"; sp.Exact = false; sp.Rules.Clear();
+            sp.SlackLo += 2; sp.SlackHi += 2;
             var combos = new List<string>();
             if (n >= 57) combos.Add("protect");
             if (n >= 77) combos.Add("pure");

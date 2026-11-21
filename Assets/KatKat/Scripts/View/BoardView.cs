@@ -38,6 +38,10 @@ namespace KatKat.View
         /// <summary>Kurulumdaki en yüksek yığın (reklam ödülü taş yerleştirme bu yüksekliği aşmaz).</summary>
         public int MaxLayers => _maxLayers;
         private float _pitch;
+        /// <summary>Sütun adımı (yatay hücre aralığı). 2026-11-21 (kullanıcı: "oyun tahtaları hem üst sınıra dayansın hemde yan sınıra
+        /// dayansın … köşe uzunlukları değişmesi gerekiyorsa değişsin"): taş boyu <see cref="_pitch"/> kare kalır; sütun adımı tahtayı
+        /// yanlara, satır adımı üste/alta dayar (hücre en ve boyu farklı olabilir).</summary>
+        private float _colPitch;
         private Vector2 _origin;
         private float _clock;
         private Action _onDone;
@@ -61,6 +65,7 @@ namespace KatKat.View
         // ("B iyi; ilk bölümlerdeki örnek A ile B arasında olsun" — B'de 7 sütun idi).
         // 2026-11-21 (kullanıcı: tahta "en büyük nasıl olabiliyorsa", "taşlar büyük olabilir"): küçültme ve taş boyu sınırı kalktı.
         public static float AreaScale = 1f;
+        public const float SideGap = 0.04f, TopGap = 0.025f;
         public static float MinColumns = 0f;
 
         /// <summary>Şeklin dolu (etkin ya da geçit) hücrelerinin kutusu; şekil boşsa ızgaranın tamamı.</summary>
@@ -181,6 +186,9 @@ namespace KatKat.View
             ShapeBounds(ref x0, ref x1, ref y0, ref y1);
             int cols = x1 - x0 + 1, rows = y1 - y0 + 1;
             float contentK = (rows - 1) * rowK + (top - bottom);
+            // 2026-11-21 (kullanıcı: "sağdan ve soldan boşluk biraz olsun, sıfır dayamayalım. üstte de diğer alana sıfır değil biraz boşluk"):
+            // yanlarda genişliğin %4'ü, üstte (hedef kartının altı) yüksekliğin %2,5'i boş.
+            area = new Rect(area.x + area.width * SideGap, area.y, area.width * (1f - 2f * SideGap), area.height * (1f - TopGap));
             if (AreaScale < 0.999f)
             {
                 var c = area.center;
@@ -188,10 +196,13 @@ namespace KatKat.View
             }
             _pitch = Mathf.Min(area.width / (cols + margin), area.height / (contentK + margin));
             if (MinColumns > 0) _pitch = Mathf.Min(_pitch, area.width / (Mathf.Max(cols, MinColumns) + margin));
-            _rowPitch = rowK * _pitch;
-            float w = _pitch * cols, h = contentK * _pitch;
+            // Taş boyu dar kalan yönden; artan pay diğer yöndeki aralığa dağılır (tahta dört kenara dayanır).
+            // Kenar payı (tepsi/VR2 kenarı) sütun adımıyla ölçeklenir; pay da sütun adımı biriminde (kenar ekrandan taşmasın).
+            _colPitch = Mathf.Max(_pitch, area.width / (cols + margin));
+            _rowPitch = rows > 1 ? Mathf.Max(rowK * _pitch, (area.height - (top - bottom) * _pitch - margin * _colPitch) / (rows - 1)) : rowK * _pitch;
+            float w = _colPitch * cols, h = (rows - 1) * _rowPitch + (top - bottom) * _pitch;
             // Şekil kutusu alanın ortasına; kutunun ilk satırının merkezi kutunun üstünden "top" kadar aşağıda.
-            _origin = new Vector2(area.center.x - w * 0.5f + _pitch * 0.5f - x0 * _pitch, area.center.y + h * 0.5f - top * _pitch + y0 * _rowPitch);
+            _origin = new Vector2(area.center.x - w * 0.5f + _colPitch * 0.5f - x0 * _colPitch, area.center.y + h * 0.5f - top * _pitch + y0 * _rowPitch);
             LayoutFrame(new Vector2(area.center.x, area.center.y), w, h);
             for (int y = 0; y < _height; y++)
             for (int x = 0; x < _width; x++)
@@ -318,8 +329,8 @@ namespace KatKat.View
             // Dünya kutusu: hücre ızgarası + her yana pay (kenar ve dış pay).
             var c00 = CellCenter(0, 0) + new Vector3(0f, mid, 0f);
             float padCells = 0.25f;
-            float left = c00.x - _pitch * (0.5f + padCells), topY = c00.y + _rowPitch * (0.5f + padCells);
-            float w = _pitch * (_width + 2f * padCells), h = _rowPitch * (_height + 2f * padCells);
+            float left = c00.x - _colPitch * (0.5f + padCells), topY = c00.y + _rowPitch * (0.5f + padCells);
+            float w = _colPitch * (_width + 2f * padCells), h = _rowPitch * (_height + 2f * padCells);
             _floorWorld = new Rect(left, topY - h, w, h);
             BakeFloor();
             // İçi boş tahta: şeklin içindeki boşluklara hareketli süs (maskot / fener / kaya / çeşme).
@@ -333,7 +344,7 @@ namespace KatKat.View
             _decor.Rebuild(_inShape, _width, _height, (x, y) =>
             {
                 var c = CellCenter(x, y) + new Vector3(0f, mid, 0f);
-                return new Rect(c.x - _pitch * 0.5f, c.y - _rowPitch * 0.5f, _pitch, _rowPitch);
+                return new Rect(c.x - _colPitch * 0.5f, c.y - _rowPitch * 0.5f, _colPitch, _rowPitch);
             }, _levelIndex, _theme != null ? _theme.Id : "coast", 10);
         }
 
@@ -409,10 +420,10 @@ namespace KatKat.View
             sp.hideFlags = HideFlags.DontSave;
             _floorSr.sprite = sp;
             // Izgara sol üstü (_floorWorld 0.25 hücre pay ile kuruldu).
-            float gridLeft = _floorWorld.xMin + 0.25f * _pitch, gridTop = _floorWorld.yMax - 0.25f * _rowPitch;
-            float padX = pad / (float)Res3 * _pitch, padY = pad / (float)Res3 * _rowPitch;
+            float gridLeft = _floorWorld.xMin + 0.25f * _colPitch, gridTop = _floorWorld.yMax - 0.25f * _rowPitch;
+            float padX = pad / (float)Res3 * _colPitch, padY = pad / (float)Res3 * _rowPitch;
             _floorSr.transform.localPosition = new Vector3(gridLeft - padX, gridTop - _height * _rowPitch - padY, 0f);
-            _floorSr.transform.localScale = new Vector3(_pitch, _rowPitch, 1f);
+            _floorSr.transform.localScale = new Vector3(_colPitch, _rowPitch, 1f);
             if (_floorShadow == null)
             {
                 _floorShadow = new GameObject("FloorShadow").AddComponent<SpriteRenderer>();
@@ -482,10 +493,10 @@ namespace KatKat.View
             sp.hideFlags = HideFlags.DontSave;
             _floorSr.sprite = sp;
             _floorSr.color = Color.white;
-            float gridLeft = _floorWorld.xMin + 0.25f * _pitch, gridTop = _floorWorld.yMax - 0.25f * _rowPitch;
-            float padX = pad / (float)ResVr2 * _pitch, padY = pad / (float)ResVr2 * _rowPitch;
+            float gridLeft = _floorWorld.xMin + 0.25f * _colPitch, gridTop = _floorWorld.yMax - 0.25f * _rowPitch;
+            float padX = pad / (float)ResVr2 * _colPitch, padY = pad / (float)ResVr2 * _rowPitch;
             _floorSr.transform.localPosition = new Vector3(gridLeft - padX, gridTop - _height * _rowPitch - padY, 0f);
-            _floorSr.transform.localScale = new Vector3(_pitch, _rowPitch, 1f);
+            _floorSr.transform.localScale = new Vector3(_colPitch, _rowPitch, 1f);
             // Dış gölge yok (belge).
             if (_floorShadow != null) _floorShadow.enabled = false;
         }
@@ -497,6 +508,7 @@ namespace KatKat.View
         private void BakeFloorTray()
         {
             int resY = Mathf.Max(1, Mathf.RoundToInt(ResTray * _rowPitch / Mathf.Max(1e-5f, _pitch)));
+            int resX = Mathf.Max(1, Mathf.RoundToInt(ResTray * _colPitch / Mathf.Max(1e-5f, _pitch)));
             // Pay: dış hat + iç köşe kapamasının genişletme payı (doku kenarına değerse kapama orada geri daralamaz) + gölge.
             int pad = Mathf.CeilToInt(ResTray * (TrayArt.Reach + TrayArt.ConcaveR + 0.08f));
             // Yuva = eski boş hücre karesinin yeri (StackView: gövde -S/2, kare +S/2 − 1,1t → hücre merkezinden −1,1t).
@@ -507,7 +519,7 @@ namespace KatKat.View
             var sw = System.Diagnostics.Stopwatch.StartNew();
             // Kenar tonu: bölgenin arka plan teması (VR2 paleti, ana ton); VR2 yoksa özgün ahşap.
             Color? tone = KatKat.UI.Vr2.Ready ? (Color)KatKat.UI.Vr2.Skins[Mathf.Clamp(_vr2Skin, 0, KatKat.UI.Vr2.Skins.Length - 1)].Base : (Color?)null;
-            var px = TrayArt.Bake(_inShape, _width, _height, ResTray, resY, pad, socketDy, FaceRatio * TrayArt.SocketOverFace, tone, out int tw, out int th);
+            var px = TrayArt.Bake(_inShape, _width, _height, resX, resY, pad, socketDy, FaceRatio * TrayArt.SocketOverFace, tone, ResTray, out int tw, out int th);
             if (_floorTexTray == null || _floorTexTray.width != tw || _floorTexTray.height != th)
             {
                 if (_floorTexTray != null) DestroyImmediate(_floorTexTray);
@@ -521,7 +533,7 @@ namespace KatKat.View
             sp.hideFlags = HideFlags.DontSave;
             _floorSr.sprite = sp;
             _floorSr.color = Color.white;
-            float gridLeft = _floorWorld.xMin + 0.25f * _pitch, gridTop = _floorWorld.yMax - 0.25f * _rowPitch;
+            float gridLeft = _floorWorld.xMin + 0.25f * _colPitch, gridTop = _floorWorld.yMax - 0.25f * _rowPitch;
             float padW = pad / (float)ResTray * _pitch;
             _floorSr.transform.localPosition = new Vector3(gridLeft - padW, gridTop - _height * _rowPitch - padW, 0f);
             _floorSr.transform.localScale = new Vector3(_pitch, _pitch, 1f);
@@ -629,7 +641,9 @@ namespace KatKat.View
             return cx < _width && cy < _height && _inShape[cy * _width + cx];
         }
 
-        public Vector3 CellCenter(int x, int y) => new Vector3(_origin.x + x * _pitch, _origin.y - y * _rowPitch, 0f);
+        public Vector3 CellCenter(int x, int y) => new Vector3(_origin.x + x * _colPitch, _origin.y - y * _rowPitch, 0f);
+        /// <summary>Sütun adımı (yatay hücre aralığı; taş boyundan büyük olabilir).</summary>
+        public float ColPitch => _colPitch;
 
         /// <summary>Satırlar arası dünya mesafesi (yığın yüksekliğine göre sütun adımından büyük olabilir).</summary>
         public float RowPitch => _rowPitch;
@@ -711,7 +725,7 @@ namespace KatKat.View
         /// <summary>Dünya noktasındaki hücre. Hücrenin tamamı hedeflenebilir (yalnızca görünen yüzey değil).</summary>
         public bool TryCellAt(Vector2 world, out int x, out int y)
         {
-            float fx = (world.x - (_origin.x - _pitch * 0.5f)) / _pitch;
+            float fx = (world.x - (_origin.x - _colPitch * 0.5f)) / _colPitch;
             float fy = ((_origin.y + _rowPitch * 0.5f) - world.y) / _rowPitch;
             x = Mathf.FloorToInt(fx);
             y = Mathf.FloorToInt(fy);
@@ -1447,32 +1461,32 @@ namespace KatKat.View
             }
         }
 
+        /// <summary>
+        /// Çakılın kalkması (2026-11-21, kullanıcı: "Çakıl patlatıldığında olduğu yerden parçalanarak aşağıya akacak"): yığın kendi
+        /// yerinde 5×5 parçaya bölünür; parçalar hafifçe sıçrar, yerçekimiyle aşağı dökülür (yukarıdakiler biraz gecikir, akış hissi).
+        /// </summary>
         private void ClearGravel(StackView stack, int dx, int dy)
         {
-            var pile = stack.GravelRenderer;
             stack.SetGravel(false);
-            Flash(stack, new Color(1f, 0.95f, 0.8f, 0.9f), 1.3f);
-            var pos = stack.transform.position + stack.TopFaceLocal;
-            var away = new Vector3(dx == 0 ? R(-0.4f, 0.4f) : Mathf.Sign(dx), dy == 0 ? 0.6f : -Mathf.Sign(dy) * 0.8f + 0.3f, 0f).normalized;
-            if (pile != null)
-            {
-                var ghost = Ghost(pile, stack.transform);
-                var from = ghost.transform.position;
-                _fx.Add(new Fx { Kind = FxKind.Away, T = ghost.transform, R = ghost, Owned = true, From = from, To = from + away * stack.Size * 0.5f + new Vector3(0f, stack.Size * 0.25f, 0f), BaseScale = ghost.transform.localScale, Dur = 320f });
-            }
+            Flash(stack, new Color(1f, 0.95f, 0.8f, 0.9f), 1.1f);
             if (KatKat.UI.Motion.Reduced) return;
+            var pos = stack.transform.position + stack.TopFaceLocal;
+            float size = stack.Size * stack.transform.lossyScale.x;
             int order = PeelDirector.PeelSortingOrder + 1102;
-            for (int i = 0; i < 14; i++)
+            const int G = 5;
+            for (int gy = 0; gy < G; gy++)
+            for (int gx = 0; gx < G; gx++)
             {
-                var dir = (away + new Vector3(R(-0.9f, 0.9f), R(-0.3f, 1.1f), 0f)).normalized;
-                float g = R(0.7f, 1.1f);
-                var c = Color.Lerp(new Color(0.62f, 0.56f, 0.5f, 1f), new Color(0.92f, 0.88f, 0.8f, 1f), R(0f, 1f));
-                Particles.Emit(GravelArt.Pebble, false, order, pos + new Vector3(R(-0.3f, 0.3f), R(-0.3f, 0.3f), 0f) * stack.Size, dir * WorldPitch * R(1.6f, 3.2f), R(0.5f, 0.8f),
-                    WorldPitch * R(0.16f, 0.3f) * g, WorldPitch * 0.12f * g, c, new Color(c.r, c.g, c.b, 0f), gravity: -WorldPitch * 9f, drag: 0.8f, rot: R(0f, 180f), rotVel: R(-360f, 360f));
+                var p = pos + new Vector3((gx + 0.5f) / G - 0.5f, (gy + 0.5f) / G - 0.5f, 0f) * size * 0.95f;
+                var vel = new Vector3(R(-0.5f, 0.5f), R(0.2f, 1.1f), 0f) * WorldPitch;
+                float s0 = size * R(0.2f, 0.28f);
+                var c = Color.Lerp(new Color(0.7f, 0.64f, 0.57f, 1f), new Color(0.93f, 0.89f, 0.82f, 1f), R(0f, 1f));
+                Particles.Emit(GravelArt.Pebble, false, order, p, vel, R(0.9f, 1.3f), s0, s0 * 0.85f, c, new Color(c.r, c.g, c.b, 0f),
+                    gravity: -WorldPitch * 14f, drag: 0.2f, delay: gy * 0.025f + R(0f, 0.03f), rot: R(0f, 180f), rotVel: R(-200f, 200f));
             }
-            for (int i = 0; i < 3; i++)
-                Particles.Emit(FxKit.Puff, false, order - 1, pos, (away + Vector3.up * 0.5f) * WorldPitch * R(0.3f, 0.7f), R(0.5f, 0.8f), stack.Size * 0.6f, stack.Size * 1.3f,
-                    new Color(0.9f, 0.83f, 0.72f, 0.5f), new Color(0.88f, 0.8f, 0.7f, 0f), drag: 2f);
+            for (int i = 0; i < 2; i++)
+                Particles.Emit(FxKit.Puff, false, order - 1, pos, new Vector3(R(-0.2f, 0.2f), -0.3f, 0f) * WorldPitch, R(0.5f, 0.7f), size * 0.6f, size * 1.2f,
+                    new Color(0.9f, 0.83f, 0.72f, 0.45f), new Color(0.88f, 0.8f, 0.7f, 0f), drag: 2f);
         }
 
         private void BombBlast(StackView s)

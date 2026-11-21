@@ -568,13 +568,48 @@ namespace KatKat.EditorTools
                     for (float t = 0f; t < at; t += 16f) Tick(gc, 16f);
                 });
             }
-            // 2026-11-21 Test Bölümleri: liste, kural kartı ve dört bölümün tahtası.
-            Shot($"{V}test_liste.png", 1080, 1920, null, gc => gc.ShowPilots());
-            Shot($"{V}test_kart_03.png", 1080, 1920, null, gc => { gc.ShowPilots(); gc.StartTrial(2); });
-            foreach (var k in new[] { 0, 2, 8, 9 })
+            // 2026-11-21 Test Bölümleri (son özellikler): tahtalar, süreli bölüm, seçili güçlendirici, renk paleti, çakıl dökülmesi.
+            void Lab(GameController gc, int i)
+            {
+                var m = gc.SaveService.Data.meta;
+                m.boostBomb = 3; m.boostRecolor = 3; m.boostMoves = 3;
+                gc.ShowPilots(); gc.StartTrial(i); gc.Hud.HideRuleCard(false);
+            }
+            foreach (var k in new[] { 0, 1, 3, 7, 9 })
             {
                 int idx = k;
-                Shot($"{V}test_bolum_{idx + 1:00}.png", 1080, 1920, null, gc => { gc.ShowPilots(); gc.StartTrial(idx); gc.Hud.HideRuleCard(false); });
+                Shot($"{V}test_bolum_{idx + 1:00}.png", 1080, 1920, null, gc => Lab(gc, idx));
+            }
+            Shot($"{V}sure_son5.png", 1080, 1920, null, gc => { Lab(gc, 3); gc.AdvanceTimeForTest(gc.TimeLeft - 5f); gc.Board.AdvanceTimedFx(0.08f); });
+            Shot($"{V}sure_bitti.png", 1080, 1920, null, gc => { Lab(gc, 3); gc.AdvanceTimeForTest(gc.TimeLeft + 0.5f); gc.Board.AdvanceTimedFx(0.5f); });
+            Shot($"{V}sure_kart.png", 1080, 1920, null, gc => { Lab(gc, 3); gc.AdvanceTimeForTest(gc.TimeLeft + 0.5f); gc.Board.AdvanceTimedFx(1.7f); });
+            Shot($"{V}guclendirici_secili.png", 1080, 1920, null, gc => { Lab(gc, 0); gc.PressBoosterForTest(KatKat.Meta.Booster.Bomb); for (int t = 0; t < 20; t++) Tick(gc, 16f); });
+            Shot($"{V}renk_palet.png", 1080, 1920, null, gc => { Lab(gc, 0); gc.PressBoosterForTest(KatKat.Meta.Booster.Recolor); });
+            Shot($"{V}renk_secildi.png", 1080, 1920, null, gc =>
+            {
+                Lab(gc, 0);
+                gc.PressBoosterForTest(KatKat.Meta.Booster.Recolor);
+                gc.ChooseRecolorForTest(KatKat.Core.LayerColor.Purple);
+                var b = gc.Session.State.Board;
+                for (int i = 0; i < b.Count; i++)
+                    if (KatKat.Core.GameSession.CanRecolor(b[i]) && b[i].Top != KatKat.Core.LayerColor.Purple) { gc.PickRecolorForTest(b.X(i), b.Y(i)); break; }
+                for (int t = 0; t < 20; t++) Tick(gc, 16f);
+            });
+            foreach (var ms in new[] { 120f, 400f })
+            {
+                float at = ms;
+                Shot($"{V}cakil_dokulme_{(int)at}ms.png", 1080, 1920, null, gc =>
+                {
+                    Lab(gc, 0);
+                    var st = gc.Session.State;
+                    st.Tray.Clear();
+                    st.Tray.Add(KatKat.Core.SpecialKind.Shovel);
+                    gc.Hud.SetTrayVisible(true);
+                    gc.Hud.SetTray(st.Tray, -1);
+                    for (int i = 0; i < st.Board.Count; i++)
+                        if (st.Board[i].Active && st.Board[i].Gravel) { gc.PlayStep(new KatKat.Levels.StepData { Type = "use", Row = 0, X = st.Board.X(i), Y = st.Board.Y(i) }); break; }
+                    for (float t = 0f; t < at; t += 16f) Tick(gc, 16f);
+                });
             }
             // Boşta ipucu: 5 sn sonra en büyük grup yanıp söner (sönük ve parlak an).
             foreach (var sec in new[] { 0.05f, 0.45f })

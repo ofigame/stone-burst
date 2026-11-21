@@ -23,6 +23,7 @@ namespace KatKat.Levels
                 Width = Int(o, "width", sourceName),
                 Height = Int(o, "height", sourceName),
                 MoveLimit = Int(o, "moveLimit", sourceName),
+                TimeLimit = o.ContainsKey("timeLimit") ? Int(o, "timeLimit", sourceName) : 0,
                 RollEnabled = OptBool(o, "rollEnabled"),
                 StartingRoll = OptBool(o, "startingRoll"),
             };

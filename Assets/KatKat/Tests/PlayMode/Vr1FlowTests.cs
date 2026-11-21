@@ -95,13 +95,19 @@ namespace KatKat.Tests
             _gc.ShowLevels();
             yield return null;
             Assert.IsNotNull(Find("PilotButton"));
-            int completed = _gc.SaveService.Data.completed.Count, stars = _gc.SaveService.Data.TotalStars;
+
+            // 2026-11-21: Test Bölümleri yalnız en son 10 yeni bölüm (Resources/Lab).
             _gc.ShowPilots();
-            _gc.StartTrial(GameController.LabCount + 4); // pilot_05 aşamalı hedef (2026-11-21: Test Bölümlerinde ilk 10 yeni bölüm)
+            _gc.StartTrial(0);
             yield return null;
             Assert.IsTrue(_gc.InPilot);
+            Assert.AreEqual("lab_01", _gc.CurrentLevel.Id);
+            // Eski aşamalı pilot bölümü listede yok; kayıtlı çözümü doğrudan dosyadan oynatılır.
+            var asset = Resources.Load<TextAsset>("Pilot/pilot_05");
+            Assert.IsNotNull(asset);
+            _gc.StartCustom(KatKat.Levels.LevelParser.Parse(asset.text, asset.name), 0);
+            yield return null;
             Assert.AreEqual("pilot_stages", _gc.CurrentLevel.TrialType);
-            Assert.Less(_gc.Hud.GoalChipAlpha(1), 1f, "sonraki aşama soluk");
             _gc.Board.Director.TimeScale = 10f;
             foreach (var step in _gc.CurrentLevel.Solution)
             {
@@ -109,8 +115,6 @@ namespace KatKat.Tests
                 yield return WaitStable();
             }
             Assert.AreEqual(KatKat.Core.GameStatus.Won, _gc.Session.State.Status);
-            Assert.AreEqual(completed, _gc.SaveService.Data.completed.Count, "ana ilerleme değişmez");
-            Assert.AreEqual(stars, _gc.SaveService.Data.TotalStars, "yıldız değişmez");
         }
 
         /// <summary>C03: taş kazanıldı, uygulama sunumdan önce kapandı → sonraki açılışta vitrin bir kez; taş ikinci kez verilmez.</summary>

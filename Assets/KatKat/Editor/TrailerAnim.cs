@@ -228,12 +228,12 @@ namespace KatKat.EditorTools
                     b = gc.Session.State.Board;
                     var picks = new List<Coord>();
                     for (int i = 0; i < b.Count && picks.Count < 3; i++)
-                        if (GameSession.CanRecolor(b[i]) && b[i].Top != LayerColor.Green) picks.Add(new Coord(b.X(i), b.Y(i)));
+                        if (GameSession.CanRecolor(b[i]) && b[i].Top != LayerColor.Purple) picks.Add(new Coord(b.X(i), b.Y(i)));
                     gc.PressBoosterForTest(KatKat.Meta.Booster.Recolor);
                     Frames(0.8f);
-                    foreach (var p in picks) { gc.OnCellPressed(p.X, p.Y); Frames(0.45f); }
+                    gc.ChooseRecolorForTest(LayerColor.Purple); // 2026-11-21: önce renk, sonra taşlar
                     Frames(0.5f);
-                    gc.ChooseRecolorForTest(LayerColor.Green);
+                    foreach (var p in picks) { gc.OnCellPressed(p.X, p.Y); Frames(0.45f); }
                     Frames(2.0f);
                 });
             }

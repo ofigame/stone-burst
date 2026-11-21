@@ -70,6 +70,7 @@ namespace KatKat.UI
             UiFactory.Place(ribbon.rectTransform, new Vector2(0.5f, 1f), ribbonPos, ribbonSize);
             _movesPill = ribbon.rectTransform;
             var label = UiFactory.Text("MovesLabel", ribbon.transform, Loc.T("hud.moves"), 52, Color.white, TextAnchor.MiddleRight);
+            _movesLabel = label;
             label.enableAutoSizing = true; label.fontSizeMax = 52; label.fontSizeMin = 26; label.textWrappingMode = TMPro.TextWrappingModes.NoWrap;
             label.raycastTarget = false;
             UiFactory.Place(label.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-56f, 0f), new Vector2(190f, 66f));
@@ -396,7 +397,7 @@ namespace KatKat.UI
         private Canvas _canvas;
         private RectTransform _safe;
         private float _boardBottom = ShellH + 22f;
-        private Text _moves, _toast, _tutorial;
+        private Text _moves, _toast, _tutorial, _movesLabel;
         private RectTransform _goalsBar;
         private RectTransform _tutorialBox, _toastBox;
         private RectTransform _goalsRow;
@@ -1009,7 +1010,8 @@ namespace KatKat.UI
         }
 
         /// <summary>Seçilen yığının üstünde mevcut renk dışındaki renkler; dokununca boyar.</summary>
-        public void ShowPalette(LayerColor current, IList<LayerColor> options)
+        /// <param name="selected">2026-11-21 renk değiştirme: seçili renk büyük ve altın çerçeveli kalır.</param>
+        public void ShowPalette(LayerColor current, IList<LayerColor> options, LayerColor? selected = null)
         {
             HidePalette();
             _palette = UiFactory.Rect("Palette", _bottomBar);
@@ -1026,6 +1028,13 @@ namespace KatKat.UI
                 var col = options[i];
                 var chip = UiFactory.SpriteButton("Color" + i, _palette, PremiumArt.Chip(col) ?? UiArt.Chip(col), new Vector2(104f, 104f), () => PaintColorChosen?.Invoke(col));
                 UiFactory.Place((RectTransform)chip.transform, new Vector2(0.5f, 0.5f), new Vector2((i - (options.Count - 1) * 0.5f) * 130f, 0f), new Vector2(104f, 104f));
+                if (selected.HasValue)
+                {
+                    bool on = selected.Value == col;
+                    chip.transform.localScale = Vector3.one * (on ? 1.18f : 0.86f);
+                    ((Image)chip.targetGraphic).color = on ? Color.white : new Color(1f, 1f, 1f, 0.55f);
+                    if (on) { var ol = chip.gameObject.AddComponent<Outline>(); ol.effectColor = UiArt.Gold; ol.effectDistance = new Vector2(5f, -5f); }
+                }
             }
         }
 
@@ -1113,8 +1122,29 @@ namespace KatKat.UI
             HideToast();
         }
 
+        /// <summary>2026-11-21 süreli bölüm: hamle kapsülünde "Süre" ve dakika:saniye; son 10 saniye kırmızı. sec &lt; 0 → hamle görünümü.</summary>
+        public void SetTimer(float sec)
+        {
+            if (_moves == null) return;
+            if (sec < 0f)
+            {
+                if (_movesLabel != null) _movesLabel.text = Loc.T("hud.moves");
+                _moves.color = new Color32(0xFF, 0xCE, 0x3A, 0xFF);
+                return;
+            }
+            int t = Mathf.CeilToInt(sec);
+            if (_movesLabel != null) _movesLabel.text = Loc.T("hud.time");
+            _moves.text = (t / 60) + ":" + (t % 60).ToString("00");
+            _moves.color = t <= 10 ? new Color32(0xFF, 0x5A, 0x4A, 0xFF) : new Color32(0xFF, 0xCE, 0x3A, 0xFF);
+            _mascot?.SetWorried(t <= 10);
+        }
+
+        /// <summary>Süreli bölümde hamle sayısı yazılmaz (süre gösterilir).</summary>
+        public bool TimerMode { get; set; }
+
         public void SetMoves(int moves)
         {
+            if (TimerMode) return;
             _moves.text = moves.ToString();
             _mascot?.SetWorried(moves > 0 && moves <= 3);
         }

@@ -366,6 +366,7 @@ namespace KatKat.Game
 
         private void AfterBegin()
         {
+            TimedBegin();
             if (_sessionKind == SessionKind.Trial) { SetPhase(Phase.Idle); TrialAfterBegin(); return; }
             _hud.PlaceRollBesideTray(_sessionKind == SessionKind.Daily && _session.State.RollEnabled && _session.State.SpecialsEnabled);
             if (_sessionKind == SessionKind.Daily)

@@ -119,14 +119,19 @@ namespace KatKat.Tests
             if (_gc.Session.State.Status == GameStatus.Idle)
             {
                 b = _gc.Session.State.Board;
+                // 2026-11-21 akışı: önce renk, sonra taşlara tek tek dokunulur (3 → 0); üçüncüde kip kendiliğinden kapanır.
+                var color = LayerColor.Blue;
                 var picks = new List<Coord>();
                 for (int i = 0; i < b.Count && picks.Count < 3; i++)
-                    if (GameSession.CanRecolor(b[i])) picks.Add(new Coord(b.X(i), b.Y(i)));
+                    if (GameSession.CanRecolor(b[i]) && b[i].Top != color) picks.Add(new Coord(b.X(i), b.Y(i)));
                 Assert.AreEqual(3, picks.Count);
                 _gc.PressBoosterForTest(Booster.Recolor);
-                foreach (var p in picks) _gc.OnCellPressed(p.X, p.Y);
-                var color = b[picks[0].X, picks[0].Y].Top == LayerColor.Green ? LayerColor.Blue : LayerColor.Green;
+                _gc.OnCellPressed(picks[0].X, picks[0].Y);
+                Assert.AreNotEqual(color, b[picks[0].X, picks[0].Y].Top, "renk seçilmeden taş değişmez");
+                Assert.AreEqual(ShopCatalog.TrialCount, Meta.boostRecolor, "renk seçilmeden hak düşmez");
                 _gc.ChooseRecolorForTest(color);
+                foreach (var p in picks) _gc.OnCellPressed(p.X, p.Y);
+                Assert.IsFalse(_gc.BoosterModeActive, "üç taştan sonra kip kapanır");
                 foreach (var p in picks)
                     if (b[p.X, p.Y].Layers.Count > 0) Assert.AreEqual(color, b[p.X, p.Y].Top, $"({p.X},{p.Y}) yeni renk");
                 Assert.AreEqual(ShopCatalog.TrialCount - 1, Meta.boostRecolor);

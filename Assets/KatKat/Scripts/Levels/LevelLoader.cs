@@ -6,6 +6,9 @@ namespace KatKat.Levels
     /// <summary>LevelData'dan derin kopya çalışma durumu üretir. Kaynak veri değişmez.</summary>
     public static class LevelLoader
     {
+        /// <summary>Süreli bölümde hamle sayacı (pratikte sınırsız; HUD süreyi gösterir).</summary>
+        public const int UnlimitedMoves = 9999;
+
         public static LevelState ToState(LevelData d)
         {
             var board = new BoardState(d.Width, d.Height);
@@ -59,7 +62,7 @@ namespace KatKat.Levels
             var s = new LevelState
             {
                 Board = board,
-                MovesLeft = d.MoveLimit,
+                MovesLeft = d.TimeLimit > 0 ? UnlimitedMoves : d.MoveLimit,
                 RollEnabled = d.RollEnabled,
                 RollSlotFull = d.RollEnabled && d.StartingRoll,
                 SpecialsEnabled = d.SpecialsEnabled,

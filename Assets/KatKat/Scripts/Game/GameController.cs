@@ -453,10 +453,11 @@ namespace KatKat.Game
             if (_cam == null) return;
             if (_live != null) return; // canlı maç kendi girdisini ve yerleşimini yönetir
             OutcomeTick(Time.unscaledDeltaTime);
+            TimedTick(Time.unscaledDeltaTime);
             HintTick();
             TrialTickPress();
             IdleHintTick(Time.unscaledDeltaTime);
-            if (SwapDragTick()) return;
+            // 2026-11-21 (kullanıcı: "Taş kaydırmayı iptal edelim oyunun dinamiğini bozuyor"): sürükle-değiştir girdisi kapalı.
             if (_screen.x != Screen.width || _screen.y != Screen.height)
             {
                 FitCamera();
@@ -533,8 +534,7 @@ namespace KatKat.Game
                 }
                 if (r.Reason == RejectReason.GroupTooSmall)
                 {
-                    // 2026-11-21: basılı parmak komşuya kayarsa sürükle-değiştir (GameController.Swap); bırakılırsa uyarı.
-                    if (!BeginSwapDrag(x, y, r.TappedGroup)) TooSmallFeedback(r.TappedGroup);
+                    TooSmallFeedback(r.TappedGroup); // sürükle-değiştir kapalı (2026-11-21)
                 }
                 else if (r.Reason == RejectReason.NotSelectable && _session.State.Board.InBounds(x, y) && _session.State.Board[x, y].HasCover)
                 {
@@ -979,6 +979,8 @@ namespace KatKat.Game
                     SetPhase(Phase.Ended);
                     ShowLost(s.Status);
                     break;
+                case GameStatus.LostOutOfTime:
+                    break; // süreli bölüm: patlama animasyonu bitince TimedTick gösterir
                 default:
                     SetPhase(Phase.Idle);
                     break;
@@ -1037,6 +1039,7 @@ namespace KatKat.Game
             EndPlaceOffer();
             if (_sessionKind == KatKat.Meta.SessionKind.Daily) { ShowDailyLost(status); return; }
             if (_sessionKind == KatKat.Meta.SessionKind.Trial) { ShowTrialLost(status); return; }
+            if (status == GameStatus.LostOutOfTime) { ShowTimeLost(); return; }
             bool moves = status == GameStatus.LostOutOfMoves, crystal = status == GameStatus.LostProtected;
             // v12 (kullanıcı, 2026-11-08): hamle bitince "Reklam izle, +3 hamle", bölüm başına 1 kez.
             ExtraMovesOffered = CanOfferExtraMoves(status);

@@ -106,13 +106,16 @@ namespace KatKat.UI
                 _boosterLocks[i].gameObject.SetActive(!open);
                 _boosterBadges[i].gameObject.SetActive(open);
                 _boosterCounts[i].text = n > 0 ? n.ToString() : "+";
-                _boosterIcons[i].color = open ? Color.white : new Color(1f, 1f, 1f, 0.45f);
-                ((Image)btn.targetGraphic).color = open ? Color.white : new Color(1f, 1f, 1f, 0.55f);
                 bool sel = i == selected;
+                // 2026-11-21 (kullanıcı: "hangisi seçili ise o parlak ve hareketli ışıltılı olacak diğerleri pasifleştirilecek"):
+                // bir güçlendirici seçiliyken diğerleri gri ve sönük.
+                bool dimmed = selected >= 0 && !sel;
+                _boosterIcons[i].color = !open ? new Color(1f, 1f, 1f, 0.45f) : dimmed ? new Color(0.55f, 0.55f, 0.6f, 0.45f) : Color.white;
+                ((Image)btn.targetGraphic).color = !open ? new Color(1f, 1f, 1f, 0.55f) : dimmed ? new Color(0.6f, 0.6f, 0.65f, 0.5f) : Color.white;
                 _boosterSel[i].color = new Color(1f, 0.85f, 0.35f, sel ? 0.95f : 0f);
                 _boosterReady[i] = open && n > 0;
-                _boosterTwinkle[i].SetOn(_boosterReady[i] || sel);
-                if (!_boosterReady[i] && !sel) _boosterAura[i].color = Color.clear;
+                _boosterTwinkle[i].SetOn((_boosterReady[i] && !dimmed) || sel);
+                if ((!_boosterReady[i] && !sel) || dimmed) _boosterAura[i].color = Color.clear;
                 btn.transform.localScale = Vector3.one * _boosterScale * (sel ? TraySelScale : 1f);
             }
             if (changed) LayoutBottom();
@@ -299,8 +302,10 @@ namespace KatKat.UI
                 var btn = _boosters[i];
                 if (btn == null || !btn.gameObject.activeInHierarchy) continue;
                 bool sel = i == _boosterSelected;
-                bool live = (_boosterReady[i] || sel) && !Motion.Reduced;
-                float w = Mathf.Sin((t / 1.4f + i * 0.33f) * 2f * Mathf.PI);
+                bool dimmed = _boosterSelected >= 0 && !sel;
+                bool live = ((_boosterReady[i] && !dimmed) || sel) && !Motion.Reduced;
+                // Seçili: daha hızlı ve geniş nabız, güçlü ışık.
+                float w = Mathf.Sin((t / (sel ? 0.8f : 1.4f) + i * 0.33f) * 2f * Mathf.PI);
                 float pop = 1f, rot = 0f;
                 if (_boosterPop[i] < 1f)
                 {
@@ -309,15 +314,15 @@ namespace KatKat.UI
                     pop = 1f + 0.55f * Mathf.Sin(k * Mathf.PI) * (1f - 0.5f * k);
                     rot = 16f * Mathf.Sin(k * Mathf.PI * 3f) * (1f - k);
                 }
-                float breath = live ? 1f + (sel ? 0.1f : 0.075f) * w : 1f;
+                float breath = live ? 1f + (sel ? 0.16f : 0.075f) * w : 1f;
                 _boosterIcons[i].rectTransform.localScale = Vector3.one * breath * pop;
                 _boosterIcons[i].rectTransform.localRotation = Quaternion.Euler(0f, 0f, rot);
                 if (live)
                 {
                     var c = BoosterGlow;
-                    c.a = (sel ? 0.8f : 0.55f) + 0.25f * w;
+                    c.a = sel ? 0.95f : 0.55f + 0.25f * w;
                     _boosterAura[i].color = c;
-                    _boosterAura[i].rectTransform.localScale = Vector3.one * (1f + 0.12f * w);
+                    _boosterAura[i].rectTransform.localScale = Vector3.one * (sel ? 1.25f + 0.2f * w : 1f + 0.12f * w);
                 }
                 if (sel) _boosterSel[i].color = new Color(1f, 0.85f, 0.35f, 0.7f + 0.25f * w);
             }
