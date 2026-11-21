@@ -103,15 +103,9 @@ namespace KatKat.Levels
                 }
                 else if (kind == SpecialKind.Shovel)
                 {
-                    // Kürek: temizlediği çakıl kümesi başına bir hedef (aynı kümeyi açan merkezler elenir).
-                    var sets = new HashSet<string>();
+                    // Kürek (2026-11-21): hangi çakıla vurulursa vurulsun bütün çakıl kalkar; tek hedef yeter.
                     for (int i = 0; i < b.Count; i++)
-                    {
-                        if (!RulesEngine.ShovelHasEffect(b, b.X(i), b.Y(i))) continue;
-                        var key = new StringBuilder();
-                        foreach (var j in RulesEngine.BombArea(b, b.X(i), b.Y(i))) if (b[j].Active && b[j].Gravel) key.Append(j).Append(',');
-                        if (sets.Add(key.ToString())) list.Add(Command.UseSpecial(slot, b.X(i), b.Y(i)));
-                    }
+                        if (RulesEngine.ShovelHasEffect(b, b.X(i), b.Y(i))) { list.Add(Command.UseSpecial(slot, b.X(i), b.Y(i))); break; }
                 }
                 else
                 {
@@ -186,6 +180,7 @@ namespace KatKat.Levels
                 if (c.ButtonGate > 0) sb.Append('B');
                 if (c.Moss) sb.Append('m');
                 if (c.Gravel) sb.Append('G');
+                if (c.Quiet > 0) sb.Append('q').Append(c.Quiet); // 2026-11-21 çakıl yayılması (yalnız çakıllı tahtada sayılır)
                 if (!c.Active) sb.Append('#');
                 sb.Append('/');
             }

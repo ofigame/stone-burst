@@ -130,7 +130,6 @@ namespace KatKat.UI
             BuildRankButton(shell);
             BuildLiveButton(shell); // canlı maç girişi (Sıralama altı)
             BuildPilotButton(shell); // vr1 pilot (prototip)
-            BuildConceptButton(shell); // konsept pilotu
             BuildStarGoal(shell);
 
             // 5) Külçe kapsülü (700, 56, 208, 88; 2026-11-20 kullanıcı: "külçe miktarımız … kalbin yanındaki yıldızın yerine")

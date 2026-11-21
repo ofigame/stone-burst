@@ -91,6 +91,7 @@ switch ($Command) {
     'export-art'      { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.ArtExport.ExportAll') 'export-art' }
     'capture-game'    { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CaptureAll') 'capture-game' }
     'capture-pop'     { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CapturePop') 'capture-pop' } # taş akışı ara kareleri (2026-11-19)
+    'lab-levels'      { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.LabLevels.Build') 'lab-levels' } # 2026-11-21 yeni özellik test bölümleri → Resources/Lab
     'build-android'   { $c = Invoke-Unity @('-quit', '-buildTarget', 'Android', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildAndroid') 'build-android' }
     'build-android-acik' { $c = Invoke-Unity @('-quit', '-buildTarget', 'Android', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildAndroidUnlockAll') 'build-android-acik' }
     'build-android-notifytest' { $c = Invoke-Unity @('-quit', '-buildTarget', 'Android', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildAndroidNotifyTest') 'build-android-notifytest' }

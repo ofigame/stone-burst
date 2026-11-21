@@ -34,6 +34,13 @@ namespace KatKat.Core
         /// <summary>M12: boyanan hücre ve eski/yeni üst renk (Paint değilse anlamsız). Dalga yoktur.</summary>
         public Coord Painted;
         public LayerColor PaintFrom, PaintTo;
+        /// <summary>2026-11-21 sürükle-değiştir: kaynak ve komşu hücre, değişen kat ve değişimden önceki renkler (Swap değilse anlamsız).</summary>
+        public Coord SwapFrom, SwapTo;
+        /// <summary>2026-11-21 çakıl yayılması: hamle sonunda çakıla dönen hücre (GravelGrew false ise anlamsız).</summary>
+        public bool GravelGrew;
+        public Coord GravelGrownAt;
+        public int SwapLayer;
+        public LayerColor SwapFromColor, SwapToColor;
         /// <summary>Bu hamlenin toplam puanı (özel taş oluşma puanı dahil).</summary>
         public int ScoreGained;
         /// <summary>Konsept pilotu: hamle sonu tehdit olayı ve etkilediği hücreler (yalnız sunum).</summary>

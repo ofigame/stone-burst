@@ -51,25 +51,25 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void Shovel_Clears3x3Gravel_NoMoveSpent_NoPeel()
+        public void Shovel_OnAnyGravel_ClearsAllGravel_NoMoveSpent_NoPeel()
         {
             var s = State(5, new[] { "bG bG bG y", "bG bG bG y", "y y y yG" }, FarGoal);
             s.Tray.Add(SpecialKind.Shovel);
             var r = RulesEngine.TryApply(s, Command.UseSpecial(0, 1, 1));
             Assert.IsTrue(r.Accepted);
             Assert.AreEqual(5, s.MovesLeft);
-            Assert.AreEqual(6, r.Waves.Sum(w => w.GravelCleared.Count));
+            Assert.AreEqual(7, r.Waves.Sum(w => w.GravelCleared.Count));
             Assert.AreEqual(0, r.Waves.Sum(w => w.Cells.Count));
             Assert.IsTrue(s.Board[1, 1].IsSelectable);
-            Assert.IsTrue(s.Board[3, 2].Gravel); // alan dışında kalır
+            Assert.IsFalse(s.Board[3, 2].Gravel); // uzaktaki çakıl da kalkar
         }
 
         [Test]
-        public void Shovel_WithoutGravelInArea_HasNoEffect()
+        public void Shovel_OnNonGravelCell_HasNoEffect()
         {
             var s = State(5, new[] { "y y y bG", "y y y y" }, FarGoal);
             s.Tray.Add(SpecialKind.Shovel);
-            Assert.AreEqual(RejectReason.TrayNoEffect, RulesEngine.TryApply(s, Command.UseSpecial(0, 0, 0)).Reason);
+            Assert.AreEqual(RejectReason.TrayNoEffect, RulesEngine.TryApply(s, Command.UseSpecial(0, 2, 0)).Reason);
         }
 
         [Test]
@@ -81,6 +81,37 @@ namespace KatKat.Tests
             Assert.IsTrue(s.Board[1, 0].Gravel);
             Assert.AreEqual("b", Cell(s, 1, 0));
             Assert.IsFalse(RulesEngine.BombHasEffect(State(5, new[] { "bG bG", "bG bG" }, FarGoal).Board, 0, 0));
+        }
+        [Test]
+        public void QuietNeighbourOfGravel_TurnsIntoGravel_AfterSpreadMoves()
+        {
+            var s = State(5, new[] { "bG c y y", "p p p y" }, FarGoal);
+            s.Board[1, 0].Quiet = RulesEngine.GravelSpreadMoves - 1;
+            var r = RulesEngine.TryApply(s, Command.Tap(0, 1));
+            Assert.IsTrue(r.Accepted);
+            Assert.IsTrue(r.GravelGrew);
+            Assert.AreEqual(new Coord(1, 0), r.GravelGrownAt);
+            Assert.IsTrue(s.Board[1, 0].Gravel);
+            Assert.IsFalse(s.Board[2, 0].Gravel);
+        }
+
+        [Test]
+        public void PoppedNeighbour_ResetsQuiet_AndDoesNotGrow()
+        {
+            var s = State(5, new[] { "bG c y", "y c c" }, FarGoal);
+            s.Board[1, 0].Quiet = RulesEngine.GravelSpreadMoves - 1;
+            var r = RulesEngine.TryApply(s, Command.Tap(1, 0));
+            Assert.IsTrue(r.Accepted);
+            Assert.IsFalse(r.GravelGrew);
+            Assert.AreEqual(0, s.Board[1, 0].Quiet);
+        }
+
+        [Test]
+        public void WithoutGravel_NothingIsCounted()
+        {
+            var s = State(5, new[] { "c c c", "y b y" }, FarGoal);
+            RulesEngine.TryApply(s, Command.Tap(0, 0));
+            Assert.AreEqual(0, s.Board[1, 1].Quiet);
         }
     }
 }

@@ -21,7 +21,10 @@ namespace KatKat.Game
         private readonly LevelData[] _trials = new LevelData[TrialCount];
         /// <summary>vr1 P2/P3 pilot kataloğu (Resources/Pilot, LevelLab pilot): deneme seti akışıyla oynanır; ana ilerlemeye,
         /// yıldızlara, ZPE'ye ve sıralamaya yazılmaz. Yalnız prototip anahtarı açıkken haritadan açılır.</summary>
-        public const int PilotCount = 12;
+        // 2026-11-21 (kullanıcı: "pilotun ismini test bölümleri yap"; "konsept bölümleri pilot bölümleri hepsi test bölümlerimde
+        // olacak"): Test Bölümleri = yeni özellik bölümleri (Lab, 10) + eski pilot (12) + eski konsept (10). Konsept düğmesi kalktı.
+        public const int LabCount = 10, OldPilotCount = 12;
+        public const int PilotCount = LabCount + OldPilotCount + ConceptCount;
         private readonly LevelData[] _pilots = new LevelData[PilotCount];
         private bool _pilot;
         public bool InPilot => _pilot;
@@ -38,12 +41,17 @@ namespace KatKat.Game
             var set = _concept ? _concepts : _pilot ? _pilots : _trials;
             if (i < 0 || i >= set.Length) return null;
             if (set[i] != null) return set[i];
-            var asset = Resources.Load<TextAsset>(_concept ? $"Concept/concept_{i + 1:00}" : _pilot ? $"Pilot/pilot_{i + 1:00}" : $"Trial/trial_{i + 1:00}");
+            var asset = Resources.Load<TextAsset>(_concept ? $"Concept/concept_{i + 1:00}" : _pilot ? PilotPath(i) : $"Trial/trial_{i + 1:00}");
             if (asset == null) return null;
             try { set[i] = LevelParser.Parse(asset.text, asset.name); }
             catch (FormatException e) { Debug.LogError("[KatKat] Deneme bölümü okunamadı: " + e.Message); }
             return set[i];
         }
+
+        private static string PilotPath(int i) =>
+            i < LabCount ? $"Lab/lab_{i + 1:00}"
+            : i < LabCount + OldPilotCount ? $"Pilot/pilot_{i - LabCount + 1:00}"
+            : $"Concept/concept_{i - LabCount - OldPilotCount + 1:00}";
 
         public bool TrialDone(int i) => Trial(i) is LevelData d && _save.Data.meta.trialDone.Contains(d.Id);
 

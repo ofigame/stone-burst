@@ -21,6 +21,9 @@ namespace KatKat.Core
         /// Özel taşlar kapalı bölümde (saf) çakıl varsa her 4+ grup Kürek verir.</summary>
         public const int ShovelGroupSize = 4;
         public const int RainbowGroupSize = 8;
+        /// <summary>2026-11-21 (kullanıcı: "bir alanda belli sürede patlatma yapılmaz ise orası çakıl olur"; hamle sayısı, çakıla
+        /// komşu hücre, yalnız çakıllı bölüm): bu kadar hamle dokunulmayan, çakıla komşu yığın çakıla döner.</summary>
+        public const int GravelSpreadMoves = 3;
 
         public static MoveResult TryApply(LevelState state, Command cmd)
         {
@@ -105,9 +108,23 @@ namespace KatKat.Core
             }
 
             int tapped = -1;
-            if (cmd.Type == CommandType.Tap)
+            bool tapLike = cmd.Type == CommandType.Tap || cmd.Type == CommandType.Swap;
+            if (cmd.Type == CommandType.Swap)
             {
-                tapped = state.Board.Index(cmd.X, cmd.Y);
+                // 2026-11-21 sürükle-değiştir: kaynak üst taş komşunun aynı katındaki taşla yer değiştirir; oluşan 3+ grup
+                // dokunulmuş gibi patlar (özel taş, rulo ve puan dokunuşla aynı).
+                int k = state.Board[cmd.X, cmd.Y].Layers.Count - 1;
+                result.SwapFrom = new Coord(cmd.X, cmd.Y);
+                result.SwapTo = new Coord(cmd.SwapX, cmd.SwapY);
+                result.SwapLayer = k;
+                result.SwapFromColor = state.Board[cmd.X, cmd.Y].Layers[k];
+                result.SwapToColor = state.Board[cmd.SwapX, cmd.SwapY].Layers[k];
+                SwapLayers(state.Board, cmd.X, cmd.Y, cmd.SwapX, cmd.SwapY, k);
+                wave0 = SwapGroup(state.Board, cmd.X, cmd.Y, cmd.SwapX, cmd.SwapY, k, out tapped);
+            }
+            if (tapLike)
+            {
+                if (tapped < 0) tapped = state.Board.Index(cmd.X, cmd.Y);
                 foreach (var i in wave0) result.TappedGroup.Add(new Coord(state.Board.X(i), state.Board.Y(i)));
                 // Rulo yalnızca doğrudan dokunulan ilk gruptan; dolu yuva korunur, ikinci rulo yok.
                 if (state.RollEnabled && wave0.Count >= RollGroupSize && !state.RollSlotFull)
@@ -122,7 +139,7 @@ namespace KatKat.Core
                 result.RollConsumed = true;
             }
 
-            new Resolver(state, result).Run(wave0, cmd.Type == CommandType.Tap ? WaveKind.Tap : WaveKind.Roll, tapped);
+            new Resolver(state, result).Run(wave0, tapLike ? WaveKind.Tap : WaveKind.Roll, tapped);
             Finish(state, result, scoreBefore);
             return result;
         }
@@ -132,11 +149,49 @@ namespace KatKat.Core
             // Konsept pilotu: hamle harcayan komuttan sonra tehdit bir adım (tepsi hamle harcamaz → ilerletmez; kazandıran hamlede yok).
             if (state.Hazard != null && result.Command.Type != CommandType.UseSpecial && result.Command.Type != CommandType.Bomb && !state.ProtectedBroken && !state.AllGoalsComplete)
                 HazardRules.Tick(state, result);
+            if (result.Command.Type != CommandType.UseSpecial && result.Command.Type != CommandType.Bomb && !state.ProtectedBroken && !state.AllGoalsComplete && HasGravel(state.Board))
+                GravelSpread(state.Board, result);
             state.Status = Evaluate(state);
             result.MovesLeftAfter = state.MovesLeft;
             result.StatusAfter = state.Status;
             result.ScoreGained = state.Score - scoreBefore;
         }
+
+        /// <summary>
+        /// Çakıl yayılması (hamle harcayan komuttan sonra, tahtada çakıl varken): bu hamlede soyulan/dokunulan yığınların sayacı
+        /// sıfırlanır, diğerleri bir artar (<see cref="GravelSpreadMoves"/>'ta durur). Sayacı dolmuş, örtüsüz, dolu, özel taşsız,
+        /// korumasız ve çakıla kenar komşusu ilk yığın (satır sırası) çakıla döner; hamle başına en çok bir hücre.
+        /// </summary>
+        private static void GravelSpread(BoardState b, MoveResult result)
+        {
+            var touched = new HashSet<int>();
+            foreach (var w in result.Waves) foreach (var c in w.Cells) touched.Add(b.Index(c.X, c.Y));
+            foreach (var c in result.TappedGroup) touched.Add(b.Index(c.X, c.Y));
+            var t = result.Command.Type;
+            if (t == CommandType.Rotate) touched.Add(b.Index(result.Rotated.X, result.Rotated.Y));
+            if (t == CommandType.Paint) touched.Add(b.Index(result.Painted.X, result.Painted.Y));
+            if (t == CommandType.Swap) { touched.Add(b.Index(result.SwapFrom.X, result.SwapFrom.Y)); touched.Add(b.Index(result.SwapTo.X, result.SwapTo.Y)); }
+            for (int i = 0; i < b.Count; i++)
+            {
+                var c = b[i];
+                if (!c.Active || c.Gravel || touched.Contains(i)) { c.Quiet = 0; continue; }
+                c.Quiet = Math.Min(GravelSpreadMoves, c.Quiet + 1);
+            }
+            for (int i = 0; i < b.Count; i++)
+            {
+                var c = b[i];
+                if (c.Quiet < GravelSpreadMoves || !c.Active || c.Gravel || c.HasCover || c.HasSpecial || c.Protected || c.Layers.Count == 0) continue;
+                int x = b.X(i), y = b.Y(i);
+                if (!GravelAt(b, x + 1, y) && !GravelAt(b, x - 1, y) && !GravelAt(b, x, y + 1) && !GravelAt(b, x, y - 1)) continue;
+                c.Gravel = true;
+                c.Quiet = 0;
+                result.GravelGrew = true;
+                result.GravelGrownAt = new Coord(x, y);
+                return;
+            }
+        }
+
+        private static bool GravelAt(BoardState b, int x, int y) => b.InBounds(x, y) && b[x, y].Active && b[x, y].Gravel;
 
         /// <summary>Komutu durumu değiştirmeden denetler; geçerliyse ilk dalganın hücrelerini verir.</summary>
         public static RejectReason Validate(LevelState state, Command cmd, out List<int> wave0)
@@ -170,6 +225,7 @@ namespace KatKat.Core
                 if (!board.InBounds(cmd.X, cmd.Y)) return RejectReason.OutOfBounds;
                 return board[cmd.X, cmd.Y].IsRotatable ? RejectReason.None : RejectReason.NotRotatable;
             }
+            if (cmd.Type == CommandType.Swap) return ValidateSwap(board, cmd, out wave0);
             if (cmd.Type == CommandType.Paint)
             {
                 if (state.PaintLeft <= 0) return RejectReason.PaintEmpty;
@@ -182,6 +238,51 @@ namespace KatKat.Core
             if (cmd.Row < 0 || cmd.Row >= board.Height) return RejectReason.OutOfBounds;
             wave0 = RollTargets(board, cmd.Row);
             return wave0.Count > 0 ? RejectReason.None : RejectReason.RollNoEffect;
+        }
+
+        /// <summary>
+        /// Sürükle-değiştir denetimi (2026-11-21): kaynak seçilebilir ve korumasız; komşu etkin, örtüsüz, özel taşsız, korumasız,
+        /// aynı alanda ve kaynağın üst katı yüksekliğinde taşı var; renkler farklı; değişim 3+ grup oluşturur.
+        /// </summary>
+        public static RejectReason ValidateSwap(BoardState board, Command cmd, out List<int> wave0)
+        {
+            wave0 = new List<int>();
+            int x = cmd.X, y = cmd.Y, nx = cmd.SwapX, ny = cmd.SwapY;
+            if (cmd.Row < 0 || cmd.Row > 3 || !board.InBounds(x, y) || !board.InBounds(nx, ny)) return RejectReason.OutOfBounds;
+            var a = board[x, y];
+            var b = board[nx, ny];
+            if (!a.IsSelectable || a.Protected) return RejectReason.SwapInvalid;
+            if (!b.Active || b.HasCover || b.HasSpecial || b.Protected || a.Area != b.Area) return RejectReason.SwapInvalid;
+            int k = a.Layers.Count - 1;
+            if (b.Layers.Count <= k) return RejectReason.SwapInvalid;
+            if (a.Layers[k] == b.Layers[k]) return RejectReason.SameColor;
+            var copy = board.Clone();
+            SwapLayers(copy, x, y, nx, ny, k);
+            wave0 = SwapGroup(copy, x, y, nx, ny, k, out _);
+            return wave0.Count >= GroupFinder.MinGroup ? RejectReason.None : RejectReason.SwapNoMatch;
+        }
+
+        private static void SwapLayers(BoardState board, int x, int y, int nx, int ny, int k)
+        {
+            var la = board[x, y].Layers;
+            var lb = board[nx, ny].Layers;
+            var t = la[k];
+            la[k] = lb[k];
+            lb[k] = t;
+        }
+
+        /// <summary>Değişimden sonra patlayacak grup: kaynağın ve (aynı kat üstteyse) komşunun grubundan büyüğü (eşitse kaynak).
+        /// 3'ten küçükse dönen liste patlamaz.</summary>
+        private static List<int> SwapGroup(BoardState board, int x, int y, int nx, int ny, int k, out int tapped)
+        {
+            var ga = GroupFinder.Component(board, x, y);
+            tapped = board.Index(x, y);
+            if (board[nx, ny].Layers.Count - 1 == k)
+            {
+                var gb = GroupFinder.Component(board, nx, ny);
+                if (gb.Count > ga.Count) { tapped = board.Index(nx, ny); return gb; }
+            }
+            return ga;
         }
 
         /// <summary>Satırdaki dolu ve örtüsüz aktif hücreler; boşluklar ve örtülü yığınlar atlanır.</summary>
@@ -240,13 +341,9 @@ namespace KatKat.Core
             return false;
         }
 
-        /// <summary>Kürek alanı (bomba gibi 3×3) çakıl içeriyor mu.</summary>
+        /// <summary>Kürek bir çakıla vurulmalı (kullanıcı, 2026-11-21: "kürek herhangi bir çakıla vurulursa tüm çakıllar kalkar").</summary>
         public static bool ShovelHasEffect(BoardState board, int x, int y)
-        {
-            foreach (var i in BombArea(board, x, y))
-                if (board[i].Active && board[i].Gravel) return true;
-            return false;
-        }
+            => board.InBounds(x, y) && board[x, y].Active && board[x, y].Gravel;
 
         public static bool TrayHasEffect(BoardState board, SpecialKind kind, int x, int y)
         {
@@ -504,8 +601,9 @@ namespace KatKat.Core
 
                 if (p.Kind == SpecialKind.Shovel)
                 {
-                    // Kürek: 3×3 alandaki çakıl kalkar (alttaki yığın açılır); taş soyulmaz, başka örtüye işlemez.
-                    foreach (var i in BombArea(_board, _board.X(p.Cell), _board.Y(p.Cell)))
+                    // Kürek (2026-11-21): vurduğu çakılla birlikte tahtadaki bütün çakıl kalkar (alttaki yığınlar açılır); taş
+                    // soyulmaz, başka örtüye işlemez.
+                    for (int i = 0; i < _board.Count; i++)
                         if (_board[i].Active && _board[i].Gravel) _shovelled.Add(i);
                     return peel;
                 }

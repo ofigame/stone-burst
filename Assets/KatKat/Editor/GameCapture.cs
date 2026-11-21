@@ -489,46 +489,98 @@ namespace KatKat.EditorTools
             const string V = "pop/";
             Directory.CreateDirectory(Path.Combine(PeelCapture.OutDir, "pop"));
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            // 2026-11-21: yerinde yükselme → titreme + ışık → patlama (BreakAt) → akış.
-            foreach (var lv in new[] { 2 })
-            foreach (var ms in new[] { 150f, 300f, 450f, 540f, 640f, 900f, 1300f })
-            {
-                float at = ms; int l = lv;
-                Shot($"{V}pop_l{l + 1}_{(int)at}ms.png", 1080, 1920, null, gc => { gc.StartLevel(l); Steps5(gc, 0, at); });
-            }
-            // 2026-11-21 çakıl: üst iki sıra çakıllı, tepside Kürek; seçili ve kullanım anları.
-            Action<GameController> gravel = gc =>
-            {
-                gc.StartLevel(40);
-                var st = gc.Session.State;
-                for (int i = 0; i < st.Board.Count; i++)
-                    if (st.Board.Y(i) <= 1 && st.Board[i].Active && st.Board[i].Layers.Count > 0 && !st.Board[i].HasCover) st.Board[i].Gravel = true;
-                st.Tray.Clear();
-                st.Tray.Add(KatKat.Core.SpecialKind.Shovel);
-                st.Tray.Add(KatKat.Core.SpecialKind.RocketRow);
-                gc.Board.Sync(st);
-                gc.Hud.SetTrayVisible(true);
-                gc.Hud.SetTray(st.Tray, -1);
-            };
-            Shot($"{V}cakil_tahta.png", 1080, 1920, null, gc => gravel(gc));
-            Shot($"{V}cakil_kurek_secili.png", 1080, 1920, null, gc => { gravel(gc); gc.PressTraySlot(0); });
-            foreach (var ms in new[] { 120f, 260f, 600f })
+            // 2026-11-21: normal patlama (yükselme yok) ara kareleri.
+            foreach (var ms in new[] { 60f, 140f, 300f, 700f })
             {
                 float at = ms;
-                Shot($"{V}cakil_kurek_{(int)at}ms.png", 1080, 1920, null, gc =>
+                Shot($"{V}pop_l3_{(int)at}ms.png", 1080, 1920, null, gc => { gc.StartLevel(2); Steps5(gc, 0, at); });
+            }
+            // Tahta en büyük boy (şekle göre): 7 ve 8 sütunlu, farklı şekiller.
+            foreach (var lv in new[] { 0, 1, 4, 9, 98, 619 })
+            {
+                int l = lv;
+                Shot($"{V}tahta_l{l + 1}.png", 1080, 1920, null, gc => gc.StartLevel(l));
+            }
+            // Patlatılması yasak yığın: kızıl fitilli bomba (iki an: sallanma ve kıvılcım).
+            Action<GameController> guard = gc =>
+            {
+                gc.StartLevel(9);
+                var st = gc.Session.State;
+                int n = 0;
+                for (int i = 0; i < st.Board.Count && n < 3; i++)
+                    if (st.Board[i].IsSelectable && st.Board.X(i) % 3 == 1 && st.Board.Y(i) % 3 == 1) { st.Board[i].Protected = true; n++; }
+                gc.Board.Sync(st);
+            };
+            Shot($"{V}bomba_isaret_a.png", 1080, 1920, null, gc => guard(gc));
+            Shot($"{V}bomba_isaret_b.png", 1080, 1920, null, gc => { guard(gc); for (int k = 0; k < 20; k++) { Tick(gc, 16f); gc.Board.ForEachStackForTest(sv => sv.AnimateMarksForTest(0.016f)); } });
+            // Sürükle-değiştir: bölümdeki ilk geçerli yer değişimi; önce, ortası, patlama.
+            foreach (var ms in new[] { 0f, 110f, 220f, 420f })
+            {
+                float at = ms;
+                Shot($"{V}surukle_{(int)at}ms.png", 1080, 1920, null, gc =>
                 {
-                    gravel(gc);
-                    var b = gc.Session.State.Board;
-                    int cx = b.Width / 2;
-                    gc.PlayStep(new KatKat.Levels.StepData { Type = "use", Row = 0, X = cx, Y = 0 });
+                    gc.StartLevel(4);
+                    var st = gc.Session.State;
+                    for (int i = 0; i < st.Board.Count; i++)
+                    for (int d = 0; d < 4; d++)
+                    {
+                        var cmd = KatKat.Core.Command.Swap(st.Board.X(i), st.Board.Y(i), d);
+                        if (KatKat.Core.RulesEngine.Validate(st, cmd, out _) != KatKat.Core.RejectReason.None) continue;
+                        if (KatKat.Core.RulesEngine.Validate(st, KatKat.Core.Command.Tap(cmd.X, cmd.Y), out _) == KatKat.Core.RejectReason.None) continue;
+                        Debug.Log("[KatKat] yakalama yer değişimi: " + cmd);
+                        if (at > 0f) { gc.OnSwap(cmd.X, cmd.Y, d); for (float t = 0f; t < at; t += 16f) Tick(gc, 16f); }
+                        else gc.Board.ShowHintGroup(new[] { new KatKat.Core.Coord(cmd.X, cmd.Y), new KatKat.Core.Coord(cmd.SwapX, cmd.SwapY) });
+                        return;
+                    }
+                    Debug.LogWarning("[KatKat] yakalama: geçerli yer değişimi yok");
+                });
+            }
+            // Çakıl örtüsü (kullanıcı örneği gibi dağınık): çakıllı yığın tek başına, altındaki taşlar görünmez.
+            Action<GameController> scatter = gc =>
+            {
+                gc.StartLevel(9);
+                var st = gc.Session.State;
+                for (int i = 0; i < st.Board.Count; i++)
+                {
+                    int x = st.Board.X(i), y = st.Board.Y(i);
+                    if ((x * 2 + y * 3) % 5 == 0 && st.Board[i].Active && st.Board[i].Layers.Count > 0 && !st.Board[i].HasCover) st.Board[i].Gravel = true;
+                }
+                gc.Board.Sync(st);
+            };
+            Shot($"{V}cakil_tahta.png", 1080, 1920, null, gc => scatter(gc));
+            // Çakıl yayılması: bütün yığınların sayacı dolmak üzere; bir dokunuştan sonra komşu hücre balon gibi şişerek çakıla döner.
+            foreach (var ms in new[] { 0f, 160f, 300f, 600f })
+            {
+                float at = ms;
+                Shot($"{V}cakil_yayilma_{(int)at}ms.png", 1080, 1920, null, gc =>
+                {
+                    scatter(gc);
+                    var st = gc.Session.State;
+                    for (int i = 0; i < st.Board.Count; i++) st.Board[i].Quiet = KatKat.Core.RulesEngine.GravelSpreadMoves - 1;
+                    foreach (var g in KatKat.Core.GroupFinder.AllComponents(st.Board))
+                    {
+                        if (g.Count < KatKat.Core.GroupFinder.MinGroup) continue;
+                        gc.OnCellPressed(st.Board.X(g[0]), st.Board.Y(g[0]));
+                        break;
+                    }
+                    int guard = 0;
+                    while (!gc.Board.GravelGrowStarted && gc.Board.IsPlaying && guard++ < 400) Tick(gc, 16f);
                     for (float t = 0f; t < at; t += 16f) Tick(gc, 16f);
                 });
             }
-            // Seçili menü simgesinin hareketli gölgesi (iki an).
-            foreach (var k in new[] { 5, 25 })
+            // 2026-11-21 Test Bölümleri: liste, kural kartı ve dört bölümün tahtası.
+            Shot($"{V}test_liste.png", 1080, 1920, null, gc => gc.ShowPilots());
+            Shot($"{V}test_kart_03.png", 1080, 1920, null, gc => { gc.ShowPilots(); gc.StartTrial(2); });
+            foreach (var k in new[] { 0, 2, 8, 9 })
             {
-                int n = k;
-                Shot($"{V}menu_secili_{n}.png", 1080, 1920, null, gc => { gc.Menu.ShowLevels(gc.Catalog.Count, 24, i => i < 24, () => { }, 0); for (int j = 0; j < n; j++) { gc.Menu.Tick(0.02f);  } });
+                int idx = k;
+                Shot($"{V}test_bolum_{idx + 1:00}.png", 1080, 1920, null, gc => { gc.ShowPilots(); gc.StartTrial(idx); gc.Hud.HideRuleCard(false); });
+            }
+            // Boşta ipucu: 5 sn sonra en büyük grup yanıp söner (sönük ve parlak an).
+            foreach (var sec in new[] { 0.05f, 0.45f })
+            {
+                float at = sec;
+                Shot($"{V}bosta_ipucu_{(int)(at * 1000)}ms.png", 1080, 1920, null, gc => { gc.StartLevel(5); gc.AdvanceIdleForTest(6f); gc.Board.AdvanceIdleHint(at); });
             }
             EditorApplication.Exit(0);
         }

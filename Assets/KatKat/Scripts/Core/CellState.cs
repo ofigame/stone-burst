@@ -41,6 +41,9 @@ namespace KatKat.Core
         public int ButtonGate;
         /// <summary>v12 deneme "koruma": kristal yığın; bir katmanı bile soyulursa bölüm kaybedilir (özel taş dahil).</summary>
         public bool Protected;
+        /// <summary>2026-11-21 çakıl yayılması: bu yığına dokunulmadan geçen hamle (yalnız tahtada çakıl varken sayılır;
+        /// <see cref="RulesEngine.GravelSpreadMoves"/>'ta durur).</summary>
+        public int Quiet;
         /// <summary>M11 geçit hücresi: Active=false iken bekler; açılınca GateLayers ile etkinleşir.</summary>
         public int GateId;
         public readonly List<LayerColor> GateLayers = new List<LayerColor>(4);
@@ -73,7 +76,7 @@ namespace KatKat.Core
                 HasEnvelope = HasEnvelope, EnvelopeColor = EnvelopeColor, HasRotor = HasRotor,
                 Special = Special, SpecialColor = SpecialColor,
                 SpongeNeed = SpongeNeed, SpongeHave = SpongeHave, LinkId = LinkId, LinkHits = LinkHits,
-                ButtonGate = ButtonGate, GateId = GateId, Protected = Protected, Area = Area, Moss = Moss, Gravel = Gravel,
+                ButtonGate = ButtonGate, GateId = GateId, Protected = Protected, Area = Area, Moss = Moss, Gravel = Gravel, Quiet = Quiet,
             };
             c.Layers.AddRange(Layers);
             c.GateLayers.AddRange(GateLayers);
@@ -87,7 +90,7 @@ namespace KatKat.Core
                 || HasEnvelope != o.HasEnvelope || (HasEnvelope && EnvelopeColor != o.EnvelopeColor) || HasRotor != o.HasRotor
                 || Special != o.Special || (Special == SpecialKind.Rainbow && SpecialColor != o.SpecialColor)
                 || SpongeNeed != o.SpongeNeed || SpongeHave != o.SpongeHave || LinkId != o.LinkId || LinkHits != o.LinkHits
-                || ButtonGate != o.ButtonGate || GateId != o.GateId || Protected != o.Protected || Area != o.Area || Moss != o.Moss || Gravel != o.Gravel || GateLayers.Count != o.GateLayers.Count) return false;
+                || ButtonGate != o.ButtonGate || GateId != o.GateId || Protected != o.Protected || Area != o.Area || Moss != o.Moss || Gravel != o.Gravel || Quiet != o.Quiet || GateLayers.Count != o.GateLayers.Count) return false;
             for (int i = 0; i < GateLayers.Count; i++) if (GateLayers[i] != o.GateLayers[i]) return false;
             if (Layers.Count != o.Layers.Count) return false;
             for (int i = 0; i < Layers.Count; i++) if (Layers[i] != o.Layers[i]) return false;

@@ -23,7 +23,8 @@ namespace KatKat.UI
         public const int DefaultOn = 1;
 
         /// <summary>Pilot bölümler (12 ayrı deneme bölümü) yalnız deneme derlemesinde ve editörde; mağaza derlemesinde gizli.</summary>
-#if KATKAT_VR1PROTO || UNITY_EDITOR
+// 2026-11-21: Test Bölümleri iOS test-altın derlemesinde de görünür (cihazda deneme).
+#if KATKAT_VR1PROTO || KATKAT_TEST_GOLD || UNITY_EDITOR
         public const bool PilotAllowed = true;
 #else
         public const bool PilotAllowed = false;

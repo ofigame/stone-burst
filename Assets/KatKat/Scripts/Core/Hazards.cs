@@ -181,7 +181,7 @@ namespace KatKat.Core
                     }
                     break;
                 case HazardKind.Rival:
-                    if (r.TappedGroup.Count >= RulesEngine.RocketGroupSize && r.Command.Type == CommandType.Tap) { h.Value = Math.Max(0, h.Value - 1); r.HazardNote = HazardNote.RivalBack; }
+                    if (r.TappedGroup.Count >= RulesEngine.RocketGroupSize && (r.Command.Type == CommandType.Tap || r.Command.Type == CommandType.Swap)) { h.Value = Math.Max(0, h.Value - 1); r.HazardNote = HazardNote.RivalBack; }
                     else if (++h.Value >= h.Max) Lose(h, HazardLoss.Rival);
                     break;
                 case HazardKind.Moss: TickMoss(h, b, r); break;
@@ -197,7 +197,7 @@ namespace KatKat.Core
                     break;
                 case HazardKind.Fire:
                     // v14 (kullanıcı 2026-11-16: zincir tamamen kaldırılsın): ateşi zincir değil 5+ taşlık dokunuş grubu besler.
-                    if (r.Command.Type == CommandType.Tap && r.TappedGroup.Count >= FireGroupSize) { h.Value = h.Max; r.HazardNote = HazardNote.FireFed; }
+                    if ((r.Command.Type == CommandType.Tap || r.Command.Type == CommandType.Swap) && r.TappedGroup.Count >= FireGroupSize) { h.Value = h.Max; r.HazardNote = HazardNote.FireFed; }
                     else if (--h.Value <= 0) Lose(h, HazardLoss.Fire);
                     break;
             }

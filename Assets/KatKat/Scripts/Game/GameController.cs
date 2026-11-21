@@ -174,7 +174,6 @@ namespace KatKat.Game
             SetupMeta();
             _menu.DailyPressed = ShowDaily;
             _menu.PilotPressed = ShowPilots; // vr1 pilot katalog (yalnız prototip anahtarı açıkken görünür)
-            _menu.ConceptPressed = ShowConcepts; // konsept pilotu (pilotla aynı koşul)
             _menu.CollectionPressed = ShowCollection;
             // v10 taş vitrini: koleksiyonda kazanılmış karta dokununca ve taş kazanılınca (3D model ya da büyük PNG).
             _showcase = KatKat.UI.StoneShowcase.Create(cam, transform);
@@ -456,6 +455,8 @@ namespace KatKat.Game
             OutcomeTick(Time.unscaledDeltaTime);
             HintTick();
             TrialTickPress();
+            IdleHintTick(Time.unscaledDeltaTime);
+            if (SwapDragTick()) return;
             if (_screen.x != Screen.width || _screen.y != Screen.height)
             {
                 FitCamera();
@@ -532,10 +533,8 @@ namespace KatKat.Game
                 }
                 if (r.Reason == RejectReason.GroupTooSmall)
                 {
-                    _sound.Play(Sfx.Invalid);
-                    Haptics.Light();
-                    _board.ShakeCells(r.TappedGroup);
-                    _hud.ShowToast(Loc.T("toast.min3"));
+                    // 2026-11-21: basılı parmak komşuya kayarsa sürükle-değiştir (GameController.Swap); bırakılırsa uyarı.
+                    if (!BeginSwapDrag(x, y, r.TappedGroup)) TooSmallFeedback(r.TappedGroup);
                 }
                 else if (r.Reason == RejectReason.NotSelectable && _session.State.Board.InBounds(x, y) && _session.State.Board[x, y].HasCover)
                 {

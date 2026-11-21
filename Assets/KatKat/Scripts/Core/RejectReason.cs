@@ -21,5 +21,9 @@
         /// <summary>Tepsi: yuva boş ya da hedefte etkisi yok.</summary>
         TrayEmpty,
         TrayNoEffect,
+        /// <summary>Sürükle-değiştir: komşu yok, örtülü/özel/korunan yığın ya da komşuda o katta taş yok.</summary>
+        SwapInvalid,
+        /// <summary>Sürükle-değiştir: yer değişimi 3+ aynı renk grup oluşturmuyor (taş geri döner, hamle harcanmaz).</summary>
+        SwapNoMatch,
     }
 }

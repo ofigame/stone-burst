@@ -44,37 +44,41 @@ namespace KatKat.View
         /// <summary>Alt renk okunur hâle geldiği an: zincirin sonraki dalgası buradan başlayabilir.</summary>
         public static float ReadableAt => 300f * Slow;
 
+        /// <summary>Kırılma anı: çatlak tamamlanır, yüz parçalara ayrılır. Tahta sarsıntısı da bu anda (BoardView).</summary>
+        public static float BreakAt => AnticipationEnd;
         /// <summary>
-        /// 2026-11-21 (kullanıcı: "patlatmada, patlayacak taşlar olduğu yerden havaya kalksınlar aynı konumlarında
-        /// yükselsinler titresinler ışık saçarak ve patlasınlar"): sıkışmadan sonra taş kendi yerinde yükselir
-        /// (<see cref="RiseStart"/>–<see cref="RiseEnd"/>), havada artan titremeyle sarsılıp ışık saçar ve <see cref="BreakAt"/>
-        /// anında patlar. Sonraki akış (parçalar, bütün taş, uçuş) aynı aralıkla kayar.
+        /// Yalnız mağaza bombası (kullanıcı, 2026-11-21: "O sadece güçlendiricideki bombada olacak. Bomba kullanıldığı anda
+        /// hemen patlama veya tahtanın sarsılması olmayacak. Taşlar yukarı çıkıp titreyecek ve patlayacaklar o anda tüm
+        /// animasyonlar devreye girerek tahta sarsılacak kıvılcım alevler çıkacak"): <see cref="Charged"/> taş önce kendi
+        /// yerinde yükselir (0–<see cref="ChargeRiseEnd"/>), havada artan titremeyle ışık saçar ve <see cref="ChargeMs"/> anında
+        /// patlar; sonrası normal akışın <see cref="BreakAt"/>'ten sonrası (<see cref="ChargeShift"/> kadar kayık).
         /// </summary>
-        public static float RiseStart => AnticipationEnd * 0.6f;
-        public static float RiseEnd => AnticipationEnd + 190f * Flow;
-        /// <summary>Kırılma (patlama) anı: titreme biter, yüz parçalara ayrılır. Tahta sarsıntısı da bu anda (kullanıcı,
-        /// 2026-11-21: "patlamadaki tahtanın sallanması patlama anında olsun"; BoardView).</summary>
-        public static float BreakAt => RiseEnd + 160f * Flow;
+        public static float ChargeRiseEnd => 300f * Flow;
+        public static float ChargeMs => ChargeRiseEnd + 230f * Flow;
+        /// <summary>Yüklenmiş taşın zaman çizgisinin normal akışa göre kayması: yüklü taşta patlama <c>ChargeMs</c>'te,
+        /// normal taşta <c>BreakAt</c>'te.</summary>
+        public static float ChargeShift => ChargeMs - BreakAt;
         /// <summary>Havada yükselme yüksekliği ve büyüme (taş boyu oranı).</summary>
         public const float LiftHeight = 0.85f, LiftGrow = 0.14f;
-        /// <summary>Eski akışa göre kayma: yükselme ve titreme süresi.</summary>
-        private static float Shift => BreakAt - AnticipationEnd;
         /// <summary>Parçaların kısa dışa patlamasının sonu; ardından yavaşça yükselirler.</summary>
         public static float BurstEnd => BreakAt + 60f * Flow;
         /// <summary>Parçaların havadaki noktada toplanma sonu.</summary>
-        public static float GatherAt => 520f * Flow + Shift;
+        public static float GatherAt => 520f * Flow;
         /// <summary>Bütün taşın belirmeye başladığı an ve büyüme süresi.</summary>
-        public static float FormStart => 430f * Flow + Shift;
+        public static float FormStart => 430f * Flow;
         public static float FormDur => 140f * Flow;
         /// <summary>Taşın (ve yıldızların) hedefe uçuşa başladığı an.</summary>
-        public static float FlyStart => 620f * Flow + Shift;
+        public static float FlyStart => 620f * Flow;
         /// <summary>Taşlar ve yıldızlar hedefe varır (HUD sayacı bu anda güncellenir).</summary>
-        public static float ArriveAt => 960f * Flow + Shift;
+        public static float ArriveAt => 960f * Flow;
         public static float Duration => ArriveAt;
         /// <summary>Kombo taşları arasındaki gecikme.</summary>
         public static float StoneLag => 45f * Flow;
         /// <summary>Yığın tarafının bittiği an (sekme sonu): bundan sonra tahta serbest, yalnız uçuş sürer.</summary>
-        public static float StackDoneAt => Mathf.Max(BounceEnd, BreakAt + 20f);
+        public static float StackDoneAt => BounceEnd;
+
+        /// <summary>Mağaza bombasının yüklenme evresi (yükselme + titreme) bu taşta oynar; bkz. <see cref="ChargeMs"/>.</summary>
+        public bool Charged { get; set; }
         /// <summary>Toplanma noktası: kaynaktan görev simgesine doğru yatayda %65, dikeyde %50, en az 2,2 taş yukarı (aynı renk bir araya gelir, hedefe uzun uçuş kalır).</summary>
         private const float GatherX = 0.65f, GatherY = 0.5f;
 
@@ -205,6 +209,18 @@ namespace KatKat.View
             if (IsDone) return;
             float size = _size0;
 
+            // Mağaza bombası: önce yükselip titrer; patlamadan sonra normal akış ChargeShift kadar kayık sürer.
+            if (Charged)
+            {
+                if (ms < ChargeMs)
+                {
+                    _stack.SetBodyScale(this, Vector2.one);
+                    ChargePose(ms, size);
+                    return;
+                }
+                ms -= ChargeShift;
+            }
+
             // Yığın işi bitti: kalan yalnız havadaki taş/yıldız uçuşu (yığına artık dokunulmaz; tahta yeniden çizilebilir).
             if (_stackDone)
             {
@@ -230,19 +246,60 @@ namespace KatKat.View
             var faceLocal = _stack.FaceCenterLocal(_layerIndex);
             if (ms < BreakAt)
             {
-                // Kırılmadan önce (2026-11-21): taş kendi yerinde havaya kalkar ve büyür; havada artan titremeyle sarsılır,
-                // arkasında taş renginde ışık büyür, çevresine pırıltı saçar; üstünde çatlak belirir.
+                // Kırılmadan önce: yüz yerinde (düz), üstünde çatlak belirir ve sarsılır.
                 var t = _sheet.transform;
-                float rise = Mathf.Clamp01((ms - RiseStart) / (RiseEnd - RiseStart));
+                float shake = Mathf.Sin(ms * 0.35f) * 0.012f * size * Mathf.Clamp01(ms / BreakAt);
+                t.localPosition = _stack.BodyLocalToRoot(faceLocal + new Vector3(shake, size * 0.5f, 0f));
+                t.localScale = new Vector3(body.x, body.y, 1f);
+                _sheet.Pose(0f, 0.24f * size, 0f, Vector2.zero, 1f, 0f);
+                float ck = Mathf.Clamp01((ms - 25f) / (BreakAt - 40f));
+                if (ck > 0f)
+                {
+                    if (_crack == null)
+                    {
+                        _crack = StoneShatter.Take(_stack.transform);
+                        _crack.sprite = StoneShatter.Crack;
+                        _crack.sortingOrder = _order + 1;
+                    }
+                    _crack.transform.localPosition = t.localPosition - new Vector3(0f, size * 0.5f, 0f) + new Vector3(0f, 0f, -0.001f);
+                    _crack.transform.localScale = new Vector3(size * body.x * (0.6f + 0.4f * ck), size * body.y * (0.6f + 0.4f * ck), 1f);
+                    _crack.color = new Color(1f, 1f, 1f, ck);
+                }
+                return;
+            }
+
+            if (!_broken) Break(Charged ? faceLocal + new Vector3(0f, LiftHeight * size, 0f) : faceLocal);
+
+            if (ms >= StackDoneAt)
+            {
+                // Yığın tarafı bitti (sekme sonu): gövde ve kenar serbest; uçuş tahtadan bağımsız sürer.
+                _stack.SetBodyScale(this, Vector2.one);
+                _stack.ReleaseDetachedRim(this);
+                _sheet.End();
+                _stackDone = true;
+            }
+            Flight(ms, size);
+        }
+
+        /// <summary>
+        /// Mağaza bombasının yüklenmesi (2026-11-21): taş kendi yerinde havaya kalkar ve büyür; havada artan titremeyle
+        /// sarsılır, arkasında taş renginde ışık büyür, çevresine pırıltı saçar; üstünde çatlak belirir. Patlama yok.
+        /// </summary>
+        private void ChargePose(float ms, float size)
+        {
+            var faceLocal = _stack.FaceCenterLocal(_layerIndex);
+            {
+                var t = _sheet.transform;
+                float rise = Mathf.Clamp01(ms / ChargeRiseEnd);
                 float re = 1f - (1f - rise) * (1f - rise) * (1f - rise);
                 float lift = LiftHeight * size * re;
-                float tremble = Mathf.Clamp01((ms - (RiseEnd - 70f)) / (BreakAt - RiseEnd + 70f));
+                float tremble = Mathf.Clamp01((ms - (ChargeRiseEnd - 90f)) / (ChargeMs - ChargeRiseEnd + 90f));
                 float tr = KatKat.UI.Motion.Reduced ? 0f : tremble * tremble;
                 float shx = (Mathf.Sin(ms * 0.95f) + 0.5f * Mathf.Sin(ms * 1.7f + 1.3f)) * 0.045f * size * tr;
                 float shy = Mathf.Sin(ms * 1.25f + 0.7f) * 0.025f * size * tr;
                 float grow = 1f + LiftGrow * re + 0.05f * tr;
                 t.localPosition = _stack.BodyLocalToRoot(faceLocal + new Vector3(shx, size * 0.5f + lift + shy, 0f));
-                t.localScale = new Vector3(body.x * grow, body.y * grow, 1f);
+                t.localScale = new Vector3(grow, grow, 1f);
                 t.localRotation = Quaternion.Euler(0f, 0f, Mathf.Sin(ms * 1.1f + 0.4f) * 7f * tr);
                 _sheet.Pose(0f, 0.24f * size, 0f, Vector2.zero, 1f, 0f);
                 var center = _stack.transform.TransformPoint(faceLocal + new Vector3(shx, lift + shy, 0f));
@@ -264,7 +321,7 @@ namespace KatKat.View
                         pfx.Emit(FxKit.Dot, true, _order + 5, center, -dir * size * 1.4f, 0.3f, size * 0.12f, size * 0.02f,
                             new Color(bright.r, bright.g, bright.b, 1f), new Color(_color.r, _color.g, _color.b, 0f), drag: 3f);
                 }
-                float ck = Mathf.Clamp01((ms - RiseEnd + 40f) / (BreakAt - RiseEnd));
+                float ck = Mathf.Clamp01((ms - ChargeRiseEnd + 40f) / (ChargeMs - ChargeRiseEnd));
                 if (ck > 0f)
                 {
                     if (_crack == null)
@@ -278,20 +335,7 @@ namespace KatKat.View
                     _crack.transform.localScale = new Vector3(size * t.localScale.x * (0.6f + 0.4f * ck), size * t.localScale.y * (0.6f + 0.4f * ck), 1f);
                     _crack.color = new Color(1f, 1f, 1f, ck);
                 }
-                return;
             }
-
-            if (!_broken) Break(faceLocal + new Vector3(0f, LiftHeight * size, 0f));
-
-            if (ms >= StackDoneAt)
-            {
-                // Yığın tarafı bitti (sekme sonu): gövde ve kenar serbest; uçuş tahtadan bağımsız sürer.
-                _stack.SetBodyScale(this, Vector2.one);
-                _stack.ReleaseDetachedRim(this);
-                _sheet.End();
-                _stackDone = true;
-            }
-            Flight(ms, size);
         }
 
         /// <summary>
@@ -670,7 +714,7 @@ namespace KatKat.View
         }
 
         /// <summary>Animasyonu atlayıp son duruma geçer (ör. uygulama arka plana gittiğinde).</summary>
-        public void Complete() => Evaluate(Duration);
+        public void Complete() => Evaluate(Duration + (Charged ? ChargeShift : 0f));
 
         public PeelSheet Sheet => _sheet;
     }

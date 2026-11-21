@@ -59,8 +59,24 @@ namespace KatKat.View
         /// <summary>Tahta alanı ölçeği (1: HUD arası tam alan) ve taş boyu sınırı (0: yok; n: en çok n sütunluk tahta boyu).</summary>
         // Kullanıcı seçimi (2026-11-06): B (alan %88) ve küçük tahtada taş en çok 5,5 sütunluk tahtadaki boy
         // ("B iyi; ilk bölümlerdeki örnek A ile B arasında olsun" — B'de 7 sütun idi).
-        public static float AreaScale = 0.88f;
-        public static float MinColumns = 5.5f;
+        // 2026-11-21 (kullanıcı: tahta "en büyük nasıl olabiliyorsa", "taşlar büyük olabilir"): küçültme ve taş boyu sınırı kalktı.
+        public static float AreaScale = 1f;
+        public static float MinColumns = 0f;
+
+        /// <summary>Şeklin dolu (etkin ya da geçit) hücrelerinin kutusu; şekil boşsa ızgaranın tamamı.</summary>
+        private void ShapeBounds(ref int x0, ref int x1, ref int y0, ref int y1)
+        {
+            if (_inShape == null || _inShape.Length != _width * _height) return;
+            int ax = int.MaxValue, bx = -1, ay = int.MaxValue, by = -1;
+            for (int y = 0; y < _height; y++)
+            for (int x = 0; x < _width; x++)
+            {
+                if (!_inShape[y * _width + x]) continue;
+                ax = Mathf.Min(ax, x); bx = Mathf.Max(bx, x); ay = Mathf.Min(ay, y); by = Mathf.Max(by, y);
+            }
+            if (bx < 0) return;
+            x0 = ax; x1 = bx; y0 = ay; y1 = by;
+        }
 
         public void Init(PeelDirector director)
         {
@@ -158,20 +174,24 @@ namespace KatKat.View
             if (KatKat.UI.Vr2.Ready) margin = Mathf.Max(margin, 2f * KatKat.UI.Vr2.Inset + 0.06f);
             // Ahşap tepsi: kalın kenar tahta alanına sığsın.
             if (TrayArt.Ready) margin = Mathf.Max(margin, 2f * TrayArt.Reach + 0.04f);
-            float contentK = (_height - 1) * rowK + (top - bottom);
-            // Kullanıcı (Redmi): "taşlar çok büyük, tahtayı ve taşları küçültelim". Alan merkezden AreaScale kadar
-            // daralır (her yandan); küçük tahtada taş en çok MinColumns sütunluk tahtadaki kadar büyür.
+            // 2026-11-21 (kullanıcı: "oyun tahtalarının sağ sol ve alt üstten maximum boyutta olmalarını istiyorum … şekiller ne
+            // olursa olsun"; "taşlar büyük olabilir"): ölçü ızgaranın tamamından değil, şeklin dolu hücrelerinin kutusundan
+            // alınır (dıştaki boş satır/sütun yer kaplamaz); kutu alanın ortasında.
+            int x0 = 0, x1 = _width - 1, y0 = 0, y1 = _height - 1;
+            ShapeBounds(ref x0, ref x1, ref y0, ref y1);
+            int cols = x1 - x0 + 1, rows = y1 - y0 + 1;
+            float contentK = (rows - 1) * rowK + (top - bottom);
             if (AreaScale < 0.999f)
             {
                 var c = area.center;
                 area = new Rect(c.x - area.width * AreaScale * 0.5f, c.y - area.height * AreaScale * 0.5f, area.width * AreaScale, area.height * AreaScale);
             }
-            _pitch = Mathf.Min(area.width / (_width + margin), area.height / (contentK + margin));
-            if (MinColumns > 0) _pitch = Mathf.Min(_pitch, area.width / (Mathf.Max(_width, MinColumns) + margin));
+            _pitch = Mathf.Min(area.width / (cols + margin), area.height / (contentK + margin));
+            if (MinColumns > 0) _pitch = Mathf.Min(_pitch, area.width / (Mathf.Max(cols, MinColumns) + margin));
             _rowPitch = rowK * _pitch;
-            float w = _pitch * _width, h = contentK * _pitch;
-            // İçerik kutusu alanın ortasına; ilk satırın merkezi kutunun üstünden "top" kadar aşağıda.
-            _origin = new Vector2(area.center.x - w * 0.5f + _pitch * 0.5f, area.center.y + h * 0.5f - top * _pitch);
+            float w = _pitch * cols, h = contentK * _pitch;
+            // Şekil kutusu alanın ortasına; kutunun ilk satırının merkezi kutunun üstünden "top" kadar aşağıda.
+            _origin = new Vector2(area.center.x - w * 0.5f + _pitch * 0.5f - x0 * _pitch, area.center.y + h * 0.5f - top * _pitch + y0 * _rowPitch);
             LayoutFrame(new Vector2(area.center.x, area.center.y), w, h);
             for (int y = 0; y < _height; y++)
             for (int x = 0; x < _width; x++)
@@ -713,6 +733,7 @@ namespace KatKat.View
         public void Play(MoveResult result, Func<LayerColor, Vector3> goalTarget, Func<Vector3> starTarget, Action<PeelWave> onWaveStart, Action<PeelWave> onWaveArrived, Action onDone)
         {
             _onDone = onDone;
+            GravelGrowStarted = false;
             float t = 0f, interval = FirstChainInterval;
             float last = 0f;
             if (result.Command.Type == CommandType.Rotate)
@@ -728,21 +749,29 @@ namespace KatKat.View
                 return;
             }
             bool created = result.SpecialCreated != SpecialKind.None;
+            // 2026-11-21 sürükle-değiştir: iki taş yer değiştirir, sonra oluşan grup dokunuş gibi patlar.
+            if (result.Command.Type == CommandType.Swap) { PlaySwapChips(result); t = SwapMs; }
             int flowWave = 0, flowTick = 0;
             float flowArrive = -1f;
             foreach (var wave in result.Waves)
             {
                 var w = wave;
-                float start = t;
                 bool special = w.Kind == WaveKind.Special;
+                // 2026-11-21 (kullanıcı): mağaza bombasında taşlar önce yükselip titrer (PeelSequence.Charged), patlama,
+                // sarsıntı, kıvılcım ve alevler ChargeShift sonra hep birlikte. Taşlar aynı anda kalkar (yayılma gecikmesi yok).
+                bool charged = result.Command.Type == CommandType.Bomb && special && w.Fired == SpecialKind.Bomb && w.Index == 0;
+                float launch = t;
+                if (charged) t += PeelSequence.ChargeShift;
+                float start = t;
+                float SD(int x, int y) => charged ? 0f : SpecialDelay(w, x, y);
                 At(start, () => onWaveStart?.Invoke(w));
-                if (special) At(start, () => FireFx(w));
+                if (special) At(start + (charged ? PeelSequence.BreakAt : 0f), () => FireFx(w));
                 // 2026-11-21 (kullanıcı: "patlamadaki tahtanın sallanması patlama anında olsun"): sarsıntı dalga başında değil,
                 // taşlar havada titreyip patladığı anda (ilk taşın PeelSequence.BreakAt'i).
                 if (w.Cells.Count > 0)
                 {
                     float firstDelay = float.MaxValue;
-                    if (special) foreach (var c in w.Cells) firstDelay = Mathf.Min(firstDelay, SpecialDelay(w, c.X, c.Y));
+                    if (special) foreach (var c in w.Cells) firstDelay = Mathf.Min(firstDelay, SD(c.X, c.Y));
                     else firstDelay = 0f;
                     PopShake(w, created && w.Index == 0, out float amp, out float dur);
                     if (amp > 0f) At(start + firstDelay + PeelSequence.BreakAt, () => ShakeBoard(amp, dur));
@@ -757,9 +786,9 @@ namespace KatKat.View
                     var cp = c;
                     // Aynı dalga birlikte başlar; en çok 20 ms belirlenimli görsel sapma. Özel taşta soyulma, roket/ışık
                     // hücreye vardığında başlar (kaynaktan uzaklığa göre).
-                    float delay = special ? SpecialDelay(w, cp.X, cp.Y) : ((cp.X + cp.Y) % 3) * 10f;
+                    float delay = special ? SD(cp.X, cp.Y) : ((cp.X + cp.Y) % 3) * 10f;
                     spread = Mathf.Max(spread, delay);
-                    At(start + delay, () =>
+                    At((charged ? launch : start) + delay, () =>
                     {
                         var stack = StackAt(cp.X, cp.Y);
                         // 2026-11-19: görev rengiyse bütün taş görev simgesine, yıldızlar yıldız çubuğuna; değilse taş yıldızlara döner.
@@ -770,8 +799,9 @@ namespace KatKat.View
                             var removed = cp.Removed;
                             bool focusGoal = isGoal && IsGoalColor != null;
                             FlowStarted(removed, focusGoal);
-                            _director.Peel(stack, goalTarget(removed), star, ScoreTarget == null ? 1f : isGoal ? 0.5f : 0f,
+                            var seq = _director.Peel(stack, goalTarget(removed), star, ScoreTarget == null ? 1f : isGoal ? 0.5f : 0f,
                                 _ => FlowEnded(removed, focusGoal), 0f, stones, GatherPoint());
+                            seq.Charged = charged;
                             RaiseVeil(isGoal ? goalTarget(cp.Removed) : (Vector3?)null);
                         }
                         else Debug.LogError($"[KatKat] Görünüm mantıktan ayrıştı: ({cp.X},{cp.Y}) boş");
@@ -803,32 +833,32 @@ namespace KatKat.View
                 foreach (var h in w.ClipHits)
                 {
                     var hit = h;
-                    At(start + (special ? SpecialDelay(w, hit.X, hit.Y) : 0f) + ClipHitAt, () => HitClip(StackAt(hit.X, hit.Y), hit.RemainingAfter));
+                    At(start + (special ? SD(hit.X, hit.Y) : 0f) + ClipHitAt, () => HitClip(StackAt(hit.X, hit.Y), hit.RemainingAfter));
                 }
                 foreach (var h in w.IceHits)
                 {
                     var hit = h;
-                    At(start + (special ? SpecialDelay(w, hit.X, hit.Y) : 0f) + ClipHitAt, () => HitIce(StackAt(hit.X, hit.Y), hit.RemainingAfter));
+                    At(start + (special ? SD(hit.X, hit.Y) : 0f) + ClipHitAt, () => HitIce(StackAt(hit.X, hit.Y), hit.RemainingAfter));
                 }
                 foreach (var g in w.GravelCleared)
                 {
                     var gc = g;
-                    At(start + (special ? SpecialDelay(w, gc.X, gc.Y) : 0f) + 60f, () => ClearGravel(StackAt(gc.X, gc.Y), gc.X - w.FiredAt.X, gc.Y - w.FiredAt.Y));
+                    At(start + (special ? SD(gc.X, gc.Y) : 0f) + 60f, () => ClearGravel(StackAt(gc.X, gc.Y), gc.X - w.FiredAt.X, gc.Y - w.FiredAt.Y));
                 }
                 foreach (var e in w.EnvelopeOpens)
                 {
                     var env = e;
-                    At(start + (special ? SpecialDelay(w, env.X, env.Y) : 0f) + ClipHitAt, () => OpenEnvelope(StackAt(env.X, env.Y)));
+                    At(start + (special ? SD(env.X, env.Y) : 0f) + ClipHitAt, () => OpenEnvelope(StackAt(env.X, env.Y)));
                 }
                 foreach (var h in w.LinkHits)
                 {
                     var hit = h;
-                    At(start + (special ? SpecialDelay(w, hit.X, hit.Y) : 0f) + ClipHitAt, () => HitClip(StackAt(hit.X, hit.Y), hit.RemainingAfter));
+                    At(start + (special ? SD(hit.X, hit.Y) : 0f) + ClipHitAt, () => HitClip(StackAt(hit.X, hit.Y), hit.RemainingAfter));
                 }
                 foreach (var h in w.SpongeHits)
                 {
                     var hit = h;
-                    At(start + (special ? SpecialDelay(w, hit.X, hit.Y) : 0f) + PeelSequence.ReadableAt, () =>
+                    At(start + (special ? SD(hit.X, hit.Y) : 0f) + PeelSequence.ReadableAt, () =>
                     {
                         var st = StackAt(hit.X, hit.Y);
                         st.SetSponge(hit.Need, hit.HaveAfter);
@@ -854,7 +884,7 @@ namespace KatKat.View
                 foreach (var d in w.DirectHits)
                 {
                     var dh = d;
-                    At(start + SpecialDelay(w, dh.X, dh.Y), () => Flash(StackAt(dh.X, dh.Y), Color.white, 0.9f));
+                    At(start + SD(dh.X, dh.Y), () => Flash(StackAt(dh.X, dh.Y), Color.white, 0.9f));
                 }
                 if (w.Index == 0 && created && !special)
                 {
@@ -889,6 +919,13 @@ namespace KatKat.View
             }
             if (created) last = Mathf.Max(last, PeelSequence.ReadableAt + StarFlight + 160f); // tepsiye uçuş bitsin
             if (flowArrive >= 0f) At(flowArrive + 20f, () => FlowFinal?.Invoke()); // kapanış "ka-ching"
+            // 2026-11-21 çakıl yayılması: hamle sonunda dokunulmayan komşu hücre çakıla döner (balon gibi şişerek).
+            if (result.GravelGrew)
+            {
+                var gc = result.GravelGrownAt;
+                At(last, () => GrowGravel(StackAt(gc.X, gc.Y), gc.X * 7 + gc.Y * 5));
+                last += GravelGrowMs;
+            }
             At(last, FinishPlay);
         }
 
@@ -953,6 +990,71 @@ namespace KatKat.View
                     stack.SetLayers(layers);
                     _fx.Add(new Fx { Kind = FxKind.Pop, T = stack.transform, BaseScale = Vector3.one, Dur = 260f });
                 });
+            }
+        }
+
+        // ---- 2026-11-21 sürükle-değiştir ---------------------------------------------------------------
+        /// <summary>Yer değişimi süresi (ms); patlama bundan sonra başlar.</summary>
+        public const float SwapMs = 220f;
+
+        private struct SwapChip { public SpriteRenderer Sr; public Vector3 From, To, Arc; public float T; public float Scale; }
+        private readonly List<SwapChip> _swapChips = new List<SwapChip>();
+
+        /// <summary>Yığınlar hemen değişmiş renkleri gösterir; üstlerinde iki taş birbirinin yerine kısa yayla kayar (eski renk
+        /// eski yerinden yeni yerine), varınca kaybolur.</summary>
+        private void PlaySwapChips(MoveResult r)
+        {
+            var a = StackAt(r.SwapFrom.X, r.SwapFrom.Y);
+            var b = StackAt(r.SwapTo.X, r.SwapTo.Y);
+            int k = r.SwapLayer;
+            var pa = a.transform.TransformPoint(a.FaceCenterLocal(k));
+            var pb = b.transform.TransformPoint(b.FaceCenterLocal(k));
+            SetLayerColor(a, k, r.SwapToColor);
+            SetLayerColor(b, k, r.SwapFromColor);
+            var side = Vector3.Cross(pb - pa, Vector3.forward).normalized * WorldPitch * 0.18f;
+            AddSwapChip(r.SwapFromColor, pa, pb, side, a.Size * a.transform.lossyScale.x);
+            AddSwapChip(r.SwapToColor, pb, pa, -side, b.Size * b.transform.lossyScale.x);
+        }
+
+        private static void SetLayerColor(StackView s, int k, LayerColor c)
+        {
+            var layers = new List<LayerColor>(s.Layers);
+            if (k < 0 || k >= layers.Count) return;
+            layers[k] = c;
+            s.SetLayers(layers);
+        }
+
+        private void AddSwapChip(LayerColor color, Vector3 from, Vector3 to, Vector3 arc, float size)
+        {
+            var sprite = PremiumArt.Chip(color) ?? KatKat.UI.UiArt.Chip(color);
+            if (sprite == null) return;
+            var sr = new GameObject("SwapChip").AddComponent<SpriteRenderer>();
+            sr.transform.SetParent(transform, true);
+            sr.sprite = sprite;
+            sr.sortingOrder = PeelDirector.PeelSortingOrder + 900;
+            float scale = size / Mathf.Max(1e-4f, sprite.bounds.size.x);
+            sr.transform.position = from + new Vector3(0f, 0f, -0.05f);
+            sr.transform.localScale = Vector3.one * scale / Mathf.Max(1e-4f, transform.lossyScale.x);
+            _swapChips.Add(new SwapChip { Sr = sr, From = from, To = to, Arc = arc, T = 0f, Scale = sr.transform.localScale.x });
+        }
+
+        private void TickSwapChips(float ms)
+        {
+            for (int i = _swapChips.Count - 1; i >= 0; i--)
+            {
+                var c = _swapChips[i];
+                c.T += ms / SwapMs;
+                if (c.Sr == null || c.T >= 1f)
+                {
+                    if (c.Sr != null) Destroy(c.Sr.gameObject);
+                    _swapChips.RemoveAt(i);
+                    continue;
+                }
+                float e = Ease.InOutQuad(c.T);
+                var p = Vector3.Lerp(c.From, c.To, e) + c.Arc * Mathf.Sin(Mathf.PI * e);
+                c.Sr.transform.position = p + new Vector3(0f, 0f, -0.05f);
+                c.Sr.transform.localScale = Vector3.one * c.Scale * (1f + 0.12f * Mathf.Sin(Mathf.PI * e));
+                _swapChips[i] = c;
             }
         }
 
@@ -1322,6 +1424,29 @@ namespace KatKat.View
         }
 
         /// <summary>Çakıl temizlenir: yığın hayaleti kalkıp küçülerek söner, çakıl taneleri kazıma yönünde saçılır, toz kalkar.</summary>
+        public const float GravelGrowMs = 520f;
+        /// <summary>Yakalama: son oynatmada çakıla dönüş başladı mı (Play başında sıfırlanır).</summary>
+        public bool GravelGrowStarted { get; private set; }
+
+        private void GrowGravel(StackView stack, int variant)
+        {
+            GravelGrowStarted = true;
+            stack.SetGravel(true, variant);
+            var pile = stack.GravelRenderer;
+            if (pile == null) return;
+            Flash(stack, new Color(0.95f, 0.85f, 0.7f, 0.8f), 1.2f);
+            if (KatKat.UI.Motion.Reduced) return;
+            _fx.Add(new Fx { Kind = FxKind.Balloon, T = pile.transform, BaseScale = pile.transform.localScale, Dur = GravelGrowMs });
+            var pos = stack.transform.position + stack.TopFaceLocal;
+            for (int i = 0; i < 8; i++)
+            {
+                float a = i / 8f * Mathf.PI * 2f;
+                var dir = new Vector3(Mathf.Cos(a), Mathf.Sin(a), 0f);
+                Particles.Emit(FxKit.Dot, false, PeelDirector.PeelSortingOrder + 50, pos, dir * WorldPitch * 1.2f, 0.4f, WorldPitch * 0.14f, WorldPitch * 0.04f,
+                    new Color(0.82f, 0.74f, 0.64f, 1f), new Color(0.7f, 0.62f, 0.52f, 0f), gravity: -WorldPitch * 6f, drag: 2f, delay: 0.12f);
+            }
+        }
+
         private void ClearGravel(StackView stack, int dx, int dy)
         {
             var pile = stack.GravelRenderer;
@@ -1794,6 +1919,16 @@ namespace KatKat.View
                     case FxKind.Pop:
                         f.T.localScale = f.BaseScale * (1f + 0.22f * Mathf.Sin(x * Mathf.PI));
                         break;
+                    case FxKind.Balloon:
+                    {
+                        // 2026-11-21 çakıla dönüş: balon gibi şişer (1,3), biraz söner, sallanarak normal boyuna oturur.
+                        float k = x < 0.45f ? Mathf.Lerp(0.05f, 1.3f, Ease.OutCubic(x / 0.45f))
+                            : x < 0.7f ? Mathf.Lerp(1.3f, 0.9f, Ease.InOutQuad((x - 0.45f) / 0.25f))
+                            : Mathf.Lerp(0.9f, 1f, Ease.OutCubic((x - 0.7f) / 0.3f));
+                        float wob = 0.07f * Mathf.Sin(x * 3f * Mathf.PI) * (1f - x);
+                        f.T.localScale = new Vector3(f.BaseScale.x * k * (1f + wob), f.BaseScale.y * k * (1f - wob), f.BaseScale.z);
+                        break;
+                    }
                     case FxKind.Tumble:
                     {
                         // Yan dönüş: genişlik ortada sıfıra iner (yeni sıra o anda çizilir), sonra küçük taşmayla oturur.
@@ -2035,9 +2170,14 @@ namespace KatKat.View
             foreach (var s in _shakes) if (s.Stack) s.Stack.transform.localRotation = Quaternion.identity;
             _shakes.Clear();
             while (_fx.Count > 0) EndFx(_fx.Count - 1);
+            foreach (var sc in _swapChips) if (sc.Sr != null) Destroy(sc.Sr.gameObject);
+            _swapChips.Clear();
             if (_shaking) { transform.localPosition = _shakeBase; _shaking = false; _shakeAmp = 0f; }
             if (_onDone != null) FinishPlay();
         }
+
+        /// <summary>Oyun akışının tahta zaman çizgisine bağlı gecikmeli işi (mağaza bombasının patlama anı; atlamada birlikte biter).</summary>
+        public void Later(float ms, Action a) => At(ms, a);
 
         private void At(float ms, Action a)
         {
@@ -2059,6 +2199,7 @@ namespace KatKat.View
             TickVeil(ms);
             ms *= KatKat.UI.Motion.Pace;
             if (_fx.Count > 0) TickFx(ms);
+            if (_swapChips.Count > 0) TickSwapChips(ms);
             TickBoardShake(ms);
             if (_timeline.Count > 0)
             {
@@ -2107,7 +2248,7 @@ namespace KatKat.View
             public float Start;
         }
 
-        private enum FxKind { Pop, Away, Fly, Streak, Tumble, Spin, Burst, Expand, Travel, Bolt, Spark, Flame }
+        private enum FxKind { Pop, Away, Fly, Streak, Tumble, Spin, Burst, Expand, Travel, Bolt, Spark, Flame, Balloon }
 
         private struct Fx
         {

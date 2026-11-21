@@ -13,7 +13,7 @@ namespace KatKat.Core
         /// <summary>Dokunulan grubun övgü seviyesi: 6–7 → 1, 8–9 → 2, 10–12 → 3, 13+ → 4.</summary>
         public static int TapLevel(MoveResult r)
         {
-            if (r == null || !r.Accepted || r.Command.Type != CommandType.Tap || r.Waves.Count == 0 || r.Waves[0].Kind != WaveKind.Tap) return 0;
+            if (r == null || !r.Accepted || (r.Command.Type != CommandType.Tap && r.Command.Type != CommandType.Swap) || r.Waves.Count == 0 || r.Waves[0].Kind != WaveKind.Tap) return 0;
             int n = r.TappedGroup.Count;
             return n >= 13 ? 4 : n >= 10 ? 3 : n >= 8 ? 2 : n >= TapGroup ? 1 : 0;
         }

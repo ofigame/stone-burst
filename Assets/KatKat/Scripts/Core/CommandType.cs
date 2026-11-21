@@ -12,5 +12,9 @@
         UseSpecial = 4,
         /// <summary>2026-11-20 güçlendirici (külçeyle): hedefin 3×3 çevresindeki her yığından bir kat soyar, örtülere vurur; hamle harcamaz.</summary>
         Bomb = 5,
+        /// <summary>2026-11-21 sürükle-değiştir (kullanıcı: "taşı sürükleyerek 3'lüyü tamamlama … kendi katındaki taşla yer değiştirir"):
+        /// (X, Y) yığınının üst taşı, Row yönündeki komşu yığının aynı kattaki taşıyla yer değiştirir; 3+ grup oluşursa o grup
+        /// dokunuş gibi patlar. Bir hamle harcar.</summary>
+        Swap = 6,
     }
 }

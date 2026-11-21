@@ -97,7 +97,7 @@ namespace KatKat.Tests
             Assert.IsNotNull(Find("PilotButton"));
             int completed = _gc.SaveService.Data.completed.Count, stars = _gc.SaveService.Data.TotalStars;
             _gc.ShowPilots();
-            _gc.StartTrial(4); // pilot_05 aşamalı hedef
+            _gc.StartTrial(GameController.LabCount + 4); // pilot_05 aşamalı hedef (2026-11-21: Test Bölümlerinde ilk 10 yeni bölüm)
             yield return null;
             Assert.IsTrue(_gc.InPilot);
             Assert.AreEqual("pilot_stages", _gc.CurrentLevel.TrialType);

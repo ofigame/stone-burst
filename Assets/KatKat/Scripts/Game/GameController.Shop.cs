@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using KatKat.Core;
 using KatKat.Meta;
 using KatKat.UI;
+using KatKat.View;
 using UnityEngine;
 
 namespace KatKat.Game
@@ -267,12 +268,19 @@ namespace KatKat.Game
             _session.DropUndo(); // külçeyle ödenen etki geri alınmaz
             BoosterUsed(Booster.Bomb);
             _hud.HideToast();
-            _hud.PlayBoosterBurst(Booster.Bomb, true);
-            _board.RimSweep(new Color(1f, 0.55f, 0.15f), new Color(1f, 0.9f, 0.45f), 1.5f, fire: true);
             HintAfterCommand();
-            _sound.Play(Sfx.Win);
-            Haptics.Strong();
+            // 2026-11-21 (kullanıcı): bomba kullanıldığı anda patlama ve sarsıntı yok; taşlar yükselip titrer
+            // (PeelSequence.ChargeMs), patladıkları anda tahta sarsılır, alev ve kıvılcımlar, çerçeve ateşi, ses ve titreşim.
+            _sound.Play(Sfx.Tap);
+            Haptics.Light();
             Play(r);
+            _board.Later(PeelSequence.ChargeMs, () =>
+            {
+                _hud.PlayBoosterBurst(Booster.Bomb, true);
+                _board.RimSweep(new Color(1f, 0.55f, 0.15f), new Color(1f, 0.9f, 0.45f), 1.5f, fire: true);
+                _sound.Play(Sfx.Win);
+                Haptics.Strong();
+            });
         }
 
         private void PickRecolorCell(int x, int y)

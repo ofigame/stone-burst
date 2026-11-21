@@ -27,6 +27,10 @@ namespace KatKat.View
 
         public static Sprite Pile(int variant)
         {
+            // 2026-11-21 (kullanıcı: görsel örneğiyle "çakıl taşlarınıda yapalım"): yosunlu, filizli iri kaya yığını görseli
+            // (PremiumV6/gravel-pile, 512 px, saydam). Yoksa kod çizimi.
+            var art = SpecialArt.V6("gravel-pile");
+            if (art != null) return art;
             int v = ((variant % 3) + 3) % 3;
             if (_piles[v] != null) return _piles[v];
             return _piles[v] = BuildPile(v);

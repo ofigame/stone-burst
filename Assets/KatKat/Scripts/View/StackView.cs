@@ -222,13 +222,19 @@ namespace KatKat.View
         private void UpdateGravel(Vector3 face)
         {
             if (_gravelOn && _gravel == null) _gravel = Mark("Gravel", GravelArt.Pile(_gravelVariant), 6);
+            // 2026-11-21 (kullanıcı: "çakılın altında diğer taşlar görünmesin çakıl orada tek başına düzgün şekilde otursun ve
+            // çakıl kalktığında taşlar görünsün"): çakıl varken yığın gövdesi ve gölgesi çizilmez; çakıl tek katlı yığın
+            // yüksekliğinde, hücreye oturur. Kalkınca gövde geri gelir.
+            if (_body != null) _body.gameObject.SetActive(!_gravelOn);
+            if (_shadow != null) _shadow.enabled = !_gravelOn && (_layers.Count > 0 || _detachedRim.HasValue);
             if (_gravel == null) return;
             _gravel.gameObject.SetActive(_gravelOn);
             if (!_gravelOn) return;
             _gravel.sprite = GravelArt.Pile(_gravelVariant);
             _gravel.sortingOrder = _renderer.sortingOrder + 6;
             _gravel.color = Color.white;
-            FitOnFace(_gravel, face, new Vector2(0f, 0.02f), GravelWidth);
+            _gravel.flipX = false; // kullanıcı: "çakılın ışığında problem var" — çevirme ışık yönünü ters çeviriyordu
+            FitOnFace(_gravel, FaceCenterLocal(0), new Vector2(0f, 0.02f), GravelWidth);
         }
 
         public void SetIceHits(int hits)
@@ -339,7 +345,10 @@ namespace KatKat.View
             _button.transform.localScale = Vector3.one * (Size * 0.5f / _button.sprite.bounds.size.x);
         }
 
-        private SpriteRenderer _crystal, _crystalGlow;
+        private SpriteRenderer _crystal, _crystalGlow, _fuseSpark;
+        private float _bombClock, _bombSparkAt;
+        private Vector3 _bombBase;
+        private float _bombScale;
         public bool IsProtected => _crystal != null && _crystal.gameObject.activeSelf;
 
         /// <summary>
@@ -352,19 +361,62 @@ namespace KatKat.View
             {
                 if (_crystal != null) _crystal.gameObject.SetActive(false);
                 if (_crystalGlow != null) _crystalGlow.gameObject.SetActive(false);
+                if (_fuseSpark != null) _fuseSpark.gameObject.SetActive(false);
                 return;
             }
             if (_crystalGlow == null) _crystalGlow = Mark("CrystalGlow", SpecialArt.Glow, -1);
             _crystalGlow.gameObject.SetActive(true);
-            _crystalGlow.color = new Color(0.55f, 0.9f, 1f, 0.7f);
+            _crystalGlow.color = new Color(1f, 0.45f, 0.2f, 0.6f);
             _crystalGlow.sortingOrder = _renderer.sortingOrder - 1;
             _crystalGlow.transform.localPosition = TopFaceLocal * 0.5f;
             _crystalGlow.transform.localScale = Vector3.one * (Size * 1.5f / _crystalGlow.sprite.bounds.size.x);
-            if (_crystal == null) _crystal = Mark("Crystal", KatKat.UI.RuleIcons.For("protect"), 9);
+            // 2026-11-21 (kullanıcı): kristal yerine ipi kıvılcım saçan, kızıl, hareketli bomba (FuseBombArt).
+            if (_crystal == null) _crystal = Mark("FuseBomb", FuseBombArt.Body, 9);
+            _crystal.sprite = FuseBombArt.Body;
             _crystal.gameObject.SetActive(true);
             _crystal.sortingOrder = _renderer.sortingOrder + 9;
-            _crystal.transform.localPosition = TopFaceLocal; // 2026-11-16: tam ortada, büyük
-            _crystal.transform.localScale = Vector3.one * (Size * 1.2f / _crystal.sprite.bounds.size.x); // 2026-11-16: Tripo kristali, okunur boy
+            _bombBase = TopFaceLocal;
+            _bombScale = Size * 1.15f / _crystal.sprite.bounds.size.x;
+            _crystal.transform.localPosition = _bombBase;
+            _crystal.transform.localScale = Vector3.one * _bombScale;
+            if (_fuseSpark == null) _fuseSpark = Mark("FuseSpark", FxKit.Glow, 10);
+            _fuseSpark.gameObject.SetActive(true);
+            _fuseSpark.sortingOrder = _renderer.sortingOrder + 10;
+            AnimateBomb(0f);
+        }
+
+        /// <summary>Yakalama: bomba işaretini verilen süre (sn) canlandırır.</summary>
+        public void AnimateMarksForTest(float dt) => AnimateBomb(dt);
+
+        /// <summary>Bomba işareti: hafif sallanma ve nefes; fitil ucunda titreşen kıvılcım, ara ara saçılan çakmalar.</summary>
+        private void AnimateBomb(float dt)
+        {
+            if (_crystal == null || !_crystal.gameObject.activeSelf) { if (_fuseSpark != null) _fuseSpark.gameObject.SetActive(false); return; }
+            _bombClock += dt;
+            bool still = KatKat.UI.Motion.Reduced;
+            float t = _bombClock;
+            float sway = still ? 0f : Mathf.Sin(t * 2f * Mathf.PI / 1.3f) * 6f;
+            float breathe = still ? 1f : 1f + 0.035f * Mathf.Sin(t * 2f * Mathf.PI / 0.9f);
+            var tr = _crystal.transform;
+            tr.localRotation = Quaternion.Euler(0f, 0f, sway);
+            tr.localScale = Vector3.one * _bombScale * breathe;
+            tr.localPosition = _bombBase;
+            // Fitil ucu: sprite uzayından yığın uzayına (dönüş ve ölçekle).
+            float w = _crystal.sprite.bounds.size.x * _bombScale * breathe;
+            var tip = tr.localPosition + tr.localRotation * new Vector3(FuseBombArt.FuseTip.x * w, FuseBombArt.FuseTip.y * w, 0f);
+            float flick = still ? 0.8f : 0.7f + 0.3f * Mathf.PerlinNoise(t * 9f, 0.37f);
+            _fuseSpark.transform.localPosition = tip + new Vector3(0f, 0f, -0.002f);
+            _fuseSpark.transform.localScale = Vector3.one * (Size * 0.55f * flick / _fuseSpark.sprite.bounds.size.x);
+            _fuseSpark.color = new Color(1f, 0.85f - 0.25f * (1f - flick), 0.35f, 0.95f);
+            var pfx = FxParticles.Active;
+            if (still || pfx == null || dt <= 0f || t < _bombSparkAt) return;
+            _bombSparkAt = t + 0.07f + 0.08f * Mathf.PerlinNoise(t * 3.1f, 1.7f);
+            var world = transform.TransformPoint(tip);
+            float a = Mathf.Lerp(-0.2f, Mathf.PI + 0.2f, Mathf.PerlinNoise(t * 7.3f, 4.1f));
+            var dir = new Vector3(Mathf.Cos(a), Mathf.Abs(Mathf.Sin(a)) + 0.3f, 0f).normalized;
+            float s = Size * transform.lossyScale.x;
+            pfx.Emit(FxKit.Dot, true, _renderer.sortingOrder + 11, world, dir * s * 1.6f, 0.35f, s * 0.09f, s * 0.02f,
+                new Color(1f, 0.95f, 0.6f, 1f), new Color(1f, 0.4f, 0.1f, 0f), gravity: -s * 4f, drag: 1.5f, stretch: 0.04f);
         }
 
         /// <summary>M11 geçit hayaleti: henüz açılmamış hücrede gelecek üst rengin soluk karesi.</summary>
@@ -419,6 +471,7 @@ namespace KatKat.View
         /// <summary>Boşta özel taş: hafif nefes (ölçek) ve gökkuşağında yavaş dönüş; oyuncunun gözü takılsın.</summary>
         private void LateUpdate()
         {
+            AnimateBomb(Time.unscaledDeltaTime);
             if (_special == null || !_special.gameObject.activeSelf) return;
             _specialClock += Time.unscaledDeltaTime;
             _popT += Time.unscaledDeltaTime;
