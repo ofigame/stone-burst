@@ -44,8 +44,13 @@ namespace KatKat.Tests
             _gc.ShowLevels();
             yield return null;
             Assert.IsNotNull(_gc.Menu.LivePressed, "anasayfada canlı maç girişi bağlı");
-            Assert.IsNotNull(GameObject.Find("LiveButton"), "Sıralama altındaki düğme kuruldu");
+            Assert.IsNotNull(GameObject.Find(KatKat.UI.Loc.T("live.button")), "alt menünün ortasında canlı maç (2026-11-22)");
+            Assert.IsNotNull(GameObject.Find("DailyButton"), "Günlük Bulmaca sol sütunda");
             _gc.Menu.LivePressed();
+            yield return null;
+            Assert.IsTrue(_gc.Menu.LiveIntroShown, "önce bilgi kartı (2026-11-22)");
+            Assert.IsFalse(_gc.LiveOpen, "Hazırım’a basmadan maç açılmaz");
+            Assert.IsTrue(_gc.Menu.PressForTest("Ready"), "Hazırım");
             yield return null;
             var v = _gc.Live;
             Assert.IsNotNull(v, "canlı maç açıldı");

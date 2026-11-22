@@ -67,6 +67,7 @@ switch ($Command) {
     'capture-shell-after' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureV10Shell.After') 'capture-shell-after' }
     'capture-showcase' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureV10Shell.Showcase') 'capture-showcase' }
     'stone-materials' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.StoneModelTools.BuildMaterials') 'stone-materials' }
+    'mascot-report' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.StoneModelTools.ReportMascot') 'mascot-report' }
     'stone-bounds' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.StoneModelTools.ReportBounds') 'stone-bounds' }
     'capture-game-before' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureV10Game.Before') 'capture-game-before' }
     'capture-game-after' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureV10Game.After') 'capture-game-after' }

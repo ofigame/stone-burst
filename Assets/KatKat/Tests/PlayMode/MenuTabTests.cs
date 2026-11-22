@@ -61,7 +61,9 @@ namespace KatKat.Tests
             _gc.ShowDaily();
             yield return null;
             Assert.IsTrue(_gc.Menu.IsDailyShown);
-            Assert.AreEqual(daily, SelectedTab(), "günlük açıkken Günlük seçili");
+            // 2026-11-22: alt menüde Günlük sekmesi yok; günlük açıkken hiçbir sekme seçili değil.
+            Assert.IsNull(SelectedTab(), "günlük açıkken seçili sekme yok");
+            Assert.AreNotEqual(daily, SelectedTab());
             _gc.Menu.CloseDaily();
             yield return null;
             Assert.AreEqual(map, SelectedTab(), "kapanınca Harita seçili");

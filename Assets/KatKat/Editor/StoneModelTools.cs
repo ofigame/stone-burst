@@ -15,11 +15,16 @@ namespace KatKat.EditorTools
     {
         public const string Folder = "Assets/KatKat/Resources/Models/Stones/";
 
-        public override uint GetVersion() => 2;
+        /// <summary>3D harita maskotu (2026-11-22, Tripo) da aynı kurallarla: Resources/Map3D/Mascot.</summary>
+        public const string MascotFolder = "Assets/KatKat/Resources/Map3D/Mascot/";
+
+        private static bool Mine(string p) => p.StartsWith(Folder, StringComparison.Ordinal) || p.StartsWith(MascotFolder, StringComparison.Ordinal);
+
+        public override uint GetVersion() => 4;
 
         private void OnPreprocessModel()
         {
-            if (!assetPath.StartsWith(Folder, StringComparison.Ordinal)) return;
+            if (!Mine(assetPath)) return;
             var mi = (ModelImporter)assetImporter;
             mi.materialImportMode = ModelImporterMaterialImportMode.None;
             mi.importAnimation = false;
@@ -35,10 +40,11 @@ namespace KatKat.EditorTools
 
         private void OnPreprocessTexture()
         {
-            if (!assetPath.StartsWith(Folder, StringComparison.Ordinal)) return;
+            if (!Mine(assetPath)) return;
             var ti = (TextureImporter)assetImporter;
             bool normal = assetPath.EndsWith("/normal.png", StringComparison.Ordinal);
             ti.textureType = normal ? TextureImporterType.NormalMap : TextureImporterType.Default;
+            ti.textureShape = TextureImporterShape.Texture2D; // 4096 kare Tripo dokusu kendiliğinden küp doku sanılıyordu
             ti.sRGBTexture = !normal;
             ti.mipmapEnabled = true;
             ti.maxTextureSize = 1024;
@@ -52,6 +58,22 @@ namespace KatKat.EditorTools
 
     public static class StoneModelTools
     {
+        /// <summary>Tanılama: 3D harita maskotu (malzeme, doku, örgü UV, kök dönüşü).</summary>
+        public static void ReportMascot()
+        {
+            foreach (var p in new[] { "color.png", "normal.png", "mat.mat" }) AssetDatabase.ImportAsset(StoneModelImporter.MascotFolder + p, ImportAssetOptions.ForceUpdate);
+            Debug.Log($"[KatKat] maskot color tip={AssetDatabase.GetMainAssetTypeAtPath(StoneModelImporter.MascotFolder + "color.png")}");
+            var mat = Resources.Load<Material>("Map3D/Mascot/mat");
+            Debug.Log($"[KatKat] maskot mat={(mat != null ? mat.shader.name : "YOK")} tex={(mat != null && mat.mainTexture != null ? mat.mainTexture.name + " " + mat.mainTexture.width : "YOK")} renk={(mat != null ? mat.color.ToString() : "")}");
+            var ctex = Resources.Load<Texture2D>("Map3D/Mascot/color");
+            Debug.Log($"[KatKat] maskot color={(ctex != null ? ctex.width + "x" + ctex.height + " " + ctex.format : "YOK")}");
+            var go = Resources.Load<GameObject>("Map3D/Mascot/model");
+            if (go == null) { Debug.Log("[KatKat] maskot model YOK"); return; }
+            Debug.Log($"[KatKat] maskot kök rot={go.transform.localEulerAngles} ölçek={go.transform.localScale}");
+            foreach (var mf in go.GetComponentsInChildren<MeshFilter>(true)) { var uvs = mf.sharedMesh.uv; Vector2 a = Vector2.one * 9f, b = -a; foreach (var u in uvs) { a = Vector2.Min(a, u); b = Vector2.Max(b, u); } Debug.Log($"[KatKat] maskot uv aralık {a} – {b}"); }
+            foreach (var mf in go.GetComponentsInChildren<MeshFilter>(true)) Debug.Log($"[KatKat] maskot örgü {mf.name} v={mf.sharedMesh.vertexCount} uv={mf.sharedMesh.uv?.Length} bounds={mf.sharedMesh.bounds} rot={mf.transform.localEulerAngles} ölçek={mf.transform.localScale}");
+        }
+
         /// <summary>Tanılama: her modelin dünya sınırı (boyut, merkez) ve üçgen sayısı.</summary>
         public static void ReportBounds()
         {

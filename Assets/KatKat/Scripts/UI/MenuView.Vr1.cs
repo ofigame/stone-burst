@@ -63,6 +63,12 @@ namespace KatKat.UI
         private void BuildPilotButton(RectTransform shell)
         {
             if (!Vr1Proto.On || !Vr1Proto.PilotAllowed || PilotPressed == null) return;
+            var badge = BadgeArt("rozet-hedef");
+            if (badge != null)
+            {
+                BadgeButton("PilotButton", shell, badge, BadgeSlotY(3), Loc.T("vr1.pilot.button"), false, 30, () => PilotPressed?.Invoke(), out _, new Color(1f, 0.4f, 0.3f, 1f));
+                return;
+            }
             var b = ShellRoundButton("PilotButton", shell, RuleIcons.For("seal"), 120f, () => PilotPressed?.Invoke());
             UiFactory.Place((RectTransform)b.transform, new Vector2(0.5f, 1f), new Vector2(-V11ColumnX, -V11ColumnZpeTop - V11LeftShift - 66f - 2f * LiveButtonDrop), new Vector2(120f, 120f)); // canlı maç düğmesinin altı
             var cap = WhiteCapsule("PilotLabel", b.transform, V11Navy, new Vector2(0.5f, 0f), new Vector2(0f, -30f), new Vector2(170f, 50f), 5f);

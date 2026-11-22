@@ -228,11 +228,9 @@ namespace KatKat.Tests
             Assert.IsFalse(_gc.Menu.IsDailyShown);
             Assert.IsTrue(_gc.Menu.IsMapShown);
 
-            // Koleksiyondan Günlük sekmesi: harita kurulur, modal üstünde açılır.
+            // 2026-11-22: alt menüde Günlük yok (ortada Canlı Maç); Günlük Bulmaca haritanın sol sütununda rozet.
             _gc.ShowCollection();
-            Assert.IsTrue(_gc.Menu.PressForTest(KatKat.UI.Loc.T("daily.short")), "taşlar: Günlük sekmesi");
-            Assert.IsTrue(_gc.Menu.IsMapShown && _gc.Menu.IsDailyShown);
-            _gc.Menu.CloseDaily();
+            Assert.IsFalse(_gc.Menu.PressForTest(KatKat.UI.Loc.T("daily.short")), "taşlar: alt menüde Günlük sekmesi yok");
 
             _gc.ShowCollection();
             Assert.IsFalse(_gc.Menu.IsMapShown);
@@ -252,7 +250,7 @@ namespace KatKat.Tests
             // Alt menü: Harita | Günlük | Mağaza (Oyna yok; 2026-11-20 Taşlar yerine Mağaza); Ayarlar haritada sağ üstte.
             string daily = KatKat.UI.Loc.T("daily.short"), stones = KatKat.UI.Loc.T("shop.tab");
             Assert.IsFalse(_gc.Menu.PressForTest("Play"), "alt menüde Oyna yok");
-            Assert.IsTrue(_gc.Menu.PressForTest(daily), "harita: Günlük sekmesi");
+            Assert.IsTrue(_gc.Menu.PressForTest("DailyButton"), "harita: Günlük Bulmaca rozeti");
             Assert.IsTrue(_gc.Menu.IsMapShown && _gc.Menu.IsDailyShown, "günlük harita üstünde modal");
             _gc.Menu.CloseDaily();
             Assert.IsTrue(_gc.Menu.PressForTest(stones), "harita: Mağaza sekmesi");

@@ -638,6 +638,13 @@ namespace KatKat.UI
         /// <summary>Harita: sol sütunda sıralama düğmesi (kupa), altında etiket.</summary>
         private void BuildRankButton(RectTransform shell)
         {
+            var badge = BadgeArt("rozet-siralama");
+            if (badge != null)
+            {
+                var rb = BadgeButton("RankButton", shell, badge, BadgeSlotY(1), Loc.T("rank.title"), true, 30, () => RankPressed?.Invoke(), out _);
+                RankAttentionDot(rb.transform, new Vector2(-30f, -22f));
+                return;
+            }
             var cup = RankArt("trophy");
             if (cup == null) return;
             var b = ShellRoundButton("RankButton", shell, cup, 132f, () => RankPressed?.Invoke());
@@ -651,12 +658,17 @@ namespace KatKat.UI
             UiFactory.Stretch(t.rectTransform, 14f, 14f, 2f, 4f);
             FitText(t, 20);
             // 2026-11-18: kayıtsız ve sıralamaya girebilecek oyuncuya kupanın sağ üstünde kırmızı uyarı noktası.
+            RankAttentionDot(b.transform, new Vector2(-14f, -14f));
+        }
+
+        private void RankAttentionDot(Transform b, Vector2 at)
+        {
             if (AccountsOn && RankNeedsAttention != null && RankNeedsAttention())
             {
-                var dot = _rankDot = UiFactory.Image("AttentionDot", b.transform, Ui3.Rounded(16f, new Color32(0xE5, 0x3B, 0x2E, 0xFF), new Color32(0xE5, 0x3B, 0x2E, 0xFF), 3f, Color.white), Color.white);
+                var dot = _rankDot = UiFactory.Image("AttentionDot", b, Ui3.Rounded(16f, new Color32(0xE5, 0x3B, 0x2E, 0xFF), new Color32(0xE5, 0x3B, 0x2E, 0xFF), 3f, Color.white), Color.white);
                 dot.pixelsPerUnitMultiplier = 1f;
                 dot.raycastTarget = false;
-                UiFactory.Place(dot.rectTransform, new Vector2(1f, 1f), new Vector2(-14f, -14f), new Vector2(34f, 34f));
+                UiFactory.Place(dot.rectTransform, new Vector2(1f, 1f), at, new Vector2(34f, 34f));
             }
         }
 

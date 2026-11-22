@@ -194,7 +194,7 @@ namespace KatKat.UI
             // 4) Sağ sütun: ZPE göstergesi ve altında kilidi açılmayı bekleyen taş (kullanıcı, 2026-11-08).
             BuildZpeBadge(shell);
             BuildRankButton(shell); // v12: sol sütunda Sıralama (kupa)
-            BuildLiveButton(shell); // canlı maç girişi (Sıralama altı)
+            if (LivePressed != null) BuildDailyBadge(shell); else BuildLiveButton(shell); // 2026-11-22: canlı maç alt menüde
             // v8 (kullanıcı onayı 2026-11-08): türler ana bölümlerde; Deneme düğmesi haritadan kalktı (liste kodda duruyor).
             BuildStarGoal(shell);
 
@@ -470,6 +470,7 @@ namespace KatKat.UI
         private void BuildZpeBadge(RectTransform root)
         {
             if (!ZpeBadge.Has) return;
+            if (BuildZpeBadgeArt(root)) return; // 2026-11-22 rozet görseli
             var z = ZpeBadge;
             var block = UiFactory.Rect("Zpe", root);
             UiFactory.Place(block, new Vector2(0.5f, 1f), new Vector2(-V11ColumnX, -V11ColumnZpeTop - 92f), new Vector2(190f, 184f));
@@ -882,7 +883,11 @@ namespace KatKat.UI
             var items = new[]
             {
                 new TabItem { Label = Loc.T("ui.map"), Icon = Vr1Proto.On && Vr1Proto.NavMap ? Vr1Proto.NavMap : MapIcon(), On = mapOn, Act = mapOn ? null : levels },
-                new TabItem { Label = Loc.T("daily.short"), Icon = Vr1Proto.On && Vr1Proto.NavDaily ? Vr1Proto.NavDaily : CalendarIcon(), On = active == TabDaily, Act = active == TabDaily ? null : (Action)(() => DailyPressed?.Invoke()) },
+                // 2026-11-22 (kullanıcı: "alt menüden ortada olan günlük bulmacayı kaldıralım canlı maç ile yer değiştirelim"):
+                // ortada Canlı Maç; Günlük Bulmaca haritanın sol sütununda rozet (MenuView.Badges).
+                LivePressed != null
+                    ? new TabItem { Label = Loc.T("live.button"), Icon = BadgeArt("sekme-canli") ?? PremiumArt.Chip(KatKat.Core.LayerColor.Blue), On = active == TabLive, Act = active == TabLive ? null : (Action)(() => LivePressed?.Invoke()) }
+                    : new TabItem { Label = Loc.T("daily.short"), Icon = BadgeArt("sekme-gunluk") ?? (Vr1Proto.On && Vr1Proto.NavDaily ? Vr1Proto.NavDaily : CalendarIcon()), On = active == TabDaily, Act = active == TabDaily ? null : (Action)(() => DailyPressed?.Invoke()) },
                 // 2026-11-20 (kullanıcı: "menüde dükkanı nereye koyalım. Taşları kaldıralım"): Taşlar yerine Mağaza; koleksiyona
                 // haritadaki taş dolum göstergesinden girilir.
                 new TabItem { Label = Loc.T("shop.tab"), Icon = ShopArt("tab-shop") ?? ShellArt("icon-chest") ?? ChestIconTemp(), On = active == TabShop, Act = active == TabShop ? null : (Action)(() => ShopPressed?.Invoke()) },
@@ -907,7 +912,7 @@ namespace KatKat.UI
             var all = new[]
             {
                 new TabItem { Label = Loc.T("ui.map"), Icon = MapIcon(), On = true },
-                new TabItem { Label = Loc.T("daily.short"), Icon = CalendarIcon() },
+                new TabItem { Label = Loc.T("daily.short"), Icon = DailyTabIcon() },
                 new TabItem { Label = Loc.T("collection.short"), Icon = V11("icon-stones") },
                 new TabItem { Label = Loc.T("rewards.short"), Icon = ShellArt("icon-chest") ?? ChestIconTemp() },
                 new TabItem { Label = Loc.T("ui.settings"), Icon = PremiumArt.V4("icons/settings") ?? UiArt.Icon(UiIcon.SoundOn) },

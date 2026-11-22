@@ -86,12 +86,14 @@ namespace KatKat.UI
         {
             gameObject.SetActive(true);
             if (_page != null) UiFactory.Kill(_page.gameObject);
+            HideMap3D(); // 3D harita yalnız harita sayfasında (ShowLevels yeniden açar)
             _hero = _play = _halo = _mapContent = null;
             _heroShadow = _pinHolder = null;
             _ret = _retMascot = _retArrow = null;
             _map = null;
             _dailyModal = null;
             _dailyPrevTab = -1; // yeni sayfa kendi alt menüsünü kurar
+            _livePrevTab = -1; _liveIntro = null; // canlı maç bilgi kartı sayfayla gider
             _tabsHolder = null;
             _zpeModal = null;
             _heroBase = HeroY;
@@ -197,7 +199,7 @@ namespace KatKat.UI
 
 
 
-        public const int TabDaily = 3, TabCollection = 4;
+        public const int TabDaily = 3, TabCollection = 4, TabLive = 5;
 
 
         private static Sprite _calendarIcon;
@@ -858,6 +860,7 @@ namespace KatKat.UI
         /// odaklanır; negatifse mevcut bölüme.</param>
         public void ShowLevels(int total, int highestUnlocked, Func<int, bool> isCompleted, Action back, int sheet = -1, Action onSettings = null)
         {
+            _reshowLevels = () => ShowLevels(total, highestUnlocked, isCompleted, back, sheet, onSettings);
             total = Mathf.Max(1, total);
             int regions = Mathf.Max(1, (total + ThemeDefinition.RegionSize - 1) / ThemeDefinition.RegionSize);
             int current = Mathf.Clamp(highestUnlocked, 0, total - 1);
@@ -922,6 +925,7 @@ namespace KatKat.UI
 
             // v10 Mavi Liman: sabit üst kabuk (mor sahne, logo, altın şerit, bölge etiketi, Ayarlar, yıldız kapsülü).
             // Dinamik bölge parçaları SetHeaderRegion → HeaderCard ile kurulur (MenuView.Shell.cs).
+            BuildMap3DSurface(page, viewport, total, current, isCompleted); // 2026-11-22 3D harita denemesi (anahtar açıksa)
             BuildReturnButton(page);
             BuildMapShell(page, m.StarSum, onSettings, out m.HeadBack, out m.Head);
             m.Prev = UiFactory.CircleButton("Prev", m.Head, false, UiIcon.Back, 96f, () => ScrollToRegion(m.HeaderRegion - 1), "icons/back");
@@ -939,6 +943,7 @@ namespace KatKat.UI
             UpdateMap();
 
             Tabs(page, 1, back, () => { }, null);
+            BuildMap3DToggle(page);
             Tick(0f);
         }
 

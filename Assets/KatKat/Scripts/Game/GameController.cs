@@ -188,7 +188,7 @@ namespace KatKat.Game
             _menu.StonePreviewRequested = id => ShowStone(id, false);
             _menu.ZpePressed = ShowZpeStats;
             _menu.RankPressed = ShowRanking;
-            if (LiveMatchEnabled) _menu.LivePressed = ShowLive; // canlı maç (Sıralama altındaki giriş); kapalıysa düğme kurulmaz
+            if (LiveMatchEnabled) _menu.LivePressed = () => _menu.ShowLiveIntro(ShowLive); // 2026-11-22: önce bilgi kartı, "Hazırım" ile maç // canlı maç (Sıralama altındaki giriş); kapalıysa düğme kurulmaz
             _menu.TrialPressed = ShowTrials;
             _menu.RankTabPressed = scope => ShowRanking(scope);
             _menu.RankRetryPressed = () => ShowRanking(_rankScope);

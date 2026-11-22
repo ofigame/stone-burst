@@ -287,6 +287,15 @@ namespace KatKat.EditorTools
             try
             {
                 Shot("01_harita_ana_sayfa", gc => { Progress(gc, 12); gc.ShowLevels(); });
+                // 2026-11-22 3D harita denemesi: duruş ve kapıya yürüyüş ara karesi.
+                Shot("3d_m_selale", gc => { MenuView.Map3DOverride = true; Progress(gc, 12); gc.ShowLevels(); var w = gc.Menu.Map3D; if (w != null) { w.FocusGate(8); w.RenderNow(); } MenuView.Map3DOverride = null; });
+                Shot("3d_m_kayalik", gc => { MenuView.Map3DOverride = true; Progress(gc, 12); gc.ShowLevels(); var w = gc.Menu.Map3D; if (w != null) { w.FocusGate(17); w.RenderNow(); } MenuView.Map3DOverride = null; });
+                Shot("3d_m_col", gc => { MenuView.Map3DOverride = true; Progress(gc, 12); gc.ShowLevels(); var w = gc.Menu.Map3D; if (w != null) { w.FocusGate(22); w.RenderNow(); } MenuView.Map3DOverride = null; });
+                Shot("3d_m_son", gc => { MenuView.Map3DOverride = true; Progress(gc, 12); gc.ShowLevels(); var w = gc.Menu.Map3D; if (w != null) { w.FocusGate(31); w.RenderNow(); } MenuView.Map3DOverride = null; });
+                Shot("3d_ucus", gc => { MenuView.Map3DOverride = true; Progress(gc, 12); gc.ShowLevels(); var w = gc.Menu.Map3D; if (w != null) { w.TapGate(9); for (int f = 0; f < 8; f++) w.Advance(0.06f); w.RenderNow(); } MenuView.Map3DOverride = null; });
+                Shot("3d_canli_bilgi", gc => { Progress(gc, 12); gc.ShowLevels(); gc.Menu.LivePressed?.Invoke(); gc.Menu.Map3D?.RenderNow(); });
+                Shot("3d_harita", gc => { MenuView.Map3DOverride = true; Progress(gc, 12); gc.ShowLevels(); gc.Menu.Map3D?.RenderNow(); MenuView.Map3DOverride = null; });
+                Shot("3d_yuruyus", gc => { MenuView.Map3DOverride = true; Progress(gc, 12); gc.ShowLevels(); var w = gc.Menu.Map3D; if (w != null) { w.WalkInto(9); for (int f = 0; f < 6; f++) w.Advance(0.05f); w.RenderNow(); } MenuView.Map3DOverride = null; });
                 Shot("02_gunluk_bulmaca", gc => { Progress(gc, 12); gc.ShowDaily(); });
                 Shot("03_koleksiyon", gc => { Progress(gc, 12); Own(gc); gc.ShowCollection(); });
                 Shot("04_tas_vitrini_3d", gc => { Progress(gc, 12); Own(gc); gc.SaveService.Data.meta.stones.Add("stone_ocean"); gc.ShowCollection(); gc.ShowStone("stone_ocean", true); gc.Showcase.Advance(1500f); });
