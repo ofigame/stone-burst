@@ -9,13 +9,9 @@ namespace KatKat.Game
     /// </summary>
     public sealed partial class GameController
     {
-        /// <summary>Anasayfada canlı maç girişi. AppGallery canlı sürümünde kapalı (kullanıcı 2026-11-16: "huawei için canlı
-        /// versiyonu hazırlayalım. Gerçek reklamlı. Canlı maç kapalı"). Mağaza çekimleri de kapatır (CaptureStore).</summary>
-#if KATKAT_APPGALLERY
-        public static bool LiveMatchEnabled = false;
-#else
+        /// <summary>Anasayfada canlı maç girişi. 2026-11-22 AppGallery'de de açık, adı "Canlı Maç Test" (kullanıcı: "canlı maçı da aç
+        /// ve canlı maç test yazsın"; önceki karar 2026-11-16 "Canlı maç kapalı" idi). Mağaza çekimleri kapatır (CaptureStore).</summary>
         public static bool LiveMatchEnabled = true;
-#endif
 
         private LiveMatchView _live;
         public LiveMatchView Live => _live;

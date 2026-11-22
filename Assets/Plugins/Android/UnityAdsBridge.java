@@ -1,6 +1,8 @@
 package com.ofigame.stoneburst.hw;
 
 import android.app.Activity;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.unity3d.ads.IUnityAdsInitializationListener;
 import com.unity3d.ads.IUnityAdsLoadListener;
@@ -26,6 +28,9 @@ public class UnityAdsBridge {
     private final Activity activity;
     private final Listener listener;
     private final String gameId, rewardedId, interstitialId;
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    /** 2026-11-22: yükleme başarısızsa artan beklemeyle yeniden dene (15 sn → 2 dk). */
+    private long rewardRetryMs = 15000, interRetryMs = 15000;
 
     public UnityAdsBridge(Activity activity, Listener listener, String gameId, String rewardedId, String interstitialId) {
         this.activity = activity;
@@ -62,21 +67,31 @@ public class UnityAdsBridge {
         });
     }
 
-    public void loadRewarded() { load(rewardedId, "u_reward_loaded", "u_reward_load_failed"); }
+    public void loadRewarded() { load(rewardedId, "u_reward_loaded", "u_reward_load_failed", true); }
 
-    public void loadInterstitial() { load(interstitialId, "u_inter_loaded", "u_inter_failed"); }
+    public void loadInterstitial() { load(interstitialId, "u_inter_loaded", "u_inter_failed", false); }
 
-    private void load(String placement, String ok, String fail) {
+    private void load(String placement, String ok, String fail, boolean rewarded) {
         activity.runOnUiThread(() -> {
             try {
                 UnityAds.load(placement, new IUnityAdsLoadListener() {
-                    @Override public void onUnityAdsAdLoaded(String placementId) { emit(ok, 0); }
+                    @Override public void onUnityAdsAdLoaded(String placementId) {
+                        if (rewarded) rewardRetryMs = 15000; else interRetryMs = 15000;
+                        emit(ok, 0);
+                    }
                     @Override public void onUnityAdsFailedToLoad(String placementId, UnityAds.UnityAdsLoadError error, String message) {
                         emit(fail, error == null ? -1 : error.ordinal() + 1);
+                        retry(rewarded);
                     }
                 });
-            } catch (Throwable t) { emit(fail, -2); }
+            } catch (Throwable t) { emit(fail, -2); retry(rewarded); }
         });
+    }
+
+    private void retry(boolean rewarded) {
+        long wait = rewarded ? rewardRetryMs : interRetryMs;
+        if (rewarded) rewardRetryMs = Math.min(rewardRetryMs * 2, 120000); else interRetryMs = Math.min(interRetryMs * 2, 120000);
+        handler.postDelayed(rewarded ? this::loadRewarded : this::loadInterstitial, wait);
     }
 
     public void showRewarded() { show(rewardedId, true); }

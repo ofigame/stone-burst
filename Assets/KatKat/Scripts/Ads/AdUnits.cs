@@ -19,8 +19,10 @@ namespace KatKat.Game.Ads
         public const string Interstitial = "teste9ih9j0rc3";  // Huawei test: geçiş (görsel)
         // Doğrudan Unity Ads (Huawei'de reklam yoksa yedek; 2026-11-12). "Stone Burst Android" uygulaması, gerçek kimlikler.
         public const string UnityGameId = "800434959";
-        public const string UnityRewarded = "BP_Rewarded_Android";
-        public const string UnityInterstitial = "BP_Interstitial_Android";
+        // 2026-11-22 (Huawei tablette logcat): BP_ yerleri açık artırmalı, yalnız arabuluculukla dolar; doğrudan SDK'da her istek
+        // NO_FILL. Panelde Stone Burst Android'e normal yerler açıldı (kullanıcı: "Evet, aç").
+        public const string UnityRewarded = "Rewarded_Android";
+        public const string UnityInterstitial = "Interstitial_Android";
 #elif KATKAT_TEST_ADS
         // Yerel deneme APK'ları (kullanıcı 2026-11-14: "gerçek reklam geldi. Test reklamları olsun apk derlerken"): Google'ın
         // herkese açık AdMob TEST birimleri; gelir getirmez, kendi reklamına tıklama riski yok. Mağaza paketleri (AAB, iOS) bu
