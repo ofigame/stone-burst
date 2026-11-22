@@ -109,7 +109,7 @@ namespace KatKat.Tests
             foreach (var n in new[] { "stone-tap", "stone-pop", "combo-blast" })
                 Assert.IsNotNull(Resources.Load<AudioClip>("Audio/V16/" + n), n);
             _gc.Sound.Play(Sfx.Tap);
-            Assert.AreEqual("stone-tap", _gc.Sound.LastClip);
+            Assert.AreEqual("ui-button", _gc.Sound.LastClip); // 2026-11-22: genel tık V17 düğme sesi
         }
 
         [Test]
@@ -117,7 +117,9 @@ namespace KatKat.Tests
         {
             int c0 = _gc.Sound.PlayCount;
             _gc.Sound.Play(Sfx.Peel);
-            Assert.AreEqual("stone-pop", _gc.Sound.LastClip);
+            Assert.AreEqual("jelly-pop", _gc.Sound.LastClip); // 2026-11-22 V17 jöle sesi (docs/muzik/tas_sesi.wav)
+            foreach (var n in new[] { "jelly-pop", "goal-collect", "star-gain", "ui-button", "booster-moves", "booster-recolor", "bomb-charge", "bomb-blast", "rocket-sweep", "roll-lightning", "shovel-dig" })
+                Assert.IsTrue(_gc.Sound.HasV17(n), n);
             _gc.Sound.Play(Sfx.Chain, 3);
             Assert.AreEqual("combo-blast", _gc.Sound.LastClip);
             _gc.Sound.PlayReward();
@@ -153,7 +155,9 @@ namespace KatKat.Tests
                 Assert.LessOrEqual(chainPlays - chainBefore, 1, "bir hamlede övgü WAV'ı en çok bir kez");
                 if (chainPlays > chainBefore) chainMoves++;
             }
-            Assert.AreEqual(expectedBig, chainMoves, "övgü sesi yalnız büyük hamlelerde");
+            // 2026-11-22 V17: övgü WAV'ı (combo-blast) kalktı; taş sesi dokunuşta ve varışta (kullanıcı: "eski seslerde var").
+            if (_gc.Sound.HasV17("jelly-pop")) Assert.AreEqual(0, chainMoves, "V17: büyük hamlede eski övgü sesi yok");
+            else Assert.AreEqual(expectedBig, chainMoves, "övgü sesi yalnız büyük hamlelerde");
             float l2 = Time.realtimeSinceStartup + 30f;
             while (_gc.IsCelebrating && Time.realtimeSinceStartup < l2) yield return null;
             yield return null;

@@ -204,8 +204,11 @@ namespace KatKat.Game
             int number = _levelIndex + 1;
             double now = Time.realtimeSinceStartup;
             // 2026-11-20: "Reklamsız oyna" alınmışsa geçiş reklamı yok (ödüllü reklamlar isteğe bağlı kalır).
-            if (_sessionKind == SessionKind.Normal && !_save.Data.meta.noAds && _interstitial != null && _interstitial.ShouldShow(number, now))
+            // 2026-11-22: çevrimdışı kazanılan bölüm varsa internete dönünce ilk zaferde sıklık sınırına bakmadan bir kez.
+            bool due = _sessionKind == SessionKind.Normal && OfflineAdDueNow;
+            if (due || (_sessionKind == SessionKind.Normal && !_save.Data.meta.noAds && _interstitial != null && _interstitial.ShouldShow(number, now)))
             {
+                if (due) { ClearOfflineAdDue(); GameAnalytics.Log("offline_ad_due"); }
                 Ads.ShowInterstitial(AdPlacements.LevelComplete, shown =>
                 {
                     if (shown) _interstitial.Shown(Time.realtimeSinceStartup);

@@ -133,8 +133,10 @@ namespace KatKat.Game
             _board.StarFocus = _hud.SetStarFocus; // sıradaki yıldız büyür
             // Taş akışı titreşim ve kasa sesi (2026-11-19): Titreşim ve Ses ayarlarına bağlı (Haptics.Enabled, SoundBank.Enabled).
             _board.FlowRise = lvl => Haptics.Level(lvl);
-            _board.FlowTick = i => { _sound.Play(Sfx.Coin, i / 2, 0.75f); Haptics.Tick(); };
-            _board.FlowFinal = () => { _sound.Play(Sfx.CoinFinal, 0, 0.85f); Haptics.Medium(); };
+            // 2026-11-22 (kullanıcı: "yıldıza ve görev taşlarına gidince taş sesleri sayısına göre tekrar edecek"): varan her taşta
+            // jöle taş sesi (hamle içinde yavaşça tizleşir), son taş varınca görev taşı sesi. Eski para sesleri yalnız V17 yoksa.
+            _board.FlowTick = i => { if (!_sound.PlayV17("jelly-pop", Mathf.Min(7f, i * 0.5f), 0.8f)) _sound.Play(Sfx.Coin, i / 2, 0.75f); Haptics.Tick(); };
+            _board.FlowFinal = () => { if (!_sound.PlayV17("goal-collect")) _sound.Play(Sfx.CoinFinal, 0, 0.85f); Haptics.Medium(); };
             _board.IsGoalColor = _hud.IsGoalColor;
             _sound = SoundBank.Create(transform);
             SetupVr1();
@@ -293,6 +295,7 @@ namespace KatKat.Game
             // Kalp (2026-11-09): bırakılan deneme kalp götürür; kalp yoksa bölüm açılmaz, kalp kartı çıkar.
             HeartForfeit();
             if (!HeartGate(index, () => StartLevel(index))) return;
+            if (!OfflineGate()) return;
             _menu.Hide();
             _music.Leave();
             _hud.HidePanel();
@@ -451,6 +454,7 @@ namespace KatKat.Game
         private void Update()
         {
             if (_cam == null) return;
+            UiClickSoundTick();
             if (_live != null) return; // canlı maç kendi girdisini ve yerleşimini yönetir
             OutcomeTick(Time.unscaledDeltaTime);
             TimedTick(Time.unscaledDeltaTime);
@@ -554,7 +558,8 @@ namespace KatKat.Game
             _hintActive = false;
             HintAfterCommand();
             _hint.Hide(); // ücretli ipucu tahta durunca (SetPhase Idle) yeniden görünür
-            _sound.Play(Sfx.Tap);
+            // 2026-11-22 (kullanıcı: "Taşlara patlatmak için bastığım anda tek bir taş sesi gelecek"): dokunuşta tek jöle sesi.
+            PlayTapPop(r);
             Haptics.Light();
             HeartOnMove();
             TourOnAccepted(r);
@@ -696,13 +701,15 @@ namespace KatKat.Game
                         _board.TrayBurst(wave, n >= 6 ? 3 : n >= 5 ? 2 : n >= 2 ? 1 : 0); // 2026-11-20: ikili grupta da ("daha fazla olsun")
                     }
                     else if (moment) _board.TrayBurst(wave, 3);
-                    if (moment)
+                    // 2026-11-22: dalga başında ayrıca patlama/övgü sesi yok (eski "combo-blast" kalktı); taş sesi dokunuşta bir kez,
+                    // varışta taş sayısınca. V17 yoksa eski davranış.
+                    if (moment) _chainSounded = true;
+                    if (!_sound.HasV17("jelly-pop"))
                     {
-                        _chainSounded = true;
-                        if (!_sound.HasChainWav) _sound.Play(Sfx.Chain, BigMove.Level(r) - 1);
-                        else _sound.Play(Sfx.Chain);
+                        if (moment) _sound.Play(Sfx.Chain);
+                        else _sound.Play(wave.Kind == WaveKind.Roll ? Sfx.RollUse : Sfx.Peel);
                     }
-                    else _sound.Play(wave.Kind == WaveKind.Roll ? Sfx.RollUse : Sfx.Peel);
+                    else if (wave.Kind == WaveKind.Roll) _sound.Play(Sfx.RollUse);
                     if (wave.Index == 0 && r.RollAwarded)
                     {
                         _hud.SetRoll(true, false, false);
@@ -742,7 +749,11 @@ namespace KatKat.Game
             string[] words = { Loc.T("praise.1"), Loc.T("praise.2"), Loc.T("praise.3"), Loc.T("praise.4") };
             if (wave.Kind == WaveKind.Special)
             {
-                _sound.Play(Sfx.RollUse);
+                // V17 (kullanıcı 2026-11-22): skilin kendi sesi; taş patlama sesi dalgada ayrıca çalar. Bomba sesini güçlendirici çalar.
+                string skill = wave.Fired == SpecialKind.RocketRow || wave.Fired == SpecialKind.RocketColumn ? "rocket-sweep"
+                    : wave.Fired == SpecialKind.Rainbow ? "roll-lightning" : wave.Fired == SpecialKind.Shovel ? "shovel-dig" : null;
+                if (wave.Fired == SpecialKind.Bomb) { }
+                else if (skill == null || !_sound.PlayV17(skill)) _sound.Play(Sfx.RollUse);
                 Haptics.Medium();
                 if (wave.ComboWith != SpecialKind.None) _hud.ShowPraise(Loc.T("praise.combo"), 3);
                 else if (level > 0) _hud.ShowPraise(words[level - 1], level);
@@ -750,11 +761,43 @@ namespace KatKat.Game
             }
             if (wave.Index == 0 && r.SpecialCreated != SpecialKind.None)
             {
-                KatKat.UI.Vr1Proto.Play("special-charge");
+                // 2026-11-22 (kullanıcı: "combolar ile roket veya altın rulo kazanılınca kazanma sesi olsun"): parlak yıldız sesi,
+                // Altın Rulo'da daha tiz. V17 yoksa eski prototip sesi.
+                if (!_sound.PlayV17("star-gain", r.SpecialCreated == SpecialKind.Rainbow ? 5f : 2f, 1.2f)) KatKat.UI.Vr1Proto.Play("special-charge");
                 _hud.ShowPraise(r.SpecialCreated == SpecialKind.Rainbow ? Loc.T("praise.rainbow") : r.SpecialCreated == SpecialKind.Shovel ? Loc.T("praise.shovel") : Loc.T("praise.rocket"), Mathf.Max(1, level));
                 return;
             }
             if (level > 0) _hud.ShowPraise(words[level - 1], level);
+        }
+
+        // ---- V17 sesleri (kullanıcı 2026-11-22) ------------------------------------------------------------
+
+        /// <summary>Dokunuşta tek jöle sesi, grubun rengi tonunda.</summary>
+        private void PlayTapPop(MoveResult r)
+        {
+            LayerColor c = LayerColor.Yellow;
+            if (r.Waves.Count > 0 && r.Waves[0].Cells.Count > 0) c = r.Waves[0].Cells[0].Removed;
+            if (!_sound.PlayV17("jelly-pop", PeelToneOf(c))) _sound.Play(Sfx.Tap);
+        }
+
+        /// <summary>Renk tonu (yarım ses): mercan −3, turkuaz −1, inci 0, lila +2, lacivert +4.</summary>
+        public static float PeelToneOf(LayerColor c) => c switch
+        {
+            LayerColor.Coral => -3f, LayerColor.Blue => -1f, LayerColor.Yellow => 0f, LayerColor.Purple => 2f, LayerColor.Navy => 4f, _ => 0f,
+        };
+
+        /// <summary>Bütün arayüz düğmeleri: basıldığı anda V17 düğme sesi (etkin, tıklanabilir Button altında).</summary>
+        private void UiClickSoundTick()
+        {
+            bool down = Input.GetMouseButtonDown(0);
+            Vector2 pos = Input.mousePosition;
+            if (Input.touchCount > 0) { var t = Input.GetTouch(0); down = t.phase == TouchPhase.Began; pos = t.position; }
+            if (!down || EventSystem.current == null || _sound == null) return;
+            var hits = new System.Collections.Generic.List<RaycastResult>();
+            EventSystem.current.RaycastAll(new PointerEventData(EventSystem.current) { position = pos }, hits);
+            if (hits.Count == 0) return;
+            var btn = hits[0].gameObject.GetComponentInParent<UnityEngine.UI.Button>();
+            if (btn != null && btn.IsInteractable()) _sound.PlayV17("ui-button");
         }
 
         // ---- v6 özel taş tepsisi -------------------------------------------------------------------------
@@ -1016,6 +1059,7 @@ namespace KatKat.Game
                 if (_outcome == null || !(_outcome.Has(KatKat.Meta.AssistFlags.RewardedAd) || _outcome.Has(KatKat.Meta.AssistFlags.Booster)))
                     KatKat.Meta.RankStars.Record(_save.Data.meta, _level.Id, EarnedStars);
                 _interstitial?.LevelCompleted(_levelIndex + 1);
+                OfflineOnWin();
             }
             if (_sessionKind == KatKat.Meta.SessionKind.Normal) CheckStoneUnlocks();
             if (_sessionKind == KatKat.Meta.SessionKind.Normal) _winsSinceMap++;

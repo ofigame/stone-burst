@@ -43,6 +43,8 @@ namespace KatKat.UI
         private RectTransform _safe, _handRow, _botHandRow, _end;
         private TMPro.TextMeshProUGUI _scoreBot, _scoreYou, _turn, _message, _nameBot, _nameYou;
         private Image _pillBot, _pillYou;
+        /// <summary>Bu maçın VR2 teması (arka plan, tahta, skor şeridi).</summary>
+        private int _skin;
         private readonly List<RectTransform> _chips = new List<RectTransform>();
         private int _selected = -1, _animating, _seq, _first;
         private float _botAt = -1f, _passAt = -1f, _clock;
@@ -72,7 +74,12 @@ namespace KatKat.UI
             _cam = cam;
             FitCamera();
             _backdrop = Backdrop.Create(transform);
-            _backdrop.SetSprite(Ui3.GameBackground(0) ?? PremiumArt.Background(0));
+            // 2026-11-22 (kullanıcı: "canlı maç sayfasının arkaplanını bölümlerden rasgele bir arkaplan seç"): bölümlerin VR2 bölge
+            // dokularından rastgele biri, oyundaki gibi bulanık; tahta ve skor şeridi aynı temada. Kozmetik RNG (maç RNG'si değil).
+            _skin = Vr2.Ready ? UnityEngine.Random.Range(0, Vr2.Skins.Length) : 0;
+            Sprite bg = null;
+            if (Vr2.Ready) { var vbg = Vr2.Background(_skin); bg = (Vr2.BlurBackground ? BlurredBackdrop.For(vbg) : null) ?? vbg; }
+            _backdrop.SetSprite(bg ?? Ui3.GameBackground(0) ?? PremiumArt.Background(0));
             _backdrop.Fit(_cam);
             _director = new GameObject("PeelDirector").AddComponent<PeelDirector>();
             _director.transform.SetParent(transform, false);
@@ -89,6 +96,7 @@ namespace KatKat.UI
                 b.Init(_director);
                 b.SetTheme(ThemeDefinition.Coast);
                 b.SetLevelPalette(0);
+                b.SetVr2Skin(_skin); // arka planla aynı bölge teması
                 _boards[p] = b;
             }
             BuildCanvas();
@@ -266,19 +274,27 @@ namespace KatKat.UI
             _botHandRow = UiFactory.Rect("BotHand", _safe);
             UiFactory.Place(_botHandRow, new Vector2(0.5f, 1f), new Vector2(0f, -184f), new Vector2(900f, 56f));
 
-            // Orta şerit: skorlar ve sıra.
+            // Orta şerit: skorlar ve sıra. 2026-11-22 (kullanıcı: "Ortadaki bildirim çubuğunu ve içeriğini oyunumuzun tasarımına
+            // uyarla"): zemin oyundaki hedef yuvası (VR2 krem şerit, ahşap kenar); skorlar oyundaki hamle kapsülü gibi mor kapsül,
+            // altın kenar, beyaz ad ve altın sayı; oyuncunun rengi kapsülün başındaki taşta.
             var strip = Ui3.Surface("ScoreStrip", _safe, 40f, Ui3.IvoryTop, Ui3.IvoryBottom, 124f, 3f, Ui3.Brass);
+            if (Vr2.Ready)
+            {
+                strip.sprite = Vr2.GoalSlotSprite(_skin);
+                strip.type = Image.Type.Sliced;
+                strip.color = Color.white;
+                strip.pixelsPerUnitMultiplier = 144f / 124f;
+            }
             UiFactory.Place(strip.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -950f), new Vector2(1000f, 124f));
             _strip = strip.rectTransform;
-            _pillBot = Ui3.Surface("BotPill", strip.transform, 36f, BotColor, BotColor * 0.85f, 104f, 0f);
-            UiFactory.Place(_pillBot.rectTransform, new Vector2(0f, 0.5f), new Vector2(150f, 0f), new Vector2(260f, 104f));
-            _pillYou = Ui3.Surface("YouPill", strip.transform, 36f, YouColor, YouColor * 0.85f, 104f, 0f);
-            UiFactory.Place(_pillYou.rectTransform, new Vector2(1f, 0.5f), new Vector2(-150f, 0f), new Vector2(260f, 104f));
-            _nameBot = Label("BotName", _pillBot.transform, Loc.T("live.bot"), 26, new Vector2(0f, 26f));
-            _scoreBot = Label("BotScore", _pillBot.transform, "0", 52, new Vector2(0f, -16f));
-            _nameYou = Label("YouName", _pillYou.transform, Loc.T("live.you"), 26, new Vector2(0f, 26f));
-            _scoreYou = Label("YouScore", _pillYou.transform, "0", 52, new Vector2(0f, -16f));
+            _pillBot = ScorePill("BotPill", strip.transform, LayerColor.Coral, new Vector2(0f, 0.5f), new Vector2(158f, 0f));
+            _pillYou = ScorePill("YouPill", strip.transform, LayerColor.Blue, new Vector2(1f, 0.5f), new Vector2(-158f, 0f));
+            _nameBot = PillName("BotName", _pillBot.transform, Loc.T("live.bot"));
+            _scoreBot = PillScore("BotScore", _pillBot.transform);
+            _nameYou = PillName("YouName", _pillYou.transform, Loc.T("live.you"));
+            _scoreYou = PillScore("YouScore", _pillYou.transform);
             _turn = UiFactory.Text("Turn", strip.transform, "", 34, Ui3.Ink);
+            _turn.fontStyle = TMPro.FontStyles.Bold;
             UiFactory.Place(_turn.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(400f, 110f));
             _turn.enableAutoSizing = true; _turn.fontSizeMax = 34; _turn.fontSizeMin = 20;
             // Hamle süresi çubuğu (kullanıcı 2026-11-14: "sıra kimdeyse 5 sn süresi olsun"): şeridin altında, sırası olanın renginde.
@@ -293,18 +309,40 @@ namespace KatKat.UI
             var hand = Ui3.Surface("HandBar", _safe, 40f, Ui3.IvoryTop, Ui3.IvoryBottom, 140f, 3f, Ui3.Brass);
             UiFactory.Place(hand.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -1752f), new Vector2(1000f, 140f));
             _handRow = hand.rectTransform;
-            _message = UiFactory.Text("Message", _safe, "", 34, Ui3.Ink);
+            _message = UiFactory.Title("Message", _safe, "", 34, Color.white, new Color(0f, 0f, 0f, 0.55f)); // 2026-11-22: bölge arka planı koyu, yazı beyaz
             UiFactory.Place(_message.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -1862f), new Vector2(960f, 56f));
             _message.enableAutoSizing = true; _message.fontSizeMax = 34; _message.fontSizeMin = 20;
         }
 
-        private static TMPro.TextMeshProUGUI Label(string name, Transform parent, string text, int size, Vector2 pos)
+        /// <summary>Oyundaki hamle kapsülü dilinde skor kapsülü: mor, altın kenar; solda oyuncunun renginde taş.</summary>
+        private static Image ScorePill(string name, Transform parent, LayerColor chip, Vector2 anchor, Vector2 pos)
         {
-            var t = UiFactory.Title(name, parent, text, size, Color.white, new Color(0f, 0f, 0f, 0.35f));
-            UiFactory.Place(t.rectTransform, new Vector2(0.5f, 0.5f), pos, new Vector2(240f, size + 12f));
-            t.enableAutoSizing = true; t.fontSizeMax = size; t.fontSizeMin = 18;
+            var pill = Ui3.Surface(name, parent, 46f, Ui3.Purple, Ui3.PurpleDark, 92f, 4f, new Color32(0xE8, 0xB8, 0x4A, 0xFF));
+            UiFactory.Place(pill.rectTransform, anchor, pos, new Vector2(272f, 92f));
+            var icon = UiFactory.Image("Chip", pill.transform, PremiumArt.Chip(chip) ?? UiArt.Chip(chip), Color.white);
+            icon.preserveAspect = true;
+            icon.raycastTarget = false;
+            UiFactory.Place(icon.rectTransform, new Vector2(0f, 0.5f), new Vector2(50f, 0f), new Vector2(64f, 64f));
+            return pill;
+        }
+
+        private static TMPro.TextMeshProUGUI PillName(string name, Transform pill, string text)
+        {
+            var t = UiFactory.Text(name, pill, text, 26, Color.white, TextAnchor.MiddleLeft);
+            UiFactory.Place(t.rectTransform, new Vector2(0f, 0.5f), new Vector2(150f, 20f), new Vector2(120f, 34f));
+            t.enableAutoSizing = true; t.fontSizeMax = 26; t.fontSizeMin = 16; t.raycastTarget = false;
             return t;
         }
+
+        private static TMPro.TextMeshProUGUI PillScore(string name, Transform pill)
+        {
+            var t = UiFactory.Title(name, pill, "0", 48, new Color32(0xFF, 0xCE, 0x3A, 0xFF), new Color32(0x3A, 0x18, 0x6A, 0xFF));
+            t.alignment = TMPro.TextAlignmentOptions.MidlineLeft;
+            UiFactory.Place(t.rectTransform, new Vector2(0f, 0.5f), new Vector2(150f, -16f), new Vector2(120f, 52f));
+            t.enableAutoSizing = true; t.fontSizeMax = 48; t.fontSizeMin = 24; t.raycastTarget = false;
+            return t;
+        }
+
 
         // ---- Maç ----------------------------------------------------------------------------------------------
 
@@ -740,8 +778,8 @@ namespace KatKat.UI
             Loc.Set(_scoreBot, _shown[Bot].ToString());
             UpdateTimerUi();
             Loc.Set(_turn, TurnText());
-            _pillYou.color = Match.Current == Human && !Match.IsOver ? Color.white : new Color(1f, 1f, 1f, 0.55f);
-            _pillBot.color = Match.Current == Bot && !Match.IsOver ? Color.white : new Color(1f, 1f, 1f, 0.55f);
+            _pillYou.color = Match.Current == Human && !Match.IsOver ? Color.white : new Color(0.72f, 0.72f, 0.72f, 1f);
+            _pillBot.color = Match.Current == Bot && !Match.IsOver ? Color.white : new Color(0.72f, 0.72f, 0.72f, 1f);
             BuildHand();
             BuildBotHand();
             PulseRim();

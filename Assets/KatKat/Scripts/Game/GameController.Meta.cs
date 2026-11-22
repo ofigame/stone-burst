@@ -438,6 +438,7 @@ namespace KatKat.Game
 
         public void ShowDaily()
         {
+            if (!RequireOnline()) { if (!_menu.IsMapShown) ShowLevels(); return; } // 2026-11-22: günlük bulmaca yalnız çevrimiçi
             _bgPick = -1; // ui3: menüden yeni girişte oyun zemini yeniden seçilir
             AbandonDailyIfOpen();
             _hud.HidePanel();
@@ -482,6 +483,7 @@ namespace KatKat.Game
         /// <summary>Günlük denemeyi açar (ya da kapanmadan kalan aynı denemeye döner) ve bulmacayı başlatır.</summary>
         public bool StartDaily()
         {
+            if (!RequireOnline()) return false;
             var r = _daily.BeginAttempt();
             if (r != DailyBeginResult.Started && r != DailyBeginResult.Resumed) { ShowDaily(); return false; }
             var level = LoadDailyLevel();

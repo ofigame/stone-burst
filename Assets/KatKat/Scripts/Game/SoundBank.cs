@@ -122,6 +122,45 @@ namespace KatKat.Game
             return b;
         }
 
+        // ---- V17 (kullanıcı 2026-11-22, docs/muzik: üretilen jöle/yıldız/güçlendirici/skil sesleri) ----------------------------
+        // Kaynaklar kırpılıp monoya indirildi ve tepe −1 dBFS'e getirildi (Resources/Audio/V17). Düzeyler RMS'e göre dengelendi:
+        // sık çalan sesler (görev taşı, düğme) daha kısık, bomba en yüksek.
+        private static readonly System.Collections.Generic.Dictionary<string, float> V17Gain = new System.Collections.Generic.Dictionary<string, float>
+        {
+            // 2026-11-22 ikinci tur (kullanıcı: "taş yıldırım vs sesler yüksek biraz kısalım"): hepsi ~%30 kısık.
+            ["jelly-pop"] = 0.42f, ["goal-collect"] = 0.32f, ["star-gain"] = 0.7f, ["ui-button"] = 0.2f, ["booster-moves"] = 0.27f,
+            ["booster-recolor"] = 0.6f, ["bomb-charge"] = 0.6f, ["bomb-blast"] = 0.75f, ["rocket-sweep"] = 0.5f,
+            ["roll-lightning"] = 0.6f, ["shovel-dig"] = 0.56f,
+        };
+        private readonly System.Collections.Generic.Dictionary<string, AudioClip> _v17 = new System.Collections.Generic.Dictionary<string, AudioClip>();
+        private float _lastUiClick = -1f;
+
+        private AudioClip V17(string name)
+        {
+            if (!_v17.TryGetValue(name, out var clip))
+            {
+                clip = Resources.Load<AudioClip>("Audio/V17/" + name);
+                if (clip != null && clip.loadState == AudioDataLoadState.Unloaded) clip.LoadAudioData();
+                _v17[name] = clip;
+            }
+            return clip;
+        }
+
+        public bool HasV17(string name) => V17(name) != null;
+
+        /// <summary>V17 sesi (yoksa false; çağıran eski sese düşer). <paramref name="semitones"/>: perde kaydırma (yarım ses).</summary>
+        public bool PlayV17(string name, float semitones = 0f, float volume = 1f)
+        {
+            var clip = V17(name);
+            if (clip == null) return false;
+            if (name == "ui-button") _lastUiClick = Time.unscaledTime;
+            PlayClip(clip, Mathf.Pow(2f, semitones / 12f), volume * (V17Gain.TryGetValue(name, out var g) ? g : 1f));
+            return true;
+        }
+
+        /// <summary>Düğme sesi az önce çaldı mı (aynı dokunuşta ikinci "tık" çalmasın).</summary>
+        private bool UiJustClicked => Time.unscaledTime - _lastUiClick < 0.1f;
+
         /// <summary>vr1 P1 prototip sesleri (Resources/Audio/Vr1; sentez prototipi, cihazda dinlenip miks onayı bekliyor).</summary>
         private readonly System.Collections.Generic.Dictionary<string, AudioClip> _vr1 = new System.Collections.Generic.Dictionary<string, AudioClip>();
         /// <summary>SFX kazancı taslağı (04_ANIMASYON_GORSEL_SES): 0,65; mevcut miksle dinlenerek ayarlanacak.</summary>
@@ -137,6 +176,7 @@ namespace KatKat.Game
         public void PlayVr1(string name)
         {
             if (!_enabled || string.IsNullOrEmpty(name)) return;
+            if (name == "ui-stone-tap" && UiJustClicked) return; // V17 düğme sesi çaldı
             if (!_vr1.TryGetValue(name, out var clip))
             {
                 clip = Resources.Load<AudioClip>("Audio/Vr1/" + name);
@@ -198,7 +238,11 @@ namespace KatKat.Game
         {
             if (!Enabled) return;
             // v10 WAV'lar: soyulma pop'u ve dört vuruşlu zincir (perde yükseltmesi uygulanmaz).
+            if (sfx == Sfx.Tap && UiJustClicked) return; // V17 düğme sesi aynı dokunuşta çaldı
+            if (sfx == Sfx.Tap && PlayV17("ui-button", 0f, volume)) return; // 2026-11-22: genel "tık" artık V17 düğme sesi
             if (sfx == Sfx.Tap && _tap != null) { PlayClip(_tap, 1f, volume * TapGain); return; }
+            if (sfx == Sfx.Peel && PlayV17("jelly-pop", 0f, volume)) return;
+            if (sfx == Sfx.Star && PlayV17("star-gain", 0f, volume)) return;
             if (sfx == Sfx.Peel && _pop != null) { PlayClip(_pop, 1f, volume * (_pop.name == "stone-pop" ? PopGain : 1f)); return; }
             if (sfx == Sfx.Chain && _chain4 != null) { PlayClip(_chain4, 1f, volume * (_chain4.name == "combo-blast" ? BlastGain : 1f)); return; }
             float pitch = Mathf.Min(1.35f, 1f + 0.07f * pitchStep);

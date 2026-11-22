@@ -171,11 +171,17 @@ namespace KatKat.UI
         }
 
         /// <summary>Alt menü 1080×208 (ortak-bilesenler nav): tabUnselected yüzey, pirinç üst kenar, üç öğe 296×176.</summary>
+        /// <summary>Alt sekme çubuğunun opaklığı (1 tam opak).</summary>
+        public const float TabBarAlpha = 0.82f;
+
         internal static void BuildTabBarUi3(RectTransform holder, float baseY, TabItem[] items)
         {
             const float H = 208f;
             var bar = Ui3.Surface("Bar", holder, 40f, Ui3.TabUnselected, Ui3.TabUnselected, 0f, 3f, Ui3.Brass, 3f, Ui3.RimHighlight);
             bar.raycastTarget = true; // opak: arkasındaki haritaya dokunulmaz
+            // 2026-11-22 (kullanıcı: "menünün arkaplanının saydamlığını biraz azaltalım"; alt sekme çubuğu tam opaktı): biraz
+            // saydam, harita arkadan hafifçe görünür. Dokunuşlar yine çubukta kalır.
+            bar.color = new Color(1f, 1f, 1f, TabBarAlpha);
             var brt = bar.rectTransform;
             brt.anchorMin = brt.anchorMax = new Vector2(0.5f, 0f);
             brt.pivot = new Vector2(0.5f, 1f);

@@ -66,6 +66,8 @@ namespace KatKat.View
         // 2026-11-21 (kullanıcı: tahta "en büyük nasıl olabiliyorsa", "taşlar büyük olabilir"): küçültme ve taş boyu sınırı kalktı.
         public static float AreaScale = 1f;
         public const float SideGap = 0.04f, TopGap = 0.025f;
+        /// <summary>Sütun/satır aralığının taş boyuna göre en çok açılma oranı (2026-11-22: geniş aralık göze kötü geliyordu).</summary>
+        public const float MaxSpread = 1.10f;
         public static float MinColumns = 0f;
 
         /// <summary>Şeklin dolu (etkin ya da geçit) hücrelerinin kutusu; şekil boşsa ızgaranın tamamı.</summary>
@@ -198,8 +200,11 @@ namespace KatKat.View
             if (MinColumns > 0) _pitch = Mathf.Min(_pitch, area.width / (Mathf.Max(cols, MinColumns) + margin));
             // Taş boyu dar kalan yönden; artan pay diğer yöndeki aralığa dağılır (tahta dört kenara dayanır).
             // Kenar payı (tepsi/VR2 kenarı) sütun adımıyla ölçeklenir; pay da sütun adımı biriminde (kenar ekrandan taşmasın).
-            _colPitch = Mathf.Max(_pitch, area.width / (cols + margin));
+            // 2026-11-22 (kullanıcı: "taşlar arası dikey boşluklar fazla ve bu görsel olarak sorunlu"): aralık en çok %10 açılır;
+            // kalan yer tahtanın iki yanında (ya da altında/üstünde) boş kalır, tahta ortalanır.
+            _colPitch = Mathf.Min(Mathf.Max(_pitch, area.width / (cols + margin)), _pitch * MaxSpread);
             _rowPitch = rows > 1 ? Mathf.Max(rowK * _pitch, (area.height - (top - bottom) * _pitch - margin * _colPitch) / (rows - 1)) : rowK * _pitch;
+            _rowPitch = Mathf.Min(_rowPitch, rowK * _pitch * MaxSpread);
             float w = _colPitch * cols, h = (rows - 1) * _rowPitch + (top - bottom) * _pitch;
             // Şekil kutusu alanın ortasına; kutunun ilk satırının merkezi kutunun üstünden "top" kadar aşağıda.
             _origin = new Vector2(area.center.x - w * 0.5f + _colPitch * 0.5f - x0 * _colPitch, area.center.y + h * 0.5f - top * _pitch + y0 * _rowPitch);

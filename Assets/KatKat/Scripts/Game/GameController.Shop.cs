@@ -124,6 +124,7 @@ namespace KatKat.Game
 
         private void ClaimStoneGift(string stoneId)
         {
+            if (!RequireOnline()) return; // 2026-11-22: külçe hediyesi yalnız çevrimiçi
             int got = Wallet.ClaimGift(Meta, _stones, stoneId);
             if (got <= 0) return;
             _save.Save();
@@ -247,7 +248,7 @@ namespace KatKat.Game
         private void UseMovesBooster()
         {
             // 2026-11-21 (kullanıcı: "+ hamle kullanırsa artı süre almış olur"): süreli bölümde +15 sn.
-            if (TimedActive) { AddTime(TimedBonusSeconds); BoosterUsed(Booster.Moves); _board.RimSweep(new Color(1f, 0.85f, 0.35f), new Color(1f, 0.98f, 0.75f), 1.1f); _sound.Play(Sfx.CoinFinal); Haptics.Medium(); return; }
+            if (TimedActive) { AddTime(TimedBonusSeconds); BoosterUsed(Booster.Moves); _board.RimSweep(new Color(1f, 0.85f, 0.35f), new Color(1f, 0.98f, 0.75f), 1.1f); if (!_sound.PlayV17("booster-moves")) _sound.Play(Sfx.CoinFinal); Haptics.Medium(); return; }
             if (!_session.GrantMoves(ShopCatalog.MovesAmount)) return;
             BoosterUsed(Booster.Moves);
             if (_outcome != null) _outcome.MoveBonus += ShopCatalog.MovesAmount;
@@ -256,7 +257,7 @@ namespace KatKat.Game
             _hud.PlayMovesGain(ShopCatalog.MovesAmount, () => { if (_session != null) _hud.SetMoves(_session.State.MovesLeft); });
             _board.RimSweep(new Color(1f, 0.85f, 0.35f), new Color(1f, 0.98f, 0.75f), 1.1f);
             _hud.ShowToast(Loc.F("booster.moves.done", ShopCatalog.MovesAmount), 1.6f);
-            _sound.Play(Sfx.CoinFinal);
+            if (!_sound.PlayV17("booster-moves")) _sound.Play(Sfx.CoinFinal);
             Haptics.Medium();
             RefreshHint();
         }
@@ -286,14 +287,14 @@ namespace KatKat.Game
             HintAfterCommand();
             // 2026-11-21 (kullanıcı): bomba kullanıldığı anda patlama ve sarsıntı yok; taşlar yükselip titrer
             // (PeelSequence.ChargeMs), patladıkları anda tahta sarsılır, alev ve kıvılcımlar, çerçeve ateşi, ses ve titreşim.
-            _sound.Play(Sfx.Tap);
+            if (!_sound.PlayV17("bomb-charge")) _sound.Play(Sfx.Tap);
             Haptics.Light();
             Play(r);
             _board.Later(PeelSequence.ChargeMs, () =>
             {
                 _hud.PlayBoosterBurst(Booster.Bomb, true);
                 _board.RimSweep(new Color(1f, 0.55f, 0.15f), new Color(1f, 0.9f, 0.45f), 1.5f, fire: true);
-                _sound.Play(Sfx.Win);
+                if (!_sound.PlayV17("bomb-blast")) _sound.Play(Sfx.Win);
                 Haptics.Strong();
             });
         }
@@ -347,7 +348,7 @@ namespace KatKat.Game
             }
             _recolorLeft--;
             _board.PlayRecolor(done, color);
-            _sound.Play(Sfx.Tap);
+            if (!_sound.PlayV17("booster-recolor")) _sound.Play(Sfx.Tap);
             Haptics.Medium();
             if (_recolorLeft <= 0)
             {

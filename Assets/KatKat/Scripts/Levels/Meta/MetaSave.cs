@@ -60,6 +60,10 @@ namespace KatKat.Meta
         public List<string> boostTrials = new List<string>();
         public List<string> stoneGifts = new List<string>();
         public bool noAds, starterBought;
+        /// <summary>2026-11-22 çevrimdışı kuralları (GameController.Offline): internetsiz kazanılan bölüm sayısı (çevrimiçi
+        /// girişte sıfırlanır) ve internete dönünce gösterilecek tek geçiş reklamı borcu.</summary>
+        public int offlineWins;
+        public bool offlineAdDue;
 
         public void Sanitize()
         {

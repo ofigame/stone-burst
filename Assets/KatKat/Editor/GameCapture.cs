@@ -490,7 +490,7 @@ namespace KatKat.EditorTools
             Directory.CreateDirectory(Path.Combine(PeelCapture.OutDir, "pop"));
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             // 2026-11-21: normal patlama (yükselme yok) ara kareleri.
-            foreach (var ms in new[] { 60f, 140f, 300f, 700f })
+            foreach (var ms in new[] { 300f, 750f, 1000f, 1250f, 1550f, 1750f })
             {
                 float at = ms;
                 Shot($"{V}pop_l3_{(int)at}ms.png", 1080, 1920, null, gc => { gc.StartLevel(2); Steps5(gc, 0, at); });
@@ -772,6 +772,16 @@ namespace KatKat.EditorTools
             Directory.CreateDirectory(Path.Combine(PeelCapture.OutDir, "tablet_harita"));
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var sizes = new (string tag, int w, int h)[] { ("telefon_1080x1920", 1080, 1920), ("ipad_1536x2048", 1536, 2048), ("ipad13_2064x2752", 2064, 2752), ("android_tablet_1600x2560", 1600, 2560) };
+            // 2026-11-22 KATKAT_MAP_REGIONS=1: yalnız telefon, üç bölge (sahil 3, bahçe 120, çöl 220) — yeni harita görselleri denetimi.
+            if (Environment.GetEnvironmentVariable("KATKAT_MAP_REGIONS") == "1")
+            {
+                foreach (var p in new[] { 3, 120, 220 })
+                {
+                    int pp = p;
+                    Shot(V + "bolge_" + pp + ".png", 1080, 1920, null, gc => { CaptureV13Pages.Progress(gc, pp); gc.ShowLevels(); });
+                }
+                return;
+            }
             foreach (var s in sizes)
             {
                 Shot(V + s.tag + "_harita_basi.png", s.w, s.h, null, gc => { CaptureV13Pages.Progress(gc, 3); gc.ShowLevels(); });

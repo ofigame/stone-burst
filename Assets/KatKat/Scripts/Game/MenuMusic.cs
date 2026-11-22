@@ -11,7 +11,7 @@ namespace KatKat.Game
     /// </summary>
     public sealed class MenuMusic : MonoBehaviour
     {
-        public const float Volume = 0.5f, // 2026-11-22: 0,7 yüksekti (kullanıcı: son seste aşırı yüksek)
+        public const float Volume = 0.3f, // 2026-11-22: 0,7 → 0,5 → 0,3 (kullanıcı: "anasayfadaki müzik sesi çok yüksek, biraz kısalım")
             FadeInMs = 400f, FadeOutMs = 200f;
         /// <summary>Oyun sırasında çok kısık (kullanıcı 2026-11-20: "müzik oyun sırasında çok kısık olsun").</summary>
         public const float InGameVolume = 0.03f; // kullanıcı (2026-11-21): "oyun esnasındaki müzik sesi çok yüksek arkada çok kısık olsun" (0,08 → 0,03)
@@ -77,6 +77,15 @@ namespace KatKat.Game
             _target = InGameVolume;
             _fadeMs = FadeInMs;
             if (!_src.isPlaying) { _src.volume = 0f; _src.Play(); }
+        }
+
+        /// <summary>Müzik tamamen susar (canlı maç; kullanıcı 2026-11-22: "canlı maçta anasayfa müziğini kapatalım").</summary>
+        public void Silence()
+        {
+            _want = false;
+            _inGame = false;
+            _target = 0f;
+            _fadeMs = FadeOutMs;
         }
 
         /// <summary>Oyun içinde kısık çalıyor mu (testler).</summary>

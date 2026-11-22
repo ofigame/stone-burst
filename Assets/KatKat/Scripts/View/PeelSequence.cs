@@ -71,7 +71,13 @@ namespace KatKat.View
         public static float FlyStart => 620f * Flow;
         /// <summary>Taşlar ve yıldızlar hedefe varır (HUD sayacı bu anda güncellenir).</summary>
         public static float ArriveAt => 960f * Flow;
-        public static float Duration => ArriveAt;
+        /// <summary>2026-11-22 (kullanıcı: "Görev taşları hedefe gittikten sonra hedeften yıldıza akış olsun"): görev taşının
+        /// yıldızları hedefe varıştan sonra görev simgesinden yıldız çubuğuna akar; bu ek süre.</summary>
+        public static float StarLegMs => 330f * Flow;
+        public static float Duration => ArriveAt + StarLegMs;
+        /// <summary>2026-11-22 (kullanıcı: "direk oldukları yerden biraz yükselip titreyip hedefe gitsinler"): taş kendi yerinin
+        /// bu kadar (taş boyu) üstünde belirir, titrer, oradan hedefe uçar (eski ortak toplanma noktası yok).</summary>
+        public const float RiseInPlace = 0.55f;
         /// <summary>Kombo taşları arasındaki gecikme.</summary>
         public static float StoneLag => 45f * Flow;
         /// <summary>Yığın tarafının bittiği an (sekme sonu): bundan sonra tahta serbest, yalnız uçuş sürer.</summary>
@@ -83,7 +89,7 @@ namespace KatKat.View
         private const float GatherX = 0.65f, GatherY = 0.5f;
 
         public const int ShardCount = 9, DustCount = 4, MaxStones = 4;
-        private const float BigScale = 1.35f, IconScale = 0.6f, ExtraScale = 0.8f;
+        private const float BigScale = 1.08f, IconScale = 0.6f, ExtraScale = 0.8f; // 2026-11-22: yerinde yükselen taş komşularını örtmesin (1,35 → 1,08)
 
         private readonly StackView _stack;
         private readonly PeelSheet _sheet;
@@ -346,10 +352,7 @@ namespace KatKat.View
         private void Flight(float ms, float size)
         {
             var origin = _origin;
-            var gather = _gatherWorld.HasValue
-                ? new Vector3(_gatherWorld.Value.x, _gatherWorld.Value.y, origin.z) + _cluster
-                : new Vector3(Mathf.Lerp(origin.x, _goalWorld.x, GatherX), Mathf.Lerp(origin.y, _goalWorld.y, GatherY), origin.z);
-            if (!_gatherWorld.HasValue && gather.y < origin.y + 2.2f * size) gather.y = origin.y + 2.2f * size;
+            var gather = origin + new Vector3(0f, RiseInPlace * size, 0f);
             float z = origin.z - 0.01f;
 
             Shards(ms, origin, gather, size, z);
@@ -357,6 +360,12 @@ namespace KatKat.View
             for (int k = 0; k < _stoneCount; k++) Stone(k, ms, gather, size, z);
             for (int j = 0; j < _starCount; j++) Star(j, ms, gather, size, z);
 
+            // Hedefe varış (HUD odağı, sayaç) taşların varışında; yıldız akışı sürerken nesne yaşamaya devam eder.
+            if (ms >= ArriveAt && !_arrived)
+            {
+                _arrived = true;
+                _onArrive?.Invoke(this);
+            }
             if (ms >= Duration)
             {
                 if (!_stackDone)
@@ -470,10 +479,11 @@ namespace KatKat.View
             float fly0 = FlyStart + k * StoneLag;
             if (ms < fly0)
             {
-                // Havada kısa salınım.
-                float h = (ms - form0) / 1000f;
-                pos.y += Mathf.Sin(h * 9f + k) * 0.04f * size * Mathf.Clamp01(f);
-                rot = Mathf.Sin(h * 7f + k * 1.3f) * 4f;
+                // Yerinde titreme: uçuşa doğru artan sarsıntı.
+                float tr = Mathf.Clamp01((ms - form0) / Mathf.Max(1f, fly0 - form0));
+                pos.x += Mathf.Sin(ms * 0.55f + k) * 0.035f * size * tr;
+                pos.y += Mathf.Sin(ms * 0.71f + k * 2f) * 0.025f * size * tr;
+                rot = Mathf.Sin(ms * 0.6f + k * 1.3f) * 6f * tr;
             }
             else if (_toGoal)
             {
@@ -587,9 +597,11 @@ namespace KatKat.View
         /// <summary>Altın yıldız <paramref name="j"/>: taşın çevresinde belirir ve yay çizerek yıldız çubuğuna akar.</summary>
         private void Star(int j, float ms, Vector3 gather, float size, float z)
         {
-            float window = ArriveAt - FlyStart;
+            // Görev taşı: yıldızlar taş görev simgesine vardıktan sonra oradan çıkar; görev olmayan taş: doğrudan yıldıza.
+            float leg0 = _toGoal ? ArriveAt : FlyStart, leg1 = _toGoal ? Duration : ArriveAt;
+            float window = leg1 - leg0;
             float stagger = Mathf.Min(40f * Flow, window * 0.45f / Mathf.Max(1, _starCount));
-            float s0 = FlyStart + j * stagger;
+            float s0 = leg0 + j * stagger;
             if (ms < s0)
             {
                 if (_stars[j] != null) _stars[j].enabled = false;
@@ -603,8 +615,8 @@ namespace KatKat.View
                 sr.sortingOrder = _order + 7;
             }
             sr.enabled = true;
-            var from = gather + _starOff[j];
-            float u = Mathf.Clamp01((ms - s0) / (ArriveAt - s0));
+            var from = _toGoal ? _goalWorld + _starOff[j] * 0.5f : gather + _starOff[j];
+            float u = Mathf.Clamp01((ms - s0) / (leg1 - s0));
             float e = u * u; // hızlanan akış (ease-in)
             var ctrl = Vector3.Lerp(from, _starWorld, 0.5f) + new Vector3(_starArc[j], 0.7f * size, 0f);
             var pos = Bezier(from, ctrl, _starWorld, e);

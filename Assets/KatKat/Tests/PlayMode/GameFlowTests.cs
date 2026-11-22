@@ -30,6 +30,31 @@ namespace KatKat.Tests
             CollectionAssert.IsEmpty(_gc.Catalog.ParseAll(), "bütün bölümler okunur, kimlik = dosya adı");
         }
 
+        /// <summary>2026-11-22 çevrimdışı kuralları: internetsiz 5 zaferden sonra bölüm açılmaz, kazanım sayılır ve dönüş reklamı
+        /// borcu yazılır; reklamsız paket sahibi sınırsız; çevrimiçi girişte sayaç sıfırlanır.</summary>
+        [Test]
+        public void Offline_LimitAfterFiveWins_NoAdsExempt_OnlineResets()
+        {
+            var m = _gc.SaveService.Data.meta;
+            try
+            {
+                GameController.OnlineOverride = () => false;
+                m.noAds = false;
+                m.offlineWins = GameController.OfflineLevelLimit;
+                _gc.StartLevel(3);
+                Assert.AreNotEqual(_gc.Catalog.Levels[3].Id, _gc.CurrentLevel?.Id, "çevrimdışı sınır dolu: bölüm açılmaz");
+                m.noAds = true;
+                _gc.StartLevel(3);
+                Assert.AreEqual(_gc.Catalog.Levels[3].Id, _gc.CurrentLevel.Id, "reklamsız paket: çevrimdışı sınırsız");
+                m.noAds = false;
+                GameController.OnlineOverride = () => true;
+                _gc.StartLevel(4);
+                Assert.AreEqual(_gc.Catalog.Levels[4].Id, _gc.CurrentLevel.Id);
+                Assert.AreEqual(0, m.offlineWins, "çevrimiçi girişte sayaç sıfır");
+            }
+            finally { GameController.OnlineOverride = null; m.noAds = false; m.offlineWins = 0; }
+        }
+
         private IEnumerator WaitStable()
         {
             float limit = Time.realtimeSinceStartup + 10f * Mathf.Max(1f, 10f / Speed);

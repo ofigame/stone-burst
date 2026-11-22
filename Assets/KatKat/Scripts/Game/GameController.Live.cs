@@ -27,6 +27,7 @@ namespace KatKat.Game
             _board.gameObject.SetActive(false);
             _backdrop.gameObject.SetActive(false);
             SetPhase(Phase.Loading);
+            _music.Silence(); // çıkışta ShowLevels müziği yeniden başlatır
             _live = LiveMatchView.Create(_cam, transform);
             _live.Sound = _sound;
             _live.Exit += CloseLive;
