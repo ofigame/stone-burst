@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil merdiven; çözüm 9 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil çatı (ayna); çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_848
-moves: 9
+moves: 8
 roll: off
 specials: on
+paint: 2
 type: reverse
 rules: exact
-goals: yellow 31, purple 31, navy 25, sponge 1
+goals: coral 24, purple 37, blue 31
 grid:
-pppc  G1:ppcc G1:cccg G1:cpcg #     #     #     #
-bbpn  pbcc  ccgg  gpggSp ppgn  #     #     #
-bbcy  cccy  cccy  pncyk1 pbcnk2 gpcn  #     #
-ypcy  ypcy  nbcg  nbyy  pbyyk1 gpyn  gpyc  #
-ypnn  ycnn  ncpn  cccy  cccn  gpcnB1 gcpc  gcny
-ppnn  pbny  gbpn  bbbn  ccbn  bpby  bcpy  gcny
-pggy  pccy  gcpy  bbpc  ccnc  cycy  cycg  bycp
-pggyk1 ppcn  ggypk1 bgcp  bcnc  cynn  cyng  yybp
-ygby  ypyn  ggyp  bccp  bcnck1 gcnn  yygg  yygn
-solution: 5,2 ; 7,4 ; use 1,3,1 ; 6,3 ; 0,2 ; use 0,0,1 ; use 1,0,1 ; 1,5 ; 5,3 ; 2,0 ; 0,0 ; use 1,0,0 ; 1,0 ; use 3,1,0 ; use 2,0,0 ; use 0,0,3
+#     #     #     bpy   bpy   #     #     #
+#     bpn   bpn   bpy   bpy   bnp   bnp   #
+cpy   cpn   cbb   cbb   bpy   bbp   cby   cby
+cpy   cpy   bpc   bbc   cpn   bpp   cpc   cyp
+bpn   byn   byp   bypk2 bpyk2 byy   bpc   byp
+ybpk1 ybp   cypK1:1 byb   pnyk1 nyp   nyc   nbnk1
+pnpK1:1 ppc   cpc   ppb   pnp   nyp   npn   cbnk1
+pnc   pcc   pcb   ppb   nnp   nbp   npy   ccn
+pny   pcy   pcp   pbp   nbp   nbc   bby   ccn
+solution: 5,5 ; use 0,2,3 ; 3,0 ; 3,0 ; use 1,3,0 ; 2,3 ; 2,4 ; 2,2 ; use 1,2,2 ; 1,6 ; use 3,0,5 ; 4,6 ; use 0,7,2 ; use 1,7,2 ; use 0,5,2

@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil L (ayna); çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dikdörtgen; çözüm 10 + 9 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_487
-moves: 8
+moves: 10
 roll: off
 specials: on
 type: resource
 rules: exact
-goals: coral 30, navy 32, sponge 1
+goals: coral 46, navy 32, sponge 1
 grid:
-#     #     #     npyc  npyb  ncgb  ncgb  bcgb
-#     #     #     nyyb  nbgb  nbcb  nygc  bygc
-#     #     #     gygb  pbcy  ngcySgp ncnp  ncnc
-#     #     #     gngb  cggyk1 cgcyk2 cpgp  ccgy
-bpbc  bpbp  bppp  gpnb  yccy  yccn  yycn  cccnk1
-bypn  nybn  nypp  nbpc  yncg  pyyy  pyyy  ccgy
-bypn  nbnn  gynp  yypc  bncg  pnyy  pgnn  pgpn
-nbpc  nbbn  gbbn  gggc  bgpc  pgyc  pgyp  pypnk1
-bbpc  bygn  bygn  pygn  pgpnk1 pgyp  pgyp  pynp
-solution: 3,5 ; 0,5 ; use 1,6,2 ; use 0,5,0 ; 4,5 ; use 0,4,2 ; 5,1 ; 4,0 ; use 0,5,1 ; 5,2 ; 6,2 ; use 0,3,0 ; 0,4 ; use 0,5,2
+pbc   pbc   yby   yby   npn   nbn   nyc   cpc
+cpc   cpc   nbyG  ncnG  ncn   ybp   yyc   ppc
+cpb   cypG  ybpG  ccnG  nbnG  bbp   byy   pyb
+ypb   yyp   yppG  cnn   cbn   ybn   byy   pyb
+bpy   bnp   bpc   ccc   ccc   ycn   bypSc pyb
+bpb   bnp   npp   cnc   ccc   ypc   byp   byb
+bcb   cnp   bpb   bnn   bpc   bpc   npp   bcp
+bby   cby   pbb   cnn   cpn   bcc   ncc   ncc
+bnb   pnb   pnb   pnp   cpp   pbc   pbb   pbb
+solution: 3,3 ; 2,4 ; use 0,2,1 ; 4,0 ; use 0,0,0 ; 0,1 ; use 1,3,1 ; 6,4 ; 2,6 ; 3,6 ; use 1,0,1 ; 6,0 ; use 0,6,0 ; 4,2 ; use 0,4,0 ; 1,4 ; use 0,0,0 ; use 2,5,0 ; use 0,7,0

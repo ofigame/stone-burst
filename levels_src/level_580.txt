@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kenar çentikleri; çözüm 16 + 0 tepsi / sınır 16; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe; çözüm 14 + 0 tepsi / sınır 17; rastgele 0,010; açgözlü kaybeder; yumuşak 0,02
 id: level_580
-moves: 16
+moves: 17
 roll: off
 type: boss
-rules: noSpecials, exact
-goals: yellow 27, coral 35, purple 38
+rules: noSpecials
+goals: coral 41, purple 36, navy 31
 grid:
-cypn  #     #     pnnn  pynn  #     #     cccn
-cypn  pccn  yycn  yncn  pynn  ppnci1 ppny  cycy
-cypn  pcpnK1:2 pcpnK1:2 pycc  nypc  nppc  ppcy  cycp
-#     cyypi1 ccnn  cypc  ccnc  ncnc  nccp  #
-nccy  ccyp  ccnn  yypn  ynpc  cpcp  cpcp  npcp
-#     pncn  nncni2 nncn  ynpn  ynyp  cnyp  #
-#     pnny  pycy  nncn  pncp  pppp  cpyn  #
-nccp  pcnp  pycy  nycn  pcpy  pppy  yppy  ypcyK1:2
-nnyp  pcypi1 pccy  cycni1 pycn  pycn  yppn  ypcn
-solution: 1,6 ; 2,3 ; 3,5 ; 3,2 ; 2,6 ; 3,3 ; 0,0 ; 1,1 ; 3,2 ; 0,0 ; 1,1 ; 2,6 ; 0,0 ; 6,1 ; 5,6 ; 0,0
+#     #     npn   yyn   yyp   ypy   #     #
+#     npp   npn   nyc   yyp   yny   ypy   #
+cpp   cpp   ccc   ccc   nnp   nnp   ypp   nnp
+cpp   ccp   pyn   pcc   nyp   pcn   pcn   nyn
+cnn   ccnLn5 pyn   pyn   ncp   ncn   pcn   cyn
+cpn   ccn   ccn   ccy   ycc   ncc   ncn   cpc
+cpc   cpc   cpnLc4 npp   ynp   ycc   ncc   cpc
+#     cpn   ccn   pnp   ynyK1:1 nppK1:1 ppp   #
+#     #     ccn   pycK1:1 yyc   nyp   #     #
+solution: 5,3 ; 5,3 ; 2,3 ; 2,3 ; 4,0 ; 1,3 ; 0,5 ; 2,0 ; 2,0 ; 3,1 ; 4,4 ; 3,0 ; 2,0 ; 5,7

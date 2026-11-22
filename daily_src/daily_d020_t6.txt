@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 544 + tür resource; şekil artı (ayna); çözüm 9 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 544 + tür resource; şekil kesik köşe (ayna); çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d020_t6
 title: Günlük 20
-moves: 9
+moves: 8
 roll: on
 specials: on
 type: resource
 rules: exact
-goals: navy 21, blue 27, purple 26, sponge 1
+goals: navy 25, coral 33, yellow 19, sponge 1
 grid:
-#     #     ynny  yncp  ygcp  ybcc  #     #
-#     #     nnny  cycp  cggp  nbcp  #     #
-cnnb  nnnbK1:2 nbnb  pycp  pbgc  pbyc  gyyySny gyyc
-cncb  nnbb  npgb  bycc  yycy  yycy  pycy  pyyp
-nncp  nngb  ypgb  ynpc  yccc  bccc  yngp  pngp
-bnbp  ngbb  nggb  nnpg  nnpy  bygy  ybcy  yncc
-ygbp  ygbp  bgcp  bncp  nppbK1:2 gpgb  ybcc  ybcc
-#     #     bgcp  ppbc  gppb  gpcb  #     #
-#     #     pcyp  pcbc  pcbb  ccbb  #     #
-solution: 0,2 ; roll 3 ; use 0,3,0 ; 0,2 ; use 0,0,2 ; 2,6 ; 4,6 ; 0,5 ; 1,4 ; 1,2 ; use 0,4,0 ; 3,5 ; use 2,2,0 ; use 0,2,0
+#     #     cb    cb    cn    nnK1:1 #     #
+#     pc    cb    cb    yc    yn    ny    #
+ncK1:1 nc    nn    pb    yc    nc    nc    np
+np    np    cp    ny    ny    yc    cp    cy
+yp    yp    cc    py    py    yp    cp    cy
+pp    cc    cc    cb    cp    yp    npSny cp
+cc    cc    nb    nb    np    np    np    np
+#     cc    yc    yb    yp    np    yc    #
+#     #     yp    np    np    np    #     #
+solution: 6,3 ; use 0,1,1 ; 4,1 ; 4,6 ; 0,3 ; use 0,6,1 ; 2,3 ; roll 2 ; use 0,4,0 ; 2,0 ; 2,0 ; use 0,3,0 ; use 0,3,0 ; use 0,2,0

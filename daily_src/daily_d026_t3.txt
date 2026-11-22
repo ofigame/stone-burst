@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 113 + tür pure; şekil T (ayna); çözüm 7 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 113 + tür pure; şekil T (ayna); çözüm 7 + 0 tepsi / sınır 9; rastgele 0,005; açgözlü kaybeder; yumuşak 0,29
 id: daily_d026_t3
 title: Günlük 26
-moves: 8
+moves: 9
 roll: on
 type: pure
 rules: noSpecials
-goals: purple 25, blue 24, star 3
+goals: purple 29, blue 30, yellow 12
 grid:
-ppy   ybyy  ybby  bbby  bbb   bbbp  bppb
-ppy   ybyy  yby   ybyb  bby   bbyp  bppp
-pybb  pyy   pbyb  pbyb  bbyy  bpy   bpy
-bybb  byy   pbpb  ppy   bppy  bpyp  bpy
-pby   bby   ppy   ppyb  bpyb* bpp   bpp*
-pbyp  pbpp  yyp   yypb  yybp  bppp  bpy
-#     #     yypp  ppb   ppbp  #     #
-#     #     ybbp  pbbp  pbb   #     #
-#     #     pbbp* pbb   pbb   #     #
-solution: 0,5 ; 3,4 ; roll 4 ; 5,3 ; 4,4 ; 3,6 ; 3,1
+pp    yb    yb    bb    bb    bb    bp
+pp    yb    yb    yb    bb    bb    bp
+pyk1  py    pb    pb    bb    bp    bp
+by    by    pb    pp    bp    bp    bp
+pb    bb    pp    pp    bpk1  bpk2  bp
+pb    pb    yy    yy    yy    bp    bp
+#     #     yy    pp    ppk1  #     #
+#     #     yb    pb    pb    #     #
+#     #     pb    pb    pb    #     #
+solution: 6,0 ; 1,0 ; 1,0 ; 2,7 ; 2,5 ; 1,2 ; 3,6

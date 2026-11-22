@@ -92,6 +92,9 @@ namespace KatKat.Tests
                 _gc.OnCellPressed(breaker.X, breaker.Y);
                 yield return WaitStable();
                 Assert.AreEqual(GameStatus.LostProtected, _gc.Session.State.Status);
+                // 2026-11-22: kart, bomba patlaması (~1 sn) bittikten sonra açılır.
+                float until = Time.realtimeSinceStartup + 5f;
+                while (!_gc.Hud.PanelOpen && Time.realtimeSinceStartup < until) yield return null;
                 Assert.IsTrue(_gc.Hud.PanelOpen, "kayıp kartı");
             }
             Assert.IsTrue(_gc.TrialHintOffered, "iki kayıptan sonra ipucu önerilir");

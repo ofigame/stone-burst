@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 131 + tür reverse; şekil kenar çentikleri; çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 131 + tür reverse; şekil merdiven (ayna); çözüm 7 + 3 tepsi / sınır 7; rastgele 0,000; açgözlü kazanır; yumuşak 0,04; YEDEK: açgözlü;
 id: daily_d003_t3
 title: Günlük 3
 moves: 7
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: reverse
 rules: exact
-goals: green 57, purple 31, yellow 30
+goals: navy 23, coral 21, star 3
 grid:
-cyb   cybb  ggbb  ggci1 gbpi1 ybyc  cbgc  cbg
-#     #     ggpbi1 pyp   byp   ybyc  ybg   ybgy
-ppg   ppgb  gpgb  yyg   bycg  cgy   cbcc  cgbc
-ygg   ypb   ybb   ybpg  ygc   cgcp  pgcc  cgbp
-cgb   ccbc  pggy  pgp   ggp   gycp  pyyp  #
-gcgg  pcy   bggy  bgg   bgg   gggp  pyyp  ycyy
-gbg   pbg   bcg   bcgp  bpg   cpg   cpgp  ccgy
-cbg   cbpb  bgp   gcg   gpgp  bcg   bcgg  ccg
-cbpy  cbp   ygy   gpyi2 cgyp  cgg   bcg   bcg
-solution: 5,3 ; use 0,7,1 ; 3,2 ; 5,0 ; use 0,4,0 ; 4,3 ; use 0,5,0 ; 0,0 ; use 0,2,1 ; use 0,6,0 ; 4,0 ; roll 1 ; use 0,0,0
+#     #     #     #     nb    cc    cb    pb
+#     #     #     nc    nb*   cp    cp    py*
+#     #     pn    pc    nc    cc    np    py
+#     nn    nn    pc    cc    bc    nb    nb
+yb    yb    nn    np    cn    cn    yb    yb
+yp    yp    ny    np    bp    pp    yp    pb
+cc    yc    ny    nn    bp    pp    yp    yb
+cc    cc    cy    yn    pp    pp    yp    cb
+yn    yn    yy    yn    yn*   yp    yp    yb
+solution: 3,4 ; 2,2 ; use 0,7,1 ; use 0,5,0 ; roll 1 ; 1,3 ; use 0,4,0 ; 5,0 ; roll 8 ; 0,6

@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil kesik köşe (ayna); çözüm 10 + 0 tepsi / sınır 10; rastgele 0,010; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil kesik köşe; çözüm 11 + 0 tepsi / sınır 11; rastgele 0,020; açgözlü kaybeder; yumuşak 0,00
 id: level_478
-moves: 10
+moves: 11
 roll: off
 type: pure
 rules: noSpecials, exact
-goals: yellow 36, blue 29, sponge 1
+goals: purple 18, star 3, sponge 1
 grid:
-#     #     gbpg  ybpg  ybpb  pbyb  #     #
-#     gggp  ypbgk1 gygg  yppg  ppyy  pgby  #
-ggbp  gggp  ypgy  gygy  bypy  byyy  bgby  pyby
-gbbp  gbgp  ypgp  ybgg  ypgy  bpyySp bpbb  bgyy
-gbby  pbgp  gbbpk1 gbbg  gbgy  bpgy  yybb  ygyb
-pgpy  pgpy  pbpy  gbbg  gbbyk2 byby  yypb  ygyg
-pgpg  pgpy  pyyy  bbby  bybp  bppp  yppg  ygyg
-#     pypy  pyyy  byyy  byyy  bbyp  ypypk1 #
-#     #     gypg  gbpg  gbpgk2 gbpp  #     #
-solution: 5,1 ; 0,4 ; 1,1 ; 2,0 ; 4,1 ; 4,6 ; 0,2 ; 4,5 ; 2,6 ; 6,1
+#     #     pc    np    nb    pb    #     #
+#     nc    pp    np    np    nc    np    #
+pc    nc    bc    bbSp  bc*   nc    cc    cn
+bc    pc    cn    cp    np    nn    nn    cn
+bp    pc    cp    cc    bn    cn    nn    nn
+np    bb    pp    nc    bp    np    nb    nn*
+bp    bp    cp    nc    np    nn    nn    nn
+#     bc*   cc    cc    nn    np    cn    #
+#     #     cc    cb    pp    pp    #     #
+solution: 3,0 ; 1,1 ; 1,3 ; 2,4 ; 1,5 ; 4,5 ; 5,7 ; 7,2 ; 5,3 ; 5,1 ; 2,2

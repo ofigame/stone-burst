@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil dikdörtgen; çözüm 10 + 8 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil çatı; çözüm 8 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar; YEDEK: mek:rotor;
 id: level_388
-moves: 10
+moves: 8
 roll: off
 specials: on
 type: exact
 rules: exact
-goals: blue 32, navy 37, purple 31
+goals: purple 35, yellow 16, blue 14
 grid:
-bbyn  bbyn  cgyn  cgnyR pcbn  npbc  ncbc  ncyg
-cngn  bncn  cycg  pggg  ppgp  npgp  nbbp  nbbg
-cngn  bycn  pyyg  pyyg  pcbg  pggy  pgby  pbcg
-npgn  nygn  gyyg  gygg  pcby  pcby  pbyy  pbyg
-ypcb  yycb  gybg  gnbc  ycbc  ppbn  ppyn  ppcg
-ynbb  gycn  gycc  nnbc  nbbc  npnb  ppnb  ppyg
-bnbb  gngc  pnnc  pncp  nppy  bpgn  nyyc  pyyn
-bygn  gygn  gngp  pncp  pbpn  bbgn  nygc  pbpn
-bybyR gncb  gnyb  pncc  nbgn  nngn  nngc  gnpg
-solution: rot 3,0 ; 3,6 ; 3,4 ; use 0,0,0 ; 3,0 ; 0,4 ; 5,2 ; use 0,4,1 ; use 0,4,0 ; 7,0 ; use 1,0,1 ; use 0,7,0 ; 5,4 ; use 0,0,1 ; 0,0 ; use 0,3,1 ; 3,0 ; use 0,0,0
+#     #     #     cy    cy    #     #     #
+#     by    ynR   by    yc    yc    pc    #
+bn    bn    ny    ynR   yp    cc    pc    pc
+bn    cn    yc    yc    yp    cn    cn    pn
+cy    cy    cc    cp    bn    bn    pc    pn
+pp    cp    cp    cp    bp    bb    pb    pn
+pp    cp    yn    yn    pp    bn    pn    pn
+pp    pp    pp    cn    pn    bp    nn    nn
+nb    np    pp    cc    pc    pbR   nn    nn
+solution: 5,3 ; 4,1 ; use 0,6,1 ; 4,4 ; use 0,3,0 ; 2,1 ; use 0,1,1 ; 0,5 ; 1,3 ; 3,2 ; 2,6 ; use 0,0,6 ; use 1,6,5

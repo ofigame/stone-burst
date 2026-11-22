@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil çatı (ayna); çözüm 6 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil dikdörtgen; çözüm 6 + 3 tepsi / sınır 7; rastgele 0,005; açgözlü kazanır; yumuşak 0,25; YEDEK: açgözlü;
 id: level_098
 moves: 7
 roll: off
 specials: on
 type: reverse
 rules: exact
-goals: coral 28, green 39, yellow 30
+goals: coral 18, navy 25, yellow 26
 grid:
-#     #     #     gcpy  gcpb  #     #     #
-#     gcp   gcpy  gcpy  pcpy  pyyp  pygc  #
-bpbp  gyb   yyb   gbp   byp   byy   ppgc  ypg
-bpbp  gppg  yyp   ycp   byc   bpyb  cpyc  cpy
-bpg   gpgg  gycb  ycpb  byc   byyg  bygg  cpg
-bpgy  gygg  gyc   ycg   bccb  bbpg  bbc   byc
-bbgy  ycgg  ycgb  bpg   bbcb  pycb  bgcp  gpgp
-bbp   gbpc  ycpb  bpgb  bbb   bybp  bggp  bpg
-pcpp  gccc  gcc   gcg   gbc   gycb  ggc   cpg
-solution: 3,0 ; 3,0 ; use 0,3,0 ; 4,5 ; use 0,3,0 ; 5,1 ; 1,2 ; use 0,2,4 ; use 0,5,1 ; 4,1 ; use 0,1,2
+yn    yp    yp    yp    bc    yyk1  yy    cy
+yn    yp    cpk1  yc    yc    yc    cy    cn
+yc    yp    cp    ny    ny    yyk1  yy    yn
+yc    pp    cp    nc    np    bp    bn    by
+cn    cyk2  cy    ny    ny    np    yy    yy
+nn    cn    cn    cp    cp    nb    py    pp
+np    np    np    cc    cc    cb    cp    pp
+nn    nn    np    pb    cb    cp    np    pp
+pn    pn    bn    bb    bb    bp    np    nn
+solution: 7,5 ; use 0,0,0 ; 6,0 ; use 0,4,0 ; 1,0 ; 0,0 ; 0,6 ; 0,5 ; use 2,3,0

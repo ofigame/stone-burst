@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil kesik köşe; çözüm 11 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil T (ayna); çözüm 12 + 0 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_517
-moves: 11
+moves: 12
 roll: off
 type: pure
 rules: noSpecials, exact
-goals: blue 29, yellow 32, navy 36
+goals: blue 34, purple 25, navy 25
 grid:
-#     #     bypp  yppb  ypyn  ybyn  #     #
-#     yppp  bnpp  ynbb  ybnb  ybnn  ynnp  #
-nnpp  nnpp  bnbp  ynbp  bnny  ynnp  ynny  bnny
-nnnn  bbbp  bnbp  nnyn  nnyy  pnyp  ynyy  bnny
-nbbn  pbbnLp5 nnbp  nnyp  bpyp  ppyp  pnnp  pnnp
-pypn  pbnb  pbnb  pnnp  npbp  nbyp  nbnb  pnnb
-pynp  pbnb  ppyb  pnnp  nnbpK1:2 ynbp  ypbn  ypnbK1:2
-#     ypyp  ypyp  pyyp  byby  bybp  ypbn  #
-#     #     yypy  yypy  bypy  bypp  #     #
-solution: 4,7 ; 2,0 ; 3,0 ; 4,2 ; 4,5 ; 4,0 ; 2,6 ; 2,2 ; 5,1 ; 3,1 ; 4,0
+pbb   bbbK1:2 bbb   bbp   bcp   pcp   ccp   cpn
+pbb   pbn   bbn   bbb   bnb   bcp   ccb   bcb
+bnn   bnn   pnc   cbb   bnb   bcp   ccpi1 bcb
+npn   cpn   pnc   cbp   ppn   pbn   cnp   bcp
+ncn   ccn   ncc   cbb   npn   pbn   pnpK1:2 bpp
+ccn   ccn   ncc   pnb   pcb   pcn   ppni1 ppn
+#     #     bcb   pnbi1 pnb   pnn   #     #
+#     #     bbb   pbbi2 bpn   bnn   #     #
+#     #     cbbi2 cpb   npb   nnb   #     #
+solution: 1,1 ; 0,0 ; 6,1 ; 3,0 ; 4,1 ; 4,0 ; 0,0 ; 3,3 ; 3,3 ; 2,6 ; 3,5 ; 3,5

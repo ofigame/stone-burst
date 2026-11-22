@@ -294,6 +294,7 @@ static partial class Program
                 case "title": d.Title = val; break;
                 case "tutorial": d.Tutorial = val; break;
                 case "moves": d.MoveLimit = int.Parse(val, CultureInfo.InvariantCulture); break;
+                case "time": d.TimeLimit = int.Parse(val, CultureInfo.InvariantCulture); break; // 2026-11-22 süreli bölüm (sn)
                 case "roll": d.RollEnabled = val != "off"; d.StartingRoll = val == "start"; break;
                 case "specials": if (val == "on" && !d.Capabilities.Contains("specials")) d.Capabilities.Add("specials"); break;
                 case "paint": d.Paint = int.Parse(val, CultureInfo.InvariantCulture); break;
@@ -377,6 +378,7 @@ static partial class Program
         var c = new CellData { X = x, Y = y, Active = true };
         if (token == ".") return c;
         var t = token;
+        if (t.EndsWith("G")) { c.Gravel = true; t = t.Substring(0, t.Length - 1); } // 2026-11-21 çakıl (en sonda)
         if (t.EndsWith("P")) { c.Protected = true; t = t.Substring(0, t.Length - 1); } // v8 kristal yığın
         if (t.EndsWith("*")) { c.HasBottomStar = true; t = t.Substring(0, t.Length - 1); }
         if (t.EndsWith("R")) { c.HasRotor = true; t = t.Substring(0, t.Length - 1); }
@@ -411,7 +413,7 @@ static partial class Program
     /// <summary>schemaVersion 2 yalnızca yeni örtü (buz/kilit) kullanan bölümlerde; 1–60 biçimi bayt bayt aynı kalır.</summary>
     static bool NeedsV2(LevelData d) => d.Capabilities.Contains("specials") || d.Paint > 0
         || !string.IsNullOrEmpty(d.TrialType) || d.Rules.Count > 0 || d.Goals.Any(g => g.Type == "collectChain") || d.Cells.Any(c => c.Protected)
-        || d.Cells.Any(c => c.SpongeColors.Count > 0 || c.LinkHits > 0 || c.ButtonGate > 0 || c.GateId > 0) || d.Cells.Any(c => c.IceHits > 0 || c.LockRemaining > 0 || !string.IsNullOrEmpty(c.EnvelopeColor) || c.HasRotor);
+        || d.Cells.Any(c => c.SpongeColors.Count > 0 || c.LinkHits > 0 || c.ButtonGate > 0 || c.GateId > 0) || d.Cells.Any(c => c.IceHits > 0 || c.LockRemaining > 0 || !string.IsNullOrEmpty(c.EnvelopeColor) || c.HasRotor || c.Gravel) || d.TimeLimit > 0;
 
     static List<string> CapabilitiesOf(LevelData d)
     {
@@ -426,6 +428,7 @@ static partial class Program
         if (d.Cells.Any(c => c.LinkHits > 0)) caps.Add("linkedClip");
         if (d.Cells.Any(c => c.ButtonGate > 0 || c.GateId > 0)) caps.Add("gate");
         if (d.Paint > 0) caps.Add("paint");
+        if (d.Cells.Any(c => c.Gravel)) caps.Add("gravel");
         if (d.Capabilities.Contains("specials")) caps.Add("specials");
         return caps;
     }
@@ -480,6 +483,7 @@ static partial class Program
         sb.AppendLine($"  \"width\": {d.Width},");
         sb.AppendLine($"  \"height\": {d.Height},");
         sb.AppendLine($"  \"moveLimit\": {d.MoveLimit},");
+        if (d.TimeLimit > 0) sb.AppendLine($"  \"timeLimit\": {d.TimeLimit},");
         sb.AppendLine($"  \"rollEnabled\": {(d.RollEnabled ? "true" : "false")},");
         sb.AppendLine($"  \"startingRoll\": {(d.StartingRoll ? "true" : "false")},");
         if (d.StarThresholds != null) sb.AppendLine($"  \"stars\": [{d.StarThresholds[0]}, {d.StarThresholds[1]}],");

@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil dikdörtgen; çözüm 21 + 0 tepsi / sınır 21; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil merdiven (ayna); çözüm 17 + 0 tepsi / sınır 17; rastgele 0,010; açgözlü kaybeder; yumuşak 0,06
 id: level_338
-moves: 21
+moves: 17
 roll: off
 type: pure
 rules: noSpecials, exact
-goals: yellow 43, green 35, purple 52
+goals: blue 29, purple 24, star 3
 grid:
-byyb  pbyb  pbpb  bppg  bppgi1 bgpb  gpbb  ggbp
-bbgb  bbyy  pypb  pgpb  ygbg  bgbb  gpby  bgby
-ybgy  ybyy  yypg  pgpg  bgbp  bgby  gpyp  bgby
-gbgy  ybgy  pypg  yypp  yggpi1 bgyy  gbyy  gbyy
-gbpb  yypb  yybp  yybg  ygppi2 bgpy  pbypR gbyg
-gypp  gypp  gbpp  gbpbR ybpp  gypy  pbyb  gbyg
-pppy  ygpy  ybpy  gypy  yypg  gypg  pyyb  pbyb
-pgpy  bgpp  bbpp  gbpg  gypgi1 gppgi1 bypb  pyyb
-pggp  pgpp  pbpp  pbpb  gypy  bpby  bpbb  pppb
-solution: 6,1 ; 1,1 ; 0,2 ; 0,6 ; 2,2 ; 0,0 ; 0,0 ; rot 3,5 ; 0,4 ; 1,4 ; 1,7 ; 0,5 ; 6,5 ; 5,3 ; 5,0 ; 3,0 ; 2,0 ; 4,4 ; 4,3 ; 3,6 ; 6,4
+#     #     #     #     bbc   ybc   pbc   pbc
+#     #     #     bcb   ycb   ybb   cby   yby
+#     #     pbc   pcp   ybp   pbbR  cby   yby
+#     cpy   cpy   bpy   bpp   bbc   ybc   pbb
+bpc   bpy   byy   bpy   bpp   bbc   ycy   ppb
+bpc   byc   byc*  yyc   pbc   pbc*  ycy   ppc
+ypb   ypp   ypc   ppy   pbc   pbc   ycy   cpc
+cpb   cpy   bcc   pcp   byc   byc   bcpR  cyb
+cpy   cby*  bbp   bcp   cyp   byc   byc   cyb
+solution: 5,3 ; 1,3 ; 3,2 ; 3,1 ; 4,3 ; 0,4 ; 4,0 ; 4,0 ; rot 6,7 ; 5,0 ; 4,7 ; 4,7 ; 2,7 ; 1,7 ; 0,6 ; 2,7 ; 0,7

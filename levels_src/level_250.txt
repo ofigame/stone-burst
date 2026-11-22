@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil merdiven; çözüm 15 + 0 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil T; çözüm 9 + 0 tepsi / sınır 13; rastgele 0,070; açgözlü kaybeder; yumuşak 0,25
 id: level_250
-moves: 15
+moves: 13
 roll: off
 type: boss
-rules: noSpecials, exact
-goals: green 20, purple 25, envelope 2
+rules: noSpecials
+goals: blue 19, yellow 29, envelope 3
 grid:
-ypnp  ppyy  nnny  pnpy  #     #     #     #
-ynnp  pnyy  pnny  pnyy  pnpg  #     #     #
-ynyn  nyyy  nnyyEp nnyy  pnpg  yypg  #     #
-pyyy  nyyy  nyyy  ygpn  ngpn  nngg  ygyy  #
-pnpy  gnpy  nypy  ygpy  yngn  nngn  yngy  nygy
-ppny  gpny  npny  ngpy  ynpy  nnpp  ynpy  yynn
-npny  ppng  npng  ggyn  ggyn  gypp  yypn  yynn
-npny  pgygEy pgny  pgny  ngyn  pypp  ygpn  yyng
-ypny  ggyn  gyyy  nynn  nyyn  pypg  pgpg  ggng
-solution: 1,0 ; 3,3 ; 6,3 ; 3,3 ; 4,1 ; 4,3 ; 0,4 ; 7,7 ; 5,5 ; 1,4 ; 1,0 ; 2,0 ; 3,0 ; 2,0 ; 0,0
+pnn   bynk1 byp   pyp   yyp   yyy   yyy   npy
+pnp   bnn   bnb   pyp   byp   ynn   nyb   nynk1
+nnp   byb   pyb   pnp   ypn   ypy   ynb   bnn
+nny   nnb   nny   bny   nny   nny   bnb   bnpEb
+pyy   bnb   bny   byy   nyy   npy   bpb   ypp
+yyy   ynb   byb   bybk2 byb   bnb   pnp   pnp
+#     #     yyp   bpb   bnb   bnb   #     #
+#     #     ypp   ypp   ppbEp bny   #     #
+#     #     ypy   pny   pnyEy yny   #     #
+solution: 6,1 ; 2,6 ; 4,5 ; 3,6 ; 2,1 ; 1,2 ; 2,0 ; 2,0 ; 4,0

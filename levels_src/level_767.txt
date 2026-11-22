@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil çatı (ayna); çözüm 11 + 8 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil U (ayna); çözüm 9 + 7 tepsi / sınır 9; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
 id: level_767
-moves: 11
+moves: 9
 roll: off
 specials: on
 paint: 2
 type: resource
 rules: exact
-goals: purple 30, navy 30, coral 32
+goals: navy 26, coral 19, blue 28
 grid:
-#     #     #     pcyb  ngyp  #     #     #
-#     ngnp  pyyp  pyyb  ngyb  ngyb  npyg  #
-cngc  ngyp  nyyp  pyyb  nnyb  gncb  gncg  ybcp
-nngb  bgbb  bcyb  gnnc  gnnc  gnnp  ypnp  ybyp
-nbcy  nccy  bccc  bnyc  gnnp  gpyn  ypyn  ccyg
-pbyg  nccg  ncbp  ncbp  pcnp  gygn  cccn  cccg
-pbbb  pbby  pbbc  pcbg  ycpcR yygn  yggg  gygg
-ccbb  ccby  pcpc  pcpb  ypyb  yypgR gggc  byng
-ccnp  ccnp  cppc  yppc  ypyb  yygp  bgng  byng
-solution: rot 4,6 ; paint 4,3,p ; 7,2 ; 4,3 ; 7,4 ; use 0,0,2 ; use 0,4,0 ; use 0,1,1 ; 3,7 ; 6,3 ; 3,7 ; use 0,2,4 ; 3,0 ; 3,0 ; use 2,3,0 ; use 0,0,2 ; 4,0 ; use 1,4,0 ; use 0,2,1
+cn    cb    by    #     #     yn    pn    cn
+pn    bb    by    #     #     by    py    cb
+pn    ny    by    #     #     by    ny    bb
+nn    ny    cy    pp    np    np    by    bb
+yc    nn    cn    cn    cb    bb    bb    yc
+yc    nb    pn    yb    yy    cn    cn    yy
+ycG   nbG   pb    yb    py    cn    cn    py
+ycG   cpG   cb    yb    py    cn    cy    py
+bpG   bpG   cb    nb    ny    nn    ny    py
+solution: 2,0 ; 0,0 ; use 1,1,0 ; use 0,4,3 ; 5,5 ; use 0,0,0 ; 5,1 ; 7,2 ; paint 6,1,n ; 5,0 ; use 0,1,0 ; paint 5,0,b ; use 0,5,0 ; 3,5 ; use 1,0,1 ; use 0,0,0

@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil L (ayna); çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil U; çözüm 9 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_838
-moves: 8
+moves: 9
 roll: off
 specials: on
-paint: 2
 type: order
 rules: exact
-goals: coral 31, blue 44, green 25
+goals: yellow 19, navy 36, blue 22
 grid:
-#     #     #     pbnn  pbpn  pbpy  nncy  pnny
-#     #     #     cgnn  pgyg  ybpy  npcb  ppcb
-#     #     #     cgnn  pgyg  ybpg  pppp  pppb
-#     #     #     pgny  pcyg  ybyc  ybgcLp3 ygpg
-nbcp  nycp  nbcy  nbcy  nbcy  nbnb  cbgc  cbpc
-yycc  yybc  nbby  nbcy  nbbg  ncnb  bbgg  cngg
-yycc  ypbn  npyn  bbcn  bcbb  bcgb  bycn  cycg
-ybgg  gbcg  npyp  bbbp  cpbb  bpgp  nybn  ncyn
-ybgg  gbycLp3 gbyc  cybc  cybb  cpbp  ppbp  pcyp
-solution: 5,7 ; 5,4 ; use 0,4,1 ; 5,0 ; use 0,6,0 ; 2,4 ; 3,0 ; use 0,4,1 ; 4,0 ; use 0,4,0 ; 2,7 ; use 0,6,1 ; 0,5 ; use 1,6,5 ; use 0,0,8
+nni2  G1:by G1:by #     #     G1:pb pc    yc
+nn    bni1  bn    #     #     pb    yb    yb
+nb    ny    ny    #     #     py    np    npi1
+nb    nb    nb    nc    nc    pb    nb    nb
+nb    cp    pb    pn    bn    bn    nb    nn
+ny    cc    pci1  pn    pn    pn    cn    cn
+cy    cb    nb    pn    cp    cpi1  cp    cni2
+cyi1  cy    np    yy    yyLc4 yn    cn    yn
+pb    pb    pp    cy    cy    cc    pcB1  yyLc5
+solution: 3,4 ; use 0,5,1 ; 1,4 ; 7,6 ; use 0,6,1 ; 0,1 ; 5,1 ; 6,2 ; 6,5 ; use 1,6,0 ; use 0,1,0 ; 1,0 ; 2,7 ; use 1,0,0 ; use 0,0,0

@@ -33,7 +33,7 @@ static partial class Program
     /// <summary>Mekanik takvimi (vitrinden sonra gerçek tanıtım): yetenek adı ve ilk bölüm.</summary>
     static readonly (string mech, int intro)[] V14Mechs =
     {
-        ("clip", 21), ("star", 41), ("ice", 61), ("colorLock", 121), ("envelope", 201), ("rotor", 301),
+        ("clip", 21), ("star", 41), ("gravel", 45), ("ice", 61), ("colorLock", 121), ("envelope", 201), ("rotor", 301),
         ("sponge", 401), ("linkedClip", 501), ("gate", 601), ("paint", 701),
     };
 
@@ -61,6 +61,10 @@ static partial class Program
     static bool V14Breath(int n) => n > 10 && n % 6 == 0 && n % 10 != 0;
 
     /// <summary>Usta bölümü: her x0 bölümü (tek doğru yola yakın).</summary>
+    /// <summary>2026-11-22 süreli bölüm (kullanıcı: "süreli bölüm sıklığı önerdiğin gibi olsun": 40'tan sonra her 15 bölümde bir,
+    /// 60–90 sn; hamle sınırsız). Usta bölümüne denk gelmez.</summary>
+    static bool V14Timed(int n) => n >= 41 && (n - 41) % 15 == 0 && !V14Master(n);
+
     static bool V14Master(int n) => n >= 20 && n % 10 == 0; // 2026-11-20: 10. bölüm de kolay ilk on içinde (usta 20'den)
 
     /// <summary>Hamle payı bandı (PLAN): 6–30 3–5; 31–100 2–3; 101–300 1–2; 301+ 0–1; nefes +4.</summary>
@@ -170,7 +174,7 @@ static partial class Program
         {
             // Nefes: 1–2 kat, büyük tahta, büyük gruplar, bol özel taş, geniş hamle; kısa ve eğlenceli.
             sp.W = n < 31 ? 7 : 8; sp.H = n < 31 ? 8 : n <= 80 ? 8 : 9;
-            sp.LMin = 1; sp.LMax = 2; sp.Colors = n < 200 ? 3 : 4; sp.ColorGoals = 2;
+            sp.LMin = sp.LMax = 2; sp.Colors = n < 200 ? 3 : 4; sp.ColorGoals = 2; // 2026-11-22: eşit kat (2)
             sp.BlobMin = 4; sp.BlobMax = 9; sp.LenLo = 3; sp.LenHi = 10; sp.Frac = 0.55;
             sp.Slack = sp.SlackHi;
             return sp;
@@ -197,7 +201,7 @@ static partial class Program
                     V14ApplyRule(sp, second);
                 }
             }
-            sp.Rules.Add("exact");
+            // 2026-11-22: usta bölümü artık dar hamle değil (+2 pay); "exact" kural kartı yazılmaz.
             sp.Frac += 0.04;
         }
         else if (n >= 27 && (m == 7 || m == 8))
@@ -252,7 +256,27 @@ static partial class Program
         // Kilit sırası türü kendi kilitlerini kurar; renk kilidi mekaniğiyle çakışmasın.
         if (sp.Order) chosen.Remove("colorLock");
         foreach (var x in chosen) V14MechAmount(sp, x, rng);
+        V14Uniform(sp, rng);
         return sp;
+    }
+
+    /// <summary>
+    /// 2026-11-22 (kullanıcı: "Katman sayıları tüm hücrelerde aynı olacak … hepsi ya 2 ya 3 katlı"; "seviyeye göre artan zorluk
+    /// doğrusu olsun ve artan zevk hissi olsun"): bir bölümde bütün hücreler aynı katlı. 1–30 iki kat; usta üç kat; arada üç
+    /// katın payı ilerledikçe artar (%30 → %65). En çok 5 renk (yeşil yok). Süreli bölümde dar hamle kuralı yok.
+    /// </summary>
+    static void V14Uniform(V14Spec sp, Random rng)
+    {
+        int n = sp.N;
+        int l = n <= 30 ? 2 : sp.Master ? 3 : rng.NextDouble() < 0.30 + 0.35 * Math.Min(1.0, (n - 30) / 500.0) ? 3 : 2;
+        sp.LMin = sp.LMax = l;
+        sp.Colors = Math.Min(sp.Colors, 5);
+        if (V14Timed(n))
+        {
+            sp.Exact = false;
+            sp.Rules.Remove("exact");
+            sp.Slack = Math.Max(sp.Slack, sp.SlackHi);
+        }
     }
 
     static void V14ApplyRule(V14Spec sp, string rule)
@@ -282,12 +306,13 @@ static partial class Program
             case "linkedClip": sp.Mech["link"] = 2 + rng.Next(2); break;
             case "gate": sp.Mech["gate"] = 3 + rng.Next(2); break;
             case "paint": sp.Mech["paint"] = 1 + rng.Next(2); break;
+            case "gravel": sp.Mech["gravel"] = 4 + rng.Next(3) + up; break; // 2026-11-22 çakıl: bitişik küme
         }
     }
 
     // ---- Tahta --------------------------------------------------------------------------------------
 
-    static readonly string[] V14ShapeNames = { "kesik köşe", "L", "T", "artı", "merdiven", "kum saati", "U", "çatı", "elmas", "dikdörtgen", "kenar çentikleri" };
+    static readonly string[] V14ShapeNames = { "kesik köşe", "L", "T", "artı", "merdiven", "kum saati", "U", "çatı", "elmas", "dikdörtgen", "kenar çentikleri", "zikzak", "dalga" };
 
     /// <summary>
     /// Dış hat: ShapeCut şekilleri, dikdörtgen ya da kenardan ısırık çentikleri. Kabul: kalan hücreler 4-bağlı, her satır ve
@@ -302,6 +327,18 @@ static partial class Program
             HashSet<(int, int)> cut;
             if (kind <= 8) cut = ShapeCut(kind, w, h, flip);
             else if (kind == 9) cut = new HashSet<(int, int)>();
+            else if (kind == 11)
+            {
+                // 2026-11-22 zikzak: sol ve sağ kenarda birer atlamalı hücre (6. test bölümündeki gibi).
+                cut = new HashSet<(int, int)>();
+                for (int y = 0; y < h; y++) cut.Add(((y % 2 == 0) == flip ? 0 : w - 1, y));
+            }
+            else if (kind == 12)
+            {
+                // 2026-11-22 dalga: üst ve alt sırada atlamalı hücreler.
+                cut = new HashSet<(int, int)>();
+                for (int x = 0; x < w; x++) cut.Add((x, (x % 2 == 0) == flip ? 0 : h - 1));
+            }
             else
             {
                 // Kenar çentikleri: 2–4 küçük dikdörtgen ısırık, her biri tahta kenarına değer (ayna simetrik olabilir).
@@ -583,6 +620,24 @@ static partial class Program
             var join = goalColors.FirstOrDefault(g => nbTops.Count(t => t == g) >= 2) ?? goalColors.FirstOrDefault(g => nbTops.Contains(g));
             var lone = palette.FirstOrDefault(p => !nbTops.Contains(p) && p != join);
             if (join != null && lone != null) { rc.Layers[rc.Layers.Count - 2] = join; rc.Layers[rc.Layers.Count - 1] = lone; }
+        }
+        // 2026-11-22 çakıl: rastgele bir hücreden komşulara yayılan bitişik küme (mekaniksiz, korumasız, dolu yığınlar).
+        int gravel = sp.M("gravel");
+        if (gravel > 0)
+        {
+            var pool = d.Cells.Where(c => c.Active && c.Layers.Count > 0 && !IsMechanic(c) && !c.Protected).ToList();
+            if (pool.Count > gravel * 2)
+            {
+                var set = new List<CellData> { pool[rng.Next(pool.Count)] };
+                set[0].Gravel = true;
+                for (int q = 0; q < set.Count && set.Count < gravel; q++)
+                    foreach (var nb in pool.Where(o => !o.Gravel && Math.Abs(o.X - set[q].X) + Math.Abs(o.Y - set[q].Y) == 1).OrderBy(_ => rng.Next()).ToList())
+                    {
+                        if (set.Count >= gravel) break;
+                        nb.Gravel = true;
+                        set.Add(nb);
+                    }
+            }
         }
         int gateCells = sp.M("gate");
         if (gateCells > 0)
@@ -951,7 +1006,9 @@ static partial class Program
         public LevelData D; public V14Eval Ev; public V14Spec Sp; public string Shape; public int Boards, Evals; public double Seconds; public string Flags = "";
     }
 
-    static V14Result V14Make(int n) => V14Make(V14SpecFor(n), n * 7919 + 1416, n * 31);
+    // KATKAT_SALT: üretilemeyen bölüm için başka tahta tohumu (2026-11-22, bölüm 400).
+    static V14Result V14Make(int n) => V14Make(V14SpecFor(n), n * 7919 + 1416 + V14Salt(n), n * 31);
+    static int V14Salt(int n) => n == 400 ? 1 : int.TryParse(Environment.GetEnvironmentVariable("KATKAT_SALT"), out var s) ? s : 0;
 
     /// <summary>Tarif ve tohumla üretim (ana bölüm: <see cref="V14Make(int)"/>; günlük bulmaca kendi tarif ve tohumunu verir).</summary>
     static V14Result V14Make(V14Spec sp, int boardSeed, int measureSeed)
@@ -1115,6 +1172,7 @@ static partial class Program
                 return;
             }
             if (r.Flags.Contains("YEDEK")) Interlocked.Increment(ref fallback);
+            if (V14Timed(n)) r.D.TimeLimit = Math.Clamp(20 + 4 * r.Ev.L, 60, 90); // 2026-11-22 süreli: çözüm uzunluğuna göre 60–90 sn
             string line = V14MetricsLine(r);
             var info = $"v14 {r.Sp.Kind}; şekil {r.Shape}; çözüm {r.Ev.L} + {r.Ev.Uses} tepsi / sınır {r.D.MoveLimit}; rastgele {r.Ev.Rand:0.000}; açgözlü {(r.Ev.GreedyBig || r.Ev.GreedyGoal ? "kazanır" : "kaybeder")}; yumuşak {r.Ev.Soft:0.00}{(r.Flags.Length > 0 ? "; " + r.Flags.Trim() : "")}";
             File.WriteAllText(Path.Combine(outDir, $"level_{n:000}.txt"), ToSource(r.D, new Eval { Info = info }), new UTF8Encoding(false));

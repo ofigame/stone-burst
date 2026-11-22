@@ -14,6 +14,9 @@ namespace KatKat.View
         private float _beat, _beatClock, _beatLast = -1f;
         private bool _beating;
 
+        /// <summary>Her kalp atışında (son 10 sn): oyun akışı ses ve titreşim çalar (kullanıcı, 2026-11-22: "geri sayım efektini titreşimli").</summary>
+        public Action OnBeat;
+
         private struct Faller { public Transform T; public Vector3 V; public float Spin; }
         private readonly List<Faller> _fallers = new List<Faller>();
         private float _fallT = -1f;
@@ -48,6 +51,7 @@ namespace KatKat.View
             if (beatNo != (int)_beatLast)
             {
                 _beatLast = beatNo;
+                OnBeat?.Invoke();
                 RimSweep(new Color(1f, 0.3f, 0.15f), new Color(1f, 0.75f, 0.3f), 0.6f + 0.6f * _beat, fire: true);
             }
         }
@@ -112,6 +116,24 @@ namespace KatKat.View
                 _fallDone = null;
                 d?.Invoke();
             }
+        }
+
+        /// <summary>
+        /// Patlatılması yasak yığın soyuldu (kullanıcı, 2026-11-22: "yasaklı bomba grubunda yasaklı taşlara basarsam bomba da
+        /// patlasın"): o yığınlardaki bombalar patlar (işaret kalkar, alev/kıvılcım, sarsıntı); ~0,9 sn sonra <paramref name="done"/>.
+        /// </summary>
+        public void ExplodeBombs(IList<KatKat.Core.Coord> cells, Action done)
+        {
+            for (int i = 0; i < cells.Count; i++)
+            {
+                var st = StackAt(cells[i].X, cells[i].Y);
+                if (st == null) continue;
+                st.SetProtected(false);
+                int k = i;
+                if (k == 0) BombBlast(st);
+                else At(k * 120f, () => BombBlast(st));
+            }
+            At(900f + cells.Count * 120f, () => done?.Invoke());
         }
 
         /// <summary>Testler/yakalama: patlama ve düşüşü ilerletir.</summary>

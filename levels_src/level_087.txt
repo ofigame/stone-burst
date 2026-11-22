@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dikdörtgen; çözüm 7 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil zikzak; çözüm 7 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_087
 moves: 8
 roll: off
 specials: on
 type: resource
 rules: exact
-goals: green 40, blue 34, star 2
+goals: navy 24, blue 16, coral 22
 grid:
-yppy  yppi1 ypp   bppc  pgcc  pgcc  cgcp  cgyp
-cygy  byg   ypc   pppg  pcp   gyp   ggy   cgy
-cyg   cygy  gpcg  pccg  pcpg  pyb   pyy   pgcg
-gbcy  gbcy  gpy   ycy   pcy   pyb   pbcg  cgcg
-gyby  gycy  cpc*  ycc   pcg   pcg   pbgg  pgc
-pcc   cccb  cbg   ycgy  pcby  pggp  bgy*  bgyb
-cccg  ccbb  bby   bbgy  bcbc  gccp  gcb   ggcb
-gybg  cyby  cycy  cbcyi1 cbg   bbcp  gbb   gyc
-gbgg  cbb   yycy  ybcy  ybg   bbcb  gbcb  gycb
-solution: 3,5 ; 1,2 ; use 0,1,1 ; 1,5 ; use 0,5,2 ; 2,1 ; 1,0 ; use 0,3,0 ; use 0,0,0 ; 5,1 ; use 0,1,1 ; 2,2
+yy    yy    cy    cb    bb    yy    ny    #
+#     yc    pn    cb    cc    yy    nyi1  bp
+bp    bp    pn    cnk1  cn    yn    nb    #
+#     bc    pn    bc    pc    cy    cy    nn
+yc    bc    py    py    py    yy    cyk1  #
+#     pc    ny    byk2  by    yy    cy    pc
+pc    pp    nn    bn    bpi1  cp    cy    #
+#     pp    nn    nn    nn    pp    cy    cn
+bp    bp    nn    nn    pn    pp    pp    #
+solution: 5,3 ; 2,5 ; 4,6 ; use 0,1,1 ; use 0,3,0 ; 2,1 ; 2,6 ; 3,0 ; use 0,7,1 ; 2,1 ; use 1,7,1 ; use 1,1,0 ; use 0,0,8 ; use 0,4,0

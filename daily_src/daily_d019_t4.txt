@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 244 + tür pure; şekil merdiven; çözüm 12 + 0 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 244 + tür pure; şekil kesik köşe (ayna); çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: daily_d019_t4
 title: Günlük 19
-moves: 12
+moves: 8
 roll: on
 type: pure
 rules: noSpecials, exact
-goals: coral 23, yellow 27, navy 26
+goals: navy 38, purple 39, yellow 34
 grid:
-yyyn  cyyp  yncp  ynpy  #     #     #     #
-yycn  cycn  cncy  ynpy  nnyy  #     #     #
-ypyn  cpyn  nnnp  nnpp  npyy  ypnp  #     #
-npyc  npyp  npnp  cpny  cnpy  cpnp  cpcn  #
-cpyp  ycyp  ypyp  cppp  nppn  ccyy  ncyn  ncyc
-ccyp  ycny  ppnp  pppc  nppn  nppn  ccnn  ccnc
-ypyy  ycny  pcnp  pppn  pppn  pcpy  pcyy  ynyc
-ypnn  ccny  ccpy  cnpn  ccpn  cnpc  ynyp  ynyc
-yppn  ccpy  cnpy  cnpy  cppn  nppc  yppp  ypyn
-solution: 1,5 ; 2,2 ; 6,3 ; 0,0 ; 0,2 ; 1,4 ; 3,0 ; 7,4 ; roll 7 ; 0,1 ; 5,4 ; 6,3
+#     #     npp   npn   yny   yny   #     #
+#     ypp   npp   nnn   ynn   yny   nny   #
+pyy   npp   npp   ypn   yny   yny   yny   pnp
+yyy   npy   ppp   ypn   ypy   yyy   yny   nnn
+ynn   nny   pypi2 pyp   yyn   ppy   nny   npn
+nnn   yny   yyp   ppp   ypn   ppy   pny   ypy
+nnn   nyn   nnp   ppp   pyp   nyy   npp   yppi1
+#     pyn   pnni1 pnp   pyp   nyp   nyp   #
+#     #     pyn   pyp   pnn   pnn   #     #
+solution: 4,0 ; 3,0 ; 2,0 ; 4,0 ; 0,2 ; 2,0 ; 2,0 ; 7,3

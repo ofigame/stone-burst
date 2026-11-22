@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe; çözüm 14 + 0 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; YEDEK: mek:rotor;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dikdörtgen; çözüm 11 + 0 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar; YEDEK: mek:rotor;
 id: level_400
-moves: 14
+moves: 15
 roll: off
 type: boss
-rules: protect, noSpecials, exact
-goals: coral 29, purple 23, yellow 22
+rules: protect, noSpecials
+goals: purple 22, blue 23, star 2
 grid:
-#     #     ypyp  ypby  ypbyP ccbyP #     #
-#     cccy  ccyy  ccby  ybbb  cyby  cbpp  #
-ybcb  pycc  pccc  pccb  ccpb  cypc  pbyc  ppyy
-pycpR bycc  cycci1 cccpi1 cypb  cypc  pypc  ppyy
-pyyy  pycb  cycy  cycy  cycy  cybc  pypy  ppyyP
-pyyb  yppb  ybcy  ybpy  cbcy  pbcc  pcpbR ppcp
-ypyp  ypcb  ypcb  cppb  cppb  ypcb  ppcp  pbcpi1
-#     cbbb  cbbbi2 cypb  cppb  ypbb  yybb  #
-#     #     cpcc  yypc  ypbc  ypcyR #     #
-solution: 2,4 ; 2,8 ; 1,4 ; 1,2 ; 0,4 ; 1,4 ; 1,2 ; 0,4 ; 3,7 ; 4,1 ; 4,2 ; 0,5 ; 2,5 ; 1,5
+bccP  bnc   pbc   pbc   bcc   bpn   cbn   cbn
+ncp   pnc   pcnR  pnb   bcc   ccc   cnn   cnn
+ncp   bnc   bcpR  nnc   ncc   ncc   npn   npbP
+pcb   bcb   bpnR  cpp   ncc   pcp   npp   npb
+pbb   bnb   bnp   cpp   cbp   ppp   bpc   bcc
+pcb   bnb   bcn   ccn   cbn   pbp   ncp   bccP
+ncb   nnb*  bbp   ccn   cbn   ccn   ncp   ncc
+cbb   nbp   ccp   ccp   cbc   pcn*  ncp   bcp
+cbb   nbp   ncc   nbp   cbc   pcc   pcb   bpb
+solution: 2,5 ; 5,6 ; 3,3 ; 0,3 ; 2,6 ; 2,3 ; 0,7 ; 1,6 ; 4,4 ; 2,2 ; 2,3

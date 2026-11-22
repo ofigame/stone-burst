@@ -16,5 +16,9 @@ namespace KatKat.Game
         Coin,
         /// <summary>Taş akışı: son varışta kapanış "ka-ching".</summary>
         CoinFinal,
+        /// <summary>2026-11-22: bomba patlaması / süre bitişi (alçak gümbürtü).</summary>
+        Boom,
+        /// <summary>2026-11-22: süreli bölüm son 10 saniye kalp atışı (çift vuruş).</summary>
+        Beat,
     }
 }

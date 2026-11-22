@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil dikdörtgen; çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil merdiven (ayna); çözüm 7 + 4 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_178
 moves: 7
 roll: off
 specials: on
 type: exact
 rules: exact
-goals: coral 49, green 55, blue 43
+goals: coral 26, navy 14, yellow 21
 grid:
-gcbp  gcbp  gpcg  gpcg  pppg  gpb   pbby  pbg
-gcyp  ggp   ggpg  pgp   pppg  gggg  ypb   ppgg
-ycy   cccy  cccy  cccy  ppg   bggg  yyb   cygg
-ybyg  ybyc  cccc  ccc   gpcg  bpbg  bcbg  cbb
-pbbg  pbcg  ccc   ccc   gyc   cycp  ccgg  cbg
-pgb   ppc   cpcc  cpc   gpc   ycbp  ybgg  cbg
-pgb   ppbc  bygc  byp   gypy  gcb   ybgy  ybpy
-pgb   bggp  bbgc  bbg   gyp   bcb   bbby  cbpb
-pcgb  bpgb  bpgg  bpcg  bpcg  bgc   cgpc  cgpb
-solution: 2,0 ; use 0,6,0 ; 0,2 ; use 0,5,0 ; 0,3 ; 1,2 ; use 0,2,0 ; 0,0 ; use 0,2,0 ; 5,5 ; use 0,0,0 ; 5,4 ; use 0,1,1
+#     #     #     #     cc    nc    np    np
+#     #     #     yp    cc    cc    np    bp
+#     #     py    by    bp    yy    by    by
+#     pn    pn    by    cc    yb    py    py
+cn    cn    py    bb    bc    pc    py    cn
+pp    cp    cy    yb    bc    pn    pb    cn
+cp    pp    yc    yb    yp    pp    bb    bn
+cp    pp    yc    yc    yn    yn    cb    bn
+cy    cy    by    by    bp    cp    cn    cn
+solution: 7,4 ; use 0,4,0 ; 2,6 ; 2,4 ; 1,3 ; use 0,4,0 ; 0,5 ; use 0,5,0 ; 5,2 ; 2,2 ; use 0,0,4

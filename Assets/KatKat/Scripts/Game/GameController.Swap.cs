@@ -20,7 +20,7 @@ namespace KatKat.Game
         private bool _swapPending;
         private int _swapX, _swapY;
         private List<Coord> _swapGroup;
-        private float _idleSec;
+        private float _idleSec, _idleShownSec;
         private bool _idleShown;
 
         /// <summary>Testler: sürükleme bekleniyor mu.</summary>
@@ -131,13 +131,25 @@ namespace KatKat.Game
                 && !_hud.PanelOpen && !_menu.IsOpen && !_tourOn && _boosterMode == null && !_paintMode && _traySlot < 0
                 && !_swapPending && !_board.IsPlaying;
             if (!calm) { ResetIdleHint(); return; }
+            // 2026-11-22 (kullanıcı: "büyüme küçülme sürekli devam etmesin 2 defa büyüyüp küçülsün sonra dursun yine dokunulmaz ise
+            // belli süre sonra tekrar hatırlatsın"): iki nabızdan sonra durur, süre sıfırlanır; hareketsizlik sürerse yeniden.
+            if (_idleShown)
+            {
+                _idleShownSec += dt;
+                if (_idleShownSec >= IdleHintPulses * KatKat.View.BoardView.IdleBlink) { _idleShown = false; _idleSec = 0f; _board.HideIdleHint(); }
+                return;
+            }
             _idleSec += dt;
-            if (_idleShown || _idleSec < IdleHintDelay) return;
+            if (_idleSec < IdleHintDelay) return;
             var cells = IdleHintCells();
             if (cells.Count == 0) return;
             _idleShown = true;
+            _idleShownSec = 0f;
             _board.ShowIdleHint(cells);
         }
+
+        /// <summary>Bir hatırlatmadaki büyüyüp küçülme sayısı.</summary>
+        public const int IdleHintPulses = 2;
 
         /// <summary>Tahtadaki en büyük patlatılabilir grup (eşitse ilk bulunan); yoksa boş.</summary>
         public List<Coord> IdleHintCells()

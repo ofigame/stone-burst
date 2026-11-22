@@ -1,21 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 885 + tür exact; şekil kenar çentikleri; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 885 + tür exact; şekil kum saati; çözüm 9 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d029_t8
 title: Günlük 29
-moves: 8
+moves: 9
 roll: on
 specials: on
-paint: 1
 type: exact
 rules: exact
-goals: green 32, navy 41, coral 32, envelope 3
+goals: blue 27, navy 30, coral 36
 grid:
-ygcnEc yngn  bngg  #     #     ngyc  ngyc  ngyc
-ggcn  gngg  cngg  #     #     ncyb  ncyc  ncyc
-#     #     cpgg  gbnb  ggnb  ngyb  #     #
-ccgg  ccgg  ccbg  gbnb  bbyb  nbyp  ggbn  gbbn
-ccgb  ncgb  bbbg  bbcb  bbcb  cbpb  ggnn  cbbn
-nnpb  nppp  bpbg  bpcg  cbcb  bppy  gpnp  cpnn
-ypng  yyng  pnbn  bnyp  cyyb  bppp  bnnp  cpnn
-gpcg  yccn  pcnn  pynp  cyyp  cynp  nync  npnn
-gccg  gcnn  pcnn  #     #     nybnEp nybn  npbnEc
-solution: 5,0 ; use 0,0,8 ; 5,1 ; use 0,1,0 ; 1,0 ; use 0,0,1 ; 3,2 ; use 0,2,0 ; 0,5 ; 6,4 ; use 0,0,0 ; use 0,0,0 ; roll 2 ; 2,2 ; use 0,0,0
+pyc   yyc   G1:ybc G1:cbb G1:pbb G1:ppb ppc   pcc
+yyc   yyc   cby   cby   nbb   npb   ccc   ccc
+ypc   bpc   ppp   pbn   nbn   npn   ccy   ccy
+#     bpp   ppp   ppn   ppy   pnn   pny   #
+#     ynp   npp   nbb   bpb   pnn   pcn   #
+#     ynp   npp   nbb   nyn   byy   pcb   #
+pnp   ynp   nnc   nbc   nbn   bcy   ycn   ycn
+pyp   pyc   pcbLb6 ypc   npc   ccy   ycy   bcy
+pycB1 pcc   ccc   nbp   nbp   npp   ypn   bpn
+solution: 6,2 ; 3,2 ; use 0,0,0 ; roll 8 ; 0,2 ; roll 1 ; 3,0 ; use 0,3,0 ; use 0,4,1 ; 7,0 ; 2,2 ; use 0,2,0 ; 4,0 ; use 1,2,0 ; use 0,3,0

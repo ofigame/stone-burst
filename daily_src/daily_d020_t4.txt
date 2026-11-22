@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 206 + tür resource; şekil artı; çözüm 8 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 206 + tür resource; şekil kenar çentikleri; çözüm 7 + 4 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d020_t4
 title: Günlük 20
-moves: 8
+moves: 7
 roll: on
 specials: on
 type: resource
 rules: exact
-goals: blue 41, navy 21, envelope 2
+goals: navy 26, purple 17, envelope 2
 grid:
-#     #     pcnb  pcyy  pcyn  ppyn  #     #
-#     #     pbby  pcby  gppb  gppy  #     #
-ypgp  ppnp  pbbp  bbyb  gppb  gcpy  cpbg  cpbg
-ybgb  bbnb  bbcy  bbyy  bbpc  ccbyLc5 bcbg  cybp
-ybgg  gbnb  nbcy  nygy  cypc  ccbc  pyyg  cyyp
-bbyg  gnyb  gpyg  ppgg  pybn  pybc  pcyn  gycp
-bnyg  bnyc  nnyc  cnyn  pnyn  gnyn  gnyn  gncn
-#     #     bbycEc cyyn  gpyb  gpbb  #     #
-#     #     bbyc  cybn  cybg  cybgEp #     #
-solution: 4,5 ; use 0,4,3 ; 6,5 ; 1,6 ; use 1,2,8 ; use 0,2,0 ; 3,0 ; use 0,2,0 ; roll 3 ; 2,1 ; roll 2 ; 2,1 ; use 0,2,2
+pn    #     nnEn  ny    cn    nc    nc    nc
+cnk1  pn    cbk2  cyEb  cy    nb    pb    nc
+cn    pb    pb    pb    pb    pc    pc    bc
+pn    pb    py    pc    bc    py    py    #
+#     #     cy    cy    bn    bn    bn    #
+#     #     ny    np    bc    nn    ny    nn
+nb    nc    nc    np    by    ny    cy    cn
+nb    pc    yn    yb    nb    #     pbk1  pb
+nc    cc    cy    cy    cc    #     pb    pbk1
+solution: 1,2 ; 5,0 ; use 0,0,0 ; roll 1 ; 1,1 ; 6,5 ; 4,4 ; use 1,2,0 ; roll 3 ; use 1,0,0 ; use 0,3,0

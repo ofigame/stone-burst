@@ -1,18 +1,19 @@
 // LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı; çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_701
 moves: 9
+time: 60
 roll: off
 specials: on
-paint: 2
-goals: coral 18, navy 26, green 18
+paint: 1
+goals: purple 23, blue 29, coral 26, star 3
 grid:
-#     #     pngg  ncyg  npny  npby  #     #
-#     #     pngp  ncgg  ncny  npbc  #     #
-npgp  nynpk2 pynp  nyny  ncny  pbyb  yyyb  yyyp
-npbp  gpcp  ypyc  npgy  nbgy  pbyy  ypbp  bpbp
-ypbyk1 gbcg  gpcgk2 gggy  ygbc  ybby  bpby  bpby
-ypby  gnbb  nbyn  pgyn  pgnc  yyby  nyby  bbny
-pnpb  gnbb  nnpb  bcpb  bcnn  bcnn  bpnn  bpnc
-#     #     bypc  bcpbk1 cccb  cccb  #     #
-#     #     gygbk1 gngb  cbgp  cbcbk1 #     #
-solution: 2,0 ; 3,0 ; use 0,3,0 ; 2,5 ; 3,0 ; use 1,4,0 ; use 0,2,0 ; 1,5 ; 4,6 ; use 1,3,0 ; 4,0 ; use 1,2,0 ; use 0,2,2 ; 0,2 ; use 0,3,0
+#     #     yny   ynb   yyb   yyy   #     #
+#     #     ynb   ybb   ppy   nyy   #     #
+ccy   ccy   cnn   cbn   ppc   nyc   yyc   yyn
+pyy   ncb   nnn   pnn   pyc   pyn*  pyc*  yyn
+pyb   pcb   bcb   bpn   byn   nnn   pnc   yyy
+pyc   pcc   ycb   bpc   bbn   ncn   npc   bpy
+pyc   byy   pbp   bbp   bbp   ccy   ccy   byy*
+#     #     pyp   ypp   bpy   bcy   #     #
+#     #     pyp   yyb   bcb   bcy   #     #
+solution: 7,4 ; 2,6 ; 1,3 ; use 0,4,2 ; 2,2 ; use 1,4,2 ; use 1,3,0 ; 4,0 ; 4,1 ; paint 7,6,c ; use 1,3,2 ; use 0,7,2 ; use 0,4,0 ; 0,2 ; use 0,0,2

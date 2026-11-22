@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil çatı (ayna); çözüm 17 + 0 tepsi / sınır 17; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil elmas; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_797
-moves: 17
+moves: 9
 roll: off
 paint: 1
 type: pure
 rules: noSpecials, exact
-goals: blue 34, coral 32, green 39
+goals: coral 17, navy 17, blue 8, sponge 1
 grid:
-#     #     #     G1:cbbc G1:cbgc #     #     #
-#     nbcb  nbcb  cbbc  ccgn  gcng  gcng  #
-bncb  bncb  bbbb  cgbc  cgnn  gbnn  gcgn  gcgb
-ccnb  ccnn  cbgb  cbgc  nbnc  nbnn  gbgn  gcgb
-ccgb  ccgn  ccgb  cbnc  ncnn  nnnn  gnnn  gcnc
-gbbb  gbbn  gcbbB1 ccnn  gcnn  gbnc  gbnc  bcbc
-ngbb  ggbn  bbbn  ngnb  ggbb  ggbc  cbbc  bnbn
-ngbn  ngng  gbgb  nbgb  ggng  cgbg  cggg  nngn
-ggnn  gnng  gbgg  gggg  ggng  ngcg  nggg  nngc
-solution: 1,3 ; 1,1 ; 1,6 ; 2,3 ; 0,5 ; 1,1 ; 1,5 ; 7,4 ; 1,1 ; 4,1 ; 4,1 ; 2,3 ; 5,5 ; 5,5 ; 5,1 ; 3,0 ; 4,4
+#     #     #     yn    yn    #     #     #
+#     #     nb    nn    nn    yn    #     #
+#     yb    nb    nbScy cc    cn    cb    #
+yy    yc    yc    nc    nc    cc    cb    cn
+yc    cc    yn    cb    cn    cb    cb    cy
+cc    cy    yn    nb    nb    ny    ny    ny
+#     yn    yn    ny    nc    nc    yy    #
+#     #     yn    nn    bc    nc    #     #
+#     #     #     ny    by    #     #     #
+solution: 6,2 ; 4,2 ; paint 3,3,y ; 0,3 ; 2,1 ; 3,0 ; 2,4 ; 4,6 ; 4,6

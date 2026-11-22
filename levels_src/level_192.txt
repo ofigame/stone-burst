@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil çatı (ayna); çözüm 3 + 2 tepsi / sınır 9; rastgele 0,320; açgözlü kazanır; yumuşak 0,94
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil kum saati; çözüm 3 + 3 tepsi / sınır 10; rastgele 0,615; açgözlü kazanır; yumuşak 0,92
 id: level_192
-moves: 9
+moves: 10
 roll: off
 specials: on
-goals: yellow 37, blue 38
+goals: coral 38, purple 50
 grid:
-#     #     #     by    by    #     #     #
-#     y     gy    g     b     bb    bb    #
-yb    yb    g     gb    b     bb    b     by
-yb    yb    y     g     g     b     b     by
-y     y     y     gg    bg    b     b     b
-yy    yy    yy    y     yb    yb    bb    g
-yy    y     y     y     yy    yb    yb    gb
-yy    y     yb    b     b     gb    g     gb
-by    b     b     b     b     yb    y     g
-solution: 0,2 ; 1,1 ; 4,1 ; use 0,3,0 ; use 0,3,0
+bp    bb    cb    cb    cp    pp    pp    bb
+bp    bp    cb    cp    pp    pp    pp    bb
+bp    cp    cp    cp    bp    pb    pb    bb
+#     cp    cc    cp    pp    pp    cb    #
+#     cp    cc    cp    cb    cb    cb    #
+#     bp    bc    cp    pc    pb    cp    #
+bp    bp    cp    cc    pc    pb    pp    cb
+bp    bp    cc    pc    pb    cb    cp    cp
+bp    bp    bp    cb    cb    cb    cp    cp
+solution: 0,0 ; use 0,0,0 ; 5,5 ; 2,0 ; use 0,5,0 ; use 0,2,3

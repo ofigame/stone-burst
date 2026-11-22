@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil T (ayna); çözüm 11 + 9 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil dikdörtgen; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_908
-moves: 11
+moves: 8
 roll: off
 specials: on
 type: order
 rules: exact
-goals: green 29, purple 47, blue 20
+goals: yellow 42, blue 44, navy 25, envelope 3
 grid:
-pgnb  pgcn  ygcn  pypn  pnpp  cnpp  yypc  cybc
-pgby  ynpg  ynpn  gnnnk2 gnpp  ypgp  yygp  cnyc
-pbby  pbpb  bbnb  gbny  gbpyk1 gngp  ynpcR ccyb
-ppgn  cpcn  bpcb  ybyy  ypyy  gcgn  cgpn  ccbnk2
-gpgc  gbgc  bpcpR ybyg  ypyg  pccb  pgpb  cgcg
-ppgy  pbgc  ppbc  ppgck1 pppgk1 pccb  pccb  bgcg
-#     #     npgc  ppgg  nbpyk1 nnpy  #     #
-#     #     npgg  gpcgLy3 nbppk1 nnpy  #     #
-#     #     gpcgLy5 gbcg  gbyp  cnyy  #     #
-solution: rot 6,2 ; 0,4 ; use 0,3,0 ; 3,0 ; use 0,0,0 ; 4,2 ; 4,4 ; use 0,4,0 ; 0,0 ; 1,2 ; use 0,0,0 ; 4,6 ; 2,5 ; use 1,4,0 ; 5,2 ; use 1,0,0 ; use 0,0,3 ; 5,3 ; use 0,0,5 ; use 0,2,3
+cyn   cyn   cpc   cpc   cbp   byb   byb   npb
+cbb   cbn   cbp   cpp   cbp   bbb   bpp   npp
+ypb   ppy   ypn   cyb   cyp   nyb   npb   npb
+ppb   ppyLb5 ypnk1 yyn   yyp   pyy   cyyk1 nny
+cyb   ccc   npc   nynk1 yyp   yyyLb3 cnb   cnb
+cyy   cyy   nyb   ccb   ccb   ccb   cyb   cyb
+pyc   pnc   ncpk1 ccp   ccp   pcp   pnb   bnb
+pbnk1 ybn   ccb   cnb   ypb   ycb   pcy   bby
+ycnEy ybn   ccbk2 bpbEc bpbEc ppb   pby   pby
+solution: 6,4 ; use 0,0,0 ; 1,7 ; use 0,0,8 ; 4,0 ; 4,0 ; 4,2 ; use 0,0,0 ; use 0,5,2 ; use 0,5,0 ; 2,6 ; 6,3 ; use 0,3,2 ; 7,0 ; use 0,7,0

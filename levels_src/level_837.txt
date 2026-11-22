@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil artı (ayna); çözüm 11 + 6 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dikdörtgen; çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; YEDEK: kısa;
 id: level_837
-moves: 11
+moves: 7
 roll: off
 specials: on
-paint: 1
+paint: 2
 type: resource
 rules: exact
-goals: navy 28, green 35, coral 20
+goals: blue 37, yellow 14, purple 26
 grid:
-#     #     G1:cgcc G1:ggcc G1:pgnb G1:pgpb #     #
-#     #     cncy  gncy  nnnp  ppnp  #     #
-bypn  bypg  cpbg  bpng  nnny  bpcy  npny  npyn
-gybg  bybg  bncg  bpncB1 ngny  npnb  gbng  gpnp
-npng  nybp  nncp  ypcc  ngnp  pcbb  ppng  gpbp
-ppnc  nbgc  bbgp  bpgp  yggp  yynp  cyng  gybp
-ppbc  ppbg  pbyg  ypyg  ygyb  yynb  cbgy  cbby
-#     #     gbcc  yycg  gycg  gynb  #     #
-#     #     gbgg  gngg  gncg  gnng  #     #
-solution: 1,4 ; 2,5 ; 1,2 ; use 1,2,3 ; 4,2 ; 3,2 ; use 2,3,1 ; 2,2 ; 6,3 ; 6,2 ; use 3,2,0 ; 2,0 ; use 3,5,0 ; 5,6 ; use 3,4,0 ; 4,0 ; use 3,2,0
+bb    bc    G1:bn G1:pn G1:by G1:by bb    bb
+bb    bc    pn    pn    by    by    yb    pp
+bb    by    bn    np    np    yp    yn    pp
+nb    ny    bp    ny    ny    yn    cn    pb
+pb    pc    pp    pp    nb    nb    cn    pn
+pc    pc    bn    cb    nb    cb    cc    bn
+pc    nc    bn    cb    cp    cp    cc    bn
+np    bp    bnB1  cn    yp    yn    cc    bn
+nn    pp    cb    cb    cn    yn    cn    cc
+solution: 2,5 ; 4,4 ; 6,2 ; use 0,7,1 ; use 0,0,0 ; 4,0 ; 1,4 ; use 0,7,1 ; 4,0 ; use 0,1,0 ; 0,0 ; use 0,0,7 ; use 0,5,0

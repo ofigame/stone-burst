@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil L (ayna); çözüm 10 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil kesik köşe (ayna); çözüm 10 + 9 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_957
 moves: 10
 roll: off
 specials: on
 type: reverse
 rules: exact
-goals: purple 40, coral 36, navy 23
+goals: navy 31, yellow 31, blue 26
 grid:
-#     #     #     ccgg  ccbg  ccbg  gcyg  gygg
-#     #     #     cygg  pgggi1 nggbi2 ngpb  gygn
-#     #     #     gygg  pybg  pgby  cnpy  cypp
-#     #     #     gbyg  gyyg  cpbg  cncp  pypp
-npbn  bgpn  cgpc  cgyc  gpyg  gpbp  pbcp  pbpc
-nppni1 bppn  pppn  cgyc  bnbp  bnpp  bbpci1 pbpc
-ncgy  bcnn  pcnn  bnyc  bnbp  bnbyi1 bypy  byby
-gpnn  ppyn  pcyb  gnbc  npby  npnyi1 bypc  byyc
-gpnb  ycyb  ycpb  gcpc  gcbc  cpnc  bppc  bpyc
-solution: 0,4 ; 7,2 ; use 0,6,3 ; 5,6 ; 7,2 ; use 0,7,1 ; 5,4 ; use 1,1,4 ; 1,7 ; 1,6 ; 4,5 ; 0,5 ; use 3,3,0 ; 3,0 ; use 0,3,0 ; use 0,3,0 ; use 0,4,0
+#     #     nyc   bbc   bbc   ybp   #     #
+#     pnn   pnc   ppc   byc   yyp   byb   #
+cny   pnn   ccn   ncn   nyc   yppG  ynb   pnb
+cyp   cyp   nyp   ncn   ncpG  bcpG  bbpG  bbb
+cyp   cyp   byb   byb   ccyG  ycnG  npc   bbc
+cyy   cyb   cpb   pyb   cyb   npn   npc   npn
+cby   cpb   cpy   cpy   nyy   npy   ncc   ncn
+#     cpn   cpc   cyy   pyy   bpp   ncc   #
+#     #     cyc   cyn   ppn   ppn   #     #
+solution: 0,3 ; 0,2 ; 2,4 ; 2,4 ; 6,1 ; use 1,1,1 ; 2,0 ; use 1,2,0 ; use 1,2,0 ; use 1,3,0 ; 6,5 ; 5,5 ; 5,5 ; use 1,3,0 ; use 0,0,4 ; 5,0 ; use 2,5,0 ; use 0,3,0 ; use 0,0,4

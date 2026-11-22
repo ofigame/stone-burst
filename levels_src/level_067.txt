@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil artı (ayna); çözüm 6 + 4 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil merdiven (ayna); çözüm 6 + 5 tepsi / sınır 8; rastgele 0,030; açgözlü kaybeder; yumuşak 0,00
 id: level_067
 moves: 8
 roll: off
 specials: on
 type: scarce
 rules: scarce
-goals: green 17, blue 23, yellow 21
+goals: navy 27, blue 15, yellow 28
 grid:
-#     #     bpb   bpb   cyb   cyc   #     #
-#     #     bbb   gyck1 pyb   pyb   #     #
-gygk1 cpb   bcb   gcg   gpg   ppg   ppgi1 gyg
-cyg   cyc   pcp   pcg   pyy   ppc   ppci2 pyp
-yyy   pbb   cbbk1 bby   gyy   pbc   pyp   pyp
-ypyi1 ppy   cgb   cby   gby   pbc   pbb   pbp
-#     #     ygb   ybp   cbp   pby   #     #
-#     #     ygy   ygy   ccp   ygy   #     #
-solution: 4,3 ; 5,3 ; 1,4 ; 2,0 ; use 1,0,2 ; use 1,4,0 ; 4,1 ; use 1,0,2 ; use 0,2,0 ; 2,0
+#     #     #     #     ny    nyi2  nyG   ny
+#     #     #     nc    nc    nyG   yyG   cyG
+#     #     nn    nc    yc    yy    yy    cy
+#     nn    ny    ny    py    cci1  cpi1  cp
+bn    bn    by    nb    pb    nc    nc    cy
+bn    pn    yy    nbi1  cb    cb    yb    ny
+bn    yn    yp    ny    ny    cb    yp    bp
+yp    yp    yp    ny    ny    by    bp    bp
+solution: 3,1 ; 4,2 ; use 1,4,0 ; 2,4 ; 4,0 ; 6,6 ; use 1,0,4 ; use 0,5,0 ; 5,0 ; use 0,5,0 ; use 1,0,6

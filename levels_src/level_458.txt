@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil kenar çentikleri; çözüm 8 + 8 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil elmas (ayna); çözüm 12 + 4 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_458
-moves: 8
+moves: 12
 roll: off
 specials: on
 type: exact
 rules: exact
-goals: navy 29, star 3, sponge 1
+goals: yellow 14, navy 20, sponge 1
 grid:
-gbpy  ybnp  ypnp  bpnb  #     #     pbgn  gbnnSpg
-gngy  ynbp  bncb  bpcb  #     #     pbgn  gbnn
-gngn  nnnp  ncpb  bccb  bccy  bcny  pgng* ygnc
-nngn  gpnb  nppy  ycpp  gbyb  gcny  gcng  ycgc
-nnnn  gbpb  gppy  yybp  gbbp* nbbc  ycgy  yggy
-ynny  ybpy  gygy  yybp  gybp  ybbc  ycgy  cggy
-ybnb  ybyb  cpgb  gpyp  gpyp  #     #     cgyy
-ynyb* pnyb  pngb  pnpb  #     #     #     cgyy
-solution: 0,6 ; use 0,0,2 ; 6,0 ; 6,0 ; use 0,7,0 ; 2,3 ; 0,3 ; use 0,0,0 ; 2,2 ; use 0,0,0 ; 2,2 ; use 1,1,0 ; 4,3 ; use 1,0,4 ; use 0,4,2 ; use 0,0,0
+#     #     #     pp    yp    #     #     #
+#     #     nc    np    yp    yp    #     #
+#     yn    yc    np    nc    nc    cy    #
+ny    pnSp  cn    bn    cp    np    cy    ny
+ny    pc    pb    bb    np    nc    ybR   ny
+#     cpR   cc    cy    ny    ny    bp    #
+#     #     cp    nb    nb    np    #     #
+#     #     #     nb    nn    #     #     #
+solution: 3,5 ; 3,6 ; 4,5 ; use 0,1,2 ; 6,2 ; 3,0 ; 4,0 ; use 0,0,3 ; 3,1 ; 2,1 ; use 0,2,1 ; rot 6,4 ; 4,3 ; 4,2 ; 4,2 ; use 0,0,4

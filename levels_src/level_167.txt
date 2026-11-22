@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil kum saati; çözüm 7 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil U; çözüm 11 + 0 tepsi / sınır 13; rastgele 0,055; açgözlü kaybeder; yumuşak 0,06
 id: level_167
-moves: 8
+moves: 13
 roll: off
 type: pure
 rules: noSpecials
-goals: coral 51, green 42, purple 44
+goals: coral 25, navy 29, purple 32
 grid:
-pcc   pcp   gccc  gpg   cgcc  cgcg  cgcg  ccc
-pccp  pgp   ppc   cpc   cgc   pgcg  pccp  cccc
-cccp  cggp  pggp  cpcp  cpc   ppp   ppcpLp3 cpp
-#     cpgg  cgc   gpcp  cccp  ccpp  pcpp  #
-#     cpgg  cpc   cpcg  cpc   cpcp  ppcp  #
-#     gpcg  gpc   cgcg  ggp   pgp   pgc   #
-gcgg  ggc   ggcg  cgcc  gggc  pgp   pgc   pcc
-ccg   cpcp  ggcg  ggcg  pgg   ppgg  pcpg  ccc
-gpg   cpgp  gccp  gcg   gpgg  cpg   cpc   cpc
-solution: 1,0 ; 3,4 ; 0,0 ; 1,1 ; 1,0 ; 7,0 ; 2,5
+cc    pc    nc    #     #     cn    cn    nn
+cc    pc    nc    #     #     cp    cp    nn
+np    cp    cp    #     #     pp    pp    pc
+nn    cn    cc    pc    pc    pp    npLn4 nc
+pn    pn    nc    pp    pp    np    nn    pn
+pc    pc    np    pp    np    nn    nni1  pn
+nc    cc    pc    pp    np    cn    cn    pn
+np    np    cc    np    pc    pc    pc    pc
+pn    pni2  nc    nc    np    cp    cni1  cc
+solution: 0,5 ; 4,7 ; 5,1 ; 0,2 ; 0,0 ; 0,2 ; 5,2 ; 6,3 ; 3,7 ; 5,0 ; 6,4

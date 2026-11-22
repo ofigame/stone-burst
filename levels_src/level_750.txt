@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil çatı; çözüm 10 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe (ayna); çözüm 8 + 7 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_750
-moves: 10
+moves: 12
 roll: off
 specials: on
 paint: 2
 type: boss
-rules: protect, exact
-goals: coral 33, yellow 41, blue 20
+rules: protect
+goals: navy 26, coral 21, yellow 35
 grid:
-#     #     #     gypc  gygp  #     #     #
-#     npnn  ngpn  gypc  gygc  ybcn  bgcc  #
-bccy  ngcn  ngyy  gpyy  gbyc  ybnc  ccpc  ygpc
-bccy  bccy  yyyg  yyyg  cync  gynn  ccnn  ycgn
-bnpy  bnpg  yppg  ypgg  cbcg  pbbg  pbbg  ycgn
-bnyg  pppg  pppg  cbgb  cccb  pcbg  pncg  bncn
-byyg  pcny  pbpy  gbyb  cncy  yncy  bncg  bgcb
-ynnyP ncyy  npyb  gnyb  ynyy  ynyy  ynyg  cnyb
-ynyg  ycyg  ypyb  cypg  cypy  pypy  ybygP cbybP
-solution: 3,0 ; 3,5 ; paint 0,7,g ; 1,6 ; 5,1 ; use 0,0,2 ; use 1,5,1 ; 5,1 ; 4,6 ; use 2,0,6 ; 2,3 ; use 1,0,2 ; paint 7,8,g ; use 1,0,2 ; 0,4 ; use 1,5,1 ; use 0,3,0
+#     #     bnc   bnpP  pnp   pyp   #     #
+#     ppb   cpy   bnp   nyp   nyp   nyp   #
+pcc   ppn   cny   pnp   pby   yby   ybc   yyc
+ppcP  ppn   ncn   nny   nbn   nny   yyc   pyc
+ycn   npy   ncy   ncy   bby   bby   ybn   pnb
+ypy   cby   cbb   bbb   pcc   ycb   ynb   pnb
+ypbP  ypb   ccb   bpc   ppc   pcb   ybp   pnb
+#     yyc   yyc   bcp   byp   yyn   pbp   #
+#     #     cnp   bnp   ynn   yyn   #     #
+solution: 4,2 ; 4,4 ; use 0,1,2 ; 4,5 ; paint 0,3,p ; use 0,2,0 ; 4,2 ; 5,2 ; 7,3 ; use 2,2,1 ; 2,2 ; use 1,2,0 ; use 0,2,8 ; use 1,1,1 ; use 0,4,1

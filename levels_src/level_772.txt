@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil elmas; çözüm 9 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dalga; çözüm 7 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; YEDEK: kısa;
 id: level_772
-moves: 10
+moves: 9
 roll: off
 specials: on
 paint: 1
-goals: blue 14, navy 24, yellow 36, envelope 3
+goals: blue 18, yellow 35, coral 22
 grid:
-#     #     #     cynbEp cynb  #     #     #
-#     #     gypb  cypb  cync  cyby  #     #
-#     gnby  gncy  pnpy  yync  ccby  ncgn  #
-cncy  pncy  pbcy  pgyy  pgcy  bgcy  ngcn  ngyp
-nnby  nyyy  pyyy  pbyy  ypny  bpng  bgng  pgyp
-ncbg  ncyg  pcbp  pbgp  ypgy  ycnb  yccp  pcypEn
-#     ncyy  nyby  pygp  cggn  cccp  cbcp  #
-#     #     nyby  nybn  ngcnEc cccn  #     #
-#     #     #     nncy  nncn  #     #     #
-solution: 5,1 ; paint 4,1,b ; 4,0 ; use 1,0,5 ; 2,1 ; 3,3 ; use 0,3,0 ; use 0,3,0 ; 3,0 ; 3,0 ; use 1,2,2 ; 0,3 ; 6,2 ; use 0,0,4 ; use 0,4,0 ; use 0,0,5
+#     pn    #     yp    #     py    #     ny
+cy    pn    py    np    bp    py    ybi1  ny
+yy    yn    yy    nn    by    py    yb    nn
+yy    yci2  yy    pn    byi1  bp    yc    nc
+yy    yc    yy    py    bpi1  bp    yc    yc
+np    np    bp    pp    cp    cc    yc    yp
+yp    cp    cb    bc    bbi1  cb    cb    yp
+yp    yn    cn    bc    cc    cb    ybi1  yp
+yp    #     cn    #     bc    #     cb    #
+solution: 0,5 ; use 0,6,2 ; 6,3 ; use 0,6,1 ; 5,0 ; use 0,0,1 ; 3,0 ; 4,1 ; 0,2 ; use 0,0,1 ; 2,2 ; use 0,3,0

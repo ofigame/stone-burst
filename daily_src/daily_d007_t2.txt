@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 53 + tür exact; şekil kenar çentikleri; çözüm 6 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 53 + tür exact; şekil T; çözüm 6 + 4 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: daily_d007_t2
 title: Günlük 7
 moves: 7
@@ -6,14 +6,14 @@ roll: on
 specials: on
 type: exact
 rules: exact
-goals: coral 52, yellow 36, star 3
+goals: coral 37, yellow 37, purple 35
 grid:
-byc   byc   cbp   ybp   ypy   ypck1 ycc   ycc
-bcc   bcy   bcp   ccy   ypy   ypc   yyc   yyc*
-#     #     ccy   ccy   ybc   ybc   #     #
-#     #     ccp   cyp   byy   cyc   #     #
-#     #     pcb   yyp   yyy   cyc*  #     #
-pcy   ccyk1 pcb   ycb   ycb   cpb   cpb   ppp
-bcc   ccc   pcc   #     #     cpb   ppb   ppb
-bbc   pcc*  pcc   #     #     cyy   cyy   cyyk1
-solution: 2,4 ; 2,4 ; 6,0 ; use 0,4,0 ; use 0,0,0 ; use 0,2,0 ; 4,0 ; use 0,0,0 ; 2,1 ; 5,5 ; use 0,1,0
+cpp   cpp   pby   pcy   bcy   bcb   ybb   ycb
+cyp   bpp   bby   ppy   bpy   pcc   pbc   ycc
+cyp   cpc   ycb   pcy   ycc   ycy   ycy   ycy
+byp   bpc   pbc   pcc   ppc   ppb   pbp   pcp
+ybp   ybc   pby   bbb   ppb   byb   yyb   pyb
+#     #     cby   bbc   pbb   bpy   #     #
+#     #     ccy   ccy   pyy   byy   #     #
+#     #     ccy   ccy   cpy   cpy   #     #
+solution: 1,2 ; 0,0 ; use 1,2,0 ; 2,0 ; 0,1 ; 3,1 ; use 1,3,0 ; use 1,7,1 ; use 1,0,0 ; 2,6

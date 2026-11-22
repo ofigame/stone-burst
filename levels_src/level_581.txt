@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati; çözüm 10 + 7 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe; çözüm 8 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_581
-moves: 11
+moves: 10
+time: 60
 roll: off
 specials: on
-goals: navy 25, coral 30, green 30, star 4
+goals: purple 51, coral 24, yellow 27
 grid:
-bgcb  bgcg  nbcg  nyyg  gyyg  pnyg  pyyg  pyyg
-ggcb  ggcp  gbcp  gbpg* gcpg  cnpgK1:2 cyyn  cyyn
-pgcb  pgpp  ggng  gpnn  gcpc  ccpb  cpyb  cpyn
-#     pgpp  ppng  npbn  nnng  cpnn  cpnn  #
-#     pbppK1:2 ppnp  cpbp  cnng  pngy  ypby  #
-#     pbnp  pcny  cbbg  cbpg  pngy* ynbp  #
-ppgn* pbpg  pbpyK1:2 cbpy* cgpn  ppcp  ppbp  pycy
-ppcn  ppcg  nppc  ccgc  ccpn  ppcp  pgcb  cycy
-npyn  npcn  ncpc  ccpy  bgny  bgcp  bgny  byny
-solution: 5,4 ; 4,3 ; 3,2 ; use 1,6,1 ; 5,3 ; 5,6 ; use 1,1,0 ; 1,1 ; use 0,0,0 ; use 0,0,0 ; 2,0 ; 0,0 ; use 0,3,0 ; 2,2 ; 2,6 ; use 1,3,0 ; use 0,2,5
+#     #     ppn   cpp   cnc   cnb   #     #
+#     npnR  cyp   cyp   ppc   npp   ncp   #
+nny   nny   yyc   ybp   ppp   ppnR  ncp   npp
+bny   ybc   yyc   cyc   cyn   pyp   nyp   bpp
+bby   nbc   pbb   pcp   pnp   pppK1:1 bpy   bpy
+bnn   pyc   pyb   pyy   ynp   ynp   yny   bny
+nnn   pnc   pnbK1:1 pnb   pcp   pnpK1:1 pnn   bnc
+#     bnc   ybnR  ccb   pcb   pbn   pnn   #
+#     #     ybp   pcp   pbb   pbn   #     #
+solution: rot 5,2 ; 2,2 ; 3,0 ; 4,3 ; 2,1 ; 1,3 ; use 0,4,0 ; use 0,3,0 ; 6,5 ; use 2,3,0 ; use 0,2,2 ; rot 1,1 ; use 0,1,1

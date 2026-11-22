@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı (ayna); çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dalga; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04; döndürmeyle başlar; YEDEK: mek:rotor;
 id: level_334
-moves: 8
+moves: 10
 roll: off
 specials: on
-goals: yellow 17, coral 19, navy 21
+goals: yellow 22, navy 18, coral 17
 grid:
-#     #     #     cpyg  #     #     #
-#     npcc  cpcc  cppb  nybp  gyby  #
-ypyb  ggyg  ggyg  pgpb  nbbp  nypg  ggpn
-npcy  ngcg  pgyg  pgpn  pbbp  pgcg  ggcn
-npcy  ngyg  ngyg  pgpn  pbbp  ygpbR ygbp
-gpyp  pbcp  pbnbR pgpn  pbbn  cbbp  ygbp
-bcyp  bbbn  ygbn  ygbn  ygbn  cgcn  cgcn
-bcgg  ncgpR gcyg  ggyg  bgbg  cgpn  nncn
-gcgb  gcng  gbyg  cgyg  ngpg  nnpn  nncn
-solution: rot 2,5 ; 3,3 ; 1,2 ; 1,2 ; use 0,1,1 ; 2,5 ; 2,6 ; 2,6 ; use 3,6,2 ; 4,1 ; use 3,1,1 ; use 0,0,2 ; use 0,0,2 ; use 0,0,7
+nc    #     nc    #     by    #     cy
+bn    pcR   np    cyR   bb    bb    bb
+bn    bp    nc    cc    cb    pb    nb
+bp    np    np    cc    ny    py    ny
+cp    cy    yy    yy    yy    bn    ycR
+bp    cp    ny    ny    yp    bn    bb
+bb    pb    py    py    np    np    nb
+bb    bb    bb    yy    ny    cy    cy
+#     bp    #     yc    #     cp    #
+solution: 4,3 ; use 0,0,0 ; 1,1 ; 2,0 ; use 0,0,0 ; 4,1 ; use 1,0,4 ; 3,2 ; 4,5 ; use 1,0,5 ; use 0,6,0 ; 4,6 ; 0,6 ; use 0,0,0

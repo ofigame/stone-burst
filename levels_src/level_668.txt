@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil L (ayna); çözüm 9 + 9 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil kesik köşe (ayna); çözüm 8 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_668
-moves: 9
+moves: 8
 roll: off
 specials: on
 type: exact
 rules: exact
-goals: coral 27, blue 30, green 16, sponge 1
+goals: yellow 22, coral 19, blue 30
 grid:
-#     #     #     G1:ycbp G1:ybpp G1:bbny bnpp  bcpp
-#     #     #     gnbp  ybnp  pbny  pnnp  bcpp
-#     #     #     gnby  ynbc  gync  gcpp  bcpp
-#     #     #     ccbn  ycnn  bync  bcnn  gcpn
-pbyp  pbyy  ncbb  ncby  npyn  nyyn  bpgn  gppn
-bbcp  pycy  pnbb  cncy  cpgn  gngc  yygn  yybp
-bycp  pypy  pnpb  ccbbB1 cpby  gnpc  gygb  yybc
-bccb  pyny  ncpy  ncby  ppby  ygnb  gggb  ygnc
-pncb  pnnbSyc ncny  nbny  ppnb  ygnb  ycgp  cgnp
-solution: 1,4 ; 2,4 ; 5,7 ; use 0,4,2 ; 5,2 ; 6,4 ; use 0,4,2 ; use 0,0,6 ; use 0,3,3 ; 6,0 ; 6,0 ; use 2,6,0 ; 7,0 ; use 2,7,0 ; 5,0 ; use 0,5,2 ; use 0,3,3 ; use 0,6,0
+#     #     G1:np G1:by G1:by cy    #     #
+#     bp    np    by    by    cy    cpk1  #
+bc    bc    ny    ny    bck1  bc    np    np
+bc    yc    yb    yb    cp    cp    np    np
+yc    yp    bb    bc    py    py    cc    pp
+yb    ybk1  bb    bc    py    py    cc    ppk2
+cb    nb    nb    bb    ny    ny    np    ppB1
+#     nb    nb    bp    bp    nc    nc    #
+#     #     yb    yb    yb    nc    #     #
+solution: 2,3 ; 5,0 ; 6,1 ; use 0,5,0 ; 2,4 ; use 0,1,3 ; 7,4 ; use 0,1,1 ; 1,1 ; 3,1 ; 4,6 ; use 0,3,0 ; use 0,3,0

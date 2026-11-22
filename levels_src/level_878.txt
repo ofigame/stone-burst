@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil L (ayna); çözüm 9 + 9 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil dalga; çözüm 12 + 9 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_878
-moves: 9
+moves: 12
 roll: off
 specials: on
 type: exact
 rules: exact
-goals: purple 34, navy 21, green 25
+goals: blue 32, navy 27, yellow 39
 grid:
-#     #     #     ygpc  cgpc  ycgb  ycgb  ypgp
-#     #     #     ygpp  cgbp  ccyb  pbyb  ypyg
-#     #     #     ypbyi1 cpbg  cbng  gbng  ycygk1
-#     #     #     cpby  nbyg  nbygk2 gpcg  gcyn
-ycny  cyny  yycn  yccy  bcyy  ncgci1 gpcc  bccy
-ccnyi1 cynn  cncn  bccb  bnybk1 bcyci1 bcpci1 bcpy
-nyny  bcnp  yccp  pccb  pgpb  pgpb  pnbp  pbpp
-nypb  nycg  yccpk1 cpcb  pgbb  pgpb  pnppk1 cngb
-pypb  pbcp  ybcpi2 cpbp  ccbpk1 ccbb  cngb  cngb
-solution: 3,5 ; 4,6 ; use 1,0,6 ; use 0,7,1 ; 2,4 ; 2,4 ; 3,6 ; 3,2 ; use 1,5,2 ; 6,3 ; use 1,7,0 ; 5,0 ; use 1,5,0 ; use 0,4,0 ; 3,4 ; use 1,4,0 ; use 1,4,0 ; use 0,5,0
+#     pnb   #     cnn   #     bpb   #     yyb
+cby   yybk1 yycG  ybnG  pcb   yyb   yybk1 yybk1
+pby   pbc   yycG  ybnG  pccG  pyb   bpb   ynpk1
+cbc   pbc   pyc   ycnG  pcn   bcc   bpc   ynp
+cby   cbc   pynk1 pyy   cnn   cnp   ybp   ypp
+bny   cny   yyn   pcn   cnp   ynp   pbc   ppc
+nbc   ccyk2 ccy   ccp   cbp   yyp   yby   bpc
+nbc   nnp   cnp   cyn   cyn   yyy   pcy   bpc
+nbc   #     ynp   #     bnn   #     pcn   #
+solution: 5,0 ; 6,2 ; 7,0 ; use 1,7,0 ; 4,3 ; use 2,7,0 ; 1,2 ; 0,1 ; use 1,1,0 ; use 1,3,0 ; 6,5 ; use 1,1,0 ; 4,1 ; 7,4 ; use 2,1,1 ; 1,7 ; 1,7 ; 0,2 ; use 0,7,0 ; use 0,5,0 ; use 0,5,0

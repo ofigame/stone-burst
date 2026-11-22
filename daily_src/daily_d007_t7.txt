@@ -1,21 +1,21 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 711 + tür order; şekil dikdörtgen; çözüm 11 + 7 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 711 + tür order; şekil L (ayna); çözüm 9 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d007_t7
 title: Günlük 7
-moves: 11
+moves: 9
 roll: on
 specials: on
 paint: 2
 type: order
 rules: exact
-goals: green 36, yellow 33, coral 30
+goals: blue 27, coral 47, purple 24, star 4
 grid:
-cgbc  cgyp  G1:gypp G1:bybp G1:gppc G1:ngnc nnnc  gncc
-cgyc  ybyp  gynp  gybp  gppc  ngnb  ngnb  gncc
-bbyc  ybnp  gnnp  bgbn  gppy  cggy  cgcb  ggcb
-gbyp  gbcp  ggcy  bgcp  bpbc  bpby  bypb  gypb
-gbnp  ygcb  ggbgLc4 gynp  cyncB1 cgby  cgpy  bygc
-ggnb  ygnb  pgbg  pcngLc4 cynb  cgcy  ygcc  yygc
-bgpn  bnpy  pnyy  pcyb  ccgb  cgcb  yynb  ypnc
-ygpn  ygpn  ppyy  ccbb  cgbb  cgpp  cgny  cpny
-ygpp  ygpp  ppyp  pgbp  cgbp  cyyp  cpyy  cpyc
-solution: 1,0 ; use 0,1,0 ; 5,1 ; use 0,0,0 ; roll 2 ; 1,1 ; roll 2 ; 2,2 ; roll 4 ; use 0,1,0 ; use 0,0,1 ; 4,4 ; 0,5 ; 0,6 ; roll 8 ; use 2,0,1 ; use 0,0,8 ; use 0,0,0
+#     #     #     cyy   cyp   ynp   pny*  pny
+#     #     #     ccy   cyp   ycp   yny   pyy
+#     #     #     ccp   cpp   ycp   yyc*  yyc
+#     #     #     ccy   ycy   ycy   pnc   nyc
+cnc   cbc   nbc   nbc   bpc   bpb   yby*  nny
+cnc   pnb   ncc   bbn   bpc   ypb   ybbLy4 nnb
+cnp   yyb   ycc   nyc   npc   ybb   ybb   nbp
+cyp   cyy*  pbc   cyc   nybLy4 ccb   ycb   cyp
+cbp   yby   pby   cyy   cyb   cyc   cyc   cyp
+solution: 0,4 ; 3,6 ; use 0,4,0 ; 1,4 ; roll 7 ; use 1,5,1 ; 3,0 ; use 1,6,4 ; use 0,6,0 ; roll 0 ; 0,4 ; use 0,7,0 ; 3,0 ; roll 5 ; use 0,3,1

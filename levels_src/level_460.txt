@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil L; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dalga; çözüm 9 + 0 tepsi / sınır 12; rastgele 0,020; açgözlü kaybeder; yumuşak 0,10
 id: level_460
-moves: 9
+moves: 12
 roll: off
 type: boss
-rules: noSpecials, exact
-goals: yellow 30, blue 35, sponge 1
+rules: noSpecials
+goals: navy 30, blue 39, sponge 1
 grid:
-bbgn  bggn  gyyn  gyyg  nnng  #     #     #
-bbgn  bnyn  gnyg  ggyb  ngnb  #     #     #
-ybnn  bnyn  byyn  nyyn  ngnn  #     #     #
-gyng  ggyg  yggg  yybn  ygyn  ynyb  gnnb  gnnb
-bygg  gggy  bggy  ybgn  bnyg  bnbb  gngb  gngb
-byyg  gygy  nygb  nybg  bbbg  bybb  ggyb  bggb
-bbng  yybb  nybb  nygy  bygySg bybb  ggnb  bgnb
-bbnn  bynb  byby  bggy  bgby  byby  bggy  bggy
-solution: 0,0 ; 3,4 ; 3,3 ; 1,1 ; 5,4 ; 1,6 ; 3,6 ; 5,5 ; 4,5
+npy   #     bbnSy #     pnn   #     byb   #
+npy   nny   yny   ynn   pnn   ppn   byb   pbb
+pyy   nnn   yny   bny   bpy   ppp   byp   pbb
+pbb   pbn   pby   yby   nby   npn   bbn   pbn
+ybb   bbn   bbn   ybn   nbp   nnn   nnn   nnn
+bnb   ynn   pbn   pbb   bbp   bbp   bbn   npy
+bnb   npb   ppp   byb   yyb   byb   ppb   ppn
+#     nyp   #     bby   #     bpb   #     pbn
+solution: 4,4 ; 4,4 ; 0,0 ; 2,0 ; 3,2 ; 6,0 ; 0,5 ; 0,3 ; 4,0

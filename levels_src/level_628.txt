@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil kenar çentikleri; çözüm 11 + 9 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil U; çözüm 9 + 4 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; YEDEK: mek:kilit;
 id: level_628
-moves: 11
+moves: 9
 roll: off
 specials: on
 type: order
 rules: exact
-goals: navy 27, blue 38, purple 43
+goals: blue 41, yellow 21, navy 10
 grid:
-nbbb  nbpp  G1:nbpp G1:nppb ypncR G1:ypcn pbcn  pbbg
-nbpb  ncpp  nbpp  npgb  ccpp  ycpp  pncn  ppcg
-yppb  nbpb  nbgb  bpgp  bcpcR nccg  nnyg  cpgcR
-#     ncpb  ncgb  cgcp  bbcg  nbcg  bycn  #
-#     ppbg  cpbg  cgcb  ngcb  nycp  bypg  #
-ygbg  pgbc  pybb  cbbb  nbcn  ycng  ycbg  bcbg
-yygg  yygc  yybb  cybp  nycc  yycg  gpnnB1 gcbnLg5
-ycbg  ycgc  pcbb  pcyp  gyyc  ggnn  ggnnLg4 ppyn
-ypbg  ypgc  ypbp  ppyp  gpyb  gpyn  pgyy  ppyy
-solution: rot 4,2 ; 0,0 ; 2,2 ; 1,4 ; 1,0 ; 6,6 ; use 1,6,0 ; use 1,1,0 ; 6,4 ; use 2,0,0 ; 2,5 ; 1,3 ; use 2,1,0 ; 3,1 ; use 2,2,0 ; use 0,3,0 ; 4,0 ; use 1,3,0 ; use 0,4,0 ; use 0,0,0
+pbLc4 G1:pb G1:bb #     #     G1:yc yc    yyk2
+pc    bck1  bn    #     #     yb    yb    yy
+pc    bn    bn    #     #     yb    bb    bp
+py    by    by    bb    yb    ybk1  bpk1  bp
+py    bb    pb    pb    yy    yy    pb    pp
+cp    cp    pb    pn    pn    nn    bb    bcB1
+cb    cc    cc    pp    py    nb    nbk1  nc
+cbLc3 bb    bb    cpk2  cb    cb    yp    yp
+cn    cb    cp    cp    cp    yb    yb    yp
+solution: 3,3 ; use 0,0,5 ; 6,4 ; use 0,2,1 ; 7,2 ; 5,1 ; 5,1 ; use 1,7,1 ; 1,0 ; 6,7 ; 6,7 ; 1,7 ; use 1,2,0

@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil kenar çentikleri; çözüm 9 + 9 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dikdörtgen; çözüm 8 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_907
-moves: 9
+moves: 8
 roll: off
 specials: on
 type: resource
 rules: exact
-goals: yellow 46, green 37, star 3, envelope 2
+goals: navy 44, blue 25, yellow 22, star 4
 grid:
-ncyb  nyyp  nnyc  yncb  yncp  ybyc  ybnc  ybnc
-#     nybpEg cnbg  gnnb  gncp  ynyc  ynbc  #
-gngn  gyby  cyng  ccnb  gcyp  gcgb  yybb  yybb
-gnyb  cnby  cgbn  ncyn  ncyg  ycgg  yygb  yygb
-gpyb* cpgy  pgyn* npgn  npyg  ynyg  ynyb  bngy
-#     gggy  pgyb  bcgb  ncgg  gygn  gnyn  #
-#     ppgg  pbyg  bbyb  gcyp  gcyn  gpyn  #
-pccg  pncg  pnyg  pgyp  ncyp  gcyn* gpyn  ypyn
-pccbEn #     pgpg  pgnp  ncnp  ncny  #     ycyn
-solution: 5,5 ; 5,2 ; use 0,2,1 ; use 0,0,0 ; 2,2 ; 3,3 ; 1,2 ; 1,4 ; use 1,1,0 ; use 1,0,2 ; 4,0 ; use 0,5,0 ; use 0,5,0 ; 3,0 ; 4,0 ; use 0,0,0 ; use 0,4,1 ; use 0,1,0
+nc    nc    yc    yn    nn    pb    nb    nb
+np    ypLy4 yc    nn    bn    pb    nn    nn
+bp    bn    yc    bn    bn    pn    yn    yb
+bp    bn    cb    bb    cp    yb*   yb    yb
+yp    cn    nn*   bn    cp    yp    nc    nc
+yn    nn    nn    bn    cc    np    nb    cb
+cn    cn    bn*   yb    yc    yy    cy    cc
+cn    by    yp    np    np    ny    pc    pc
+cy    by    yb    nn    nn    nn    bn*   bn
+solution: 1,2 ; 3,0 ; 5,0 ; use 0,4,0 ; use 0,7,2 ; use 0,3,0 ; 0,0 ; 0,1 ; 2,0 ; 5,7 ; 4,3 ; use 0,5,0 ; use 0,0,0

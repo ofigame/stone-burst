@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 392 + tür protect; şekil U; çözüm 15 + 4 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 392 + tür protect; şekil dalga; çözüm 11 + 3 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04; döndürmeyle başlar;
 id: daily_d030_t5
 title: Günlük 30
-moves: 15
+moves: 11
 roll: on
 specials: on
 type: protect
 rules: protect, exact
-goals: yellow 30, green 14, envelope 3
+goals: yellow 21, blue 28, envelope 3
 grid:
-gcby  bcypR bcpc  #     #     npbp  npgc  yygy
-ggyy  gpby  bppn  #     #     npbpEb cpncEp yygy
-ggyy  bgpy  bypn  #     #     npbc  cpnc  cpypR
-bnnp  bnycR bycn  bycc  bycc  nbbb  ncgn  gpgn
-ynnp  ycbb  pybb  pybc  bbbb  bbgb  ncgn  gpgb
-ncbbP ncbb  ncbc  pnbc  nbbc  ncpb  ncpb  ggcb
-ycby  ynby  nngc  pngy  ncny  pcnp  pybb  ybbc
-ycby  npby  npgy  gpny  nbnn  gcpyEy yypc  ybpc
-ycpy  ncpy  nbpy  nbnp  nbnnP bypy  bypyP ybpy
-solution: 0,0 ; 5,3 ; use 0,5,0 ; 0,6 ; roll 1 ; 3,3 ; use 0,0,1 ; roll 2 ; 0,1 ; 6,2 ; 6,3 ; 7,0 ; 5,2 ; roll 3 ; 2,7 ; roll 3 ; rot 1,0 ; use 2,7,0 ; use 2,0,0
+#     cnb   #     nyn   #     ppb   #     pnbP
+npb   cby   cbn   nbn   ppc   ppc   ppc   pnc
+cpy   cpy   ybp   pnp   pnp   bbc   nyc   nyc
+nny   nyy   yyy   pypEp bbc   bbb   nbc   pccEn
+nppP  ypy   yycR  ycbR  bbc   bcnR  byc   pcc
+nbp   pyp   byp   bbc   bbp   bnpEy nnb   ncb
+bbp   pbp   bcc   bcc   nbc   bnp   yyb   ycb
+bcp   ncp   ncc   bcc   bbp   bbp   yyy   pyyP
+ncp   #     nyc   #     ycp   #     ccy   #
+solution: rot 2,4 ; 1,1 ; 0,2 ; use 1,0,3 ; roll 5 ; 2,3 ; use 1,5,0 ; 6,1 ; 5,2 ; 2,6 ; use 3,6,1 ; roll 6 ; 4,3 ; roll 2

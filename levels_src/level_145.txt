@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı; çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U (ayna); çözüm 7 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_145
-moves: 9
+moves: 10
 roll: off
 specials: on
-goals: purple 31, yellow 45, green 31
+goals: blue 27, yellow 26, purple 28
 grid:
-#     #     ccc   gbc   ybyy  ybyb  #     #
-#     #     gcc   gbc   ybyi2 ybyb  #     #
-gpy   gpg   gpbg  ggbg  ypyg  ccbg  ccb   ccpyi1
-pgyp  cpgp  bgp   bgc   cgy   cgbp  ccbg  yypg
-pgy   ygpy  ygpg  pgcp  cgypLg4 pgpp  ybpg  yyb
-pppy  yppy  ggp   gbyg  bcyp  byc   cbp   yyby
-ycby  ypb   cgby  cbyy  bcyp  gccp  cpyy  cpyy
-#     #     pcby  ycyi1 gcbp  gpb   #     #
-#     #     ycby  ycy   ycb   ypbg  #     #
-solution: 0,3 ; 0,2 ; 1,2 ; 0,2 ; 4,2 ; use 1,0,2 ; use 1,4,2 ; 3,3 ; use 1,4,0 ; 5,0 ; 3,3 ; use 1,4,0 ; use 0,5,0 ; use 1,5,0
+yb    yb    cb    #     #     cp    cp    py
+ny    yb    yn    #     #     nbi1  cb    cb
+pb    yb    yn    #     #     yb    pb    pb
+pp    pp    pp    py    yy    yb    yb    yyi1
+cc    cp    cp    ppi1  pp    cb    pb    py
+yn    nn    cn    cn    cb    cy    pb    pn
+yb    nn    ny    cy    cy    py    pb    pb
+yc    nn    bb    cc    bcLb5 by    pb    pn
+yc    yc    bb    cc    cc    bn    pn    pn
+solution: 6,1 ; 5,2 ; 0,0 ; use 0,0,0 ; 0,2 ; use 2,5,0 ; 0,5 ; 0,4 ; use 3,5,1 ; 0,7 ; use 1,0,0 ; use 0,0,8 ; use 0,0,8

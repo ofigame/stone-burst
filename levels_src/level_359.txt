@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 13 + 12 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U (ayna); çözüm 9 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,17; döndürmeyle başlar; YEDEK: mek:rotor;
 id: level_359
-moves: 13
+moves: 10
 roll: off
 specials: on
-goals: coral 24, blue 48, envelope 2
+goals: coral 28, blue 24, navy 16
 grid:
-bypp  bypp  gcgp  gcgb  ccgn  pcbn  pnbn
-bnbc  bnbc  bcny  gbnb  ccnn  pynb  cybg
-nbgpEg bbgc  nngy  nnyb  ycnb  ycnb  nybg
-nbyy  ybyy  ynyy  nnyy  gyny  nynb  ncbb
-ycgn  bnycR bngb  pnny  pnny  nynpEy gybp
-ynnn  ynny  yngb  pynb  bynn  gync  gybp
-ynny  ynby  ygby  nnnc  bnbn  bpcyR gnbc
-ygpy  yypy  ygpy  nbpc  nnbp  gppp  gnbp
-ygby  ybbp  ybgc  ybgc  ybnc  gbnc  gnbc
-solution: 3,0 ; 2,1 ; 4,0 ; use 0,0,1 ; use 0,3,0 ; 5,0 ; 5,1 ; use 0,0,1 ; use 1,3,0 ; 2,2 ; 0,7 ; 3,4 ; use 1,1,2 ; 3,6 ; rot 5,6 ; use 2,0,8 ; 6,4 ; use 0,4,0 ; 0,3 ; use 2,0,1 ; 6,4 ; use 2,0,0 ; use 2,0,0 ; use 0,0,0 ; use 0,0,0
+ny    ny    cb    #     pc    pc    cb
+yn    nb    cb    #     py    nyi1  nb
+yy    yy    cbi1  #     py    py    nc
+pyi2  yc    bc    bc    bp    bpi1  nc
+cp    pp    pb    nc    bp    bp    ny
+cp    cp    pc    nn    nn    byR   bb
+bp    bp    bc    bb    pn    bb    byR
+bp    np    bc    cb    cb    cc    pp
+np    np    nc    cb    cc    cc    cc
+solution: 0,4 ; use 0,4,0 ; 0,6 ; use 0,0,1 ; 4,3 ; 2,0 ; 3,7 ; 0,0 ; 0,0 ; use 1,0,5 ; 5,5 ; 2,0

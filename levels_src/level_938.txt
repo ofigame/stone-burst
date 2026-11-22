@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil kum saati; çözüm 10 + 8 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil çatı (ayna); çözüm 9 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_938
-moves: 10
+moves: 9
 roll: off
 specials: on
 type: resource
 rules: exact
-goals: yellow 31, purple 37, navy 40
+goals: yellow 39, blue 34, purple 34
 grid:
-nngp  nngg  ncyb  ncyp  gbcp  gbcb  yypbk1 yyng
-cggp  cgyb  cnyb  cpcbk1 pbcn  gbpb  gypb  pygg
-gggy  gggp  nngg  ppcg  ppcn  bpcg  cycg  cggg
-#     gynp  nnyg  bnyg  bbyp  bbyp  pycg  #
-#     yyng  nyng  bnyg  bpyp  pbyp  pbcn  #
-#     yypb  ncnn  nnyn  bpyn  nbpn  pbcn  #
-pyyb  nypbk1 nppb  ppybk1 bpyb  bbpn  bbcn  cncb
-nyyb  gcpck2 bypn  pcbn  nccn  gccn  gnnp  cncp
-nygb  bcgc  bybc  pcbc  nnbg  gngg  cngp  cngp
-solution: 2,2 ; 1,4 ; use 0,1,0 ; use 0,0,0 ; 2,3 ; 1,3 ; 3,3 ; use 0,3,0 ; 4,4 ; 0,0 ; 7,0 ; use 1,0,0 ; 3,0 ; use 1,0,2 ; 2,0 ; use 1,6,0 ; use 1,2,0 ; use 1,0,0
+#     #     #     bby   bpc   #     #     #
+#     yyb   ybb   ybpk2 bpck1 bpn   pbn   #
+ncb   nyb   pbb   yyp   byb   nnb   nny   ncy
+ncc   npc   pcb   pcc   ycck2 nnb   nnb   ncy
+ycc   ybn   ybn   ycn   ypb   yyb   yyb   ync
+ypn   bnn   bnc   ync   yynk1 yyb   nyck1 yny
+ppb   ppb   ppc   nnp   ypc   ypc   ync   pnyk1
+pbp   pyb   nnb   nnp   ypc   cnc   pny   pny
+pbp   yyp   ycp   ycp   ypc   cbb   cbb   pbb
+solution: 2,5 ; 1,4 ; use 0,1,1 ; 0,5 ; use 0,3,0 ; 6,5 ; use 0,3,1 ; 0,2 ; 3,4 ; 5,1 ; use 0,3,0 ; 6,5 ; use 0,5,1 ; 1,1 ; use 0,4,0 ; use 0,4,0

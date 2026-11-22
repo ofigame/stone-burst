@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 512 + tür scarce; şekil U (ayna); çözüm 17 + 8 tepsi / sınır 17; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 512 + tür scarce; şekil kenar çentikleri; çözüm 10 + 4 tepsi / sınır 11; rastgele 0,010; açgözlü kazanır; yumuşak 0,02; YEDEK: açgözlü;
 id: daily_d025_t6
 title: Günlük 25
-moves: 17
+moves: 11
 roll: on
 specials: on
 type: scarce
 rules: scarce
-goals: blue 31, purple 24, coral 39
+goals: navy 19, blue 20, yellow 23
 grid:
-bypp  bpppK1:1 pppp  #     #     gnny  cppc  gppc
-bync  byny  bgny  #     #     gnnn  cppn  cpcc
-bbbg  gyyy  byyn  #     #     gncn  bgcc  bgcc
-nbbg  ggcy  ggcp  cgcbK1:1 cgybK1:1 cggb  pgbc  bgbc
-ggpg  ggcy  bgcb  cgcb  cpyc  cbgc  cngn  cggc
-ggcn  gncy  bncy  cgnp  cgyc  nbgc  pbgn  gbgn
-ggpn  cgcp  cgbp  cgnp  cgcn  gccn  pccc  gccg
-ggpn  cnpp  ynbp  ynnp  ycbp  gcgp  gccc  cgpg
-cncn  cnbn  cnbn  cnnp  nngp  ycgp  ccpp  cgpg
-solution: 3,5 ; 0,5 ; 4,4 ; 6,0 ; use 0,3,3 ; use 0,0,1 ; use 0,0,0 ; 0,2 ; 2,3 ; use 0,0,2 ; 6,6 ; use 2,0,0 ; 0,0 ; 0,0 ; roll 5 ; 7,4 ; roll 5 ; 1,7 ; 1,1 ; roll 1 ; use 0,1,1 ; 1,7 ; roll 0 ; use 3,0,0 ; use 0,1,0
+bb    yb    #     #     #     yy    yy    yy
+bp    cp    #     #     nn    np    cb    yc
+cp    cb    nb    bp    cn    np    nb    nc
+#     #     bp    by    bn    yn    yb    nb
+bc    pp    yp    bn    bn    cn    cy    cpK1:1
+bc    yp    yn    bn    bp    by    cy    cp
+bn    yc    yn    bp    bpK1:1 by    #     #
+pc    yc    yn    yn    bcK1:1 yc    #     #
+cc    cc    yy    yy    by    yc    yp    yp
+solution: 4,1 ; 4,7 ; 6,4 ; use 0,0,0 ; 2,3 ; use 0,1,0 ; roll 2 ; 3,2 ; 1,6 ; use 0,7,0 ; roll 1 ; 5,4 ; roll 1 ; use 0,0,2

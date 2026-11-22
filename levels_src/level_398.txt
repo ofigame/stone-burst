@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil çatı (ayna); çözüm 10 + 9 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil kum saati (ayna); çözüm 9 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_398
-moves: 10
+moves: 9
 roll: off
 specials: on
 type: protect
 rules: protect, exact
-goals: green 18, coral 21, yellow 23
+goals: navy 15, yellow 18, purple 9
 grid:
-#     #     #     cncgk1 #     #     #
-#     gpyp  npyp  cnpg  nnyp  nbyp  #
-gcnb  gccnk1 cpcp  cppg  pnpb  cgng  cbbg
-bpnnP npncR gpcb  npbb  pnpb  ygnb  ybbgP
-nppc  nycgR pypb  nbbb  ybpb  ynng  bbyg
-pppc  bypc  pgbb  nnbb  cbbp  cnyp  cbyg
-cbyy  bbpy  pgpn  ngbb  ybcpk2 cncg  ccyg
-cbyyk2 cppy  pycbk1 nynb  pycp  ynng  yngg
-npyyP gpyy  gycpk1 gycp  pycp  pbcp  cbgy
-solution: rot 1,4 ; 4,2 ; 1,3 ; 3,3 ; 1,1 ; use 1,2,1 ; 4,6 ; use 3,0,4 ; 6,5 ; use 1,1,1 ; 4,2 ; use 2,5,1 ; 5,3 ; use 2,1,1 ; 2,7 ; use 3,1,1 ; use 2,3,0 ; use 0,2,2 ; use 0,3,0
+bc    bpi2  nyP   ny    by    yyi1  yy
+bp    yp    ny    nn    bn    bn    yyP
+cb    bb    nn    ny    nn    bn    yn
+#     bc    by    by    yc    yc    #
+#     bc    by    ynR   yci2  yy    #
+#     bc    bp    bp    pbi1  cb    #
+cyR   nc    bp    bpi1  pp    bb    nb
+nb    nb    np    npi1  cp    bp    nn
+cy    cy    yy    cy    cyP   bn    bn
+solution: rot 3,4 ; 3,2 ; use 0,3,0 ; 3,5 ; 2,5 ; use 1,3,0 ; 4,3 ; 4,3 ; 0,8 ; 2,3 ; use 1,0,0 ; 1,3 ; use 1,5,0 ; use 0,0,2

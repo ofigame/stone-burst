@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil merdiven (ayna); çözüm 8 + 8 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe; çözüm 11 + 8 tepsi / sınır 16; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_270
-moves: 8
+moves: 16
 roll: off
 specials: on
 type: boss
-rules: protect, exact
-goals: coral 33, green 13, envelope 3
+rules: protect
+goals: purple 20, star 3, envelope 3
 grid:
-#     #     #     #     yycp  yycp  nbbp  nbpp
-#     #     #     nyyp  yybn  bybn  nybc  gypc
-#     #     ccyy  ncyy  nyyn  bnbbi1 yybb  gcpb
-#     cnnn  cnyci1 bnyc  nnbb  bnbb  ybbb  gcpb
-gbyn  cbyn  cyyn  ccyci2 cccn  cbcn  ypcbEb yggn
-gyyn  bbpg  bypg  ccgyEp cpcc  cbnni1 gpgb  gggbi2
-cnynP bcnp  bcnp  gcgy  bppc  bcnn  bpnb  bggb
-cncn  pnnc  pcnpEc gcpy  ycpc  ycpn  ybyy  nnyyP
-pncn  pnnc  ynnc  ycnc  ycnp  yccpP nbcp  nbyy
-solution: 6,2 ; 5,2 ; 4,1 ; use 1,6,1 ; use 0,0,5 ; 4,0 ; use 0,4,0 ; 6,0 ; 4,0 ; use 0,3,1 ; 3,4 ; use 0,7,1 ; 1,3 ; use 2,0,5 ; use 0,6,5 ; use 0,3,2
+#     #     bpy   byy   byb   bynP  #     #
+#     npb   bpn   ypn   byb   byb   npc   #
+nny   nny   nbp   ybn   ncn   nbp   nyc*  cyc
+ncy   nyc   byp   bby   pcb*  nbp   nbp   cpp
+ppyP  npy   ypy   pcy   pcbEb ncp   npp   bpp
+npc   npy   ypn   ppy   ncnEn bcn   bcp   bcp
+nnc   bpc   bcn   pcp   bcpEy nnp   bcn   bcp
+#     bpc   bby*  ycy   bpn   nyc   npc   #
+#     #     ybyP  yby   ppc   pyc   #     #
+solution: 5,2 ; 4,0 ; use 0,6,1 ; use 0,4,0 ; 3,6 ; use 0,6,1 ; 6,1 ; 4,4 ; 2,1 ; use 1,1,1 ; 1,1 ; 2,1 ; 2,0 ; use 1,3,0 ; 1,4 ; 1,1 ; use 2,1,7 ; use 0,3,0 ; use 0,2,7

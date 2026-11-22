@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı (ayna); çözüm 11 + 6 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_331
-moves: 12
+moves: 10
 roll: off
 specials: on
-goals: navy 25, coral 22, star 3
+goals: blue 18, coral 32, purple 20
 grid:
-#     #     #     ycyn  ycnpR #     #     #
-#     cpgg* gpgg  cpgg  ccyg  cbyy  cbgy  #
-bygn  cpgn  bbgg  pggg  ppyg  ybyy  ybgy  ybgg
-nyyn  nbgc  bbgy  bggy  gppn  gypc  gygy  ybpg
-yyyc  ybyc  bgcnR pync  gnnc  gpcc  cycc  cbpg
-yybn  ynbp  ygnp  ygnc  cnnc  cpbc* cycb  cbpb
-cnbn  cnnp* ygnb  nyyb  cbbg  cbbg  nnbg  gngg
-ngbn  npcn  ybcb  nyyb  gyyg  cbng  nbgy  gcgy
-nggn  npgn  npnb  ngnb  ggng  nbny  nbgy  gcpy
-solution: 5,3 ; 1,5 ; 0,5 ; use 0,3,0 ; use 0,1,1 ; 4,6 ; 5,5 ; use 0,0,5 ; use 0,0,4 ; 0,3 ; 1,1 ; 4,1 ; 6,7 ; 5,7 ; rot 4,0 ; use 3,1,1 ; use 0,1,1
+#     #     cc    pyR   cp    cy    #     #
+#     #     yc    np    np    np    #     #
+cc    pc    pck1  bc    bb    bc    bc    bb
+nc    nc    np    nc    cc    cc    cck1  pbk1
+yn    yc    yn    pn    py    py    pb    pb
+cn    cn    cn    pn    py    bb    bb    pb
+bb    cn    ncR   cnk1  cc    pc    pc    pn
+#     #     nn    cy    cb    pp    #     #
+#     #     ny    ny    nbk2  cb    #     #
+solution: rot 3,0 ; 0,2 ; use 0,5,0 ; 2,0 ; 3,2 ; use 0,3,0 ; use 0,4,2 ; 0,3 ; 0,5 ; use 0,2,0 ; use 0,2,8 ; 2,6 ; use 0,4,0 ; 3,4

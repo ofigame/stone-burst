@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 895 + tür reverse; şekil merdiven (ayna); çözüm 9 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 895 + tür reverse; şekil çatı (ayna); çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: daily_d017_t8
 title: Günlük 17
-moves: 9
+moves: 8
 roll: on
 specials: on
 type: reverse
 rules: exact
-goals: coral 30, navy 28, green 25, sponge 1
+goals: yellow 59, coral 14, navy 21
 grid:
-#     #     #     #     nngn  bcgn  bcgg  bpgc
-#     #     #     npyg  nnyn  pngg  bnbg  bpbc
-#     #     npcg  npyg  npyg  pngb  pnnb  cpbb
-#     bcby  npcy  npyy  npbb  ybbc  pbnb  cpbb
-ncbg  ncbg  nypy  gypy  cypb  yypcSy gbgb  cnyy
-npbg  ypbg  yyyy  yyny  cppb  bppc  gcgy  cnyy
-npyc  ppyc  gpyc  ybnb  ybgb  ycpc  gcpc  ynpc
-nnpc  pypc  gpyc  cbyb  bpgc  ypgc  gpyc  ypyy
-nnpb  gypc  gync  cbnp  bbgp  bbgp  bpnp  bpnp
-solution: 1,3 ; use 0,5,0 ; 5,0 ; 6,1 ; use 0,5,0 ; 4,0 ; use 0,4,0 ; 2,2 ; 3,1 ; use 1,4,0 ; 6,1 ; roll 4 ; 7,0 ; use 1,6,0 ; use 1,4,0 ; use 0,4,0
+#     #     #     pny   pnp   #     #     #
+#     yny   pcy   pcy   pbp   yby   yby   #
+pycR  pny   pcb   byb   byy   yny   yny   yny
+nnp   nbp   pbb   byb   bby   nby   pyp   pnp
+cpp   ypb   yby   cby   nny   nby   pyy   ynp
+cpp   yby   yby   cnb   yny   nby   pbp   ynp
+cbb   cbb   ybb   ynb   ynb   yby   ypy   ypp
+ybb   ybb   cbp   bpb   bnn   ypcR  yyp   yyp
+cbb   cbc   cbp   byp   byn   byp   yyp   yyp
+solution: rot 0,2 ; 6,3 ; 5,1 ; 2,2 ; 5,2 ; use 0,3,0 ; 0,2 ; use 0,2,1 ; 0,6 ; use 2,1,1 ; use 2,0,2 ; 6,3 ; use 2,0,2 ; use 0,1,1 ; use 0,3,0

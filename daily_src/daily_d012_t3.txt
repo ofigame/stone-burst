@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 124 + tür pure; şekil kum saati (ayna); çözüm 8 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 124 + tür pure; şekil U (ayna); çözüm 8 + 0 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,25
 id: daily_d012_t3
 title: Günlük 12
-moves: 9
+moves: 10
 roll: on
 type: pure
 rules: noSpecials
-goals: purple 48, coral 23, green 48
+goals: purple 25, coral 28, navy 51
 grid:
-cgpp  ggcp  ggc   gcg   gggc  gpg   gppp
-ggpp  ggcc  pgg   gcg   pgpc  ppgc  ppp
-ggp   ggp   ggp   ggp   pgp   ggp   ppp
-#     pgpc  pgp   pgpp  pgg   gggg  #
-#     cgc   cgpp  pgpp  ggp   pggg  #
-#     pcc   cccp  cgp   gcp   pcg   #
-cgcc  ggcc  gpcp  gpcp  gcp   pgpp  cgc
-cgcc  pgcg  pppp  ppc   pcpp  pgcg  cgc
-pgp   pgpg  ppp   ppp   cpg   ppgg  ppgg
-solution: 0,0 ; 1,3 ; roll 6 ; 3,0 ; 1,0 ; 1,0 ; 5,0 ; roll 1
+npi1  pp    pn    #     pn    cn    cn
+pp    pp    pn    #     nc    nn    nn
+pn    cn    pc    #     nc    cc    nn
+pn    cn    pc    cn    cn    cc    nn
+pn    pn    pn    cn    cn    cn    np
+pn    pc    pc    pn    cn    nn    np
+pni1  pn    nc    nn    nc    cn    np
+nn    cn    cc    cci1  nc    cn    cp
+nn    nn    nn    cn    cn    cp    cp
+solution: 6,4 ; 1,6 ; 4,0 ; 4,1 ; 1,0 ; roll 0 ; 4,1 ; 2,6

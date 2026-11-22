@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kum saati (ayna); çözüm 10 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil artı; çözüm 9 + 6 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: level_570
-moves: 10
+moves: 12
 roll: off
 specials: on
 type: boss
-rules: protect, exact
-goals: blue 15, yellow 32, purple 31
+rules: protect
+goals: blue 23, yellow 25, purple 21
 grid:
-gpby  gbpy  gbpcK1:1 gbpc  gbbp  ccbpP pcbp  gcybP
-gpby  gpby  ynpc  gnpn  cbyn  cgbp  pgbb  gyyb
-#     ynby  yncy  gnyn  ggyn  gbpg  pbgg  #
-#     ypcy  ypcc  gpcc  pgyp  pcpc  pcpn  #
-#     cbcg  pbgc  cbcc  cccc  ncyc  pygg  #
-#     ccgg  pngn  gbgy  gycy  npyy  nygg  #
-bcpp  ggpn  pnpn  gnyyK1:1 gypy  npyy  npyy  gpyp
-bgpp  ggpp  gbgyP gyyy  nypy  npyy  gpcp  gpcp
-solution: 0,0 ; 0,0 ; 2,0 ; use 0,4,0 ; 0,0 ; use 1,0,1 ; 1,0 ; 5,4 ; 2,3 ; use 2,3,0 ; 4,5 ; 5,5 ; use 1,0,6 ; 0,6 ; use 2,4,0 ; use 1,1,3 ; use 1,1,3
+#     #     nbn   nbn   nbb   cbb   #     #
+#     #     nnp   npc   npb   cbp   #     #
+pyb   pbb   nnp   byc   nyy   byp   pnp   pnpP
+pyp   nyb   ncp   nyc   nyy   byy   bbcLc5 nbcP
+cyp   ppy   ccy   ccc   cbyK1:1 cny   bny   nny
+cynP  ppy   ppy   ccbK1:1 ccy   bcy   bby   nby
+#     #     cnc   cnp   cpp   bpy   #     #
+#     #     cnc   ync   ynp   yny   #     #
+solution: 4,2 ; use 0,4,0 ; 1,3 ; 3,1 ; 3,2 ; 0,3 ; use 0,5,0 ; use 0,4,0 ; 2,1 ; 1,4 ; 3,6 ; 2,0 ; use 0,6,2 ; use 2,2,0 ; use 0,5,0

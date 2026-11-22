@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil merdiven; çözüm 12 + 8 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil L; çözüm 8 + 1 tepsi / sınır 8; rastgele 0,035; açgözlü kazanır; yumuşak 0,19; YEDEK: rastgele;
 id: level_457
-moves: 12
+moves: 8
 roll: off
 specials: on
 type: order
 rules: exact
-goals: yellow 33, envelope 2, sponge 1
+goals: blue 15, star 3, sponge 1
 grid:
-cgby  cgbyLc3 bbpy  bcpb  #     #     #     #
-cgny  ngng  nbpg  ccpb  cbpyLc5 #     #     #
-cbcn  ggnn  nbng  cbgb  bbgyEn ypgg  #     #
-cbcn  bbcpSnb ybcp  cbnb  bnnb  cnyg  cpyg  #
-ngbn  bnbp  ybpp  cbng  bbny  bnyg  cpyc  cnnc
-ngby  bnby  gypp  cbyg  cbby  pnyc  pgyc  cgnc
-ncgy  gpbc  gpcc  bbyg  cyyp  yyyp  npgc  cggc
-ncby  ncbc  bbyc  bbnc  cbnc  ypncEc ypgc  gngc
-pcbb  pbyb  bbyp  pbnc  cbnc  ybbc  gbbc  gnbb
-solution: 6,4 ; 4,4 ; use 1,0,2 ; 6,5 ; use 1,1,0 ; 6,4 ; use 0,0,0 ; 3,4 ; 3,5 ; 3,2 ; use 1,0,3 ; 3,3 ; 3,0 ; 0,2 ; use 0,5,2 ; 0,2 ; 3,7 ; use 3,5,2 ; use 0,0,8 ; use 0,2,3
+bp    bc    bc    cp    np    #     #     #
+bp    bpSc  bc    cp    nn    #     #     #
+pb    cbLp3 cc    cn    cn    #     #     #
+pp    cbLp4 cc    cc    cn*   #     #     #
+pn    bn    bb    yb    yb    nn    bc    yc
+pn    bc    bc    yc    pn    nn    bc    yy
+yn    bc    bc    yc    pp    pc*   yc    yy*
+yn    bn    bn    pp    pc    cy    yy    yy
+yb    yn    pn    pc    cc    cc    yc    yc
+solution: 0,4 ; use 0,1,0 ; 4,6 ; 0,2 ; 4,1 ; 1,2 ; 7,4 ; 7,5 ; 1,0

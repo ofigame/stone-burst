@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil artı (ayna); çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil merdiven; çözüm 7 + 7 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; YEDEK: kısa;
 id: level_557
-moves: 8
+moves: 7
 roll: off
 specials: on
 type: resource
 rules: exact
-goals: green 11, coral 28, navy 23, sponge 1
+goals: blue 14, coral 16, navy 18, sponge 1
 grid:
-#     #     npnn  pnyn  pnyn  #     #
-#     #     ypnn  gnnn  gnyn  #     #
-cyyc  cyyc  ynnn  ynng  gpycK1:1 gyyb  cyyb
-nyyc  nyyc  nnyp  cpng  ppnc  cnyc  ccpb
-cgbcSp cyycK1:1 cypp  ccbg  ppbg  yncb  bnpy
-nybc  gygc  gycp  cccb  pccb  yycb  bypy
-nyby  gyby  ypnb  cgcb  cccy  byny  byny
-#     #     cynb  cgcp  ngpb  #     #
-#     #     bycc  bycp  ngpbK1:1 #     #
-solution: 2,0 ; use 0,0,2 ; 5,4 ; use 0,2,0 ; 1,2 ; 3,2 ; 3,1 ; use 1,3,0 ; 3,3 ; use 0,3,1 ; 4,0 ; use 0,3,0 ; use 0,4,1 ; 5,3 ; use 0,3,4
+yc    yy    nb    #     #     #     #
+nc    ny    nb    cy    #     #     #
+bn    by    bbK1:1 cb    pp    #     #
+bn    by    py    cy    pp    ppK1:1 #
+yp    yy    cy    cy    yp    np    np
+yp    cy    cy    nc    cp    ny    ny
+yp    bp    by    nc    cc    cp    yp
+yp    yn    yn    nn    cc    yb    yb
+np    np    yn    np    np    ybK1:1 ybSp
+solution: 4,2 ; use 0,6,4 ; 1,0 ; 3,3 ; use 0,1,1 ; 2,0 ; use 0,2,2 ; use 0,0,0 ; 0,4 ; 0,4 ; use 1,2,0 ; 6,6 ; use 0,5,3 ; use 0,5,3

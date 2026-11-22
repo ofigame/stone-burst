@@ -34,6 +34,7 @@ namespace KatKat.Game
             _hud.SetTimer(_timed ? _timeLeft : -1f);
             if (!_timed && _session != null) _hud.SetMoves(_session.State.MovesLeft);
             _board.SetHeartbeat(0f);
+            _board.OnBeat = () => { _sound.Play(Sfx.Beat); Haptics.Medium(); };
         }
 
         private void TimedTick(float dt)
@@ -65,7 +66,12 @@ namespace KatKat.Game
             CancelBoosterMode();
             SetPhase(Phase.Ended);
             _board.SetHeartbeat(0f);
+            // 2026-11-22 (kullanıcı: "bitişinde ise süre dolmasından dolayı taşların dökülmesi ses efektiyle ve titreşimle olsun").
+            _sound.Play(Sfx.Boom);
+            Haptics.Strong();
             _board.TimeUpBlast(() => ShowLost(GameStatus.LostOutOfTime));
+            _board.Later(260f, () => { Haptics.Strong(); _sound.Play(Sfx.Peel); });
+            _board.Later(620f, () => { Haptics.Medium(); _sound.Play(Sfx.Peel, 0, 0.7f); });
         }
 
         /// <summary>Süre bitti kartı: yalnız yeniden oyna (deneme setinde liste de).</summary>

@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil çatı; çözüm 18 + 0 tepsi / sınır 18; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dalga; çözüm 13 + 0 tepsi / sınır 17; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_700
-moves: 18
+moves: 17
 roll: off
 type: boss
-rules: protect, noSpecials, exact
-goals: purple 25, blue 34, coral 27
+rules: protect, noSpecials
+goals: navy 24, coral 36, yellow 27, envelope 2
 grid:
-#     #     #     G1:pyyc G1:pbyc #     #     #
-#     pyby  pycc  pycc  pbcy  bpcy  byby  #
-bbbyi1 bbby  bbbc  bbpy  cccy  bppp  bypy  yypy
-ypyp  ycyp  ycbyi2 bycy  ccyb  bpyp  bcpyi1 ycpb
-ypyb  cpcp  yccp  bycp  byyb  byyb  bcyy  ccpb
-pybb  cpcb  ypcp  bcypB1 bypb  bypb  cypy  cyyb
-pyby  cyyy  cccy  bcyy  byyc  bypy  yyyc  yyybi1
-yyyc  ycyy  yccy  bpby  pybc  pyyb  pyyc  cyycP
-ycpb  yppb  ypbb  ypbb  yyycP yyyb  yyybi1 cyybP
-solution: 4,3 ; 0,3 ; 4,1 ; 2,1 ; 0,4 ; 1,1 ; 1,1 ; 7,3 ; 5,1 ; 0,3 ; 1,3 ; 3,0 ; 3,7 ; 3,0 ; 4,0 ; 4,0 ; 6,3 ; 0,2
+cnn   #     G1:nyp #     G1:ccp #     G1:ncn #
+cnn   ppn   npp   ycp   ycn   nnn   ycc   ccn
+cnnP  npp   npp   yyp   cyn   cyn   ycc   ccc
+cny   npp   nyp   yyp   yyn   cyn   ycn   yyn
+cyy   ncy   nnn   ncn   ncy   ncc   ncc   nyc
+cyy   ycp   ynn   ynn   cpy   ypy   yny   cyc
+pcyP  ccnEp yyn   ync   ccp   ycp   ynpB1 ync
+pcyP  ccp   cpc   npc   cpc   ccc   ypp   ync
+#     cyp   #     npcEc #     ycc   #     ycp
+solution: 3,6 ; 4,1 ; 6,1 ; 2,1 ; 3,2 ; 4,5 ; 2,3 ; 3,1 ; 2,4 ; 5,5 ; 3,1 ; 1,6 ; 2,5

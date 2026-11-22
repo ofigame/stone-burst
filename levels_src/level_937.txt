@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil U; çözüm 21 + 0 tepsi / sınır 21; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil dalga; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
 id: level_937
-moves: 21
+moves: 9
 roll: off
 type: pure
 rules: noSpecials, exact
-goals: navy 33, green 46, blue 35, envelope 3
+goals: purple 22, yellow 29, coral 17, envelope 2
 grid:
-pgnn  pggn  gpgn  #     #     ggpb  gnpb  gngnR
-ggnb  pggn  ggnn  #     #     ggpb  gnpg  gnpgEn
-gbnb  gggb  pggpi1 #     #     ngpg  ngpp  bnbp
-ngbb  nggn  ppgpi2 ppbbi1 pnbgi1 nnpg  nnpn  bnbp
-ggbn  bgbn  bgbp  bpgb  bpgn  bpnn  bpnn  npgb
-gnbg  bnbg  bgbn  bgnb  bpng  ngng  ngnn  npgn
-gnbp  gpbb  ggpb  pgnpEn pgbp  nggnR gbgb  gbgb
-gpbp  pbbb  bgpb  bgnb  bgpgi1 nnpg  nngg  gppg
-ppbp  bbbp  bnpb  bgpg  bgbg  bnbg  pnbgEb gpbg
-solution: rot 5,6 ; 6,3 ; 1,6 ; 5,2 ; 3,3 ; 5,4 ; 5,2 ; 7,2 ; 7,2 ; 7,4 ; 4,7 ; 1,3 ; 0,1 ; 1,2 ; 1,4 ; 0,0 ; 5,5 ; 2,2 ; 1,0 ; 1,0 ; 3,4
+#     pp    #     bp    #     yy    #     yp
+pp    pp    pp    bp    by    by    yp    yp
+py    cy    cy    cy    cy    cp    cp    yp
+py    by    cy    cb    ybLp6 cb    cb    yb
+yb    by    byEc  bbG   yb    yb    cb    yc
+yb    pcG   pcG   yyG   yyG   ypEy  cp    yc
+bc    pc    pcG   yyG   yy    yp    py    yc
+bc    py    pc    yc    yc    yp    py    yy
+bc    #     cy    #     cc    #     py    #
+solution: 7,0 ; 3,3 ; 5,0 ; 5,5 ; 1,2 ; 1,0 ; 7,4 ; 1,0 ; 2,7

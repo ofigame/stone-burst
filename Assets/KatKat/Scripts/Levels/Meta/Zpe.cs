@@ -38,6 +38,9 @@ namespace KatKat.Meta
         public float animSeconds, tutorialSeconds;
         /// <summary>UTC unix saniyesi.</summary>
         public long time;
+        /// <summary>2026-11-22 süreli bölüm: süre (sn) ve bitişte kalan süre; 0 → hamleli bölüm.</summary>
+        public int timeLimit;
+        public float timeLeft;
 
         /// <summary>Oturum sonucundan ZPE kaydı: hız bileşeni karar süresini kullanır.</summary>
         public static ZpeRecord From(SessionOutcome o, long time) => new ZpeRecord
@@ -77,6 +80,15 @@ namespace KatKat.Meta
         public int Scale = 100;
         /// <summary>Beklenen süre = TimeBase + TimePerStep × çözüm adımı (sn); bu sürede ya da daha hızlı = 1.</summary>
         public double TimeBase = 6, TimePerStep = 4;
+        /// <summary>
+        /// v4 (kullanıcı, 2026-11-22: "ZPE hesaplamayı da daha adil hale getirelim gerçekçi ve adil olsun"): zorluk ayrı puan
+        /// parçası değil, ortalamada bölümün ağırlığı (0,5 + botun kaybetme oranı): zor bölümdeki performans daha çok sayılır,
+        /// kolay bölüm puanı şişirmez.
+        /// </summary>
+        public bool WeightByDifficulty;
+        /// <summary>v4 başlangıç payı: puan <see cref="Prior"/> (0,5 → 50) değerinden <see cref="PriorWeight"/> bölümlük ağırlıkla
+        /// başlar, oyun sayısı arttıkça gerçek değerine yaklaşır (tek kolay bölümle 90+ olmaz). 0 → kapalı.</summary>
+        public double Prior = 0.5, PriorWeight;
 
         public static ZpeConfig Parse(string json)
         {
@@ -101,6 +113,9 @@ namespace KatKat.Meta
             c.Scale = (int)D("scale", c.Scale);
             c.TimeBase = D("timeBase", c.TimeBase);
             c.TimePerStep = D("timePerStep", c.TimePerStep);
+            c.WeightByDifficulty = o.TryGetValue("weightByDifficulty", out var wd) && wd is bool wdb && wdb;
+            c.Prior = D("prior", c.Prior);
+            c.PriorWeight = D("priorWeight", c.PriorWeight);
             double sum = c.WEfficiency + c.WDifficulty + c.WFirstTry + c.WTime + c.WNoAssist;
             if (sum <= 0 || c.WTime < 0) throw new FormatException("zpe_config: ağırlık toplamı 0");
             return c;
@@ -165,7 +180,9 @@ namespace KatKat.Meta
             int steps = rf != null && rf.Steps > 0 ? rf.Steps : Math.Max(1, baseLimit / 2);
             double bot = rf != null ? rf.Bot : 0.5;
             // Hamle verimi: referans çözüm uzunluğu ya da daha az = 1; temel sınırda = 0; ek hamleyle (sınır aşımı) = 0.
-            if (r.movesUsed <= steps) p.Efficiency = 1;
+            // v4 süreli bölüm: hamle sınırsız olduğundan verim kalan süreden (yarısı kalırsa 1, son anda 0,3).
+            if (r.timeLimit > 0) p.Efficiency = Clamp01(0.3 + 1.4 * r.timeLeft / r.timeLimit);
+            else if (r.movesUsed <= steps) p.Efficiency = 1;
             else if (r.movesUsed > baseLimit) p.Efficiency = 0;
             else p.Efficiency = Clamp01(1.0 - (r.movesUsed - steps) / (double)Math.Max(1, baseLimit - steps + 1));
             // Zorluğa göre başarı: zor bölüm (botun az kazandığı) daha çok puan.
@@ -177,6 +194,14 @@ namespace KatKat.Meta
             double wsum = c.WEfficiency + c.WDifficulty + c.WFirstTry + c.WTime + c.WNoAssist;
             p.Total = (p.Efficiency * c.WEfficiency + p.Difficulty * c.WDifficulty + p.FirstTry * c.WFirstTry + p.Time * c.WTime + p.NoAssist * c.WNoAssist) / wsum;
             return p;
+        }
+
+        /// <summary>v4: ortalamada bölümün ağırlığı (zorluk); kapalıyken 1. Referans yoksa orta (bot %50 → 1).</summary>
+        public static double LevelWeight(ZpeLevelRef rf, ZpeConfig c)
+        {
+            if (!c.WeightByDifficulty) return 1;
+            double bot = rf != null ? rf.Bot : 0.5;
+            return 0.5 + Clamp01(1.0 - bot);
         }
 
         /// <summary>Geçmişten endeks (son Window kayıt, yeniden eskiye Decay^yaş ağırlık).</summary>
@@ -191,9 +216,10 @@ namespace KatKat.Meta
             for (int k = 0; k < n; k++)
             {
                 var r = history[history.Count - 1 - k]; // k = yaş (0 en yeni)
-                var p = Score(r, refOf?.Invoke(r.levelId), c);
+                var rf = refOf?.Invoke(r.levelId);
+                var p = Score(r, rf, c);
                 totals[k] = p.Total;
-                double w = Math.Pow(c.Decay, k);
+                double w = Math.Pow(c.Decay, k) * LevelWeight(rf, c);
                 ws += w;
                 acc += w * p.Total;
                 avg.Efficiency += w * p.Efficiency; avg.Difficulty += w * p.Difficulty; avg.FirstTry += w * p.FirstTry;
@@ -203,7 +229,7 @@ namespace KatKat.Meta
             }
             res.Count = history.Count;
             res.Calibrating = history.Count < c.MinLevels;
-            res.Score = (int)Math.Round(acc / ws * c.Scale);
+            res.Score = (int)Math.Round((acc + c.Prior * c.PriorWeight) / (ws + c.PriorWeight) * c.Scale);
             avg.Efficiency /= ws; avg.Difficulty /= ws; avg.FirstTry /= ws; avg.Time /= ws; avg.NoAssist /= ws;
             avg.Total = acc / ws;
             res.Average = avg;

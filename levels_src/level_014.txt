@@ -1,15 +1,15 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 4 + 3 tepsi / sınır 7; rastgele 0,050; açgözlü kaybeder; yumuşak 0,08
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil zikzak; çözüm 4 + 3 tepsi / sınır 7; rastgele 0,070; açgözlü kaybeder; yumuşak 0,50
 id: level_014
 moves: 7
 roll: off
 specials: on
-goals: blue 31, yellow 28
+goals: blue 18, yellow 20
 grid:
-bc    bc    yc    yc    cy    yb    yb
-bb    bc    yb    cy    cy    yc    yy
-cy    bb    yb    yc    cc    by    by
-cc    cb    bc    cb    bb    cc    yb
-cc    cc    bc    bb    yb    yb    yc
-bb    by    yb    yy    cy    yy    by
-cb    by    cb    cc    by    cc    cc
-solution: 0,3 ; 2,1 ; use 1,0,0 ; 2,0 ; 4,4 ; use 1,0,0 ; use 1,5,0
+bb    by    cb    bc    yc    cc    #
+#     cc    bb    cc    by    cy    cy
+yc    by    cy    yy    cb    bc    #
+#     cc    cy    yc    bc    bc    bc
+cy    cb    yc    yb    cy    cy    #
+#     bc    bb    cb    bb    cc    cb
+bc    yc    yy    yy    yy    yy    #
+solution: 4,1 ; 3,0 ; 1,2 ; use 0,0,0 ; 2,2 ; use 1,1,0 ; use 0,0,0

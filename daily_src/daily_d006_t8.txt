@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 866 + tür resource; şekil artı; çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 866 + tür resource; şekil U (ayna); çözüm 14 + 10 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: daily_d006_t8
 title: Günlük 6
-moves: 8
+moves: 14
 roll: on
 specials: on
 type: resource
 rules: exact
-goals: blue 37, yellow 39, purple 26, sponge 2
+goals: blue 51, yellow 28, navy 28
 grid:
-#     #     ycpc  bbpc  gbpc  gcpy  #     #
-#     #     ycpy  ygyc  ybpb  gcpb  #     #
-bygy  cygy  gbpy  ggpy  bbpp  bnyb  bypn  pypn
-bpyy  bypy  bypy  yycb  yyyp  bbyp  bbpy  pbpn
-gppb  gypy  cycy  cycb  yyyb  bcyb  bbyb  bbpySgb
-gbgb  nbgb  nycg  yyng  ngyb  ncyb  bbnb  bbny
-ypggLg5 ybggSpy yycp  ybgg  gbgg  bcyb  bpnb  bpnb
-#     #     gygp  gpbn  gpgn  gcgb  #     #
-#     #     gpgpLy5 ppgn  ppgb  ppgb  #     #
-solution: 3,3 ; use 0,2,0 ; 2,1 ; 2,0 ; 3,0 ; use 2,7,2 ; 5,2 ; use 0,4,1 ; 2,2 ; use 2,1,2 ; roll 2 ; use 0,3,0 ; 6,2 ; use 0,5,0
+bbc   nnb   pnb   #     #     ppb   pbb   bcp
+bcc   nnc   nnc   #     #     ppb   ppci2 bcc
+bcci1 bcb   bcc   #     #     ycb   bpb   bcb
+bcc   bcb   bbc   bbp   ybp   ycp   ybb   bpb
+ypb   ypb   ypbi2 cpy   cnb   cnn   nbcR  npb
+nnn   ycb   ypb   ypb   ppb   bnb   byn   npn
+nbn   ycn   ypc   ypc   pppi1 ypb   yyni1 pbn
+nbyi1 cyy   cyc   nyp   ppp   ypp   ccyR  cypR
+npb   cyb   cyb   npn   ppn   ypn   ybc   cbci1
+solution: rot 6,4 ; 1,2 ; 5,0 ; 0,0 ; use 0,1,1 ; use 0,0,0 ; 0,4 ; use 0,6,3 ; 7,3 ; use 0,1,0 ; 1,5 ; 4,5 ; 1,5 ; roll 3 ; use 0,0,0 ; 5,2 ; use 0,5,0 ; roll 1 ; 5,0 ; roll 3 ; use 0,6,0 ; use 0,7,0 ; use 0,7,0 ; use 0,0,0

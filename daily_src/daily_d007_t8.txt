@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 879 + tür order; şekil dikdörtgen; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 879 + tür order; şekil T; çözüm 9 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d007_t8
 title: Günlük 7
-moves: 8
+moves: 9
 roll: on
 specials: on
 type: order
 rules: exact
-goals: coral 32, purple 45, blue 26, envelope 3
+goals: purple 23, coral 34, navy 19, envelope 3
 grid:
-gppn  gppn  cpnnEc ngpc  bcpc  gybc  gnpc
-gpbn  gcnn  cgng  ngbcLp3 bybg  pybc  pnpc
-bpbn  bcbn  ccnpEc bgcnR bgng  cppn  pybn
-nycy  nnyy  npgp  nppcR ygpy  cppy  ppbb
-gycy  gnyp  pngp  cppy  cpgy  pppy  ppbb
-pyny  pnnp  pbnp  pbpy  cggcLp5 pgpc  pppc
-ycnc  ycnc  bynp  bbny  pgny  pgnn  bppc
-ycnc  gcny  gyby  gbby  pgby  ngpn  bppc
-gcnb  gcny  gbnp  cbbp  cbbp  ngpc  npccEn
-solution: 2,3 ; rot 3,2 ; 3,0 ; use 0,6,0 ; 4,3 ; use 0,3,0 ; use 0,5,0 ; 3,0 ; 3,3 ; use 0,4,0 ; 1,5 ; use 0,4,0 ; 0,0 ; use 0,2,2 ; use 0,0,0
+byn   byn   pbb   ypb   ybb   ybb   ypb
+byp   yyc   cbc   ybc   ybc   ybc   cpcEb
+ypy   pnc   ccc   ycpLn3 ycc   ycc   nyc
+ppy   pnn   cpn   cpp   nbp   nby   nycEb
+cpy   cnpLn3 yyy   yyc   pbc   nbc   nyy
+cpb   cnp   nyp   yycEp pbp   nbp   yny
+#     #     npy   cpy   pcy   #     #
+#     #     ncy   cby   ybn   #     #
+#     #     ycy   ycy   ycn   #     #
+solution: 2,0 ; use 0,0,3 ; 1,1 ; use 0,0,0 ; 1,2 ; 2,4 ; use 0,3,0 ; 2,2 ; 4,3 ; use 0,4,3 ; 2,0 ; use 0,2,1 ; 4,4 ; 3,0 ; use 0,6,0 ; use 0,2,7 ; use 0,3,7

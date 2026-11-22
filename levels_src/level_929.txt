@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil zikzak; çözüm 7 + 4 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; YEDEK: kısa;
 id: level_929
 moves: 8
 roll: off
 specials: on
-paint: 1
-goals: yellow 28, purple 30, coral 19, sponge 1
+paint: 2
+goals: purple 18, yellow 32, navy 5, sponge 1
 grid:
-bybc  bnbc  ynpg  ybpy  #     #     #
-gybcK1:1 ybnp  ynbg  ybby  #     #     #
-gbpy  ybpg  ynbg  ybbn  #     #     #
-cbpp  gbpc  gbpnSyn gypn  #     #     #
-cbcp  gbpcK1:1 gnpgK1:1 gycg  nbcg  nbcy  ncpy
-cbcp  bncn  bngn  bync  bypg  nbpy  bppp
-cbcg  yncg  nbgg  nbnc  bbpb  nbgb  nppp
-ypgy  ypgy  yggn  bbgn  bcpb  ncgy  nbpy
-yyyy  ppyy  pgyy  ppbn  nppn  nbgn  nbpn
-solution: 0,7 ; use 0,0,5 ; 2,4 ; use 0,0,0 ; 0,3 ; 2,4 ; use 0,0,3 ; use 0,3,0 ; 1,4 ; 6,4 ; 2,0 ; use 0,2,0 ; use 0,0,4 ; 0,0 ; use 0,0,0
+#     G1:yb G1:pb G1:yb G1:yb yb    yp
+yy    yy    cy    cy    cb    yb    #
+#     cc    pc    pc    py    pb    yy
+cp    cb    yb    yy    cy    cy    #
+#     cb    bn    yn    cy    cy    cb
+by    by    by    ynB1  pp    by    #
+#     pb    by    bn    py    by    pb
+pb    pb    by    by    pnSn  bp    #
+#     cb    cc    cc    pp    bp    ny
+solution: paint 4,6,n ; 2,4 ; 4,2 ; 1,3 ; use 1,6,0 ; 1,0 ; 1,0 ; use 0,4,0 ; 2,1 ; use 0,2,0 ; use 0,0,1

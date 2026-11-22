@@ -1,16 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U; çözüm 9 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L; çözüm 8 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_805
-moves: 10
+moves: 9
 roll: off
 specials: on
-goals: green 23, blue 29, yellow 29, sponge 1
+goals: blue 19, purple 24, coral 22, envelope 3
 grid:
-pcpp  gcyb  ggpb  #     #     nnyy  nyyn  nyyn
-pgpp  pgyp  ggpb  #     #     nyny  nynb  nyyb
-cgyn  cgyn  cngg  pccg  pcng  bgynR bynb  bynb
-pgyp  cnpn  cncb  cccb  pbny  ygyy  bnyg  bnpg
-pnbn  pnbnSbc cnnb  cncg  bpny  ypby  bnby  ynpy
-cyyb  ynbn  yngg  cngg  bnyp  byyn  pcbn  pnpn
-cybb  gybn  gnbb  yngb  bgbyR cgyn  ccbn  pgpn
-ccnb  ccbb  gycc  yycb  pygb  cyyc  pcpc  pgpc
-solution: rot 5,2 ; 5,5 ; 5,0 ; use 1,1,0 ; 3,4 ; use 0,0,4 ; 0,2 ; 0,4 ; use 1,1,0 ; 0,2 ; 0,0 ; use 0,2,0 ; use 1,1,1 ; 2,0
+cy    cy    nn    nn    nn    #     #     #
+cy    cy    cc    nn    pn    #     #     #
+pp    cp    pp    pc    pc    #     #     #
+py    yn    yp    pc    cpR   bn    bn    cy
+cy    yn    pp    pc    cc    bn    by    cy
+cy    pn    pn    pc    bbEb  pc    pc    cyEc
+cb    yb    yb    nb    bpR   pc    yp    yn
+cbEy  nb    nb    nb    bb    bp    bp    bp
+solution: rot 4,6 ; 3,2 ; use 0,0,0 ; 1,6 ; 0,2 ; use 0,0,0 ; 5,5 ; use 0,2,0 ; use 0,5,3 ; 7,3 ; 7,3 ; 2,4 ; use 0,4,0

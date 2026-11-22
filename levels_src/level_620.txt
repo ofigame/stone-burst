@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil elmas (ayna); çözüm 12 + 7 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kum saati (ayna); çözüm 8 + 6 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_620
 moves: 12
 roll: off
 specials: on
 type: boss
-rules: scarce, exact
-goals: yellow 22, blue 14, coral 24
+rules: scarce
+goals: coral 37, navy 17, purple 31
 grid:
-#     #     #     G1:cpyn G1:gyyn #     #     #
-#     #     cggc  cpyn  cyyn  gcnn  #     #
-#     pngb  yngc  ypgg  ppgg  gynn  gpcn  #
-cpbp  pnbp  bpcp  ppgp  pcbc  pcbc  cycb  pbcy
-cpcn  cncn  ynyn  gcgc  gcbc  pccc  bpyg  pbcb
-#     cbbn  bbbn  gbycB1 bccpR bccy  bccy  #
-#     #     bgpc  bgpc  bybgR bycy  #     #
-#     #     #     gygn  gyyn  #     #     #
-solution: rot 4,5 ; 5,5 ; 4,3 ; 0,4 ; use 1,1,5 ; 4,3 ; 4,3 ; 3,4 ; use 2,0,4 ; 3,0 ; 3,0 ; use 2,1,2 ; use 0,4,0 ; 1,2 ; 3,0 ; rot 4,6 ; use 0,5,1 ; use 0,3,7 ; use 0,2,2
+cyc   ppc   G1:pyb G1:pyc G1:bpc bpc   bpc   ypc
+pyc   pyc   pyb   pyn   byn   byc   cpc   ypc
+#     ycy   ycb   cpb   npn   ppc   bbb   #
+#     ypy   ncb   npn   npn   pnb   pnb   #
+#     ynb   nnb   cny   cpn   cnc   cpc   #
+#     ybnR  yybB1 yny   bcnR  bpb   bpc   #
+cpc   bpb   byb   bnn   cncR  cpy   pbb   pbb
+cpc   bpp   ybb   cbn   bpn   ppc   pbc   pbc
+solution: rot 4,6 ; 2,1 ; use 0,0,0 ; 3,1 ; 0,0 ; 1,0 ; use 0,1,0 ; use 0,0,0 ; 3,4 ; 4,2 ; use 1,2,1 ; 4,5 ; use 1,0,7 ; use 0,3,0

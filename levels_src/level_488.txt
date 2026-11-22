@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil kenar çentikleri; çözüm 9 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil T (ayna); çözüm 8 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_488
-moves: 9
+moves: 8
 roll: off
 specials: on
 type: order
 rules: exact
-goals: navy 29, yellow 23, coral 25
+goals: blue 22, coral 18, yellow 24
 grid:
-ypnp  gpcp  #     bnng  bnnb  #     bcyc  cbyc
-ybnp  ybnb  #     ybpgk2 ynng  #     bcyc  pbnc
-ypnn  pbgy  bbpy  bbpy  pnnc  pcnp  pcyp  pbcnLg4
-gpgn  ppgn  bbpg  bgpg  bgyg  bbcn  pbcnk2 pbcn
-#     cgbg  bgyg  bgpn  bgyg  pbyb  pbcb  #
-#     ycbg  ygcg  ygcn  bgcn  ygcb  ygcy  #
-nynp  bpgp  gpcp  ygbn  yggnk1 nycck1 ngcyk1 nnpb
-bygc  bpgg  gnyg  ygbg  ngbnLg4 nncc  nncy  pnpb
-bygc  #     ypygk1 ypbc  ngbc  nnby  #     pnpb
-solution: 2,3 ; 5,4 ; use 0,6,0 ; 7,1 ; use 0,6,0 ; 6,5 ; 3,4 ; 0,7 ; use 1,7,0 ; 6,0 ; use 1,0,1 ; 0,1 ; use 0,4,0 ; 4,5 ; use 0,4,0 ; use 0,5,2 ; use 0,6,0
+pc    yc    yn    yn    yn    bb    bn    bnG
+pp    nb    nb    nb    nb    nb    nbG   nnG
+pp    ny    np    ny    ny    bpR   bnG   nnG
+ybLc3 by    bp    cy    cc    cc    bcG   ycG
+bb    ypR   yn    cb    cc    cp    yc    yy
+cb    yy    yn    cb    cbLc3 bp    bc    by
+#     #     yp    yb    pc    bc    #     #
+#     #     cp    yp    pc    by    #     #
+#     #     yb    yb    py    by    #     #
+solution: rot 5,2 ; 5,0 ; 4,3 ; use 0,0,5 ; 4,3 ; use 0,5,0 ; 2,6 ; 1,5 ; use 1,1,2 ; 2,0 ; use 1,0,0 ; 1,0 ; use 0,0,4

@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 115 + tür protect; şekil kenar çentikleri; çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 115 + tür protect; şekil dalga; çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d030_t3
 title: Günlük 30
-moves: 8
+moves: 7
 roll: on
 specials: on
 type: protect
 rules: protect, exact
-goals: purple 35, coral 31, green 26
+goals: purple 27, coral 33, navy 31
 grid:
-pcpb  pcpb  bypP  byc   #     #     pgc   pgc
-bbp   bcpp  byp   byc   gby   gby   pbbpi1 ybcp
-gbbp  gbbp  pyp   pygg  pbgg  gbgg  bpb   ygbP
-gpbi1 gbb   bygb  cypg  pcpc  gcgc  bpbp  pgyp
-bcbb  yggbi2 cbgb  cbp   cbp   bybp  ppg   pgyp
-bccb  ygyp  cbp   cgpb  bbb   bbbp  ppb   #
-cccp  cccp  ccpp  cyy   byy   bbcp  ggc   #
-ccgp  cccp  ycp   bcpp  byy   ypc   ggcc  gbbc
-ccyp  cgy   ygy   bcy   ybpb  ybpb  ygb   gbb
-solution: 1,5 ; 1,3 ; use 0,3,0 ; 4,3 ; use 1,6,0 ; 0,3 ; 4,3 ; roll 3 ; 0,5 ; use 3,6,0 ; 6,2 ; use 3,1,0 ; use 1,3,2 ; use 0,0,6
+cnp   #     pyc   #     pbp   #     cnp   #
+cnp   cyn   pyn   ppnk1 bpc   bpc   cnpk1 byp
+ccp   pcp   pnni1 pnn   ync   cpp   cyb   yybk2
+ccc   yyp   pnp   nnb   bnp   bpp   nyp   ynpP
+cpc   cpy   pcy   ycy   bnp   npc   yyc   yyc
+bby   bcb   bcn   yny   bbn   nbb   yyc   npy
+bby   nnb   nnn   nny   ynb   ybb   ncc   npy
+bbyP  ccb   ycbi1 ycb   ynb   ccbk2 ccc   ncyi1
+#     cnpk1 #     nbn   #     ycb   #     pcy
+solution: 0,0 ; use 0,6,0 ; 6,2 ; use 0,2,0 ; 0,0 ; 4,0 ; use 0,6,0 ; 1,3 ; use 0,0,0 ; 3,1 ; 3,3 ; use 1,3,3 ; use 1,0,3

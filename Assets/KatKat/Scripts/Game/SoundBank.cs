@@ -34,6 +34,10 @@ namespace KatKat.Game
         /// Cihazda dinlenip ayarlanacak.</summary>
         public const float TapGain = 0.45f, PopGain = 0.4f, BlastGain = 0.5f;
 
+        /// <summary>Bütün efektlerin ortak düzeyi (kullanıcı, 2026-11-22: "telefonu son sese aldığımda aşırı yüksek çıkıyor sesler.
+        /// Bunu biraz dengeleyelim").</summary>
+        public const float MasterGain = 0.6f;
+
         /// <summary>Dört vuruşlu zincir WAV'ı yüklü mü (yüklüyse hamle başına bir kez çalınır).</summary>
         public bool HasChainWav => _chain4 != null;
 
@@ -54,6 +58,7 @@ namespace KatKat.Game
                 var s = go.AddComponent<AudioSource>();
                 s.playOnAwake = false;
                 s.spatialBlend = 0f;
+                s.volume = MasterGain;
                 b._sources[i] = s;
             }
             b._clips = new[]
@@ -91,6 +96,17 @@ namespace KatKat.Game
                         ? (Sine(t, 1568f) * 0.32f + Sine(t, 2093f) * 0.28f + Sine(t, 2637f) * 0.22f + Sine(t, 4186f) * 0.08f) * Decay(t - 0.07f, 5.5f)
                         : 0f;
                     return (hit + bell) * Attack(t, 0.002f) * 0.26f + Noise(t) * Decay(t, 160f) * 0.05f;
+                }),
+                // 2026-11-22 bomba / süre bitişi: alçalan alçak ton + gürültü gümbürtüsü.
+                Make("boom", 1.1f, (t, d) =>
+                    (Sine(t, Mathf.Lerp(95f, 38f, t / d)) * 0.7f * Decay(t, 3.2f) + Noise(t) * Decay(t, 7f) * 0.45f + Noise(t) * Decay(t, 40f) * 0.3f)
+                    * Attack(t, 0.004f) * 0.5f),
+                // 2026-11-22 kalp atışı: "lüp-düp" iki alçak vuruş.
+                Make("beat", 0.42f, (t, d) =>
+                {
+                    float a = Sine(t, 62f) * Decay(t, 16f) * Attack(t, 0.003f);
+                    float b2 = t > 0.17f ? Sine(t, 55f) * Decay(t - 0.17f, 18f) * 0.7f : 0f;
+                    return (a + b2) * 0.6f;
                 }),
             };
             // V16 (kullanıcı 2026-11-18: docs/yeni_v1/sesler "bu sesleri kullanalım"): dokunma, taş patlaması, büyük hamle.

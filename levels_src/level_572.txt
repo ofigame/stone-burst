@@ -1,16 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven (ayna); çözüm 8 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U (ayna); çözüm 7 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04; YEDEK: kısa;
 id: level_572
 moves: 9
 roll: off
 specials: on
-goals: blue 27, coral 17, yellow 16
+goals: coral 23, purple 18, navy 26
 grid:
-#     #     #     #     pgnp  ygnp  bynn  bynnK1:2
-#     #     #     pgnn  pgnp  ygbp  bgcn  gycn
-#     #     cnyn  cggn  pbgg  ygbg  bpgg  gpcb
-#     pnbgR cnyb  byygR gggy  ggbb  bggg  gycb
-pbgy  pngb  cccb  pycy  ggcy  gbny  bgngK1:2 gynb
-pbcy  nncy  nnbp  pngp  bcgc  bbgc  bpbg  gppb
-pgcb  nnbyK1:2 pcbb  pnbp  bbgc  bbgg  gppn  cypn
-pgbgR bcbb  pcbb  gnbb  bccc  gycg  gycg  cygg
-solution: rot 0,7 ; 2,5 ; 2,3 ; use 0,2,3 ; 2,4 ; 4,2 ; use 1,2,4 ; 7,2 ; use 0,7,0 ; use 0,3,3 ; 1,6 ; 1,5 ; use 1,5,0
+cy    nn    bn    #     #     nc    ny    nb
+cy    ny    bn    #     #     pcK1:1 pc    yb
+pn    py    cn    cy    cy    yn    pn    yb
+pp    cp    cn    cb    cbK1:1 yn    pyK1:1 yy
+cp    cp    cn    yb    cb    yb    pc    yc
+pb    pb    yb    yy    cn    nn    nc    bc
+ny    yy    yy    yy    pn    nn    nc    bc
+np    yp    yb    yn    pn    pn    pc    bc
+solution: 6,4 ; 4,5 ; use 0,0,0 ; use 0,1,2 ; 1,0 ; 2,2 ; use 1,1,0 ; 5,0 ; 5,1 ; use 0,0,0 ; 3,3 ; use 0,0,3

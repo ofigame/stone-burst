@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 733 + tür pure; şekil merdiven; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 733 + tür pure; şekil kenar çentikleri; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d026_t7
 title: Günlük 26
 moves: 9
@@ -6,15 +6,15 @@ roll: on
 paint: 1
 type: pure
 rules: noSpecials, exact
-goals: purple 30, yellow 25, navy 30, envelope 3
+goals: coral 38, navy 25, yellow 29, sponge 2
 grid:
-npnn  npnn  nngn  #     #     #     #
-nggn  pggn  nngn  pygn  #     #     #
-nppn  gppn  gngn  gygy  pyny  #     #
-nppn  gppy  gnpy  yyny  ppnp  gpnp  #
-ygpn  ggpn  gnpp  ynpp  ynpp  ynnp  ygnp
-ygnn  ygpn  ygpy  yppg  ppgg  gpnp  ygpp
-ggny  ygpn  ypyy  pnny  pngy  gnng  ygpg
-ggpyEn ygpy  yyygEp nyny  pyny  ynpy  ynpp
-gggy  pgpg  pgyg  nyngEg yyny  yypy  ynpy
-solution: 2,5 ; roll 6 ; 0,0 ; 0,2 ; 4,3 ; 2,7 ; 2,6 ; roll 3 ; 0,2
+cc    cc    yc    yc    yc    yn    yn
+cc    cc    cn    yy    cc    cn    yn
+cc    nc    nn    yc    yc    cc    cc
+yc    ny    yn    yc    yc    #     #
+#     ny    yn    yn    cn    cnSnc cn
+nn    ny    nn    cn    cn    #     #
+yn    yy    yc    cc    cc    #     #
+nnSnc ny    yy    yn    yn    #     #
+nc    nc    yc    yc    yc    yc    yc
+solution: 2,1 ; 5,0 ; 0,0 ; 2,0 ; 0,8 ; roll 8 ; 1,2 ; 0,0 ; roll 6

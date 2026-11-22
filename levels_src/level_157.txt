@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil T; çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil U (ayna); çözüm 8 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_157
-moves: 9
+moves: 10
 roll: off
 specials: on
 type: protect
 rules: protect
-goals: purple 14, green 28, yellow 21
+goals: navy 19, blue 24, star 3
 grid:
-pgy   ycyg  gcgLb3 gcbg  bcbg  pbp   bby   bpyP
-pgyP  ygyg  gggb  gyg   bcpg  pbp   pbc   bycb
-ccbc  ycb   ggbb  ggpg  bcgg  byg   bgc   bycb
-ccbc  ypbc  ccpb  ccp   pcg   gyp   pgc   pycb
-ypg   ypg   cpcp  pcc   pbgc  pbp   pyyy  pyyy
-cyg   gygg  gyg   gbg   cbbc  cbbc  cyyc  byyb
-#     #     gcy   bcg   ygb   ybbb  #     #
-#     #     ypyc  ypyc  cgbc  ccb   #     #
-#     #     ygb   ggb   ycbc  ycbc  #     #
-solution: 3,0 ; use 0,3,0 ; 0,4 ; use 0,5,0 ; 0,2 ; use 0,1,0 ; 0,4 ; 6,4 ; use 0,1,0 ; 1,0 ; use 0,0,3 ; 7,3 ; use 0,6,0 ; 6,3
+py*   pn    pn    #     #     pc    py*   py
+pbP   pb    pn    #     #     yc*   yy    yn
+pb    yb    ny    #     #     bb    yb    bn
+pb    py    ny    cn    cn    yb    bb    bn
+pb    py    nb    yb    yb    yy    yn    yb
+bn    pb    yb    yb    nc    cy    yn    ybP
+yn    pn    nn    pn    py    cy    yb    yb
+yn    bb    nnLy5 pp    cy    cy    pc    pc
+bp    bn    bn    bp    nb    nb    pb    pb
+solution: 5,4 ; 0,5 ; use 1,1,0 ; use 0,5,0 ; 6,0 ; 5,0 ; use 0,0,2 ; 0,3 ; use 0,0,0 ; 0,0 ; 3,6 ; 1,7 ; use 0,0,3

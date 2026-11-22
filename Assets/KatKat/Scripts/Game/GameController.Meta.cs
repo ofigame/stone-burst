@@ -136,7 +136,9 @@ namespace KatKat.Game
             _zpeBefore = before.Calibrating ? -1 : before.Score;
             _zpeLastOutcome = o;
             // vr1 P0 (02_ZPE): hız bileşeni yalnız karar süresinden (animasyon/öğretici/reklam/modal hariç).
-            Zpe.Add(_save.Data.meta, _zpeLast = ZpeRecord.From(o, DateTimeOffset.UtcNow.ToUnixTimeSeconds()), ZpeRef, _zpeConfig ?? new ZpeConfig());
+            _zpeLast = ZpeRecord.From(o, DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+            if (_level != null && _level.TimeLimit > 0) { _zpeLast.timeLimit = _level.TimeLimit; _zpeLast.timeLeft = Mathf.Max(0f, _timeLeft); } // v4 süreli bölüm
+            Zpe.Add(_save.Data.meta, _zpeLast, ZpeRef, _zpeConfig ?? new ZpeConfig());
             _save.Save();
         }
 

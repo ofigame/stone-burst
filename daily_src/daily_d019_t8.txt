@@ -1,19 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 869 + tür pure; şekil kenar çentikleri; çözüm 17 + 0 tepsi / sınır 17; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 869 + tür pure; şekil dalga; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d019_t8
 title: Günlük 19
-moves: 17
+moves: 9
 roll: on
-paint: 2
 type: pure
 rules: noSpecials, exact
-goals: purple 24, yellow 34, navy 20, star 4
+goals: blue 22, purple 39, yellow 38, star 4
 grid:
-nnpn  G1:nnpn G1:nncn npyy* G1:nyyy G1:ncny ncyy  ncyy
-#     #     ypcn  ypyp  pyyp  pcnp  #     #
-#     #     yppy  cpny  yyny  pnnp  #     #
-cypnB1 cypn  yypc  cpcn  yyny  yync  cpyc  cpyy
-#     #     cycc  cycc  pyyy* pynn  #     #
-nnyy  nnyc  cyyc  pcyy  ppyy  pyyy  ypyn* ypyn
-cnpy  #     #     pcyp  ypcp  #     #     ypyn
-cnpy  #     #     ypcp  ypcp  #     #     ppyn*
-solution: 6,5 ; 3,1 ; 3,0 ; 6,5 ; 4,4 ; roll 3 ; 5,1 ; roll 7 ; 4,1 ; 4,4 ; 3,1 ; 0,3 ; roll 3 ; 0,0 ; 3,0 ; roll 0 ; 0,0
+yby   #     G1:ybp #     G1:yyb #     G1:bpp #
+ypy   ypp*  ypp   bpp   yyp   yyy   bpp   bbp
+yby   pby   bpy   bpy   ppp   pbp   bbp   byp
+yyy   yby   bpp   ppp   ppp*  bpp   bpp   byp
+pyy   pbp   pyp   yyb   yyp*  byp   ppp   bppK1:2
+pyy   pbyK1:2 pypB1 yyp   yyb   yybK1:2 ppp   bpy
+pyy   pyb*  pyb   yyb   ypb   ppb   pyp   byy
+#     pyb   #     yby   #     ypy   #     ppy
+solution: 1,1 ; roll 4 ; 0,0 ; 0,1 ; roll 1 ; 6,1 ; roll 3 ; 3,4 ; 0,5

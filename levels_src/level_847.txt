@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil U (ayna); çözüm 8 + 8 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil U (ayna); çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_847
 moves: 8
 roll: off
 specials: on
 type: exact
 rules: exact
-goals: blue 47, green 49, yellow 37, star 3
+goals: blue 35, purple 48, coral 24, star 3
 grid:
-ynpy  ynpy  ccnn  #     #     pcgy  pcgc* pcgg
-bpyb  bnpy  gnnn  #     #     gccy  gcyc  pcyg
-bbpy  gnny  gnnn  #     #     gbyy  gbyy  gbyy
-gbpy  gbnn  gynn  byny  bgny  gbcc  gpcc  gpby
-gbng  gynn  cync  ngnb  ygnb  gbgb  cbbb  cbbp
-ycng  gcpc  ccyc  cgbb* ygnb  cggg  cgbb  bgbb
-ybpg  ycpp  ncpp  cyby  ybnb  cgbg  cgbg  ggbb
-ybpg  ncbp  ncby  nyby  ybby  gbgg  gbbb  ggbb
-cbpg  cbbg  ccbg  yygc  gygc  gygc  gybb  gybb*
-solution: 3,4 ; 6,4 ; use 0,0,0 ; 5,4 ; 2,0 ; use 0,0,1 ; 4,3 ; use 0,6,0 ; 0,4 ; use 0,0,1 ; 2,0 ; use 0,5,2 ; use 0,5,0 ; use 0,7,1 ; 5,0 ; use 0,0,0
+ppy   cpy   cpn   #     #     ccb   ycc   ycp
+ppp   ppy   cpn   #     #     ccc   cbc   cbp
+npp   pyp   ppp   #     #     ccb*  cbb   cbp
+nyb   nyb   ppp   npy   nby   pbb   pyb   nyb
+nyb   yyb   pyp   pnn   nny   pyy   pyb   nyb*
+yyb   yyb   nnp   nnp   nyc   pyy   nyy   pyy
+ypb   npn   nbb   nbc   byc   pyb*  nyb   pyy
+npy   ncn   npb   nnc   bnb   byb   cnp   cpy
+npy   npb   ypb   yyc   yyb   ypb   ypp   bpp
+solution: 3,3 ; use 0,5,0 ; 6,3 ; use 0,7,0 ; 5,0 ; 6,1 ; 5,0 ; use 0,7,0 ; 0,0 ; 0,0 ; 4,5 ; use 3,2,0 ; use 0,0,0 ; use 0,1,0 ; use 0,5,3

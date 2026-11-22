@@ -972,9 +972,24 @@ namespace KatKat.Game
                     _celebrationScore = s.Score;
                     StartCelebration();
                     break;
+                case GameStatus.LostProtected:
+                {
+                    // 2026-11-22: soyulan yasak yığınlardaki bomba patlar, sonra kayıp kartı.
+                    SetPhase(Phase.Ended);
+                    var hit = new System.Collections.Generic.List<Coord>();
+                    if (_lastResult != null)
+                        foreach (var w in _lastResult.Waves)
+                            foreach (var c in w.Cells)
+                                if (s.Board[c.X, c.Y].Protected && !hit.Exists(h => h.X == c.X && h.Y == c.Y)) hit.Add(new Coord(c.X, c.Y));
+                    if (hit.Count == 0) { ShowLost(s.Status); break; }
+                    _sound.Play(Sfx.Boom);
+                    Haptics.Strong();
+                    var status = s.Status;
+                    _board.ExplodeBombs(hit, () => ShowLost(status));
+                    break;
+                }
                 case GameStatus.LostOutOfMoves:
                 case GameStatus.LostNoLegalMoves:
-                case GameStatus.LostProtected:
                 case GameStatus.LostHazard:
                     SetPhase(Phase.Ended);
                     ShowLost(s.Status);

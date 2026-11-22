@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U (ayna); çözüm 18 + 0 tepsi / sınır 18; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe (ayna); çözüm 11 + 0 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_640
-moves: 18
+moves: 15
 roll: off
 type: boss
-rules: noSpecials, exact
-goals: coral 42, green 35, yellow 36
+rules: noSpecials
+goals: yellow 16, navy 13, blue 26, sponge 2
 grid:
-yyyp  G1:gypp G1:gcyy #     #     G1:cygc G1:gygg gyyg
-yyyp  ccpc  ccyyk1 #     #     pypc  pygc  pyyg
-cypp  ygcc  cgcyk1 #     #     pypy  ppppk1 pgyg
-cypp  yppg  cpcc  yppc  pgpy  gypy  gygpB1 pgcp
-cppp  ycgg  cycg  yycg  yycy  pycy  ccgp  cgcg
-cpyp  ypgg  ypcg  cycg  pygy  pcgy  cccy  cccg
-cypp  yyppk2 yygy  cycy  cycg  ycgg  pccy  pccg
-cppp  gcpp  gcgg  ccgp  cccg  yggg  ygyy  pgcg
-cpgc  cygck1 cpgg  cpgp  cpgc  cggc  ygyy  ygyy
-solution: 5,2 ; 1,3 ; 6,7 ; 5,2 ; 6,3 ; 2,3 ; 5,7 ; 5,2 ; 7,0 ; 6,4 ; 3,5 ; 0,0 ; 0,2 ; 0,0 ; 1,1 ; 2,0 ; 1,2 ; 5,0
+#     #     G1:nbb G1:bbb bpySp G1:npn #     #
+#     bbb   nbb   bnb   bny   npn   ypn   #
+bpp   bpb   ypb   bpy   bnn   byn   yyb   nyb
+bpp   bpp   ypp   bpb   bnn   bbn   ybb   yyb
+pyp   byb   nyb   pyb   yny   yny   ypb   ypb
+pypSn byn   nyp   pypB1 pyn   pnp   ypp   ypp
+pbp   bbn   ybn   ypn   bpn   ypp   ypp   ypp
+#     bpn   bpb   ybb   bnb   nnp   npp   #
+#     #     bbb   bbb   bbb   nyb   #     #
+solution: 1,5 ; 6,2 ; 6,4 ; 6,2 ; 3,3 ; 1,4 ; 0,2 ; 5,0 ; 5,0 ; 2,0 ; 6,1

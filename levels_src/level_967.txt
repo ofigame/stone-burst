@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil merdiven (ayna); çözüm 19 + 10 tepsi / sınır 19; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil dalga; çözüm 9 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_967
-moves: 19
+moves: 10
 roll: off
 specials: on
 type: scarce
 rules: scarce
-goals: blue 29, green 31, coral 26, envelope 3
+goals: coral 20, blue 18, yellow 23
 grid:
-#     #     #     #     ngcy  ngny  gcnb  gbnp
-#     #     #     bcnp  nbcy  ncby  ncnc  ncnp
-#     #     bncn  cbnp  gbpc  gcbc  ncnc  ncnp
-#     bncg  bncn  ygcp  ygpcEp ygpn  gpnc  gnbb
-gpng  gnng  bgcb  ggng  ccnpEg npny  bpby  cnny
-gbnn  bnnn  bgnc  bbpg  ccpp  cgcb  ngcy  nncyEg
-pbgn  bbgy  bppn  bgpn  gppp  cppp  ccgn  gcny
-pygn  pyyy  bpyy  ggpy  ggpp  gggp  gcgn  gcgb
-solution: 4,5 ; use 0,3,1 ; 6,1 ; 4,2 ; use 1,6,0 ; use 0,0,5 ; 6,0 ; use 0,6,0 ; 5,5 ; use 0,6,0 ; 0,4 ; 3,1 ; use 0,3,1 ; 2,2 ; 1,4 ; 3,1 ; 1,6 ; 0,5 ; 4,0 ; use 1,5,1 ; 4,0 ; 7,0 ; 5,0 ; 5,7 ; 0,7 ; use 0,1,3 ; 0,6 ; use 1,0,4 ; use 0,7,0
+#     yn    #     bn    #     np    #     yn
+cn    yn    byLn4 bn    yn    cc    cc    cc
+cn    ynLb4 yy    by    yn    py    nn    pc
+cn    by    by    cn    yn    py    nn    pb
+yn    cn    by    ny    cn    cy    bp    pb
+cn    ny    ny    nb    np    ny    cp    cp
+bp    bp    bc    yc    yp    bb    bb    by
+bp    #     cc    #     yp    #     bn    #
+solution: 1,0 ; 3,0 ; 1,0 ; use 0,0,1 ; use 0,0,1 ; use 0,3,0 ; 5,1 ; 7,2 ; use 0,7,0 ; 5,6 ; 4,5 ; 3,6 ; 3,4 ; use 0,0,5

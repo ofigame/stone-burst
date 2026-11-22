@@ -28,6 +28,18 @@ namespace KatKat.EditorTools
             const int W = 1080, H = 2340;
             // KATKAT_V14_COUNT=10: yalnız ilk N bölüm (ileri örnekler atlanır).
             int.TryParse(Environment.GetEnvironmentVariable("KATKAT_V14_COUNT"), out int only);
+            // KATKAT_V14_LIST="2,41,45": yalnız bu bölümler (2026-11-22).
+            var list = Environment.GetEnvironmentVariable("KATKAT_V14_LIST");
+            if (!string.IsNullOrEmpty(list))
+            {
+                foreach (var t in list.Split(','))
+                {
+                    int ix = int.Parse(t) - 1;
+                    GameCapture.ShotPublic($"v14/liste_{ix + 1:0000}.png", W, H, gc => gc.StartLevel(ix));
+                }
+                Debug.Log("[KatKat] v14 liste yakalaması tamam");
+                return;
+            }
             for (int i = 0; i < (only > 0 ? only : 30); i++)
             {
                 int ix = i;

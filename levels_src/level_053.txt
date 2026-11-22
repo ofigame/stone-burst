@@ -1,16 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe; çözüm 6 + 6 tepsi / sınır 8; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L; çözüm 8 + 8 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_053
-moves: 8
+moves: 11
 roll: off
 specials: on
-goals: blue 38, yellow 19, star 3
+goals: blue 21, yellow 44, coral 42
 grid:
-#     #     pbc   pcc   ppc   pcp   #     #
-#     pby   pbc*  bcp   bpb   ppc   byck1 #
-bcy   bcy   pcy   ycpk1 ycbk1 ycc*  bpp   ypp
-ccc   ccc   pcb   pbb   ccb   ycp   bpp   bpp
-ccc   ccp   cbp   yyb   cyb   byp   byp   byp
-pcc   ppp   ppb   cpb   byb   bpp*  byp   bpy
-#     cpp   ppb   ccy   ccb   cbb   bcp   #
-#     #     ppb   pbc   cbc   cbb   #     #
-solution: 2,3 ; 6,2 ; use 0,5,0 ; use 0,1,1 ; 6,2 ; 2,0 ; 3,5 ; use 0,2,0 ; 2,0 ; use 2,5,0 ; use 0,6,1 ; use 0,6,1
+bcp   pyp   ppp   pbp   pcy   #     #     #
+ccc   pyp   ppp   yby   yby   #     #     #
+cbc   cpy   ppy   ybp   ybp   #     #     #
+pby   cyy   pcb   ybb   yypG  yyyG  bbpG  pbc
+pyy   pcy   pcb   ycp   cyy   ypyG  bpp   byc
+pyy   pcc   cyp   ccp   ccy   cyc   pyc   pyc
+byc   bpc   cpy   ypp   ycb   cyb   ccc   pcc
+byc   cyc   cyy   ypc   ypc   cyc   ccc   bcc
+solution: 7,3 ; use 0,4,0 ; 0,0 ; 3,0 ; use 0,0,0 ; 2,0 ; 0,4 ; use 0,0,0 ; use 0,1,0 ; 3,4 ; 1,0 ; use 2,4,3 ; use 0,5,3 ; 6,3 ; use 0,6,3 ; use 0,5,3

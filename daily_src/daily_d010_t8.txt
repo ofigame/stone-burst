@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 863 + tür reverse; şekil çatı; çözüm 8 + 8 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 863 + tür reverse; şekil kesik köşe (ayna); çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d010_t8
 title: Günlük 10
 moves: 8
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: reverse
 rules: exact
-goals: green 24, yellow 44, purple 41
+goals: coral 26, purple 23, blue 35, sponge 2
 grid:
-#     #     #     yyny  yyny  #     #     #
-#     ggyb  ggbb  gbnyK1:1 pynp  pcnp  pcpp  #
-gppp  gpyp  gpyp  gbyy  pcyy  gcng  gbpg  gypy
-gppp  gpbp  bpbp  bnyb  pccy  gccy  pbby  gyby
-ynby  ypby  ycbp  pnbb  pbyy  gbcy  bbbc  cycg
-cnnn  cnnn  ycnp  ynyy  cnyy  nbpy  bbpc  bycg
-ccyc  cnpc  ycyp  ccbp  cnby  cpcy  ppcb  ppcnK1:1
-bbpc  bbpp  ycyb  pcbb  nnbb  nbyb  ybgb  ybgb
-bbgc  bbgp  ycpp  pcpp  bnyp  bbyp  bygp  bygb
-solution: 0,2 ; 3,6 ; 3,0 ; use 0,4,1 ; use 0,1,2 ; 3,0 ; use 0,3,0 ; 5,1 ; use 1,4,1 ; 1,1 ; use 1,3,1 ; 4,6 ; 0,6 ; use 1,3,0 ; use 0,1,1 ; use 0,1,1
+#     #     ybb   cyc   cyp   byp   #     #
+#     yyc   ybc   cbc   cyp   ypp   ypp   #
+byy   byy   ybb   yyc   npp   npp   ypp   cpc
+bny   nny   ybb   yyy   nyy   nby   cbb   cyb
+ycc   ncb   ybb   nyb   nby   nbb   pyb   byn
+ycc   ycc   ybb   ynb   nnb   pny   pny   bny
+cccSbp ccySny nyy   bnc   bnb   pbp   pbp   pby
+#     ncb   ncy   bpc   nnb   pny   pcy   #
+#     #     npn   npn   ncp   pcp   #     #
+solution: 4,0 ; use 0,5,1 ; 2,2 ; use 0,3,0 ; 2,0 ; 1,1 ; 5,3 ; use 2,0,6 ; use 0,0,2 ; roll 7 ; use 0,2,0 ; 2,0 ; use 0,3,0 ; 4,2 ; use 0,7,2

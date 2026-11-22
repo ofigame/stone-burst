@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 232 + tür pure; şekil kenar çentikleri; çözüm 10 + 0 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 232 + tür pure; şekil çatı; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d005_t4
 title: Günlük 5
-moves: 10
+moves: 8
 roll: on
 type: pure
 rules: noSpecials, exact
-goals: navy 42, coral 23, envelope 3
+goals: navy 36, purple 30, envelope 2
 grid:
-ppgc  nggg  pngg  pggg  ggpgk1 ggpn  gppn  gppn
-ppgc  nggg  nnnn  pnnn  pnnn  ggnn  ncng  cccg
-pcgc  pnpc  ppcc  npcc  npnn  gnng  nnng  ngngEn
-pcpc  nnpc  nncn  nncc  gpcnk1 gnng  gncg  ngng
-pcpc  ngcg  npgn  nngcEp nnpg  nccg  gccp  ngcg
-pgpg  pgcg  npgp  nnpp  nnpgk2 ncpn  cccn  nccg
-#     pgcg  nnnc  nnnp  cnpn  ccnn  ccnc  #
-#     #     ncnc  ncnn  gcnn  #     pcpp  pgppEc
-gpnc  gpnc  npnc  gcnc  gnnn  #     pcgn  pcgn
-solution: 6,1 ; roll 4 ; 5,0 ; 0,0 ; roll 8 ; 6,3 ; 2,1 ; roll 8 ; 0,0 ; roll 8
+#     #     #     cc    cc    #     #     #
+#     pc    pp    cp    cc    cc    nc    #
+nc    nc    pc    cn    cck1  nc    nc    nc
+nn    nc    nc    pn    nc    ncEn  ccEc  cc
+pn    cn    cn    nn    np    np    nn    pn
+pp    pp    pn    pn    pnk1  pn    pp    pp
+pc    pp    pp    pp    nc    pc    np    pp
+pn    pn    pn    np    nc    nc    nc    pp
+nn    nnk2  nnk1  np    np    pc    pc    pc
+solution: 4,6 ; 0,5 ; 3,2 ; 3,0 ; 0,4 ; 4,3 ; roll 2 ; 0,3

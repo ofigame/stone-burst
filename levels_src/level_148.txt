@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil U (ayna); çözüm 7 + 7 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil çatı (ayna); çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_148
 moves: 7
 roll: off
 specials: on
 type: reverse
 rules: exact
-goals: coral 27, yellow 41, purple 27
+goals: coral 24, yellow 35, purple 30
 grid:
-gpyc  gpcc  ppcc  #     #     ccb   cybg  bycg
-pgy   ypy   ppy   #     #     ycc   bcb   byb
-pgyg  ygyg  bpyb  #     #     ygc   bycb  bybb
-pybg  yyyp  yyy   yby   ypb   ygcg  pyb   bybb
-byg   yyg   yyy   ybc   ybby  ypp   ppgy  bpg
-bgcg  byp   byp   byb   bby   ypp   ppb   bpgp
-cgc   ggpg  gyp   gpb   byy   gbc   ybc   bby
-cccg  ycg   ypgc  gpcc  yyg   yggg  ygp   ygpc
-ccgg  ccgc  yccc  ycc   pycg  pygg  pbgg  pggc
-solution: 0,2 ; use 0,2,0 ; 0,1 ; use 0,0,0 ; 0,5 ; use 0,2,0 ; 4,7 ; 0,6 ; 4,4 ; use 0,0,0 ; 0,3 ; use 0,0,0 ; use 0,0,3 ; use 0,0,3
+#     #     #     yb    yb    #     #     #
+#     cc    py    yy    yy    yyk2  yyk1  #
+cy    cc    pc    bc    pc    yp    yc    by
+cy    cp    nn    cy    pc    yp    yc    yc
+yp    yp    nn    cy    pp    yp    pc    pb
+yp    yp    bn    cn    nc    nc    yb    bb
+yc    yn    bn    bn    by    pc    bp    bp
+pp    ppk1  yc    yc    bc    pp    pp    ny
+pb    pbk2  yc    yp    np    np    ny    ny
+solution: 1,3 ; use 0,0,2 ; 1,1 ; use 0,1,1 ; 5,6 ; use 0,2,1 ; 7,4 ; 4,2 ; 3,1 ; use 1,2,1 ; 2,3 ; use 2,5,1 ; use 0,3,0

@@ -1,19 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil merdiven; çözüm 16 + 0 tepsi / sınır 16; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dikdörtgen; çözüm 10 + 0 tepsi / sınır 14; rastgele 0,015; açgözlü kaybeder; yumuşak 0,04; gate çıkarıldı;
 id: level_820
-moves: 16
+moves: 14
 roll: off
-paint: 1
 type: boss
-rules: noSpecials, exact
-goals: purple 28, coral 36, navy 37
+rules: noSpecials
+goals: blue 35, yellow 25, navy 35
 grid:
-nnpc  ngpc  ncgc  cngg  #     #     #     #
-nnng  ngng  ncnc  cngg  gppg  #     #     #
-ngnp  ngng  ngnc  npgc  gppc  gnpc  #     #
-ngpp  ngpp  ngnc  npng  npng  gnpc  gggc  #
-ngnn  ngnn  ngpc  nppg  ppcg  pcpn  ncgc  ncpp
-npcp  ppcc  pgcc  nnpn  cncn  pcpp  ccgp  ccgp
-pgcp  pgcc  pgcc  ngpn  cnnp  pcnp  cggg  cgpg
-ggcg  ggcg  ngpg  ngpg  npnc  gcnc  pcgc  ngpg
-ggcc  ngcc  nccg  nccg  ncng  gcng  pcnc  nppg
-solution: 0,7 ; 0,0 ; 7,4 ; 4,7 ; 3,5 ; 5,6 ; 2,0 ; 4,1 ; 2,1 ; 4,1 ; 0,1 ; 0,1 ; 4,6 ; paint 0,1,p ; 0,0 ; 0,0
+bny   bnc   bnn   ynn   cnb   cnb   cby   nby
+cny   bcy   ycn   ycn   ycn   ccb   ncy   nby
+cnc   ynn   nbn   nbn   nyc   ycb   ycc   ycy
+bnc   bnn   byc   nyb   cyb   cnb   cnc   cyy
+bnc   ybc   nbc   nyb   nnb   nnc   nyc   byy
+ybn   nbn   nbn   nbb   bnb   bbb   nbc   bbc
+nnn   ybn   cbn   cnb   bny   bbb   ccc   cnc
+nnn   ycb   ycc   cbc   bbc   bbb   ccn   bnb
+ccy   ycy   yny   yny   ync   bnb   ycb   bnb
+solution: 0,2 ; 2,0 ; 4,0 ; 6,0 ; 2,1 ; 0,0 ; 7,2 ; 1,2 ; 7,4 ; 0,8

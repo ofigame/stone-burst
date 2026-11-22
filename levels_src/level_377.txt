@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil T (ayna); çözüm 28 + 0 tepsi / sınır 28; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil kenar çentikleri; çözüm 10 + 0 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06; döndürmeyle başlar;
 id: level_377
-moves: 28
+moves: 10
 roll: off
 type: pure
 rules: noSpecials, exact
-goals: yellow 22, green 28, envelope 3
+goals: navy 25, yellow 22, coral 33
 grid:
-ygyb  ngyb  nbyb  gbby  nyny  ngny  ggnn  ggyb
-ygnb  yggn  nbgb  gbny  nyny  byny  gyyn  bbgy
-nygb  nggb  nnbb  gnny  nbny  nggn  bgynEn bbgy
-nybg  ngbb  bnnb  gnng  nbnnEb nggg  ngyg  nbgy
-bybg  bbbb  bybb  gbng  ybnnEy ybnn  ngby  gbbg
-nbnn  nbnn  bbny  gnny  gnby  ybby  ngygR ggynR
-#     #     gggb  nnyb  nnnn  gbgn  #     #
-#     #     ggbb  gbyg  nbyb  gbgb  #     #
-#     #     ngbb  nybg  nybb  gnyb  #     #
-solution: 2,5 ; 0,0 ; 0,0 ; 4,0 ; 5,2 ; 4,0 ; 7,1 ; 1,3 ; 0,2 ; rot 6,5 ; rot 7,5 ; 0,3 ; 0,2 ; 0,1 ; 0,0 ; 2,0 ; 1,0 ; 0,5 ; 3,1 ; 7,0 ; 3,3 ; 2,5 ; 4,7 ; rot 7,5 ; rot 6,5 ; 6,4 ; 5,2 ; 3,4
+ccn   ccc   cyc   #     #     cypk1 yyp   yyp
+ycn   cyn   pyc   pcc   pcp   cypk1 #     #
+#     cpn   ppnk2 npn   pnn   ync   pcc   pcc
+ccn   pcn   pcp   ypp   yyn   ync   #     #
+cnyR  pcn   pcn   pnn   pyn   ync   #     #
+ncp   ccn   cnn   nnn   cyn   cnc   cnc   cyc
+ncc   cnc   cyn   nyn   cynk2 cyn   cyy   cyy
+ycn   ync   cyc   cyp   cyp   cpn   nnp   yny
+yypk1 yyp   cyc   ccyR  cpck1 npc   nnp   yny
+solution: rot 0,4 ; 5,2 ; 0,6 ; 0,0 ; 2,6 ; 0,3 ; 5,2 ; 7,5 ; 0,0 ; 2,0

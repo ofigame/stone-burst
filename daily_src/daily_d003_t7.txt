@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 713 + tür reverse; şekil kum saati; çözüm 9 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 713 + tür reverse; şekil T (ayna); çözüm 9 + 3 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; YEDEK: mek:örtü;
 id: daily_d003_t7
 title: Günlük 3
 moves: 9
@@ -7,15 +7,15 @@ specials: on
 paint: 2
 type: reverse
 rules: exact
-goals: coral 25, blue 31, purple 16
+goals: coral 19, yellow 18, purple 28, sponge 2
 grid:
-npyy  ygyy  G1:ygcg G1:gbgn G1:cbnn G1:cynn cynn  ggbn
-npgy  yyyg  yyng  cbgg  cyng  pyby  pgyy  ggbn
-nngy  npcn  ycnn  pcyn  ccgg  pgbc  pnbc  bcbn
-#     ypcy  ypcy  ppcp  cngp  cgby  bnbyB1 #
-#     gcpy  gnpg  ppcg  bycp  cycp  byby  #
-#     gccb  nccb  ppcg  pyyb  nyyb  byyy  #
-nbgg  gbbc  nycn  pycg  pycb  nyyb  ncbb  bbbn
-bbgg  bbbc  gybn  gygg  gycg  ncyy  pccb  pbbn
-bngc  bbbc  ybby  ybgy  yygy  ycyy  pbcy  gbcy
-solution: paint 3,5,b ; 1,5 ; roll 4 ; 3,4 ; 3,3 ; 5,3 ; use 0,5,2 ; use 0,5,2 ; 6,0 ; use 1,7,0 ; 6,4 ; use 2,6,2 ; 6,6 ; use 0,0,7
+cyc   cyp   ccn   ycc   ycy   ypy   ycy   pnySc
+pnp   pyp   pbn   ync   ncy   ppy   pnp   cnb
+bnp   bpp   bbc   bnn   nnn   bpp   bnp   cyb
+ppp   ppp   pyc   nyp   bnn   bbn   bby   cbb
+cpn   cyp   nyb   nyb   bnbSb ppn   ppy   cpb
+cyn   cyn   cyn   ccn   pcc   npn   pbb   ppb
+#     #     bbn   npn   ppb   npb   #     #
+#     #     bby   nny   nbb   nbb   #     #
+#     #     cby   cnn   cnb   bbb   #     #
+solution: 1,0 ; use 0,1,0 ; roll 0 ; 0,4 ; roll 4 ; use 0,2,0 ; 2,3 ; 1,1 ; roll 5 ; 5,4 ; 5,1 ; use 0,0,1

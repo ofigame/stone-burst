@@ -48,7 +48,7 @@ namespace KatKat.EditorTools
             new Spec { Title = "Süreli Çakıl", Seed = 505, MinL = 3, MaxL = 3, Hole = (x, y) => y >= 3 && (x <= 1 || x >= 5), Timed = 80, Gravel = (x, y) => (x * 3 + y) % 7 == 2 },
             new Spec { Title = "Beş Renk", Seed = 606, MinL = 2, MaxL = 2, Hole = (x, y) => (x == 0 && y % 2 == 0) || (x == 6 && y % 2 == 1), Colors = 5, Gravel = (x, y) => (x + y) % 6 == 0 && y > 0, Moves = 22 },
             new Spec { Title = "Güçlendirici Atölyesi", Seed = 707, MinL = 3, MaxL = 3, Hole = (x, y) => (y == 0 && (x <= 1 || x >= 5)) || (y == 1 && (x == 0 || x == 6)), Protect = 2, Moves = 18, Gravel = (x, y) => y == 0 && x % 2 == 0 },
-            new Spec { Title = "Haç Tahta", Seed = 808, MinL = 3, MaxL = 3, Hole = (x, y) => (x <= 1 || x >= 5) && (y <= 1 || y >= 6), Gravel = (x, y) => (x * 2 + y) % 5 == 1 },
+            new Spec { Title = "Artı Tahta", Seed = 808, MinL = 3, MaxL = 3, Hole = (x, y) => (x <= 1 || x >= 5) && (y <= 1 || y >= 6), Gravel = (x, y) => (x * 2 + y) % 5 == 1 },
             new Spec { Title = "Süreli Bomba", Seed = 909, MinL = 2, MaxL = 2, Hole = (x, y) => (y <= 1 || y >= 6) && x == 3, Timed = 70, Protect = 2, Gravel = (x, y) => (x * 2 + y * 3) % 7 == 0 },
             new Spec { Title = "Patron", Seed = 1010, W = 8, H = 9, MinL = 3, MaxL = 3, Colors = 5, Protect = 3, GoalColors = 3, GoalShare = 0.75f,
                 Hole = (x, y) => Math.Min(x, 7 - x) + Math.Min(y, 8 - y) < 2, Gravel = (x, y) => (x + y * 2) % 5 == 0, Moves = 26 },

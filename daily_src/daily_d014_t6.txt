@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 515 + tür order; şekil artı; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 515 + tür order; şekil dikdörtgen; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d014_t6
 title: Günlük 14
 moves: 8
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: order
 rules: exact
-goals: coral 22, navy 23, yellow 37
+goals: blue 47, coral 37, purple 32
 grid:
-#     #     pgyn  pgyn  bcyn  bccc  #     #
-#     #     ppgb  pggb  bcycLb3 bccc  #     #
-cpcg  npcg  npyg  pnyb  bnyg  bgyc  yggp  yggp
-bbyg  byyy  ncgy  gygy  byyg  bbpgK1:1 pbyn  yngp
-bbycLb4 yyycK1:1 ncyy  gpgy  gypg  ynpg  ybyn  gnyp
-bbyn  yyyy  bpyy  gppp  ypnp  ynnn  cbnn  cngg
-ycgn  ycgn  bpyn  bppp  bypc  bgng  cpgg  cpgg
-#     #     bpbb  nggbK1:1 ngcc  ngyg  #     #
-#     #     bcbb  bggc  pgcc  pgyg  #     #
-solution: 1,3 ; 0,2 ; use 1,5,0 ; 5,3 ; 6,3 ; 4,2 ; use 1,2,0 ; 0,3 ; use 0,5,0 ; use 1,2,0 ; 2,1 ; use 1,4,0 ; roll 2 ; use 1,1,2 ; use 0,0,2
+nbb   nbn   bnn   nnnK1:1 nnp   ncp   ccp   ccp
+nbb   pbb   bnn   bnc   pnp   pbbK1:1 byb   byy
+cny   pby   bnp   pcc   pnp   pnp   pnc   nny
+cny   bcy   ycp   ycp   ycp   cyy   nnc   nnc
+bpc   bpc   bcp   bnn   yby   cyy   ncy   nny
+bpn   cpn   ycn   ynn   yny   cyy   bcy   nyy
+cpbK1:1 cpy   pby   nnn   pbn   cbp   bcy   byy
+bpb   cpb   pbc   nbc   pbp   nbp   cbc   cyc
+bnb   bpbLp4 nnb   nnb   nbn   nbc   bbc   bbbLp4
+solution: 4,0 ; 3,1 ; 0,2 ; use 0,5,0 ; use 0,0,0 ; 3,4 ; 0,4 ; 1,0 ; use 0,0,0 ; use 0,1,1 ; 5,3 ; use 0,6,0 ; 0,0 ; use 1,0,0 ; use 0,2,0

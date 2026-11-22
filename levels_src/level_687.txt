@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil dikdörtgen; çözüm 22 + 15 tepsi / sınır 22; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil T (ayna); çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_687
-moves: 22
+moves: 9
 roll: off
 specials: on
 type: scarce
 rules: scarce
-goals: green 38, yellow 20, coral 37
+goals: yellow 21, blue 33, coral 35
 grid:
-gpbn  ppcn  G1:pycn G1:pycb G1:cgcb G1:pgpp pgpb  nbpb
-pppc  ppnp  pycn  cycp  cbcp  ppbp  yypb  nygc
-pbpc  nbcp  nbcp  nbcpLb4 nbcb  ypnb  ypcb  yngp
-nnpc  nbnn  cbpn  npypB1 cgyg  gcng  cpcb  bncp
-gngp  gnnp  cggn  ccyp  byyg  gccc  bcgp  bngp
-cynp  cngp  ccgn  ngyg  bbyg  bccp  pcgp  bcpp
-cybp  cbbp  ycgp  ngbb  nyyp  pygn  npgn  ncpb
-ncgp  nbbp  ycyc  bpbc  npgc  pygn  pppc  gnbb
-ncyc  ncyc  ypyc  bggg  npcn  gncc  cngc  gnbb
-solution: 6,0 ; 6,0 ; use 1,0,1 ; 4,3 ; 6,2 ; use 2,3,1 ; 0,1 ; use 0,3,1 ; 3,2 ; use 1,6,0 ; use 0,5,0 ; 4,3 ; 0,3 ; use 0,5,3 ; use 0,6,1 ; 2,4 ; 0,2 ; 0,0 ; 4,6 ; use 3,0,6 ; 3,0 ; 1,0 ; use 3,0,6 ; 3,6 ; 5,0 ; use 3,0,0 ; 0,0 ; use 0,5,0 ; 0,6 ; use 0,0,0 ; 7,0 ; 6,5 ; 7,3 ; use 1,0,7 ; use 1,7,0 ; 6,6 ; use 0,7,7
+cpp   cpp   G1:cnb G1:pcp G1:ppb G1:npb nbc   nnc
+cbp   nbp   ccb   pcp   pcp   ncy   cbp   cbc
+pnp   nnp   ccy   ccn   bcn   bcp   ccp   ccc
+pcp   pnp   pny   ybn   ycn   ynp   ynp   npb
+pyp   pyb   pbn   ybn   nbn   ynp   pcp   ypb
+pyp   cyb   pyb   nbn   nbb   ccb   ycp   ycb
+#     #     byn   cybLc4 cbb   cbp   #     #
+#     #     bcn   byn   bbb   byp   #     #
+#     #     pcn   pbn   nbnB1 nyn   #     #
+solution: 6,1 ; use 0,3,2 ; 6,0 ; 3,3 ; 2,2 ; 1,4 ; use 3,4,1 ; use 0,2,0 ; 0,0 ; use 0,2,1 ; 7,3 ; use 0,5,1 ; 3,0 ; use 1,0,1 ; use 0,3,0

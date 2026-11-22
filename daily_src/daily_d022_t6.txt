@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 532 + tür exact; şekil kenar çentikleri; çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 532 + tür exact; şekil çatı; çözüm 9 + 4 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10; döndürmeyle başlar; YEDEK: mek:rotor;
 id: daily_d022_t6
 title: Günlük 22
-moves: 8
+moves: 9
 roll: on
 specials: on
 type: exact
 rules: exact
-goals: coral 26, blue 34, green 26, envelope 2
+goals: yellow 13, purple 21, navy 38
 grid:
-cbyy  cbyg  ybyg  pgcg  gcyy  bgpy  bbby  bbbp
-#     ybyg  yccc  pgcc  pnyb  bgnbK1:2 bbbb  #
-pppn  pppb  bcpb  pbpp  nnyb  bgnb  pgbb  pgbb
-#     gpyb  gcpn  cbpn  nbbnK1:2 cbnb  pgpb  #
-#     npybK1:2 gbgy  gbgy  cnny  cbny  pgpy  #
-ncny  nyny  nbnn  ccgn  pnyc  pncc  pgyc  cgyc
-ycgy  cygp  cggn  ccgn  pbypEp nbcp  nbgc  cbgc
-ycgy  #     #     pcngEg pbyg  #     #     nbgc
-pcgy  #     #     pbpg  pbpg  #     #     nbgc
-solution: 4,5 ; 2,4 ; use 0,1,0 ; use 0,4,1 ; roll 6 ; 5,1 ; use 0,5,1 ; 5,1 ; use 0,3,0 ; 1,3 ; 1,2 ; 2,1 ; use 1,3,0 ; use 0,6,1
+#     #     #     cnR   nc    #     #     #
+#     bn    bn    nc    nc    npK1:2 np    #
+yc    cn    cn    bc    bnK1:2 nb    np    cp
+yc    yc    cb    bn    bn    yp    cy    cp
+bc    yc    nb    npR   nn    yp    pp    pp
+cp    np    np    pyR   nn    ny    nc    pp
+cp    nn    by    np    np    ny    nb    bb
+cn    nn    by    ny    ny    nc    nc    bb
+cc    nc    bp    np    bc    bc    nc    bb
+solution: 6,1 ; 0,2 ; use 0,0,2 ; 3,4 ; 3,3 ; use 1,3,0 ; roll 8 ; 4,2 ; roll 4 ; 3,0 ; use 1,4,0 ; roll 7 ; use 1,0,7

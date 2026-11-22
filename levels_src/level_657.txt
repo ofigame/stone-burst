@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil L; çözüm 12 + 0 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil kum saati; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_657
-moves: 12
+moves: 9
 roll: off
 type: pure
 rules: noSpecials, exact
-goals: navy 36, blue 27, purple 37
+goals: purple 11, blue 19, yellow 21
 grid:
-bbgg  G1:bggg G1:bgng G1:ggng G1:gpbn #     #     #
-nbpp  gbpp  ggnp  ggnb  nppn  #     #     #
-ngpn  ngpn  nnbp  npnbK1:2 nppb  #     #     #
-pbpn  pgbg  ppbn  npgn  nbpn  pbnp  pgbp  ngbp
-gbpn  bnbg  pnbp  pnpp  pbpn  pbnn  bbnp  nbbp
-bbgp  bbbgB1 nbbn  nppn  gpgnK1:2 gggn  bnpp  nnpp
-npgp  npbg  npbp  bnpp  bpnb  bpgg  pnngK1:2 npnp
-gggp  gpbg  gpbg  pnnb  bnnb  pngg  pnnn  pnnp
-solution: 1,3 ; 1,3 ; 0,1 ; 2,3 ; 4,3 ; 5,3 ; 3,1 ; 5,3 ; 2,1 ; 1,4 ; 7,6 ; 0,1
+bb    by    G1:py G1:pc G1:pc G1:pc yy    yy
+bb    bb    yp    pp    yc    yy    yy    yb
+#     cy    yp    yp    yp    yb    yb    #
+#     cb    pb    yy    cb    cb    yc    #
+#     cp    cy    by    cb    cc    yc    #
+#     bc    bc    bbi1  bb    pc    yc    #
+by    cci2  bb    ybB1  by    pyi1  pbi1  pb
+by    cb    cb    yb    yyi1  py    pp    pp
+solution: 2,6 ; 3,6 ; 3,0 ; 3,0 ; 5,2 ; 1,0 ; 5,7 ; 0,0 ; 0,0

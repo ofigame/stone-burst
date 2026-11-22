@@ -375,6 +375,7 @@ static partial class Program
         if (!string.IsNullOrEmpty(d.Title)) sb.AppendLine($"title: {d.Title}");
         if (!string.IsNullOrEmpty(d.Tutorial)) sb.AppendLine($"tutorial: {d.Tutorial}");
         sb.AppendLine($"moves: {d.MoveLimit}");
+        if (d.TimeLimit > 0) sb.AppendLine($"time: {d.TimeLimit}");
         sb.AppendLine($"roll: {(d.RollEnabled ? (d.StartingRoll ? "start" : "on") : "off")}");
         if (d.Capabilities.Contains("specials")) sb.AppendLine("specials: on");
         if (d.Paint > 0) sb.AppendLine($"paint: {d.Paint}");

@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 112 + tür exact; şekil kenar çentikleri; çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 112 + tür exact; şekil kesik köşe; çözüm 7 + 3 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d001_t3
 title: Günlük 1
 moves: 7
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: exact
 rules: exact
-goals: purple 38, blue 41, yellow 15
+goals: navy 21, blue 22, purple 19
 grid:
-cbbg  cpbg  cpy   bpcy  bpgb  bgb   gppc
-cbc   bbcb  bccb  bgcb  bggb  ggbi1 gppc
-#     #     bcb   ccbi1 pbg   #     #
-#     bbpy  gcp   gbby  pbcy  pbc   #
-#     pbp   gypc  byy   pycy  ypg   #
-pyy   pbp   ccpc  bpy   bpc   bpgp  ypgp
-pyg   ybb   ccb   bccgi1 bgcg  bbgp  ybgp
-pcg   cpbg  cpbg  pcbg  ggyg  gcp   gbp
-gcyb  gpb   ppb   pcb   ggyc  gpp   gpp
-solution: 5,5 ; use 0,2,0 ; 5,4 ; 1,6 ; use 0,2,0 ; use 0,3,4 ; 4,0 ; 2,0 ; use 0,0,1 ; use 0,3,0 ; 4,0 ; use 0,4,0 ; 3,0
+#     #     nck1  nc    yn    #     #
+#     pp    pc    pc    bn    ppk1  #
+bb    bp    by    bp    bpi1  nc    bc
+bpk2  bp    by    bni1  bn    np    yy
+bp    cc    nb    nn    pp    bp    yy
+bp    bc    cb    cb    np    by    yy
+bp    bc    yc    nb    ny    ny    ny
+#     bn    yn    ny    ny    ny    #
+#     #     yp    np    cn    #     #
+solution: 6,3 ; roll 2 ; use 0,1,1 ; 4,5 ; roll 3 ; 0,2 ; 3,0 ; use 0,3,0 ; roll 1 ; use 0,6,2

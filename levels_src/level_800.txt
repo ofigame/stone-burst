@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dikdörtgen; çözüm 19 + 10 tepsi / sınır 19; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil zikzak; çözüm 12 + 7 tepsi / sınır 16; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_800
-moves: 19
+moves: 16
 roll: off
 specials: on
 paint: 2
 type: boss
-rules: protect, scarce, exact
-goals: green 11, yellow 10, navy 12
+rules: protect, scarce
+goals: yellow 19, blue 26, navy 23, envelope 3
 grid:
-pcyn  ncyyP gcyyk1 npby  npbn  cpby  gccp  nypn
-ppyn  ppyb  ncnpk2 ncnn  nbnn  ybbnk1 bcby  ncny
-bpnb  bpnbk1 pcnp  nynp  yccp  ynbn  cnpn  bnpy
-npnc  bpnbk1 bnpb  nypn  yccn  bccy  byny  bgnb
-nygck1 ncnb  nppn  cpbn  cbbc  cbcn  ypcn  ypcb
-ygpn  bcgbk2 bypc  gyyc  ccbc  ycbn  ygpn  ccpb
-ycbn  bybn  byyp  nyyb  pbyn  pcyn  pcpn  yccbP
-cynn  ccny  ybcc  ybcc  pbyc  pcyc  yccy  yncb
-ncny  ccny  cycyP gycb  gycb  pync  pycg  pycg
-solution: paint 7,3,y ; 6,1 ; 4,0 ; 2,7 ; 4,6 ; paint 7,4,g ; use 1,7,3 ; 5,3 ; use 1,0,5 ; use 1,0,5 ; use 0,0,0 ; use 0,0,4 ; 1,1 ; use 0,0,0 ; 1,2 ; 0,1 ; 2,1 ; 3,6 ; 5,6 ; 4,6 ; 4,2 ; 4,0 ; 0,2 ; 2,7 ; use 2,4,0 ; use 0,4,8 ; 3,2 ; use 1,3,0 ; use 0,3,8
+#     ppb   ppc   byc   byy   bnyEc bnb   cnp
+pnc   ppb   cbb   nyc   ncnEn ncy   pcb   #
+#     ppy   cbp   npp   ppn   ypy   pcn   ycnP
+bccP  bcy   bnp   nnp   ycn   ccy   bcn   #
+#     ccp   bnb   pnb   pcb   cpn   cpp   cpp
+ypb   ycb   pyb   bcb   pcn   ppn   pcn   #
+#     cpb   cpb   ycb   ycn   ppn   pnn   nnp
+nbp   nbc   nbc   cbbEn ccp   nbp   bbn   #
+#     ypc   npy   nnbP  nbb   nbp   bbn   bbp
+solution: 2,4 ; 2,2 ; 4,2 ; 5,4 ; use 0,4,0 ; use 0,6,0 ; 5,1 ; 6,1 ; use 2,0,7 ; 1,0 ; 2,0 ; use 0,3,0 ; 5,0 ; 3,0 ; 3,4 ; use 1,1,0 ; use 1,1,0 ; paint 2,8,y ; use 0,1,8

@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kum saati; çözüm 12 + 0 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U (ayna); çözüm 10 + 0 tepsi / sınır 14; rastgele 0,010; açgözlü kaybeder; yumuşak 0,27; döndürmeyle başlar;
 id: level_310
-moves: 12
+moves: 14
 roll: off
 type: boss
-rules: noSpecials, exact
-goals: blue 20, green 24, yellow 35
+rules: noSpecials
+goals: navy 25, purple 23, blue 25
 grid:
-gycg  gycg  cycc  ccyc  cbyc  cbyc  gbyy  gbcy
-cyyg  gyyb  gycb  ccbg  gcyg  ggyg  ggcy  ygcy
-#     bcyb  byyb  cybc  gcbc  gygyR gyycR #
-#     cgcc  gyyc  gbyc  gcgc  gcbg  gybb  #
-#     cgcg  cgcg  ycyg  gcgg  gygg  bbgb  #
-#     cygg  bcgg  yygb  yycb  cyyc  bbyb  #
-cbcy  cyyg  cyyb  cygb  cycc  cyyc  bcyb  ycyy
-cbyy  cyyy  cbyb  yybc  cybc  cybc  byby  yyyy
-solution: rot 5,2 ; 5,5 ; 3,5 ; 3,1 ; 5,3 ; 3,4 ; 3,2 ; 1,1 ; 0,0 ; 0,1 ; 6,0 ; 5,1
+pnb   pyb   byn   #     #     pby   nby   nyy
+nnn   nyn   nyn   #     #     bbb   pyy   pyyk2
+nnn   ypy   byy   pyb   ppb   bbn   bnn   pnpR
+pnn   ypy   pyy   pnb   pny   pny   pnn   pnn
+ybb   ynb   pbb   pnb   pnp   pnp   pppk1 ppn
+bbb   bbb   bbn   pbn   pbb   ppb   ppb   ppb
+byb   byb   nbn   nbn   ypyk1 pbn   pbnk1 bpn
+byy   byy   yyn   yyn   yynk1 bbn   bnpR  bpn
+solution: rot 7,2 ; 5,2 ; 5,1 ; 4,4 ; 3,3 ; 0,4 ; 3,3 ; 5,6 ; 6,2 ; 7,2

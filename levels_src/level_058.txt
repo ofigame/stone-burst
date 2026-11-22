@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil elmas (ayna); çözüm 6 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil dikdörtgen; çözüm 7 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
 id: level_058
-moves: 8
+moves: 9
 roll: off
 specials: on
 type: protect
 rules: protect
-goals: yellow 21, coral 26, star 2
+goals: coral 24, purple 26, yellow 25
 grid:
-#     #     #     ppp   ppb   #     #     #
-#     #     ycy   ycb   ccb   cbb   #     #
-#     yby   ybc   cpc   cpc   cyc   yyc   #
-bbc   bbp   ybp   pbp   ppc   cpc   yyc*  cyp
-bbcP  bbc   ybp   ppp   ppp   pcb   ycc*  cbpP
-#     cyc   cpp   cpp   cpp   ppy   ycy   #
-#     #     pyy   pby   bcb   pcb   #     #
-#     #     #     bby   bcb   #     #     #
-solution: 2,2 ; use 0,4,0 ; 3,2 ; use 0,2,1 ; 2,1 ; use 0,2,1 ; 1,2 ; 3,3 ; use 0,2,1 ; 3,5 ; use 1,1,2
+cbc   cbc   cbp   ypp   ypb   cbpP  cbbG  ppbG
+bbbk2 pbc   cyc   ppp   ypp   cyp   cyc   cccG
+bbb   byp   cyp   yyp   ypp   cyp   cyc   cccG
+bcb   byb   yyp   yyp   yyp   cyp   pyp   pyp
+pcy   yyp   ybpk1 bbp   bbpk1 ccp   pyy   pypP
+pcy   yyp   ypp   byp   bcy   bcy   bcy   byp
+pby   pbp   cbp   cyc   cyy   bcy   byy   pcy
+cpy   cpb   cbb   ccc   ccck1 pcy   pyy   pcy
+solution: 6,4 ; 4,5 ; 0,2 ; use 0,1,3 ; use 0,0,0 ; 0,0 ; use 0,3,0 ; 1,1 ; 2,1 ; use 1,6,0 ; 4,2 ; use 0,0,0

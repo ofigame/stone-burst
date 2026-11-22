@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil kum saati (ayna); çözüm 17 + 11 tepsi / sınır 17; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil U; çözüm 7 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; YEDEK: kısa;
 id: level_717
-moves: 17
+moves: 7
 roll: off
 specials: on
 paint: 2
 type: protect
 rules: protect, exact
-goals: navy 26, purple 35, green 35, envelope 2
+goals: blue 24, coral 12, yellow 13
 grid:
-npbb  ngyb  nnyb  nnbp  bpbp  bgyp  bpypP bpcp
-npbg  pgcg  pgby  bpcp  bpbb  bgyb  ynyb  yncp
-nngg  gncb  pnbg  bccg  bpyy  bgyp  ypyy  ypcy
-#     gnbg  bpbg  bpyc  bpyc  pynp  ycyn  #
-#     gcyn  gcpc  gpncEg bpnp  nynn  nyyn  #
-#     gbyn  gbpn  gcnc  gcnn  gcyg  gyyn  #
-ybyp  ybyp  ggyp  pcyc  gypn  ggpg  bgppEb ngnp
-ygpc  yggc  cggg  ppgn  ncpn  gccg  ngcg  nbnp
-ygpc  ypgb  cpbg  cpbg  cpbgP gpyy  ybyyP ybpy
-solution: paint 3,3,g ; 2,2 ; 2,4 ; use 0,0,6 ; 1,4 ; 2,4 ; 6,3 ; use 0,0,7 ; use 0,3,0 ; 3,6 ; 1,4 ; use 0,0,6 ; 5,5 ; use 1,0,7 ; 2,6 ; use 0,5,0 ; 5,0 ; use 0,5,0 ; 0,1 ; 0,0 ; 5,0 ; use 1,0,1 ; 4,0 ; 4,0 ; use 0,3,0 ; paint 6,0,y ; use 1,4,0 ; use 0,1,0
+bb    yyP   yy    #     #     pyP   py    pc
+bb    yy    by    #     #     bc    pc    cc
+bb    bn    bnG   #     #     nc    cp    cn
+cb    bn    pnG   bpG   bp    np    cp    cn
+by    nnG   nyG   byG   np    np    cp    ynP
+bn    bn    ppG   pn    ny    ny    yp    yp
+cb    cb    cn    nn    nn    pp    np    yb
+nb    bb    nc    nc    yn    pn    nn    bb
+nb    bb    bc    by    yy    yb    yn    bb
+solution: 6,2 ; 7,0 ; use 0,0,0 ; 4,5 ; 5,2 ; 4,7 ; use 0,0,0 ; 0,6 ; use 0,0,8 ; 3,6 ; use 3,2,0 ; use 1,0,1

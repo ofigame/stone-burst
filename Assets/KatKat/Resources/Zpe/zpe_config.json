@@ -1,7 +1,10 @@
 {
-  "_not": "ZPE (Zekâ Performans Endeksi) yapılandırması. Oyun performans endeksidir, IQ ölçümü değildir. v3 (vr1 paketi 02_ZPE, kullanıcı onayı 2026-11-11 \"tüm herşeyi onaylıyorum o belgedeki\"): hız bileşeni kaldırıldı (kalan ağırlıklar kendi toplamına bölünür: 0.35/0.90, 0.25/0.90, 0.20/0.90, 0.10/0.90); puan son 50 FARKLI normal bölümden, her bölümün penceredeki en iyi sonucu; aynı bölümü tekrar oynamak pencereyi doldurmaz. v2 toplamları (zpeSum/zpeGames) eski puan olarak saklanır.",
-  "version": 3,
-  "weights": { "efficiency": 0.35, "difficulty": 0.25, "firstTry": 0.20, "time": 0.0, "noAssist": 0.10 },
+  "_not": "ZPE (Zekâ Performans Endeksi) yapılandırması. Oyun performans endeksidir, IQ ölçümü değildir. v4 (kullanıcı 2026-11-22: \"ZPE hesaplamayı daha adil hale getirelim gerçekçi ve adil olsun\"): zorluk ayrı puan parçası değil, ortalamada bölüm ağırlığı (0,5 + botun kaybetme oranı); puan 50'den 5 bölümlük başlangıç payıyla başlar; süreli bölümde verim kalan süreden. v3'ten kalan: hız bileşeni yok, son 50 FARKLI normal bölüm, bölüm başına en iyi sonuç; v2 toplamları eski puan olarak saklanır.",
+  "version": 4,
+  "weights": { "efficiency": 0.35, "difficulty": 0.0, "firstTry": 0.20, "time": 0.0, "noAssist": 0.10 },
+  "weightByDifficulty": true,
+  "prior": 0.5,
+  "priorWeight": 5,
   "window": 50,
   "distinct": true,
   "minLevels": 1,

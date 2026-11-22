@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 10 + 7 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 11 + 4 tepsi / sınır 13; rastgele 0,005; açgözlü kaybeder; yumuşak 0,06; döndürmeyle başlar; YEDEK: mek:rotor;
 id: level_345
-moves: 11
+moves: 13
 roll: off
 specials: on
-goals: yellow 32, blue 32, coral 26
+goals: yellow 19, purple 24, blue 27
 grid:
-ygyn  ynyn  ynyb  cncc  ynnn  cynpR bycg  nyby
-bgyn  bbyc  ynyb  cycn  ygpn  yccn  bccg  ncby
-cnyn  cypn  cycp  cycg  pgpc  gcbn  gbcn  gbbn
-bnyp  bycp  nbcp  bbcg  pgpc  pbpc  bbnp  gbnp
-cnyp  cncp  nbcy  bnnn  pnnn  pnby  bbpgR nynn
-cnyg  gnyn  gbyy  nbcn  gncn  pnbp  bnbp  bynn
-nbbg  nyyn  gcyy  nccy  ngcn  pgcp  pggp  bngp
-nbbn  byby  gnbg  nnpy  gncn  cpcn  cycn  bpgn
-ypbn  bpby  bnby  bnpy  gnypR cppg  cypg  bpgg
-solution: rot 4,8 ; 2,2 ; use 0,3,0 ; 3,0 ; use 0,7,0 ; 0,0 ; use 0,2,0 ; 3,4 ; use 0,1,1 ; 0,0 ; 1,5 ; 4,2 ; 1,0 ; use 2,1,1 ; use 0,0,0 ; use 1,0,1 ; 0,0
+bc    cc    cc    cb    ny    ny    cy    cy
+bn    ny    nb    yb    nb    bb    by    pc
+pbR   pc    pc    pc    bb    bb    nb    pc
+np    np    np    ny    nc    yb    nb    np
+#     #     pp    py    yc    yb    #     #
+#     #     np    ny    cy    pb    #     #
+bn    yp    bp    ybR   by    ynR   pc    pc
+bn    yp    yp    by    cp    cp    cp    bb
+bn    bp    #     #     #     #     cp    bb
+solution: 3,0 ; 0,3 ; use 0,4,0 ; 0,6 ; use 0,5,1 ; 4,7 ; 1,2 ; 0,2 ; 6,0 ; 7,1 ; 6,6 ; use 0,0,6 ; 4,3 ; 0,3 ; use 0,2,4

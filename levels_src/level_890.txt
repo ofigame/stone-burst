@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil T; çözüm 15 + 12 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kenar çentikleri; çözüm 11 + 10 tepsi / sınır 15; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
 id: level_890
 moves: 15
 roll: off
 specials: on
 type: boss
-rules: scarce, exact
-goals: yellow 18, blue 14, navy 18, star 3
+rules: scarce
+goals: purple 37, coral 22, navy 31, star 3
 grid:
-gpby  npyp  ygyg  nnpp  gpyg  gccn  gbcp* ggpp
-cpbg  bgby  bgpc  pnpp  cbpn  gbnn  gbcc  ggpc
-gbbn  gcbn  bgcc  pycg  cncc* bpnc  gcgc  gcgn
-ycgp  gcgp  gcpc  pngg  bngp  bpnp  bcnn  bcnn
-ycpp  gcpp  nnpg  pbng  pbgp  gpbp  bnnp  bnnp
-gygb  gcpy* gnpy  pnng  ncgg  ncby  bnnn  nnnp
-#     #     pppc  pppg  ppyg  nnby  #     #
-#     #     ycyc  yccc  cpcc  pnbg  #     #
-#     #     ybnb  nbnn  cbpn  pbpn  #     #
-solution: 4,3 ; 3,2 ; 7,2 ; use 1,5,0 ; use 1,0,0 ; 4,3 ; use 1,0,0 ; use 0,0,0 ; 5,0 ; use 0,1,0 ; 0,3 ; 3,0 ; 0,0 ; use 1,6,0 ; 4,0 ; use 0,1,0 ; 2,2 ; 2,2 ; 0,3 ; 0,1 ; use 1,4,0 ; 2,6 ; use 1,2,0 ; 5,1 ; use 0,4,1 ; use 1,2,0 ; use 0,2,8
+yyc   cyc   cyc   cyp   cnp   ync   nyy   byy
+ypc   bpb   bnp   bnp   ynp   ypb   nby   nbb
+ycn   bpp   cbp   bcp   bnp   bnn   nyb*  bbb
+bcn   bcy   ccy   bcy   nbn   nyn   byn   bpy
+bcc   bcy   ncy   ncy   nby   nyb   nnb   bpy
+#     #     ncn   nbc   bnp   bnb   pbp*  pby
+pcn   ccp   cbp   cbb   ppb   byn   nbp   ynp
+ybp   ccp   pnc   ybb   ppp*  bpn   nnn   ynn
+pbb   pbb   pnp   cny   pnb   #     #     ynb
+solution: 3,0 ; use 0,4,0 ; 1,3 ; 0,0 ; 1,1 ; use 1,0,1 ; use 1,5,2 ; 3,5 ; 0,6 ; use 1,6,5 ; use 0,0,7 ; 5,1 ; 6,0 ; use 0,0,2 ; use 1,5,1 ; 6,1 ; 0,0 ; 1,0 ; use 0,0,8 ; use 1,0,8 ; use 1,0,8

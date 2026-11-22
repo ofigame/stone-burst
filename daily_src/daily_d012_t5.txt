@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 382 + tür pure; şekil artı (ayna); çözüm 10 + 0 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 382 + tür pure; şekil L (ayna); çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,13; döndürmeyle başlar;
 id: daily_d012_t5
 title: Günlük 12
-moves: 10
+moves: 8
 roll: on
 type: pure
 rules: noSpecials, exact
-goals: coral 26, purple 30, navy 15
+goals: blue 43, coral 34, navy 13
 grid:
-#     #     gpnc  gcnc  gcnc  gnnc  #     #
-#     #     cpnp  cpgp  gccgR gcpc  #     #
-pgpc  gppc  gpcp  ppgp  ggpn  gggc  gggc  cggn
-pggg  pppg  cccg  ppgp  gcppk1 ggpck2 gcpc  gcpn
-gggp  gpgn  ppgg  pppcR pcpp  ncpck2 gppg  gcnn
-gcgp  ppgn  ppcn  cpcn  ccnn  ccpc  gpcc  gccn
-ncgg  nnpg  ngcg  cgggk1 gggn  nggck1 gpcc  gpnc
-#     #     cnpg  cnpg  gcgn  ccnc  #     #
-#     #     nnpp  nnpp  nppc  ccpc  #     #
-solution: rot 4,1 ; 1,4 ; roll 4 ; 2,1 ; roll 2 ; 5,3 ; 7,3 ; roll 5 ; 0,2 ; 2,0
+#     #     #     bc    bn    bn    bn    bn
+#     #     #     bc    bb    cn    bc    bc
+#     #     #     cci1  cc    cb    cb    cb
+#     #     #     bc    bc    cnR   bn    cb
+nc    cc    cc    cc    bc    cci2  bb    bb
+bc    bc    nb    nb    nb    bnR   nbi1  nb
+bb    cb    cb    cb    nb    nb    cbi1  cb
+bc    cb    cbi2  cb    bb    bn    cb    cb
+cc    cc    cb    bb    bb    nb    cb    cb
+solution: rot 5,5 ; 5,2 ; roll 3 ; 3,0 ; roll 5 ; 4,0 ; roll 4 ; 3,0

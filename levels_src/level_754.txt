@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 11 + 9 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven (ayna); çözüm 11 + 6 tepsi / sınır 12; rastgele 0,005; açgözlü kazanır; yumuşak 0,06; YEDEK: açgözlü;
 id: level_754
 moves: 12
 roll: off
 specials: on
 paint: 1
-goals: purple 20, navy 36, blue 25, star 3
+goals: coral 22, yellow 13, navy 21
 grid:
-yngg  #     #     gncn  bnpy  #     #     cggy
-yngg  #     #     gncn  bbpy  #     #     cggy
-cngg  bnyy  gbyy  gnyn  pbyp  pygy  pypb  cgpb
-cncc  cnyb  bbyb  bbyn  bbgp  pygb  pygb  cypb
-cncc  gncp  nnnp  nnny  bynp  yccp  bccg  cybb
-pgnp  gpnp  nbnb  nnny  yycy  ycby  bycp  cybp
-pgbb  gpgy  npgy  npbc  nncy  nnby  cyny  cynp*
-gybg  cngy* gnby  gpbc  gnyc  nnny  nygy  nynb
-gybg  cnng  #     ggyp  ggyp* #     nygy  nygb
-solution: 6,2 ; 3,4 ; use 1,4,2 ; 3,0 ; use 1,1,3 ; 4,0 ; use 1,3,2 ; 7,3 ; 7,3 ; use 0,4,0 ; use 0,4,0 ; use 0,0,0 ; 6,7 ; 5,6 ; use 0,3,0 ; 0,6 ; 1,6 ; 0,6 ; use 0,1,2 ; use 0,1,2
+#     #     #     #     yc    pp    cp    bp
+#     #     #     cb    yb    pb    cc    bc
+#     #     bb    bb    yb    py    cy    cb
+#     bb    pb    nb    ybG   py    nb    nb
+pp    bb    pc    ccG   cbG   ppG   nbG   nb
+bn    bn    cp    cp    nbG   py    ny    nn
+nc    np    np    bb    by    py    cn    cn
+nc    np    np    bc    yy    np    nc    nc
+nc    np    yb    yc    yc    pp    pp    pp
+solution: 3,1 ; use 0,4,0 ; 5,5 ; 4,0 ; 2,3 ; 0,5 ; 6,5 ; use 2,6,1 ; 7,1 ; use 0,7,0 ; 5,5 ; paint 5,8,n ; use 0,5,0 ; 1,3 ; use 1,5,0 ; 5,0 ; use 0,6,0

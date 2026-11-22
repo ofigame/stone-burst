@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil elmas (ayna); çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kum saati (ayna); çözüm 14 + 0 tepsi / sınır 18; rastgele 0,085; açgözlü kaybeder; yumuşak 0,48
 id: level_190
-moves: 9
+moves: 18
 roll: off
 type: boss
-rules: noSpecials, exact
-goals: yellow 31, purple 34, green 26
+rules: noSpecials
+goals: purple 38, blue 55, coral 62
 grid:
-#     #     #     ppyy  ppyy  #     #     #
-#     #     gpyp  gpp   ppy   ppgp  #     #
-#     ygy   gpy   gypp  gpy   gpgp  gyyp  #
-ppyi2 gyy   gyypi1 gypp  gyp   gpyp  pyy   ygggLy4
-ppyp  gyypi1 pgpp  ygp   gypi1 gyp   pyygi2 pggg
-ppyy  ppy   pyyy  gyp   gypg  pypp  pgp   ygyp
-#     pyyy  pyy   pyp   ggpg  pgp   pgpg  #
-#     #     ypyg  ypgg  gpp   gppy  #     #
-#     #     #     yyg   gygy  #     #     #
-solution: 3,0 ; 2,1 ; 3,1 ; 2,1 ; 0,3 ; 3,1 ; 4,4 ; 2,7 ; 6,2
+pcc   bcc   pbc   pbp   pbp   pbc   pcc   ccc
+pcp   ccp   pbc   cbp   ccp   pcp   pcp   pcc
+cpc   cpp   bbp   cbp   cpp   bbp   cbp   pbb
+#     cpb   bbc   pbc   cpc   bbc   bbb   #
+#     bbb   bbc   pbc   cbp   bcb   cbb   #
+#     cbb   cbb   pcc   ccc   ccpLb5 ccp   #
+cbc   cbc   cbp   bpc   ccc   ccc   ccp   ccp
+cbp   bbc   cpp   bpb   bcb   bcb   bcb   bcb
+ccp   cbc   cbc   bbc   bcb   bcb   bbb   pbb
+solution: 3,7 ; 5,5 ; 2,3 ; 3,0 ; 3,0 ; 0,0 ; 2,6 ; 2,0 ; 4,3 ; 2,0 ; 0,1 ; 6,0 ; 6,0 ; 3,3

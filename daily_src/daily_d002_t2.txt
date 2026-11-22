@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 49 + tür reverse; şekil artı (ayna); çözüm 7 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 49 + tür reverse; şekil kesik köşe (ayna); çözüm 6 + 4 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d002_t2
 title: Günlük 2
-moves: 8
+moves: 7
 roll: on
 specials: on
 type: reverse
 rules: exact
-goals: blue 23, purple 15, coral 39
+goals: coral 20, blue 25, purple 22
 grid:
-#     #     bpc   cpc   cpy   #     #
-#     #     bpp   ypy   ypy   #     #
-pyb   pyb   pbb   cbc   ycp   yyc   ycb
-yyy   ybb   cbc   cbc   bcp   cyc   ccb
-pcy   pby   cyc   ccc   ccy   ccc   ccb
-pcb   ccy   ccb   cby   yby   ccc   cyc
-#     #     ybb   bbb   bcy   #     #
-#     #     yyb   pcp   pcp   #     #
-solution: 3,2 ; use 0,4,0 ; 4,2 ; 0,2 ; use 0,2,2 ; use 0,2,0 ; 2,0 ; 0,2 ; use 1,2,1 ; 3,1 ; 5,3 ; use 0,2,0 ; use 1,3,0
+#     #     pc    pb    pck1  #     #
+#     bc    cc    cb    bb    by    #
+pp    pc    yy    bp    bp    bp    bp
+pp    bc    by    cy    pp    cp    cp
+pbk1  bc    cp    cb    py    bc    bc
+bb    bb    cp    pbk1  py    pc    bc
+#     bb    cp    pb    by    yp    #
+#     #     cp    cc    by    #     #
+solution: 3,2 ; 5,3 ; use 1,2,0 ; 1,1 ; 1,3 ; use 1,3,0 ; use 1,4,0 ; 4,4 ; 0,2 ; use 0,1,1

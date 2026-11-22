@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 363 + tür pure; şekil kenar çentikleri; çözüm 11 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 363 + tür pure; şekil merdiven; çözüm 11 + 0 tepsi / sınır 11; rastgele 0,005; açgözlü kaybeder; yumuşak 0,04; döndürmeyle başlar;
 id: daily_d019_t5
 title: Günlük 19
 moves: 11
 roll: on
 type: pure
 rules: noSpecials, exact
-goals: purple 36, navy 37, coral 25
+goals: coral 38, purple 32, blue 27
 grid:
-pcnp  pcnc  nnnc  npcp  npnb  pnnb  nnnb  nnbp
-pnnp  pncc  pncc  bncc  pnnc  pnbp  nnnb  nnbp
-pnbp  pppn  pncn  bccn  ppcc  pnbp  bcnp  bcnp
-ppbp  pppn  npbc  pcnb  pncc  pnbp  ppbb  bpnc
-bpnp  bpnp  bcnb  ccnb  pnnc  pnnc  ppnb  bbnp
-bppc  pnnc  pcpn  bcnn  bbbn  bcbn  ccbp  bbnp
-pppb  pnpb  pcpn  pbnn  bbncR nbbn  #     #
-ncpp  nnpb  nccn  bccp  bppbR npbn  npcn  #
-bcpp  ncpp  npcp  bcpnR bcpp  npcp  npcp  npcc
-solution: rot 4,6 ; 1,0 ; roll 4 ; 1,2 ; 1,1 ; 7,0 ; roll 8 ; 0,0 ; roll 8 ; 0,0 ; roll 1
+cb    pc    pc    cb    #     #     #     #
+cc    cc    pc    pc    bb    #     #     #
+cc    pc    pc    pb    cb    bp    #     #
+pc    pp    pc    cc    cp    pcR   pb    #
+pc    pp    cp    cc    cp    cp    cb    bb
+pc    pb    pb    bc    bb    cbR   cp    pp
+pb    pb    pb    bb    bc    pc    pp    pb
+pc    pb    pc    cb    cc    cc    bb    cb
+pc    bc    pc    pc    pc    pb    bb    cb
+solution: rot 5,5 ; 7,6 ; roll 4 ; 1,0 ; 1,5 ; 1,0 ; roll 7 ; 6,5 ; 4,1 ; roll 0 ; 0,0

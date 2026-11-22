@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil dikdörtgen; çözüm 13 + 11 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil dalga; çözüm 8 + 8 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_568
-moves: 13
+moves: 8
 roll: off
 specials: on
 type: reverse
 rules: exact
-goals: coral 41, yellow 36, blue 56, sponge 1
+goals: navy 29, yellow 26, purple 33
 grid:
-bpcy  npcn  yncb  ycgb  pggc  bbbc  bbbc  bbbg
-bpcy  ncpc  ncpb  pcgg  pbcb  nnbb  bnbb  ybbg
-cycy  yypc  ygpg  gngg  gbcb  nbbb  ycbg  ycbg
-cycyLg5 ygnn  ygnnLc4 gppg  ybpg  ybgy  ccby  cccp
-cggy  cgbn  yngg  ypgg  npyg  ypcy  cycp  cycp
-pngy  bgby  ypbgSbg yppb  nnpb  cnpc  cgcp  ygpb
-pncb  bgbb  ygbn  ygbp  nbnc  ycpc  ccpc  cgpb
-pnyg  bgyb  bbyn  bybp  bbnn  ybnc  ccgg  gcgp
-ynng  ynnb  ybgn  pygp  pygn  pbgg  pbgg  gcgp
-solution: 3,1 ; use 0,2,0 ; 7,3 ; 7,3 ; use 0,0,0 ; 6,5 ; use 0,0,0 ; 7,0 ; 5,0 ; 3,3 ; 4,4 ; use 0,5,0 ; use 0,6,2 ; use 0,7,1 ; 0,4 ; 2,6 ; 6,7 ; use 0,6,0 ; use 0,5,0 ; 2,7 ; 0,0 ; use 0,2,0 ; use 0,2,0 ; use 0,0,0
+#     pyck1 #     ppb   #     nbc   #     cbn
+bnc   pncLp5 bpc   bpc   byc   nbc   npp   cbn
+bcn   pbn   bnbk2 byc   byc   pnc   cpc   cbc
+pcc   pnc   bnb   pbbk1 pnb   pnc   cpc   cbc
+cnb   pnbk2 pny   pby   pnc   cyc   cyy   cby
+cnb   pyb   pnb   pny   ccc   cbb   cbbk1 cbyLy4
+bnn   byy   ppy   pcy   ccck1 ycc   yby   cby
+byn   cyn   cpn   bpp   cpc   ypc   yby   yby
+ynp   #     npn   #     cpc   #     nbb   #
+solution: 0,6 ; 2,4 ; 5,0 ; use 1,7,0 ; use 1,2,1 ; 5,4 ; 7,0 ; use 1,4,1 ; 3,0 ; 0,4 ; use 1,5,0 ; 0,1 ; use 0,1,0 ; use 0,3,0 ; use 1,0,1 ; use 0,3,0

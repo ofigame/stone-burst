@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil çatı (ayna); çözüm 19 + 0 tepsi / sınır 19; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kum saati; çözüm 16 + 1 tepsi / sınır 19; rastgele 0,030; açgözlü kaybeder; yumuşak 0,00
 id: level_730
 moves: 19
 roll: off
 paint: 2
 type: boss
-rules: noSpecials, exact
-goals: blue 25, navy 53, coral 44
+rules: noSpecials
+goals: navy 33, coral 39, blue 46
 grid:
-#     #     #     G1:cppn G1:cppn #     #     #
-#     nccn  nbbn  cnpn  ncpp  nbcp  nbcp  #
-bcbn  ccbn  ncbc  nnnn  nbbp  nbpn  nnpc  pnpb
-cccc  cccn  bcnb  bnnp  nbcp  nnbn  pcbc  pnbb
-cccc  nccb  nccb  cccb  nbcb  nbnp  ncbp  ncbp
-cncc  nbcn  cbcn  ccbp  nbbb  pbnc  pbpc  pcbb
-nncn  nbcc  nnnc  nnnc  nnnc  npcc  npcc  pcnb
-pnnnB1 pnnc  nncn  nbbn  nnpc  bppc  bpcc  ccpc
-ppnn  pncn  nbcc  nbbc  nbbp  nnbp  nncp  cnpp
-solution: 2,3 ; 0,6 ; 0,3 ; 0,3 ; 1,1 ; paint 3,5,c ; 2,2 ; 4,4 ; 2,1 ; 5,4 ; 7,2 ; 1,5 ; 0,7 ; 6,2 ; 5,2 ; 3,1 ; 3,0 ; 4,2 ; 5,2
+bcbG  bbbG  bcb   pcc   pcc   bcn   ccn   pcb
+bbcG  pbnG  pccG  pcc   ncp   bnp   cpn   ppb
+npcG  pbcG  pbc   pbc   nnn   bnn   cnb   cnb
+#     pcb   pbb   pnp   nnp   bcp   bcp   #
+#     bbn   bbb   pbb   nnb   bnb   ccp   #
+#     ppn   pbb   pnc   pnc   pnp   ccp   #
+pcn   pbn   pbb   pcb   pcp   bcp   bcp   pcn
+ccb   cbb   cbb   cbp   cbp   cbb   pnb   ppn
+bpb   bpb   pbn   pnn   pnp   pnn   pnn   ppn
+solution: 3,3 ; 5,3 ; 7,0 ; 5,0 ; use 0,0,0 ; 3,0 ; 7,6 ; 1,4 ; 1,2 ; 0,6 ; 4,2 ; 7,0 ; 6,0 ; 0,0 ; 2,0 ; 4,1 ; 5,0

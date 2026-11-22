@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 356 + tür resource; şekil elmas; çözüm 9 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 356 + tür resource; şekil U (ayna); çözüm 8 + 4 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: daily_d027_t5
 title: Günlük 27
-moves: 9
+moves: 8
 roll: on
 specials: on
 type: resource
 rules: exact
-goals: green 22, purple 20, yellow 14
+goals: blue 33, purple 30, navy 14
 grid:
-#     #     #     pbgg  pbgc  #     #     #
-#     #     cbnp  pbnp  pbgc  cbgni2 #     #
-#     cpcn  cpcn  pbpn  yypn  gypn  gnbn  #
-cbypi1 cbyn  nbcn  ybpn  yypg  yygg  gppn  gnpb
-cgcp  cncn  ynpn  ynyn  gbyy  gbgn  gpnb  bpgb
-cgcc  cngc  yypc  yppci1 gpny  gngc  gnnc  bpnc
-#     yggc  yggn  gpbn  gpcn  cgcn  ggnc  #
-#     #     ngpb  gbby  gbppi1 cbcni2 #     #
-#     #     #     gbby  gbby  #     #     #
-solution: 1,2 ; roll 3 ; 2,1 ; roll 3 ; 4,2 ; 1,2 ; use 0,1,2 ; roll 5 ; use 0,0,5 ; 5,4 ; use 0,3,0 ; roll 6 ; use 1,1,6 ; use 0,3,0
+yy    yy    yy    #     #     np    pp    pb
+yy    ny    py    #     #     nnLy4 np    nb
+nn    bp    pn    #     #     pn    pn    yb
+bn    bp    bn    bb    bb    yp    yp    yb
+bb    cb    ccLc5 bc    bb    yb    cb    cb
+bp    pc    cc    cc    cb    cb    pb    cb
+yp    pp    pc    cp    cp    pb    pb    cc
+yp    cy    py    cy    cp    np    nc    bc
+yp    cp    pb    cb    pb    pb    pb    bc
+solution: 7,0 ; 2,8 ; use 0,5,0 ; 3,4 ; use 1,5,0 ; 1,2 ; roll 2 ; 0,0 ; roll 1 ; 6,4 ; use 3,6,0 ; use 0,0,4

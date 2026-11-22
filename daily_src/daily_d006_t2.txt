@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 56 + tür exact; şekil dikdörtgen; çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 56 + tür exact; şekil zikzak; çözüm 6 + 4 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d006_t2
 title: Günlük 6
-moves: 9
+moves: 7
 roll: on
 specials: on
 type: exact
 rules: exact
-goals: purple 46, coral 47, star 3
+goals: blue 20, coral 37, yellow 20
 grid:
-cyc   bpc   bpb   byy   bpy   bby   pcy   pcc
-ypc   bpck1 byb   bybk2 bpp   bcb*  bby   pcp
-ypb   ypp   yyp   cyb   bpp   bcb   bcb*  pcp
-pbck1 ypc   ybp   cyb   bpp   bcb   cbb   ccb
-pbp   pby   yby   cpb   cpb   ccb   pbb   ccb
-cyc   yyy   pyy   cyp   cyp   ccp   ppb   cpb
-cbc   ycy   ycb   pbb   pyp   ccc   ppy   pcy
-cby   ycy   pcb   pbb   cbb*  ccc   pppk1 pcp
-solution: 5,1 ; use 0,4,1 ; 1,4 ; 7,0 ; use 0,2,0 ; use 0,0,0 ; 1,0 ; 0,0 ; use 0,4,0 ; roll 7 ; use 0,0,0 ; 1,0 ; roll 6 ; use 0,6,0
+pc    pc    yc    yc    cc    cc    cy    #
+#     pp    pp    bp    bp    cc    by    bc
+yb    yb    bp    bc    pp    pp    yp    #
+#     cy    cc    cc    cp    cc    yc    yc
+yp    yb    bp    yp    py    cy    cc    #
+#     cb    bb    yb    py    py    pb    pp
+cy    cy    bp    bp    bc    cc    cb    #
+#     cy    py    py    bc    cc    cb    cb
+solution: 1,1 ; 3,2 ; use 0,3,1 ; use 0,6,0 ; 0,0 ; use 0,4,0 ; 2,6 ; 2,5 ; roll 0 ; use 0,6,0

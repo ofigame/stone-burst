@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 11 + 8 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati (ayna); çözüm 9 + 7 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_724
-moves: 12
+moves: 11
 roll: off
 specials: on
 paint: 1
-goals: yellow 38, navy 29, purple 40
+goals: navy 12, purple 26, yellow 32
 grid:
-ggnb  ggnpR yygn  cpgg  bpgg  bpgg  bggb  yncb
-bgnb  ggpn  gypp  cyyp  bpyg  cpyg  bgyb  yncb
-bgnp  yggp  cgpbR cyyg  ccng  ccng  ppyg  pycg
-bpng  pcbg  yngc  nngc  ccnn  gbnn  ppgn  pygp
-bpbg  ppbg  ynyg  npyc  ppyg  gbby  gygn  pggp
-yybb  ppbb  pnyg  npyy  ppyy  gyby  bypn  pgpn
-yyby  pycp  pncn  yncy  ypbn  bpbn  bppg  bncg
-pycg  pycp  yycp  yygn  cygc  cccn  cncp  pncp
-pyng  pynn  pynbR pygn  pygc  ncpn  ncbp  ngbp
-solution: rot 2,2 ; paint 6,6,n ; 4,3 ; use 0,1,0 ; 3,0 ; 2,4 ; use 0,1,0 ; 1,3 ; 2,2 ; use 0,3,1 ; use 1,1,1 ; 1,0 ; 1,6 ; use 0,3,0 ; 1,6 ; 0,0 ; use 2,1,0 ; use 0,2,0 ; use 1,2,0
+yb    yy    cy    pb    pb    by    by    bp
+yb    yb    cb    pb    pb    ny    py    pb
+pp    pp    cp    cp    by    cbG   cbG   pb
+#     pc    py    py    byG   pyG   pnG   #
+#     pc    pc    pc    bcG   ccG   ccG   #
+#     yc    yb    nb    yb    yc    nc    #
+bn    by    yy    np    yp    ny    py    ny
+yn    yy    cb    cb    yn    nn    py    py
+nb    ny    by    bb    by    by    py    py
+solution: 0,0 ; use 0,0,0 ; 3,0 ; use 0,5,1 ; 1,3 ; 0,2 ; 6,6 ; paint 3,5,p ; 3,5 ; use 1,1,5 ; 4,5 ; 2,7 ; use 3,0,7 ; use 2,5,0 ; use 0,6,0 ; use 0,6,0

@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 7 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 7 + 4 tepsi / sınır 9; rastgele 0,000; açgözlü kazanır; yumuşak 0,44; YEDEK: açgözlü;
 id: level_279
-moves: 8
+moves: 9
 roll: off
 specials: on
-goals: purple 25, yellow 27, envelope 2
+goals: yellow 23, navy 29, envelope 2
 grid:
-pnpc  pnpg  cgpy  pgnp  pgnp  ggnp  cgcg  nbcn
-ynpc  pypg  cgpy  bpnyLc3 npny  gpny  cbgg  ybgg
-yyyy  pyyg  bgpn  bpnn  npyn  gnny  cngy  ycnc
-ypyy  bpbn  npnn  bpby  bpyg  ngbg  ygpb  ycnc
-npbb  gpbb  npbnEc bpbg  bpbg  nnbn  yngg  ycpg
-ncyc  gpgnEy npgn  nbgg  nbbn  nnbn  nngn  ccpc
-ncbc  bgbc  cbby  cbgy  nncb  nncb  nncy  cppy
-ncbn  ngbc  nbnb  cbbc  ncbc  ccnb  cncb  cpyb
-nbpn  ngpn  ncpb  ccpb  ycbc  yynb  yycb  yyyb
-solution: 4,6 ; 0,5 ; use 0,2,0 ; 2,0 ; use 0,0,4 ; 3,0 ; 1,0 ; use 0,1,0 ; 4,6 ; use 0,1,1 ; 1,3 ; use 0,1,1 ; use 0,0,2
+pb    py    yn    yn    nc    yb    yb    ybEp
+pb    py    yn    yn    bn    cb    cb    yb
+bb    nc    nc    yc    bn    cb    pb    pb
+bn    bn    nb    nn    yc    cc    py    yc
+pyLc3 by    bnEy  yn    yc    np    by    yy
+py    pc    yn    yn    cp    np    np    ny
+pc    nc    nn    bn    bp    bp    nc    nc
+nc    nc    cn    pp    pp    bc    bc    nc
+cc    cc    cb    pb    cp    cc    cc    cc
+solution: 1,5 ; 3,3 ; use 1,1,0 ; use 0,7,0 ; 1,2 ; 2,0 ; 2,0 ; 5,4 ; use 0,3,3 ; 5,0 ; use 1,5,0

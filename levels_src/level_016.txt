@@ -1,15 +1,15 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T; çözüm 5 + 4 tepsi / sınır 9; rastgele 0,105; açgözlü kaybeder; yumuşak 0,60
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati (ayna); çözüm 5 + 0 tepsi / sınır 8; rastgele 0,880; açgözlü kazanır; yumuşak 1,00; YEDEK: rastgele;
 id: level_016
-moves: 9
+moves: 8
 roll: off
 specials: on
-goals: yellow 40, blue 31
+goals: coral 29, blue 23
 grid:
-cyb   cyy   cyy   cbc   ycy   yyy   byy
-cyb   byc   byc   cbc   ycb   ycb   bbc
-cyy   ybc   ybc   cbc   byb   bcb   bbb
-cyy   yby   yby   cby   cyb   byb   bcc
-cbc   cbc   cyc   yyy   ycc   bcc   ycc
-#     #     cyc   ccc   ycb   #     #
-#     #     ccc   yyb   yyb   #     #
-solution: 4,1 ; 3,0 ; 4,0 ; use 1,0,0 ; 3,0 ; 0,0 ; use 1,1,0 ; use 1,6,0 ; use 1,5,0
+yc    cy    cy    cy    cy    cc    cc
+yc    yy    cy    cy    cy    by    cc
+#     cy    cy    cc    yc    by    #
+#     cy    yy    yy    yc    bc    #
+#     cy    yc    by    by    bc    #
+bb    cb    bb    bb    by    bc    cc
+bb    bb    bb    bb    by    bc    by
+solution: 0,5 ; 1,0 ; 0,0 ; 5,1 ; 5,0

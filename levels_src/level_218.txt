@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil U; çözüm 8 + 8 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil elmas; çözüm 11 + 4 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_218
-moves: 8
+moves: 11
 roll: off
 specials: on
 type: reverse
 rules: exact
-goals: yellow 44, navy 38, envelope 3
+goals: navy 27, star 3, envelope 3
 grid:
-cbpy  cpnyEc npny  #     #     pcgp  pcgn  ppcnEc
-cbpy  ccpy  npny  #     #     bccp  bccp  ppcp
-ccpc  ccpb  ypny  #     #     bbbp  bbcy  ybyp
-ncgc  yygb  ypcb  ypcc  ngcc  nybc  bbby  bbbg
-yggc  gnyc  ynyb  ggnb  ggnn  nynnLp4 ncnn  bcpgEb
-ygbb  gbyb  ycyb  bcyb  pcnp  nnnn  nnnn  bcpn
-ygbb  nbgb  bngb  bnyb  pcgp  ncgp  nyyp  bpyn
-ypyy  ncyb  bcyb  gyyb  pypy  ncpn  nypp  bpyg
-bcyy  ncby  ncby  gyny  gypy  gcgn  ycgg  bpyg
-solution: 1,2 ; 2,4 ; 4,5 ; use 2,7,0 ; 2,4 ; 0,0 ; use 3,1,0 ; use 0,1,0 ; 4,4 ; use 0,1,0 ; 7,5 ; use 0,1,3 ; 5,4 ; use 1,2,0 ; use 1,2,0 ; use 0,0,8
+#     #     #     nc*   yc    #     #     #
+#     #     nb    nb    ynEb  pn    #     #
+#     by    bb    cb    cn    pp    np    #
+bn    cy    cn    cn    cn    ppEy  pp    np
+bn    pn    py    by*   nn    yn    pn    pn
+pp    pn    bp    bp    np    yp    by    pb
+#     cp    pp    pn    nn    bn*   by    #
+#     #     pn    pn    yy    yn    #     #
+#     #     #     ny    yyEb  #     #     #
+solution: 2,1 ; 2,5 ; 2,1 ; use 1,4,1 ; 6,5 ; 3,4 ; use 0,3,8 ; 0,3 ; 5,1 ; 3,2 ; 1,4 ; 2,6 ; 5,2 ; use 1,3,0 ; use 0,3,0

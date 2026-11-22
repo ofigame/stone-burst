@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,005; açgözlü kaybeder; yumuşak 0,13
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil elmas; çözüm 7 + 7 tepsi / sınır 10; rastgele 0,010; açgözlü kaybeder; yumuşak 0,02
 id: level_266
 moves: 10
+time: 60
 roll: off
 specials: on
-goals: yellow 30, star 3, envelope 2
+goals: yellow 27, blue 19, envelope 3
 grid:
-yygy  ygpy  gppy  npyy  pcyg  #     #     #
-gygc  yggc  gppc  nnyg  ncggEp #     #     #
-gygn  ynpn  ypbn  pnyg  pcgg  #     #     #
-yync* ynnp  ycbp  pnbp  pcgc  #     #     #
-gyyc  gnyc  gnbc  cnbc  pygc  pygb  gngb  gnyn
-byyn  bbgn  bcgn  ccgn  nyyc  pygc  gcgc  gnpn
-cyyn  cbbn  bbcn  cccn  nyyb  bygc  cygc  nnpc
-ypbn  ybbc  nbbb* gcbb  gbgbEc byyb  bygy  nygc
-pbbn  ybpc  nbbc  gybb  gyyb* pyyb  nyyy  nyyy
-solution: 0,3 ; 3,1 ; use 1,4,0 ; 0,2 ; use 0,0,0 ; 1,4 ; 0,3 ; 2,7 ; 5,7 ; use 0,0,0 ; 5,5 ; use 0,0,7 ; use 0,0,7 ; use 0,3,1
+#     #     #     cpb   cpb   #     #     #
+#     #     cyc   cyc   ypb   yyc   #     #
+#     bncEc cyc   pyn   byc   yyc   ncn   #
+bbc   bbc   bnc   bpp   bpc   ncpEc ncn   bpn
+cbc   cbc   cnc   cyp   bpp   ccp   bbn   bnc
+nbnEn nbn   pny   ppy   cpy   cpp   cnp   bnc
+#     bbn   yny   yyn   cyy   cpp   cyp   #
+#     #     ypy   ynn   yny   ypp   #     #
+#     #     #     ynp   yyp   #     #     #
+solution: 3,3 ; 3,4 ; use 0,2,1 ; 2,3 ; 0,3 ; use 0,2,1 ; 3,3 ; 3,0 ; use 1,5,1 ; 6,2 ; use 0,0,3 ; use 0,3,0 ; use 1,4,1 ; use 0,4,0

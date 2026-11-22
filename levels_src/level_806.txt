@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 10 + 8 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: level_806
 moves: 10
+time: 60
 roll: off
 specials: on
-goals: navy 28, purple 22, green 42
+goals: yellow 17, purple 18, coral 45, envelope 3
 grid:
-nnycR nngy  yngc  yngc  cngc  ycng  ypny
-gcgy  npby  nnyb  yngb  gcnc  gcng  gpng
-gppp  gpbb  ggyb  ygbnR ccnc  cccg  cpcb
-gcgp  gcbb  cgcb  cycg  nnng  ngcg  nggcR
-pcgp  gcyc  cyyc  cyny  ncyy  ncpc  yppg
-pybp  pgbc  ngng  ppng  pcyp  ncyg  ypcg
-pybp  ggcc  ngcc  nngc  pbyp  pbcg  ypcg
-ggyp  ggyg  bbgg  bngc  bnyp  cbcc  pbpc
-bgng  bgng  bbbg  ybbc  bgcc  bgcc  pgcy
-solution: rot 6,3 ; 5,0 ; 1,4 ; 2,5 ; use 0,5,0 ; use 0,6,1 ; 1,4 ; 2,0 ; use 0,2,0 ; 2,0 ; use 0,4,3 ; 4,6 ; use 0,0,2 ; 2,1 ; 1,0 ; use 2,2,0 ; use 0,1,0 ; use 0,1,0
+bbc   bby   bby   #     #     #     #
+bbc   nbc   bnn   cnb   #     #     #
+bbc   bbc   bbn   ynbEp ynb   #     #
+yycEc ycn   pnn   pbc   pbc   bby   #
+ncp   ncy   cny   ypy   ypc   ccy   ycy
+nnp   bny   nnp   cnc   cpcEp ccy   bcn
+pcp   pcp   nbp   cnc   ncc   ccn   bcn
+pcc   cbc   nbc   nnb   ncb   bcb   ncp
+ccc   cbc   cbc   cbb   bcb   bpb   bpp
+solution: 0,4 ; 0,6 ; use 1,0,0 ; use 0,3,1 ; 3,3 ; 5,3 ; 2,6 ; 5,4 ; 3,2 ; use 0,4,3 ; 2,1 ; use 0,3,1 ; use 0,1,0 ; use 0,6,8

@@ -1,19 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U (ayna); çözüm 15 + 0 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U; çözüm 12 + 0 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_900
 moves: 15
 roll: off
-paint: 1
 type: boss
-rules: noSpecials, protect, exact
-goals: navy 29, yellow 44, green 36
+rules: noSpecials, protect
+goals: blue 22, navy 37, purple 35
 grid:
-yyyy  yyby  byby  #     #     bbby  gybg  gbng
-bbyn  bbyy  byyy  #     #     byby  nybg  nbnn
-bbbb  bbbb  gyyy  #     #     byby  bybg  nybn
-nbbb  nbbg  gyyy  gygg  nygg  nbbn  nybn  nybg
-nbbg  bnbg  byyy  nngy  nygg  nbbn  nbbn  gyng
-byyg  ynyb  yyyg  nnny  byng  byyg  gygg  gyng
-bygg  gygg  gybg  gnny  gnng  gnyb  gygg  nbng
-nggg  nyyg  yyyg  gbyg  gnyg  gnyb  gbgb  nbgb
-nggbP nnyb  ybgnP bbgn  yngg  yngbP gnyb  gbyb
-solution: 1,3 ; 0,0 ; 3,3 ; 1,1 ; 4,3 ; 1,0 ; 0,0 ; 3,4 ; 6,0 ; 6,0 ; 5,0 ; 7,0 ; 2,0 ; 1,3 ; 2,2
+pnp   G1:pnb G1:bnb #     #     G1:pnn G1:pnb bnpP
+bnp   bnn   bnb   #     #     bbn   npb   bnp
+bnn   bnn   bnb   #     #     bpn   npn   bnn
+npn   nnn   nnn   pnp   pbc   bbn   npn   bpn
+npn   ppn   nbn   ncp   bnp   bnnB1 bpn   bpc
+nbp   nnp   cnp   ccp   bcb   nnb   npn   ppc
+pbp   pnp   cpc   cpc   cpb   cnb   cpp   cpc
+cpn   cnb   cnc   ppp   cpp   cnp   ccp   cpc
+cpbP  cnbP  cpb   ppc   cpc   cpc   bcc   bpc
+solution: 3,3 ; 3,4 ; 1,1 ; 7,4 ; 5,2 ; 4,4 ; 5,4 ; 5,1 ; 1,0 ; 1,0 ; 2,0 ; 4,6

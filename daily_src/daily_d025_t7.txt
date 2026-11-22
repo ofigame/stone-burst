@@ -1,21 +1,21 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 721 + tür scarce; şekil elmas; çözüm 14 + 5 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 721 + tür scarce; şekil U (ayna); çözüm 9 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d025_t7
 title: Günlük 25
-moves: 14
+moves: 10
 roll: on
 specials: on
 paint: 1
 type: scarce
 rules: scarce
-goals: navy 18, yellow 17, green 20, star 3
+goals: purple 23, navy 15, blue 37
 grid:
-#     #     #     gppy  gcpn  #     #     #
-#     #     nccp  gppg  gcpn  gcpn  #     #
-#     ggpb* bcpb  bcpg  bcbn  gcpp  gcgp  #
-bbcg  bccn  bygb  bygn  cbbp  cypp  ccgp  cyny
-bcgg* ycbg  byby  cbbn  cbbp  bycp  bygp  pygy
-bycg  gycg  nycy* bpcy  gpcy  gpcp  pygn  pygn
-#     nbyg  npcb  npyg  gpng  pppp  pypn  #
-#     #     bpbn  bpyp  pbyp  pcgp  #     #
-#     #     #     gpcp  gncp  #     #     #
-solution: 5,2 ; roll 3 ; use 0,3,1 ; 2,3 ; use 0,4,0 ; roll 4 ; 0,3 ; 1,4 ; roll 5 ; 1,2 ; roll 4 ; 4,0 ; roll 2 ; use 1,1,2 ; 3,6 ; paint 2,6,n ; roll 6 ; use 3,3,8 ; use 0,4,8
+ypy   cny   ynb   #     #     bnp   bny   bny
+ycy   cpy   ycb   #     #     byp   byn   byy
+ypp   bcb   bcb   #     #     bnb   bpn   bpy
+bcp   bcc   bcc   ccb   ycn   bcb   byc   pnc
+ccc   ccy   pcc   pcp   ycn   yyb   yyc   ppc
+ypy   ypy   ppb   ycc   yyc   byb   cyb   ncb
+cby   cbb   cpb   cnn   bcn   bcy   cyy   cnb
+cbbK1:2 pbb   cbc   cby   nyn   nyp   cyy   cbb
+pyn   byn   pbyK1:2 ccy   ycy   nyb   nbb   ybb
+solution: 5,2 ; roll 0 ; use 0,1,0 ; 4,3 ; 4,3 ; use 0,5,0 ; roll 5 ; use 0,0,0 ; 6,6 ; 1,6 ; 2,1 ; use 0,0,2 ; 0,0 ; use 0,7,0 ; use 0,1,1 ; use 0,0,0

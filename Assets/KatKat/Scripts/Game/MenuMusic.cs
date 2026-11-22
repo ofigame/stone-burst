@@ -11,7 +11,8 @@ namespace KatKat.Game
     /// </summary>
     public sealed class MenuMusic : MonoBehaviour
     {
-        public const float Volume = 0.7f, FadeInMs = 400f, FadeOutMs = 200f;
+        public const float Volume = 0.5f, // 2026-11-22: 0,7 yüksekti (kullanıcı: son seste aşırı yüksek)
+            FadeInMs = 400f, FadeOutMs = 200f;
         /// <summary>Oyun sırasında çok kısık (kullanıcı 2026-11-20: "müzik oyun sırasında çok kısık olsun").</summary>
         public const float InGameVolume = 0.03f; // kullanıcı (2026-11-21): "oyun esnasındaki müzik sesi çok yüksek arkada çok kısık olsun" (0,08 → 0,03)
 

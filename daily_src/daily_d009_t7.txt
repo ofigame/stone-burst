@@ -1,21 +1,21 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 734 + tür protect; şekil kum saati; çözüm 10 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 734 + tür protect; şekil T; çözüm 8 + 3 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d009_t7
 title: Günlük 9
-moves: 10
+moves: 8
 roll: on
 specials: on
 paint: 2
 type: protect
 rules: protect, exact
-goals: blue 25, purple 41, yellow 21
+goals: yellow 21, blue 16, purple 17
 grid:
-cbbn  bngn  ppcnP ppcp  gnbp  bnyc  bpyy  bypg
-cbbcK1:2 cngc  pccn  pcyy  gnbp  gycp  cypy  gypgP
-cbbyP cnpy  pbpy  ppyy  gppc  cccn  cpcg  gppg
-#     cbpp  cbpy  cnpy  cppc  cpcn  ppcn  #
-#     gnnp  ybgp  bcpp  bcpg  bccn  ppcp  #
-#     gcng  ccnp  cccp  pyng  pccg  ppcp  #
-ygpc  yccg  nccp  nccb  pbyg  nbyp  nppp  ycpbK1:2
-ycpg  ccgg  ccgb  ncbb  cbyb  cbnp  yynb  ncyb
-pcpb  pcgb  ngby  ngby  cbpy  cbyp  nyyp  nyyb
-solution: paint 5,7,b ; 3,6 ; use 0,3,0 ; 4,7 ; use 0,4,0 ; paint 0,2,c ; 3,1 ; 1,5 ; use 1,6,0 ; 1,2 ; roll 4 ; 2,2 ; 3,5 ; use 0,6,0 ; use 2,6,0 ; use 0,4,0 ; use 0,4,0
+ncP   ny    G1:by G1:yy G1:yc yc    yyP   cy
+nbP   by    by    by    py    cp    yp    cy
+nb    nb    nc    nc    pn    yn    yp    yp
+cy    yp    yp    yp    pn    nb    yb    ybB1
+py    pp    yc    bp    bn    bb    bb    yb
+py    cc    pc    pc    bc    bn    nn    nb
+#     #     py    pc    bc    cn    #     #
+#     #     cn    pn    pn    bc    #     #
+#     #     cn    pn    bn    bc    #     #
+solution: 2,4 ; roll 4 ; 5,3 ; use 1,5,1 ; roll 3 ; 1,0 ; paint 6,0,c ; 7,0 ; use 0,0,2 ; 4,1 ; use 1,2,0

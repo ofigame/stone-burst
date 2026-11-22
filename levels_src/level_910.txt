@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U; çözüm 20 + 0 tepsi / sınır 20; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kenar çentikleri; çözüm 16 + 0 tepsi / sınır 20; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
 id: level_910
 moves: 20
 roll: off
 type: boss
-rules: noSpecials, exact
-goals: coral 25, yellow 37, star 4, sponge 1
+rules: noSpecials
+goals: blue 30, yellow 27, coral 29, star 3
 grid:
-yngy  yygn  yycn  #     #     nyyy  ynyy  ynny
-yngc  yycc  ygcc  #     #     nyyySy ncyn  ncyy
-nnng  nnng  ygnn  #     #     nnyy  yycc  yycc
-ncng  ycng  ynnn  gggy  gcgy  ngcc  ngcy  ngnc
-ncng  yccn  nngn  nggy  yggy  ygyy  ngny  ngnc
-ngnc  ngcg  nncg  ngyy  ngyg  ggyg  gggy* ggny
-ngnc  ynng  nncg  ngyg  ngyg  gngn* gggg  gggg
-nnng  ynnn* yncn  yncy  ccgn  ccgn  cggg  cggg
-nnny  ynny  yccy  ycny  ycnn* ggnc  gggc  gggc
-solution: 5,0 ; 5,6 ; 1,5 ; 3,3 ; 6,2 ; 3,7 ; 0,5 ; 2,2 ; 2,7 ; 3,7 ; 3,3 ; 2,2 ; 5,5 ; 6,5 ; 0,2 ; 0,2 ; 1,6 ; 5,0 ; 5,0 ; 0,1
+bcc   pcc   pcp   pbp   ppp   #     byc   bcb
+bbp   pcc   pbc   pbb   ppp   ppb   bpc   bcb
+cbp   cbp   byp   pyb   pyp   ppp*  bpc   bpc
+cyy   cbb   cyc   cyc   pcb   ppb*  bbyR  #
+cyy   cyb   cyb   cyb   ybpR  pcy   cpp   #
+bcb   bcb   byb   cby   ycb   pcy   cbc   cbp
+bcy   bcy*  pcy   pcp   pcp   byc   byc   ycp
+byy   byy   ypy   ycy   #     #     byc   yyp
+bcy   bcc   ypy   pcy   #     #     cyc   yyc
+solution: rot 4,4 ; 1,3 ; 6,5 ; 0,3 ; 2,0 ; 2,3 ; 0,5 ; 5,2 ; 6,0 ; 6,1 ; 2,6 ; 5,4 ; 7,0 ; 6,5 ; 3,0 ; 3,2

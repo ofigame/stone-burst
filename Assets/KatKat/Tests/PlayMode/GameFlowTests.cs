@@ -101,6 +101,21 @@ namespace KatKat.Tests
                 path = WastePath(d);
                 if (path != null && path.Count <= 12) return i;
             }
+            // 2026-11-22: hamle payı arttı (kullanıcı: "hamle payını biraz arttırabiliriz"); israfla kaybetmek için bu oturumdaki
+            // katalog kopyasında hamle sınırı düşürülür (sahne her testte yeniden yüklenir, dosya değişmez).
+            for (int i = 3; i < 20; i++)
+            {
+                var d = _gc.Catalog.Levels[i];
+                if (!string.IsNullOrEmpty(d.TrialType) || d.TimeLimit > 0) continue;
+                int keep = d.MoveLimit;
+                for (int lim = 3; lim < keep; lim++)
+                {
+                    d.MoveLimit = lim;
+                    path = WastePath(d);
+                    if (path != null && path.Count <= 12) return i;
+                }
+                d.MoveLimit = keep;
+            }
             Assert.Fail("israfla kaybedilen kısa bölüm bulunamadı (4–20)");
             path = null;
             return -1;

@@ -26,7 +26,7 @@ static partial class Program
     {
         ["clip"] = new[] { "clip1", "clip2" }, ["star"] = new[] { "stars" }, ["ice"] = new[] { "ice1", "ice2" }, ["colorLock"] = new[] { "lock" },
         ["envelope"] = new[] { "env" }, ["rotor"] = new[] { "rotor" }, ["sponge"] = new[] { "sponge" }, ["linkedClip"] = new[] { "link" },
-        ["gate"] = new[] { "gate" }, ["paint"] = new[] { "paint" },
+        ["gate"] = new[] { "gate" }, ["paint"] = new[] { "paint" }, ["gravel"] = new[] { "gravel" },
     };
 
     static string DailyTypeFor(int day, int tier)

@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil kesik köşe (ayna); çözüm 11 + 9 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil dalga; çözüm 10 + 8 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_357
-moves: 11
+moves: 10
 roll: off
 specials: on
 type: exact
 rules: exact
-goals: green 26, yellow 21, envelope 3
+goals: purple 44, navy 26, coral 33
 grid:
-#     #     bgpc  bgpnEy gpng  cpngEy #     #
-#     cpyc  bgbc  pppn  gpnbR cpnn  cpbn  #
-gppp  gpbg  bpbg  pbcg  ppnc  pgnc  pgbn  pnbn
-ppgp  gpbp  gbpg  pbcy  ppcc  pbcgR bbcbR cncnEc
-ypgp  cpnp  gpyp  gbyy  gbcn  ybpn  pgbc  cgbn
-ypbb  cgnb  yyyb  ygcc  pgcc  yybp  pgyn  ygyn
-ypby  ynpb  gypp  ynpc  pncc  ygcp  ygcn  yccn
-#     nnyp  nnyp  gybc  pnpp  ggbp  ybcn  #
-#     #     nbbb  gbbg  gbbg  gpbg  #     #
-solution: 0,2 ; use 0,5,0 ; rot 6,3 ; 4,2 ; use 0,3,0 ; 5,1 ; 3,5 ; use 0,4,0 ; 3,7 ; 6,5 ; use 0,0,4 ; 6,4 ; 3,2 ; 6,1 ; use 0,0,5 ; use 2,0,4 ; 3,1 ; use 0,2,0 ; use 0,2,0 ; use 0,2,0
+#     ypc   #     bcy   #     bbc   #     cyp
+nyy   cybR  pcy   bby   bby   bby   ybp   cpp
+cyy   cny   ppb   pbbi1 yby   ybn   ypc   ypc
+cpc   ypc   bpb   bpbi1 nby   ncy   ncc   ncbi2
+cpc   ppn   bbc   bbc   nny   nnb   pcb   pbb
+cyy   pnn   cnn   cnc   nnn   nyni1 pyni1 nbn
+nyy   npy   ynbR  ppn   ppbR  pnp   cpy   cby
+npy   ppc   yppi2 ppp   ppp   ccp   ccp   ccy
+bpy   #     ypc   #     pnb   #     ncp   #
+solution: rot 4,6 ; 4,6 ; 3,0 ; use 1,1,0 ; 3,0 ; 5,2 ; use 1,1,0 ; use 1,4,4 ; 0,5 ; 1,4 ; 7,3 ; use 2,0,3 ; 5,0 ; use 3,6,3 ; 5,5 ; use 1,7,0 ; use 1,7,0 ; use 1,6,1

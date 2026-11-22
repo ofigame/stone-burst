@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L (ayna); çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe; çözüm 9 + 5 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_391
-moves: 9
+moves: 11
 roll: off
 specials: on
-goals: green 33, yellow 35, navy 27
+goals: purple 26, navy 15, yellow 21
 grid:
-#     #     #     bygy  bygy  nccg  bccp  gcnn
-#     #     #     bygy  nyyg  npcg  bccp  gynn
-#     #     #     nbny  ypyg  ypyp  pypp  pypy
-#     #     #     nbny  bpby  ynyb  bycy  pbpy
-ncnc  gcbg  pbbg  nbny  bnby  bnbp  bncp  gbcp
-nngg  gngg  gbbg  nppg  bpby  cpby  bnbg  gncg
-cygg  cngn  bgcp  gcyp  gyyy  yyyy  nngnR nnbb
-cyyp  cygn  cygn  gcgb  gcyb  yybg  ngpp  ngpb
-gpyg  npgg  nngg  cngyR cnnc  ynbg  ygpp  ngpp
-solution: rot 3,8 ; 3,0 ; use 0,7,0 ; 1,4 ; use 0,3,0 ; 3,2 ; use 0,7,0 ; 6,0 ; 3,0 ; 4,2 ; use 0,4,1 ; use 0,4,1 ; 0,6 ; use 0,0,6
+#     #     ny    by    cy    pn    #     #
+#     bb    np    pp    cc    cy    cp    #
+cn    pb    pp    pp    nc    by    yp    yp
+cc    pc    pc    pc    cc    bc    pc    pc
+cn    cn    pc    yc    cc    bc    bn    py
+cn    yn    yp    yp    cp    bc    by    yy
+cp    cy    cy    cn    yn    yn    pb    yy
+#     ny    pyG   nbR   pnG   nyR   pb    #
+#     #     pcG   pcG   pcG   pb    #     #
+solution: 4,1 ; 6,1 ; use 0,2,0 ; 2,1 ; use 1,2,0 ; 5,2 ; use 1,5,0 ; 1,5 ; use 0,7,2 ; rot 3,7 ; 4,0 ; use 0,0,4 ; 2,8 ; 2,8

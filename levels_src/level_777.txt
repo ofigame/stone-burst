@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil kenar çentikleri; çözüm 10 + 9 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil U; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
 id: level_777
-moves: 10
+moves: 8
 roll: off
 specials: on
 paint: 1
 type: exact
 rules: exact
-goals: green 15, purple 40, navy 39
+goals: purple 19, coral 24, blue 37
 grid:
-pcnn  pcnn  ncyn  ncyc  ncyc  ncpy  ncby  pcbb
-pcnn  ncnp  npyp  npyb  nbyb  nbpb  ncyb  pnyb
-#     #     cpnn  pyyn  npyb  nbyb  cbyb  cnyn
-#     #     cpnc  pnpn  npyn  npyb  cnpn  cnpn
-ppbg  npbc  gppc  gnpc  gpnc  nyng  nypn  nypn
-pyng  gybc  bpbc  gnpc  gnbc  gync  #     #
-pbnb  gbcg  bccg  gcbp  ypnb  ycnc  bcnp  #
-gbnb  pbcc  pccc  ppbp  ypcb  ypcc  #     #
-gynb  gncc  gncp  ppbp  ypbn  ypcp  gpcp  gppp
-solution: 2,3 ; use 0,0,4 ; 2,2 ; 2,3 ; 7,0 ; use 0,1,1 ; use 0,0,0 ; 2,4 ; 2,0 ; 4,5 ; use 0,0,0 ; use 0,5,0 ; 1,6 ; use 0,3,0 ; 0,4 ; use 0,1,0 ; use 0,1,5 ; 0,6 ; use 0,1,0
+np    pp    pp    #     #     by    by    ny
+cn    pn    pc    #     #     cp    cb    nb
+cp    cp    cn    #     #     cp    cb    cb
+np    yp    bn    bn    by    bp    cb    nb
+np    by    by    by    bn    bn    nn    nb
+nc    nc    bn    cc    nc    pb    pb    nb
+nc    bc    bc    cc    nc    nb    bb    by
+by    bp    bp    cn    cn    nb    bb    by
+cy    bp    np    cy    by    by    by    ny
+solution: 6,1 ; use 0,0,0 ; 0,5 ; 7,3 ; use 0,2,1 ; 7,6 ; 6,6 ; 1,6 ; 2,2 ; use 3,2,0 ; 0,3 ; use 1,0,4 ; use 2,3,3 ; use 1,0,0 ; use 0,5,0

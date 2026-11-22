@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 531 + tür pure; şekil dikdörtgen; çözüm 18 + 0 tepsi / sınır 18; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 531 + tür pure; şekil U (ayna); çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,15; döndürmeyle başlar;
 id: daily_d012_t6
 title: Günlük 12
-moves: 18
+moves: 8
 roll: on
 type: pure
 rules: noSpecials, exact
-goals: navy 43, yellow 27, blue 37, star 4
+goals: blue 27, coral 27, navy 45
 grid:
-ynnc  ynnb  bnyb  bnbb  cnbb* cyyb  cyyc  cnyb
-cnnc  ynnb  ycyb  yccb  cbbb  cbnc  cyyc* cnyn
-nnnc  ynyb  ycyb  nccb  ybnc  bbncK1:2 cbnn  bbyn
-ncnc  ccyn* cccn  nccb  ybcn  cbyn  cnyn  bbyn
-nycy  cycn  bccc  nnnb  cnbb  cnyb  cnyb  ynyb
-nbcy  nbccK1:2 nbnc  nnnc  nnbb  nnnb  ybyn  ybyb
-bbcy  nbcb  nbyc  bcyc  bcbb  ncnb  nbnn  cbnb
-bccb  bycb  nnyb  nnbn* nnby  nbnn  nbcn  nbyy
-bccb  bycb  nnyb  nnbb  nnny  nbny  nbcy  nbyy
-solution: 7,1 ; roll 7 ; 1,0 ; roll 0 ; 5,0 ; roll 8 ; 6,2 ; roll 7 ; 2,1 ; 0,0 ; 4,0 ; roll 1 ; 1,0 ; 0,2 ; roll 3 ; 0,5 ; roll 1 ; 4,1
+bbnR  bnb   bnb   #     #     ncn   ccc   ccc
+bncR  nbb   nbb   #     #     ncc   cbcK1:2 bbc
+cnc   nnb   ncb   #     #     bnn   bbc   bbc
+bnc   ncc   ncb   ncn   cbn   cbn   bbn   bbn
+bnn   nnb   cnb   nnn   nbn   nbn   bbb   bbn
+bnnK1:2 nnc   cnb   cnn   nbn   nnc   bcc   bbc
+nbn   nnn   cnc   bbc   bbn   nnn   bcn   nnc
+cnc   nnc   bnc   bcnR  nbc   bnn   bcn   nnb
+cnc   cnc   bnc   nnc   nbb   ncn   ncn   nnb
+solution: rot 0,0 ; 0,0 ; 5,2 ; 0,1 ; 6,0 ; 6,1 ; 0,1 ; roll 0

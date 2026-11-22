@@ -142,7 +142,9 @@ namespace KatKat.Tests
             var res = Path.GetDirectoryName(ProductionLevelTests.LevelsDir());
             var cfg = ZpeConfig.Parse(File.ReadAllText(Path.Combine(res, "Zpe", "zpe_config.json")));
             // v3 (vr1 02_ZPE): hız ağırlığı 0; kalan dördü kendi toplamına (0,90) bölünerek kullanılır.
-            Assert.AreEqual(0.90, cfg.WEfficiency + cfg.WDifficulty + cfg.WFirstTry + cfg.WTime + cfg.WNoAssist, 1e-9);
+            // v4 (2026-11-22): zorluk puan parçası değil ağırlık; kalan üç ağırlık (0,65) kendi toplamına bölünür.
+            Assert.AreEqual(0.65, cfg.WEfficiency + cfg.WDifficulty + cfg.WFirstTry + cfg.WTime + cfg.WNoAssist, 1e-9);
+            Assert.IsTrue(cfg.WeightByDifficulty);
             Assert.AreEqual(0.0, cfg.WTime, 1e-9);
             var refs = Zpe.ParseRefs(File.ReadAllText(Path.Combine(res, "Zpe", "level_ref.json")));
             Assert.AreEqual(1000, refs.Count);

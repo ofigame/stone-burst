@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe (ayna); çözüm 10 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L; çözüm 11 + 5 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,08; YEDEK: mek:örtü;
 id: level_769
-moves: 10
+moves: 12
 roll: off
 specials: on
 paint: 1
-goals: yellow 31, blue 32, navy 30
+goals: coral 21, yellow 18, blue 19, sponge 1
 grid:
-#     #     gpcy  gpby  ypny  #     #
-#     yybg  yncg  ypbg  ybby  npny  #
-gybp  ynbp  pncg  cbby  cbby  nnny  nyby
-nybc  pcgc  pngn  cnbb  ypbc  ynybR ynby
-nycc  nynbR pggn  cngp  ypcc  gbpy  cbby
-nbbn  pbbn  pggp  ybgp  yggc  gppc  cpnb
-ngbb  pngb  pggp  nbgp  ngyy  nbpp  nbnb
-#     yngb  yngb  nngb  gpyy  gpyp  #
-#     #     ynpy  nnpy  pypy  #     #
-solution: rot 5,3 ; 2,0 ; use 0,3,0 ; 1,6 ; 2,3 ; 4,6 ; 1,1 ; use 0,1,1 ; 2,0 ; use 2,4,0 ; use 1,4,0 ; 4,3 ; 2,4 ; 6,2 ; use 3,1,1 ; use 1,1,2 ; use 1,1,2
+cb    pb    pb    pb    #     #     #
+cn    pn    pc    cc    #     #     #
+py    pn    cp    cy    #     #     #
+py    ny    cy    by    #     #     #
+cp    cy    cn    by    nb    py    pn
+yc    by    ynSnp yb    nb    py    pn
+cc    bc    yp    yp    bc    bb    bb
+cp    bc    py    py    pc    bn    cn
+bp    bp    py    cp    cp    cp    cn
+solution: 0,2 ; 3,3 ; use 1,2,0 ; 0,7 ; use 0,3,1 ; 1,5 ; use 0,5,4 ; 4,6 ; 5,7 ; 5,6 ; 3,6 ; use 0,3,0 ; paint 1,0,n ; 1,0 ; 1,0 ; use 0,0,0

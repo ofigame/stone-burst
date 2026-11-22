@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 719 + tür pure; şekil L; çözüm 13 + 0 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 719 + tür pure; şekil T (ayna); çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d012_t7
 title: Günlük 12
-moves: 13
+moves: 8
 roll: on
 paint: 2
 type: pure
 rules: noSpecials, exact
-goals: yellow 17, coral 37, purple 37
+goals: coral 34, purple 41, yellow 44
 grid:
-ycpp  ccpn  ccpp  ccpc  #     #     #
-ypyc  yccn  ccpp  cnpc  #     #     #
-pppc  pccp  ycnc  cnpc  #     #     #
-pppc  ppyp  ycnp  ynnp  #     #     #
-cppp  ncyp  ncpc  nnnp  ycpc  ccpc  cppc
-ccpnLc4 ccpn  ccpc  ynyn  yccn  yccy  cpyy
-ccpn  ccpn  ccpn  ypyn  yppy  cpyy  ppyc
-pcnn  pcnp  ppnp  yppc  ynpc  cppc  cyyc
-ncnn  pcpn  nppn  ppppLc5 pnpp  pncc  cycc
-solution: 6,6 ; 0,5 ; 1,2 ; roll 7 ; 3,5 ; roll 6 ; 3,0 ; roll 6 ; 4,4 ; roll 5 ; 2,0 ; roll 5 ; 0,2
+pcc   pcc   pcc   ypp   cpp   cpp   cpp
+ccc   pcc   yccK1:2 ycp   cyp   cyp   cpc
+pyp   yycK1:2 yyc   cyp   yyp   ccp   pcc
+pyp   yyp   cyp   ypp   ypp   ycc   yyc
+yyp   cyp   cyp   cyy   cpp   ypp   yyp
+yypK1:2 ycc   cyp   cyy   cyy   yyp   yyp
+#     #     yyp   yyp   yyp   #     #
+#     #     cyy   cyp   cpp   #     #
+#     #     ypy   ypy   cpy   #     #
+solution: 3,0 ; roll 3 ; 4,1 ; 6,3 ; 0,0 ; 0,0 ; 0,0 ; roll 2

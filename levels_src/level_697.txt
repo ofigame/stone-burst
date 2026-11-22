@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil kesik köşe (ayna); çözüm 10 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil kesik köşe; çözüm 8 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_697
-moves: 10
+moves: 8
 roll: off
 specials: on
 type: resource
 rules: exact
-goals: yellow 42, green 47, navy 17
+goals: coral 15, purple 14, yellow 16
 grid:
-#     #     G1:npbp G1:yyyn G1:yyyn bycn  #     #
-#     gpypR nppy  cbpb  yncg  gncn  ypnn  #
-gypg  gygy  npgy  pppb  bnbg  gnbp  gnbg  ynng
-yypg  gypb  ppgb  ppgb  bpgg  pngp  yngg  ypng
-pgbb  pcpy  bpny  pcgb  ycgg  pcgg  yybg  pybg
-ggbb  bcbb  bpcy  bgcg  ygcc  ycgc  bcbpR pybb
-gyypR gypy  gypy  gpcgB1 npyg  byyg  bcbb  pybb
-#     bgcy  gpcg  gpcg  pycg  yyyg  ccyg  #
-#     #     ppyp  pyyg  pyyy  yyyg  #     #
-solution: rot 0,6 ; 3,1 ; 4,1 ; use 0,6,1 ; 5,0 ; use 0,2,1 ; 3,4 ; 5,6 ; 2,5 ; use 1,0,2 ; 2,0 ; use 2,3,0 ; use 2,3,0 ; use 0,5,0 ; use 0,5,0 ; 0,2 ; 0,6
+#     #     G1:by G1:bn G1:bb bc    #     #
+#     cy    cyLc5 nn    bb    bb    by    #
+yn    pb    pb    nn    bbB1  bb    yb    bn
+yp    pp    pp    pc    bc    yn    yn    bn
+cb    yn    yn    pn    bb    bn    bn    pn
+cn    cn    pn    nc    nb    bn    bn    pb
+bc    bc    pc    nc    ny    nn    cb    pbLb5
+#     bb    pb    nn    cy    cy    cy    #
+#     #     nb    nn    yb    yb    #     #
+solution: 3,5 ; use 0,0,3 ; 1,4 ; use 0,1,1 ; 4,1 ; use 0,4,1 ; 1,2 ; use 0,2,0 ; 6,6 ; 0,4 ; 5,4 ; 7,4 ; use 0,6,2
