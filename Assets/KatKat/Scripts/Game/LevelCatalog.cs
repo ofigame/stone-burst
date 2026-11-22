@@ -35,7 +35,7 @@ namespace KatKat.Game
         public static LevelCatalog Load()
         {
             // v10 P1.6: önce dizin dosyası (açılışta bölüm metni yüklenmez).
-            var idx = Resources.Load<TextAsset>(LevelIndex.ResourcePath);
+            var idx = KatKat.View.Res.Load<TextAsset>(LevelIndex.ResourcePath);
             if (idx != null)
             {
                 try
@@ -58,7 +58,7 @@ namespace KatKat.Game
         /// <summary>Yedek yol: Resources/Levels altındaki bütün metinleri yükleyip adları alır (dizin yoksa ya da bozuksa).</summary>
         public static LevelCatalog Scan()
         {
-            var assets = Resources.LoadAll<TextAsset>("Levels");
+            var assets = KatKat.View.Res.LoadAll<TextAsset>("Levels");
             var names = new List<string>(assets.Length);
             foreach (var a in assets) if (a.name.StartsWith("level_", StringComparison.Ordinal)) names.Add(a.name);
             // Sayısal sıra: level_1000 metin sırasında level_101'den önce gelirdi (10 000 bölüme hazır).
@@ -90,7 +90,7 @@ namespace KatKat.Game
         {
             if (i < 0 || i >= _names.Length) throw new ArgumentOutOfRangeException(nameof(i));
             if (_parsed.TryGetValue(i, out var d)) return d;
-            var ta = Resources.Load<TextAsset>("Levels/" + _names[i]);
+            var ta = KatKat.View.Res.Load<TextAsset>("Levels/" + _names[i]);
             try
             {
                 d = ta != null ? LevelParser.Parse(ta.text, _names[i] + ".json") : null;

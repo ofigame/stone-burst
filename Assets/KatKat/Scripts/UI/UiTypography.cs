@@ -28,14 +28,14 @@ namespace KatKat.UI
         /// bütün oyunda Nunito — ana metin 800, ikincil 600. Kaynak yoksa yerleşik font.
         /// </summary>
         public static Font WorldBold => _worldBold ? _worldBold
-            : (_worldBold = Resources.Load<Font>("Typography/Nunito-ExtraBold") ?? Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf"));
+            : (_worldBold = KatKat.View.Res.Load<Font>("Typography/Nunito-ExtraBold") ?? Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf"));
 
         private static bool Ready(TMP_FontAsset f) => f && f.material && f.atlasTexture;
 
         private static TMP_FontAsset Make(string path, string name, bool withFallbacks)
         {
-            var source = Resources.Load<Font>(path);
-            if (!source) source = Resources.Load<Font>("Typography/LiberationSans");
+            var source = KatKat.View.Res.Load<Font>(path);
+            if (!source) source = KatKat.View.Res.Load<Font>("Typography/LiberationSans");
             if (!source) throw new MissingReferenceException(path + " font source is missing.");
             var f = TMP_FontAsset.CreateFontAsset(source, 90, 9, GlyphRenderMode.SDFAA, 1024, 1024, AtlasPopulationMode.Dynamic, true);
             f.name = name;
@@ -63,7 +63,7 @@ namespace KatKat.UI
         private static TMP_FontAsset Fallback(ref TMP_FontAsset slot, string path, string name)
         {
             if (Ready(slot)) return slot;
-            var source = Resources.Load<Font>(path);
+            var source = KatKat.View.Res.Load<Font>(path);
             if (!source) return null;
             slot = TMP_FontAsset.CreateFontAsset(source, 90, 9, GlyphRenderMode.SDFAA, 1024, 1024, AtlasPopulationMode.Dynamic, true);
             slot.name = name;

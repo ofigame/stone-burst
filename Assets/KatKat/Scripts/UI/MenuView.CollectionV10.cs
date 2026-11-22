@@ -288,7 +288,7 @@ namespace KatKat.UI
             // Kullanıcı (2026-11-07): açılmamış taş tanınmamalı, üstü buzlu. Kilitli kartta önceden bulanıklaştırılmış
             // sürüm (yalnız renk lekesi) + buzlu örtü; gizli hazine karanlık siluet. Kazanılmış taş net.
             if (!it.Owned && !it.Hidden) KatKat.View.ResourceUsage.Note("Collection/stones_blur/" + it.Id);
-            var blur = !it.Owned && !it.Hidden ? Resources.Load<Sprite>("Collection/stones_blur/" + it.Id) : null;
+            var blur = !it.Owned && !it.Hidden ? KatKat.View.Res.Load<Sprite>("Collection/stones_blur/" + it.Id) : null;
             var art = Decor("Icon", card, blur != null ? blur : it.Sprite);
             art.preserveAspect = true;
             art.color = it.Owned ? Color.white : it.Hidden ? new Color(0.12f, 0.10f, 0.20f, 0.55f) : blur != null ? new Color(1f, 1f, 1f, 0.85f) : new Color(1f, 1f, 1f, 0.55f);

@@ -32,13 +32,13 @@ namespace KatKat.UI
             if (!_shaderTried)
             {
                 _shaderTried = true;
-                _shader = Resources.Load<Shader>("Shaders/KatKatMapMotion");
+                _shader = KatKat.View.Res.Load<Shader>("Shaders/KatKatMapMotion");
                 // Cihazda hareket görünmezse (2026-11-19 kullanıcı: "yolculukta hareket yoktu") logcat'te sebep görünsün.
                 Debug.Log("[KatKat] Harita hareketi: shader " + (_shader == null ? "yok" : _shader.isSupported ? "hazır" : "desteklenmiyor"));
                 if (_shader != null && !_shader.isSupported) _shader = null;
             }
             Texture2D mask = null;
-            if (_shader != null) mask = Resources.Load<Texture2D>("PremiumV6/map/" + part.name + "-motion");
+            if (_shader != null) mask = KatKat.View.Res.Load<Texture2D>("PremiumV6/map/" + part.name + "-motion");
             if (mask != null)
             {
                 m = new Material(_shader) { name = "MapMotion_" + part.name, hideFlags = HideFlags.DontSave };
@@ -74,7 +74,7 @@ namespace KatKat.UI
         {
             if (_points.TryGetValue(name, out var p)) return p;
             var w = new List<Vector2>(); var f = new List<Vector2>();
-            var ta = Resources.Load<TextAsset>("PremiumV6/map/" + name + "-motion");
+            var ta = KatKat.View.Res.Load<TextAsset>("PremiumV6/map/" + name + "-motion");
             if (ta != null)
                 foreach (var line in ta.text.Split('\n'))
                 {

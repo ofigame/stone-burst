@@ -189,7 +189,7 @@ namespace KatKat.UI
             _dragVel = 0f;
 
             KatKat.View.ResourceUsage.Note("Models/Stones/" + stoneId + "/model");
-            var prefab = Resources.Load<GameObject>("Models/Stones/" + stoneId + "/model");
+            var prefab = KatKat.View.Res.Load<GameObject>("Models/Stones/" + stoneId + "/model");
             _hasModel = prefab != null;
             _view.gameObject.SetActive(_hasModel);
             _png.gameObject.SetActive(!_hasModel);
@@ -256,7 +256,7 @@ namespace KatKat.UI
             _model = Instantiate(prefab, _pivot, false);
             _model.transform.localPosition = Vector3.zero;
             KatKat.View.ResourceUsage.Note("Models/Stones/" + ShownId + "/mat");
-            var mat = Resources.Load<Material>("Models/Stones/" + ShownId + "/mat");
+            var mat = KatKat.View.Res.Load<Material>("Models/Stones/" + ShownId + "/mat");
             foreach (var r in _model.GetComponentsInChildren<Renderer>())
             {
                 if (mat != null)

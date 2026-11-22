@@ -497,7 +497,7 @@ namespace KatKat.UI
         private Image GoalRow(IList<GoalState> goals, float centerY, float height, bool checks)
         {
             const float itemW = 250f;
-            float w = Mathf.Clamp(goals.Count * itemW + 90f, 605f, 880f);
+            float w = Mathf.Clamp(goals.Count * itemW + 90f, 605f, 760f); // 2026-11-23: kart 860, kenardan taşmasın
             var chip = Ui1.Chip("GoalChip", _card, new Vector2(0.5f, 1f), new Vector2(0f, centerY), new Vector2(w, height));
             FillGoals(chip.rectTransform, goals, checks, height);
             return chip;
@@ -534,7 +534,7 @@ namespace KatKat.UI
         {
             if (!_u1 || _u1Chip == null || goals == null || goals.Count == 0) return;
             _u1Subtitle.gameObject.SetActive(false);
-            float w = Mathf.Clamp(goals.Count * 250f + 90f, 605f, 880f);
+            float w = Mathf.Clamp(goals.Count * 250f + 90f, 605f, 760f);
             _u1Chip.rectTransform.sizeDelta = new Vector2(w, _u1Chip.rectTransform.sizeDelta.y);
             FillGoals(_u1Chip.rectTransform, goals, false, _u1Chip.rectTransform.sizeDelta.y);
         }

@@ -24,7 +24,7 @@ namespace KatKat.View
         public static Sprite V6(string key)
         {
             ResourceUsage.Note("PremiumV6/" + key);
-            var s = Resources.Load<Sprite>("PremiumV6/" + key);
+            var s = KatKat.View.Res.Load<Sprite>("PremiumV6/" + key);
             return s;
         }
         /// <summary>Yumuşak kenarlı beyaz disk (göbek ve parıltılar için, renk SpriteRenderer.color ile).</summary>

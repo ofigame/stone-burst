@@ -50,7 +50,7 @@ namespace KatKat.Game
             info.To = g.To;
             // Kullanıcı (2026-11-08): kilidi açılmayı bekleyen taş yoğun bulanık (koleksiyondaki kilitli kartla aynı kaynak).
             KatKat.View.ResourceUsage.Note("Collection/stones_blur/" + g.StoneId);
-            info.StoneSprite = Resources.Load<Sprite>("Collection/stones_blur/" + g.StoneId) ?? StoneSprite(s);
+            info.StoneSprite = KatKat.View.Res.Load<Sprite>("Collection/stones_blur/" + g.StoneId) ?? StoneSprite(s);
             info.Glow = GlowColor(s);
             info.Ice = Vr1Proto.On;
             if (info.Ice)

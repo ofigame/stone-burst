@@ -45,10 +45,10 @@ namespace KatKat.UI
             if (!_tried)
             {
                 _tried = true;
-                _shader = Resources.Load<Shader>("Shaders/KatKatRegionIcon");
+                _shader = KatKat.View.Res.Load<Shader>("Shaders/KatKatRegionIcon");
                 if (_shader != null && !_shader.isSupported) _shader = null;
             }
-            var mask = _shader != null ? Resources.Load<Texture2D>("PremiumV6/ui/region-" + id + "-motion") : null;
+            var mask = _shader != null ? KatKat.View.Res.Load<Texture2D>("PremiumV6/ui/region-" + id + "-motion") : null;
             if (mask != null)
             {
                 m = new Material(_shader) { name = "RegionIcon_" + id, hideFlags = HideFlags.DontSave };

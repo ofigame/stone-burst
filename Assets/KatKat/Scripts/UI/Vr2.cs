@@ -111,7 +111,7 @@ namespace KatKat.UI
             skin = Mathf.Clamp(skin, 0, Skins.Length - 1);
             for (int i = 0; i < Skins.Length; i++) KatKat.View.ResourceUsage.Note("VR2/bg/" + Skins[i].Id);
             if (_bg != null && _bgSkin == skin) return _bg;
-            var next = Resources.Load<Sprite>("VR2/bg/" + Skins[skin].Id);
+            var next = KatKat.View.Res.Load<Sprite>("VR2/bg/" + Skins[skin].Id);
             if (next == null) return null;
             if (_bg != null && _bg != next && Application.isPlaying) Resources.UnloadAsset(_bg.texture);
             _bg = next;

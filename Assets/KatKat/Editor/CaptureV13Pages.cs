@@ -42,7 +42,7 @@ namespace KatKat.EditorTools
         /// </summary>
         public static void RunUi3()
         {
-            Out = string.IsNullOrEmpty(Environment.GetEnvironmentVariable("KATKAT_CAPTURE_LANG")) ? "../ui3_uygulama/" : "../ui3_uygulama/diller/" + CapLang + "/";
+            Out = (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("KATKAT_CAPTURE_LANG")) ? "../ui3_uygulama/" : "../ui3_uygulama/diller/" + CapLang + "/") + (S2Tablet ? "tablet_" : "");
             var only = Environment.GetEnvironmentVariable("KATKAT_CAPTURE_ONLY");
             _only = string.IsNullOrEmpty(only) ? null : only.Split(',');
             try
@@ -50,7 +50,7 @@ namespace KatKat.EditorTools
                 Run();
                 Extras();
             }
-            finally { Out = "../v13/"; _only = null; }
+            finally { GameCapture.WriteOverflowReport("ui3 " + CapLang + (S2Tablet ? " tablet" : ""), "TASMA_UI3_" + CapLang + (S2Tablet ? "_tablet" : "") + ".md"); Out = "../v13/"; _only = null; }
         }
 
         /// <summary>vr1 belgeleri (kullanıcı, 2026-11-11: her ekranı anlatan belge): aynı ekranlar docs/vr1/ekranlar/.</summary>
@@ -273,7 +273,9 @@ namespace KatKat.EditorTools
                     if (b[x, y].Layers != null && b[x, y].Layers.Count > best) { best = b[x, y].Layers.Count; bx = x; by = y; }
             gc.PeekForTest(bx, by, true);
         }
-        private static readonly (string tag, int w, int h, Rect? safe) S = ("1080x1920", 1080, 1920, null);
+        /// <summary>KATKAT_CAPTURE_TABLET=1: iPad oranı (1536×2048) — tablet yerleşimi denetimi.</summary>
+        private static bool S2Tablet => Environment.GetEnvironmentVariable("KATKAT_CAPTURE_TABLET") == "1";
+        private static (string tag, int w, int h, Rect? safe) S => S2Tablet ? ("1536x2048", 1536, 2048, (Rect?)null) : ("1080x1920", 1080, 1920, (Rect?)null);
 
         public static void Run()
         {
@@ -287,15 +289,6 @@ namespace KatKat.EditorTools
             try
             {
                 Shot("01_harita_ana_sayfa", gc => { Progress(gc, 12); gc.ShowLevels(); });
-                // 2026-11-22 3D harita denemesi: duruş ve kapıya yürüyüş ara karesi.
-                Shot("3d_m_selale", gc => { MenuView.Map3DOverride = true; Progress(gc, 12); gc.ShowLevels(); var w = gc.Menu.Map3D; if (w != null) { w.FocusGate(8); w.RenderNow(); } MenuView.Map3DOverride = null; });
-                Shot("3d_m_kayalik", gc => { MenuView.Map3DOverride = true; Progress(gc, 12); gc.ShowLevels(); var w = gc.Menu.Map3D; if (w != null) { w.FocusGate(17); w.RenderNow(); } MenuView.Map3DOverride = null; });
-                Shot("3d_m_col", gc => { MenuView.Map3DOverride = true; Progress(gc, 12); gc.ShowLevels(); var w = gc.Menu.Map3D; if (w != null) { w.FocusGate(22); w.RenderNow(); } MenuView.Map3DOverride = null; });
-                Shot("3d_m_son", gc => { MenuView.Map3DOverride = true; Progress(gc, 12); gc.ShowLevels(); var w = gc.Menu.Map3D; if (w != null) { w.FocusGate(31); w.RenderNow(); } MenuView.Map3DOverride = null; });
-                Shot("3d_ucus", gc => { MenuView.Map3DOverride = true; Progress(gc, 12); gc.ShowLevels(); var w = gc.Menu.Map3D; if (w != null) { w.TapGate(9); for (int f = 0; f < 8; f++) w.Advance(0.06f); w.RenderNow(); } MenuView.Map3DOverride = null; });
-                Shot("3d_canli_bilgi", gc => { Progress(gc, 12); gc.ShowLevels(); gc.Menu.LivePressed?.Invoke(); gc.Menu.Map3D?.RenderNow(); });
-                Shot("3d_harita", gc => { MenuView.Map3DOverride = true; Progress(gc, 12); gc.ShowLevels(); gc.Menu.Map3D?.RenderNow(); MenuView.Map3DOverride = null; });
-                Shot("3d_yuruyus", gc => { MenuView.Map3DOverride = true; Progress(gc, 12); gc.ShowLevels(); var w = gc.Menu.Map3D; if (w != null) { w.WalkInto(9); for (int f = 0; f < 6; f++) w.Advance(0.05f); w.RenderNow(); } MenuView.Map3DOverride = null; });
                 Shot("02_gunluk_bulmaca", gc => { Progress(gc, 12); gc.ShowDaily(); });
                 Shot("03_koleksiyon", gc => { Progress(gc, 12); Own(gc); gc.ShowCollection(); });
                 Shot("04_tas_vitrini_3d", gc => { Progress(gc, 12); Own(gc); gc.SaveService.Data.meta.stones.Add("stone_ocean"); gc.ShowCollection(); gc.ShowStone("stone_ocean", true); gc.Showcase.Advance(1500f); });
@@ -312,6 +305,7 @@ namespace KatKat.EditorTools
                 Shot("06_zpe_istatistik", gc => { Progress(gc, 12); gc.ShowLevels(); gc.ShowZpeStats(); });
                 GameController.DevLeaderboardSample = true;
                 Shot("07_siralama", gc => { Progress(gc, 25); gc.ShowRanking(); });
+                Shot("07b_siralama_liste", gc => { GameController.DevLeaderboardSample = true; GameController.CountryOverride = "TR"; Progress(gc, 25); gc.Menu.NeedsSignIn = () => false; gc.ShowRanking(); GameController.DevLeaderboardSample = false; });
                 Shot("08_siralama_bilgi", gc => { Progress(gc, 25); gc.ShowRanking(); gc.Menu.ShowRankInfo(); });
                 GameController.DevLeaderboardSample = false;
                 Shot("09_deneme_listesi", gc => { Progress(gc, 12); gc.ShowLevels(); gc.ShowTrials(); });
@@ -326,7 +320,7 @@ namespace KatKat.EditorTools
                     gc.Hud.SetTrayVisible(true); gc.Hud.SetTray(st.Tray, -1);
                 });
                 Shot("14_duraklat", gc => { gc.StartLevel(37); Call(gc, "OpenPause"); Panels(gc); });
-                Shot("15_kayip_karti", gc => { LoseLevel4(gc); Panels(gc); });
+                Shot("15_kayip_karti", gc => { gc.StartLevel(3); gc.Hud.HideRuleCard(false); gc.ShowLostForCapture(GameStatus.LostOutOfMoves); Panels(gc); });
                 Shot("16_zafer_karti", gc => { WinLevel(gc, 1); Panels(gc); });
                 Shot("17_gunluk_oyun_ekrani", gc => { Progress(gc, 12); Own(gc); gc.ShowDaily(); gc.PressDailyEnterForTest(); gc.StartDaily(); });
                 GameController.AdScreenOverride = true;

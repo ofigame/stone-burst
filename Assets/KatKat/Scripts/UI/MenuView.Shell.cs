@@ -194,7 +194,7 @@ namespace KatKat.UI
             // 4) Sağ sütun: ZPE göstergesi ve altında kilidi açılmayı bekleyen taş (kullanıcı, 2026-11-08).
             BuildZpeBadge(shell);
             BuildRankButton(shell); // v12: sol sütunda Sıralama (kupa)
-            if (LivePressed != null) BuildDailyBadge(shell); else BuildLiveButton(shell); // 2026-11-22: canlı maç alt menüde
+            BuildDailyBadge(shell); // Sıralama altı; canlı maç alt menüde (2026-11-22)
             // v8 (kullanıcı onayı 2026-11-08): türler ana bölümlerde; Deneme düğmesi haritadan kalktı (liste kodda duruyor).
             BuildStarGoal(shell);
 

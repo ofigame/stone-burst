@@ -367,7 +367,8 @@ namespace KatKat.UI
             Ui1.Dimmer(root, CloseRankInfo);
             // yerlesim 08: panel 972 genişlik, üst y 432; kupa ~340; satırlar 821 genişlik; Tamam 486×115. Kural metni korunduğu
             // için panel 1380 boyunda.
-            float W = Ui3.Ready ? 860f : 972f; const float H = 1380f; // ui3/08: genişlik 860
+            float W = Ui3.Ready ? 860f : 972f; float H = Ui3.Ready ? 1240f : 1380f; // ui3/08: genişlik 860 (2026-11-23: iç ölçüler genişliğe göre, alt boşluk alındı)
+            float inner = W - 100f;
             var c = Ui1.Panel("Card", root, new Vector2(0.5f, 0.5f), new Vector2(0f, 960f - 432f - H * 0.5f), new Vector2(W, H)).rectTransform;
             if (Ui3.Ready) Ui1.Round("Close", c, "icon-close", new Vector2(1f, 1f), new Vector2(-24f, -16f), 96f, CloseRankInfo);
             else Ui1.Round("Close", c, "icon-close", new Vector2(1f, 1f), new Vector2(-80f, -57f), 130f, CloseRankInfo);
@@ -378,7 +379,7 @@ namespace KatKat.UI
             cup.preserveAspect = true;
             UiFactory.Place(cup.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -285f), new Vector2(340f, 250f));
             var intro = Ui1.Label("Intro", c, Loc.T("rank.info.intro"), 38, Ui1.Navy, false);
-            UiFactory.Place(intro.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -472f), new Vector2(840f, 110f));
+            UiFactory.Place(intro.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -472f), new Vector2(inner, 110f));
             intro.enableAutoSizing = true; intro.fontSizeMax = 38; intro.fontSizeMin = 22;
             var rows = new (string title, string desc, string pct, Sprite icon)[]
             {
@@ -389,15 +390,17 @@ namespace KatKat.UI
             float y = -630f;
             foreach (var r in rows)
             {
-                var row = Ui1.Row("Part", c, new Vector2(0.5f, 1f), new Vector2(0f, y), new Vector2(840f, 160f));
+                var row = Ui1.Row("Part", c, new Vector2(0.5f, 1f), new Vector2(0f, y), new Vector2(inner, 160f));
+                float textW = inner - 170f - 230f;
                 var ic = UiFactory.Image("Icon", row.transform, r.icon, Color.white);
                 ic.preserveAspect = true; ic.raycastTarget = false;
                 UiFactory.Place(ic.rectTransform, new Vector2(0f, 0.5f), new Vector2(92f, 2f), new Vector2(100f, 100f));
                 var rt = Ui1.Label("Name", row.transform, r.title, 46, Ui1.Navy, true, TextAnchor.MiddleLeft);
-                UiFactory.Place(rt.rectTransform, new Vector2(0f, 0.5f), new Vector2(170f + 220f, 14f), new Vector2(440f, 54f));
+                UiFactory.Place(rt.rectTransform, new Vector2(0f, 0.5f), new Vector2(170f + textW * 0.5f, 14f), new Vector2(textW, 54f));
                 FitText(rt, 24);
                 var rd = Ui1.Label("Desc", row.transform, r.desc, 32, Ui1.Ink2, false, TextAnchor.MiddleLeft);
-                UiFactory.Place(rd.rectTransform, new Vector2(0f, 0.5f), new Vector2(170f + 220f, -30f), new Vector2(440f, 44f));
+                UiFactory.Place(rd.rectTransform, new Vector2(0f, 0.5f), new Vector2(170f + textW * 0.5f, -30f), new Vector2(textW, 44f));
+                rd.textWrappingMode = TMPro.TextWrappingModes.NoWrap;
                 FitText(rd, 18);
                 var pill = UiFactory.Image("Pct", row.transform, UiArt.Box, Ui1.Teal, true);
                 pill.raycastTarget = false;
@@ -407,7 +410,7 @@ namespace KatKat.UI
                 y -= 170f;
             }
             var rules = Ui1.Label("Rules", c, Loc.T("rank.info.rules"), 32, Ui1.Ink2, false);
-            UiFactory.Place(rules.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, y + 38f), new Vector2(820f, 90f));
+            UiFactory.Place(rules.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, y + 38f), new Vector2(inner, 90f));
             rules.enableAutoSizing = true; rules.fontSizeMax = 32; rules.fontSizeMin = 20;
             Ui1.Button("Ok", c, Loc.T("btn.ok"), true, new Vector2(0.5f, 0f), new Vector2(0f, 165f), new Vector2(560f, 130f), CloseRankInfo, null, 54);
         }
@@ -644,7 +647,7 @@ namespace KatKat.UI
                 UiFactory.Place(halo.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -150f), new Vector2(380f, 300f));
             }
             if (!it.Owned && !it.Hidden) KatKat.View.ResourceUsage.Note("Collection/stones_blur/" + it.Id);
-            var blur = !it.Owned && !it.Hidden ? Resources.Load<Sprite>("Collection/stones_blur/" + it.Id) : null;
+            var blur = !it.Owned && !it.Hidden ? KatKat.View.Res.Load<Sprite>("Collection/stones_blur/" + it.Id) : null;
             var art = Decor("Icon", card, blur != null ? blur : it.Sprite);
             art.preserveAspect = true;
             art.color = it.Owned ? Color.white : it.Hidden ? new Color(0.12f, 0.10f, 0.20f, 0.55f) : Color.white;

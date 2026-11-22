@@ -381,7 +381,8 @@ namespace KatKat.Game
             _paintMode = false;
             _hud.HidePalette();
             _hud.SetPaint(_session.State.PaintLeft, false);
-            _hud.SetTrayVisible(_session.State.SpecialsEnabled);
+            // 2026-11-23 (130. bölüm): özel taşı kapalı ama çakıllı bölümde de Kürek tepsiye gelir; tepsi görünmeli.
+            _hud.SetTrayVisible(_session.State.SpecialsEnabled || KatKat.Core.RulesEngine.HasGravel(_session.State.Board));
             _hud.SetTray(_session.State.Tray, _traySlot = -1);
             _board.SetLevelPalette(index);
             BoostersAtLevelStart();

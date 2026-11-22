@@ -128,7 +128,7 @@ namespace KatKat.UI
             // 4) Sütunlar: ZPE, Sıralama, kilitli taş (mevcut eylemler).
             BuildZpeBadge(shell);
             BuildRankButton(shell);
-            if (LivePressed != null) BuildDailyBadge(shell); else BuildLiveButton(shell); // 2026-11-22: canlı maç alt menüde, yerine Günlük Bulmaca
+            BuildDailyBadge(shell); // Sıralama altı; canlı maç alt menüde (2026-11-22)
             BuildPilotButton(shell); // vr1 pilot (prototip)
             BuildStarGoal(shell);
 

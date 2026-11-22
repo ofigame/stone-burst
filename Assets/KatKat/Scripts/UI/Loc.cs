@@ -105,7 +105,7 @@ namespace KatKat.UI
             if (_rows != null) return;
             _rows = new Dictionary<string, string[]>();
             _columns = new string[0];
-            var asset = Resources.Load<TextAsset>("Localization/strings");
+            var asset = KatKat.View.Res.Load<TextAsset>("Localization/strings");
             if (asset == null) return;
             foreach (var raw in asset.text.Replace("\r\n", "\n").Split('\n'))
             {

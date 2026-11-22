@@ -839,9 +839,9 @@ namespace KatKat.EditorTools
         }
 
         /// <summary>Taşma raporunu yazar (Logs/captures/TASMA_RAPORU.md) ve sayaçları sıfırlar.</summary>
-        private static void WriteOverflowReport(string title)
+        public static void WriteOverflowReport(string title, string fileName = "TASMA_RAPORU.md")
         {
-            var path = Path.Combine(PeelCapture.OutDir, "TASMA_RAPORU.md");
+            var path = Path.Combine(PeelCapture.OutDir, fileName);
             var head = $"# Yazı taşma raporu — {title}\n\nDenetlenen yazı: {_textCount}, taşan: {_overflowCount}\n\n| Ekran | Nesne | Metin | Ölçü |\n|---|---|---|---|\n";
             File.WriteAllText(path, head + Overflow);
             Debug.Log($"[KatKat] Taşma raporu: {_overflowCount}/{_textCount}");
@@ -886,6 +886,7 @@ namespace KatKat.EditorTools
             Canvas.ForceUpdateCanvases();
             Debug.Log($"[KatKat] {file}: faz={gc.CurrentPhase} durum={gc.Session?.State.Status} mantık katman={gc.Session?.State.Board.TotalLayers()}");
             OverflowCheck(file, root);
+            DisplaySizeProbe.Record(root, w, h);
             var tex = new Texture2D(w, h, TextureFormat.RGB24, false);
             for (int f = 0; f < Math.Max(1, frames); f++)
             {

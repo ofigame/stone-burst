@@ -19,13 +19,13 @@ namespace KatKat.View
 
         private static Sprite _bg;
 
-        public static bool HasFinalBackground => Resources.Load<Sprite>("PremiumV6/game/bg") != null;
+        public static bool HasFinalBackground => KatKat.View.Res.Load<Sprite>("PremiumV6/game/bg") != null;
 
         public static Sprite Background()
         {
             if (!Enabled) return null;
             ResourceUsage.Note("PremiumV6/game/bg");
-            var final = Resources.Load<Sprite>("PremiumV6/game/bg");
+            var final = KatKat.View.Res.Load<Sprite>("PremiumV6/game/bg");
             if (final != null) return final;
             if (_bg) return _bg;
             const int w = 360, h = 640; // yumuşak sahne; düşük çözünürlük yeterli

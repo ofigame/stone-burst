@@ -111,12 +111,12 @@ namespace KatKat.Game
             };
             // V16 (kullanıcı 2026-11-18: docs/yeni_v1/sesler "bu sesleri kullanalım"): dokunma, taş patlaması, büyük hamle.
             // Yoksa v10 WAV / sentez.
-            b._tap = Resources.Load<AudioClip>("Audio/V16/stone-tap");
-            b._pop = Resources.Load<AudioClip>("Audio/V16/stone-pop");
-            if (b._pop == null) b._pop = Resources.Load<AudioClip>("Audio/TriKat/peel-pop");
-            b._chain4 = Resources.Load<AudioClip>("Audio/V16/combo-blast");
-            if (b._chain4 == null) b._chain4 = Resources.Load<AudioClip>("Audio/TriKat/chain-four");
-            b._reward = Resources.Load<AudioClip>("Audio/TriKat/level-reward");
+            b._tap = KatKat.View.Res.Load<AudioClip>("Audio/V16/stone-tap");
+            b._pop = KatKat.View.Res.Load<AudioClip>("Audio/V16/stone-pop");
+            if (b._pop == null) b._pop = KatKat.View.Res.Load<AudioClip>("Audio/TriKat/peel-pop");
+            b._chain4 = KatKat.View.Res.Load<AudioClip>("Audio/V16/combo-blast");
+            if (b._chain4 == null) b._chain4 = KatKat.View.Res.Load<AudioClip>("Audio/TriKat/chain-four");
+            b._reward = KatKat.View.Res.Load<AudioClip>("Audio/TriKat/level-reward");
             // Kısa efektler önceden belleğe alınır (ilk çalmada gecikme olmasın).
             foreach (var c in new[] { b._tap, b._pop, b._chain4, b._reward }) if (c != null && c.loadState == AudioDataLoadState.Unloaded) c.LoadAudioData();
             return b;
@@ -139,7 +139,7 @@ namespace KatKat.Game
         {
             if (!_v17.TryGetValue(name, out var clip))
             {
-                clip = Resources.Load<AudioClip>("Audio/V17/" + name);
+                clip = KatKat.View.Res.Load<AudioClip>("Audio/V17/" + name);
                 if (clip != null && clip.loadState == AudioDataLoadState.Unloaded) clip.LoadAudioData();
                 _v17[name] = clip;
             }
@@ -179,7 +179,7 @@ namespace KatKat.Game
             if (name == "ui-stone-tap" && UiJustClicked) return; // V17 düğme sesi çaldı
             if (!_vr1.TryGetValue(name, out var clip))
             {
-                clip = Resources.Load<AudioClip>("Audio/Vr1/" + name);
+                clip = KatKat.View.Res.Load<AudioClip>("Audio/Vr1/" + name);
                 if (clip != null && clip.loadState == AudioDataLoadState.Unloaded) clip.LoadAudioData();
                 _vr1[name] = clip;
             }

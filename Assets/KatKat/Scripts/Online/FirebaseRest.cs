@@ -27,7 +27,7 @@ namespace KatKat.Game.Online
 
         public static FirebaseRestConfig Load()
         {
-            var ta = Resources.Load<TextAsset>(ResourcePath);
+            var ta = KatKat.View.Res.Load<TextAsset>(ResourcePath);
             return ta == null ? null : Parse(ta.text);
         }
 

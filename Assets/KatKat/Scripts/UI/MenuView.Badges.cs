@@ -21,7 +21,7 @@ namespace KatKat.UI
         private const float BadgeStep = 172f;
 
         /// <summary>Tabela yazı alanı (rozet boyuna oranla): merkezi alttan %19, genişlik %76, yükseklik %21.</summary>
-        private const float PlaqueY = 0.19f, PlaqueW = 0.76f, PlaqueH = 0.21f;
+        private const float PlaqueY = 0.19f, PlaqueW = 0.84f, PlaqueH = 0.21f;
 
         internal static readonly Color32 BadgeInk = new Color32(0x0B, 0x2F, 0x6E, 0xFF);
 
@@ -60,7 +60,7 @@ namespace KatKat.UI
             text.richText = true;
             text.textWrappingMode = TextWrappingModes.NoWrap; // tek satır; uzun ad küçülerek sığar
             UiFactory.Place(text.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, h * PlaqueY), new Vector2(BadgeW * PlaqueW, h * PlaqueH));
-            FitText(text, 18);
+            FitText(text, 14);
 
             // Işıltılı yıldızcıklar: rozetin üst (resimli) kısmında.
             var sparkArea = UiFactory.Rect("Sparkle", b.transform);
@@ -105,8 +105,14 @@ namespace KatKat.UI
         private void BuildDailyBadge(RectTransform shell)
         {
             var art = BadgeArt("rozet-gunluk");
-            if (art == null || DailyPressed == null) return;
+            if (art == null || DailyPressed == null || LivePressed == null) return; // canlı maç kapalıysa Günlük alt menüde
             BadgeButton("DailyButton", shell, art, BadgeSlotY(2), Loc.T("daily.title"), false, 26, () => DailyPressed?.Invoke(), out _, new Color(1f, 0.55f, 0.3f, 1f));
+        }
+
+        private string ZpeValueText()
+        {
+            var z = ZpeBadge;
+            return z.Calibrating || z.Count == 0 ? "—" : $"{z.Score}<size=62%><color=#4A78B8>/100</color></size>";
         }
 
         /// <summary>ZPE rozeti: tabelada puan (kalibrasyonda "—").</summary>
@@ -114,8 +120,7 @@ namespace KatKat.UI
         {
             var art = BadgeArt("rozet-zpe");
             if (art == null) return false;
-            var z = ZpeBadge;
-            string value = z.Calibrating || z.Count == 0 ? "—" : $"{z.Score}<size=62%><color=#4A78B8>/100</color></size>";
+            string value = ZpeValueText();
             BadgeButton("ZpeButton", root, art, BadgeSlotY(0), value, false, 38, () => ZpePressed?.Invoke(), out _, new Color(0.2f, 0.85f, 1f, 1f));
             return true;
         }

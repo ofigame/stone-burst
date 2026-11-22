@@ -34,7 +34,7 @@ namespace KatKat.View
         {
             get
             {
-                if (!_stoneAtlasTried) { _stoneAtlasTried = true; _stoneAtlas = Resources.Load<Texture2D>("PremiumV6/stones"); ResourceUsage.Note("PremiumV6/stones"); }
+                if (!_stoneAtlasTried) { _stoneAtlasTried = true; _stoneAtlas = KatKat.View.Res.Load<Texture2D>("PremiumV6/stones"); ResourceUsage.Note("PremiumV6/stones"); }
                 return _stoneAtlas;
             }
         }
@@ -59,7 +59,7 @@ namespace KatKat.View
         private static Texture2D ReadableV4(string key)
         {
             ResourceUsage.Note("PremiumV4/" + key);
-            var sp = Resources.Load<Sprite>("PremiumV4/" + key);
+            var sp = KatKat.View.Res.Load<Sprite>("PremiumV4/" + key);
             return sp != null && sp.texture != null && sp.texture.isReadable ? sp.texture : null;
         }
 
@@ -159,7 +159,7 @@ namespace KatKat.View
 
         private static Material CreateMaterial(Texture2D mask, bool zWrite, string name)
         {
-            var shader = Resources.Load<Shader>("Shaders/KatKatLayer");
+            var shader = KatKat.View.Res.Load<Shader>("Shaders/KatKatLayer");
             if (shader == null) throw new MissingReferenceException("Resources/Shaders/KatKatLayer.shader bulunamadı.");
             var m = new Material(shader) { name = name, hideFlags = HideFlags.DontSave };
             m.SetTexture("_MainTex", mask);

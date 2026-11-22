@@ -21,7 +21,7 @@ namespace KatKat.View
         {
             ResourceUsage.Note(path);
             if (Cache.TryGetValue(path, out var s)) return s;
-            s = Resources.Load<Sprite>(path);
+            s = KatKat.View.Res.Load<Sprite>(path);
             if (s == null) Debug.LogWarning("[KatKat] Premium sprite yok: " + path);
             Cache[path] = s;
             return s;

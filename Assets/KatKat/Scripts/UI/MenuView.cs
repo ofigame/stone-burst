@@ -86,7 +86,6 @@ namespace KatKat.UI
         {
             gameObject.SetActive(true);
             if (_page != null) UiFactory.Kill(_page.gameObject);
-            HideMap3D(); // 3D harita yalnız harita sayfasında (ShowLevels yeniden açar)
             _hero = _play = _halo = _mapContent = null;
             _heroShadow = _pinHolder = null;
             _ret = _retMascot = _retArrow = null;
@@ -524,7 +523,7 @@ namespace KatKat.UI
             _roadTried = true;
             foreach (var theme in ThemeDefinition.All)
             {
-                var ta = Resources.Load<TextAsset>("PremiumV6/map/" + theme.Id + "-path");
+                var ta = KatKat.View.Res.Load<TextAsset>("PremiumV6/map/" + theme.Id + "-path");
                 ResourceUsage.Note("PremiumV6/map/" + theme.Id + "-path");
                 var parts = new Sprite[3];
                 for (int i = 0; i < 3; i++) parts[i] = SpecialArt.V6("map/" + theme.Id + "-" + i);
@@ -581,7 +580,10 @@ namespace KatKat.UI
         private float _cloudStart;
 
         /// <summary>Bulut örtüsünün alt sınırı: mevcut düğümün üst kenarının biraz üstü.</summary>
-        private static float CloudEdgeY(int current) => NodeY(current) + 95f;
+        /// <summary>2026-11-23 (kullanıcı): bulutlar açık son bölümün 10 bölüm ilerisinde başlar (önündeki 10 kilitli bölüm görünür).</summary>
+        public const int CloudLead = 10;
+
+        private static float CloudEdgeY(int current) => NodeY(current + CloudLead) + 95f;
 
         private List<CloudPuff> BuildClouds(int c)
         {
@@ -593,33 +595,29 @@ namespace KatKat.UI
             float from = m.CloudFrom;
             bool opening = m.CloudFrom < m.CloudEdge;
 
-            // Sis dolgusu (büyük yumuşak lekeler): sınırın biraz üstünden başlar.
-            for (int i = 0; i < 7; i++)
+            // Sis örtüsü (2026-11-23 sadeleştirme): lekeler yerine düz, açık bir örtü; kilitli bölümler görünmez.
             {
-                float y = y0 + r() * CloudChunk, x = -520f + r() * 1040f, s = 700f + r() * 300f;
-                if (y < from + 130f) continue;
-                list.Add(MakePuff(m.LayerFog, View.SpecialArt.Glow, new Vector2(x, y), new Vector2(s, s * 0.8f),
-                    Color.Lerp(Color.white, new Color(0.9f, 0.94f, 1f), r() * 0.6f), 0.97f, r, opening && y < m.CloudEdge + 150f));
+                float fy0 = Mathf.Max(y0, m.CloudEdge + 70f);
+                if (fy0 < y1)
+                {
+                    var veil = MakePuff(m.LayerFog, null, new Vector2(0f, (fy0 + y1) * 0.5f), new Vector2(1500f, y1 - fy0 + 4f),
+                        new Color(0.95f, 0.97f, 1f), 0.96f, r, false);
+                    veil.Amp = 0f; veil.Speed = 0f; veil.Phase = 0f; // parçalar arası ek yeri oynamasın
+                    list.Add(veil);
+                }
             }
-            // Bulut kümeleri: farklı boy, arkadakiler hafif mavi-gri.
-            for (int i = 0; i < 12; i++)
-            {
-                float w = 260f + r() * 300f, x = -620f + r() * 1240f, y = y0 + r() * CloudChunk;
-                if (y < from + w * 0.18f + 60f) continue;
-                list.Add(MakePuff(m.LayerPuffs, CloudSprite, new Vector2(x, y), new Vector2(w, w * CloudAspect),
-                    Color.Lerp(Color.white, new Color(0.84f, 0.9f, 0.98f), r() * 0.7f), 0.96f, r, opening && y < m.CloudEdge + w * 0.18f + 60f, r() < 0.5f));
-            }
+            // 2026-11-23 (kullanıcı: "bulutlar çok kalabalık"): ortadaki dağınık kümeler kalktı; düz örtü + tek sıra kenar.
             // Alt kenar sırası: eski ve yeni sınırda (kenar düz çizgi olmasın diye yükseklik ve boy düzensiz).
             foreach (var edge in opening ? new[] { from, m.CloudEdge } : new[] { m.CloudEdge })
             {
                 if (edge < y0 || edge >= y1) continue;
                 bool old = opening && edge < m.CloudEdge;
-                for (float x = -640f; x <= 640f; x += 120f + r() * 70f)
+                for (float x = -600f; x <= 620f; x += 300f)
                 {
-                    float w = 280f + r() * 190f;
-                    var home = new Vector2(x + (r() - 0.5f) * 50f, edge + w * 0.18f + r() * 45f);
+                    float w = 470f;
+                    var home = new Vector2(x, edge + w * 0.2f + (r() - 0.5f) * 10f);
                     list.Add(MakePuff(m.LayerPuffs, CloudSprite, home, new Vector2(w, w * CloudAspect),
-                        Color.Lerp(Color.white, new Color(0.88f, 0.92f, 0.99f), r() * 0.4f), 0.98f, r, old, r() < 0.5f));
+                        Color.white, 0.98f, r, old, r() < 0.5f));
                 }
             }
             return list;
@@ -860,7 +858,6 @@ namespace KatKat.UI
         /// odaklanır; negatifse mevcut bölüme.</param>
         public void ShowLevels(int total, int highestUnlocked, Func<int, bool> isCompleted, Action back, int sheet = -1, Action onSettings = null)
         {
-            _reshowLevels = () => ShowLevels(total, highestUnlocked, isCompleted, back, sheet, onSettings);
             total = Mathf.Max(1, total);
             int regions = Mathf.Max(1, (total + ThemeDefinition.RegionSize - 1) / ThemeDefinition.RegionSize);
             int current = Mathf.Clamp(highestUnlocked, 0, total - 1);
@@ -925,7 +922,6 @@ namespace KatKat.UI
 
             // v10 Mavi Liman: sabit üst kabuk (mor sahne, logo, altın şerit, bölge etiketi, Ayarlar, yıldız kapsülü).
             // Dinamik bölge parçaları SetHeaderRegion → HeaderCard ile kurulur (MenuView.Shell.cs).
-            BuildMap3DSurface(page, viewport, total, current, isCompleted); // 2026-11-22 3D harita denemesi (anahtar açıksa)
             BuildReturnButton(page);
             BuildMapShell(page, m.StarSum, onSettings, out m.HeadBack, out m.Head);
             m.Prev = UiFactory.CircleButton("Prev", m.Head, false, UiIcon.Back, 96f, () => ScrollToRegion(m.HeaderRegion - 1), "icons/back");
@@ -943,7 +939,6 @@ namespace KatKat.UI
             UpdateMap();
 
             Tabs(page, 1, back, () => { }, null);
-            BuildMap3DToggle(page);
             Tick(0f);
         }
 

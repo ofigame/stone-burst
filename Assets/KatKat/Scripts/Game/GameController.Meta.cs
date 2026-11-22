@@ -111,9 +111,9 @@ namespace KatKat.Game
 
         private void SetupZpe()
         {
-            try { _zpeConfig = ZpeConfig.Parse(Resources.Load<TextAsset>("Zpe/zpe_config")?.text); }
+            try { _zpeConfig = ZpeConfig.Parse(KatKat.View.Res.Load<TextAsset>("Zpe/zpe_config")?.text); }
             catch (FormatException e) { Debug.LogError("[KatKat] " + e.Message); _zpeConfig = new ZpeConfig(); }
-            try { _zpeRefs = Zpe.ParseRefs(Resources.Load<TextAsset>("Zpe/level_ref")?.text); }
+            try { _zpeRefs = Zpe.ParseRefs(KatKat.View.Res.Load<TextAsset>("Zpe/level_ref")?.text); }
             catch (FormatException e) { Debug.LogError("[KatKat] " + e.Message); _zpeRefs = new Dictionary<string, ZpeLevelRef>(); }
         }
 
@@ -234,11 +234,11 @@ namespace KatKat.Game
         private void SetupMeta()
         {
             SetupZpe();
-            try { _stones = StoneCatalog.Parse(Resources.Load<TextAsset>("Collection/stones")?.text); }
+            try { _stones = StoneCatalog.Parse(KatKat.View.Res.Load<TextAsset>("Collection/stones")?.text); }
             catch (FormatException e) { Debug.LogError("[KatKat] " + e.Message); _stones = new StoneCatalog(); }
-            try { _worlds = WorldCatalog.Parse(Resources.Load<TextAsset>("Worlds/worlds")?.text); }
+            try { _worlds = WorldCatalog.Parse(KatKat.View.Res.Load<TextAsset>("Worlds/worlds")?.text); }
             catch (FormatException e) { Debug.LogError("[KatKat] " + e.Message); _worlds = WorldCatalog.Parse(null); }
-            try { _dailyIndex = DailyIndex.Parse(Resources.Load<TextAsset>("Daily/daily_index")?.text); }
+            try { _dailyIndex = DailyIndex.Parse(KatKat.View.Res.Load<TextAsset>("Daily/daily_index")?.text); }
             catch (FormatException e) { Debug.LogError("[KatKat] " + e.Message); _dailyIndex = new DailyIndex(); }
             CreateDaily();
             // Eski kayıtla açılış: koşulu daha önce sağlanmış taş ilk açılışta verilir (tek seferlik).
@@ -358,7 +358,7 @@ namespace KatKat.Game
         public static Sprite StoneSprite(StoneDefinition s)
         {
             if (s != null) KatKat.View.ResourceUsage.Note(s.ArtKey);
-            var sp = s != null && !string.IsNullOrEmpty(s.ArtKey) ? Resources.Load<Sprite>(s.ArtKey) : null;
+            var sp = s != null && !string.IsNullOrEmpty(s.ArtKey) ? KatKat.View.Res.Load<Sprite>(s.ArtKey) : null;
             return sp != null ? sp : KatKat.View.PremiumArt.Chip(LayerColor.Blue);
         }
 
@@ -503,7 +503,7 @@ namespace KatKat.Game
         private LevelData LoadDailyLevel()
         {
             var info = _daily.Challenge;
-            var asset = info != null ? Resources.Load<TextAsset>("Daily/" + info.LevelFile) : null;
+            var asset = info != null ? KatKat.View.Res.Load<TextAsset>("Daily/" + info.LevelFile) : null;
             if (asset == null) return null;
             try { return LevelParser.Parse(asset.text, info.LevelFile + ".json"); }
             catch (FormatException e) { Debug.LogError("[KatKat] Günlük bulmaca okunamadı: " + e.Message); return null; }

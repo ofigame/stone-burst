@@ -57,13 +57,13 @@ namespace KatKat.UI
 
         public static bool Ready => Art("modal-seramik") != null;
 
-        public static Sprite Art(string key) { KatKat.View.ResourceUsage.Note("UI3/" + key); return Resources.Load<Sprite>("UI3/" + key); }
+        public static Sprite Art(string key) { KatKat.View.ResourceUsage.Note("UI3/" + key); return KatKat.View.Res.Load<Sprite>("UI3/" + key); }
 
         /// <summary>Oyun zemini Z1–Z5 (0..4).</summary>
         public static Sprite GameBackground(int i)
         {
             for (int z = 1; z <= 5; z++) KatKat.View.ResourceUsage.Note("UI3/bg/Z" + z); // rastgele: beşi de kullanılır
-            return Resources.Load<Sprite>("UI3/bg/Z" + (Mathf.Clamp(i, 0, 4) + 1));
+            return KatKat.View.Res.Load<Sprite>("UI3/bg/Z" + (Mathf.Clamp(i, 0, 4) + 1));
         }
 
         private static readonly Dictionary<string, Sprite> Cache = new Dictionary<string, Sprite>();

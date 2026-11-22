@@ -42,7 +42,7 @@ namespace KatKat.UI
         private static readonly Color RankInk2 = new Color32(0x50, 0x67, 0x7A, 0xFF);  // belge: ikincil
         private static readonly Color RankFill = new Color32(0xF7, 0xF8, 0xF8, 0xFF);  // belge: liste iç dolgusu
         private static readonly Color RankDivider = new Color32(0x8F, 0xB8, 0xD0, 0xFF);
-        private const float RankListTop = 586f, RankListBottom = 362f, RankRowH = 76f, RankRowGap = 4f;
+        private const float RankListTop = 586f, RankListBottom = 362f, RankRowH = 104f, RankRowGap = 8f; // 2026-11-23: 76 dardı, ad ve bilgi satırı taşıyordu (kullanıcı)
         private const float RankCardH = 253f, RankCardW = 1046f, RankCardBottom = 14f;
 
         /// <summary>
@@ -209,10 +209,11 @@ namespace KatKat.UI
             Avatar(holder, e, new Vector2(0f, ringY), ring, metal);
             var badge = Decor("Medal", holder, RankArt("medal-" + metal));
             badge.preserveAspect = true;
-            UiFactory.Place(badge.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, ringY - ring * 0.46f), new Vector2(60f, 78f));
-            var n = RankText("Num", badge.transform, (index + 1).ToString(), 34);
+            // 2026-11-23: madalya küçük ve halkanın üstünde; adın üstüne binmesin.
+            UiFactory.Place(badge.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, ringY - ring * 0.36f), new Vector2(46f, 60f));
+            var n = RankText("Num", badge.transform, (index + 1).ToString(), 28);
             n.raycastTarget = false;
-            UiFactory.Place(n.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -27f), new Vector2(50f, 44f));
+            UiFactory.Place(n.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -21f), new Vector2(40f, 36f));
             // İsim ve puan ön levhada (levha görselin ~%55–90 yüksekliğinde).
             float plateY = baseY - ph * 0.08f;
             var name = RankText("Name", holder, e.Name, 36);
@@ -457,17 +458,17 @@ namespace KatKat.UI
             }
             var av = UiFactory.Rect("AvatarHolder", row);
             UiFactory.Place(av, new Vector2(0f, 0.5f), new Vector2(left + 160f, 0f), new Vector2(10f, 10f));
-            Avatar(av, e, Vector2.zero, 72f, e.Rank <= 3 ? (e.Rank == 1 ? "gold" : e.Rank == 2 ? "silver" : "bronze") : null, null, true);
+            Avatar(av, e, Vector2.zero, 80f, e.Rank <= 3 ? (e.Rank == 1 ? "gold" : e.Rank == 2 ? "silver" : "bronze") : null, null, true);
 
             // Ad (tek satır, taşarsa üç nokta; puan alanını ezmez) ve ikincil değerler.
             var name = RankText("Name", row, e.Name, 34);
             name.raycastTarget = false;
             // Önce konum (genişlik), sonra taşma ayarı: genişlik 0 iken üç nokta hesaplanırsa metin boş kalıyordu.
-            UiFactory.Place(name.rectTransform, new Vector2(0f, 0.5f), new Vector2(left + 215f + 200f, 14f), new Vector2(400f, 52f));
+            UiFactory.Place(name.rectTransform, new Vector2(0f, 0.5f), new Vector2(left + 215f + 200f, 18f), new Vector2(400f, 48f));
             name.alignment = TextAlignmentOptions.MidlineLeft;
             name.textWrappingMode = TextWrappingModes.NoWrap;
             name.overflowMode = TextOverflowModes.Ellipsis;
-            Metrics(row, e, new Vector2(left + 215f, -19f), 25, 420f);
+            Metrics(row, e, new Vector2(left + 215f, -24f), 25, 420f);
 
             var div = UiFactory.Image("Div", row, UiArt.Box, RankDivider);
             div.raycastTarget = false;

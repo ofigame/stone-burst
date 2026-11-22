@@ -305,7 +305,7 @@ namespace KatKat.EditorTools
                 // v10: kendi içe aktarma kuralı Android ASTC ayarını veren klasörler (ShellAssetImporter,
                 // CollectionArtImporter, StoneModelImporter) burada yeniden ayarlanmaz (her derlemede çekişme olmasın).
                 if (path.Contains("/PremiumV6/shell/") || path.Contains("/PremiumV6/collection/") || path.Contains("/PremiumV6/game/") || path.Contains("/PremiumV6/skills/") || path.Contains("/PremiumV6/rank/") || path.Contains("/Resources/UI1/")
-                    || path.Contains("/Collection/stones") || path.Contains("/Models/Stones/") || path.Contains("/Map3D/Mascot/")) continue;
+                    || path.Contains("/Collection/stones") || path.Contains("/Models/Stones/")) continue;
                 imp.GetSourceTextureWidthAndHeight(out int w, out int h);
                 bool big = Mathf.Max(w, h) > 1024 || path.Contains("/backgrounds/") || path.Contains("/map/");
                 var want = big ? TextureImporterFormat.ASTC_5x5 : TextureImporterFormat.ASTC_4x4;

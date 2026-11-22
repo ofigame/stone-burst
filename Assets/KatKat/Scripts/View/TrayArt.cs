@@ -38,9 +38,9 @@ namespace KatKat.View
 
         private static bool Load()
         {
-            var rim = Resources.Load<Texture2D>("TrayArt/rim");
-            var floor = Resources.Load<Texture2D>("TrayArt/floor");
-            var socket = Resources.Load<Texture2D>("TrayArt/socket");
+            var rim = KatKat.View.Res.Load<Texture2D>("TrayArt/rim");
+            var floor = KatKat.View.Res.Load<Texture2D>("TrayArt/floor");
+            var socket = KatKat.View.Res.Load<Texture2D>("TrayArt/socket");
             if (rim == null || floor == null || socket == null || !rim.isReadable || !floor.isReadable || !socket.isReadable)
             {
                 Debug.LogWarning("[KatKat] Tepsi görselleri yok ya da okunamıyor (Resources/TrayArt).");

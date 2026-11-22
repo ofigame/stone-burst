@@ -51,7 +51,7 @@ namespace KatKat.UI
         {
             if (_tried) return _mat;
             _tried = true;
-            var sh = Resources.Load<Shader>("Shaders/KatKatUISilhouette");
+            var sh = KatKat.View.Res.Load<Shader>("Shaders/KatKatUISilhouette");
             if (sh != null && sh.isSupported) _mat = new Material(sh) { name = "UISilhouette", hideFlags = HideFlags.DontSave };
             return _mat;
         }

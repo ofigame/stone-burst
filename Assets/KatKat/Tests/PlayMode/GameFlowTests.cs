@@ -338,6 +338,26 @@ namespace KatKat.Tests
         /// PNG, döndürülmeden), yuva seçilince hedefleme, tahtada çalışır; geri alma tepsiyi geri getirir. Roket
         /// ateşlenince simge ikiye bölünür (iki "RocketHalf"). Kurallar motor testlerinde (SpecialRulesTests).
         /// </summary>
+        /// <summary>130. bölüm (özel taş kapalı, çakıllı): tepsi görünür; kayıtlı çözümün ilk dokunuşu Kürek verir ve tepside görünür.</summary>
+        [UnityTest]
+        public IEnumerator GravelNoSpecials_Level130_TrayShown_ShovelUsable()
+        {
+            _gc.StartLevel(129);
+            _gc.Board.Director.TimeScale = Speed;
+            Assert.IsFalse(_gc.Session.State.SpecialsEnabled, "130: özel taş kapalı");
+            Assert.IsTrue(_gc.Hud.SkillsShown, "çakıllı bölümde tepsi görünür");
+            var sol = _gc.CurrentLevel.Solution;
+            int useAt = sol.FindIndex(st => st.Type == "use");
+            Assert.Greater(useAt, 0);
+            for (int i = 0; i < useAt; i++)
+            {
+                _gc.PlayStep(sol[i]);
+                yield return WaitStable();
+                for (float until = Time.realtimeSinceStartup + 10f; _gc.Board.IsPlaying && Time.realtimeSinceStartup < until;) yield return null;
+            }
+            Assert.Contains(KatKat.Core.SpecialKind.Shovel, _gc.Session.State.Tray, "Kürek tepside");
+            Assert.IsTrue(_gc.Hud.TrayIcon(0).gameObject.activeInHierarchy, "Kürek simgesi ekranda");
+        }
         [UnityTest]
         public IEnumerator V11_Special_CreatedToTray_Targeted_Used_Undone_WithNewIcons()
         {

@@ -43,7 +43,7 @@ namespace KatKat.UI
             var k3 = Ui3Key(key);
             if (k3 != null) { var s3 = Ui3.Art(k3); if (s3 != null) return s3; }
             KatKat.View.ResourceUsage.Note("UI1/" + key);
-            return Resources.Load<Sprite>("UI1/" + key);
+            return KatKat.View.Res.Load<Sprite>("UI1/" + key);
         }
         public static bool Ready => Art("panel-modal") != null;
 

@@ -71,7 +71,7 @@ namespace KatKat.Game
 
         private void SetupAds(Camera cam)
         {
-            try { _adConfig = AdConfig.Parse(Resources.Load<TextAsset>("Ads/ad_config")?.text); }
+            try { _adConfig = AdConfig.Parse(KatKat.View.Res.Load<TextAsset>("Ads/ad_config")?.text); }
             catch (FormatException e) { Debug.LogError("[KatKat] " + e.Message); _adConfig = new AdConfig(); }
             _interstitial = new InterstitialPolicy(_adConfig);
             _adScreen = TestAdScreen.Create(cam, transform);

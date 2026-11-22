@@ -65,7 +65,7 @@ namespace KatKat.UI
         /// <summary>Doğrulanmış havuz (Resources/Live/live_pool_v5: 3 katman, 7×6, farklı ama denk eller, her katman üstündekinden farklı).</summary>
         public static List<LiveLayout> LoadPool()
         {
-            var ta = Resources.Load<TextAsset>("Live/live_pool_v5");
+            var ta = KatKat.View.Res.Load<TextAsset>("Live/live_pool_v5");
             return ta != null ? LiveLayout.ParsePool(ta.text) : new List<LiveLayout>();
         }
 

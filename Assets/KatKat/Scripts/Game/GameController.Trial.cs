@@ -41,7 +41,7 @@ namespace KatKat.Game
             var set = _concept ? _concepts : _pilot ? _pilots : _trials;
             if (i < 0 || i >= set.Length) return null;
             if (set[i] != null) return set[i];
-            var asset = Resources.Load<TextAsset>(_concept ? $"Concept/concept_{i + 1:00}" : _pilot ? PilotPath(i) : $"Trial/trial_{i + 1:00}");
+            var asset = KatKat.View.Res.Load<TextAsset>(_concept ? $"Concept/concept_{i + 1:00}" : _pilot ? PilotPath(i) : $"Trial/trial_{i + 1:00}");
             if (asset == null) return null;
             try { set[i] = LevelParser.Parse(asset.text, asset.name); }
             catch (FormatException e) { Debug.LogError("[KatKat] Deneme bölümü okunamadı: " + e.Message); }

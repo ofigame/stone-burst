@@ -50,7 +50,7 @@ namespace KatKat.Tests
         [Test]
         public void FourWavs_LoadFromResources()
         {
-            foreach (var n in new[] { "menu-loop", "peel-pop", "chain-four", "level-reward" })
+            foreach (var n in new[] { "peel-pop", "chain-four", "level-reward" }) // menu-loop 2026-11-23 silindi (müzik game-music)
             {
                 var c = Resources.Load<AudioClip>("Audio/TriKat/" + n);
                 Assert.IsNotNull(c, n);

@@ -48,7 +48,7 @@ namespace KatKat.UI
         internal static Sprite ShopArt(string key)
         {
             KatKat.View.ResourceUsage.Note("Shop/" + key);
-            return Resources.Load<Sprite>("Shop/" + key);
+            return KatKat.View.Res.Load<Sprite>("Shop/" + key);
         }
 
         /// <summary>Külçe kapsülü 208×88 (yıldız kapsülünün yerinde): külçe simgesi, sayı; dokununca mağaza.</summary>

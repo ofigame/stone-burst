@@ -219,6 +219,7 @@ namespace KatKat.UI
         private void DailyTabsOn()
         {
             if (_tabsHolder == null || _tabsActive == TabDaily) return;
+            if (LivePressed != null) return; // 2026-11-23: Günlük artık alt menüde değil; menü modalın altında (karartılı) kalır
             _dailyPrevTab = _tabsActive;
             _dailyPrevLevels = _tabsLevels;
             RetargetTabs(TabDaily, _tabsActive == 1 ? (Action)CloseDaily : _tabsLevels, true);

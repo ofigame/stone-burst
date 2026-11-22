@@ -35,7 +35,7 @@ namespace KatKat.Game
         {
             if (string.IsNullOrEmpty(_firstScene)) return;
             KatKat.View.ResourceUsage.Note("Branding/ofigame-logo");
-            var logo = Resources.Load<Texture2D>("Branding/ofigame-logo");
+            var logo = KatKat.View.Res.Load<Texture2D>("Branding/ofigame-logo");
             if (Application.isBatchMode || logo == null) { SceneManager.LoadScene(_firstScene); return; }
             StartCoroutine(Splash(logo));
         }

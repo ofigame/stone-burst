@@ -3,7 +3,7 @@ using UnityEngine;
 namespace KatKat.Game
 {
     /// <summary>
-    /// v10 menü müziği (docs/v10/TriKat-Mavi-Liman-Ust-Parcalar/ses/01-anasayfa-opal-esinti-loop.wav → Resources/Audio/TriKat/menu-loop).
+    /// v10 menü müziği (docs/v10/TriKat-Mavi-Liman-Ust-Parcalar/ses/01-anasayfa-opal-esinti-loop.wav ; 2026-11-23 yalnız Resources/Audio/TriKat/game-music).
     /// Tek 2D AudioSource; 32 sn kesintisiz döngü, düşük seviye. Menü (harita ve diğer menü sayfaları) açıkken çalar;
     /// zaten çalıyorsa yeniden başlamaz (kaydırma, bölge değişimi, sayfa yeniden çizimi döngüyü sıfırlamaz).
     /// Bölüm başlarken durmaz, InGameVolume seviyesine kısılır (2026-11-20). Ses ayarı kapalıysa hemen susar ve yeniden başlamaz; açılınca menüdeyse
@@ -50,7 +50,7 @@ namespace KatKat.Game
             m._src.volume = 0f;
             // 2026-11-20 (kullanıcı: "docs/muzik'teki müziği oyunumuzun müziği yapalım"): A Pocketful of Marbles (91 sn, akış
             // yüklemeli). Yoksa eski 32 sn döngü.
-            m._src.clip = Resources.Load<AudioClip>("Audio/TriKat/game-music") ?? Resources.Load<AudioClip>("Audio/TriKat/menu-loop");
+            m._src.clip = KatKat.View.Res.Load<AudioClip>("Audio/TriKat/game-music");
             return m;
         }
 

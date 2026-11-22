@@ -20,7 +20,7 @@ namespace KatKat.View
             {
                 if (_add != null || _addTried) return _add;
                 _addTried = true;
-                var sh = Resources.Load<Shader>("Shaders/KatKatAdditive");
+                var sh = KatKat.View.Res.Load<Shader>("Shaders/KatKatAdditive");
                 if (sh != null && sh.isSupported) _add = new Material(sh) { name = "KatKatAdditive", hideFlags = HideFlags.DontSave };
                 return _add;
             }
