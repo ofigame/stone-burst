@@ -51,6 +51,7 @@ namespace KatKat.UI
             for (int i = _goalCounts.Count - 1; i >= 0; i--)
             {
                 var g = _goalCounts[i];
+                if (g.Chip == null || g.Chip.Root == null) { _goalCounts.RemoveAt(i); continue; } // bölüm değişti, çip yok
                 g.T += dt;
                 float u = Mathf.Clamp01(g.T / g.Dur);
                 int v = Mathf.RoundToInt(Mathf.Lerp(g.From, g.To, 1f - (1f - u) * (1f - u)));
@@ -170,6 +171,7 @@ namespace KatKat.UI
             if (_bucketMode && _bucketRoot == null) BuildBucket();
             if (_bucketRoot != null) _bucketRoot.gameObject.SetActive(_bucketMode);
             _bSends.Clear();
+            _goalCounts.Clear();
             _bInFlight = 0;
             _bEarly = 0;
             _bAnim = -1f;

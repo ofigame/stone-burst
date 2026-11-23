@@ -607,6 +607,7 @@ namespace KatKat.Game
             if (step.Type == "rotate") { OnRotorPressed(step.X, step.Y); return; }
             if (step.Type == "paint") { var cmd = LevelLoader.ToCommand(step); _paintMode = true; _paintCell = new Coord(cmd.X, cmd.Y); OnPaintColor(cmd.Color); return; }
             if (step.Type == "use") { _traySlot = -1; OnTraySlot(step.Row); OnCellPressed(step.X, step.Y); return; }
+            if (step.Type == "send") { _hud.BucketFinishForTest(); SendBucket(); return; } // torba: gösterim beklenmeden gönder
             if (CurrentPhase != Phase.Targeting) ToggleRollTargeting();
             OnCellPressed(0, step.Row);
             OnCellPressed(0, step.Row);

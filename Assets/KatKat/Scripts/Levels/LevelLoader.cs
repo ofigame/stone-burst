@@ -128,6 +128,7 @@ namespace KatKat.Levels
             if (step.Type == "roll") return Command.Roll(step.Row);
             if (step.Type == "rotate") return Command.Rotate(step.X, step.Y);
             if (step.Type == "use") return Command.UseSpecial(step.Row, step.X, step.Y);
+            if (step.Type == "send") return Command.SendBucket(); // 2026-11-24 torba bölümleri
             if (step.Type == "paint")
             {
                 if (!ColorIds.TryParse(step.Color, out var color)) throw new FormatException($"Boya adımında bilinmeyen renk '{step.Color}'");

@@ -46,6 +46,9 @@ namespace KatKat.EditorTools
             /// <summary>Torba bölümü süresi: açgözlü oyuncunun eylem sayısı × bu (sn). 2026-11-24 (kullanıcı: "süre çok uzun … zor ve
             /// eğlence odaklı olmalı").</summary>
             public float Pace = 2.2f;
+            /// <summary>Katalog bölümü (2026-11-24): başlıksız, trialType "bag", çözüm kaydı; renkler o bölümde açılmış olanlar.</summary>
+            public bool Catalog;
+            public string[] Palette;
             public bool IsBucket => Orders > 0;
 
             /// <summary>Torba oyuğu (kullanıcı çizimi): üst ortada basamaklı boşluk; satır r'de r+1..W-2-r sütunları boş (3 satır).</summary>
@@ -70,6 +73,73 @@ namespace KatKat.EditorTools
             new Spec { Title = "Torba: Patron", Seed = 1212, W = 8, H = 9, MinL = 4, MaxL = 4, Colors = 3, Timed = 200, Orders = 6, BucketColors = 2, Copy = 0.3, Refill = 32, Pace = 2.2f,
                 Hole = (x, y) => y >= 3 && Math.Min(x, 7 - x) + Math.Min(y, 8 - y) < 2 },
         };
+
+        /// <summary>Katalogdaki torba bölümleri: 15'ten başlayıp 8'de bir (2026-11-24, kullanıcı: "süreli bölümleri torba bölümüne
+        /// çevirelim, ve ilk bölüm 15 te olsun. zorluğu bölüm seviyesine göre olsun. ve 8 bölümde bir olsun süreli bölümler. tüm 1000
+        /// bölümü yeniden üretme 15. bölümden +8 yaparak o bölümleri yeniden üret").</summary>
+        public static bool IsCatalogBag(int n) => n >= 15 && (n - 15) % 8 == 0;
+
+        /// <summary>Bölüm numarasına göre torba bölümü ayarı: hedef, renk sayısı, grup boyu, tempo ve yeni yığın hakkı ilerledikçe zorlaşır.</summary>
+        private static Spec CatalogSpec(int n)
+        {
+            float t = Mathf.Clamp01((n - 15) / 600f);
+            // O bölümde açılmış renkler (LevelLab V14ColorIntro: inci ve turkuaz 1, mercan 8, mor 21, lacivert 61).
+            var open = new List<string> { "yellow", "blue" };
+            if (n >= 8) open.Add("coral");
+            if (n >= 21) open.Add("purple");
+            if (n >= 61) open.Add("navy");
+            // Toplam görev taşı ilerledikçe 60 → 110; üç torba rengi yalnız 500 sonrası iki bölümde bir (toplam aynı, renk başına az).
+            int bagColors = n >= 500 && ((n - 15) / 8) % 2 == 1 ? 3 : 2;
+            int colors = Math.Min(open.Count, bagColors == 3 ? 3 : bagColors + 1); // üç torba renginde fazladan renk yok (gruplar büyük kalsın)
+            bagColors = Math.Min(bagColors, colors - 1);
+            float per = Mathf.Lerp(60f, 110f, t) / bagColors;
+            int tmin = Math.Max(15, (int)Math.Round(per * 0.92f / 5f) * 5), tmax = Math.Max(tmin, (int)Math.Round(per * 1.08f / 5f) * 5);
+            int kind = ((n - 15) / 8) % 3;
+            Func<int, int, bool> hole = (x, y) => false;
+            if (n >= 40 && kind == 1) hole = (x, y) => y >= 7 && (x <= 1 || x >= 6);
+            else if (n >= 40 && kind == 2) hole = (x, y) => y >= 3 && ((x == 0 && y % 2 == 0) || (x == 7 && y % 2 == 1));
+            return new Spec
+            {
+                Title = "level_" + n, Seed = n * 7919, W = 8, H = 9, MinL = n < 100 ? 3 : 4, MaxL = 4, Colors = colors,
+                Timed = 300, Orders = bagColors * 2 + (n > 300 ? 1 : 0), BucketColors = bagColors,
+                TargetMin = tmin, TargetMax = Math.Max(tmin, tmax), Copy = Mathf.Lerp(0.3f, 0.2f, t), Pace = Mathf.Lerp(3.0f, 2.1f, t),
+                Refill = (int)Mathf.Lerp(16f, 32f, t), Catalog = true, Palette = open.ToArray(), Hole = hole,
+            };
+        }
+
+        [MenuItem("KatKat/Katalog torba bölümlerini üret")]
+        public static void BuildCatalogBags()
+        {
+            const string Dir = "Assets/KatKat/Resources/Levels";
+            var report = new StringBuilder("# Katalog torba bölümleri\n\n| Bölüm | Görev | Süre |\n|---|---|---|\n");
+            int made = 0;
+            for (int n = 15; n <= 1000; n += 8)
+            {
+                var sp = CatalogSpec(n);
+                string id = $"level_{n:000}";
+                string json = BucketLevel(sp, id, out var d, out var v, out var orders);
+                File.WriteAllText(Path.Combine(Dir, id + ".json"), json, new UTF8Encoding(false));
+                report.Append($"| {n} | {orders} | {d.TimeLimit} sn |\n");
+                Debug.Log($"[Katalog] {id}: {orders}");
+                made++;
+            }
+            // Eski süreli bölümler (41'den 15'te bir) torba dizisinde değilse süresiz olur (kendi hamle sınırıyla).
+            int untimed = 0;
+            for (int n = 1; n <= 1000; n++)
+            {
+                if (IsCatalogBag(n)) continue;
+                string path = Path.Combine(Dir, $"level_{n:000}.json");
+                if (!File.Exists(path)) continue;
+                string text = File.ReadAllText(path);
+                var m = System.Text.RegularExpressions.Regex.Match(text, "\n  \"timeLimit\": *[0-9]+,\r?");
+                if (!m.Success) continue;
+                File.WriteAllText(path, text.Remove(m.Index, m.Length), new UTF8Encoding(false));
+                untimed++;
+            }
+            File.WriteAllText("Logs/catalog_bags.md", report.ToString());
+            AssetDatabase.Refresh();
+            Debug.Log($"[Katalog] {made} torba bölümü yazıldı; {untimed} eski süreli bölüm süresiz oldu");
+        }
 
         [MenuItem("KatKat/Test bölümlerini üret (Lab)")]
         public static void Build()
@@ -235,7 +305,8 @@ namespace KatKat.EditorTools
                 Greedy(LevelLoader.ToState(probe), taps, out int score, out var status);
                 if (status != GameStatus.Won) continue;
                 int timed = Math.Max(60, Math.Min(sp.Timed, (int)Math.Ceiling(_greedyActions * sp.Pace / 5f) * 5));
-                string json = ComposeBucket(sp, id, cells, sized, score, timed);
+                foreach (var c in _greedyCmds) if (c.Type != CommandType.Tap && c.Type != CommandType.UseSpecial && c.Type != CommandType.SendBucket) throw new Exception($"[Lab] {id}: kaydedilemeyen komut {c.Type}");
+                string json = ComposeBucket(sp, id, cells, sized, score, timed, new List<Command>(_greedyCmds));
                 d = LevelParser.Parse(json, id);
                 var errs = LevelValidator.ValidateStatic(d, LevelValidator.ScopeFor(d));
                 if (errs.Count > 0) throw new Exception($"[Lab] {id}: {string.Join("; ", errs)}");
@@ -248,7 +319,7 @@ namespace KatKat.EditorTools
             throw new Exception($"[Lab] {id}: kazanılabilir kovalı tahta bulunamadı");
         }
 
-        private static string ComposeBucket(Spec sp, string id, string cells, List<KeyValuePair<string, int>> orders, int score, int timed)
+        private static string ComposeBucket(Spec sp, string id, string cells, List<KeyValuePair<string, int>> orders, int score, int timed, List<Command> solution = null)
         {
             var sums = new List<KeyValuePair<string, int>>();
             foreach (var o in orders)
@@ -259,7 +330,8 @@ namespace KatKat.EditorTools
             var sb = new StringBuilder();
             sb.Append("{\n  \"schemaVersion\": 2,\n  \"id\": \"").Append(id).Append("\",\n");
             sb.Append("  \"capabilities\": [\"specials\", \"buckets\"").Append(sp.Refill > 0 ? ", \"refill\"" : "").Append("],\n");
-            sb.Append("  \"title\": \"").Append(sp.Title).Append("\",\n  \"trialType\": \"lab\",\n  \"rules\": [],\n");
+            if (sp.Catalog) sb.Append("  \"trialType\": \"bag\",\n  \"rules\": [],\n");
+            else sb.Append("  \"title\": \"").Append(sp.Title).Append("\",\n  \"trialType\": \"lab\",\n  \"rules\": [],\n");
             sb.Append($"  \"width\": {sp.W},\n  \"height\": {sp.H},\n  \"moveLimit\": 99,\n  \"timeLimit\": {timed},\n");
             sb.Append("  \"rollEnabled\": false,\n  \"startingRoll\": false,\n");
             int s1 = Math.Max(100, (int)(score * 0.55f) / 10 * 10), s2 = Math.Max(s1 + 50, (int)(score * 0.8f) / 10 * 10);
@@ -271,13 +343,27 @@ namespace KatKat.EditorTools
             sb.Append("  \"buckets\": [\n");
             for (int i = 0; i < orders.Count; i++)
                 sb.Append("    { \"color\": \"").Append(orders[i].Key).Append("\", \"amount\": ").Append(orders[i].Value).Append(" }").Append(i < orders.Count - 1 ? ",\n" : "\n");
-            sb.Append("  ],\n  ").Append(cells);
+            sb.Append("  ],\n");
+            if (sp.Catalog && solution != null)
+            {
+                sb.Append("  \"solution\": [\n");
+                for (int i = 0; i < solution.Count; i++)
+                {
+                    var c = solution[i];
+                    string step = c.Type == CommandType.SendBucket ? "{ \"type\": \"send\" }"
+                        : c.Type == CommandType.UseSpecial ? $"{{ \"type\": \"use\", \"slot\": {c.Slot}, \"x\": {c.X}, \"y\": {c.Y} }}"
+                        : $"{{ \"type\": \"tap\", \"x\": {c.X}, \"y\": {c.Y} }}";
+                    sb.Append("    ").Append(step).Append(i < solution.Count - 1 ? ",\n" : "\n");
+                }
+                sb.Append("  ],\n");
+            }
+            sb.Append("  ").Append(cells);
             return sb.ToString();
         }
 
         private static string Cells(Spec sp, System.Random rng)
         {
-            var palette = new List<string>(Palette);
+            var palette = new List<string>(sp.Palette ?? Palette);
             // Renk seti tohuma göre döner (bölümler farklı renklerle).
             int rot = rng.Next(palette.Count);
             var colors = new List<string>();
@@ -347,12 +433,15 @@ namespace KatKat.EditorTools
         /// sürükle-değiştir; yoksa tepsideki başka özel taş. Toplanan renkleri sayar.</summary>
         /// <summary>Son açgözlü oyunun bütün eylemleri (dokunuş, tepsi, torba gönderme).</summary>
         private static int _greedyActions;
+        /// <summary>Son açgözlü oyunun komutları (katalog bölümünün kayıtlı çözümü).</summary>
+        private static readonly List<Command> _greedyCmds = new List<Command>();
 
         private static Dictionary<string, int> Greedy(LevelState s, int maxMoves, out int score, out GameStatus status)
         {
             var got = new Dictionary<string, int>();
             int guard = 0, made = 0, emptySends = 0;
             _greedyActions = 0;
+            _greedyCmds.Clear();
             while (s.Status == GameStatus.Idle && s.MovesLeft > 0 && made < maxMoves && guard++ < maxMoves * 4)
             {
                 MoveResult best = null;
@@ -408,6 +497,7 @@ namespace KatKat.EditorTools
                     }
                 if (best.Command.Type != CommandType.UseSpecial && best.Command.Type != CommandType.SendBucket) made++; // tepsi ve kova hamle harcamaz
                 _greedyActions++;
+                _greedyCmds.Add(best.Command);
                 s = bestState;
             }
             score = s.Score;

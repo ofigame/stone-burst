@@ -164,6 +164,7 @@ namespace KatKat.Levels
                     else if (step.Type == "roll") { step.Row = Int(so, "row", where); }
                     else if (step.Type == "use") { step.Row = Int(so, "slot", where); step.X = Int(so, "x", where); step.Y = Int(so, "y", where); }
                     else if (step.Type == "paint") { step.X = Int(so, "x", where); step.Y = Int(so, "y", where); step.Color = Str(so, "color", where); }
+                    // "send": torbayı gönder (2026-11-24 torba bölümleri; alan yok)
                     d.Solution.Add(step);
                 }
             }

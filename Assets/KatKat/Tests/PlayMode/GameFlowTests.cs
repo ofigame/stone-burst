@@ -363,10 +363,10 @@ namespace KatKat.Tests
         [UnityTest]
         public IEnumerator TimeUp_Retry_StonesBackInPlace_TimerRestarts()
         {
-            _gc.StartLevel(40); // 41. bölüm süreli
+            _gc.StartLevel(14); // 15. bölüm süreli (2026-11-24: süreli bölümler torba bölümü, 15'ten 8'de bir)
             yield return null;
             _gc.Hud.HideRuleCard(false);
-            Assert.IsTrue(_gc.TimedActive, "41. bölüm süreli");
+            Assert.IsTrue(_gc.TimedActive, "15. bölüm süreli");
             float full = _gc.CurrentLevel.TimeLimit;
             _gc.AdvanceTimeForTest(full + 0.5f);
             _gc.Board.AdvanceTimedFx(1.7f);
@@ -395,22 +395,25 @@ namespace KatKat.Tests
         [UnityTest]
         public IEnumerator Timed_WinInsideLastTenSeconds_StopsWarning()
         {
-            _gc.StartLevel(40);
+            _gc.StartLevel(14); // 15. bölüm: süreli torba bölümü
             yield return null;
             _gc.Hud.HideRuleCard(false);
             _gc.Board.Director.TimeScale = Speed;
-            _gc.AdvanceTimeForTest(_gc.CurrentLevel.TimeLimit - 8f);
+            int beats = 0;
+            var sol = _gc.CurrentLevel.Solution;
+            // Çözümün son adımı dışındakiler; sonra son 10 saniyeye atlanır ve son adım (torba gönderimi) görevi bitirir.
+            for (int i = 0; i < sol.Count - 1; i++)
+            {
+                if (_gc.Session.State.Status != GameStatus.Idle) break;
+                _gc.PlayStep(sol[i]);
+                yield return WaitStable();
+            }
+            _gc.AdvanceTimeForTest(_gc.TimeLeft - 8f);
             yield return null;
             yield return null;
             Assert.IsTrue(_gc.Board.HeartbeatOn, "son 10 saniyede kalp atışı");
-            int beats = 0;
-            var sol = _gc.CurrentLevel.Solution;
-            foreach (var step in sol)
-            {
-                if (_gc.Session.State.Status != GameStatus.Idle) break;
-                _gc.PlayStep(step);
-                yield return WaitStable();
-            }
+            _gc.PlayStep(sol[sol.Count - 1]);
+            yield return WaitStable();
             Assert.AreEqual(GameStatus.Won, _gc.Session.State.Status, "kayıtlı çözüm süre bitmeden kazanır");
             yield return null;
             Assert.IsFalse(_gc.Board.HeartbeatOn, "görev bitti: kalp atışı durdu");
