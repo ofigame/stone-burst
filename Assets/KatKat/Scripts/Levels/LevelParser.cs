@@ -140,6 +140,12 @@ namespace KatKat.Levels
                 d.SealGate = Int(so2, "gate", where);
             }
             if (o.TryGetValue("hazard", out var hz) && hz != null) d.Hazard = HazardData.Parse(hz, where); // konsept pilotu
+            if (o.ContainsKey("buckets")) // 2026-11-23 kova kipi
+                foreach (var b in List(o, "buckets", where))
+                {
+                    var bo = AsObj(b, where, "buckets");
+                    d.Buckets.Add(new KeyValuePair<string, int>(Str(bo, "color", where), Int(bo, "amount", where)));
+                }
             if (o.ContainsKey("solution"))
             {
                 foreach (var s in List(o, "solution", where))

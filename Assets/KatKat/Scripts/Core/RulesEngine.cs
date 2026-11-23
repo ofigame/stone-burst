@@ -54,6 +54,14 @@ namespace KatKat.Core
                 return result;
             }
 
+            if (cmd.Type == CommandType.SendBucket)
+            {
+                // 2026-11-23 kova kipi: içindeki kadarı teslim edilir, eksik kısım sıranın sonuna; hamle harcamaz.
+                Deliver(state, result);
+                Finish(state, result, scoreBefore);
+                return result;
+            }
+
             if (cmd.Type == CommandType.Bomb)
             {
                 // 2026-11-20 Bomba güçlendiricisi (kullanıcı: "kullanıldığı alanda altlı üstlü toplam 9 hücredeki taşları
@@ -147,9 +155,9 @@ namespace KatKat.Core
         private static void Finish(LevelState state, MoveResult result, int scoreBefore)
         {
             // Konsept pilotu: hamle harcayan komuttan sonra tehdit bir adım (tepsi hamle harcamaz → ilerletmez; kazandıran hamlede yok).
-            if (state.Hazard != null && result.Command.Type != CommandType.UseSpecial && result.Command.Type != CommandType.Bomb && !state.ProtectedBroken && !state.AllGoalsComplete)
+            if (state.Hazard != null && result.Command.Type != CommandType.UseSpecial && result.Command.Type != CommandType.Bomb && result.Command.Type != CommandType.SendBucket && !state.ProtectedBroken && !state.AllGoalsComplete)
                 HazardRules.Tick(state, result);
-            if (result.Command.Type != CommandType.UseSpecial && result.Command.Type != CommandType.Bomb && !state.ProtectedBroken && !state.AllGoalsComplete && HasGravel(state.Board))
+            if (result.Command.Type != CommandType.UseSpecial && result.Command.Type != CommandType.Bomb && result.Command.Type != CommandType.SendBucket && !state.ProtectedBroken && !state.AllGoalsComplete && HasGravel(state.Board))
                 GravelSpread(state.Board, result);
             state.Status = Evaluate(state);
             result.MovesLeftAfter = state.MovesLeft;
@@ -205,6 +213,8 @@ namespace KatKat.Core
                 if (!board.InBounds(cmd.X, cmd.Y)) return RejectReason.OutOfBounds;
                 return TrayHasEffect(board, state.Tray[cmd.Slot], cmd.X, cmd.Y) ? RejectReason.None : RejectReason.TrayNoEffect;
             }
+            if (cmd.Type == CommandType.SendBucket)
+                return state.Bucket != null && state.Bucket.Active && state.Bucket.Have > 0 ? RejectReason.None : RejectReason.BucketEmpty;
             if (cmd.Type == CommandType.Bomb)
             {
                 if (!board.InBounds(cmd.X, cmd.Y) || !board[cmd.X, cmd.Y].Active) return RejectReason.OutOfBounds;
@@ -376,6 +386,7 @@ namespace KatKat.Core
         public static bool HasLegalMove(LevelState state)
         {
             if (TrayUsable(state)) return true;
+            if (state.Bucket != null && state.Bucket.Active && state.Bucket.Have > 0) return true; // kova gönderilebilir
             if (state.MovesLeft <= 0) return false;
             if (GroupFinder.HasValidGroup(state.Board)) return true;
             for (int i = 0; i < state.Board.Count; i++)
@@ -723,7 +734,8 @@ namespace KatKat.Core
                     cell.Layers.RemoveAt(cell.Layers.Count - 1);
                     _peeled[i] = true;
                     if (cell.Protected) _state.ProtectedBroken = true; // v12 deneme: kristal soyuldu
-                    AddGoal(_state, removed);
+                    if (_state.Bucket != null) { if (BucketTake(_state, _result, removed)) pw.BucketCells.Add(pw.Cells.Count); }
+                    else AddGoal(_state, removed);
                     score += Scoring.Layer(pw.Index);
                     // Dip yıldızı: hücre bu soyulmayla boşaldıysa bir kez.
                     bool star = cell.Layers.Count == 0 && cell.HasBottomStar;
@@ -927,7 +939,7 @@ namespace KatKat.Core
                 _result.SpecialCreated = kind;
                 _result.SpecialCreatedAt = new Coord(_board.X(tapped), _board.Y(tapped));
                 _result.SpecialCreatedColor = _removedColor[tapped];
-                if (_state.Tray.Count < LevelState.TrayCapacity)
+                if (TrayAccepts(_state, kind))
                 {
                     _state.Tray.Add(kind);
                     _result.SpecialToTray = true;
@@ -972,6 +984,86 @@ namespace KatKat.Core
         {
             foreach (var g in state.Goals)
                 if (g.Type == GoalType.CollectEnvelopes && g.Stage == state.ActiveStage) g.Progress++;
+        }
+
+        /// <summary>
+        /// Tepsi yeni özel taşı alır mı. Kova kipinde (2026-11-23, kullanıcı: "kova alanın tam ortasında duracak. sağında ve solunda
+        /// birer tane altın rulo ve roket alanı olacak"): bir Altın Rulo ve bir roket yuvası; Kürek yok.
+        /// </summary>
+        public static bool TrayAccepts(LevelState state, SpecialKind kind)
+        {
+            if (state.Bucket == null) return state.Tray.Count < LevelState.TrayCapacity;
+            if (kind == SpecialKind.Shovel) return false;
+            bool rainbow = kind == SpecialKind.Rainbow;
+            foreach (var k in state.Tray) if ((k == SpecialKind.Rainbow) == rainbow) return false;
+            return true;
+        }
+
+        /// <summary>Kova kipi: taş etkin kovanın rengindeyse kovaya girer (dolunca kova gönderilir, sıradaki gelir).</summary>
+        private static bool BucketTake(LevelState state, MoveResult result, LayerColor color)
+        {
+            var b = state.Bucket;
+            if (!b.Active || b.Color != color || b.Have >= b.Need) return false;
+            b.Have++;
+            if (b.Have >= b.Need) Deliver(state, result); // rengin kalan görevi doldu: kova kendiliğinden gider
+            return true;
+        }
+
+        /// <summary>Kova kipi: rengin teslimle kalan görevi.</summary>
+        private static int BucketRemaining(LevelState state, LayerColor color)
+        {
+            int rem = 0;
+            foreach (var g in state.Goals)
+                if (g.Type == GoalType.CollectColor && g.Color == color) rem += Math.Max(0, g.Amount - g.Progress);
+            return rem;
+        }
+
+        /// <summary>Kova kipi: sıradaki görevi bitmemiş rengin kovası gelir (sıra biterse görevi kalan renkler yeniden sıralanır).</summary>
+        public static void NextBucket(LevelState state)
+        {
+            var b = state.Bucket;
+            b.Have = 0;
+            for (int pass = 0; pass < 2; pass++)
+            {
+                while (b.Queue.Count > 0)
+                {
+                    var o = b.Queue[0];
+                    b.Queue.RemoveAt(0);
+                    int rem = BucketRemaining(state, o.Color);
+                    if (rem <= 0) continue;
+                    b.Active = true;
+                    b.Color = o.Color;
+                    b.Need = rem;
+                    return;
+                }
+                foreach (var g in state.Goals)
+                    if (g.Type == GoalType.CollectColor && !g.IsComplete) b.Queue.Add(new BucketOrder(g.Color, g.Amount - g.Progress));
+            }
+            b.Active = false;
+            b.Need = 0;
+        }
+
+        /// <summary>Kova kipi: etkin kovayı teslim eder (renk hedefi kovadaki kadar ilerler); eksikse kalan sıranın sonuna eklenir.</summary>
+        private static void Deliver(LevelState state, MoveResult result)
+        {
+            var b = state.Bucket;
+            var send = new BucketSend { Color = b.Color, Have = b.Have, Need = b.Need, Partial = b.Have < b.Need };
+            int left = b.Have;
+            foreach (var g in state.Goals)
+            {
+                if (left <= 0) break;
+                if (g.Type != GoalType.CollectColor || g.Color != b.Color || g.IsComplete) continue;
+                int add = Math.Min(left, g.Amount - g.Progress);
+                g.Progress += add;
+                left -= add;
+            }
+            if (BucketRemaining(state, b.Color) > 0) b.Queue.Add(new BucketOrder(b.Color, BucketRemaining(state, b.Color))); // renk yine gelir
+            b.Sent++;
+            NextBucket(state);
+            send.NextActive = b.Active;
+            send.NextColor = b.Color;
+            send.NextNeed = b.Need;
+            result.BucketSends.Add(send);
         }
 
         private static void AddGoal(LevelState state, LayerColor color)

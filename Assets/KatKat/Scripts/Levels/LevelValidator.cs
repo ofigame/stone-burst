@@ -18,7 +18,7 @@ namespace KatKat.Levels
         public static readonly ValidationScope SecondStage = new ValidationScope { AllowedSizes = new[] { 4, 5, 6 }, MaxLayers = 4, AllowClips = true, AllowStars = true };
 
         /// <summary>schemaVersion 2'de geçerli yetenek adları (Premium-v2 rehberi §12).</summary>
-        public static readonly string[] KnownCapabilities = { "clip", "star", "ice", "colorLock", "envelope", "rotor", "specials", "sponge", "linkedClip", "gate", "paint", "stages", "seal", "areas", "gravel" }; // vr1 P3: stages/seal/areas yalnız pilot katalog (v14: seal tanınır ama reddedilir)
+        public static readonly string[] KnownCapabilities = { "clip", "star", "ice", "colorLock", "envelope", "rotor", "specials", "sponge", "linkedClip", "gate", "paint", "stages", "seal", "areas", "gravel", "buckets" }; // vr1 P3: stages/seal/areas yalnız pilot katalog (v14: seal tanınır ama reddedilir)
 
         /// <summary>
         /// schemaVersion 1: belge Bölüm 15 — ilk 20 bölümde ataş, yıldız, 6x6 ve dört katman yok (kimlik "level_###").
@@ -63,6 +63,21 @@ namespace KatKat.Levels
             if (d.Rules.Contains("chainOnly")) e.Add($"{id}: chainOnly kuralı v14'te kaldırıldı, desteklenmiyor");
             if (d.TrialType == "chain" || d.TrialType == "aha") e.Add($"{id}: '{d.TrialType}' türü zincire bağlıydı, v14'te desteklenmiyor");
             if (d.Cells.Exists(c => c.Area != 0) && !d.Capabilities.Contains("areas")) e.Add($"{id}: iki alan için areas yeteneği gerekli");
+            // 2026-11-23 kova kipi: süreli; her renk hedefi o rengin kova toplamına eşit.
+            if (d.Buckets.Count > 0)
+            {
+                if (!d.Capabilities.Contains("buckets")) e.Add($"{id}: kova için buckets yeteneği gerekli");
+                if (d.TimeLimit <= 0) e.Add($"{id}: kovalı bölüm süreli olmalı");
+                var sums = new Dictionary<string, int>();
+                foreach (var kv in d.Buckets)
+                {
+                    if (kv.Value <= 0) e.Add($"{id}: kova miktarı pozitif olmalı");
+                    sums[kv.Key] = (sums.TryGetValue(kv.Key, out var v) ? v : 0) + kv.Value;
+                }
+                foreach (var g in d.Goals)
+                    if (g.Type != "collectColor" || !sums.TryGetValue(g.Color, out var want) || want != g.Amount) e.Add($"{id}: kovalı bölümde hedef yalnız kova renkleri ve toplamları olmalı ({g.Type} {g.Color} {g.Amount})");
+                if (d.Goals.Count != sums.Count) e.Add($"{id}: her kova rengi için bir hedef olmalı");
+            }
             if (d.Cells.Exists(c => c.Area < 0 || c.Area > 1)) e.Add($"{id}: alan 0 ya da 1 olmalı");
             // v5 (özel taşlı bölümler): dikdörtgen tahta 5–8 genişlik, 5–9 yükseklik (taşlar küçülür, tahta alanı aynı).
             bool v5Board = (d.SpecialsEnabled || !string.IsNullOrEmpty(d.TrialType)) && d.Width >= 5 && d.Width <= 8 && d.Height >= 5 && d.Height <= 9; // v12 deneme: dikdörtgen

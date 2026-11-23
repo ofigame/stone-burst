@@ -46,6 +46,8 @@ namespace KatKat.Core
         /// <summary>Konsept pilotu: hamle sonu tehdit olayı ve etkilediği hücreler (yalnız sunum).</summary>
         public HazardNote HazardNote;
         public readonly List<Coord> HazardCells = new List<Coord>();
+        /// <summary>2026-11-23 kova kipi: bu hamlede gönderilen kovalar (dolunca kendiliğinden ya da oyuncu dokununca), sırayla.</summary>
+        public readonly List<BucketSend> BucketSends = new List<BucketSend>();
 
         public int TotalPeeled
         {

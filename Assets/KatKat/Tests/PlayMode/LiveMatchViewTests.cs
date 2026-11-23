@@ -48,16 +48,43 @@ namespace KatKat.Tests
             var swings = Object.FindObjectsByType<KatKat.UI.HangSwing>(FindObjectsInactive.Exclude);
             Assert.GreaterOrEqual(swings.Length, 3, "sol rozetler ve koleksiyon kartı asılı");
             Assert.IsNotNull(GameObject.Find("DailyButton").GetComponentInParent<KatKat.UI.HangSwing>(), "Günlük rozeti askıda");
+            var chained = swings.Where(x => x.Chained).ToArray();
+            Assert.IsNotEmpty(chained, "alt rozetler üsttekine bağlı (ip uçları sabit)");
+            foreach (var c in chained) Assert.IsNotNull(c.transform.parent.GetComponentInParent<KatKat.UI.HangSwing>(), c.name + " üst askıya bağlı");
             foreach (var s in swings)
             {
                 int ropes = 0;
                 foreach (Transform c in s.transform) if (c.name == "Rope") ropes++;
                 Assert.AreEqual(2, ropes, s.name + " iki iple asılı");
                 Assert.Greater(((RectTransform)s.transform).pivot.y, 1f, s.name + ": dönme noktası ipin üst ucunda");
-                Assert.Less(s.Amp, 2.5f, s.name + ": göz yormayan küçük açı");
                 s.Advance(1f);
-                Assert.AreNotEqual(0f, s.Angle);
+                Assert.AreEqual(0f, s.Angle, 0.01f, s.name + ": sarsıntı yokken kıpırdamaz");
             }
+            // 2026-11-23: telefon sarsılınca askı salınır, birkaç saniyede söner.
+            var sw = swings[0];
+            try
+            {
+                KatKat.UI.HangSwing.AccelOverride = new Vector3(0f, -1f, 0f);
+                for (int i = 0; i < 100; i++) sw.Advance(0.02f);
+                float calm = Mathf.Abs(sw.ShakeSwing);
+                // Telefonu yavaşça çevirmek (0,5 sn'de 30°) sallamaz.
+                for (int i = 0; i <= 25; i++) { float ang = 30f * Mathf.Deg2Rad * i / 25f; KatKat.UI.HangSwing.AccelOverride = new Vector3(Mathf.Sin(ang), -Mathf.Cos(ang), 0f); sw.Advance(0.02f); }
+                for (int i = 0; i < 50; i++) sw.Advance(0.02f);
+                Assert.Less(Mathf.Abs(sw.ShakeSwing), 1f, "çevirme sallamaz");
+                KatKat.UI.HangSwing.AccelOverride = new Vector3(0f, -1f, 0f);
+                for (int i = 0; i < 100; i++) sw.Advance(0.02f);
+                calm = Mathf.Abs(sw.ShakeSwing);
+                KatKat.UI.HangSwing.AccelOverride = new Vector3(1.6f, -1f, 0f); // sert yana sarsıntı
+                for (int i = 0; i < 4; i++) sw.Advance(0.02f);
+                KatKat.UI.HangSwing.AccelOverride = new Vector3(0f, -1f, 0f);
+                float peak = 0f;
+                for (int i = 0; i < 50; i++) { sw.Advance(0.02f); peak = Mathf.Max(peak, Mathf.Abs(sw.ShakeSwing)); }
+                Assert.Greater(peak, calm + 3f, "sarsıntı askıyı salladı");
+                Assert.LessOrEqual(Mathf.Abs(sw.Angle), KatKat.UI.HangSwing.MaxAngle, "açı sınırlı");
+                for (int i = 0; i < 400; i++) sw.Advance(0.02f);
+                Assert.Less(Mathf.Abs(sw.ShakeSwing), 1f, "salınım söndü");
+            }
+            finally { KatKat.UI.HangSwing.AccelOverride = null; }
             KatKat.UI.Motion.Reduced = true;
             try { swings[0].Advance(1f); Assert.AreEqual(0f, swings[0].Angle, "azaltılmış harekette sabit"); }
             finally { KatKat.UI.Motion.Reduced = false; }

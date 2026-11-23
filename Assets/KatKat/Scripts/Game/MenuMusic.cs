@@ -6,7 +6,7 @@ namespace KatKat.Game
     /// v10 menü müziği (docs/v10/TriKat-Mavi-Liman-Ust-Parcalar/ses/01-anasayfa-opal-esinti-loop.wav ; 2026-11-23 yalnız Resources/Audio/TriKat/game-music).
     /// Tek 2D AudioSource; 32 sn kesintisiz döngü, düşük seviye. Menü (harita ve diğer menü sayfaları) açıkken çalar;
     /// zaten çalıyorsa yeniden başlamaz (kaydırma, bölge değişimi, sayfa yeniden çizimi döngüyü sıfırlamaz).
-    /// Bölüm başlarken yumuşakça susar; oyun ekranında müzik yok (2026-11-23). Ses ayarı kapalıysa hemen susar ve yeniden başlamaz; açılınca menüdeyse
+    /// Bölüm başlarken çok kısık düzeye iner (2026-11-23 ikinci tur; canlı maçta susar). Ses ayarı kapalıysa hemen susar ve yeniden başlamaz; açılınca menüdeyse
     /// yumuşakça sürer. Uygulama arka plana geçince duraklar, öne dönünce yalnız menüdeyse ve ses açıksa sürer.
     /// </summary>
     public sealed class MenuMusic : MonoBehaviour
@@ -14,9 +14,14 @@ namespace KatKat.Game
         // 2026-11-22: 0,7 → 0,5 → 0,3; 2026-11-23 (kullanıcı: "müziği ana sayfada kıs ve oyun ekranından tamamen kaldır") 0,3 → 0,18.
         public const float Volume = 0.18f,
             FadeInMs = 400f, FadeOutMs = 200f;
+        /// <summary>Oyun ekranı düzeyi (2026-11-23, kullanıcı: "oyun alanına müziği tekrar koyalım ama çok kısık olsun").</summary>
+        public const float InGameVolume = 0.05f;
 
         private AudioSource _src;
-        private bool _enabled = true, _want, _paused;
+        private bool _enabled = true, _want, _paused, _inGame;
+        /// <summary>Oyun ekranında kısık çalıyor mu (testler).</summary>
+        public bool InGame => _inGame;
+        public float CurrentVolume => _src != null ? _src.volume : 0f;
         private float _target, _fadeMs = FadeInMs;
 
         public bool Enabled
@@ -56,16 +61,23 @@ namespace KatKat.Game
         public void Enter()
         {
             _want = true;
+            _inGame = false;
             if (_enabled) Begin();
         }
 
-        /// <summary>Bölüm başlıyor: müzik yumuşakça susar (2026-11-23: oyun ekranında müzik yok).</summary>
-        public void Leave() => Silence();
+        /// <summary>Bölüm başlıyor: müzik kesilmeden çok kısık düzeye iner (2026-11-23 ikinci tur).</summary>
+        public void Leave()
+        {
+            _want = true;
+            _inGame = true;
+            if (_enabled) Begin();
+        }
 
         /// <summary>Müzik tamamen susar (oyun ekranı, canlı maç).</summary>
         public void Silence()
         {
             _want = false;
+            _inGame = false;
             _target = 0f;
             _fadeMs = FadeOutMs;
         }
@@ -73,8 +85,8 @@ namespace KatKat.Game
         private void Begin()
         {
             if (_src == null || _src.clip == null || _paused) return;
-            _target = Volume;
-            _fadeMs = FadeInMs;
+            _target = _inGame ? InGameVolume : Volume;
+            _fadeMs = _inGame ? FadeOutMs : FadeInMs;
             if (!_src.isPlaying) { _src.volume = 0f; _src.Play(); }
         }
 

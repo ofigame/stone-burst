@@ -122,6 +122,7 @@ namespace KatKat.Game
             _hud.PaintPressed += TogglePaint;
             _hud.PaintColorChosen += OnPaintColor;
             _hud.TraySlotPressed += OnTraySlot;
+            _hud.BucketPressed += SendBucket;
             _hud.PlaceStoneChosen += OnPlaceStoneChosen;
             _board.TrayTarget = () => _hud.TraySlotPosition(Mathf.Max(0, _session.State.Tray.Count - 1));
             _board.SpongeTarget = () => _hud.TokenTarget(GoalType.CollectSponges);
@@ -137,7 +138,7 @@ namespace KatKat.Game
             // jöle taş sesi (hamle içinde yavaşça tizleşir), son taş varınca görev taşı sesi. Eski para sesleri yalnız V17 yoksa.
             // 2026-11-23 (kullanıcı: "sesler tane tane seri şekilde bir ses net olarak duyulacak şekilde akmalı"): varış sesleri
             // sıralı kanalda (SoundBank.QueueV17) en az 110 ms arayla, üst üste binmeden; titreşim ses başlarken.
-            _board.FlowTick = i => { if (!_sound.QueueV17("jelly-pop", Mathf.Min(7f, i * 0.5f), 0.8f, false, Haptics.Tick)) { _sound.Play(Sfx.Coin, i / 2, 0.75f); Haptics.Tick(); } };
+            _board.FlowTick = FlowTickSound;
             _board.FlowFinal = () => { if (!_sound.QueueV17("goal-collect", 0f, 1f, true, Haptics.Medium)) { _sound.Play(Sfx.CoinFinal, 0, 0.85f); Haptics.Medium(); } };
             _board.IsGoalColor = _hud.IsGoalColor;
             _sound = SoundBank.Create(transform);
@@ -384,7 +385,8 @@ namespace KatKat.Game
             _hud.HidePalette();
             _hud.SetPaint(_session.State.PaintLeft, false);
             // 2026-11-23 (130. bölüm): özel taşı kapalı ama çakıllı bölümde de Kürek tepsiye gelir; tepsi görünmeli.
-            _hud.SetTrayVisible(_session.State.SpecialsEnabled || KatKat.Core.RulesEngine.HasGravel(_session.State.Board));
+            _hud.SetTrayVisible(_session.State.SpecialsEnabled || KatKat.Core.RulesEngine.HasGravel(_session.State.Board) || _session.State.Bucket != null);
+            BucketBegin();
             _hud.SetTray(_session.State.Tray, _traySlot = -1);
             _board.SetLevelPalette(index);
             BoostersAtLevelStart();
@@ -665,6 +667,7 @@ namespace KatKat.Game
         private void Play(MoveResult r)
         {
             _lastResult = r;
+            _hud.BucketQueue(r); // kova kipi: bu hamlenin kovaya giden taşları ve gönderimleri
             SetPhase(Phase.Animating);
             _hud.SetMoves(r.MovesLeftAfter);
             if (r.RollConsumed)
@@ -1020,6 +1023,7 @@ namespace KatKat.Game
             _hud.SetGoalStages(s.Goals, s.ActiveStage); // vr1 P3 (tek aşamalıda etkisiz)
             _hud.SetMoves(s.MovesLeft);
             _hud.SetTray(s.Tray, _traySlot = -1);
+            _hud.BucketSettle(s.Bucket);
             ConceptAfterPlay(_lastResult); // konsept pilotu: tehdit olayı, durum satırı
             if (s.Status == GameStatus.Idle && s.MovesLeft <= 0 && s.Tray.Count > 0)
             {
@@ -1177,6 +1181,7 @@ namespace KatKat.Game
             _previewRow = -1;
             var s = _session.State;
             _board.Sync(s);
+            _hud.SetBucketMode(s.Bucket); // kova kipi: gösterim mantık durumundan (havadaki taşlar yukarıda bitti)
             _hud.SetMoves(s.MovesLeft);
             _hud.SetGoalsImmediate(s.Goals);
             _hud.SetGoalStages(s.Goals, s.ActiveStage); // vr1 P3 (tek aşamalıda etkisiz)

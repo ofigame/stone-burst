@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using KatKat.Core;
 
 namespace KatKat.Levels
@@ -93,6 +94,18 @@ namespace KatKat.Levels
                 s.Goals.Add(gs);
             }
             if (d.Hazard != null) s.Hazard = d.Hazard.ToState(board, d.Id); // konsept pilotu
+            if (d.Buckets.Count > 0) // 2026-11-23 kova kipi
+            {
+                var orders = new List<BucketOrder>();
+                foreach (var kv in d.Buckets)
+                {
+                    if (!ColorIds.TryParse(kv.Key, out var bc)) throw new FormatException($"{d.Id}: kovada bilinmeyen renk '{kv.Key}'");
+                    orders.Add(new BucketOrder(bc, kv.Value));
+                }
+                s.Bucket = new BucketRun();
+                s.Bucket.Queue.AddRange(orders);
+                RulesEngine.NextBucket(s);
+            }
             return s;
         }
 

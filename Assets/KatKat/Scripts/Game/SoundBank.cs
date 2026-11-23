@@ -177,7 +177,7 @@ namespace KatKat.Game
         public const float SerialGap = 0.11f, SerialFade = 0.035f;
         public const int SerialMax = 8;
 
-        private struct Pending { public AudioClip Clip; public float Pitch, Volume; public bool Final; public Action Then; }
+        private struct Pending { public AudioClip Clip; public float Pitch, Volume, Gap; public bool Final, Overlap; public Action Then; }
         private AudioSource[] _serial;
         private int _serialIdx;
         private readonly System.Collections.Generic.List<Pending> _queue = new System.Collections.Generic.List<Pending>();
@@ -193,7 +193,9 @@ namespace KatKat.Game
         /// V17 sesini sıralı kanalda çalar (yoksa false; çağıran eski sese düşer). <paramref name="final"/> kapanış sesi kuyruk
         /// dolu olsa da atlanmaz. <paramref name="then"/> ses gerçekten başladığında (titreşim sesle aynı anda).
         /// </summary>
-        public bool QueueV17(string name, float semitones = 0f, float volume = 1f, bool final = false, Action then = null)
+        /// <param name="overlap">true: ses öncekini kesmeden üstüne biner ve sonraki <paramref name="gap"/> SerialGap'ten kısa olabilir
+        /// (büyük grupta dökülme başlangıcı, 2026-11-23).</param>
+        public bool QueueV17(string name, float semitones = 0f, float volume = 1f, bool final = false, Action then = null, float gap = SerialGap, bool overlap = false)
         {
             var clip = V17(name);
             if (clip == null) return false;
@@ -201,7 +203,7 @@ namespace KatKat.Game
             var p = new Pending
             {
                 Clip = clip, Pitch = Mathf.Pow(2f, semitones / 12f),
-                Volume = volume * (V17Gain.TryGetValue(name, out var g) ? g : 1f), Final = final, Then = then,
+                Volume = volume * (V17Gain.TryGetValue(name, out var g) ? g : 1f), Final = final, Then = then, Gap = overlap ? Mathf.Max(0.02f, gap) : Mathf.Max(SerialGap, gap), Overlap = overlap,
             };
             float now = SerialNow;
             if (_queue.Count == 0 && now >= _serialNext) { StartSerial(p, now); return true; }
@@ -249,6 +251,15 @@ namespace KatKat.Game
         private void StartSerial(Pending p, float now)
         {
             if (!_enabled || p.Clip == null || _serial == null) return;
+            if (p.Overlap)
+            {
+                // Dökülme başı: kesmeden, ortak kaynaklardan; sıradaki ses kısa aralıkla gelebilir.
+                PlayClip(p.Clip, p.Pitch, p.Volume);
+                _serialNext = now + p.Gap;
+                _serialLastStart = -1f; // üst üste binen sesler aralık ölçümüne girmez
+                p.Then?.Invoke();
+                return;
+            }
             // Önceki ses kısa sürede kısılır (kesik "tık" olmadan); yeni ses diğer kaynakta başlar.
             var prev = _serial[_serialIdx];
             if (prev.isPlaying) { if (_fading != null && _fading != prev) _fading.Stop(); _fading = prev; _fadeVol = prev.volume; }
@@ -265,7 +276,7 @@ namespace KatKat.Game
             src.Play();
             if (_serialLastStart >= 0f) SerialMinSpacing = Mathf.Min(SerialMinSpacing, now - _serialLastStart);
             _serialLastStart = now;
-            _serialNext = now + SerialGap;
+            _serialNext = now + (p.Gap > 0f ? p.Gap : SerialGap);
             LastClip = p.Clip.name;
             PlayCount++;
             OnPlayed?.Invoke(p.Clip.name);

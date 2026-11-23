@@ -26,6 +26,9 @@ namespace KatKat.Core
         /// <summary>2026-11-21 sürükle-değiştir: (x, y) üst taşı <paramref name="dir"/> yönündeki komşunun aynı katıyla (0 sağ, 1 aşağı, 2 sol, 3 yukarı).</summary>
         public static Command Swap(int x, int y, int dir) => new Command(CommandType.Swap, x, y, dir);
 
+        /// <summary>2026-11-23 kova kipi: etkin kovayı içindeki kadarıyla gönderir.</summary>
+        public static Command SendBucket() => new Command(CommandType.SendBucket, -1, -1, -1);
+
         public int Slot => Row;
         /// <summary>Swap komutunun komşu hücresi.</summary>
         public int SwapX => X + (Row == 0 ? 1 : Row == 2 ? -1 : 0);
@@ -33,6 +36,6 @@ namespace KatKat.Core
 
         public override string ToString() =>
             Type == CommandType.Tap ? $"tap({X},{Y})" : Type == CommandType.Rotate ? $"rotate({X},{Y})"
-            : Type == CommandType.Paint ? $"paint({X},{Y},{Color})" : Type == CommandType.UseSpecial ? $"use({Row},{X},{Y})" : Type == CommandType.Bomb ? $"bomb({X},{Y})" : Type == CommandType.Swap ? $"swap({X},{Y}->{SwapX},{SwapY})" : $"roll(row {Row})";
+            : Type == CommandType.Paint ? $"paint({X},{Y},{Color})" : Type == CommandType.UseSpecial ? $"use({Row},{X},{Y})" : Type == CommandType.Bomb ? $"bomb({X},{Y})" : Type == CommandType.Swap ? $"swap({X},{Y}->{SwapX},{SwapY})" : Type == CommandType.SendBucket ? "sendBucket" : $"roll(row {Row})";
     }
 }

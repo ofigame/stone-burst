@@ -39,6 +39,8 @@ namespace KatKat.Core
         public readonly List<Coord> MossCleared = new List<Coord>();
         /// <summary>2026-11-21: bu dalgada Kürekle temizlenen çakıl hücreleri.</summary>
         public readonly List<Coord> GravelCleared = new List<Coord>();
+        /// <summary>2026-11-23 kova kipi: <see cref="Cells"/> içinde taşı kovaya giden soyulmaların sırası (dizin).</summary>
+        public readonly List<int> BucketCells = new List<int>();
         /// <summary>vr1 P3: bu dalgada aşama tamamlandı; dalga sonrası etkin aşama.</summary>
         public bool StageAdvanced;
         public int StageAfter;

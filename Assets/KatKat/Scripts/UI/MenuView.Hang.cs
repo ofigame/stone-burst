@@ -42,19 +42,30 @@ namespace KatKat.UI
             {
                 var h = left[i];
                 bool first = i == 0 && behind >= 0;
-                Hang(h, first ? HangBehindY : above, BadgeW * 0.3f, i, RopeTuck, !first);
+                Hang(h, first ? HangBehindY : above, first ? PlateBottomY : above, BadgeW * 0.3f, i, RopeTuck, !first);
                 if (first) h.SetSiblingIndex(behind++);
                 above = h.anchoredPosition.y - h.sizeDelta.y * h.pivot.y + EyeletInset; // üst kartın alt kenarındaki halka
             }
+            // 2026-11-23 (kullanıcı: "sallanmada ipler konumlarını korumuyor. sabit olmalı uç noktaları"): alttaki askı üsttekinin
+            // içine bağlanır; ipin üst ucu üstteki kartın halkasında kalır, zincir gibi birlikte salınır.
+            for (int i = left.Count - 1; i >= 1; i--)
+            {
+                left[i].SetParent(left[i - 1], true);
+                var sw = left[i].GetComponent<HangSwing>();
+                if (sw != null) sw.Chained = true;
+            }
             if (right != null)
             {
-                Hang(right, HangBehindY, right.sizeDelta.x * 0.3f, 1, 56f, behind < 0); // buz taşının eğik kenarına bağlanır
+                Hang(right, HangBehindY, PlateBottomY, right.sizeDelta.x * 0.3f, 1, 56f, behind < 0); // buz taşının eğik kenarına bağlanır
                 if (behind >= 0) right.SetSiblingIndex(behind);
             }
         }
 
         /// <summary>İlk askıların ipinin üst ucu: bölge plakasının içinde (plakanın arkasında kalır, alt kenarından çıkar).</summary>
         private const float HangBehindY = -250f;
+
+        /// <summary>Bölge plakasının alt kenarı: ilk askıların dönme noktası (ipin göründüğü yer kaymaz).</summary>
+        private const float PlateBottomY = -296f;
 
         /// <summary>Halkanın kart kenarından içerisi (px).</summary>
         private const float EyeletInset = 9f;
@@ -64,7 +75,7 @@ namespace KatKat.UI
         /// alınır (görünür konum değişmez) ve sallanma eklenir. <paramref name="topEyelet"/>: ipin üst ucunda da halka (üstteki
         /// kartın alt kenarı); yoksa ip panelin arkasından çıkar.
         /// </summary>
-        private static void Hang(RectTransform rt, float ropeTop, float ropeX, int index, float tuck, bool topEyelet)
+        private static void Hang(RectTransform rt, float ropeTop, float pivotTop, float ropeX, int index, float tuck, bool topEyelet)
         {
             float w = rt.sizeDelta.x, hgt = rt.sizeDelta.y;
             float cardTop = rt.anchoredPosition.y + hgt * (1f - rt.pivot.y);
@@ -91,14 +102,15 @@ namespace KatKat.UI
 
             // Pivot ipin üst ucuna (sarkaç noktası); konum korunur.
             var oldPivot = rt.pivot;
-            var pivot = new Vector2(0.5f, 1f + (ropeTop - cardTop) / hgt);
+            var pivot = new Vector2(0.5f, 1f + (pivotTop - cardTop) / hgt);
             rt.pivot = pivot;
             rt.anchoredPosition += new Vector2((pivot.x - oldPivot.x) * w, (pivot.y - oldPivot.y) * hgt);
 
             var swing = rt.gameObject.AddComponent<HangSwing>();
-            float radius = Mathf.Max(40f, ropeTop - (cardTop - hgt));
+            float radius = Mathf.Max(40f, pivotTop - (cardTop - hgt));
             swing.Amp = Mathf.Rad2Deg * (HangSwing.EdgePx / radius);
             swing.Phase = index * 0.7f;
+            swing.Radius = radius;
         }
 
         /// <summary>Kartın kenarına çakılı pirinç halka (koyu delikli); ip deliğe girer.</summary>
@@ -162,23 +174,64 @@ namespace KatKat.UI
         }
     }
 
-    /// <summary>İpten sarkan askının yavaş sarkaç salınımı (gerçek zamanlı; azaltılmış harekette düz).</summary>
+    /// <summary>
+    /// İpten sarkan askının sarkaç salınımı (gerçek zamanlı; azaltılmış harekette düz). Durgunken yavaş, hafif salınım.
+    /// 2026-11-23: ivmeölçer okunur; yalnız sert sarsıntıda (kullanıcı: "en ufak telefonu çevirmede bile sallanıyor. telefonu biraz
+    /// sert sallayınca sallanacaklar") eşiği aşan yanal ivme askıyı iter, yaylı sarkaç gibi salınıp birkaç saniyede söner. Telefonu
+    /// çevirmek/eğmek etkisiz. Zincirdeki askı üstündekine bağlı (göreli açı) ve daha az itilir. Açı en çok <see cref="MaxAngle"/>.
+    /// </summary>
     public sealed class HangSwing : MonoBehaviour
     {
-        /// <summary>Askının alt kenarındaki en büyük yanal kayma (px) ve salınım periyodu (sn).</summary>
+        /// <summary>Durgun salınımda askının alt kenarındaki en büyük yanal kayma (px) ve periyodu (sn).</summary>
         public const float EdgePx = 4f, Period = 4.2f;
+        /// <summary>En büyük açı (derece), sarsıntı eşiği (g), eşiği aşan ivmenin kazancı (derece/sn² / g) ve sönüm oranı.</summary>
+        public const float MaxAngle = 12f, ShakeThreshold = 0.55f, ShakeGain = 1500f, Damping = 0.18f;
         public float Amp = 1f, Phase;
-        private float _t;
+        /// <summary>Sarkaç boyu (px, ipin üstünden askının altına): uzun askı daha yavaş salınır.</summary>
+        public float Radius = 200f;
+        /// <summary>Zincirdeki askı (üstteki rozete bağlı): açı üstündekine göre.</summary>
+        public bool Chained;
+        private float _t, _swing, _vel;
+
+        /// <summary>Testler: ivmeölçer yerine bu değer (g biriminde; null → cihaz).</summary>
+        public static Vector3? AccelOverride;
+        private static int _frame = -1;
+        private static Vector3 _gravity, _shake;
+        private static bool _primed;
 
         public float Angle { get; private set; }
+        /// <summary>Sarsıntıdan gelen salınım (testler).</summary>
+        public float ShakeSwing => _swing;
 
         private void Update() => Advance(Time.unscaledDeltaTime);
 
+        /// <summary>İvmeölçer kare başına bir kez okunur: hızla izlenen kısım yerçekimi (çevirme), kalan ani kısım sarsıntı.</summary>
+        private static void Sample(float dt)
+        {
+            if (_frame == Time.frameCount && AccelOverride == null) return;
+            _frame = Time.frameCount;
+            var a = AccelOverride ?? (SystemInfo.supportsAccelerometer ? Input.acceleration : Vector3.zero);
+            if (!_primed) { _gravity = a; _primed = true; }
+            _gravity = Vector3.Lerp(_gravity, a, 1f - Mathf.Exp(-dt * 10f));
+            _shake = a - _gravity;
+        }
+
         public void Advance(float dt)
         {
-            if (Motion.Reduced) { Angle = 0f; transform.localRotation = Quaternion.identity; return; }
+            if (Motion.Reduced) { Angle = 0f; _swing = _vel = 0f; transform.localRotation = Quaternion.identity; return; }
+            if (dt <= 0f) return;
+            dt = Mathf.Min(dt, 0.05f);
             _t += dt;
-            Angle = Amp * Mathf.Sin(_t * Mathf.PI * 2f / Period + Phase);
+            Sample(dt);
+            float sx = _shake.x, mag = Mathf.Abs(sx);
+            float drive = mag > ShakeThreshold ? Mathf.Sign(sx) * (mag - ShakeThreshold) : 0f;
+            float w0 = Mathf.Clamp(Mathf.Sqrt(9.81f / Mathf.Max(0.05f, Radius / 1000f)) * 0.55f, 3.2f, 7f);
+            float acc = -w0 * w0 * _swing - 2f * Damping * w0 * _vel - drive * ShakeGain * (Chained ? 0.6f : 1f);
+            _vel += acc * dt;
+            _swing += _vel * dt;
+            if (Mathf.Abs(_swing) > MaxAngle) { _swing = Mathf.Sign(_swing) * MaxAngle; _vel *= -0.3f; }
+            // 2026-11-23 (kullanıcı: "durduğu yerden sallanmayacak ancak sarsılırsa"): durgunken kıpırtı yok; yalnız sarsıntı salınımı.
+            Angle = Mathf.Clamp(_swing, -MaxAngle, MaxAngle);
             transform.localRotation = Quaternion.Euler(0f, 0f, Angle);
         }
     }

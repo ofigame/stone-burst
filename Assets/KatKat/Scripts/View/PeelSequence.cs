@@ -85,6 +85,13 @@ namespace KatKat.View
 
         /// <summary>Mağaza bombasının yüklenme evresi (yükselme + titreme) bu taşta oynar; bkz. <see cref="ChargeMs"/>.</summary>
         public bool Charged { get; set; }
+
+        /// <summary>
+        /// 2026-11-23 kova kipi (kullanıcı: "taşlar hiç kırılmadan direk kovaya gidecek"): taş kırılmaz, çatlak/parça/toz yok; yığından
+        /// bütün olarak sıçrar ve yay çizerek hedefe (kova ağzı) uçar, küçülerek girer. Varış <see cref="ArriveAt"/>'te (sesler ve
+        /// sayaçlar aynı zaman çizelgesinde).
+        /// </summary>
+        public bool Intact { get; set; }
         /// <summary>Toplanma noktası: kaynaktan görev simgesine doğru yatayda %65, dikeyde %50, en az 2,2 taş yukarı (aynı renk bir araya gelir, hedefe uzun uçuş kalır).</summary>
         private const float GatherX = 0.65f, GatherY = 0.5f;
 
@@ -214,6 +221,7 @@ namespace KatKat.View
         {
             if (IsDone) return;
             float size = _size0;
+            if (Intact) { IntactFlight(ms, size); return; }
 
             // Mağaza bombası: önce yükselip titrer; patlamadan sonra normal akış ChargeShift kadar kayık sürer.
             if (Charged)
@@ -701,6 +709,64 @@ namespace KatKat.View
                 d.sortingOrder = _order + 1;
                 d.enabled = true;
                 _dust[i] = d;
+            }
+        }
+
+        /// <summary>Kırılmadan uçuş: 0–160 ms yerinde sıçrama, sonra yay çizerek hedefe; varışta küçülüp kaybolur.</summary>
+        private void IntactFlight(float ms, float size)
+        {
+            if (!_stackDone)
+            {
+                _origin = _stack.transform.TransformPoint(_stack.FaceCenterLocal(_layerIndex));
+                _stack.SetBodyScale(this, Vector2.one);
+                _stack.ReleaseDetachedRim(this);
+                _sheet.End();
+                _stackDone = true;
+                _broken = true;
+            }
+            var sr = _stones[0];
+            if (sr == null)
+            {
+                sr = _stones[0] = StoneShatter.Take(_fxParent);
+                sr.sprite = _stoneSprite != null ? _stoneSprite : StoneShatter.Chip(0);
+                sr.sortingOrder = _order + 6;
+            }
+            sr.enabled = true;
+            float z = _origin.z - 0.02f;
+            const float Hop = 160f;
+            float full = size * BigScale * 0.92f;
+            if (ms < Hop)
+            {
+                float h = Mathf.Sin(Mathf.Clamp01(ms / Hop) * Mathf.PI * 0.5f);
+                var p = _origin + new Vector3(0f, size * 0.35f * h, 0f);
+                sr.transform.position = new Vector3(p.x, p.y, z);
+                float sq = 1f + 0.12f * Mathf.Sin(Mathf.Clamp01(ms / Hop) * Mathf.PI);
+                WorldSize(sr, full);
+                sr.transform.localScale = new Vector3(sr.transform.localScale.x * sq, sr.transform.localScale.y / sq, 1f);
+                sr.transform.rotation = Quaternion.identity;
+                sr.color = UnityEngine.Color.white;
+                return;
+            }
+            float u = Mathf.Clamp01((ms - Hop) / (ArriveAt - Hop));
+            float e = u * u * (3f - 2f * u);
+            var start = _origin + new Vector3(0f, size * 0.35f, 0f);
+            var ctrl = Vector3.Lerp(start, _goalWorld, 0.45f) + new Vector3(_stoneArc[0], size * 1.6f, 0f);
+            var a = Vector3.Lerp(start, ctrl, e);
+            var b = Vector3.Lerp(ctrl, _goalWorld, e);
+            var pos = Vector3.Lerp(a, b, e);
+            sr.transform.position = new Vector3(pos.x, pos.y, z);
+            WorldSize(sr, Mathf.Lerp(full, IconScale * size, e));
+            sr.transform.rotation = Quaternion.Euler(0f, 0f, _stoneArc[0] * 40f * Mathf.Sin(e * Mathf.PI));
+            if (ms >= ArriveAt && !_arrived)
+            {
+                _arrived = true;
+                sr.enabled = false;
+                _onArrive?.Invoke(this);
+            }
+            if (ms >= ArriveAt)
+            {
+                Cleanup();
+                IsDone = true;
             }
         }
 

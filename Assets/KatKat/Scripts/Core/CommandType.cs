@@ -16,5 +16,7 @@
         /// (X, Y) yığınının üst taşı, Row yönündeki komşu yığının aynı kattaki taşıyla yer değiştirir; 3+ grup oluşursa o grup
         /// dokunuş gibi patlar. Bir hamle harcar.</summary>
         Swap = 6,
+        /// <summary>2026-11-23 kova kipi: etkin kovadaki taşlar teslim edilir (eksik kısım sıranın sonuna), sıradaki kova gelir; hamle harcamaz.</summary>
+        SendBucket = 7,
     }
 }

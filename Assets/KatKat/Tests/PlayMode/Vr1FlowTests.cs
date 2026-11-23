@@ -1,5 +1,6 @@
 using System.Collections;
 using System.IO;
+using System.Linq;
 using KatKat.Game;
 using KatKat.Meta;
 using KatKat.UI;
@@ -115,6 +116,57 @@ namespace KatKat.Tests
                 yield return WaitStable();
             }
             Assert.AreEqual(KatKat.Core.GameStatus.Won, _gc.Session.State.Status);
+        }
+
+        /// <summary>
+        /// 2026-11-23 kova kipi (test bölümleri): kova güç bandının ortasında, tepside iki yuva; kovanın rengindeki grup kovayı
+        /// doldurur (gösterim mantıkla eşit), kovaya dokununca yarım kova gider, yenisi gelir, eksik kısım sıranın sonunda.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator Lab_BucketLevel_FillsAndSendsBucket()
+        {
+            Vr1Proto.Override = true;
+            _gc.ShowPilots();
+            _gc.StartTrial(0);
+            yield return null;
+            _gc.Hud.HideRuleCard(false);
+            Assert.AreEqual("lab_01", _gc.CurrentLevel.Id);
+            Assert.IsTrue(_gc.BucketLevel, "test bölümü kovalı");
+            Assert.IsTrue(_gc.Hud.BucketMode);
+            Assert.IsTrue(_gc.TimedActive, "kovalı bölüm süreli");
+            var st = _gc.Session.State;
+            Assert.AreEqual(st.Bucket.Color, _gc.Hud.BucketShownColor);
+            Assert.AreEqual(st.Bucket.Need, _gc.Hud.BucketShownNeed);
+            _gc.Board.Director.TimeScale = 10f;
+            // Kovanın renginde bir grup bul ve dokun (kova dolarsa kendisi gider; yarım kalırsa elle gönderilir).
+            var b = st.Board;
+            var color = st.Bucket.Color;
+            int need = st.Bucket.Need;
+            var group = KatKat.Core.GroupFinder.AllComponents(b).FirstOrDefault(g => g.Count >= KatKat.Core.GroupFinder.MinGroup && b[g[0]].Top == color);
+            Assert.IsNotNull(group, "kova renginde grup var");
+            _gc.OnCellPressed(b.X(group[0]), b.Y(group[0]));
+            yield return WaitStable();
+            for (int i = 0; i < 120 && _gc.Hud.BucketBusy; i++) yield return null;
+            _gc.Hud.BucketFinishForTest();
+            st = _gc.Session.State;
+            Assert.AreEqual(st.Bucket.Color, _gc.Hud.BucketShownColor, "gösterim mantıkla eşit (renk)");
+            Assert.AreEqual(st.Bucket.Have, _gc.Hud.BucketShownHave, "gösterim mantıkla eşit (dolum)");
+            if (st.Bucket.Have > 0 && st.Bucket.Have < st.Bucket.Need)
+            {
+                int have = st.Bucket.Have, queued = st.Bucket.Queue.Count;
+                var sent = st.Bucket.Color;
+                _gc.SendBucket();
+                yield return WaitStable();
+                _gc.Hud.BucketFinishForTest();
+                st = _gc.Session.State;
+                Assert.AreEqual(queued, st.Bucket.Queue.Count, "bir kova çıktı, eksik kısım sona eklendi");
+                Assert.AreEqual(sent, st.Bucket.Queue.Last().Color);
+                Assert.AreEqual(st.Bucket.Color, _gc.Hud.BucketShownColor, "yeni kova görünür");
+                Assert.AreEqual(0, _gc.Hud.BucketShownHave);
+                Assert.AreEqual(have, st.Goals.First(g => g.Color == sent).Progress, "yarım kova teslim edildi");
+            }
+            else Assert.Greater(st.Goals.First(g => g.Color == color).Progress, 0, "dolan kova teslim edildi");
+            Assert.AreEqual(KatKat.Core.GameStatus.Idle, st.Status);
         }
 
         /// <summary>C03: taş kazanıldı, uygulama sunumdan önce kapandı → sonraki açılışta vitrin bir kez; taş ikinci kez verilmez.</summary>

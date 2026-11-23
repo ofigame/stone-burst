@@ -41,5 +41,7 @@ namespace KatKat.Levels
         public int SealWave, SealGate;
         /// <summary>Konsept pilotu: hamle başı tehdit (yoksa null; ana katalogda kullanılmaz).</summary>
         public HazardData Hazard;
+        /// <summary>2026-11-23 kova kipi: sırayla gelen kova siparişleri (renk kimliği, miktar). Boşsa kova yok.</summary>
+        public readonly List<KeyValuePair<string, int>> Buckets = new List<KeyValuePair<string, int>>();
     }
 }

@@ -177,12 +177,16 @@ namespace KatKat.EditorTools
                 PlayerSettings.Android.keyaliasPass = pass;
                 EditorUserBuildSettings.buildAppBundle = false;
             };
+            // 2026-11-23 (kullanıcı: "tablete kurduğunda testler açık değil"): KATKAT_DEVICE_TEST=1 ile cihaz deneme paketi; haritada
+            // Test Bölümleri görünür (KATKAT_VR1PROTO). Mağazaya gönderilecek paket bu değişkenle derlenmez.
+            if (Environment.GetEnvironmentVariable("KATKAT_DEVICE_TEST") == "1") _extraDefines = new[] { "KATKAT_VR1PROTO" };
             _deferExit = true;
             try { Build(BuildTarget.Android, "Builds/Android/StoneBurst-AppGallery-" + verName + "-" + code + ".apk"); }
             finally
             {
                 _beforeBuild = null;
                 _deferExit = false;
+                _extraDefines = null;
                 AppGalleryBuild.End();
                 PlayerSettings.bundleVersion = verBefore;
                 PlayerSettings.Android.useCustomKeystore = false;

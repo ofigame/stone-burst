@@ -81,11 +81,13 @@ namespace KatKat.Tests
             Assert.AreEqual(MenuMusic.Volume, src.volume, 0.001f, "ana sayfada kısık seviye");
             Assert.LessOrEqual(MenuMusic.Volume, 0.2f);
 
-            // 2026-11-23 (kullanıcı: "oyun ekranından tamamen kaldır"): bölüm başlayınca müzik söner ve durur.
+            // 2026-11-23 ikinci tur (kullanıcı: "oyun alanına müziği tekrar koyalım ama çok kısık olsun"): bölümde kesilmeden çok kısık.
             _gc.StartLevel(0);
-            Assert.IsFalse(_gc.Music.Wanted);
-            _gc.Music.Step(MenuMusic.FadeInMs + 50f);
-            Assert.IsFalse(_gc.Music.IsPlaying, "oyun ekranında müzik yok");
+            Assert.IsTrue(_gc.Music.InGame);
+            for (int i = 0; i < 20; i++) _gc.Music.Step(100f);
+            Assert.IsTrue(_gc.Music.IsPlaying, "oyun ekranında kısık müzik");
+            Assert.AreEqual(MenuMusic.InGameVolume, src.volume, 0.001f);
+            Assert.Less(MenuMusic.InGameVolume, MenuMusic.Volume * 0.5f, "ana sayfadan çok daha kısık");
 
             // Menüye dönüş: yumuşak başlar.
             _gc.ShowLevels();
@@ -201,6 +203,7 @@ namespace KatKat.Tests
             while ((_gc.CurrentPhase == GameController.Phase.Animating || s.SerialPending > 0) && Time.realtimeSinceStartup < limit) yield return null;
             for (int i = 0; i < 60; i++) yield return null;
             Assert.Greater(pops, 1, "varış sesleri çaldı");
+            Assert.LessOrEqual(pops, GameController.FlowSoundMaxBig + 1, "büyük grupta da hamle başına en çok 8 varış sesi + dokunuş sesi (2026-11-23)");
             Assert.GreaterOrEqual(s.SerialMinSpacing, SoundBank.SerialGap - 0.02f, "gerçek hamlede de üst üste binme yok");
             s.OnPlayed = null;
         }

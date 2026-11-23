@@ -25,5 +25,7 @@
         SwapInvalid,
         /// <summary>Sürükle-değiştir: yer değişimi 3+ aynı renk grup oluşturmuyor (taş geri döner, hamle harcanmaz).</summary>
         SwapNoMatch,
+        /// <summary>Kova kipi: kova yok ya da içinde taş yok (gönderilemez).</summary>
+        BucketEmpty,
     }
 }

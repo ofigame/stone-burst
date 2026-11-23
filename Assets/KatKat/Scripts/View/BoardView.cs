@@ -800,9 +800,10 @@ namespace KatKat.View
                 // (roket, rulo…) hücre başına daha çok taş akıtır (1–4).
                 int stones = Mathf.Clamp(1 + Mathf.Min(2, w.Index) + (w.Cells.Count >= 9 ? 2 : w.Cells.Count >= 6 ? 1 : 0)
                     + (special || w.Kind == WaveKind.Roll ? 1 : 0), 1, PeelSequence.MaxStones);
-                foreach (var c in w.Cells)
+                for (int ci = 0; ci < w.Cells.Count; ci++)
                 {
-                    var cp = c;
+                    var cp = w.Cells[ci];
+                    bool toBucket = BucketTarget != null && w.BucketCells.Contains(ci);
                     // Aynı dalga birlikte başlar; en çok 20 ms belirlenimli görsel sapma. Özel taşta soyulma, roket/ışık
                     // hücreye vardığında başlar (kaynaktan uzaklığa göre).
                     float delay = special ? SD(cp.X, cp.Y) : ((cp.X + cp.Y) % 3) * 10f;
@@ -811,17 +812,20 @@ namespace KatKat.View
                     {
                         var stack = StackAt(cp.X, cp.Y);
                         // 2026-11-19: görev rengiyse bütün taş görev simgesine, yıldızlar yıldız çubuğuna; değilse taş yıldızlara döner.
-                        bool isGoal = IsGoalColor == null || IsGoalColor(cp.Removed);
+                        // 2026-11-23 kova kipi: kovaya giden taş kovaya uçar; diğer bütün taşlar (görev rengi olsa da) yıldızlara.
+                        bool isGoal = BucketTarget != null ? toBucket : IsGoalColor == null || IsGoalColor(cp.Removed);
                         var star = ScoreTarget != null ? ScoreTarget() : goalTarget(cp.Removed);
                         if (stack.Layers.Count > 0)
                         {
                             var removed = cp.Removed;
-                            bool focusGoal = isGoal && IsGoalColor != null;
+                            bool focusGoal = isGoal && IsGoalColor != null && !toBucket;
+                            var dest = toBucket ? BucketTarget() : goalTarget(removed);
                             FlowStarted(removed, focusGoal);
-                            var seq = _director.Peel(stack, goalTarget(removed), star, ScoreTarget == null ? 1f : isGoal ? 0.5f : 0f,
-                                _ => FlowEnded(removed, focusGoal), 0f, stones, GatherPoint());
+                            var seq = _director.Peel(stack, dest, star, ScoreTarget == null ? 1f : isGoal ? 0.5f : 0f,
+                                _ => { FlowEnded(removed, focusGoal); if (toBucket) BucketArrived?.Invoke(removed); }, 0f, stones, GatherPoint());
                             seq.Charged = charged;
-                            RaiseVeil(isGoal ? goalTarget(cp.Removed) : (Vector3?)null);
+                            seq.Intact = toBucket; // kova kipi: taş kırılmadan kovaya
+                            RaiseVeil(isGoal ? dest : (Vector3?)null);
                         }
                         else Debug.LogError($"[KatKat] Görünüm mantıktan ayrıştı: ({cp.X},{cp.Y}) boş");
                     });
@@ -1146,6 +1150,9 @@ namespace KatKat.View
         public Action<int> FlowRise { get; set; }
         /// <summary>Taşlar hedefe varırken ritmik "kasa" tıkı (ses + titreşim); argüman hamle içi sıra (perde yükselir).</summary>
         public Action<int> FlowTick { get; set; }
+        /// <summary>2026-11-23 kova kipi: kovanın dünya konumu (null: kova yok) ve kovaya varan her taş.</summary>
+        public Func<Vector3> BucketTarget { get; set; }
+        public Action<LayerColor> BucketArrived { get; set; }
         /// <summary>Hamlenin son taşı vardığında kapanış "ka-ching".</summary>
         public Action FlowFinal { get; set; }
         private readonly Dictionary<LayerColor, int> _flowCount = new Dictionary<LayerColor, int>();

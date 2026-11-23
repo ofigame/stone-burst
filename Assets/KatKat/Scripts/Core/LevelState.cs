@@ -34,6 +34,8 @@ namespace KatKat.Core
         // vr1 P3 zincir mührü (SealWave/SealGate/SealOpen) v14'te kaldırıldı (kullanıcı 2026-11-16: zincir tamamen kaldırılsın).
         /// <summary>Konsept pilotu: hamle başı ilerleyen tehdit (yoksa null; ana katalogda hep null).</summary>
         public HazardState Hazard;
+        /// <summary>2026-11-23 kova kipi (yoksa null): soyulan taşlar renk hedefine değil etkin kovaya gider; hedef teslimle ilerler.</summary>
+        public BucketRun Bucket;
 
         /// <summary>Aşama sayısı (hedeflerin en büyük aşaması + 1).</summary>
         public int StageCount { get { int m = 0; foreach (var g in Goals) if (g.Stage > m) m = g.Stage; return m + 1; } }
@@ -66,6 +68,7 @@ namespace KatKat.Core
                 ProtectedBroken = ProtectedBroken,
                 ActiveStage = ActiveStage,
                 Hazard = Hazard?.Clone(),
+                Bucket = Bucket?.Clone(),
             };
             foreach (var g in Goals) s.Goals.Add(g.Clone());
             s.Tray.AddRange(Tray);
@@ -78,6 +81,7 @@ namespace KatKat.Core
                 || SpecialsEnabled != o.SpecialsEnabled || Score != o.Score || PaintLeft != o.PaintLeft || ProtectedBroken != o.ProtectedBroken
                 || ActiveStage != o.ActiveStage) return false;
             if ((Hazard == null) != (o.Hazard == null) || (Hazard != null && !Hazard.ContentEquals(o.Hazard))) return false;
+            if ((Bucket == null) != (o.Bucket == null) || (Bucket != null && !Bucket.ContentEquals(o.Bucket))) return false;
             if (!Board.ContentEquals(o.Board) || Goals.Count != o.Goals.Count || Tray.Count != o.Tray.Count) return false;
             for (int i = 0; i < Tray.Count; i++) if (Tray[i] != o.Tray[i]) return false;
             for (int i = 0; i < Goals.Count; i++) if (!Goals[i].ContentEquals(o.Goals[i])) return false;
