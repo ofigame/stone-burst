@@ -106,6 +106,19 @@ namespace KatKat.Levels
                 s.Bucket.Queue.AddRange(orders);
                 RulesEngine.NextBucket(s);
             }
+            if (d.HasRefill) // 2026-11-24 yukarıdan dolma: renkler tahtadakiler, tohum bölüm kimliğinden
+            {
+                var r = new RefillRun { Left = d.RefillCount, MinLayers = d.RefillMinLayers, MaxLayers = d.RefillMaxLayers };
+                uint h = 2166136261u;
+                foreach (char ch in d.Id ?? "") h = (h ^ ch) * 16777619u;
+                r.Rng = h;
+                var seen = new HashSet<LayerColor>();
+                for (int i = 0; i < board.Count; i++) foreach (var c in board[i].Layers) seen.Add(c);
+                var cols = new List<LayerColor>(seen);
+                cols.Sort();
+                r.Colors.AddRange(cols);
+                s.Refill = r;
+            }
             return s;
         }
 

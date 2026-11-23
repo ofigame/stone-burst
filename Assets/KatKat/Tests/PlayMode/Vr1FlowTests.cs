@@ -137,6 +137,7 @@ namespace KatKat.Tests
             var st = _gc.Session.State;
             Assert.AreEqual(st.Bucket.Color, _gc.Hud.BucketShownColor);
             Assert.AreEqual(st.Bucket.Need, _gc.Hud.BucketShownNeed);
+            Assert.AreEqual(0f, _gc.Hud.BucketShownSwell, 0.01f, "torba boş gelir (şişmemiş)");
             _gc.Board.Director.TimeScale = 10f;
             // Kovanın renginde bir grup bul ve dokun (kova dolarsa kendisi gider; yarım kalırsa elle gönderilir).
             var b = st.Board;
@@ -151,6 +152,7 @@ namespace KatKat.Tests
             st = _gc.Session.State;
             Assert.AreEqual(st.Bucket.Color, _gc.Hud.BucketShownColor, "gösterim mantıkla eşit (renk)");
             Assert.AreEqual(st.Bucket.Have, _gc.Hud.BucketShownHave, "gösterim mantıkla eşit (dolum)");
+            if (st.Bucket.Have > 0) Assert.Greater(_gc.Hud.BucketShownSwell, 0f, "taş girince torba şişer");
             if (st.Bucket.Have > 0 && st.Bucket.Have < st.Bucket.Need)
             {
                 int have = st.Bucket.Have, queued = st.Bucket.Queue.Count;

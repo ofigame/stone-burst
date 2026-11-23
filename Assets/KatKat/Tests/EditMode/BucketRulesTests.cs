@@ -42,19 +42,21 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void Bucket_TakesUpToColorsRemainingGoal_ThenSendsItself()
+        public void Bucket_TakesUpToColorsRemainingGoal_NeverSendsItself()
         {
-            // İkinci tur (kullanıcı: "kovada sayı olmayacak. Kovayı ne kadar doldurduysam o kadar taş alacak"): kova sabit miktar
-            // istemez; rengin kalan görevi kadar alır, görev bitince kendiliğinden gider.
+            // Kullanıcı: "Kovayı ne kadar doldurduysam o kadar taş alacak"; 2026-11-23 torba: "Torbayı gönder demeden gitmesin
+            // otomatik gitmesin". Torba rengin kalan görevi kadar alır, dolsa da gönderilene dek bekler.
             var s = WithBuckets(State(9, new[] { "c c c c c", "y y b y y" }), (LayerColor.Coral, 2), (LayerColor.Coral, 2), (LayerColor.Yellow, 4));
-            Assert.AreEqual(4, s.Bucket.Need, "mercan kovası mercan görevinin tamamını alabilir");
+            Assert.AreEqual(4, s.Bucket.Need, "mercan torbası mercan görevinin tamamını alabilir");
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.AreEqual(1, r.BucketSends.Count, "mercan görevi doldu, kova gitti");
-            Assert.IsFalse(r.BucketSends[0].Partial);
+            Assert.AreEqual(0, r.BucketSends.Count, "dolu torba kendiliğinden gitmez");
+            Assert.AreEqual(4, s.Bucket.Have);
+            Assert.AreEqual(4, r.Waves[0].BucketCells.Count, "beş mercandan dördü torbaya");
+            Assert.AreEqual(0, Goal(s, LayerColor.Coral).Progress, "hedef yalnız teslimle");
+            var send = RulesEngine.TryApply(s, Command.SendBucket());
+            Assert.IsFalse(send.BucketSends[0].Partial);
             Assert.AreEqual(4, Goal(s, LayerColor.Coral).Progress);
-            Assert.AreEqual(LayerColor.Yellow, s.Bucket.Color, "biten mercanın sıradaki kovası atlandı, sarı geldi");
-            Assert.AreEqual(0, s.Bucket.Have, "fazla mercan sarı kovaya girmez");
-            Assert.AreEqual(4, r.Waves[0].BucketCells.Count, "beş mercandan dördü kovaya");
+            Assert.AreEqual(LayerColor.Yellow, s.Bucket.Color, "biten mercanın sıradaki torbası atlandı, sarı geldi");
         }
 
         [Test]
@@ -76,10 +78,17 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void EmptyBucket_CannotBeSent()
+        public void EmptyBag_CanBeSent_ColorComesBackLater()
         {
-            var s = WithBuckets(State(9, new[] { "c c c b" }), (LayerColor.Coral, 5));
-            Assert.AreEqual(RejectReason.BucketEmpty, RulesEngine.TryApply(s, Command.SendBucket()).Reason);
+            // 2026-11-23: "Torba boşken de gönderilsin".
+            var s = WithBuckets(State(9, new[] { "c c c b", "y y y b" }), (LayerColor.Coral, 5), (LayerColor.Yellow, 3));
+            var r = RulesEngine.TryApply(s, Command.SendBucket());
+            Assert.IsTrue(r.Accepted);
+            Assert.AreEqual(0, r.BucketSends.Single().Have);
+            Assert.AreEqual(LayerColor.Yellow, s.Bucket.Color, "sıradaki renk geldi");
+            Assert.AreEqual(LayerColor.Coral, s.Bucket.Queue.Last().Color, "mercan sıranın sonunda");
+            Assert.AreEqual(0, Goal(s, LayerColor.Coral).Progress);
+            Assert.IsTrue(RulesEngine.HasLegalMove(s), "torba her zaman gönderilebilir");
         }
 
         [Test]
@@ -87,8 +96,11 @@ namespace KatKat.Tests
         {
             var s = WithBuckets(State(9, new[] { "c c c b", "y y y b" }), (LayerColor.Coral, 3), (LayerColor.Yellow, 3));
             RulesEngine.TryApply(s, Command.Tap(0, 0));
+            RulesEngine.TryApply(s, Command.SendBucket());
             Assert.AreEqual(GameStatus.Idle, s.Status);
-            var r = RulesEngine.TryApply(s, Command.Tap(0, 1));
+            RulesEngine.TryApply(s, Command.Tap(0, 1));
+            Assert.AreEqual(GameStatus.Idle, s.Status, "dolu torba gönderilmeden kazanılmaz");
+            var r = RulesEngine.TryApply(s, Command.SendBucket());
             Assert.AreEqual(GameStatus.Won, r.StatusAfter);
             Assert.IsFalse(s.Bucket.Active);
         }
@@ -101,20 +113,22 @@ namespace KatKat.Tests
             s.Tray.Add(SpecialKind.RocketRow);
             var r = RulesEngine.TryApply(s, Command.UseSpecial(0, 0, 0));
             Assert.IsTrue(r.Accepted);
-            Assert.AreEqual(1, r.BucketSends.Count, "satır roketi iki mercanı kovaya attı, kova gitti");
+            Assert.AreEqual(2, s.Bucket.Have, "satır roketi iki mercanı torbaya attı");
+            Assert.AreEqual(0, r.BucketSends.Count);
+            RulesEngine.TryApply(s, Command.SendBucket());
             Assert.AreEqual(2, Goal(s, LayerColor.Coral).Progress);
         }
 
         [Test]
-        public void BucketTray_HoldsOneRainbowAndOneRocket()
+        public void BagLevels_UseNormalFourSlotTray()
         {
+            // 2026-11-23: "altın rulo ve roket yine normal düzeninde 4 tane olsun".
             var s = WithBuckets(State(9, new[] { "c c c c c", "y y y y y", "b b b b b" }), (LayerColor.Purple, 5));
             s.SpecialsEnabled = true;
             RulesEngine.TryApply(s, Command.Tap(0, 0));
             RulesEngine.TryApply(s, Command.Tap(0, 1));
-            Assert.AreEqual(1, s.Tray.Count, "ikinci roket yuvaya girmez");
-            Assert.IsTrue(RulesEngine.TrayAccepts(s, SpecialKind.Rainbow));
-            Assert.IsFalse(RulesEngine.TrayAccepts(s, SpecialKind.Shovel));
+            Assert.AreEqual(2, s.Tray.Count, "iki roket de tepside");
+            Assert.IsTrue(RulesEngine.TrayAccepts(s, SpecialKind.Shovel));
         }
 
         [Test]
@@ -139,6 +153,8 @@ namespace KatKat.Tests
                 Assert.Greater(d.TimeLimit, 0, d.Id + " süreli");
                 var st = LevelLoader.ToState(d);
                 Assert.IsTrue(st.Bucket.Active, d.Id);
+                foreach (var g in d.Goals) Assert.GreaterOrEqual(g.Amount, 50, d.Id + " renk başına 50+ taş");
+                for (int x = 1; x < d.Width - 1; x++) Assert.IsFalse(st.Board[x, 0].Active, d.Id + " üst ortada torba oyuğu");
             }
         }
     }

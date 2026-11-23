@@ -761,25 +761,7 @@ namespace KatKat.UI
             bool tray = _trayRoot.gameObject.activeSelf;
             if (roll) top.Add((RectTransform)_roll.transform);
             int trayFirst = top.Count;
-            if (tray && _bucketMode && _bucketRoot != null)
-            {
-                // Kova kipi: ortada kova, solda Altın Rulo, sağda roket yuvası.
-                _bottomScale = SkillScaleMax;
-                _trayRoot.anchorMin = _trayRoot.anchorMax = new Vector2(0.5f, 0.5f);
-                _trayRoot.anchoredPosition = Vector2.zero;
-                _trayRoot.sizeDelta = new Vector2(2f * BucketSideStep + TraySlot + 24f, TraySlot + 24f);
-                for (int i = 0; i < 2; i++)
-                {
-                    var srt = (RectTransform)_traySlots[i].transform;
-                    srt.anchorMin = srt.anchorMax = new Vector2(0.5f, 0.5f);
-                    srt.anchoredPosition = new Vector2(i == 0 ? -BucketSideStep : BucketSideStep, srt.anchoredPosition.y);
-                    srt.localScale = Vector3.one * _bottomScale * (i == _traySelected ? TraySelScale : 1f);
-                }
-                _bucketRoot.anchoredPosition = Vector2.zero;
-                _bucketRoot.localScale = Vector3.one * BucketScale;
-                _bucketRoot.SetAsLastSibling();
-            }
-            else if (tray) for (int i = 0; i < LevelState.TrayCapacity; i++) top.Add((RectTransform)_traySlots[i].transform);
+            if (tray) for (int i = 0; i < LevelState.TrayCapacity; i++) top.Add((RectTransform)_traySlots[i].transform);
             if (top.Count > 0)
             {
                 float step = Mathf.Min(SkillStep, 1000f / top.Count);
@@ -890,7 +872,7 @@ namespace KatKat.UI
             for (int i = 0; i < LevelState.TrayCapacity; i++)
             {
                 int slot = i;
-                var b = UiFactory.SpriteButton("Slot" + i, _trayRoot, UiArt.Circle, new Vector2(TraySlot, TraySlot), () => { int real = MapTraySlot(slot); if (real >= 0) TraySlotPressed?.Invoke(real); });
+                var b = UiFactory.SpriteButton("Slot" + i, _trayRoot, UiArt.Circle, new Vector2(TraySlot, TraySlot), () => TraySlotPressed?.Invoke(slot));
                 UiFactory.Place((RectTransform)b.transform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(TraySlot, TraySlot));
                 var disc = PurpleSlot(b);
                 var ring = UiFactory.Image("Ring", b.transform, SpecialArt.Glow, new Color(1f, 0.85f, 0.35f, 0f));
@@ -931,33 +913,6 @@ namespace KatKat.UI
         public void SetTray(IList<SpecialKind> tray, int selected)
         {
             if (_trayRoot == null) return;
-            if (_bucketMode)
-            {
-                // Kova kipi: yuva 0 Altın Rulo, yuva 1 roket (gerçek tepsi dizini _slotMap'te); 2 ve 3 gizli.
-                _slotMap[0] = _slotMap[1] = -1;
-                for (int k = 0; k < tray.Count; k++) { int side = tray[k] == SpecialKind.Rainbow ? 0 : 1; if (_slotMap[side] < 0) _slotMap[side] = k; }
-                var shown = new SpecialKind[LevelState.TrayCapacity];
-                var have = new bool[LevelState.TrayCapacity];
-                for (int side = 0; side < 2; side++) if (_slotMap[side] >= 0) { shown[side] = tray[_slotMap[side]]; have[side] = true; }
-                int selShown = selected < 0 ? -1 : selected == _slotMap[0] ? 0 : selected == _slotMap[1] ? 1 : -1;
-                SetTraySlots(shown, have, selShown);
-                for (int i = 2; i < LevelState.TrayCapacity; i++) _traySlots[i].gameObject.SetActive(false);
-                for (int side = 0; side < 2; side++)
-                {
-                    _traySlots[side].gameObject.SetActive(true);
-                    if (have[side]) continue;
-                    // Boş yuvada soluk Altın Rulo / roket: hangi gücün nereye geleceği belli olsun.
-                    var ic = _trayIcons[side];
-                    var k = side == 0 ? SpecialKind.Rainbow : SpecialKind.RocketRow;
-                    ic.gameObject.SetActive(true);
-                    ic.sprite = SpecialArt.For(k);
-                    ic.rectTransform.localRotation = Quaternion.Euler(0f, 0f, SpecialArt.Angle(k));
-                    ic.rectTransform.sizeDelta = Vector2.one * TraySlot * (side == 0 ? 1.0f : 1.15f);
-                    ic.color = new Color(1f, 1f, 1f, 0.28f);
-                }
-                _traySelected = selShown;
-                return;
-            }
             for (int i = 0; i < LevelState.TrayCapacity; i++) _traySlots[i].gameObject.SetActive(true);
             var kinds = new SpecialKind[LevelState.TrayCapacity];
             var fulls = new bool[LevelState.TrayCapacity];
@@ -1006,7 +961,6 @@ namespace KatKat.UI
         /// <summary>Yuvanın dünya konumu (doğan özel taş buraya uçar).</summary>
         public Vector3 TraySlotPosition(int slot)
         {
-            if (_bucketMode) slot = slot == _slotMap[0] ? 0 : 1;
             slot = Mathf.Clamp(slot, 0, LevelState.TrayCapacity - 1);
             return _traySlots[slot].transform.position;
         }

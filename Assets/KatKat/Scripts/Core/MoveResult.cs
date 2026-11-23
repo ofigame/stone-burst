@@ -48,6 +48,8 @@ namespace KatKat.Core
         public readonly List<Coord> HazardCells = new List<Coord>();
         /// <summary>2026-11-23 kova kipi: bu hamlede gönderilen kovalar (dolunca kendiliğinden ya da oyuncu dokununca), sırayla.</summary>
         public readonly List<BucketSend> BucketSends = new List<BucketSend>();
+        /// <summary>2026-11-24 yukarıdan dolma: komut sonunda kayan ve yeni giren yığınlar (sunum).</summary>
+        public readonly List<FallMove> Falls = new List<FallMove>();
 
         public int TotalPeeled
         {

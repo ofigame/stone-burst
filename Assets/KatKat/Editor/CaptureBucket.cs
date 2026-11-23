@@ -31,6 +31,9 @@ namespace KatKat.EditorTools
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             Shot("01_baslangic", 0, gc => { });
             Shot("02_taslar_kovaya_ucuyor", 0, gc => { TapBucketGroup(gc); Run(gc, 700f); });
+            Shot("02a_torba_az", 0, gc => { for (int i = 0; i < 2; i++) gc.Hud.BucketStoneIn(); gc.Hud.AdvanceBucket(2f); });
+            Shot("02b_torbada_parcalar", 0, gc => { for (int i = 0; i < 6; i++) gc.Hud.BucketStoneIn(); gc.Hud.AdvanceBucket(2f); });
+            Shot("02c_torba_dolu", 9, gc => { for (int i = 0; i < 12; i++) gc.Hud.BucketStoneIn(); gc.Hud.AdvanceBucket(3f); });
             Shot("03_kova_yarim_gonder", 1, gc => { TapBucketGroup(gc); Run(gc, 4000f); });
             Shot("04_gonderim_ani", 1, gc => { TapBucketGroup(gc); Run(gc, 4000f); gc.SendBucket(); Run(gc, 250f); });
             Shot("05_yeni_kova", 1, gc => { TapBucketGroup(gc); Run(gc, 4000f); gc.SendBucket(); Run(gc, 1500f); });
@@ -53,6 +56,8 @@ namespace KatKat.EditorTools
                 gc.StartTrial(lab);
                 gc.Hud.HideRuleCard(false);
                 act(gc);
+                UnityEngine.Canvas.ForceUpdateCanvases(); // torba yerleşimi son kanvas ölçeğiyle
+                gc.Hud.AdvanceBucket(0f);
             });
         }
 

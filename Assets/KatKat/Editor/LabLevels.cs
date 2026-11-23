@@ -35,8 +35,22 @@ namespace KatKat.EditorTools
             public int SimMoves => Timed > 0 ? Timed / 4 : Moves;
             public float GoalShare = 0.7f;
             /// <summary>2026-11-23 kova kipi: sipariş (kova) sayısı; 0 → kovasız. Kova renkleri ve miktar aralığı.</summary>
-            public int Orders, BucketColors = 3, OrderMin = 4, OrderMax = 8;
+            public int Orders, BucketColors = 3;
+            /// <summary>2026-11-23 (kullanıcı: "10 tane 15 tane değil 50 60 gibi büyük adetlerde görev olsun"): renk başına görev aralığı.</summary>
+            public int TargetMin = 50, TargetMax = 60;
+            /// <summary>2026-11-24 yukarıdan dolma (kullanıcı: "Belli sayıda yeni taşlar da en üstten oyuna girsin"): girecek yeni yığın sayısı.</summary>
+            public int Refill = 24;
+            /// <summary>Üst rengin komşusunu kopyalama olasılığı (&lt;0: eski kural). 2026-11-24 (kullanıcı: "aynı taşlar çok fazla büyük
+            /// gruplarla oluşturulmuş"): torba bölümlerinde düşük, gruplar küçük.</summary>
+            public double Copy = -1;
+            /// <summary>Torba bölümü süresi: açgözlü oyuncunun eylem sayısı × bu (sn). 2026-11-24 (kullanıcı: "süre çok uzun … zor ve
+            /// eğlence odaklı olmalı").</summary>
+            public float Pace = 2.2f;
             public bool IsBucket => Orders > 0;
+
+            /// <summary>Torba oyuğu (kullanıcı çizimi): üst ortada basamaklı boşluk; satır r'de r+1..W-2-r sütunları boş (3 satır).</summary>
+            public bool Notch(int x, int y) => IsBucket && y < 3 && x >= y + 1 && x <= W - 2 - y;
+            public bool Empty(int x, int y) => Hole(x, y) || Notch(x, y);
         }
 
         // 2026-11-23 (kullanıcı: "bazı bölümlerde roket ve altın rulonun olduğu alana kovalar gelecek … test alanımıza örnek bölümler
@@ -44,17 +58,17 @@ namespace KatKat.EditorTools
         // solda Altın Rulo, sağda roket yuvası; kovanın rengindeki taşlar kovaya akar, yarım kova dokunarak gönderilir.
         private static List<Spec> Specs() => new List<Spec>
         {
-            new Spec { Title = "Kova: İlk Tanışma", Seed = 111, MinL = 2, MaxL = 2, Colors = 3, Timed = 90, Orders = 4, BucketColors = 2, OrderMin = 4, OrderMax = 6 },
-            new Spec { Title = "Kova: Üç Renk", Seed = 222, MinL = 2, MaxL = 2, Colors = 4, Timed = 100, Orders = 6, BucketColors = 3, Hole = (x, y) => (x == 0 || x == 6) && (y == 0 || y == 7) },
-            new Spec { Title = "Kova: Derindeki Renk", Seed = 333, MinL = 3, MaxL = 3, Colors = 4, Timed = 110, Orders = 6, BucketColors = 3, OrderMin = 6, OrderMax = 9 },
-            new Spec { Title = "Kova: Hızlı Sipariş", Seed = 444, MinL = 2, MaxL = 2, Colors = 3, Timed = 70, Orders = 8, BucketColors = 3, OrderMin = 3, OrderMax = 5 },
-            new Spec { Title = "Kova: Beş Renk", Seed = 555, MinL = 2, MaxL = 3, Colors = 5, Timed = 120, Orders = 7, BucketColors = 4, Hole = (x, y) => (x == 0 && y % 2 == 0) || (x == 6 && y % 2 == 1) },
-            new Spec { Title = "Kova: Artı Tahta", Seed = 666, MinL = 3, MaxL = 3, Colors = 4, Timed = 110, Orders = 6, BucketColors = 3, Hole = (x, y) => (x <= 1 || x >= 5) && (y <= 1 || y >= 6) },
-            new Spec { Title = "Kova: Roket ve Rulo", Seed = 777, MinL = 2, MaxL = 3, Colors = 3, Timed = 100, Orders = 5, BucketColors = 2, OrderMin = 8, OrderMax = 12 },
-            new Spec { Title = "Kova: Büyük Kovalar", Seed = 888, MinL = 3, MaxL = 3, Colors = 4, Timed = 120, Orders = 5, BucketColors = 3, OrderMin = 9, OrderMax = 13 },
-            new Spec { Title = "Kova: Uzun Zincir", Seed = 999, MinL = 2, MaxL = 3, Colors = 4, Timed = 130, Orders = 10, BucketColors = 4, OrderMin = 3, OrderMax = 6 },
-            new Spec { Title = "Kova: Patron", Seed = 1212, W = 8, H = 9, MinL = 3, MaxL = 3, Colors = 5, Timed = 150, Orders = 9, BucketColors = 4, OrderMin = 5, OrderMax = 10,
-                Hole = (x, y) => Math.Min(x, 7 - x) + Math.Min(y, 8 - y) < 2 },
+            new Spec { Title = "Torba: İlk Tanışma", Seed = 111, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 3, Timed = 240, Orders = 4, BucketColors = 2, TargetMin = 50, TargetMax = 50, Copy = 0.3, Pace = 2.6f },
+            new Spec { Title = "Torba: Üç Renk", Seed = 222, W = 8, H = 9, MinL = 4, MaxL = 4, Colors = 3, Timed = 240, Orders = 6, BucketColors = 3, Copy = 0.4 },
+            new Spec { Title = "Torba: Derindeki Renk", Seed = 333, W = 8, H = 9, MinL = 4, MaxL = 4, Colors = 3, Timed = 300, Orders = 4, BucketColors = 2, Copy = 0.25 },
+            new Spec { Title = "Torba: Hızlı Sipariş", Seed = 444, W = 8, H = 9, MinL = 4, MaxL = 4, Colors = 3, Timed = 300, Orders = 6, BucketColors = 2, Copy = 0.22, Pace = 2.0f },
+            new Spec { Title = "Torba: Yan Boşluklar", Seed = 555, W = 8, H = 9, MinL = 4, MaxL = 4, Colors = 3, Timed = 200, Orders = 4, BucketColors = 2, Copy = 0.25, Hole = (x, y) => y >= 3 && ((x == 0 && y % 2 == 0) || (x == 7 && y % 2 == 1)) },
+            new Spec { Title = "Torba: Köşeli Tahta", Seed = 666, W = 8, H = 9, MinL = 4, MaxL = 4, Colors = 3, Timed = 300, Orders = 4, BucketColors = 2, Copy = 0.25, Hole = (x, y) => y >= 7 && (x <= 1 || x >= 6) },
+            new Spec { Title = "Torba: Roket ve Rulo", Seed = 777, W = 8, H = 9, MinL = 4, MaxL = 4, Colors = 3, Timed = 300, Orders = 4, BucketColors = 2, Copy = 0.3 },
+            new Spec { Title = "Torba: Büyük Torbalar", Seed = 888, W = 8, H = 9, MinL = 4, MaxL = 4, Colors = 3, Timed = 300, Orders = 2, BucketColors = 2, TargetMin = 60, TargetMax = 60, Copy = 0.25 },
+            new Spec { Title = "Torba: Uzun Zincir", Seed = 999, W = 8, H = 9, MinL = 4, MaxL = 4, Colors = 3, Timed = 240, Orders = 9, BucketColors = 3, Copy = 0.35, Refill = 32 },
+            new Spec { Title = "Torba: Patron", Seed = 1212, W = 8, H = 9, MinL = 4, MaxL = 4, Colors = 3, Timed = 200, Orders = 6, BucketColors = 2, Copy = 0.3, Refill = 32, Pace = 2.2f,
+                Hole = (x, y) => y >= 3 && Math.Min(x, 7 - x) + Math.Min(y, 8 - y) < 2 },
         };
 
         [MenuItem("KatKat/Test bölümlerini üret (Lab)")]
@@ -174,7 +188,7 @@ namespace KatKat.EditorTools
         /// </summary>
         private static string BucketLevel(Spec sp, string id, out LevelData d, out string verdict, out string orderText)
         {
-            int taps = sp.Timed / 3;
+            int taps = 400; // süre sonradan açgözlü oyuncunun eylem sayısından
             for (int attempt = 0; attempt < 60; attempt++)
             {
                 var rng = new System.Random(sp.Seed * 131 + attempt);
@@ -188,42 +202,53 @@ namespace KatKat.EditorTools
                 var colors = new List<string>(avail.Keys);
                 colors.Sort((x, y) => avail[y].CompareTo(avail[x]));
                 if (colors.Count > sp.BucketColors) colors.RemoveRange(sp.BucketColors, colors.Count - sp.BucketColors);
+                // Renk başına 50–60 (5'in katı) görev; tahtadaki o rengin en çok %85'i. Sıra renkleri döndürür, rengin görevi
+                // sıradaki torbalarına bölünür (miktar yalnız görev toplamı için; torba rengin kalanı kadar alır).
+                var target = new Dictionary<string, int>();
+                foreach (var c in colors)
+                {
+                    int t = sp.TargetMin + 5 * rng.Next((sp.TargetMax - sp.TargetMin) / 5 + 1);
+                    target[c] = Math.Min(t, (int)((avail[c] + sp.Refill * 2.5f / Math.Max(1, sp.Colors)) * 0.8f)); // yeni yığınlar da sayılır
+                }
+                bool small = false;
+                foreach (var c in colors) if (target[c] < sp.TargetMin) small = true;
+                if (small) continue;
+                var seq = new List<string>();
+                for (int k = 0; k < sp.Orders; k++) seq.Add(colors[k % colors.Count]);
                 var orders = new List<KeyValuePair<string, int>>();
-                string last = null;
-                for (int k = 0; k < sp.Orders; k++)
+                foreach (var c in colors)
                 {
-                    string c = colors[rng.Next(colors.Count)];
-                    if (c == last && colors.Count > 1) c = colors[(colors.IndexOf(c) + 1) % colors.Count];
-                    last = c;
-                    orders.Add(new KeyValuePair<string, int>(c, rng.Next(sp.OrderMin, sp.OrderMax + 1)));
+                    int parts = seq.FindAll(x => x == c).Count;
+                    int each = target[c] / Math.Max(1, parts), rest = target[c] - each * Math.Max(1, parts);
+                    for (int k = 0, seen = 0; k < seq.Count; k++)
+                        if (seq[k] == c) { orders.Add(new KeyValuePair<string, int>(c, each + (seen == 0 ? rest : 0))); seen++; }
                 }
-                for (int shrink = 0; shrink < 6; shrink++)
+                // Sıra: seq düzeninde (renkler dönüşümlü).
+                var sized = new List<KeyValuePair<string, int>>();
+                foreach (var c in seq)
                 {
-                    float k = (float)Math.Pow(0.88, shrink);
-                    var sized = new List<KeyValuePair<string, int>>();
-                    var demand = new Dictionary<string, int>();
-                    foreach (var o in orders) demand[o.Key] = (demand.TryGetValue(o.Key, out var v) ? v : 0) + o.Value;
-                    foreach (var o in orders)
-                    {
-                        float cap = Math.Min(1f, avail[o.Key] * 0.5f / demand[o.Key]);
-                        sized.Add(new KeyValuePair<string, int>(o.Key, Math.Max(2, (int)Math.Round(o.Value * cap * k))));
-                    }
-                    var probe = LevelParser.Parse(ComposeBucket(sp, id, cells, sized, 0), id);
-                    Greedy(LevelLoader.ToState(probe), taps, out int score, out var status);
-                    if (status != GameStatus.Won) continue;
-                    string json = ComposeBucket(sp, id, cells, sized, score);
-                    d = LevelParser.Parse(json, id);
-                    var errs = LevelValidator.ValidateStatic(d, LevelValidator.ScopeFor(d));
-                    if (errs.Count > 0) throw new Exception($"[Lab] {id}: {string.Join("; ", errs)}");
-                    verdict = "Won";
-                    orderText = string.Join(" ", sized.ConvertAll(o => o.Key + " " + o.Value));
-                    return json;
+                    int i = orders.FindIndex(o => o.Key == c);
+                    sized.Add(orders[i]);
+                    orders.RemoveAt(i);
                 }
+                var probe = LevelParser.Parse(ComposeBucket(sp, id, cells, sized, 0, 999), id);
+                Greedy(LevelLoader.ToState(probe), taps, out int score, out var status);
+                if (status != GameStatus.Won) continue;
+                int timed = Math.Max(60, Math.Min(sp.Timed, (int)Math.Ceiling(_greedyActions * sp.Pace / 5f) * 5));
+                string json = ComposeBucket(sp, id, cells, sized, score, timed);
+                d = LevelParser.Parse(json, id);
+                var errs = LevelValidator.ValidateStatic(d, LevelValidator.ScopeFor(d));
+                if (errs.Count > 0) throw new Exception($"[Lab] {id}: {string.Join("; ", errs)}");
+                verdict = "Won";
+                var sums = new List<string>();
+                foreach (var c in colors) sums.Add(c + " " + target[c]);
+                orderText = string.Join(", ", sums) + $" ({sized.Count} torba, {timed} sn, açgözlü {_greedyActions} eylem)";
+                return json;
             }
             throw new Exception($"[Lab] {id}: kazanılabilir kovalı tahta bulunamadı");
         }
 
-        private static string ComposeBucket(Spec sp, string id, string cells, List<KeyValuePair<string, int>> orders, int score)
+        private static string ComposeBucket(Spec sp, string id, string cells, List<KeyValuePair<string, int>> orders, int score, int timed)
         {
             var sums = new List<KeyValuePair<string, int>>();
             foreach (var o in orders)
@@ -233,15 +258,17 @@ namespace KatKat.EditorTools
             }
             var sb = new StringBuilder();
             sb.Append("{\n  \"schemaVersion\": 2,\n  \"id\": \"").Append(id).Append("\",\n");
-            sb.Append("  \"capabilities\": [\"specials\", \"buckets\"],\n");
+            sb.Append("  \"capabilities\": [\"specials\", \"buckets\"").Append(sp.Refill > 0 ? ", \"refill\"" : "").Append("],\n");
             sb.Append("  \"title\": \"").Append(sp.Title).Append("\",\n  \"trialType\": \"lab\",\n  \"rules\": [],\n");
-            sb.Append($"  \"width\": {sp.W},\n  \"height\": {sp.H},\n  \"moveLimit\": 99,\n  \"timeLimit\": {sp.Timed},\n");
+            sb.Append($"  \"width\": {sp.W},\n  \"height\": {sp.H},\n  \"moveLimit\": 99,\n  \"timeLimit\": {timed},\n");
             sb.Append("  \"rollEnabled\": false,\n  \"startingRoll\": false,\n");
             int s1 = Math.Max(100, (int)(score * 0.55f) / 10 * 10), s2 = Math.Max(s1 + 50, (int)(score * 0.8f) / 10 * 10);
             sb.Append($"  \"stars\": [{s1}, {s2}],\n  \"goals\": [\n");
             for (int i = 0; i < sums.Count; i++)
                 sb.Append("    { \"type\": \"collectColor\", \"color\": \"").Append(sums[i].Key).Append("\", \"amount\": ").Append(sums[i].Value).Append(" }").Append(i < sums.Count - 1 ? ",\n" : "\n");
-            sb.Append("  ],\n  \"buckets\": [\n");
+            sb.Append("  ],\n");
+            if (sp.Refill > 0) sb.Append($"  \"refill\": {{ \"count\": {sp.Refill}, \"minLayers\": 2, \"maxLayers\": 3 }},\n");
+            sb.Append("  \"buckets\": [\n");
             for (int i = 0; i < orders.Count; i++)
                 sb.Append("    { \"color\": \"").Append(orders[i].Key).Append("\", \"amount\": ").Append(orders[i].Value).Append(" }").Append(i < orders.Count - 1 ? ",\n" : "\n");
             sb.Append("  ],\n  ").Append(cells);
@@ -260,12 +287,12 @@ namespace KatKat.EditorTools
             for (int y = 0; y < sp.H; y++)
             for (int x = 0; x < sp.W; x++)
             {
-                if (sp.Hole(x, y)) continue;
+                if (sp.Empty(x, y)) continue;
                 int n = rng.Next(sp.MinL, sp.MaxL + 1);
                 var l = new List<string>();
                 for (int k = 0; k < n; k++) l.Add(colors[rng.Next(colors.Count)]);
                 // Üst renk komşusuna benzesin (gruplar oluşsun; sürükle-değiştir bölümünde daha az).
-                double copy = sp.MaxL <= 2 ? 0.25 : 0.45;
+                double copy = sp.Copy >= 0 ? sp.Copy : sp.MaxL <= 2 ? 0.25 : 0.45;
                 if (rng.NextDouble() < copy)
                 {
                     string near = x > 0 && top[x - 1, y] != null && (y == 0 || top[x, y - 1] == null || rng.Next(2) == 0) ? top[x - 1, y] : y > 0 ? top[x, y - 1] : null;
@@ -318,10 +345,14 @@ namespace KatKat.EditorTools
 
         /// <summary>Açgözlü oyuncu: tepside Kürek varsa çakıla; yoksa en çok katman toplayan güvenli dokunuş; yoksa güvenli
         /// sürükle-değiştir; yoksa tepsideki başka özel taş. Toplanan renkleri sayar.</summary>
+        /// <summary>Son açgözlü oyunun bütün eylemleri (dokunuş, tepsi, torba gönderme).</summary>
+        private static int _greedyActions;
+
         private static Dictionary<string, int> Greedy(LevelState s, int maxMoves, out int score, out GameStatus status)
         {
             var got = new Dictionary<string, int>();
-            int guard = 0, made = 0;
+            int guard = 0, made = 0, emptySends = 0;
+            _greedyActions = 0;
             while (s.Status == GameStatus.Idle && s.MovesLeft > 0 && made < maxMoves && guard++ < maxMoves * 4)
             {
                 MoveResult best = null;
@@ -353,18 +384,21 @@ namespace KatKat.EditorTools
                 if (best == null)
                     for (int slot = 0; slot < s.Tray.Count && best == null; slot++)
                         for (int i = 0; i < b.Count; i++) Try(Command.UseSpecial(slot, b.X(i), b.Y(i)));
-                // Kova kipi: hiçbir dokunuş kovaya taş vermiyorsa ve kovada taş varsa kova gönderilir.
-                if (s.Bucket != null && s.Bucket.Active && s.Bucket.Have > 0)
+                // Torba kipi: hiçbir dokunuş torbaya taş vermiyorsa torba gönderilir (doluysa teslim; boşsa sıradaki renk gelir).
+                // Torba kendiliğinden gitmez (2026-11-23); boş gönderim arka arkaya sıradaki renk sayısını aşmaz.
+                if (s.Bucket != null && s.Bucket.Active && (s.Bucket.Have > 0 || emptySends < s.Bucket.Queue.Count + 1))
                 {
                     int bucketGain = 0;
                     if (best != null) foreach (var w in best.Waves) bucketGain += w.BucketCells.Count;
-                    if (bucketGain == 0)
+                    if (bucketGain == 0 || s.Bucket.Have >= s.Bucket.Need)
                     {
                         var t = s.Clone();
+                        bool empty = s.Bucket.Have == 0;
                         var r = RulesEngine.TryApply(t, Command.SendBucket());
-                        if (r.Accepted) { best = r; bestState = t; }
+                        if (r.Accepted) { best = r; bestState = t; emptySends = empty ? emptySends + 1 : 0; }
                     }
                 }
+                if (best != null && best.Command.Type != CommandType.SendBucket) emptySends = 0;
                 if (best == null) break;
                 foreach (var w in best.Waves)
                     foreach (var c in w.Cells)
@@ -373,6 +407,7 @@ namespace KatKat.EditorTools
                         got[key] = got.TryGetValue(key, out var v) ? v + 1 : 1;
                     }
                 if (best.Command.Type != CommandType.UseSpecial && best.Command.Type != CommandType.SendBucket) made++; // tepsi ve kova hamle harcamaz
+                _greedyActions++;
                 s = bestState;
             }
             score = s.Score;

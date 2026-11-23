@@ -29,6 +29,7 @@ namespace KatKat.View
             _fallT = -1f;
             _fallers.Clear();
             _fallDone = null;
+            FinishDrops();
             if (!_fell) return;
             _fell = false;
             for (int y = 0; y < _height; y++)
@@ -159,7 +160,7 @@ namespace KatKat.View
         /// <summary>Testler/yakalama: patlama ve düşüşü ilerletir.</summary>
         public void AdvanceTimedFx(float sec)
         {
-            for (float t = 0f; t < sec; t += 0.02f) { TickHeartbeat(0.02f); TickFall(0.02f); Advance(20f); }
+            for (float t = 0f; t < sec; t += 0.02f) { TickHeartbeat(0.02f); TickFall(0.02f); TickDrops(0.02f); Advance(20f); }
         }
     }
 }

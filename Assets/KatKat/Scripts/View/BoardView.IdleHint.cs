@@ -70,6 +70,7 @@ namespace KatKat.View
             if (_idleStacks.Count > 0) TickIdleHint(Time.unscaledDeltaTime);
             TickHeartbeat(Time.unscaledDeltaTime); // süreli bölüm (BoardView.Timed)
             TickFall(Time.unscaledDeltaTime);
+            TickDrops(Time.unscaledDeltaTime);
         }
 
         private void TickIdleHint(float dt)

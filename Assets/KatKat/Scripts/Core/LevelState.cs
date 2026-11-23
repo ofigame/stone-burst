@@ -36,6 +36,8 @@ namespace KatKat.Core
         public HazardState Hazard;
         /// <summary>2026-11-23 kova kipi (yoksa null): soyulan taşlar renk hedefine değil etkin kovaya gider; hedef teslimle ilerler.</summary>
         public BucketRun Bucket;
+        /// <summary>2026-11-24 yukarıdan dolma (yoksa null): boşalan hücrelere üstten kayma ve sınırlı yeni yığın.</summary>
+        public RefillRun Refill;
 
         /// <summary>Aşama sayısı (hedeflerin en büyük aşaması + 1).</summary>
         public int StageCount { get { int m = 0; foreach (var g in Goals) if (g.Stage > m) m = g.Stage; return m + 1; } }
@@ -69,6 +71,7 @@ namespace KatKat.Core
                 ActiveStage = ActiveStage,
                 Hazard = Hazard?.Clone(),
                 Bucket = Bucket?.Clone(),
+                Refill = Refill?.Clone(),
             };
             foreach (var g in Goals) s.Goals.Add(g.Clone());
             s.Tray.AddRange(Tray);
@@ -82,6 +85,7 @@ namespace KatKat.Core
                 || ActiveStage != o.ActiveStage) return false;
             if ((Hazard == null) != (o.Hazard == null) || (Hazard != null && !Hazard.ContentEquals(o.Hazard))) return false;
             if ((Bucket == null) != (o.Bucket == null) || (Bucket != null && !Bucket.ContentEquals(o.Bucket))) return false;
+            if ((Refill == null) != (o.Refill == null) || (Refill != null && !Refill.ContentEquals(o.Refill))) return false;
             if (!Board.ContentEquals(o.Board) || Goals.Count != o.Goals.Count || Tray.Count != o.Tray.Count) return false;
             for (int i = 0; i < Tray.Count; i++) if (Tray[i] != o.Tray[i]) return false;
             for (int i = 0; i < Goals.Count; i++) if (!Goals[i].ContentEquals(o.Goals[i])) return false;

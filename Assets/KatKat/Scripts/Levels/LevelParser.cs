@@ -146,6 +146,14 @@ namespace KatKat.Levels
                     var bo = AsObj(b, where, "buckets");
                     d.Buckets.Add(new KeyValuePair<string, int>(Str(bo, "color", where), Int(bo, "amount", where)));
                 }
+            if (o.TryGetValue("refill", out var rf) && rf != null) // 2026-11-24 yukarıdan dolma
+            {
+                var ro = AsObj(rf, where, "refill");
+                d.HasRefill = true;
+                d.RefillCount = Int(ro, "count", where);
+                if (ro.ContainsKey("minLayers")) d.RefillMinLayers = Int(ro, "minLayers", where);
+                if (ro.ContainsKey("maxLayers")) d.RefillMaxLayers = Int(ro, "maxLayers", where);
+            }
             if (o.ContainsKey("solution"))
             {
                 foreach (var s in List(o, "solution", where))

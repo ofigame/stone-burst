@@ -52,6 +52,11 @@ namespace KatKat.Game
             {
                 _board.BucketTarget = _hud.BucketTarget;
                 _board.BucketArrived = _ => _hud.BucketStoneIn();
+                _hud.BucketDelivered = () => _hud.CountGoalsTo(_session.State.Goals);
+                // Torba tahtanın üst ortasındaki basamaklı oyukta (bölüm verisinde boş hücreler): tabanı oyuğun en alt satırının
+                // altında, boyu ~3 satır.
+                _hud.BucketBottom = BagNotchBottom;
+                _hud.BucketWorldHeight = () => BagNotchWidth() / BagFullWidth;
             }
             else
             {
@@ -60,7 +65,71 @@ namespace KatKat.Game
             }
         }
 
-        /// <summary>Kovaya dokunuş: içindeki kadarı gönderilir, eksik kısım sıranın sonuna, yeni kova gelir.</summary>
+        /// <summary>
+        /// Akış sesi (kullanıcı 2026-11-24: "taşların hedefe dolma sesi torbaya dolarken de olmalı"; "en yakın taştan gitmeye başlar
+        /// ve ses doğru orantıda çıkar"): her taşın varışında bir "jelly-pop"; perde ilk taştan son taşa tizden pese iner, düzey
+        /// yükselir. Taşlar zaten sırayla vardığı için ses doğrudan çalar (kuyruk yok); son taşta dolma ("ka-ching").
+        /// </summary>
+        private void StreamTick(int i, int total)
+        {
+            if (total <= 0) return;
+            if (i == total - 1)
+            {
+                if (total > 1 && _sound.PlayV17("jelly-pop", -1f, 0.85f)) Haptics.Tick();
+                if (!_sound.QueueV17("goal-collect", 0f, 1f, true, Haptics.Medium)) { _sound.Play(Sfx.CoinFinal, 0, 0.85f); Haptics.Medium(); }
+                return;
+            }
+            float u = total <= 1 ? 0f : i / (float)(total - 1);
+            float pitch = Mathf.Lerp(6f, -1f, u);
+            float vol = Mathf.Lerp(0.5f, 0.85f, u) * (total > 10 && i % 2 == 1 ? 0.7f : 1f);
+            if (_sound.PlayV17("jelly-pop", pitch, vol)) Haptics.Tick();
+            else { _sound.Play(Sfx.Coin, 0, vol); Haptics.Tick(); }
+        }
+
+        /// <summary>Dolu torbanın genişliğinin doku boyuna oranı: dolu torba oyuğun dip genişliğine tam oturur (kullanıcı çizimi).</summary>
+        private const float BagFullWidth = 0.94f;
+        /// <summary>Tepsi çerçevesinin oyuk dibindeki kalınlığı (satır payı): torba çerçevenin üstünde durur (kullanıcı 2026-11-24:
+        /// "Torba bulunduğu yerdeki tepsinin border ının üstünde olmalı").</summary>
+        private const float BagRimRows = 0.2f;
+
+        /// <summary>Oyuğun en derin satırındaki boş hücrelerin dünya genişliği (yoksa iki sütun).</summary>
+        private float BagNotchWidth()
+        {
+            var b = _session.State.Board;
+            int deepest = NotchDeepest(b), mid = (b.Width - 1) / 2, n = 0;
+            if (deepest >= 0)
+                for (int x = 0; x < b.Width; x++) if (!b[x, deepest].Active && Mathf.Abs(x - mid - 0.5f) < b.Width * 0.5f - 1f) n++;
+            float col = Mathf.Abs(_board.transform.TransformPoint(_board.CellCenter(1, 0)).x - _board.transform.TransformPoint(_board.CellCenter(0, 0)).x);
+            return Mathf.Max(2, n) * col;
+        }
+
+        private static int NotchDeepest(BoardState b)
+        {
+            int mid = (b.Width - 1) / 2, deepest = -1;
+            for (int y = 0; y < b.Height; y++)
+            {
+                if (b[mid, y].Active) break;
+                deepest = y;
+            }
+            return deepest;
+        }
+
+        /// <summary>Bir satırın dünya yüksekliği (iki satır merkezi arası, tahta ölçeği içinde).</summary>
+        private float RowWorld() => Mathf.Abs(_board.transform.TransformPoint(_board.CellCenter(0, 0)).y - _board.transform.TransformPoint(_board.CellCenter(0, 1)).y);
+
+        /// <summary>Oyuğun dibi: üst ortadaki boş hücrelerin en alt satırının alt kenarı (yoksa tahtanın üst kenarı), tahta ortasında.</summary>
+        private Vector3 BagNotchBottom()
+        {
+            var b = _session.State.Board;
+            int w = b.Width, deepest = NotchDeepest(b);
+            var left = _board.transform.TransformPoint(_board.CellCenter(0, Mathf.Max(0, deepest)));
+            var right = _board.transform.TransformPoint(_board.CellCenter(w - 1, Mathf.Max(0, deepest)));
+            float half = RowWorld() * 0.5f;
+            // Taban oyuğun dibindeki çerçevenin üst yüzünde.
+            return new Vector3((left.x + right.x) * 0.5f, left.y + (deepest >= 0 ? -half : half) + RowWorld() * BagRimRows, left.z);
+        }
+
+        /// <summary>Torbaya dokunuş: içindeki kadarı (boşsa hiç) gönderilir, eksik kısım sıranın sonuna, yeni torba gelir.</summary>
         public void SendBucket()
         {
             if (!BucketLevel || CurrentPhase != Phase.Idle || _hud.PanelOpen || _hud.BucketBusy) return;
@@ -69,7 +138,6 @@ namespace KatKat.Game
             {
                 _sound.Play(Sfx.Invalid);
                 Haptics.Light();
-                _hud.ShowToast(Loc.T("toast.bucket.empty"), 1.8f);
                 return;
             }
             if (!_sound.PlayV17("goal-collect", 2f)) _sound.Play(Sfx.CoinFinal, 0, 0.85f);

@@ -159,10 +159,78 @@ namespace KatKat.Core
                 HazardRules.Tick(state, result);
             if (result.Command.Type != CommandType.UseSpecial && result.Command.Type != CommandType.Bomb && result.Command.Type != CommandType.SendBucket && !state.ProtectedBroken && !state.AllGoalsComplete && HasGravel(state.Board))
                 GravelSpread(state.Board, result);
+            if (state.Refill != null) ApplyRefill(state, result);
             state.Status = Evaluate(state);
             result.MovesLeftAfter = state.MovesLeft;
             result.StatusAfter = state.Status;
             result.ScoreGained = state.Score - scoreBefore;
+        }
+
+        /// <summary>
+        /// Yukarıdan dolma (<see cref="RefillRun"/>): her sütun, kaymayan hücrelerle (örtülü, korumalı, düğmeli, geçitli, döner tabanlı,
+        /// bağlı) bölümlere ayrılır; boş olmayan yığınlar bölümün dibine kayar (sıraları korunur, etkin olmayan hücreler atlanır).
+        /// Sütunun en üst bölümünde kalan boşluklar, hak bitene dek alttan üste yeni yığınla dolar (sütunlar soldan sağa).
+        /// </summary>
+        private static void ApplyRefill(LevelState state, MoveResult result)
+        {
+            var b = state.Board;
+            var seg = new List<int>();
+            for (int x = 0; x < b.Width; x++)
+            {
+                bool top = true;
+                seg.Clear();
+                for (int y = 0; y <= b.Height; y++)
+                {
+                    if (y < b.Height)
+                    {
+                        var c = b[x, y];
+                        if (!c.Active) continue;
+                        if (Slides(c)) { seg.Add(y); continue; }
+                    }
+                    if (seg.Count > 0) Compact(state, result, x, seg, top);
+                    seg.Clear();
+                    top = false;
+                }
+            }
+        }
+
+        private static bool Slides(CellState c) => c.Active && !c.HasCover && !c.Protected && c.ButtonGate == 0 && c.GateId == 0 && !c.HasRotor && c.LinkId == 0;
+
+        private static bool Filled(CellState c) => c.Layers.Count > 0 || c.HasSpecial;
+
+        private static void Compact(LevelState state, MoveResult result, int x, List<int> seg, bool spawn)
+        {
+            var b = state.Board;
+            int write = seg.Count - 1;
+            for (int k = seg.Count - 1; k >= 0; k--)
+            {
+                var c = b[x, seg[k]];
+                if (!Filled(c)) continue;
+                if (k != write)
+                {
+                    var to = b[x, seg[write]];
+                    to.Layers.Clear();
+                    to.Layers.AddRange(c.Layers);
+                    c.Layers.Clear();
+                    to.Special = c.Special; c.Special = SpecialKind.None;
+                    to.SpecialColor = c.SpecialColor;
+                    to.HasBottomStar = c.HasBottomStar; c.HasBottomStar = false;
+                    to.Quiet = c.Quiet; c.Quiet = 0;
+                    result.Falls.Add(new FallMove { From = new Coord(x, seg[k]), To = new Coord(x, seg[write]) });
+                }
+                write--;
+            }
+            var r = state.Refill;
+            if (!spawn || r.Colors.Count == 0) return;
+            for (int k = write, rank = 0; k >= 0 && r.Left > 0; k--, rank++)
+            {
+                var c = b[x, seg[k]];
+                int n = r.MinLayers + r.Next(r.MaxLayers - r.MinLayers + 1);
+                c.Layers.Clear();
+                for (int i = 0; i < n; i++) c.Layers.Add(r.Colors[r.Next(r.Colors.Count)]);
+                r.Left--;
+                result.Falls.Add(new FallMove { From = new Coord(x, seg[0] - 1 - rank), To = new Coord(x, seg[k]), Spawned = true });
+            }
         }
 
         /// <summary>
@@ -214,7 +282,7 @@ namespace KatKat.Core
                 return TrayHasEffect(board, state.Tray[cmd.Slot], cmd.X, cmd.Y) ? RejectReason.None : RejectReason.TrayNoEffect;
             }
             if (cmd.Type == CommandType.SendBucket)
-                return state.Bucket != null && state.Bucket.Active && state.Bucket.Have > 0 ? RejectReason.None : RejectReason.BucketEmpty;
+                return state.Bucket != null && state.Bucket.Active ? RejectReason.None : RejectReason.BucketEmpty; // 2026-11-23: boş torba da gönderilir
             if (cmd.Type == CommandType.Bomb)
             {
                 if (!board.InBounds(cmd.X, cmd.Y) || !board[cmd.X, cmd.Y].Active) return RejectReason.OutOfBounds;
@@ -386,7 +454,7 @@ namespace KatKat.Core
         public static bool HasLegalMove(LevelState state)
         {
             if (TrayUsable(state)) return true;
-            if (state.Bucket != null && state.Bucket.Active && state.Bucket.Have > 0) return true; // kova gönderilebilir
+            if (state.Bucket != null && state.Bucket.Active) return true; // torba (boş da) gönderilebilir
             if (state.MovesLeft <= 0) return false;
             if (GroupFinder.HasValidGroup(state.Board)) return true;
             for (int i = 0; i < state.Board.Count; i++)
@@ -987,25 +1055,20 @@ namespace KatKat.Core
         }
 
         /// <summary>
-        /// Tepsi yeni özel taşı alır mı. Kova kipinde (2026-11-23, kullanıcı: "kova alanın tam ortasında duracak. sağında ve solunda
-        /// birer tane altın rulo ve roket alanı olacak"): bir Altın Rulo ve bir roket yuvası; Kürek yok.
+        /// Tepsi yeni özel taşı alır mı. Torba bölümlerinde de normal dört yuva (kullanıcı 2026-11-23: "altın rulo ve roket yine
+        /// normal düzeninde 4 tane olsun").
         /// </summary>
-        public static bool TrayAccepts(LevelState state, SpecialKind kind)
-        {
-            if (state.Bucket == null) return state.Tray.Count < LevelState.TrayCapacity;
-            if (kind == SpecialKind.Shovel) return false;
-            bool rainbow = kind == SpecialKind.Rainbow;
-            foreach (var k in state.Tray) if ((k == SpecialKind.Rainbow) == rainbow) return false;
-            return true;
-        }
+        public static bool TrayAccepts(LevelState state, SpecialKind kind) => state.Tray.Count < LevelState.TrayCapacity;
 
-        /// <summary>Kova kipi: taş etkin kovanın rengindeyse kovaya girer (dolunca kova gönderilir, sıradaki gelir).</summary>
+        /// <summary>
+        /// Kova kipi: taş etkin torbanın rengindeyse torbaya girer (en çok rengin kalan görevi kadar). Torba kendiliğinden gitmez
+        /// (kullanıcı 2026-11-23: "Torbayı gönder demeden gitmesin otomatik gitmesin"); dolunca o rengin taşı artık girmez.
+        /// </summary>
         private static bool BucketTake(LevelState state, MoveResult result, LayerColor color)
         {
             var b = state.Bucket;
             if (!b.Active || b.Color != color || b.Have >= b.Need) return false;
             b.Have++;
-            if (b.Have >= b.Need) Deliver(state, result); // rengin kalan görevi doldu: kova kendiliğinden gider
             return true;
         }
 

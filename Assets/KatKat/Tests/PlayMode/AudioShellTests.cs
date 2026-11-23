@@ -196,14 +196,20 @@ namespace KatKat.Tests
             s.ResetSerialStats();
             _gc.StartLevel(2);
             _gc.Board.Director.TimeScale = 3f;
-            int pops = 0;
+            int pops = 0, arrivals = 0;
             s.OnPlayed = n => { if (n == "jelly-pop") pops++; };
+            var prevArrive = _gc.Board.StreamArrived;
+            _gc.Board.StreamArrived = (i, n) => { arrivals++; prevArrive?.Invoke(i, n); };
             _gc.PlayStep(_gc.CurrentLevel.Solution[0]);
             float limit = Time.realtimeSinceStartup + 15f;
             while ((_gc.CurrentPhase == GameController.Phase.Animating || s.SerialPending > 0) && Time.realtimeSinceStartup < limit) yield return null;
-            for (int i = 0; i < 60; i++) yield return null;
-            Assert.Greater(pops, 1, "varış sesleri çaldı");
-            Assert.LessOrEqual(pops, GameController.FlowSoundMaxBig + 1, "büyük grupta da hamle başına en çok 8 varış sesi + dokunuş sesi (2026-11-23)");
+            // Akış taşları hamle bittikten sonra da varır (girdi kilitlenmez): gerçek süre bekle.
+            float settle = Time.realtimeSinceStartup + 2f;
+            while (Time.realtimeSinceStartup < settle) yield return null;
+            // 2026-11-24 akış: her taş varışta bir ses (taşlar zaten sırayla, 28–60 ms arayla gelir); kapanış sesi sıralı kanalda.
+            Assert.Greater(arrivals, 1, "taşlar sırayla vardı (her varışta bir ses)");
+            Assert.LessOrEqual(pops, 40, "taş başına en çok bir varış sesi");
+            _gc.Board.StreamArrived = prevArrive;
             Assert.GreaterOrEqual(s.SerialMinSpacing, SoundBank.SerialGap - 0.02f, "gerçek hamlede de üst üste binme yok");
             s.OnPlayed = null;
         }

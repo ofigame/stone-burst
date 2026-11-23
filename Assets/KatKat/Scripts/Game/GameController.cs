@@ -139,6 +139,7 @@ namespace KatKat.Game
             // 2026-11-23 (kullanıcı: "sesler tane tane seri şekilde bir ses net olarak duyulacak şekilde akmalı"): varış sesleri
             // sıralı kanalda (SoundBank.QueueV17) en az 110 ms arayla, üst üste binmeden; titreşim ses başlarken.
             _board.FlowTick = FlowTickSound;
+            _board.StreamArrived = StreamTick;
             _board.FlowFinal = () => { if (!_sound.QueueV17("goal-collect", 0f, 1f, true, Haptics.Medium)) { _sound.Play(Sfx.CoinFinal, 0, 0.85f); Haptics.Medium(); } };
             _board.IsGoalColor = _hud.IsGoalColor;
             _sound = SoundBank.Create(transform);
@@ -226,6 +227,7 @@ namespace KatKat.Game
 
         public void ShowHome()
         {
+            LeaveBoardFx();
             AbandonDailyIfOpen();
             _hud.HidePanel();
             SetPhase(Phase.Loading);
@@ -249,6 +251,7 @@ namespace KatKat.Game
 
         public void ShowLevels()
         {
+            LeaveBoardFx();
             HeartForfeit();
             ApplyCloudRestore(); // bölüm sırasında gelen bulut kaydı haritaya dönünce uygulanır
             _bgPick = -1; // menüye dönüş: sonraki girişte zemin yeniden seçilir
@@ -929,7 +932,7 @@ namespace KatKat.Game
             var s = _session.State;
             _celebration.Clear();
             if (s.SpecialsEnabled || s.MovesLeft > 0)
-                foreach (var step in RulesEngine.Celebrate(s, CelebrationSeed(_level.Id))) _celebration.Enqueue(step);
+                foreach (var step in CelebrationSteps(RulesEngine.Celebrate(s, CelebrationSeed(_level.Id)))) _celebration.Enqueue(step);
             _hud.SetTray(s.Tray, -1); // tepside kalanlar kutlamada ateşlenir
             if (_celebration.Count == 0) { OnLevelWon(); return; }
             _celebrating = true;
@@ -963,6 +966,73 @@ namespace KatKat.Game
 
         private int _celebrationScore;
         private float _celebrationSkillAt = -10f;
+
+        /// <summary>Bu kadar ya da daha çok kalan hamle rokete dönüşecekse hepsi tek Altın Rulo patlamasıyla oynar.</summary>
+        public const int BigCelebrationMoves = 5;
+
+        /// <summary>
+        /// Kutlama gösterimi (kullanıcı 2026-11-23: "bölüm sonunda kalan hamlelerin patlaması çok hamle kaldıysa altın rulo efekti ile
+        /// patlasın. tek tek roket uzun sürüyor"). Kural (puan, yıldız) aynı kalır: kalan hamle adımları mantıkta yine roket. Çok
+        /// adım varsa yalnız gösterim birleşir: tahtanın ortasında Altın Rulo belirir, bütün adımların taşlarına birlikte yıldırım
+        /// atar. Aynı hücre birden çok adımda soyulsa da bir kez gösterilir; son durum kutlama sonunda Sync ile çizilir.
+        /// </summary>
+        private List<MoveResult> CelebrationSteps(List<MoveResult> steps)
+        {
+            int first = steps.FindIndex(r => r.SpecialCreated.IsRocket());
+            if (first < 0 || steps.Count - first < BigCelebrationMoves) return steps;
+            var tail = steps.GetRange(first, steps.Count - first);
+            var b = _session.State.Board;
+            var cells = new List<CellPeel>();
+            var seen = new HashSet<int>();
+            int score = 0;
+            int[] goals = null;
+            foreach (var r in tail)
+            {
+                score += r.ScoreGained;
+                foreach (var w in r.Waves)
+                {
+                    foreach (var c in w.Cells) if (seen.Add(c.Y * b.Width + c.X)) cells.Add(c);
+                    if (w.GoalProgressAfter != null) goals = w.GoalProgressAfter;
+                }
+            }
+            // Kaynak: tahta ortasına en yakın hücre (Altın Rulo orada belirir).
+            float cx = (b.Width - 1) * 0.5f, cy = (b.Height - 1) * 0.5f;
+            var src = cells.Count > 0 ? cells[0] : default;
+            float best = float.MaxValue;
+            foreach (var c in cells)
+            {
+                float d = (c.X - cx) * (c.X - cx) + (c.Y - cy) * (c.Y - cy);
+                if (d < best) { best = d; src = c; }
+            }
+            var wave = new PeelWave { Kind = WaveKind.Special, Index = 0, Fired = SpecialKind.Rainbow, FiredAt = new Coord(src.X, src.Y), Score = score, GoalProgressAfter = goals };
+            wave.Cells.AddRange(cells);
+            var last = tail[tail.Count - 1];
+            var merged = new MoveResult
+            {
+                Accepted = true, Command = Command.Tap(src.X, src.Y), ScoreGained = score, MovesLeftAfter = last.MovesLeftAfter, StatusAfter = last.StatusAfter,
+                SpecialCreated = SpecialKind.Rainbow, SpecialCreatedAt = new Coord(src.X, src.Y),
+            };
+            merged.Waves.Add(wave);
+            var outList = steps.GetRange(0, first);
+            outList.Add(merged);
+            return outList;
+        }
+
+        /// <summary>Bölümden çıkış (anasayfa/harita): bitiş kutlaması sürüyorsa sessizce bitirilir (kazanım kaydedilir, kart
+        /// açılmaz), tahta animasyonu ve parçacıklar söner (kullanıcı 2026-11-23: "anasayfada patlamaların izleri devam ediyor").</summary>
+        private void LeaveBoardFx()
+        {
+            if (_celebrating)
+            {
+                _silentWin = true;
+                try { SkipCelebration(); }
+                finally { _silentWin = false; }
+                _hud.HidePanel();
+            }
+            FxParticles.Active?.Clear();
+        }
+
+        private bool _silentWin;
 
         /// <summary>
         /// Kutlama dalgası sesi (kullanıcı 2026-11-23: "görev tamamlanınca kalan hamleleri tahtada kullanırken eski sesler çalıyor.
@@ -1019,11 +1089,13 @@ namespace KatKat.Game
             OutcomeMoves(s); // kutlama kalan hamleleri harcamadan önce
             _board.Sync(s);
             // 2026-11-19: hamle uçuşlar bitmeden biterse sayaçlar taşlar vardıkça (onWaveArrived) güncellenir; erken doldurulmaz.
-            if (_board.HoldUntilArrive || !_board.IsPlaying) _hud.SetGoalsImmediate(s.Goals);
+            // Torba bölümünde görev yalnız teslimle ilerler; sayaç torba simgeye varınca sayarak artar (HudView.CountGoalsTo).
+            if ((_board.HoldUntilArrive || !_board.IsPlaying) && !BucketLevel) _hud.SetGoalsImmediate(s.Goals);
             _hud.SetGoalStages(s.Goals, s.ActiveStage); // vr1 P3 (tek aşamalıda etkisiz)
             _hud.SetMoves(s.MovesLeft);
             _hud.SetTray(s.Tray, _traySlot = -1);
             _hud.BucketSettle(s.Bucket);
+            if (_lastResult != null && _lastResult.Falls.Count > 0) _board.PlayDrops(_lastResult.Falls); // 2026-11-24 yukarıdan dolma
             ConceptAfterPlay(_lastResult); // konsept pilotu: tehdit olayı, durum satırı
             if (s.Status == GameStatus.Idle && s.MovesLeft <= 0 && s.Tray.Count > 0)
             {
@@ -1091,6 +1163,7 @@ namespace KatKat.Game
             HeartOnWon();
             EndPlaceOffer();
             CloudOnWon();
+            if (_silentWin) return; // bölümden çıkılırken: kayıt tamam, kart ve ses yok
             // v10: normal bölüm ödül kartı ilk gösterilirken bir kez (yıldızlar ve kart yeniden çizimi tekrar çalmaz).
             _sound.PlayReward();
             Haptics.Medium();

@@ -43,5 +43,8 @@ namespace KatKat.Levels
         public HazardData Hazard;
         /// <summary>2026-11-23 kova kipi: sırayla gelen kova siparişleri (renk kimliği, miktar). Boşsa kova yok.</summary>
         public readonly List<KeyValuePair<string, int>> Buckets = new List<KeyValuePair<string, int>>();
+        /// <summary>2026-11-24 yukarıdan dolma: girecek yeni yığın sayısı (0 → dolma yok) ve yeni yığının kat aralığı.</summary>
+        public int RefillCount, RefillMinLayers = 2, RefillMaxLayers = 3;
+        public bool HasRefill;
     }
 }

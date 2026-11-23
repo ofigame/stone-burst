@@ -9,26 +9,124 @@ using UnityEngine.UI;
 namespace KatKat.UI
 {
     /// <summary>
-    /// Kova kipi arayüzü (kullanıcı 2026-11-23: "Kova dediğim alanın tam ortasında duracak. Sağında ve solunda ise birer tane altın rulo
-    /// ve roket alanı olacak"). Güç bandının ortasında kova; solda Altın Rulo, sağda roket yuvası (tepsinin ilk iki yuvası).
-    /// <para>Kova kendi gösterim modelini tutar: tahtadan kovaya varan her taş bir artırır (dolum yükselir, kova zıplar); hamlenin
+    /// Kova (torba) kipi arayüzü (kullanıcı 2026-11-23: "Kova dediğim alanın tam ortasında duracak. Sağında ve solunda ise birer tane
+    /// altın rulo ve roket alanı olacak"; aynı gün: "kovaya değilde torbaya dolduralım"). Güç bandının ortasında torba; solda Altın
+    /// Rulo, sağda roket yuvası (tepsinin ilk iki yuvası). Kodda adı hâlâ "bucket" (kural motoru ve testlerle aynı ad).
+    /// <para>Torba görseli katmanlı (Resources/Bag): arka gövde, ağız içine yığılan taşlar, ağzı oyulmuş ön katman ve rengine
+    /// boyanan kurdele. Doldukça torba şişer ve ağızda taş yığını yükselir.</para>
+    /// <para>Kova kendi gösterim modelini tutar: tahtadan kovaya varan her taş bir artırır (yığın büyür, torba zıplar); hamlenin
     /// kova gönderimleri sırayla oynatılır: kova dolunca rengin görev simgesine uçar, yerine yenisi aşağıdan gelir. Kovaya dokunmak
     /// <see cref="BucketPressed"/> (yarım gönderim). Uçuş ve oynatım bitince gösterim mantık durumuna eşitlenir.</para>
     /// </summary>
     public sealed partial class HudView
     {
         public event Action BucketPressed;
+        /// <summary>Gönderilen torba görev simgesine vardı (2026-11-24: son torbanın sayısı da artsın).</summary>
+        public Action BucketDelivered;
+
+        /// <summary>Torba teslim sayacı: çip, başlangıç, hedef, geçen süre, son adım.</summary>
+        private sealed class GoalCount { public GoalChip Chip; public int From, To, Last; public float T, Dur; public LayerColor Color; }
+        private readonly List<GoalCount> _goalCounts = new List<GoalCount>();
+
+        /// <summary>
+        /// Görev sayaçları torba simgeye varınca sayarak artar (kullanıcı 2026-11-24: "torbayı gönderdiğimde görev sayısı efektif
+        /// artmıyor. anlaşılmıyor artıp artmadığı"): sayı tek tek yükselir, her adımda büyüyüp yerine oturur, simge zıplar ve
+        /// sonunda parlar.
+        /// </summary>
+        public void CountGoalsTo(IList<GoalState> goals)
+        {
+            for (int i = 0; i < goals.Count && i < _chips.Count; i++)
+            {
+                var chip = _chips[i];
+                int to = Mathf.Min(goals[i].Progress, goals[i].Amount);
+                if (to <= chip.Shown) { chip.Set(goals[i].Progress, false); continue; }
+                _goalCounts.RemoveAll(g => g.Chip == chip);
+                int delta = to - chip.Shown;
+                _goalCounts.Add(new GoalCount { Chip = chip, From = chip.Shown, To = to, Last = chip.Shown, Dur = Mathf.Clamp(0.25f + delta * 0.03f, 0.3f, 1.1f), Color = goals[i].Color });
+            }
+        }
+
+        private void TickGoalCounts(float dt)
+        {
+            for (int i = _goalCounts.Count - 1; i >= 0; i--)
+            {
+                var g = _goalCounts[i];
+                g.T += dt;
+                float u = Mathf.Clamp01(g.T / g.Dur);
+                int v = Mathf.RoundToInt(Mathf.Lerp(g.From, g.To, 1f - (1f - u) * (1f - u)));
+                if (v != g.Last)
+                {
+                    g.Last = v;
+                    g.Chip.Set(v, true);
+                }
+                if (u >= 1f)
+                {
+                    g.Chip.Set(g.To, true);
+                    SparkAt(g.Chip.Icon.position, g.Color, 12);
+                    _goalCounts.RemoveAt(i);
+                }
+            }
+        }
 
         private RectTransform _bucketRoot, _bucketBody;
-        private Image _bucketShell, _bucketFill, _bucketStone, _bucketGlow, _bucketSendTag;
+        private RectTransform _bagArt;
+        private Image _bucketGlow, _bucketSendTag, _bagBadge, _bagCountBubble;
+        private TextMeshProUGUI _bagCountText;
+        private int _bagCountShown = -1;
+        private float _bagCountPunch = 9f;
+        /// <summary>Boş ve dolu torba katmanları (arka, ön, kurdele); doldukça boştan doluya şişerek geçer.</summary>
+        private Image[] _bagEmpty, _bagFull;
+        private Color _bagTint = Color.white;
+        private float _bagMorph;
         private TextMeshProUGUI _bucketSendText;
-        private Image _bucketSurface;
-        private float _bSplash = 9f;
+        private Image[] _bagHeap;
+        private float[] _bagPop;
+
+        /// <summary>
+        /// Ağız içi yığın: kırık taş parçaları (kullanıcı 2026-11-23: "torbada taşlar parçalanmış olarak bulunsun"). Taşlar torbaya
+        /// bütün uçar, içeride parça olarak birikir. Yuvalar ağız merkezine göre, torba boyu biriminde; alttan üste dolar, alt sıralar
+        /// ön dudağın ardında kalır. Biçim, açı ve boy sabit (her bölümde aynı yığın).
+        /// </summary>
+        private static readonly Vector2[] HeapSlots = BuildHeapSlots(out HeapSpin, out HeapScale);
+        private static float[] HeapSpin, HeapScale;
+
+        private static Vector2[] BuildHeapSlots(out float[] spin, out float[] scale)
+        {
+            int[] rows = { 6, 5, 5, 4, 3, 2 };
+            float[] ys = { -0.10f, -0.075f, -0.05f, -0.025f, 0.0f, 0.025f };
+            float[] half = { 0.20f, 0.18f, 0.16f, 0.13f, 0.09f, 0.05f };
+            var rng = new System.Random(7);
+            var pts = new List<Vector2>();
+            var sp = new List<float>();
+            var sc = new List<float>();
+            for (int r = 0; r < rows.Length; r++)
+            for (int i = 0; i < rows[r]; i++)
+            {
+                float t = rows[r] == 1 ? 0.5f : i / (float)(rows[r] - 1);
+                float x = Mathf.Lerp(-half[r], half[r], t) + ((float)rng.NextDouble() - 0.5f) * 0.03f;
+                float y = ys[r] + ((float)rng.NextDouble() - 0.5f) * 0.014f;
+                pts.Add(new Vector2(x, y));
+                sp.Add((float)rng.NextDouble() * 360f);
+                sc.Add(0.85f + (float)rng.NextDouble() * 0.35f);
+            }
+            spin = sp.ToArray();
+            scale = sc.ToArray();
+            return pts.ToArray();
+        }
+        /// <summary>
+        /// Şişme (kullanıcı 2026-11-23: "Torba boş gelsin ve doldukça animasyonla şişir torbayı"): boş torba (Krem Saten Büzgülü)
+        /// ile dolu torba aynı çerçevede tabanları hizalı. Doluluk m (0–1) ile boş torba dolunun boyuna gerilir, dolu torba boşun
+        /// boyundan büyür; ikisi ortada karışır. Ağız merkezi, ağız genişliği ve yığın birlikte kayar. Ölçüler 512 px dokudan
+        /// (alt-orta pivottan, boy biriminde).
+        /// </summary>
+        private static readonly Vector2 BagMouth = new Vector2(0.008f, 0.80f), BagMouthEmpty = new Vector2(0f, 0.535f);
+        /// <summary>Boş torbanın dolu torbaya oranı (genişlik, yükseklik) ve ağız oyuğunun oranı (yatay, dikey).</summary>
+        private const float EmptyW = 0.787f, EmptyH = 0.617f, MouthEmptyX = 0.79f, MouthEmptyY = 0.46f;
+        private const float HeapStone = 0.105f;
 
         /// <summary>Görsel kapasite: kova en çok bu kadar taşta "dolu" görünür (rengin kalan görevi daha azsa o kadar).</summary>
-        public const int BucketVisualCap = 12;
+        public const int BucketVisualCap = 30; // 2026-11-23: görevler 50–60 taş; torba ~30 taşta tam şişer
         private bool _bucketMode;
-        private readonly int[] _slotMap = { -1, -1 };
 
         /// <summary>Gösterilen kova.</summary>
         private bool _bActive;
@@ -49,8 +147,12 @@ namespace KatKat.UI
         private float _bSettleWait;
 
         public const float BucketSize = 176f;
-        /// <summary>Kova kipinde yan yuvaların merkezden uzaklığı ve kovanın ölçeği (güç bandı 128 px).</summary>
-        private const float BucketSideStep = 270f, BucketScale = 1.12f;
+        /// <summary>
+        /// Torbanın yeri (kullanıcı 2026-11-23, çizim: tepsinin üst kenarı ortada basamaklı oyuk, torba oyuğun içinde): torbanın
+        /// dünya tabanı ve dünya yüksekliği her karede buradan (tahta yerleşimi değişse de oturur). Atanmamışsa güç bandının ortası.
+        /// </summary>
+        public Func<Vector3> BucketBottom;
+        public Func<float> BucketWorldHeight;
         private const float SendRise = 0.42f, SendArrive = 0.34f;
 
         public bool BucketMode => _bucketMode;
@@ -72,12 +174,10 @@ namespace KatKat.UI
             _bEarly = 0;
             _bAnim = -1f;
             _bTarget = null;
-            if (_bucketMode) ShowBucket(run.Active, run.Color, run.Need, run.Have, true);
+            if (_bucketMode) { ShowBucket(run.Active, run.Color, run.Need, run.Have, true); PlaceBucket(); }
             LayoutBottom();
         }
 
-        /// <summary>Kova kipinde tepsi yuvası → gerçek tepsi dizini (sol Altın Rulo, sağ roket).</summary>
-        private int MapTraySlot(int slot) => _bucketMode ? (slot < 2 ? _slotMap[slot] : -1) : slot;
 
         /// <summary>Hamlenin kova gönderimlerini ve kovaya uçacak taş sayısını kuyruğa alır.</summary>
         public void BucketQueue(MoveResult r)
@@ -96,8 +196,7 @@ namespace KatKat.UI
             if (_bAnim >= 0f) { _bEarly++; return; } // gönderim sürerken gelen taşlar (aynı renk sonraki kova) yeni kovada sayılır
             if (_bActive && _bHave < _bNeed) _bHave++;
             _bPunch = 0f;
-            _bSplash = 0f;
-            if (_bActive) SparkAt(_bucketBody.TransformPoint(new Vector3(0f, BucketSize * 0.2f, 0f)), _bColor, 5);
+            if (_bActive) SparkAt(BucketTarget(), _bColor, 5);
             RefreshBucket();
             TryStartSend();
         }
@@ -111,7 +210,15 @@ namespace KatKat.UI
         }
 
         /// <summary>Kovanın dünya konumu (taşlar buraya uçar).</summary>
-        public Vector3 BucketTarget() => _bucketBody != null ? _bucketBody.TransformPoint(new Vector3(0f, BucketSize * 0.18f, 0f)) : Vector3.zero; // kovanın ağzı
+        public Vector3 BucketTarget()
+        {
+            if (_bagArt == null) return Vector3.zero;
+            var m = Vector2.Lerp(BagMouthEmpty, BagMouth, _bagMorph); // torbanın ağzı (şişmeyle yükselir)
+            return _bagArt.TransformPoint(new Vector3(m.x * BucketSize, m.y * BucketSize, 0f));
+        }
+
+        /// <summary>Testler: gösterilen şişme (0 boş, 1 dolu).</summary>
+        public float BucketShownSwell => _bagMorph;
 
         /// <summary>Ekran yakalama: kova animasyonunu ilerletir (oynatma dışında Update çalışmaz).</summary>
         public void AdvanceBucket(float sec) => TickBucket(sec);
@@ -126,8 +233,7 @@ namespace KatKat.UI
         {
             if (_bAnim >= 0f || _bSends.Count == 0) return;
             var s = _bSends.Peek();
-            // Kendiliğinden gönderim kova dolunca; yarım gönderim (oyuncu) hemen.
-            if (!s.Partial && _bHave < s.Have) return;
+            // Gönderim yalnız oyuncunun dokunuşuyla (boş torba da); hemen oynar.
             _bSends.Dequeue();
             _bAnimSend = s;
             _bHave = s.Have;
@@ -141,6 +247,8 @@ namespace KatKat.UI
         private void TickBucket(float dt)
         {
             if (!_bucketMode || _bucketRoot == null) return;
+            TickGoalCounts(dt);
+            PlaceBucket();
             if (_bAnim >= 0f)
             {
                 _bAnim += dt / (_bAnim < 1f ? SendRise : SendArrive);
@@ -161,6 +269,7 @@ namespace KatKat.UI
                     {
                         // Varış: görev simgesinde ışıltı, yeni kova aşağıdan gelir.
                         SparkAt(_bFlyTo, _bAnimSend.Color, 10);
+                        BucketDelivered?.Invoke(); // görev sayacı torba simgeye varınca (son torba dahil)
                         _bucketBody.localRotation = Quaternion.identity;
                         _bucketBody.anchoredPosition = new Vector2(0f, -BucketSize * 0.9f);
                         ShowBucket(_bAnimSend.NextActive, _bAnimSend.NextColor, _bAnimSend.NextNeed, Mathf.Min(_bEarly, _bAnimSend.NextNeed), false);
@@ -187,33 +296,28 @@ namespace KatKat.UI
             }
             else _bucketBody.localScale = Vector3.one;
 
-            // Dolum göstergesi yumuşak yükselir.
+            // Dolum (2026-11-23 torba): torba şişer, ağızda taş yığını yükselir (sayı yok).
             float want = FillOf(_bHave, _bNeed);
             _bFillShown = Mathf.MoveTowards(_bFillShown, want, dt * 1.6f);
-            // Gövdenin iç kısmı (y 0,13–0,68) dolum aralığı; yüzey dolum seviyesinde dalgalanır.
-            const float lo = 0.13f, hi = 0.68f;
-            float lvl = lo + (hi - lo) * _bFillShown;
-            _bucketFill.fillAmount = _bFillShown <= 0f ? 0f : lvl;
-            if (_bucketSurface != null)
+            ApplyBagShape(dt);
+
+            // Torbadaki taş sayısı: değişince rozet zıplar.
+            if (_bagCountBubble != null)
             {
-                bool show = _bFillShown > 0.01f && _bActive;
-                _bucketSurface.enabled = show;
-                if (show)
+                _bagCountBubble.gameObject.SetActive(_bActive);
+                if (_bHave != _bagCountShown)
                 {
-                    float wob = Motion.Reduced ? 0f : Mathf.Sin(Time.unscaledTime * 5f) * 0.012f + (_bSplash < 1f ? Mathf.Sin(_bSplash * 18f) * (1f - _bSplash) * 0.03f : 0f);
-                    float halfW = Mathf.Lerp(0.29f, 0.40f, Mathf.InverseLerp(0.10f, 0.70f, lvl)) - 0.03f;
-                    var rt = _bucketSurface.rectTransform;
-                    rt.anchorMin = rt.anchorMax = new Vector2(0.5f, lvl + wob);
-                    rt.anchoredPosition = Vector2.zero;
-                    rt.sizeDelta = new Vector2(BucketSize * halfW * 2f, BucketSize * 0.1f);
-                    var c = _bucketFill.color;
-                    _bucketSurface.color = new Color(Mathf.Lerp(c.r, 1f, 0.55f), Mathf.Lerp(c.g, 1f, 0.55f), Mathf.Lerp(c.b, 1f, 0.55f), 0.95f);
+                    if (_bagCountShown >= 0 && _bHave > _bagCountShown) _bagCountPunch = 0f;
+                    _bagCountShown = _bHave;
+                    _bagCountText.text = _bHave.ToString();
                 }
+                if (_bagCountPunch < 1f) _bagCountPunch += dt / 0.2f;
+                float cp = 1f + 0.25f * Mathf.Sin(Mathf.Clamp01(_bagCountPunch) * Mathf.PI);
+                _bagCountBubble.transform.localScale = Vector3.one * cp;
             }
-            if (_bSplash < 1f) _bSplash += dt / 0.5f;
 
             // Yarım gönderim ipucu: kovada taş varken "Gönder" etiketi nefes alır.
-            bool canSend = _bActive && _bHave > 0 && _bAnim < 0f;
+            bool canSend = _bActive && _bAnim < 0f; // boş torba da gönderilir
             _bucketSendTag.gameObject.SetActive(canSend);
             if (canSend) _bucketSendTag.transform.localScale = Vector3.one * (1f + 0.05f * Mathf.Sin(Time.unscaledTime * 4f));
             _bucketGlow.color = new Color(_bucketGlow.color.r, _bucketGlow.color.g, _bucketGlow.color.b, _bActive ? 0.55f + 0.2f * Mathf.Sin(Time.unscaledTime * 2.2f) : 0f);
@@ -222,13 +326,51 @@ namespace KatKat.UI
             if (_bTarget != null && _bAnim < 0f && _bSends.Count == 0)
             {
                 _bSettleWait += dt;
-                if (_bInFlight == 0 || _bSettleWait > 1.5f)
+                if (_bInFlight == 0 || _bSettleWait > 3f)
                 {
                     var t = _bTarget;
                     _bTarget = null;
                     _bInFlight = 0;
                     if (t.Active != _bActive || t.Color != _bColor || t.Need != _bNeed || t.Have != _bHave) ShowBucket(t.Active, t.Color, t.Need, t.Have, true);
                 }
+            }
+        }
+
+        /// <summary>Şişme, karışım, ağız, rozet ve yığın: gösterilen dolumdan (ShowBucket da hemen uygular; ilk kare doğru görünür).</summary>
+        private void ApplyBagShape(float dt)
+        {
+            if (_bagArt == null) return;
+            float m = _bActive ? _bFillShown : 0f;
+            _bagMorph = m;
+            float mix = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(0.3f, 0.75f, m));
+            float fx = Mathf.Lerp(EmptyW, 1f, m), fy = Mathf.Lerp(EmptyH, 1f, m);
+            for (int i = 0; i < 3; i++)
+            {
+                _bagFull[i].rectTransform.localScale = new Vector3(fx, fy, 1f);
+                _bagEmpty[i].rectTransform.localScale = new Vector3(fx / EmptyW, fy / EmptyH, 1f);
+                var cf = i == 2 ? _bagTint : Color.white;
+                _bagFull[i].color = new Color(cf.r, cf.g, cf.b, mix);
+                _bagEmpty[i].color = new Color(cf.r, cf.g, cf.b, 1f - mix);
+            }
+            var mouth = Vector2.Lerp(BagMouthEmpty, BagMouth, m);
+            float spX = Mathf.Lerp(MouthEmptyX, 1f, m), spY = Mathf.Lerp(MouthEmptyY, 1f, m), chip = Mathf.Lerp(0.8f, 1f, m);
+            int show = _bActive && _bHave > 0 ? Mathf.Clamp(Mathf.CeilToInt(_bFillShown * HeapSlots.Length - 0.001f), 1, HeapSlots.Length) : 0;
+            for (int i = 0; i < _bagHeap.Length; i++)
+            {
+                bool on = i < show;
+                var h = _bagHeap[i];
+                if (on != h.gameObject.activeSelf)
+                {
+                    h.gameObject.SetActive(on);
+                    _bagPop[i] = on ? 0f : 1f;
+                }
+                if (!on) continue;
+                if (_bagPop[i] < 1f) _bagPop[i] = Mathf.Min(1f, _bagPop[i] + dt / 0.28f);
+                float p = _bagPop[i];
+                float k = Motion.Reduced ? 1f : 1f + 2.4f * Mathf.Pow(p - 1f, 3f) + 1.4f * Mathf.Pow(p - 1f, 2f);
+                h.rectTransform.localScale = Vector3.one * (k * HeapScale[i] * chip);
+                var slot = HeapSlots[i];
+                h.rectTransform.anchoredPosition = new Vector2((mouth.x + slot.x * spX) * BucketSize, (mouth.y + slot.y * spY) * BucketSize + (1f - p) * BucketSize * 0.18f);
             }
         }
 
@@ -241,16 +383,17 @@ namespace KatKat.UI
             if (instant) _bFillShown = FillOf(have, need);
             else _bFillShown = 0f;
             _bucketBody.gameObject.SetActive(active);
-            _bucketSendTag.gameObject.SetActive(active && have > 0);
+            _bucketSendTag.gameObject.SetActive(active);
             if (active)
             {
                 var c = (Color)LayerPalette.FrontColor(color);
-                _bucketShell.color = Color.Lerp(c, Color.white, 0.55f);
-                _bucketFill.color = c;
+                _bagTint = Color.Lerp(c, Color.white, 0.12f);
                 _bucketGlow.color = new Color(c.r, c.g, c.b, 0.6f);
-                _bucketStone.sprite = GoalChip.IconFor(new GoalState { Type = GoalType.CollectColor, Color = color });
+                var icon = GoalChip.IconFor(new GoalState { Type = GoalType.CollectColor, Color = color });
+                _bagBadge.sprite = icon;
+                foreach (var h in _bagHeap) h.color = c;
             }
-            RefreshBucket();
+            ApplyBagShape(0f);
         }
 
         private void RefreshBucket() { }
@@ -278,6 +421,17 @@ namespace KatKat.UI
         private void BuildBucket()
         {
             _bucketRoot = UiFactory.Rect("Bucket", _skillBar);
+            // Torba tahtadaki oyukta: güç bandının ölçeğinden bağımsız olsun diye doğrudan kanvasa (bandın üst öğesinin hemen
+            // ardına; paneller yine üstte).
+            var canvas = _canvas != null ? _canvas : _skillBar.GetComponentInParent<Canvas>();
+            if (canvas != null)
+            {
+                var root = canvas.transform;
+                Transform anc = _skillBar;
+                while (anc.parent != null && anc.parent != root) anc = anc.parent;
+                _bucketRoot.SetParent(root, false);
+                if (anc.parent == root) _bucketRoot.SetSiblingIndex(anc.GetSiblingIndex() + 1);
+            }
             _bucketRoot.anchorMin = _bucketRoot.anchorMax = new Vector2(0.5f, 0.5f);
             _bucketRoot.sizeDelta = new Vector2(BucketSize, BucketSize);
             _bucketBody = UiFactory.Rect("Body", _bucketRoot);
@@ -287,41 +441,95 @@ namespace KatKat.UI
             _bucketGlow.raycastTarget = false;
             UiFactory.Place(_bucketGlow.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -6f), Vector2.one * BucketSize * 1.55f);
 
-            var btn = UiFactory.SpriteButton("BucketButton", _bucketBody, BucketArt.Shell, new Vector2(BucketSize, BucketSize), () => BucketPressed?.Invoke());
+            // Dokunma alanı (görünmez); görsel katmanlar alttan büyüyen "Art" içinde (şişme ölçeği basma geri bildirimine karışmaz).
+            var btn = UiFactory.SpriteButton("BucketButton", _bucketBody, null, new Vector2(BucketSize, BucketSize), () => BucketPressed?.Invoke());
             UiFactory.Place((RectTransform)btn.transform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(BucketSize, BucketSize));
-            _bucketShell = btn.GetComponent<Image>();
-            _bucketShell.preserveAspect = true;
+            btn.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
             PressFeedback.Attach(btn, null);
 
-            _bucketFill = UiFactory.Image("Fill", btn.transform, BucketArt.Inner, Color.white);
-            _bucketFill.raycastTarget = false;
-            _bucketFill.type = Image.Type.Filled;
-            _bucketFill.fillMethod = Image.FillMethod.Vertical;
-            _bucketFill.fillOrigin = (int)Image.OriginVertical.Bottom;
-            UiFactory.Stretch(_bucketFill.rectTransform);
+            _bagArt = UiFactory.Rect("Art", btn.transform);
+            _bagArt.anchorMin = _bagArt.anchorMax = new Vector2(0.5f, 0f);
+            _bagArt.pivot = new Vector2(0.5f, 0f);
+            _bagArt.anchoredPosition = Vector2.zero;
+            _bagArt.sizeDelta = new Vector2(BucketSize, BucketSize);
 
-            var rim = UiFactory.Image("Rim", btn.transform, BucketArt.Rim, Color.white);
-            rim.raycastTarget = false;
-            UiFactory.Stretch(rim.rectTransform);
+            _bagEmpty = new Image[3];
+            _bagFull = new Image[3];
+            _bagEmpty[0] = BagLayer("EmptyBack", BagArt.EmptyBack);
+            _bagFull[0] = BagLayer("Back", BagArt.Back);
+            var heap = UiFactory.Rect("Heap", _bagArt);
+            heap.anchorMin = heap.anchorMax = heap.pivot = new Vector2(0.5f, 0f);
+            heap.anchoredPosition = Vector2.zero;
+            heap.sizeDelta = Vector2.zero;
+            _bagHeap = new Image[HeapSlots.Length];
+            _bagPop = new float[HeapSlots.Length];
+            for (int i = 0; i < HeapSlots.Length; i++)
+            {
+                var h = UiFactory.Image("Chip" + i, heap, StoneShatter.Chip(i), Color.white);
+                h.raycastTarget = false;
+                h.preserveAspect = true;
+                h.rectTransform.anchorMin = h.rectTransform.anchorMax = new Vector2(0.5f, 0f);
+                h.rectTransform.sizeDelta = Vector2.one * BucketSize * HeapStone;
+                h.rectTransform.localRotation = Quaternion.Euler(0f, 0f, HeapSpin[i]);
+                h.gameObject.SetActive(false);
+                _bagHeap[i] = h;
+            }
+            _bagEmpty[1] = BagLayer("EmptyFront", BagArt.EmptyFront);
+            _bagFull[1] = BagLayer("Front", BagArt.Front);
+            _bagEmpty[2] = BagLayer("EmptyRibbon", BagArt.EmptyRibbon);
+            _bagFull[2] = BagLayer("Ribbon", BagArt.Ribbon);
 
-            _bucketStone = UiFactory.Image("Stone", btn.transform, null, Color.white);
-            _bucketStone.preserveAspect = true;
-            _bucketStone.raycastTarget = false;
-            UiFactory.Place(_bucketStone.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -4f), Vector2.one * BucketSize * 0.36f);
-
-            // Dolum yüzeyi (2026-11-23 ikinci tur, kullanıcı: "kovada sayı olmayacak … kovada dolma efekti olacak"): sayı yok; dolum
-            // seviyesinde açık renkli, dalgalanan yüzey ve her taşta ağızdan sıçrama.
-            _bucketSurface = UiFactory.Image("Surface", btn.transform, SpecialArt.Glow, Color.white);
-            _bucketSurface.raycastTarget = false;
-            _bucketSurface.rectTransform.sizeDelta = new Vector2(BucketSize * 0.62f, BucketSize * 0.09f);
-
-            // "Gönder" etiketi (yarım gönderim): kovanın üstünde.
+            // "Gönder" etiketi torbanın karnında (torba tahtadaki oyukta; üstü görev şeridi, altı taşlar). Solunda rengin taşı
+            // (boş torbada da renk okunur; inci kurdelesi kumaşta az seçilir).
             _bucketSendTag = UiFactory.Image("SendTag", _bucketBody, Ui3.Rounded(18f, Ui3.Hex("#FFD86A"), Ui3.Hex("#F0A92E"), 2f, Ui3.Hex("#9A6A1C")), Color.white);
             _bucketSendTag.raycastTarget = false;
-            UiFactory.Place(_bucketSendTag.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, BucketSize * 0.5f), new Vector2(118f, 38f));
-            _bucketSendText = UiFactory.Title("Text", _bucketSendTag.transform, Loc.T("bucket.send"), 24, new Color32(0x5A, 0x34, 0x08, 0xFF), new Color(1f, 1f, 1f, 0f));
+            UiFactory.Place(_bucketSendTag.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -BucketSize * 0.36f), new Vector2(124f, 36f));
+            _bagBadge = UiFactory.Image("Badge", _bucketSendTag.transform, null, Color.white);
+            _bagBadge.raycastTarget = false;
+            _bagBadge.preserveAspect = true;
+            UiFactory.Place(_bagBadge.rectTransform, new Vector2(0f, 0.5f), new Vector2(20f, 0f), Vector2.one * 40f);
+            _bucketSendText = UiFactory.Title("Text", _bucketSendTag.transform, Loc.T("bucket.send"), 22, new Color32(0x5A, 0x34, 0x08, 0xFF), new Color(1f, 1f, 1f, 0f));
             _bucketSendText.raycastTarget = false;
             UiFactory.Stretch(_bucketSendText.rectTransform);
+            _bucketSendText.rectTransform.offsetMin = new Vector2(30f, 0f);
+
+            // Torbadaki taş sayısı (kullanıcı 2026-11-24: "Torbanın içindeki taş sayısı görünsün"): sağ üstte yuvarlak rozet.
+            _bagCountBubble = UiFactory.Image("Count", _bucketBody, Ui3.Rounded(30f, Ui3.Hex("#FFFFFF"), Ui3.Hex("#F3E6CF"), 3f, Ui3.Hex("#9A6A1C")), Color.white);
+            _bagCountBubble.raycastTarget = false;
+            UiFactory.Place(_bagCountBubble.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(BucketSize * 0.36f, BucketSize * 0.2f), new Vector2(66f, 54f));
+            _bagCountText = UiFactory.Title("Text", _bagCountBubble.transform, "0", 34, new Color32(0x5A, 0x34, 0x08, 0xFF), new Color(1f, 1f, 1f, 0f));
+            _bagCountText.raycastTarget = false;
+            UiFactory.Stretch(_bagCountText.rectTransform);
+        }
+
+        /// <summary>Torbayı tahtadaki oyuğa oturtur: tabanı oyuğun dibinde, boyu verilen dünya yüksekliğinde.</summary>
+        private void PlaceBucket()
+        {
+            if (BucketBottom == null || BucketWorldHeight == null) return;
+            float h = BucketWorldHeight();
+            if (h <= 0f) return;
+            // Tahta dünyası → ekran pikseli (kamera) → kök kanvas birimi (ölçek çarpanı). Kanvasın dünya dönüşümüne dayanmaz
+            // (ekran yakalamada ve ilk karede kanvas henüz kameraya oturmamış olabilir).
+            var cam = _canvas != null ? _canvas.worldCamera : null;
+            if (cam == null || _bucketRoot.parent != _canvas.transform) return;
+            float sf = Mathf.Max(0.0001f, _canvas.scaleFactor);
+            var b = BucketBottom();
+            Vector2 lo = cam.WorldToScreenPoint(b), hi = cam.WorldToScreenPoint(b + Vector3.up * h);
+            var center = new Vector2(cam.pixelWidth * 0.5f, cam.pixelHeight * 0.5f);
+            float hc = (hi.y - lo.y) / sf;
+            if (hc <= 0f) return;
+            _bucketRoot.anchorMin = _bucketRoot.anchorMax = new Vector2(0.5f, 0.5f);
+            _bucketRoot.localScale = Vector3.one * (hc / BucketSize);
+            _bucketRoot.anchoredPosition = (lo - center) / sf + new Vector2(0f, hc * 0.5f);
+        }
+
+        private Image BagLayer(string name, Sprite sprite)
+        {
+            var img = UiFactory.Image(name, _bagArt, sprite, Color.white);
+            img.raycastTarget = false;
+            UiFactory.Stretch(img.rectTransform);
+            img.rectTransform.pivot = new Vector2(0.5f, 0f); // şişme tabandan
+            return img;
         }
     }
 
@@ -345,97 +553,15 @@ namespace KatKat.UI
         }
     }
 
-    /// <summary>Kova görselleri (koddan, 192 px): kova gövdesi (kulp, gövde, alt halka), iç dolum şekli ve ağız kenarı.</summary>
-    internal static class BucketArt
+    /// <summary>Torba görselleri (Resources/Bag, kullanıcının ürettiği torbadan ayrıldı; kaynak docs/varliklar/gorseller/torba).</summary>
+    internal static class BagArt
     {
-        private const int N = 192;
-        private static Sprite _shell, _inner, _rim;
-
-        // Gövde: üst (ağız) y=0.70, alt y=0.10; üst yarı genişlik 0.40, alt 0.29 (normalize, merkez 0.5).
-        private const float TopY = 0.70f, BotY = 0.10f, TopW = 0.40f, BotW = 0.29f;
-
-        private static float HalfW(float y) => Mathf.Lerp(BotW, TopW, Mathf.InverseLerp(BotY, TopY, y));
-
-        public static Sprite Shell => _shell ? _shell : (_shell = Make("bucket_shell", ShellPx));
-        public static Sprite Inner => _inner ? _inner : (_inner = Make("bucket_inner", InnerPx));
-        public static Sprite Rim => _rim ? _rim : (_rim = Make("bucket_rim", RimPx));
-
-        private static Color ShellPx(float x, float y)
-        {
-            float dx = x - 0.5f;
-            // Kulp: ağzın üstünde yarım elips çizgisi.
-            float ex = dx / (TopW * 0.92f), ey = (y - TopY) / 0.24f;
-            float r = Mathf.Sqrt(ex * ex + ey * ey);
-            float handle = y > TopY - 0.01f ? Edge(0.035f - Mathf.Abs(r - 1f) * 0.24f) : 0f;
-            var col = new Color(0f, 0f, 0f, 0f);
-            if (handle > 0f) col = Over(col, new Color(0.55f, 0.58f, 0.62f, handle));
-            // Gövde (beyaz; renk Image.color ile): soldan sağa hafif gölge, kenarda koyu çizgi.
-            if (y >= BotY - 0.02f && y <= TopY + 0.02f)
-            {
-                float hw = HalfW(Mathf.Clamp(y, BotY, TopY));
-                float inside = Mathf.Min(hw - Mathf.Abs(dx), Mathf.Min(y - BotY, TopY - y) + 0.02f);
-                float a = Edge(inside);
-                if (a > 0f)
-                {
-                    float shade = 1f - 0.22f * Mathf.InverseLerp(-hw, hw, dx);
-                    float line = inside < 0.018f ? 0.62f : 1f;
-                    // Gövde bantları (iki yatay şerit).
-                    float band = Mathf.Abs(y - 0.30f) < 0.018f || Mathf.Abs(y - 0.52f) < 0.018f ? 0.86f : 1f;
-                    float v = shade * line * band;
-                    col = Over(col, new Color(v, v, v, a));
-                }
-            }
-            return col;
-        }
-
-        private static Color InnerPx(float x, float y)
-        {
-            float dx = x - 0.5f;
-            if (y < BotY + 0.03f || y > TopY - 0.02f) return new Color(1f, 1f, 1f, 0f);
-            float hw = HalfW(y) - 0.035f;
-            float a = Edge(Mathf.Min(hw - Mathf.Abs(dx), y - BotY - 0.03f));
-            float v = 0.82f + 0.18f * Mathf.InverseLerp(BotY, TopY, y);
-            return new Color(v, v, v, a * 0.92f);
-        }
-
-        private static Color RimPx(float x, float y)
-        {
-            // Ağız: üstte açık renkli elips halka; altta koyu taban halkası.
-            float dx = (x - 0.5f) / (TopW + 0.02f), dy = (y - TopY) / 0.06f;
-            float r = Mathf.Sqrt(dx * dx + dy * dy);
-            float top = Edge((0.16f - Mathf.Abs(r - 0.88f)) * 0.12f);
-            var col = new Color(0f, 0f, 0f, 0f);
-            if (top > 0f) col = Over(col, new Color(1f, 1f, 1f, top * 0.95f));
-            float bx = (x - 0.5f) / (BotW + 0.01f), by = (y - BotY) / 0.035f;
-            float br = Mathf.Sqrt(bx * bx + by * by);
-            float bot = y < BotY + 0.01f ? Edge((1f - br) * 0.05f) : 0f;
-            if (bot > 0f) col = Over(col, new Color(0f, 0f, 0f, bot * 0.25f));
-            return col;
-        }
-
-        private static float Edge(float d) => Mathf.Clamp01(d * N / 1.5f + 0.5f);
-
-        private static Color Over(Color dst, Color src)
-        {
-            float a = src.a + dst.a * (1f - src.a);
-            if (a <= 0f) return new Color(0f, 0f, 0f, 0f);
-            var c = (src * src.a + dst * dst.a * (1f - src.a)) / a;
-            c.a = a;
-            return c;
-        }
-
-        private static Sprite Make(string name, Func<float, float, Color> f)
-        {
-            var tex = new Texture2D(N, N, TextureFormat.RGBA32, false) { name = name, wrapMode = TextureWrapMode.Clamp, filterMode = FilterMode.Bilinear, hideFlags = HideFlags.DontSave };
-            var px = new Color32[N * N];
-            for (int j = 0; j < N; j++)
-            for (int i = 0; i < N; i++)
-                px[j * N + i] = f((i + 0.5f) / N, (j + 0.5f) / N);
-            tex.SetPixels32(px);
-            tex.Apply(false, true);
-            var s = Sprite.Create(tex, new Rect(0, 0, N, N), new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect);
-            s.name = name;
-            return s;
-        }
+        private static Sprite _back, _front, _ribbon, _eBack, _eFront, _eRibbon;
+        public static Sprite EmptyBack => _eBack ? _eBack : (_eBack = Resources.Load<Sprite>("Bag/bagempty-back"));
+        public static Sprite EmptyFront => _eFront ? _eFront : (_eFront = Resources.Load<Sprite>("Bag/bagempty-front"));
+        public static Sprite EmptyRibbon => _eRibbon ? _eRibbon : (_eRibbon = Resources.Load<Sprite>("Bag/bagempty-ribbon"));
+        public static Sprite Back => _back ? _back : (_back = Resources.Load<Sprite>("Bag/bag-back"));
+        public static Sprite Front => _front ? _front : (_front = Resources.Load<Sprite>("Bag/bag-front"));
+        public static Sprite Ribbon => _ribbon ? _ribbon : (_ribbon = Resources.Load<Sprite>("Bag/bag-ribbon"));
     }
 }

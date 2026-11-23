@@ -18,6 +18,9 @@ namespace KatKat.UI
         public RectTransform Icon;
         public GoalState Goal;
         private Text _count;
+        /// <summary>Gösterilen ilerleme (sayaç sayarak artarken kaldığı yer).</summary>
+        public int Shown { get; private set; }
+        private float _countPulse;
         private RectTransform _check;
         private Image _sparkle, _glow;
         private float _pulse;
@@ -160,12 +163,14 @@ namespace KatKat.UI
         public void Set(int progress, bool pulse)
         {
             int shown = Mathf.Min(progress, Goal.Amount);
+            Shown = shown;
             _count.text = shown + "/" + Goal.Amount;
             _check.gameObject.SetActive(progress >= Goal.Amount);
             if (pulse)
             {
                 _pulse = 1f;
                 _flash = 0f;
+                _countPulse = 1f;
             }
         }
 
@@ -175,6 +180,12 @@ namespace KatKat.UI
             bool scaleDirty = _pulse > 0f || !Mathf.Approximately(_focus, target);
             _focus = Mathf.MoveTowards(_focus, target, dt / (Focus ? 0.22f : 0.3f));
             if (_pulse > 0f) _pulse = Mathf.Max(0f, _pulse - dt * 4f);
+            if (_countPulse > 0f)
+            {
+                // Sayı her artışta büyüyüp yerine oturur (2026-11-24: "görev sayısı efektif artmıyor").
+                _countPulse = Mathf.Max(0f, _countPulse - dt * 4f);
+                _count.transform.localScale = Vector3.one * (1f + 0.3f * Mathf.Sin(_countPulse * Mathf.PI));
+            }
             if (scaleDirty || _focus > 0f)
             {
                 float f = _focus * _focus * (3f - 2f * _focus);

@@ -772,6 +772,8 @@ namespace KatKat.View
             if (result.Command.Type == CommandType.Swap) { PlaySwapChips(result); t = SwapMs; }
             int flowWave = 0, flowTick = 0;
             float flowArrive = -1f;
+            _streamIdx = 0;
+            _streamTotal = 0;
             foreach (var wave in result.Waves)
             {
                 var w = wave;
@@ -800,14 +802,40 @@ namespace KatKat.View
                 // (roket, rulo…) hücre başına daha çok taş akıtır (1–4).
                 int stones = Mathf.Clamp(1 + Mathf.Min(2, w.Index) + (w.Cells.Count >= 9 ? 2 : w.Cells.Count >= 6 ? 1 : 0)
                     + (special || w.Kind == WaveKind.Roll ? 1 : 0), 1, PeelSequence.MaxStones);
+                // 2026-11-24 akış (kullanıcı: "tüm oyunda taşların hedefe gidiş şeklini torbaya gidişi gibi yapalım en yakın taştan
+                // gitmeye başlar ve ses doğru orantıda çıkar. parçalanma olmayacak taşlara bastığımız andaki"): dokunuş dalgasında ve
+                // torbaya giden taşlarda taş kırılmaz; hedefine (görev simgesi, torba ya da yıldız çubuğu) en yakın taş önce kalkar,
+                // diğerleri kısa aralıklarla art arda; her varışta bir ses (StreamArrived). Özel taş patlamaları eski görünümde.
+                bool tapStream = StreamTaps && w.Kind == WaveKind.Tap && !special && !charged;
+                Vector3 DestOf(int ci2)
+                {
+                    var c2 = w.Cells[ci2];
+                    if (BucketTarget != null && w.BucketCells.Contains(ci2)) return BucketTarget();
+                    bool goal2 = BucketTarget == null && (IsGoalColor == null || IsGoalColor(c2.Removed));
+                    return goal2 || ScoreTarget == null ? goalTarget(c2.Removed) : ScoreTarget();
+                }
+                var bagRank = StreamOrder(w, ci2 => tapStream || (BucketTarget != null && w.BucketCells.Contains(ci2)), DestOf);
+                float bagStep = bagRank.Count > 0 ? Mathf.Clamp(650f / bagRank.Count, 28f, 60f) : 0f;
+                _streamTotal += bagRank.Count;
+                float streamArrive = -1f, streamSpread = 0f;
                 for (int ci = 0; ci < w.Cells.Count; ci++)
                 {
                     var cp = w.Cells[ci];
                     bool toBucket = BucketTarget != null && w.BucketCells.Contains(ci);
+                    bool inStream = bagRank.ContainsKey(ci);
+                    int cellIndex = ci;
                     // Aynı dalga birlikte başlar; en çok 20 ms belirlenimli görsel sapma. Özel taşta soyulma, roket/ışık
                     // hücreye vardığında başlar (kaynaktan uzaklığa göre).
                     float delay = special ? SD(cp.X, cp.Y) : ((cp.X + cp.Y) % 3) * 10f;
-                    spread = Mathf.Max(spread, delay);
+                    float bagFly = 0f;
+                    if (bagRank.TryGetValue(ci, out var br))
+                    {
+                        delay = (special ? SD(cp.X, cp.Y) : 0f) + br.Rank * bagStep;
+                        bagFly = 240f + 34f * br.Dist;
+                        streamArrive = Mathf.Max(streamArrive, delay + PeelSequence.IntactHopMs + bagFly);
+                        streamSpread = Mathf.Max(streamSpread, delay);
+                    }
+                    else spread = Mathf.Max(spread, delay);
                     At((charged ? launch : start) + delay, () =>
                     {
                         var stack = StackAt(cp.X, cp.Y);
@@ -819,12 +847,18 @@ namespace KatKat.View
                         {
                             var removed = cp.Removed;
                             bool focusGoal = isGoal && IsGoalColor != null && !toBucket;
-                            var dest = toBucket ? BucketTarget() : goalTarget(removed);
+                            var dest = inStream ? DestOf(cellIndex) : toBucket ? BucketTarget() : goalTarget(removed);
                             FlowStarted(removed, focusGoal);
                             var seq = _director.Peel(stack, dest, star, ScoreTarget == null ? 1f : isGoal ? 0.5f : 0f,
-                                _ => { FlowEnded(removed, focusGoal); if (toBucket) BucketArrived?.Invoke(removed); }, 0f, stones, GatherPoint());
+                                _ =>
+                                {
+                                    FlowEnded(removed, focusGoal);
+                                    if (toBucket) BucketArrived?.Invoke(removed);
+                                    if (inStream) StreamArrived?.Invoke(_streamIdx++, _streamTotal);
+                                }, 0f, stones, GatherPoint());
                             seq.Charged = charged;
-                            seq.Intact = toBucket; // kova kipi: taş kırılmadan kovaya
+                            seq.Intact = inStream; // akış: taş kırılmadan hedefe
+                            seq.IntactFlyMs = bagFly;
                             RaiseVeil(isGoal ? dest : (Vector3?)null);
                         }
                         else Debug.LogError($"[KatKat] Görünüm mantıktan ayrıştı: ({cp.X},{cp.Y}) boş");
@@ -835,13 +869,15 @@ namespace KatKat.View
                 // 2026-11-19 (kullanıcı: "taşlar patladığında yükseğe doğru çıkarken titreşim efekti verelim kombolarda kademeli
                 // artarak … hedefe giderken kazanç, kasa doluyormuş ses efektide verelim. Taşın sayısına göre ses tekrarlasın …
                 // Senkronize bir efekt olsun"): yükseliş darbeleri ve varış tıkları aynı zaman çizelgesinden.
+                // 2026-11-24 torba: torbaya giden taşların sesi varışlarında (BucketArrived); burada yalnız diğer taşlar.
+                int flowCells = w.Cells.Count - bagRank.Count;
                 if (w.Cells.Count > 0)
                 {
                     int level = Mathf.Clamp((stones - 1) + flowWave, 0, 2);
                     int pulses = Mathf.Clamp(1 + w.Cells.Count / 3, 1, 5);
                     for (int p = 0; p < pulses; p++)
                         At(start + PeelSequence.BreakAt + 30f + p * 50f, () => FlowRise?.Invoke(level));
-                    int ticks = Mathf.Clamp(w.Cells.Count * stones, 1, 12);
+                    int ticks = flowCells > 0 ? Mathf.Clamp(flowCells * stones, 1, 12) : 0;
                     float arrive = start + spread + PeelSequence.ArriveAt;
                     float earliest = start + PeelSequence.FlyStart;
                     float gap = Mathf.Min(55f, (arrive - earliest) / Mathf.Max(1, ticks));
@@ -850,7 +886,7 @@ namespace KatKat.View
                         int idx = flowTick++;
                         At(arrive - (ticks - 1 - i) * gap, () => FlowTick?.Invoke(idx));
                     }
-                    flowArrive = Mathf.Max(flowArrive, arrive);
+                    if (ticks > 0) flowArrive = Mathf.Max(flowArrive, arrive);
                     flowWave++;
                 }
                 foreach (var h in w.ClipHits)
@@ -929,12 +965,16 @@ namespace KatKat.View
                     // Sayaç, ilgili renk katmanları kalkıp okunur hâle geldiğinde düşer.
                     At(start + PeelSequence.ReadableAt, () => HitLock(StackAt(hit.X, hit.Y), hit.RemainingAfter));
                 }
-                At(start + spread + PeelSequence.ArriveAt, () => onWaveArrived?.Invoke(w)); // 2026-11-19: taş hedefe varınca
+                // 2026-11-19: taş hedefe varınca; akışta son taş varınca (kırılan taş yoksa).
+                float waveArrive = flowCells > 0 || streamArrive < 0f ? spread + PeelSequence.ArriveAt : 0f;
+                if (streamArrive >= 0f) waveArrive = Mathf.Max(waveArrive, streamArrive + 20f);
+                At(start + waveArrive, () => onWaveArrived?.Invoke(w));
                 // 2026-11-19: uçuş yavaşladı; HoldUntilArrive kapalıysa hamle yığın işi bitince biter (girdi kilitlenmez),
                 // taşlar/yıldızlar uçmaya ve HUD sayaçları varışta (onWaveArrived) güncellenmeye devam eder.
-                last = Mathf.Max(last, start + spread + (HoldUntilArrive ? PeelSequence.Duration : PeelSequence.StackDoneAt) + 30f);
+                // Akışta son taş geç kalkar: hamle (ve sonraki dalga) onun yığını bırakmasını bekler.
+                last = Mathf.Max(last, start + Mathf.Max(spread, streamSpread) + (HoldUntilArrive ? PeelSequence.Duration : PeelSequence.StackDoneAt) + 30f);
                 // Özel taş dalgasında sıradaki dalga süpürme bitince; dönüşüm dalgası (hücresiz) kısa.
-                float step = special ? (w.Cells.Count == 0 ? 120f + 90f * w.Triggered.Count : spread + PeelSequence.ReadableAt) : interval;
+                float step = special ? (w.Cells.Count == 0 ? 120f + 90f * w.Triggered.Count : Mathf.Max(spread, streamSpread) + PeelSequence.ReadableAt) : Mathf.Max(interval, streamSpread + PeelSequence.ReadableAt);
                 // M11: açılan geçit hücreleri sonraki dalgada soyulabilir; görünüm onları açmadan sıradaki dalga başlamasın.
                 if (w.GateOpens.Count > 0) step = Mathf.Max(step, PeelSequence.ReadableAt + 200f + w.GateOpens.Count * 110f + 60f);
                 t += step;
@@ -1124,6 +1164,24 @@ namespace KatKat.View
             return SpecialLead + 40f + Mathf.Sqrt(dx * dx + dy * dy) * RainbowCellMs;
         }
 
+        /// <summary>Torbaya gidecek hücrelerin sırası (torbaya uzaklığa göre) ve uzaklığı (hücre).</summary>
+        private Dictionary<int, (int Rank, float Dist)> StreamOrder(PeelWave w, Func<int, bool> inStream, Func<int, Vector3> destOf)
+        {
+            var map = new Dictionary<int, (int, float)>();
+            var list = new List<(int ci, float d)>();
+            for (int ci = 0; ci < w.Cells.Count; ci++)
+            {
+                if (!inStream(ci)) continue;
+                var c = w.Cells[ci];
+                var target = transform.InverseTransformPoint(destOf(ci));
+                var p = CellCenter(c.X, c.Y);
+                list.Add((ci, Vector2.Distance(new Vector2(p.x, p.y), new Vector2(target.x, target.y)) / Mathf.Max(0.0001f, _pitch)));
+            }
+            list.Sort((a, b) => a.d.CompareTo(b.d));
+            for (int i = 0; i < list.Count; i++) map[list[i].ci] = (i, list[i].d);
+            return map;
+        }
+
         /// <summary>Doğan özel taşın uçacağı dünya noktası (HUD tepsi yuvası); atanmamışsa yerinde söner.</summary>
         public Func<Vector3> TrayTarget { get; set; }
         /// <summary>v10: yıldız (puan) çubuğu hedefi ve rengin görev olup olmadığı (kırılan taş parçalarının yönü).</summary>
@@ -1153,6 +1211,11 @@ namespace KatKat.View
         /// <summary>2026-11-23 kova kipi: kovanın dünya konumu (null: kova yok) ve kovaya varan her taş.</summary>
         public Func<Vector3> BucketTarget { get; set; }
         public Action<LayerColor> BucketArrived { get; set; }
+        /// <summary>Akıştaki bir taş hedefine vardı: (hamledeki sırası, hamledeki akış taşı sayısı). Ses ve titreşim buradan.</summary>
+        public Action<int, int> StreamArrived { get; set; }
+        /// <summary>Dokunuş dalgasında taşlar kırılmadan, en yakından sırayla akar (2026-11-24). Kapalıysa eski kırılma efekti.</summary>
+        public static bool StreamTaps = true;
+        private int _streamIdx, _streamTotal;
         /// <summary>Hamlenin son taşı vardığında kapanış "ka-ching".</summary>
         public Action FlowFinal { get; set; }
         private readonly Dictionary<LayerColor, int> _flowCount = new Dictionary<LayerColor, int>();
@@ -2191,6 +2254,7 @@ namespace KatKat.View
         {
             _timeline.Clear();
             _director?.CompleteAll();
+            FinishDrops();
             _veil?.Clear();
             ResetFlowFocus();
             foreach (var s in _shakes) if (s.Stack) s.Stack.transform.localRotation = Quaternion.identity;

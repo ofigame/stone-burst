@@ -92,6 +92,11 @@ namespace KatKat.View
         /// sayaçlar aynı zaman çizelgesinde).
         /// </summary>
         public bool Intact { get; set; }
+        /// <summary>2026-11-24 (kullanıcı: "taşlar torbaya hep birlikte yavaş şekilde gidiyor. En yakın taştan en uzak taşa sırayla seri
+        /// şekilde aksınlar"): kırılmadan uçuşun süresi (ms, sıçrama hariç); 0 ise eski <see cref="ArriveAt"/>.</summary>
+        public float IntactFlyMs { get; set; }
+        /// <summary>Akışta yerinde sıçrama süresi (ms).</summary>
+        public const float IntactHopMs = 90f;
         /// <summary>Toplanma noktası: kaynaktan görev simgesine doğru yatayda %65, dikeyde %50, en az 2,2 taş yukarı (aynı renk bir araya gelir, hedefe uzun uçuş kalır).</summary>
         private const float GatherX = 0.65f, GatherY = 0.5f;
 
@@ -733,7 +738,8 @@ namespace KatKat.View
             }
             sr.enabled = true;
             float z = _origin.z - 0.02f;
-            const float Hop = 160f;
+            float Hop = IntactFlyMs > 0f ? IntactHopMs : 160f;
+            float arrive = IntactFlyMs > 0f ? Hop + IntactFlyMs : ArriveAt;
             float full = size * BigScale * 0.92f;
             if (ms < Hop)
             {
@@ -747,8 +753,8 @@ namespace KatKat.View
                 sr.color = UnityEngine.Color.white;
                 return;
             }
-            float u = Mathf.Clamp01((ms - Hop) / (ArriveAt - Hop));
-            float e = u * u * (3f - 2f * u);
+            float u = Mathf.Clamp01((ms - Hop) / (arrive - Hop));
+            float e = IntactFlyMs > 0f ? u * u * (1.6f - 0.6f * u) : u * u * (3f - 2f * u); // seri akış: hızlanarak girer
             var start = _origin + new Vector3(0f, size * 0.35f, 0f);
             var ctrl = Vector3.Lerp(start, _goalWorld, 0.45f) + new Vector3(_stoneArc[0], size * 1.6f, 0f);
             var a = Vector3.Lerp(start, ctrl, e);
@@ -757,13 +763,13 @@ namespace KatKat.View
             sr.transform.position = new Vector3(pos.x, pos.y, z);
             WorldSize(sr, Mathf.Lerp(full, IconScale * size, e));
             sr.transform.rotation = Quaternion.Euler(0f, 0f, _stoneArc[0] * 40f * Mathf.Sin(e * Mathf.PI));
-            if (ms >= ArriveAt && !_arrived)
+            if (ms >= arrive && !_arrived)
             {
                 _arrived = true;
                 sr.enabled = false;
                 _onArrive?.Invoke(this);
             }
-            if (ms >= ArriveAt)
+            if (ms >= arrive)
             {
                 Cleanup();
                 IsDone = true;

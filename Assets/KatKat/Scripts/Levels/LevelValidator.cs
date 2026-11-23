@@ -18,7 +18,7 @@ namespace KatKat.Levels
         public static readonly ValidationScope SecondStage = new ValidationScope { AllowedSizes = new[] { 4, 5, 6 }, MaxLayers = 4, AllowClips = true, AllowStars = true };
 
         /// <summary>schemaVersion 2'de geçerli yetenek adları (Premium-v2 rehberi §12).</summary>
-        public static readonly string[] KnownCapabilities = { "clip", "star", "ice", "colorLock", "envelope", "rotor", "specials", "sponge", "linkedClip", "gate", "paint", "stages", "seal", "areas", "gravel", "buckets" }; // vr1 P3: stages/seal/areas yalnız pilot katalog (v14: seal tanınır ama reddedilir)
+        public static readonly string[] KnownCapabilities = { "clip", "star", "ice", "colorLock", "envelope", "rotor", "specials", "sponge", "linkedClip", "gate", "paint", "stages", "seal", "areas", "gravel", "buckets", "refill" }; // vr1 P3: stages/seal/areas yalnız pilot katalog (v14: seal tanınır ama reddedilir)
 
         /// <summary>
         /// schemaVersion 1: belge Bölüm 15 — ilk 20 bölümde ataş, yıldız, 6x6 ve dört katman yok (kimlik "level_###").
@@ -63,6 +63,11 @@ namespace KatKat.Levels
             if (d.Rules.Contains("chainOnly")) e.Add($"{id}: chainOnly kuralı v14'te kaldırıldı, desteklenmiyor");
             if (d.TrialType == "chain" || d.TrialType == "aha") e.Add($"{id}: '{d.TrialType}' türü zincire bağlıydı, v14'te desteklenmiyor");
             if (d.Cells.Exists(c => c.Area != 0) && !d.Capabilities.Contains("areas")) e.Add($"{id}: iki alan için areas yeteneği gerekli");
+            if (d.HasRefill)
+            {
+                if (!d.Capabilities.Contains("refill")) e.Add($"{id}: yukarıdan dolma için refill yeteneği gerekli");
+                if (d.RefillCount < 0 || d.RefillMinLayers < 1 || d.RefillMaxLayers < d.RefillMinLayers || d.RefillMaxLayers > 4) e.Add($"{id}: refill değerleri geçersiz");
+            }
             // 2026-11-23 kova kipi: süreli; her renk hedefi o rengin kova toplamına eşit.
             if (d.Buckets.Count > 0)
             {
@@ -177,7 +182,7 @@ namespace KatKat.Levels
                 if (g.Type == "collectColor")
                 {
                     if (!ColorIds.TryParse(g.Color, out var col)) e.Add($"{id}: hedefte bilinmeyen renk '{g.Color}'");
-                    else if (g.Amount > colorTotals[(int)col]) e.Add($"{id}: {g.Color} hedefi {g.Amount}, tahtada {colorTotals[(int)col]} katman var");
+                    else if (!d.HasRefill && g.Amount > colorTotals[(int)col]) e.Add($"{id}: {g.Color} hedefi {g.Amount}, tahtada {colorTotals[(int)col]} katman var");
                 }
                 else if (g.Type == "collectChain") e.Add($"{id}: zincir hedefi (collectChain) v14'te kaldırıldı, desteklenmiyor");
                 else if (g.Type == "collectStars")

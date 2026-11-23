@@ -18,7 +18,7 @@ namespace KatKat.Core
         public int Have;
         /// <summary>Kovanın alabileceği en çok taş (rengin kalan görevi).</summary>
         public int Need;
-        /// <summary>Oyuncu dokunarak gönderdi (renk görevi bitmedi; renk sıranın sonuna eklendi).</summary>
+        /// <summary>Rengin görevi bitmeden gönderildi (renk sıranın sonuna eklendi). Gönderim her zaman oyuncunun dokunuşuyla.</summary>
         public bool Partial;
         /// <summary>Gönderimden sonra gelen kova (yoksa Active false).</summary>
         public bool NextActive;
@@ -32,7 +32,7 @@ namespace KatKat.Core
     /// zaman göndermek istersem üzerine tıklayıp göndereceğim, yeni kova gelecek").
     /// <para>Sırada bir etkin kova vardır. Soyulan taş kovanın rengindeyse kovaya girer (en çok o rengin kalan görevi kadar). Başka
     /// renkler kovaya girmez. Oyuncu kovaya dokunursa içindeki kadarı teslim edilir; rengin görevi bitmediyse renk sıranın sonuna
-    /// eklenir; sıradaki (görevi bitmemiş) renk gelir. Kova rengin kalan görevini tamamlarsa kendiliğinden gider. Renk hedefleri
+    /// eklenir; sıradaki (görevi bitmemiş) renk gelir. Torba kendiliğinden gitmez ve boşken de gönderilebilir (2026-11-23). Renk hedefleri
     /// yalnız teslimle ilerler; hepsi tamamlanınca bölüm kazanılır (süre bitmeden). Kural <see cref="RulesEngine"/>'de.</para>
     /// </summary>
     public sealed class BucketRun
