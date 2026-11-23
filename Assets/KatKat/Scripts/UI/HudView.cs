@@ -1139,6 +1139,14 @@ namespace KatKat.UI
             _mascot?.SetWorried(t <= 10);
         }
 
+        /// <summary>Süreli bölümde görev bitti: sayaç kırmızı uyarıdan çıkar, maskot rahatlar (kalan süre aynı kalır).</summary>
+        public void TimerCalm()
+        {
+            if (_moves == null) return;
+            _moves.color = new Color32(0xFF, 0xCE, 0x3A, 0xFF);
+            _mascot?.SetWorried(false);
+        }
+
         /// <summary>Süreli bölümde hamle sayısı yazılmaz (süre gösterilir).</summary>
         public bool TimerMode { get; set; }
 

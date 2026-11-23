@@ -29,6 +29,7 @@ namespace KatKat.Game
         {
             _timed = _level != null && _level.TimeLimit > 0;
             _timeUp = false;
+            _calmed = false;
             _timeLeft = _timed ? _level.TimeLimit : 0f;
             _hud.TimerMode = _timed;
             _hud.SetTimer(_timed ? _timeLeft : -1f);
@@ -40,7 +41,13 @@ namespace KatKat.Game
         private void TimedTick(float dt)
         {
             if (!_timed || _timeUp || _session == null) return;
-            if (_session.State.Status != GameStatus.Idle) return;
+            if (_session.State.Status != GameStatus.Idle)
+            {
+                // 2026-11-23 (kullanıcı: "eğer 10 saniye içerisinde görev tamamlanırsa uyarı vermeyi kessin"): görev bittiği anda
+                // kalp atışı, uyarı sesi/titreşimi ve kırmızı sayaç durur.
+                if (_session.State.Status == GameStatus.Won) TimedCalm();
+                return;
+            }
             if (CurrentPhase != Phase.Idle && CurrentPhase != Phase.Animating) return;
             if (_hud.PanelOpen || _menu.IsOpen || _hud.RuleCardOpen || _celebrating) return;
             _timeLeft = Mathf.Max(0f, _timeLeft - dt);
@@ -48,6 +55,15 @@ namespace KatKat.Game
             _board.SetHeartbeat(_timeLeft <= TimedUrgentSeconds ? 1f - _timeLeft / TimedUrgentSeconds : 0f);
             if (_timeLeft <= 0f) TimeUp();
         }
+
+        private void TimedCalm()
+        {
+            if (_calmed) return;
+            _calmed = true;
+            _board.SetHeartbeat(0f);
+            _hud.TimerCalm();
+        }
+        private bool _calmed;
 
         /// <summary>Süreli bölüme süre ekler (+Hamle güçlendiricisi).</summary>
         public void AddTime(float sec)

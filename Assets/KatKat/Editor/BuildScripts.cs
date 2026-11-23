@@ -280,7 +280,22 @@ namespace KatKat.EditorTools
                 }
                 PlayerSettings.SetPlatformIcons(android, kind, icons);
             }
-            Debug.Log("[KatKat] Uygulama ikonu uygulandı (" + n + " Android yuvası, uyarlanabilir katmanlı)");
+            // iOS (kullanıcı 2026-11-23: "iosta bildirim ekranında uygulamanın eski iconu görünüyor hala"): iOS yuvaları boştu ve
+            // varsayılandan ölçekleniyordu; uygulama, bildirim, ayarlar, Spotlight ve App Store yuvalarının hepsi açıkça yeni ikona
+            // bağlanır (Xcode AppIcon kümesinde eski/eksik boyut kalmasın).
+            int m = 0;
+            try
+            {
+                var ios = UnityEditor.Build.NamedBuildTarget.iOS;
+                foreach (var kind in PlayerSettings.GetSupportedIconKinds(ios))
+                {
+                    var icons = PlayerSettings.GetPlatformIcons(ios, kind);
+                    foreach (var icon in icons) { icon.SetTexture(main); m++; }
+                    PlayerSettings.SetPlatformIcons(ios, kind, icons);
+                }
+            }
+            catch (Exception e) { Debug.LogWarning("[KatKat] iOS ikon yuvaları ayarlanamadı (iOS modülü yok?): " + e.Message); }
+            Debug.Log("[KatKat] Uygulama ikonu uygulandı (" + n + " Android, " + m + " iOS yuvası)");
         }
 
         /// <summary>

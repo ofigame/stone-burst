@@ -389,6 +389,36 @@ namespace KatKat.Tests
             _gc.AdvanceTimeForTest(1f);
             Assert.Less(_gc.TimeLeft, full, "süre azalıyor");
         }
+
+        /// <summary>2026-11-23 (kullanıcı: "eğer 10 saniye içerisinde görev tamamlanırsa uyarı vermeyi kessin"): son 10 saniyede görev
+        /// bitince kalp atışı (ses/titreşim) ve kırmızı uyarı durur.</summary>
+        [UnityTest]
+        public IEnumerator Timed_WinInsideLastTenSeconds_StopsWarning()
+        {
+            _gc.StartLevel(40);
+            yield return null;
+            _gc.Hud.HideRuleCard(false);
+            _gc.Board.Director.TimeScale = Speed;
+            _gc.AdvanceTimeForTest(_gc.CurrentLevel.TimeLimit - 8f);
+            yield return null;
+            yield return null;
+            Assert.IsTrue(_gc.Board.HeartbeatOn, "son 10 saniyede kalp atışı");
+            int beats = 0;
+            var sol = _gc.CurrentLevel.Solution;
+            foreach (var step in sol)
+            {
+                if (_gc.Session.State.Status != GameStatus.Idle) break;
+                _gc.PlayStep(step);
+                yield return WaitStable();
+            }
+            Assert.AreEqual(GameStatus.Won, _gc.Session.State.Status, "kayıtlı çözüm süre bitmeden kazanır");
+            yield return null;
+            Assert.IsFalse(_gc.Board.HeartbeatOn, "görev bitti: kalp atışı durdu");
+            _gc.Board.OnBeat += () => beats++;
+            for (int i = 0; i < 30; i++) yield return null;
+            _gc.Board.AdvanceTimedFx(2f);
+            Assert.AreEqual(0, beats, "görev bittikten sonra uyarı atışı yok");
+        }
         [UnityTest]
         public IEnumerator V11_Special_CreatedToTray_Targeted_Used_Undone_WithNewIcons()
         {

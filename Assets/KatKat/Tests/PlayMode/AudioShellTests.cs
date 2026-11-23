@@ -167,6 +167,44 @@ namespace KatKat.Tests
             _gc.Sound.OnPlayed = null;
         }
 
+        /// <summary>
+        /// 2026-11-23 (kullanıcı: "taşların hedefe gitme sesleri üst üste biniyor. sesler tane tane seri şekilde … akmalı"): aynı anda
+        /// gelen varış sesleri sıralı kanalda tek tek, en az <see cref="SoundBank.SerialGap"/> arayla çalar; kuyruk sınırlı, kapanış
+        /// sesi atlanmaz; gerçek hamlede de hiçbir iki varış sesi bu aralıktan sık başlamaz.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator FlowSounds_PlaySeriallyWithoutOverlap()
+        {
+            var s = _gc.Sound;
+            s.ClearSerial();
+            s.ResetSerialStats();
+            var played = new System.Collections.Generic.List<string>();
+            s.OnPlayed = n => played.Add(n);
+            for (int i = 0; i < 12; i++) Assert.IsTrue(s.QueueV17("jelly-pop", i * 0.5f));
+            Assert.IsTrue(s.QueueV17("goal-collect", 0f, 1f, true));
+            Assert.AreEqual(1, played.Count, "ilk ses hemen, diğerleri sırada");
+            Assert.AreEqual(SoundBank.SerialMax + 1, s.SerialPending, "kuyruk sınırlı, kapanış sesi atlanmadı");
+            for (int i = 0; i < 40 && s.SerialPending > 0; i++) s.AdvanceSerial(SoundBank.SerialGap * 0.5f);
+            Assert.AreEqual(0, s.SerialPending);
+            Assert.AreEqual("goal-collect", played[played.Count - 1], "kapanış sesi en sonda");
+            Assert.GreaterOrEqual(s.SerialMinSpacing, SoundBank.SerialGap - 0.001f, "iki ses arası en az SerialGap");
+
+            // Gerçek hamle: varış sesleri aynı ölçütle.
+            s.ClearSerial();
+            s.ResetSerialStats();
+            _gc.StartLevel(2);
+            _gc.Board.Director.TimeScale = 3f;
+            int pops = 0;
+            s.OnPlayed = n => { if (n == "jelly-pop") pops++; };
+            _gc.PlayStep(_gc.CurrentLevel.Solution[0]);
+            float limit = Time.realtimeSinceStartup + 15f;
+            while ((_gc.CurrentPhase == GameController.Phase.Animating || s.SerialPending > 0) && Time.realtimeSinceStartup < limit) yield return null;
+            for (int i = 0; i < 60; i++) yield return null;
+            Assert.Greater(pops, 1, "varış sesleri çaldı");
+            Assert.GreaterOrEqual(s.SerialMinSpacing, SoundBank.SerialGap - 0.02f, "gerçek hamlede de üst üste binme yok");
+            s.OnPlayed = null;
+        }
+
         /// <summary>v10 taş vitrini: kazanılmış karta dokununca açılır (3D model varsa döner), kilitli kart açılmaz.</summary>
         [Test]
         public void Showcase_OwnedCardOpens3D_LockedDoesNot()

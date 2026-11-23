@@ -40,14 +40,19 @@ namespace KatKat.UI
         private Button BadgeButton(string name, RectTransform shell, Sprite art, float centerY, string label, bool darkPlaque, int size, Action act, out TextMeshProUGUI text, Color? glow = null)
         {
             float h = BadgeW * art.rect.height / art.rect.width;
-            var at = new Vector2(-V11ColumnX, centerY);
+            // 2026-11-23 (kullanıcı: "üst alandan iple sarkıyormuş gibi olsun … ipten sallanma efekti"): rozetin bütün parçaları
+            // tek askıda; HangColumns ipleri bağlar ve askıyı ipin ucundan hafifçe sallar.
+            var hold = UiFactory.Rect(name + HangSuffix, shell);
+            UiFactory.Place(hold, new Vector2(0.5f, 1f), new Vector2(-V11ColumnX, centerY), new Vector2(BadgeW, h));
+            shell = hold;
+            var at = Vector2.zero;
 
             // Işıltı: rozetten büyük yumuşak hale, düğmenin arkasında (dokunma yakalamaz).
             var halo = Decor(name + "Glow", shell, GlowSprite);
             halo.raycastTarget = false;
             var tint = glow ?? new Color(1f, 0.78f, 0.2f, 1f);
             halo.color = new Color(tint.r, tint.g, tint.b, BadgeGlow.Max);
-            UiFactory.Place(halo.rectTransform, new Vector2(0.5f, 1f), at, new Vector2(BadgeW * 1.55f, h * 1.5f));
+            UiFactory.Place(halo.rectTransform, new Vector2(0.5f, 0.5f), at, new Vector2(BadgeW * 1.55f, h * 1.5f));
             halo.gameObject.AddComponent<BadgeGlow>();
 
             // Zemin kartı (2026-11-23, kullanıcı: "harita üzerindeki menü butonları belli olmuyor yeşillikte kayboluyor"): rozetlerin
@@ -56,15 +61,15 @@ namespace KatKat.UI
             var shadow = Decor(name + "Shadow", shell, Ui3.Rounded(34f, new Color(0.05f, 0.2f, 0.1f, 1f), new Color(0.05f, 0.2f, 0.1f, 1f)));
             shadow.type = Image.Type.Sliced;
             shadow.color = new Color(1f, 1f, 1f, 0.32f);
-            UiFactory.Place(shadow.rectTransform, new Vector2(0.5f, 1f), at + new Vector2(0f, -6f), cardSize + new Vector2(4f, 2f));
+            UiFactory.Place(shadow.rectTransform, new Vector2(0.5f, 0.5f), at + new Vector2(0f, -6f), cardSize + new Vector2(4f, 2f));
             var card = Decor(name + "Card", shell, Ui3.Rounded(34f, Ui3.IvoryTop, Ui3.IvoryBottom, 3f, Ui3.Brass));
             card.type = Image.Type.Sliced;
             card.color = new Color(1f, 1f, 1f, 0.95f);
-            UiFactory.Place(card.rectTransform, new Vector2(0.5f, 1f), at, cardSize);
+            UiFactory.Place(card.rectTransform, new Vector2(0.5f, 0.5f), at, cardSize);
 
             var b = UiFactory.SpriteButton(name, shell, art, new Vector2(BadgeW, h), act);
             b.GetComponent<Image>().preserveAspect = true;
-            UiFactory.Place((RectTransform)b.transform, new Vector2(0.5f, 1f), at, new Vector2(BadgeW, h));
+            UiFactory.Place((RectTransform)b.transform, new Vector2(0.5f, 0.5f), at, new Vector2(BadgeW, h));
             var col = darkPlaque ? (Color)Color.white : (Color)BadgeInk;
             var outline = darkPlaque ? (Color)new Color32(0x3A, 0x14, 0x66, 0xFF) : new Color(1f, 1f, 1f, 0f);
             text = UiFactory.Title("Label", b.transform, label, size, col, outline);

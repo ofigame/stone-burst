@@ -24,6 +24,7 @@ namespace KatKat.Game
             {
                 _enabled = value;
                 if (!value && _sources != null) foreach (var s in _sources) s.Stop();
+                if (!value) ClearSerial();
             }
         }
 
@@ -60,6 +61,14 @@ namespace KatKat.Game
                 s.spatialBlend = 0f;
                 s.volume = MasterGain;
                 b._sources[i] = s;
+            }
+            b._serial = new AudioSource[2];
+            for (int i = 0; i < b._serial.Length; i++)
+            {
+                var s = go.AddComponent<AudioSource>();
+                s.playOnAwake = false;
+                s.spatialBlend = 0f;
+                b._serial[i] = s;
             }
             b._clips = new[]
             {
@@ -157,6 +166,114 @@ namespace KatKat.Game
             PlayClip(clip, Mathf.Pow(2f, semitones / 12f), volume * (V17Gain.TryGetValue(name, out var g) ? g : 1f));
             return true;
         }
+
+        // ---- Sıralı kanal (kullanıcı 2026-11-23: "taşların hedefe gitme sesleri üst üste biniyor. sesler tane tane seri şekilde bir ses
+        // net olarak duyulacak şekilde akmalı. Üst üste bindiğinde farklı bir ses oluşuyor") ---------------------------------------
+        // Varış sesleri kuyruğa girer ve en az SerialGap arayla tek tek çalar; yeni ses başlarken öncekinin kuyruğu kısa sürede
+        // kısılır, böylece iki ses hiç üst üste binmez. Kuyruk dolarsa fazlası atlanır (ses akışı hamlenin çok gerisinde kalmasın);
+        // kapanış sesi (görev taşı) hiç atlanmaz.
+
+        /// <summary>İki varış sesi arası en kısa süre (sn) ve kuyrukta bekleyebilecek en çok ses.</summary>
+        public const float SerialGap = 0.11f, SerialFade = 0.035f;
+        public const int SerialMax = 8;
+
+        private struct Pending { public AudioClip Clip; public float Pitch, Volume; public bool Final; public Action Then; }
+        private AudioSource[] _serial;
+        private int _serialIdx;
+        private readonly System.Collections.Generic.List<Pending> _queue = new System.Collections.Generic.List<Pending>();
+        private float _serialNext = -1f, _fadeVol;
+        private AudioSource _fading;
+
+        /// <summary>Testler: kuyrukta bekleyen sıralı ses sayısı ve son iki sıralı sesin başlangıç zamanları arası en kısa süre.</summary>
+        public int SerialPending => _queue.Count;
+        public float SerialMinSpacing { get; private set; } = float.MaxValue;
+        private float _serialLastStart = -1f;
+
+        /// <summary>
+        /// V17 sesini sıralı kanalda çalar (yoksa false; çağıran eski sese düşer). <paramref name="final"/> kapanış sesi kuyruk
+        /// dolu olsa da atlanmaz. <paramref name="then"/> ses gerçekten başladığında (titreşim sesle aynı anda).
+        /// </summary>
+        public bool QueueV17(string name, float semitones = 0f, float volume = 1f, bool final = false, Action then = null)
+        {
+            var clip = V17(name);
+            if (clip == null) return false;
+            if (!_enabled) return true;
+            var p = new Pending
+            {
+                Clip = clip, Pitch = Mathf.Pow(2f, semitones / 12f),
+                Volume = volume * (V17Gain.TryGetValue(name, out var g) ? g : 1f), Final = final, Then = then,
+            };
+            float now = SerialNow;
+            if (_queue.Count == 0 && now >= _serialNext) { StartSerial(p, now); return true; }
+            if (!final && _queue.Count >= SerialMax) return true; // akış çok geride: bu varış sesi atlanır
+            _queue.Add(p);
+            return true;
+        }
+
+        /// <summary>Sıralı kanalı susturur ve kuyruğu boşaltır (bölüm değişimi, ses kapatma).</summary>
+        public void ClearSerial()
+        {
+            _queue.Clear();
+            _serialNext = -1f;
+            if (_serial != null) foreach (var s in _serial) s.Stop();
+            _fading = null;
+        }
+
+        /// <summary>Testler: sıralı kanalı <paramref name="sec"/> saniye ilerletir (gerçek zamanı beklemeden).</summary>
+        public void AdvanceSerial(float sec)
+        {
+            _testClock += sec;
+            PumpSerial(SerialNow);
+        }
+        private float _testClock;
+        private float SerialNow => Time.unscaledTime + _testClock;
+
+        private void Update()
+        {
+            PumpSerial(SerialNow);
+            if (_fading != null)
+            {
+                _fading.volume = Mathf.Max(0f, _fading.volume - _fadeVol * Time.unscaledDeltaTime / SerialFade);
+                if (_fading.volume <= 0f) { _fading.Stop(); _fading = null; }
+            }
+        }
+
+        private void PumpSerial(float now)
+        {
+            if (_queue.Count == 0 || now < _serialNext) return;
+            var p = _queue[0];
+            _queue.RemoveAt(0);
+            StartSerial(p, now);
+        }
+
+        private void StartSerial(Pending p, float now)
+        {
+            if (!_enabled || p.Clip == null || _serial == null) return;
+            // Önceki ses kısa sürede kısılır (kesik "tık" olmadan); yeni ses diğer kaynakta başlar.
+            var prev = _serial[_serialIdx];
+            if (prev.isPlaying) { if (_fading != null && _fading != prev) _fading.Stop(); _fading = prev; _fadeVol = prev.volume; }
+            _serialIdx = (_serialIdx + 1) % _serial.Length;
+            var src = _serial[_serialIdx];
+            float vol = p.Volume;
+            if (Time.unscaledTime < _duckUntil) vol *= DuckGain;
+            if (CaptureTap != null) { EnsureSamples(p.Clip); CaptureTap(p.Clip, p.Pitch, Mathf.Clamp01(vol)); }
+            if (_fading == src) _fading = null;
+            src.Stop();
+            src.clip = p.Clip;
+            src.pitch = p.Pitch;
+            src.volume = MasterGain * Mathf.Clamp01(vol);
+            src.Play();
+            if (_serialLastStart >= 0f) SerialMinSpacing = Mathf.Min(SerialMinSpacing, now - _serialLastStart);
+            _serialLastStart = now;
+            _serialNext = now + SerialGap;
+            LastClip = p.Clip.name;
+            PlayCount++;
+            OnPlayed?.Invoke(p.Clip.name);
+            p.Then?.Invoke();
+        }
+
+        /// <summary>Testler: en kısa aralık ölçümünü sıfırlar.</summary>
+        public void ResetSerialStats() { SerialMinSpacing = float.MaxValue; _serialLastStart = -1f; }
 
         /// <summary>Düğme sesi az önce çaldı mı (aynı dokunuşta ikinci "tık" çalmasın).</summary>
         private bool UiJustClicked => Time.unscaledTime - _lastUiClick < 0.1f;

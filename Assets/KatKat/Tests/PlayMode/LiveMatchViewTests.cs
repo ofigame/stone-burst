@@ -38,6 +38,31 @@ namespace KatKat.Tests
             yield return null;
         }
 
+        /// <summary>2026-11-23 (kullanıcı: "üst alandan iple sarkıyormuş gibi olsun … ipten sallanma efekti"): sol rozetler ve sağdaki
+        /// koleksiyon kartı iki iple asılı, ipin üst ucundan küçük açıyla sallanır; azaltılmış harekette düz.</summary>
+        [UnityTest]
+        public IEnumerator MapColumns_HangOnRopes_SwingGently()
+        {
+            _gc.ShowLevels();
+            yield return null;
+            var swings = Object.FindObjectsByType<KatKat.UI.HangSwing>(FindObjectsInactive.Exclude);
+            Assert.GreaterOrEqual(swings.Length, 3, "sol rozetler ve koleksiyon kartı asılı");
+            Assert.IsNotNull(GameObject.Find("DailyButton").GetComponentInParent<KatKat.UI.HangSwing>(), "Günlük rozeti askıda");
+            foreach (var s in swings)
+            {
+                int ropes = 0;
+                foreach (Transform c in s.transform) if (c.name == "Rope") ropes++;
+                Assert.AreEqual(2, ropes, s.name + " iki iple asılı");
+                Assert.Greater(((RectTransform)s.transform).pivot.y, 1f, s.name + ": dönme noktası ipin üst ucunda");
+                Assert.Less(s.Amp, 2.5f, s.name + ": göz yormayan küçük açı");
+                s.Advance(1f);
+                Assert.AreNotEqual(0f, s.Angle);
+            }
+            KatKat.UI.Motion.Reduced = true;
+            try { swings[0].Advance(1f); Assert.AreEqual(0f, swings[0].Angle, "azaltılmış harekette sabit"); }
+            finally { KatKat.UI.Motion.Reduced = false; }
+        }
+
         [UnityTest]
         public IEnumerator HomeButton_OpensLive_MoveAppliesWithoutPreview_BotReplies_ExitReturnsHome()
         {

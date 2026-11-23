@@ -131,6 +131,7 @@ namespace KatKat.UI
             BuildDailyBadge(shell); // Sıralama altı; canlı maç alt menüde (2026-11-22)
             BuildPilotButton(shell); // vr1 pilot (prototip)
             BuildStarGoal(shell);
+            HangColumns(shell); // 2026-11-23: yan sütunlar iple asılı, hafif sallanır
 
             // 5) Külçe kapsülü (700, 56, 208, 88; 2026-11-20 kullanıcı: "külçe miktarımız … kalbin yanındaki yıldızın yerine")
             // ve ayarlar (936, 52, 96, 96). Toplam yıldız taş dolum göstergesinde ve koleksiyonda görünür.

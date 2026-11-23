@@ -135,8 +135,10 @@ namespace KatKat.Game
             _board.FlowRise = lvl => Haptics.Level(lvl);
             // 2026-11-22 (kullanıcı: "yıldıza ve görev taşlarına gidince taş sesleri sayısına göre tekrar edecek"): varan her taşta
             // jöle taş sesi (hamle içinde yavaşça tizleşir), son taş varınca görev taşı sesi. Eski para sesleri yalnız V17 yoksa.
-            _board.FlowTick = i => { if (!_sound.PlayV17("jelly-pop", Mathf.Min(7f, i * 0.5f), 0.8f)) _sound.Play(Sfx.Coin, i / 2, 0.75f); Haptics.Tick(); };
-            _board.FlowFinal = () => { if (!_sound.PlayV17("goal-collect")) _sound.Play(Sfx.CoinFinal, 0, 0.85f); Haptics.Medium(); };
+            // 2026-11-23 (kullanıcı: "sesler tane tane seri şekilde bir ses net olarak duyulacak şekilde akmalı"): varış sesleri
+            // sıralı kanalda (SoundBank.QueueV17) en az 110 ms arayla, üst üste binmeden; titreşim ses başlarken.
+            _board.FlowTick = i => { if (!_sound.QueueV17("jelly-pop", Mathf.Min(7f, i * 0.5f), 0.8f, false, Haptics.Tick)) { _sound.Play(Sfx.Coin, i / 2, 0.75f); Haptics.Tick(); } };
+            _board.FlowFinal = () => { if (!_sound.QueueV17("goal-collect", 0f, 1f, true, Haptics.Medium)) { _sound.Play(Sfx.CoinFinal, 0, 0.85f); Haptics.Medium(); } };
             _board.IsGoalColor = _hud.IsGoalColor;
             _sound = SoundBank.Create(transform);
             SetupVr1();
@@ -710,7 +712,7 @@ namespace KatKat.Game
                         if (moment) _sound.Play(Sfx.Chain);
                         else _sound.Play(wave.Kind == WaveKind.Roll ? Sfx.RollUse : Sfx.Peel);
                     }
-                    else if (wave.Kind == WaveKind.Roll) _sound.Play(Sfx.RollUse);
+                    else if (wave.Kind == WaveKind.Roll && !_sound.PlayV17("roll-lightning")) _sound.Play(Sfx.RollUse);
                     if (wave.Index == 0 && r.RollAwarded)
                     {
                         _hud.SetRoll(true, false, false);
@@ -951,12 +953,29 @@ namespace KatKat.Game
             }
             _board.HoldUntilArrive = false; // kutlama adımları uçuşu beklemez; EndCelebration kalan uçuşu bitirir
             _board.Play(step, _hud.GoalTarget, _hud.StarTarget,
-                w => _sound.Play(Sfx.RollUse),
+                CelebrationWaveSound,
                 w => { before += w.Score; _hud.SetScore(before, _session.State.StarThresholds, true); },
                 () => NextCelebrationStep());
         }
 
         private int _celebrationScore;
+        private float _celebrationSkillAt = -10f;
+
+        /// <summary>
+        /// Kutlama dalgası sesi (kullanıcı 2026-11-23: "görev tamamlanınca kalan hamleleri tahtada kullanırken eski sesler çalıyor.
+        /// Yeni sesleri kullanalım"): oyundaki gibi V17 skil sesi (roket süpürmesi, Altın Rulo yıldırımı, kürek, bomba); taş sesleri
+        /// varışta sıralı kanaldan. Uzun skil sesleri üst üste binmesin diye en az 0,45 sn arayla. V17 yoksa eski hışırtı.
+        /// </summary>
+        private void CelebrationWaveSound(PeelWave w)
+        {
+            if (!_sound.HasV17("jelly-pop")) { _sound.Play(Sfx.RollUse); return; }
+            if (w.Kind != WaveKind.Special && w.Kind != WaveKind.Roll) return;
+            if (Time.unscaledTime - _celebrationSkillAt < 0.45f) return;
+            string skill = w.Kind == WaveKind.Roll || w.Fired == SpecialKind.Rainbow ? "roll-lightning"
+                : w.Fired == SpecialKind.Bomb ? "bomb-blast" : w.Fired == SpecialKind.Shovel ? "shovel-dig" : "rocket-sweep";
+            if (_sound.PlayV17(skill, 0f, 0.8f)) _celebrationSkillAt = Time.unscaledTime;
+            Haptics.Medium();
+        }
 
         /// <summary>Bitiş kutlaması oynuyor mu (zafer kartı kutlamadan sonra açılır).</summary>
         public bool IsCelebrating => _celebrating;
