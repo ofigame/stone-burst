@@ -17,8 +17,8 @@ namespace KatKat.UI
         /// <summary>Rozet genişliği; yükseklik görsel oranından (sütun adımı <see cref="BadgeStep"/>).</summary>
         internal const float BadgeW = 170f; // 2026-11-22: 216 çok büyüktü (kullanıcı)
 
-        /// <summary>Rozetler arası dikey adım (rozet ~152 yüksek).</summary>
-        private const float BadgeStep = 172f;
+        /// <summary>Rozetler arası dikey adım (rozet ~152 yüksek). 2026-11-23 (kullanıcı: "aralarına boşluk koyalım"): 172 → 196, kartlar arası ~40 px.</summary>
+        private const float BadgeStep = 196f;
 
         /// <summary>Tabela yazı alanı (rozet boyuna oranla): merkezi alttan %19, genişlik %76, yükseklik %21.</summary>
         private const float PlaqueY = 0.19f, PlaqueW = 0.84f, PlaqueH = 0.21f;
@@ -49,6 +49,18 @@ namespace KatKat.UI
             halo.color = new Color(tint.r, tint.g, tint.b, BadgeGlow.Max);
             UiFactory.Place(halo.rectTransform, new Vector2(0.5f, 1f), at, new Vector2(BadgeW * 1.55f, h * 1.5f));
             halo.gameObject.AddComponent<BadgeGlow>();
+
+            // Zemin kartı (2026-11-23, kullanıcı: "harita üzerindeki menü butonları belli olmuyor yeşillikte kayboluyor"): rozetlerin
+            // yeşil defne süsleri çimenle karışıyordu; arkada gölgeli krem kart ve pirinç kontur rozeti haritadan ayırır.
+            var cardSize = new Vector2(BadgeW + 14f, h + 2f);
+            var shadow = Decor(name + "Shadow", shell, Ui3.Rounded(34f, new Color(0.05f, 0.2f, 0.1f, 1f), new Color(0.05f, 0.2f, 0.1f, 1f)));
+            shadow.type = Image.Type.Sliced;
+            shadow.color = new Color(1f, 1f, 1f, 0.32f);
+            UiFactory.Place(shadow.rectTransform, new Vector2(0.5f, 1f), at + new Vector2(0f, -6f), cardSize + new Vector2(4f, 2f));
+            var card = Decor(name + "Card", shell, Ui3.Rounded(34f, Ui3.IvoryTop, Ui3.IvoryBottom, 3f, Ui3.Brass));
+            card.type = Image.Type.Sliced;
+            card.color = new Color(1f, 1f, 1f, 0.95f);
+            UiFactory.Place(card.rectTransform, new Vector2(0.5f, 1f), at, cardSize);
 
             var b = UiFactory.SpriteButton(name, shell, art, new Vector2(BadgeW, h), act);
             b.GetComponent<Image>().preserveAspect = true;

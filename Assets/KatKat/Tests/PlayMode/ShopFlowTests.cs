@@ -36,6 +36,95 @@ namespace KatKat.Tests
 
         private MetaSave Meta => _gc.SaveService.Data.meta;
 
+        private static UnityEngine.UI.Button PanelButton(string label)
+        {
+            foreach (var b in Object.FindObjectsByType<UnityEngine.UI.Button>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+                if (b.name == label && b.GetComponentInParent<KatKat.UI.ResultPanel>() != null) return b;
+            return null;
+        }
+
+        private IEnumerator WaitPanel()
+        {
+            for (float until = Time.realtimeSinceStartup + 10f; !_gc.Hud.PanelOpen && Time.realtimeSinceStartup < until;) yield return null;
+            Assert.IsTrue(_gc.Hud.PanelOpen, "kayıp kartı açıldı");
+            yield return new WaitForSeconds(1f); // kart açılış animasyonu
+        }
+
+        private Coord BombTarget()
+        {
+            var b = _gc.Session.State.Board;
+            for (int y = 1; y < b.Height - 1; y++)
+            for (int x = 1; x < b.Width - 1; x++)
+                if (b[x, y].IsSelectable) return new Coord(x, y);
+            Assert.Fail("bomba hedefi yok");
+            return default;
+        }
+
+        /// <summary>
+        /// 2026-11-23 cihaz hatası: son hamlede bomba güçlendiricisiyle kaybedince kayıp kartında "Geri al"a basılınca ekran
+        /// kilitleniyordu (bomba geri alınmaz; düğme hiçbir şey yapmadan kartı kilitliyordu). Kayıp kartındaki her düğme ya iş
+        /// görür ya da kart basılabilir kalır; geri alınamayan durumda "Geri al" hiç gösterilmez.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator BombLoss_LostCard_NoDeadUndo_AllButtonsWork()
+        {
+            _gc.StartLevel(29);
+            yield return WaitStable();
+            _gc.Board.Director.TimeScale = 8f;
+            // Hamle bitmiş ama tepside özel taş olduğu için oyun süren an (v6 kuralı): bomba son eylem olur.
+            var st = _gc.Session.State;
+            st.MovesLeft = 0;
+            st.Tray.Clear();
+            var t = BombTarget();
+            _gc.PressBoosterForTest(Booster.Bomb);
+            Assert.IsTrue(_gc.BoosterModeActive);
+            _gc.OnCellPressed(t.X, t.Y);
+            yield return WaitStable();
+            Assert.AreEqual(GameStatus.LostOutOfMoves, _gc.Session.State.Status, "bomba sonrası kayıp");
+            yield return WaitPanel();
+            Assert.IsFalse(_gc.Session.CanUndo, "bomba geri alınmaz");
+            Assert.IsNull(PanelButton(KatKat.UI.Loc.T("btn.undo")), "geri alınamazken kartta Geri al yok");
+
+            // Doğrudan geri alma denemesi (eski düğme yolu) kartı kilitlemez.
+            _gc.Undo();
+            Assert.IsTrue(_gc.Hud.PanelOpen && _gc.Hud.PanelUnlocked, "geri alma olmadı: kart basılabilir");
+
+            // Yeniden dene çalışır.
+            var retry = PanelButton(KatKat.UI.Loc.T("btn.retry"));
+            Assert.IsNotNull(retry, "Yeniden dene düğmesi");
+            retry.onClick.Invoke();
+            yield return null;
+            Assert.IsFalse(_gc.Hud.PanelOpen, "kart kapandı");
+            Assert.AreEqual(GameStatus.Idle, _gc.Session.State.Status);
+            Assert.AreEqual(GameController.Phase.Idle, _gc.CurrentPhase, "oyun sürüyor");
+
+            // Dokunuşla kaybedince Geri al var ve çalışır (tahta açılır).
+            yield return WaitStable();
+            st = _gc.Session.State;
+            st.MovesLeft = 1;
+            st.Tray.Clear();
+            Coord tap = default; bool found = false;
+            var b = st.Board;
+            for (int y = 0; y < b.Height && !found; y++)
+            for (int x = 0; x < b.Width && !found; x++)
+                if (b[x, y].IsSelectable && GroupFinder.Component(b, x, y).Count >= GroupFinder.MinGroup) { tap = new Coord(x, y); found = true; }
+            Assert.IsTrue(found, "geçerli dokunuş");
+            _gc.OnCellPressed(tap.X, tap.Y);
+            yield return WaitStable();
+            if (_gc.Session.State.Status == GameStatus.Idle && _gc.Session.State.Tray.Count > 0) { _gc.Session.State.Tray.Clear(); Assert.Inconclusive("dokunuş tepsiye özel taş verdi"); }
+            Assert.AreNotEqual(GameStatus.Idle, _gc.Session.State.Status, "son hamleyle kayıp");
+            if (_gc.Session.State.Status == GameStatus.Won) Assert.Inconclusive("son hamle kazandırdı");
+            yield return WaitPanel();
+            var undo = PanelButton(KatKat.UI.Loc.T("btn.undo"));
+            Assert.IsNotNull(undo, "geri alınabilirken Geri al var");
+            undo.onClick.Invoke();
+            yield return null;
+            Assert.IsFalse(_gc.Hud.PanelOpen, "geri alındı, kart kapandı");
+            Assert.AreEqual(GameStatus.Idle, _gc.Session.State.Status);
+            Assert.AreEqual(1, _gc.Session.State.MovesLeft);
+            Assert.AreEqual(GameController.Phase.Idle, _gc.CurrentPhase);
+        }
+
         [UnityTest]
         public IEnumerator TopBarIngots_ShopTab_BuyBooster()
         {

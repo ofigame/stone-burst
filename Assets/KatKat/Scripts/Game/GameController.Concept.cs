@@ -183,11 +183,10 @@ namespace KatKat.Game
             var loss = _session.State.Hazard?.Loss ?? HazardLoss.None;
             string title = Loc.T("concept.lose." + loss + ".title", Loc.T("lose.stuck.title"));
             string body = Loc.T("concept.lose." + loss + ".body", Loc.T("lose.stuck.body"));
-            var buttons = new List<HudView.PanelButton>
-            {
-                new HudView.PanelButton(Loc.T("btn.undo"), UiIcon.Undo, true, Undo),
-                new HudView.PanelButton(Loc.T("btn.retry"), UiIcon.Restart, false, () => { _trialHint = false; Restart(); }),
-            };
+            bool canUndo = UndoAvailable;
+            var buttons = new List<HudView.PanelButton>();
+            if (canUndo) buttons.Add(new HudView.PanelButton(Loc.T("btn.undo"), UiIcon.Undo, true, Undo));
+            buttons.Add(new HudView.PanelButton(Loc.T("btn.retry"), UiIcon.Restart, !canUndo, () => { _trialHint = false; Restart(); }));
             if (_trialLosses >= 2)
                 buttons.Add(new HudView.PanelButton(Loc.T("trial.hint"), UiIcon.Play, false, () => { _trialHint = true; Restart(); OutcomeAssist(KatKat.Meta.AssistFlags.Guidance); ShowTrialHint(); }));
             buttons.Add(new HudView.PanelButton(Loc.T("trial.list"), UiIcon.Menu, false, () => { ShowLevels(); ShowSet(); }));

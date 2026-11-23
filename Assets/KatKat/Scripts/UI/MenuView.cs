@@ -114,19 +114,19 @@ namespace KatKat.UI
         /// gibi kenardan kenara dolsun diye sütun genişliği korunarak kısaltılır ve ekran genişliğine büyütülür (k = ekran / sütun).
         /// Harita dikey kaydırıldığı için kısalan yükseklik yalnız görünen alanı azaltır. Telefonda (k ≈ 1) değişiklik yok.
         /// </summary>
+        /// <summary>Geniş ekranda sütunun iki yanında kalan genişlik (harita bu kadar yana uzar).</summary>
+        private float _mapSide;
+
         private void FitPageToFullWidth(RectTransform page)
         {
+            _mapSide = 0f;
             var root = (RectTransform)_canvas.transform;
             float colW = _safe.rect.width, colH = _safe.rect.height, fullW = root.rect.width;
             if (colW <= 0f || colH <= 0f) return;
             // Güvenli alan yatayda tam ekrana kadar (sütun ortada): genişleme yalnız sütun dışındaki yan boşluklar kadar.
-            float k = fullW / colW;
-            if (k < 1.01f) return;
-            page.anchorMin = page.anchorMax = new Vector2(0.5f, 0.5f);
-            page.pivot = new Vector2(0.5f, 0.5f);
-            page.anchoredPosition = Vector2.zero;
-            page.sizeDelta = new Vector2(colW, colH / k);
-            page.localScale = new Vector3(k, k, 1f);
+            // 2026-11-23 (kullanıcı: "tablette boyutlar çok büyüyor … telefondaki gibi olsun"): sayfa büyütülmez; telefon
+            // düzeni ortadaki sütunda aynı boyda kalır, harita görünümü ve zemin yanlara uzar (karolar aynalanır).
+            _mapSide = Mathf.Max(0f, (fullW - colW) * 0.5f);
         }
 
 
@@ -600,7 +600,7 @@ namespace KatKat.UI
                 float fy0 = Mathf.Max(y0, m.CloudEdge + 70f);
                 if (fy0 < y1)
                 {
-                    var veil = MakePuff(m.LayerFog, null, new Vector2(0f, (fy0 + y1) * 0.5f), new Vector2(1500f, y1 - fy0 + 4f),
+                    var veil = MakePuff(m.LayerFog, null, new Vector2(0f, (fy0 + y1) * 0.5f), new Vector2(1500f + 2f * _mapSide + 200f, y1 - fy0 + 4f),
                         new Color(0.95f, 0.97f, 1f), 0.96f, r, false);
                     veil.Amp = 0f; veil.Speed = 0f; veil.Phase = 0f; // parçalar arası ek yeri oynamasın
                     list.Add(veil);
@@ -612,7 +612,7 @@ namespace KatKat.UI
             {
                 if (edge < y0 || edge >= y1) continue;
                 bool old = opening && edge < m.CloudEdge;
-                for (float x = -600f; x <= 620f; x += 300f)
+                for (float x = -600f - Mathf.Ceil(_mapSide / 300f) * 300f; x <= 620f + _mapSide; x += 300f)
                 {
                     float w = 470f;
                     var home = new Vector2(x, edge + w * 0.2f + (r() - 0.5f) * 10f);
@@ -874,7 +874,7 @@ namespace KatKat.UI
 
             // Kaydırılabilir harita: tam ekran; üst kart ve alt menü haritanın üstünde yüzer (referans).
             var viewport = UiFactory.Rect("Viewport", page);
-            UiFactory.Stretch(viewport, 0f, 0f, 0f, 0f);
+            UiFactory.Stretch(viewport, -_mapSide, -_mapSide, 0f, 0f); // tablette yanlara uzar
             viewport.gameObject.AddComponent<RectMask2D>();
             var hit = viewport.gameObject.AddComponent<Image>();
             hit.color = new Color(0f, 0f, 0f, 0f);
@@ -1129,6 +1129,20 @@ namespace KatKat.UI
                 }
                 Pos(rt, new Vector2(0f, cy), new Vector2(tileW, tileH));
                 if (motionPart != null) MapMotion.AddLife(rt, motionPart, k);
+                if (_mapSide > 1f)
+                    for (int side = -1; side <= 1; side += 2)
+                    {
+                        // Tablet: iki yanda aynalanmış kopya (kenar pikselleri birleşir, ek yeri görünmez).
+                        var cp = UiFactory.Rect("WorldSide", holder);
+                        cp.gameObject.AddComponent<CanvasRenderer>();
+                        var cr = cp.gameObject.AddComponent<RawImage>();
+                        cr.raycastTarget = false;
+                        cr.texture = raw.texture;
+                        cr.uvRect = raw.uvRect;
+                        cr.material = raw.material;
+                        Pos(cp, new Vector2(side * tileW, cy), new Vector2(tileW, tileH));
+                        cp.localScale = new Vector3(-rt.localScale.x, 1f, 1f);
+                    }
                 // Şeritten şeride eklem nehrin ortasıdır (iki şeritte de su + köprü): sis gerekmez.
                 if (!useStrip || !belowStrip)
                 {

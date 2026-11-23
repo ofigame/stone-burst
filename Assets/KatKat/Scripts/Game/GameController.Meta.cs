@@ -528,12 +528,11 @@ namespace KatKat.Game
         {
             bool moves = status == GameStatus.LostOutOfMoves;
             bool canRetry = _daily.AttemptsLeft > 0;
-            var buttons = new List<HudView.PanelButton>
-            {
-                new HudView.PanelButton(Loc.T("btn.undo"), UiIcon.Undo, true, Undo),
-            };
-            if (canRetry) buttons.Add(new HudView.PanelButton(Loc.T("daily.retry"), UiIcon.Restart, false, DailyRestart));
-            buttons.Add(new HudView.PanelButton(Loc.T("daily.leave"), UiIcon.Menu, false, LeaveDaily));
+            bool canUndo = UndoAvailable;
+            var buttons = new List<HudView.PanelButton>();
+            if (canUndo) buttons.Add(new HudView.PanelButton(Loc.T("btn.undo"), UiIcon.Undo, true, Undo));
+            if (canRetry) buttons.Add(new HudView.PanelButton(Loc.T("daily.retry"), UiIcon.Restart, !canUndo, DailyRestart));
+            buttons.Add(new HudView.PanelButton(Loc.T("daily.leave"), UiIcon.Menu, !canUndo && !canRetry, LeaveDaily));
             _hud.ShowPanel(moves ? Loc.T("lose.moves.title") : Loc.T("lose.stuck.title"),
                 canRetry ? Loc.T("daily.lost.retry") : Loc.T("daily.lost.final"), buttons.ToArray());
         }
@@ -541,7 +540,7 @@ namespace KatKat.Game
         /// <summary>Günlükte yeniden başlatma = açık denemeyi bitirip ücretsiz tekrarı açmak (hak yoksa olmaz).</summary>
         private void DailyRestart()
         {
-            if (_daily.AttemptsLeft <= 0) { _hud.ShowToast(Loc.T("daily.lost.final"), 2.4f); return; }
+            if (_daily.AttemptsLeft <= 0) { _hud.ShowToast(Loc.T("daily.lost.final"), 2.4f); _hud.PanelUnlock(); return; }
             _daily.FinishAttempt(false);
             StartDaily();
         }

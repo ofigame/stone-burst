@@ -185,7 +185,12 @@ namespace KatKat.UI
             var brt = bar.rectTransform;
             brt.anchorMin = brt.anchorMax = new Vector2(0.5f, 0f);
             brt.pivot = new Vector2(0.5f, 1f);
-            brt.sizeDelta = new Vector2(1092f, H + 400f); // alt kenar cihazın gerçek alt kenarının da altına
+            // Tablet (2026-11-23): menü zemini ekranın iki kenarına uzanır; öğeler ortadaki sütunda kalır.
+            float wide = 1092f;
+            var canvas = holder.GetComponentInParent<Canvas>();
+            if (canvas != null && holder.parent is RectTransform pr && pr.rect.width > 1f)
+                wide = Mathf.Max(wide, ((RectTransform)canvas.rootCanvas.transform).rect.width + 40f);
+            brt.sizeDelta = new Vector2(wide, H + 400f); // alt kenar cihazın gerçek alt kenarının da altına
             brt.anchoredPosition = new Vector2(0f, baseY + H);
             var sh = bar.gameObject.AddComponent<Shadow>();
             sh.effectColor = new Color(Ui3.Shadow.r, Ui3.Shadow.g, Ui3.Shadow.b, 0.18f);

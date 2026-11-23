@@ -21,6 +21,25 @@ namespace KatKat.View
         private readonly List<Faller> _fallers = new List<Faller>();
         private float _fallT = -1f;
         private Action _fallDone;
+        private bool _fell; // taşlar düştü: yeniden başlatmada yerlerine döner (2026-11-23 hata: tahta boş görünüyor, taşlar görünmeden patlıyordu)
+
+        /// <summary>Süre bitişi düşüşünü durdurur ve düşen taşları hücrelerine geri koyar (geri al / yeniden başla).</summary>
+        private void ResetFall()
+        {
+            _fallT = -1f;
+            _fallers.Clear();
+            _fallDone = null;
+            if (!_fell) return;
+            _fell = false;
+            for (int y = 0; y < _height; y++)
+            for (int x = 0; x < _width; x++)
+            {
+                var s = StackAt(x, y);
+                if (s == null) continue;
+                s.transform.localPosition = CellCenter(x, y);
+                s.transform.localRotation = Quaternion.identity;
+            }
+        }
 
         /// <summary>Kalp atışı şiddeti: 0 yok, 1 en hızlı (son saniye).</summary>
         public void SetHeartbeat(float u)
@@ -61,6 +80,7 @@ namespace KatKat.View
         {
             _fallDone = done;
             _fallT = 0f;
+            _fell = true;
             _fallers.Clear();
             var center = _floorWorld.center;
             ShakeBoard(0.12f, 700f);

@@ -1105,8 +1105,10 @@ namespace KatKat.Game
             ExtraMovesOffered = CanOfferExtraMoves(status);
             var buttons = new System.Collections.Generic.List<HudView.PanelButton>();
             if (ExtraMovesOffered) buttons.Add(new HudView.PanelButton(Loc.F("ad.place.offer", _adConfig.ExtraMoves), UiIcon.Play, true, OnExtraMovesPressed, true));
-            buttons.Add(new HudView.PanelButton(Loc.T("btn.undo"), UiIcon.Undo, !ExtraMovesOffered, Undo));
-            buttons.Add(new HudView.PanelButton(Loc.T("btn.retry"), UiIcon.Restart, false, Restart));
+            // 2026-11-23 hata: bombadan sonra geri alma yoktu ama kartta "Geri al" duruyordu; basınca kart kilitleniyordu.
+            bool canUndo = UndoAvailable;
+            if (canUndo) buttons.Add(new HudView.PanelButton(Loc.T("btn.undo"), UiIcon.Undo, !ExtraMovesOffered, Undo));
+            buttons.Add(new HudView.PanelButton(Loc.T("btn.retry"), UiIcon.Restart, !ExtraMovesOffered && !canUndo, Restart));
             if (MainHintButton() is HudView.PanelButton hint) buttons.Add(hint); // v8: 2 kayıptan sonra ipucu
             string title = crystal ? Loc.T("lose.protect.title") : moves ? Loc.T("lose.moves.title") : Loc.T("lose.stuck.title");
             string body = crystal ? Loc.T("lose.protect.body") : moves ? Loc.T("lose.moves.body") : Loc.T("lose.stuck.body");
@@ -1120,17 +1122,21 @@ namespace KatKat.Game
         public void Undo()
         {
             if (CurrentPhase != Phase.Idle && CurrentPhase != Phase.Ended) return;
-            if (TourBlocksUndo) return; // yönlendirmeli öğretici adımları geri alınmaz
-            if (!_session.Undo()) return;
+            if (TourBlocksUndo) { _hud.PanelUnlock(); return; } // yönlendirmeli öğretici adımları geri alınmaz
+            // Geri alınamıyorsa (ör. bomba güçlendiricisi) kart düğmeleri kilitli kalmasın.
+            if (!_session.Undo()) { _hud.PanelUnlock(); return; }
             OutcomeAssist(KatKat.Meta.AssistFlags.Undo);
             OutcomeReopen();
             _hud.HidePanel();
             ResyncAll();
         }
 
+        /// <summary>Kayıp kartında "Geri al" yalnız gerçekten geri alınabilirken gösterilir (bomba güçlendiricisi geri alınmaz).</summary>
+        public bool UndoAvailable => _session != null && _session.CanUndo && !TourBlocksUndo;
+
         public void Restart()
         {
-            if (CurrentPhase != Phase.Idle && CurrentPhase != Phase.Ended && CurrentPhase != Phase.Targeting) return;
+            if (CurrentPhase != Phase.Idle && CurrentPhase != Phase.Ended && CurrentPhase != Phase.Targeting) { _hud.PanelUnlock(); return; }
             // v9 B: günlükte yeniden başlatma yeni deneme hakkı ister (ücretsiz tekrar); hak yoksa başlatılmaz.
             if (_sessionKind == KatKat.Meta.SessionKind.Daily) { DailyRestart(); return; }
             HeartForfeit();
@@ -1141,6 +1147,7 @@ namespace KatKat.Game
             ResetPaidHint(); // vr1 P0: yeniden başlatma yeni denemedir (ipucu hakkı ve bedeli denemeye bağlı)
             TourOnRestart();
             OutcomeRestart();
+            TimedBegin(); // süreli bölüm: süre baştan (2026-11-23 hata: süre bitince "yeniden dene" sonrası süre durmuş kalıyordu)
             ResyncAll();
         }
 

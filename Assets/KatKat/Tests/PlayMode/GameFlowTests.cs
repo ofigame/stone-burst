@@ -358,6 +358,37 @@ namespace KatKat.Tests
             Assert.Contains(KatKat.Core.SpecialKind.Shovel, _gc.Session.State.Tray, "Kürek tepside");
             Assert.IsTrue(_gc.Hud.TrayIcon(0).gameObject.activeInHierarchy, "Kürek simgesi ekranda");
         }
+
+        /// <summary>2026-11-23 hata: süre bitince "yeniden dene" → tahta boş görünüyor, görünmeyen taşlar patlıyordu; süre de durmuştu.</summary>
+        [UnityTest]
+        public IEnumerator TimeUp_Retry_StonesBackInPlace_TimerRestarts()
+        {
+            _gc.StartLevel(40); // 41. bölüm süreli
+            yield return null;
+            _gc.Hud.HideRuleCard(false);
+            Assert.IsTrue(_gc.TimedActive, "41. bölüm süreli");
+            float full = _gc.CurrentLevel.TimeLimit;
+            _gc.AdvanceTimeForTest(full + 0.5f);
+            _gc.Board.AdvanceTimedFx(1.7f);
+            Assert.AreEqual(GameStatus.LostOutOfTime, _gc.Session.State.Status);
+            _gc.Restart();
+            yield return null;
+            Assert.AreEqual(GameStatus.Idle, _gc.Session.State.Status);
+            Assert.IsTrue(_gc.TimedActive, "yeniden denemede süre işliyor");
+            Assert.AreEqual(full, _gc.TimeLeft, 1f, "süre baştan"); // aradaki karelerde süre işler
+            var b = _gc.Session.State.Board;
+            for (int y = 0; y < b.Height; y++)
+            for (int x = 0; x < b.Width; x++)
+            {
+                if (!b[x, y].Active) continue;
+                var st = _gc.Board.StackAt(x, y);
+                Assert.IsTrue(st.gameObject.activeSelf);
+                Assert.Less(Vector3.Distance(st.transform.localPosition, _gc.Board.CellCenter(x, y)), 0.001f, $"({x},{y}) taşı yerinde");
+                Assert.AreEqual(Quaternion.identity, st.transform.localRotation);
+            }
+            _gc.AdvanceTimeForTest(1f);
+            Assert.Less(_gc.TimeLeft, full, "süre azalıyor");
+        }
         [UnityTest]
         public IEnumerator V11_Special_CreatedToTray_Targeted_Used_Undone_WithNewIcons()
         {

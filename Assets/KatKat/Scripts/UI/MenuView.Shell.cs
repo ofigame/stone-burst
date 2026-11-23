@@ -330,6 +330,29 @@ namespace KatKat.UI
         /// çerçevenin içinde (buz kabuğu önde, üstünde kilit), altında seviye durumu: taşın renginde dolan çubuk ve
         /// "yıldız / eşik". Dokununca Koleksiyon. Bütün yıldız taşları alındıysa gösterilmez. Solda ZPE kapsülü.
         /// </summary>
+        /// <summary>
+        /// Koleksiyon düğmesinin altında nefes alan altın parıltı ve ışıltılı yıldızcıklar (2026-11-23, kullanıcı: "koleksiyon
+        /// butonunu da belirgin yap altına parıltı koy"): buzlu taş suyun mavisinde kayboluyordu; sıcak altın hale ayırır.
+        /// </summary>
+        private void CollectionGlow(RectTransform parent, Vector2 center, float size)
+        {
+            // Dış hale (koyu altın: açık suda da seçilir) + taşın altında parlayan zemin halkası (iki kat: geniş turuncu, dar beyaz).
+            var glow = Decor("CollectionGlow", parent, GlowSprite);
+            glow.color = new Color(1f, 0.62f, 0.08f, BadgeGlow.Max);
+            UiFactory.Place(glow.rectTransform, new Vector2(0.5f, 1f), center, new Vector2(size, size));
+            glow.gameObject.AddComponent<BadgeGlow>();
+            var pool = Decor("CollectionPool", parent, GlowSprite);
+            pool.color = new Color(1f, 0.55f, 0.05f, BadgeGlow.Max);
+            UiFactory.Place(pool.rectTransform, new Vector2(0.5f, 1f), center + new Vector2(0f, -size * 0.27f), new Vector2(size * 0.95f, size * 0.32f));
+            pool.gameObject.AddComponent<BadgeGlow>();
+            var core = Decor("CollectionPoolCore", parent, GlowSprite);
+            core.color = new Color(1f, 0.97f, 0.75f, 0.95f);
+            UiFactory.Place(core.rectTransform, new Vector2(0.5f, 1f), center + new Vector2(0f, -size * 0.27f), new Vector2(size * 0.6f, size * 0.15f));
+            var spark = UiFactory.Rect("CollectionSparkle", parent);
+            UiFactory.Place(spark, new Vector2(0.5f, 1f), center, new Vector2(size * 0.7f, size * 0.7f));
+            Twinkle.Attach(spark, 3, 38f, 0.5f);
+        }
+
         private void BuildStarGoal(RectTransform shell)
         {
             var g = NextStarGoal;
@@ -340,6 +363,7 @@ namespace KatKat.UI
                 var sc = UiFactory.Rect("StarGoal", shell);
                 float st = UseV11 ? V11ColumnStoneTop : 380f;
                 UiFactory.Place(sc, new Vector2(0.5f, 1f), new Vector2(V11ColumnX, -st - 80f), new Vector2(160f, 160f));
+                CollectionGlow(sc, new Vector2(0f, -80f), 260f);
                 var cb = ShellRoundButton("Collection", sc, V11("icon-stones") ?? ShellArt("icon-crystal") ?? CrystalIconTemp(), 150f, () => CollectionPressed?.Invoke());
                 UiFactory.Stretch((RectTransform)cb.transform);
                 GiftMark(sc);
@@ -357,6 +381,7 @@ namespace KatKat.UI
             b.onClick.AddListener(() => CollectionPressed?.Invoke());
             PressFeedback.Attach(b, null);
 
+            CollectionGlow(card, new Vector2(0f, -88f), 300f);
             Vr1IceRefs iceRefs = null;
             if (g.Ice) BuildIceStone(card, g, out iceRefs);
             else

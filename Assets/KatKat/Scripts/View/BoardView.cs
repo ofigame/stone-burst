@@ -2191,6 +2191,7 @@ namespace KatKat.View
             while (_fx.Count > 0) EndFx(_fx.Count - 1);
             foreach (var sc in _swapChips) if (sc.Sr != null) Destroy(sc.Sr.gameObject);
             _swapChips.Clear();
+            ResetFall();
             if (_shaking) { transform.localPosition = _shakeBase; _shaking = false; _shakeAmp = 0f; }
             if (_onDone != null) FinishPlay();
         }
