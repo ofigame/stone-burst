@@ -77,20 +77,28 @@ Shader "KatKat/TrayWater"
                 if (inWater <= 0.0) discard;
                 float k = 1.0 / max(_Pitch, 1e-4);
                 float depth = saturate(below / max(_Span * 0.6, 1e-4));
-                float4 top = float4(0.30, 0.76, 1.0, 0.80);
-                float4 deep = float4(0.04, 0.30, 0.78, 0.93);
-                float4 c = lerp(top, deep, depth);
+                // 2026-11-25 (kullanıcı: "suyun rengini biraz daha açalım. efektini iyileştirelim"): açık turkuaz, derinlik yumuşak.
+                // 2026-11-26 (kullanıcı: "suyun rengini … daha belirgin yapalım"): doygun mavi, kovanın açık camında net seçilir.
+                float4 top = float4(0.30, 0.78, 1.0, 0.86);
+                float4 deep = float4(0.04, 0.38, 0.92, 0.96);
+                float4 c = lerp(top, deep, smoothstep(0.0, 1.0, depth));
+                // Yüzeyin hemen altında gökyüzü yansıması (açık bant, yüzeyden uzaklaştıkça söner).
+                float refl = exp(-below / (_Pitch * 0.35));
+                c.rgb = lerp(c.rgb, float3(0.86, 0.97, 1.0), refl * 0.35);
+                // Kayan ışık şeritleri (eğik, yavaş).
+                float streak = pow(saturate(sin((i.world.x * 0.7 + i.world.y) / max(_Pitch, 1e-4) * 1.6 - _WTime * 0.8) * 0.5 + 0.5), 6.0);
+                c.rgb += streak * 0.08;
                 // Işık oyunu: kesişen iki dalganın parlak düğümleri (yavaş kayar).
                 float2 p = i.world * k;
                 float ca = max(0.0, sin(p.x * 3.1 + p.y * 1.7 + _WTime * 1.9) * sin(p.x * 1.3 - p.y * 2.9 - _WTime * 1.4));
-                c.rgb = lerp(c.rgb, float3(0.85, 0.98, 1.0), ca * ca * 0.45);
+                c.rgb = lerp(c.rgb, float3(0.92, 0.99, 1.0), ca * ca * 0.35);
                 // Yüzey: köpük bandı ve beyaz çizgi.
                 float band = _Pitch * 0.08;
                 float foam = saturate(1.0 - below / band);
-                c.rgb = lerp(c.rgb, float3(0.78, 0.96, 1.0), foam * 0.6);
+                c.rgb = lerp(c.rgb, float3(0.86, 0.98, 1.0), foam * foam * 0.45);
                 float edgeLine = saturate(1.0 - abs(below - _Pitch * 0.012) / (_Pitch * 0.018));
-                c.rgb = lerp(c.rgb, float3(1.0, 1.0, 1.0), edgeLine * 0.9);
-                c.a = max(c.a, edgeLine * 0.95) * inWater * mask * i.color.a;
+                c.rgb = lerp(c.rgb, float3(1.0, 1.0, 1.0), edgeLine * 0.7);
+                c.a = max(c.a, edgeLine * 0.75) * inWater * mask * i.color.a;
                 return c;
             }
             ENDCG

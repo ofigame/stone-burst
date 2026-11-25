@@ -68,9 +68,15 @@ namespace KatKat.EditorTools
             /// </summary>
             public int NotchKind;
 
+            /// <summary>2026-11-26 (kullanıcı çizimi: kova tepsinin alt ortasındaki oyukta): oyuk alttan; biçimler aynı (y aynalanır).
+            /// 6: alttan 3 satır derin dikdörtgen.</summary>
+            public bool NotchBottom;
+
             public bool Notch(int x, int y)
             {
-                if (!IsBucket) return false; // 2026-11-25: su bölümünde kova yok, oyuk da yok
+                if (!IsBucket && !NotchBottom) return false;
+                if (NotchBottom) y = H - 1 - y;
+                if (NotchKind == 6) return y < 3 && Math.Abs(x - (W - 1) * 0.5f) <= 1.5f;
                 float d = Math.Abs(x - (W - 1) * 0.5f);
                 float well = W % 2 == 0 ? 0.5f : 1f; // en dar kuyu: çift genişlikte 2, tekte 3 hücre
                 switch (NotchKind)
@@ -91,28 +97,29 @@ namespace KatKat.EditorTools
         // solda Altın Rulo, sağda roket yuvası; kovanın rengindeki taşlar kovaya akar, yarım kova dokunarak gönderilir.
         // 2026-11-25 (kullanıcı: "her hücrenin içinde su olacak ve hücredeki taşlar gittiğinde dipteki su … kovaya dolacak. O
         // bölümün görevi kovayı su doldurmak olacak"; "şimdi test alanımıza bölümleri oluştur test edeyim"): 10 su bölümü. Su yalnız
-        // bazı hücrelerde, 1–3 birim; hücre dibine kadar boşalınca akar. Kova üst ortadaki oyukta. Hamleli (süresiz).
+        // bazı hücrelerde, 1–3 birim; hücre dibine kadar boşalınca akar. 2026-11-25: süreli; bombalı yığın patlarsa tepsi yarılır ve
+        // su sızar (yarık onarılır); tahtadaki su görevin ~1,5 katı (sızıntıdan sonra yeniden doldurmaya yeter).
         private static List<Spec> Specs() => new List<Spec>
         {
-            new Spec { Title = "Su: İlk Damlalar", Seed = 2101, W = 8, H = 9, MinL = 2, MaxL = 3, Colors = 3, Copy = 0.4, WaterCells = 10, WaterShare = 1f, Slack = 1.4f },
-            new Spec { Title = "Su: Derin Kuyular", Seed = 2202, W = 8, H = 9, MinL = 2, MaxL = 4, Colors = 3, Copy = 0.35, NotchKind = 1, WaterCells = 8, WaterDeep = true,
-                WaterUnits = (x, y, l, r) => l - 1, WaterShare = 0.85f, Slack = 1.25f },
-            new Spec { Title = "Su: Dağınık Göller", Seed = 2303, W = 8, H = 9, MinL = 2, MaxL = 4, Colors = 4, Copy = 0.4, NotchKind = 3, WaterCells = 14,
-                WaterUnits = (x, y, l, r) => 1 + r.Next(2), WaterShare = 0.8f, Slack = 1.2f },
-            new Spec { Title = "Su: Kenar Suları", Seed = 2404, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 3, Copy = 0.3, NotchKind = 4, WaterCells = 10,
-                WaterAt = (x, y) => x == 0 || x == 7 || y == 8, WaterUnits = (x, y, l, r) => 2, WaterShare = 0.8f, Slack = 1.2f },
-            new Spec { Title = "Su: Ortadaki Göl", Seed = 2505, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 3, Copy = 0.3, NotchKind = 2, WaterCells = 10,
-                WaterAt = (x, y) => x >= 2 && x <= 5 && y >= 3 && y <= 7, WaterUnits = (x, y, l, r) => x >= 3 && x <= 4 && y >= 4 && y <= 6 ? 3 : 1 + r.Next(2), WaterShare = 0.8f, Slack = 1.2f },
-            new Spec { Title = "Su: Buzun Altı", Seed = 2606, W = 8, H = 9, MinL = 2, MaxL = 4, Colors = 3, Copy = 0.35, NotchKind = 5, WaterCells = 9, Ice = 6, CoverOnWater = true,
-                WaterUnits = (x, y, l, r) => 1 + r.Next(3), WaterShare = 0.8f, Slack = 1.25f },
-            new Spec { Title = "Su: Sarmaşıklı Kuyular", Seed = 2707, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 3, Copy = 0.3, NotchKind = 0, WaterCells = 9, Clips = 6, CoverOnWater = true, WaterDeep = true,
-                WaterUnits = (x, y, l, r) => l - 1, WaterShare = 0.8f, Slack = 1.25f },
-            new Spec { Title = "Su ve Renk", Seed = 2808, W = 8, H = 9, MinL = 2, MaxL = 4, Colors = 3, Copy = 0.35, NotchKind = 1, WaterCells = 10, ColorGoal = true,
-                WaterUnits = (x, y, l, r) => 1 + r.Next(2), WaterShare = 0.8f, Slack = 1.2f },
-            new Spec { Title = "Su: Az Hamle", Seed = 2909, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 3, Copy = 0.3, NotchKind = 3, WaterCells = 8, WaterDeep = true,
-                WaterUnits = (x, y, l, r) => 2 + r.Next(2), WaterShare = 0.85f, Slack = 1.05f },
-            new Spec { Title = "Su: Patron", Seed = 3010, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 4, Copy = 0.3, NotchKind = 4, WaterCells = 12, Ice = 4, Clips = 3, CoverOnWater = true, WaterDeep = true,
-                WaterUnits = (x, y, l, r) => 1 + r.Next(3), WaterShare = 0.8f, Slack = 1.1f, Hole = (x, y) => y >= 7 && (x == 0 || x == 7) },
+            new Spec { Title = "Su: İlk Damlalar", NotchBottom = true, NotchKind = 1, Timed = 300, Pace = 3.2f, Protect = 2, Seed = 2101, W = 8, H = 9, MinL = 2, MaxL = 3, Colors = 3, Copy = 0.4, WaterCells = 10, WaterShare = 0.66f, Slack = 1.4f },
+            new Spec { Title = "Su: Derin Kuyular", NotchBottom = true, NotchKind = 3, Timed = 300, Pace = 3.2f, Protect = 3, Seed = 2202, W = 8, H = 9, MinL = 2, MaxL = 4, Colors = 3, Copy = 0.35, WaterCells = 8, WaterDeep = true,
+                WaterUnits = (x, y, l, r) => l - 1, WaterShare = 0.66f, Slack = 1.25f },
+            new Spec { Title = "Su: Dağınık Göller", NotchBottom = true, NotchKind = 4, Timed = 300, Pace = 3.2f, Protect = 3, Seed = 2303, W = 8, H = 9, MinL = 2, MaxL = 4, Colors = 4, Copy = 0.4, WaterCells = 14,
+                WaterUnits = (x, y, l, r) => 1 + r.Next(2), WaterShare = 0.66f, Slack = 1.2f },
+            new Spec { Title = "Su: Kenar Suları", NotchBottom = true, NotchKind = 6, Timed = 300, Pace = 3.2f, Protect = 3, Seed = 2404, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 3, Copy = 0.3, WaterCells = 10,
+                WaterAt = (x, y) => x == 0 || x == 7 || y == 8, WaterUnits = (x, y, l, r) => 2, WaterShare = 0.66f, Slack = 1.2f },
+            new Spec { Title = "Su: Ortadaki Göl", NotchBottom = true, NotchKind = 1, Timed = 300, Pace = 3.2f, Protect = 3, Seed = 2505, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 3, Copy = 0.3, WaterCells = 10,
+                WaterAt = (x, y) => x >= 2 && x <= 5 && y >= 3 && y <= 7, WaterUnits = (x, y, l, r) => x >= 3 && x <= 4 && y >= 4 && y <= 6 ? 3 : 1 + r.Next(2), WaterShare = 0.66f, Slack = 1.2f },
+            new Spec { Title = "Su: Buzun Altı", NotchBottom = true, NotchKind = 4, Timed = 300, Pace = 3.2f, Protect = 3, Seed = 2606, W = 8, H = 9, MinL = 2, MaxL = 4, Colors = 3, Copy = 0.35, WaterCells = 9, Ice = 6, CoverOnWater = true,
+                WaterUnits = (x, y, l, r) => 1 + r.Next(3), WaterShare = 0.66f, Slack = 1.25f },
+            new Spec { Title = "Su: Sarmaşıklı Kuyular", NotchBottom = true, NotchKind = 3, Timed = 300, Pace = 3.2f, Protect = 3, Seed = 2707, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 3, Copy = 0.3, WaterCells = 9, Clips = 6, CoverOnWater = true, WaterDeep = true,
+                WaterUnits = (x, y, l, r) => l - 1, WaterShare = 0.66f, Slack = 1.25f },
+            new Spec { Title = "Su ve Renk", NotchBottom = true, NotchKind = 6, Timed = 300, Pace = 3.2f, Protect = 3, Seed = 2808, W = 8, H = 9, MinL = 2, MaxL = 4, Colors = 3, Copy = 0.35, WaterCells = 10, ColorGoal = true,
+                WaterUnits = (x, y, l, r) => 1 + r.Next(2), WaterShare = 0.66f, Slack = 1.2f },
+            new Spec { Title = "Su: Az Hamle", NotchBottom = true, NotchKind = 4, Timed = 300, Pace = 3.2f, Protect = 4, Seed = 2909, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 3, Copy = 0.3, WaterCells = 8, WaterDeep = true,
+                WaterUnits = (x, y, l, r) => 2 + r.Next(2), WaterShare = 0.66f, Slack = 1.05f },
+            new Spec { Title = "Su: Patron", NotchBottom = true, NotchKind = 3, Timed = 300, Pace = 3.2f, Protect = 4, Seed = 3010, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 4, Copy = 0.3, WaterCells = 12, Ice = 4, Clips = 3, CoverOnWater = true, WaterDeep = true,
+                WaterUnits = (x, y, l, r) => 1 + r.Next(3), WaterShare = 0.66f, Slack = 1.1f, Hole = (x, y) => (y == 4 || y == 5) && (x == 0 || x == 7) }, // 2026-11-26: köşe boşlukları kova oyuğuna değmez
         };
 
         /// <summary>Eski torba deneme bölümleri (2026-11-23/24); test alanında artık su bölümleri var. Katalog torba bölümleri
@@ -211,6 +218,75 @@ namespace KatKat.EditorTools
             File.WriteAllText("Logs/catalog_bags.md", report.ToString());
             AssetDatabase.Refresh();
             Debug.Log($"[Katalog] {made} torba bölümü yazıldı; {untimed} eski süreli bölüm süresiz oldu");
+        }
+
+        /// <summary>
+        /// Katalogdaki su (kova) bölümleri (2026-11-26, kullanıcı: "Bölümlerin içerisine al sulu oyunu"): 19'dan başlayıp 8'de bir
+        /// (torba bölümlerinin tam ortası; dört bölümde bir torba ya da su). Yalnız bu bölümler yeniden üretilir.
+        /// </summary>
+        public static bool IsCatalogWater(int n) => n >= 19 && (n - 19) % 8 == 0;
+
+        /// <summary>Bölüm numarasına göre su bölümü: renk, katman, su hücresi, bomba, örtü ve tempo ilerledikçe zorlaşır; oyuk biçimi döner.</summary>
+        private static Spec CatalogWaterSpec(int n)
+        {
+            float t = Mathf.Clamp01((n - 19) / 600f);
+            var open = new List<string> { "yellow", "blue" };
+            if (n >= 8) open.Add("coral");
+            if (n >= 21) open.Add("purple");
+            if (n >= 61) open.Add("navy");
+            int idx = (n - 19) / 8;
+            int[] kinds = { 1, 3, 4, 6 };
+            int colors = Math.Min(open.Count, n < 150 || idx % 2 == 1 ? 3 : 4); // 4 renk iki bölümde bir
+            int w = 8, h = idx % 3 == 1 ? 8 : 9;
+            // Yan boşluklar kova oyuğuna değmez (alt satırlara inmez).
+            Func<int, int, bool> hole = (x, y) => false;
+            switch (n < 60 ? 0 : (idx * 5 + 2) % 4)
+            {
+                case 1: hole = (x, y) => y >= 2 && y <= h - 4 && (x == 0 || x == w - 1) && y % 2 == 0; break;
+                case 2: hole = (x, y) => y == h / 2 - 1 && (x == 0 || x == w - 1); break;
+                case 3: hole = (x, y) => y == 0 && (x == 0 || x == w - 1); break;
+            }
+            Func<int, int, int, System.Random, int> units = n < 100 ? (Func<int, int, int, System.Random, int>)((x, y, l, r) => 1 + r.Next(2)) : (x, y, l, r) => 1 + r.Next(3);
+            return new Spec
+            {
+                Title = "level_" + n, Seed = n * 6151, W = w, H = h, NotchBottom = true, NotchKind = kinds[idx % kinds.Length],
+                MinL = n < 60 ? 2 : 3, MaxL = n < 40 ? 3 : 4, Colors = colors, Copy = Mathf.Lerp(0.42f, 0.34f, t),
+                WaterCells = (int)Mathf.Lerp(9f, 13f, t), WaterDeep = idx % 2 == 1, WaterUnits = units,
+                WaterShare = 0.66f, Timed = 300, Pace = Mathf.Lerp(3.6f, 2.6f, t),
+                Protect = n < 40 ? 0 : Math.Min(4, 1 + (n - 40) / 150),
+                Ice = n >= 200 && idx % 3 == 0 ? 4 : 0, Clips = n >= 300 && idx % 3 == 1 ? 3 : 0, CoverOnWater = true,
+                Catalog = true, Palette = open.ToArray(), Hole = hole,
+            };
+        }
+
+        [MenuItem("KatKat/Katalog su bölümlerini üret")]
+        public static void BuildCatalogWater()
+        {
+            const string Dir = "Assets/KatKat/Resources/Levels";
+            var report = new StringBuilder("# Katalog su bölümleri\n\n| Bölüm | Ayrıntı |\n|---|---|\n");
+            int made = 0;
+            for (int n = 19; n <= 1000; n += 8)
+            {
+                string id = $"level_{n:000}";
+                string json = null, text = null;
+                // Kazanılabilir tahta bulunamazsa yeni tohum; sonra örtüsüz, en son bir renk eksik (zorluk hafifçe düşer).
+                for (int k = 0; k < 4 && json == null; k++)
+                {
+                    var sp = CatalogWaterSpec(n);
+                    sp.Seed += 1009 * k;
+                    if (k >= 2) { sp.Ice = 0; sp.Clips = 0; }
+                    if (k >= 3) { sp.Colors = 3; sp.Copy = 0.42; sp.Protect = Math.Min(sp.Protect, 2); }
+                    try { json = WaterLevel(sp, id, out text); }
+                    catch (Exception e) when (k < 3) { Debug.LogWarning($"[Katalog su] {id} deneme {k}: {e.Message}"); }
+                }
+                File.WriteAllText(Path.Combine(Dir, id + ".json"), json, new UTF8Encoding(false));
+                report.Append($"| {n} | {text} |\n");
+                Debug.Log($"[Katalog su] {id}: {text}");
+                made++;
+            }
+            File.WriteAllText("Logs/catalog_water.md", report.ToString());
+            AssetDatabase.Refresh();
+            Debug.Log($"[Katalog su] {made} su bölümü yazıldı");
         }
 
         [MenuItem("KatKat/Test bölümlerini üret (Lab)")]
@@ -415,12 +491,14 @@ namespace KatKat.EditorTools
                 int need = Math.Max(3, (int)Math.Round(total * sp.WaterShare));
                 if (need > total) need = total;
                 var probe = LevelParser.Parse(WaterJson(sp, id, cells, need, null, 0, 99, 0), id);
+                if (attempt == 0) CheckBucketNotch(probe, id);
                 if (LevelValidator.ValidateStatic(probe, LevelValidator.ScopeFor(probe)).Count > 0) continue;
                 var got = Greedy(LevelLoader.ToState(probe), 90, out int score, out var status);
                 if (status != GameStatus.Won) continue;
                 int used = _greedyMoves;
                 if (used < 8) continue; // çok kolay tahta
                 int moves = Math.Max(10, (int)Math.Ceiling(used * sp.Slack));
+                int timed = sp.Timed > 0 ? Math.Max(60, Math.Min(sp.Timed, (int)Math.Ceiling(_greedyActions * sp.Pace / 5f) * 5)) : 0;
                 KeyValuePair<string, int>? colorGoal = null;
                 if (sp.ColorGoal)
                 {
@@ -428,20 +506,42 @@ namespace KatKat.EditorTools
                     top.Sort((x, y) => y.Value.CompareTo(x.Value));
                     if (top.Count > 0) colorGoal = new KeyValuePair<string, int>(top[0].Key, Math.Max(10, (int)(top[0].Value * 0.6f) / 5 * 5));
                 }
-                string json = WaterJson(sp, id, cells, need, colorGoal, score, moves, 0);
+                string json = WaterJson(sp, id, cells, need, colorGoal, score, timed > 0 ? 99 : moves, timed);
                 var d = LevelParser.Parse(json, id);
                 var errs = LevelValidator.ValidateStatic(d, LevelValidator.ScopeFor(d));
                 if (errs.Count > 0) throw new Exception($"[Lab] {id}: {string.Join("; ", errs)}");
-                Greedy(LevelLoader.ToState(d), moves, out _, out var real);
+                Greedy(LevelLoader.ToState(d), timed > 0 ? 90 : moves, out _, out var real);
                 if (real != GameStatus.Won) continue;
+                if (sp.Catalog) json = WaterJson(sp, id, cells, need, colorGoal, score, timed > 0 ? 99 : moves, timed, new List<Command>(_greedyCmds));
                 int wetCells = System.Text.RegularExpressions.Regex.Matches(cells, "\"water\"").Count;
-                text = $"su {need}/{total} ({wetCells} hücre), {moves} hamle (açgözlü {used})" + (colorGoal.HasValue ? $", {colorGoal.Value.Key} {colorGoal.Value.Value}" : "");
+                text = $"su {need}/{total} ({wetCells} hücre), " + (timed > 0 ? $"{timed} sn" : $"{moves} hamle") + $" (açgözlü {used} hamle, {_greedyActions} eylem), {sp.Protect} bomba" + (colorGoal.HasValue ? $", {colorGoal.Value.Key} {colorGoal.Value.Value}" : "");
                 return json;
             }
             throw new Exception($"[Lab] {id}: kazanılabilir su tahtası bulunamadı");
         }
 
-        private static string WaterJson(Spec sp, string id, string cells, int need, KeyValuePair<string, int>? colorGoal, int score, int moves, int _)
+        /// <summary>
+        /// 2026-11-26 (kullanıcı: "testteki 10. bölümde kova güçlendiricilerin altında kalmış. Bölümleri oluştururken bu durumlara dikkat
+        /// edelim"): kova oyuğu, etkin hücresi olan en alt satırdan yukarı en az 2 satır derin ve en iç satırda en az 4 sütun geniş olmalı
+        /// (kova tepsinin içinde kalır, küçülmez). Değilse tahta biçimi düzeltilmeli.
+        /// </summary>
+        private static void CheckBucketNotch(LevelData d, string id)
+        {
+            var st = LevelLoader.ToState(d);
+            var b = st.Board;
+            int w = b.Width, h = b.Height, c0 = (w - 1) / 2, c1 = w / 2;
+            int low = h - 1;
+            for (; low > 0; low--) { bool any = false; for (int x = 0; x < w; x++) any |= b[x, low].Active; if (any) break; }
+            int top = h;
+            for (int y = h - 1; y >= 0; y--) { if (b[c0, y].Active || b[c1, y].Active) break; top = y; }
+            int depth = low - top + 1;
+            int l = c0, r = c1;
+            if (top < h) { while (l - 1 >= 0 && !b[l - 1, top].Active) l--; while (r + 1 < w && !b[r + 1, top].Active) r++; }
+            if (top >= h || depth < 2 || r - l + 1 < 4)
+                throw new Exception($"[Lab] {id}: kova oyuğu yetersiz (derinlik {depth} satır, genişlik {r - l + 1} sütun); en az 2 satır × 4 sütun");
+        }
+
+        private static string WaterJson(Spec sp, string id, string cells, int need, KeyValuePair<string, int>? colorGoal, int score, int moves, int timed, List<Command> solution = null)
         {
             var caps = new List<string> { "specials", "water" };
             if (sp.Clips > 0) caps.Add("clip");
@@ -449,15 +549,33 @@ namespace KatKat.EditorTools
             var sb = new StringBuilder();
             sb.Append("{\n  \"schemaVersion\": 2,\n  \"id\": \"").Append(id).Append("\",\n");
             sb.Append("  \"capabilities\": [").Append(string.Join(", ", caps.ConvertAll(c => "\"" + c + "\""))).Append("],\n");
-            sb.Append("  \"title\": \"").Append(sp.Title).Append("\",\n  \"trialType\": \"lab\",\n  \"rules\": [],\n");
+            if (sp.Catalog) sb.Append("  \"trialType\": \"water\",\n  \"rules\": [").Append(sp.Protect > 0 ? "\"crack\"" : "").Append("],\n");
+            else sb.Append("  \"title\": \"").Append(sp.Title).Append("\",\n  \"trialType\": \"lab\",\n  \"rules\": [").Append(sp.Protect > 0 ? "\"crack\"" : "").Append("],\n");
             sb.Append($"  \"width\": {sp.W},\n  \"height\": {sp.H},\n  \"moveLimit\": {moves},\n");
+            if (timed > 0) sb.Append($"  \"timeLimit\": {timed},\n");
+            // 2026-11-26 (kullanıcı: "kovayı en az 3 kez gönderebileceğimiz şekilde olmalı"): kapasite görevin en çok üçte biri.
+            sb.Append($"  \"waterCap\": {Math.Max(2, need / 3)},\n");
             sb.Append("  \"rollEnabled\": false,\n  \"startingRoll\": false,\n");
             int s1 = Math.Max(100, (int)(score * 0.55f) / 10 * 10), s2 = Math.Max(s1 + 50, (int)(score * 0.8f) / 10 * 10);
             sb.Append($"  \"stars\": [{s1}, {s2}],\n  \"goals\": [\n");
             sb.Append("    { \"type\": \"fillWater\", \"amount\": ").Append(need).Append(" }").Append(colorGoal.HasValue ? ",\n" : "\n");
             if (colorGoal.HasValue)
                 sb.Append("    { \"type\": \"collectColor\", \"color\": \"").Append(colorGoal.Value.Key).Append("\", \"amount\": ").Append(colorGoal.Value.Value).Append(" }\n");
-            sb.Append("  ],\n  ").Append(cells);
+            sb.Append("  ],\n");
+            if (solution != null)
+            {
+                sb.Append("  \"solution\": [\n");
+                for (int i = 0; i < solution.Count; i++)
+                {
+                    var c = solution[i];
+                    string step = c.Type == CommandType.SendBucket ? "{ \"type\": \"send\" }"
+                        : c.Type == CommandType.UseSpecial ? $"{{ \"type\": \"use\", \"slot\": {c.Slot}, \"x\": {c.X}, \"y\": {c.Y} }}"
+                        : $"{{ \"type\": \"tap\", \"x\": {c.X}, \"y\": {c.Y} }}";
+                    sb.Append("    ").Append(step).Append(i < solution.Count - 1 ? ",\n" : "\n");
+                }
+                sb.Append("  ],\n");
+            }
+            sb.Append("  ").Append(cells);
             return sb.ToString();
         }
 
@@ -562,7 +680,7 @@ namespace KatKat.EditorTools
                     water[i] = Math.Max(1, Math.Min(3, Math.Min(layers[x, y].Count, sp.WaterUnits(x, y, layers[x, y].Count, rng))));
                 }
             }
-            var protect = Pick(sp.Protect, (x, y) => y >= 2);
+            var protect = Pick(sp.Protect, (x, y) => y >= 2 && !water.ContainsKey(y * sp.W + x));
             Func<int, int, bool> cover = (x, y) => !sp.CoverOnWater || water.ContainsKey(y * sp.W + x);
             var clips = Pick(sp.Clips, cover);
             var ice = Pick(sp.Ice, cover);
@@ -613,7 +731,7 @@ namespace KatKat.EditorTools
                 {
                     var t = s.Clone();
                     var r = RulesEngine.TryApply(t, c);
-                    if (!r.Accepted || t.ProtectedBroken) return;
+                    if (!r.Accepted || t.ProtectedBroken || r.Cracks.Count > 0) return;
                     int gain = 0;
                     foreach (var w in r.Waves) gain += w.Cells.Count;
                     foreach (var w in r.Waves) gain += w.GravelCleared.Count * 2;
@@ -649,6 +767,21 @@ namespace KatKat.EditorTools
                         bool empty = s.Bucket.Have == 0;
                         var r = RulesEngine.TryApply(t, Command.SendBucket());
                         if (r.Accepted) { best = r; bestState = t; emptySends = empty ? emptySends + 1 : 0; }
+                    }
+                }
+                // 2026-11-26 su kovası: dolunca, kalan görevi karşılayınca ya da su veren hamle yokken gönderilir.
+                if (s.WaterCap > 0 && s.WaterHave > 0)
+                {
+                    int left = 0;
+                    foreach (var gg in s.Goals) if (gg.Type == GoalType.FillWater) left = gg.Amount - gg.Progress;
+                    int flow = 0;
+                    if (best != null) foreach (var w in best.Waves) flow += w.WaterCollected;
+                    // Taşacaksa önce gönder (su boşa gitmesin).
+                    if (s.WaterHave >= s.WaterCap || s.WaterHave >= left || best == null || s.WaterHave + flow > s.WaterCap)
+                    {
+                        var t = s.Clone();
+                        var r = RulesEngine.TryApply(t, Command.SendBucket());
+                        if (r.Accepted) { best = r; bestState = t; }
                     }
                 }
                 if (best != null && best.Command.Type != CommandType.SendBucket) emptySends = 0;

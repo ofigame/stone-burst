@@ -50,6 +50,10 @@ namespace KatKat.Core
         public readonly List<BucketSend> BucketSends = new List<BucketSend>();
         /// <summary>2026-11-24 yukarıdan dolma: komut sonunda kayan ve yeni giren yığınlar (sunum).</summary>
         public readonly List<FallMove> Falls = new List<FallMove>();
+        /// <summary>2026-11-25 su kipi: bombalı (yasaklı) yığın patladı → tepsi bu sütunların altından yarıldı (kayıp yerine).</summary>
+        public readonly List<int> Cracks = new List<int>();
+        /// <summary>2026-11-26 su kovası: bu komutla gönderilen su (birim; 0 → gönderim yok) ve kovadan taşan su.</summary>
+        public int WaterSent, WaterSpilled;
 
         public int TotalPeeled
         {

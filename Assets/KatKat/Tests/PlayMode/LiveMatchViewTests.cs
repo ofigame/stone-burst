@@ -85,6 +85,23 @@ namespace KatKat.Tests
                 Assert.Less(Mathf.Abs(sw.ShakeSwing), 1f, "salınım söndü");
             }
             finally { KatKat.UI.HangSwing.AccelOverride = null; }
+            // 2026-11-26 (kullanıcı: "Butonlara basılı tutup parmağımızı oynatırsak butonlar ip desteği ile o yönde sallansın"):
+            // sağa itilen askı sağa salınır (alt kenarı sağa: açı artı), sonra söner.
+            for (int i = 0; i < 400; i++) sw.Advance(0.02f);
+            sw.Push(0.05f);
+            float maxAng = 0f;
+            for (int i = 0; i < 15; i++) { sw.Advance(0.02f); maxAng = Mathf.Max(maxAng, sw.Angle); }
+            Assert.Greater(maxAng, 2f, "parmağın yönünde salındı");
+            for (int i = 0; i < 400; i++) sw.Advance(0.02f);
+            Assert.Less(Mathf.Abs(sw.ShakeSwing), 1f, "salınım söndü");
+            // 2026-11-26: alttaki askı sürüklenince üstündeki de sallanır.
+            var low = chained[chained.Length - 1];
+            var up = low.transform.parent.GetComponentInParent<KatKat.UI.HangSwing>();
+            for (int i = 0; i < 400; i++) { low.Advance(0.02f); up.Advance(0.02f); }
+            low.PushChain(0.05f);
+            float upMax = 0f;
+            for (int i = 0; i < 15; i++) { low.Advance(0.02f); up.Advance(0.02f); upMax = Mathf.Max(upMax, up.Angle); }
+            Assert.Greater(upMax, 1f, "üstteki askı da sallandı");
             KatKat.UI.Motion.Reduced = true;
             try { swings[0].Advance(1f); Assert.AreEqual(0f, swings[0].Angle, "azaltılmış harekette sabit"); }
             finally { KatKat.UI.Motion.Reduced = false; }

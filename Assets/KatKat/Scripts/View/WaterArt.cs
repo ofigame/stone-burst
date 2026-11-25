@@ -7,7 +7,7 @@ namespace KatKat.View
     /// tepsinin dibinden yukarıya doğru su akıttıkça artacak"). Kodla çizilir: hücre dibindeki su birikintisi, kabarcık, köpük.
     /// Tepsideki su ve akan şerit <see cref="BoardView"/>'de ağ olarak çizilir (<see cref="Material"/>).
     /// </summary>
-    public static class WaterArt
+    public static partial class WaterArt
     {
         public static readonly Color Surface = new Color(0.55f, 0.90f, 1f), Deep = new Color(0.06f, 0.36f, 0.86f);
         private static Sprite _puddle, _bubble;
@@ -15,6 +15,47 @@ namespace KatKat.View
 
         public static Sprite Puddle => _puddle ? _puddle : (_puddle = MakePuddle());
         public static Sprite Bubble => _bubble ? _bubble : (_bubble = MakeBubble());
+        private static Sprite _crack;
+        /// <summary>Tepsi yarığı: alt kenardan yukarı dallanan koyu çatlak, kenarlarında ince açık ışık.</summary>
+        public static Sprite Crack => _crack ? _crack : (_crack = MakeCrack());
+
+        private static Sprite MakeCrack()
+        {
+            const int W = 128, H = 96;
+            var t = new Texture2D(W, H, TextureFormat.RGBA32, false) { name = "TrayCrack" };
+            // Kırık çizgi: alttan (64, 0) yukarı zikzak + iki dal (doku koordinatı, y yukarı).
+            var pts = new[] { new Vector2(64, 0), new Vector2(58, 18), new Vector2(70, 34), new Vector2(60, 52), new Vector2(68, 70), new Vector2(62, 92) };
+            var b1 = new[] { new Vector2(70, 34), new Vector2(88, 44), new Vector2(104, 40) };
+            var b2 = new[] { new Vector2(60, 52), new Vector2(42, 62), new Vector2(26, 58) };
+            float Seg(Vector2 p, Vector2 a, Vector2 b) { var ab = b - a; float tt = Mathf.Clamp01(Vector2.Dot(p - a, ab) / Mathf.Max(1e-4f, ab.sqrMagnitude)); return (p - (a + ab * tt)).magnitude; }
+            float Poly(Vector2 p, Vector2[] q, float w0, float w1, out float along)
+            {
+                float best = 1e9f; along = 0f;
+                for (int i = 0; i < q.Length - 1; i++)
+                {
+                    float d = Seg(p, q[i], q[i + 1]);
+                    float aw = Mathf.Lerp(w0, w1, (i + 0.5f) / (q.Length - 1));
+                    if (d - aw < best) { best = d - aw; along = i / (float)(q.Length - 1); }
+                }
+                return best;
+            }
+            var px = new Color[W * H];
+            for (int y = 0; y < H; y++)
+            for (int x = 0; x < W; x++)
+            {
+                var p = new Vector2(x + 0.5f, y + 0.5f);
+                float d = Mathf.Min(Poly(p, pts, 6f, 1.2f, out _), Mathf.Min(Poly(p, b1, 2.5f, 0.6f, out _), Poly(p, b2, 2.5f, 0.6f, out _)));
+                float core = Mathf.Clamp01(0.5f - d);
+                float glow = Mathf.Clamp01(1f - (d - 0.5f) / 2.5f) * (1f - core);
+                var c = Color.Lerp(new Color(1f, 0.95f, 0.85f, glow * 0.6f), new Color(0.12f, 0.06f, 0.03f, 1f), core);
+                px[y * W + x] = c;
+            }
+            t.SetPixels(px);
+            t.wrapMode = TextureWrapMode.Clamp;
+            t.filterMode = FilterMode.Bilinear;
+            t.Apply(false, true);
+            return Sprite.Create(t, new Rect(0, 0, W, H), new Vector2(0.5f, 0f), W);
+        }
 
         // ---- Oyuktaki su (2026-11-25, kullanıcı: "Su taşın ortasında resim gibi duruyor. Ben o boşluk şeklin su dolmasını istiyorum
         // doğal görünecek"; "su orada canlı olsun") -----------------------------------------------------------------------------
@@ -31,12 +72,17 @@ namespace KatKat.View
         /// <summary>Atlas hücresi 512 px, taş yüzü ortadaki 496 px: hücre biriminden yüz birimine.</summary>
         private const float CellToFace = 512f / 496f * 0.95f; // oyuğun çeperine tam otursun (%5 geniş)
 
-        public static Sprite SymbolFill(KatKat.Core.LayerColor color, int units, int frame)
+        /// <summary>Oyuk dolum seviyesi basamağı: 0 boş … 8 dolu (2026-11-25, kullanıcı: "Hücrede su dolu olsun boşalırken en altından
+        /// akarak boşalsın").</summary>
+        public const int FillLevels = 8;
+
+        public static Sprite SymbolFill(KatKat.Core.LayerColor color, int level, int frame)
         {
             frame = ((frame % FillFrames) + FillFrames) % FillFrames;
-            int key = (int)color * FillFrames + frame;
+            level = Mathf.Clamp(level, 0, FillLevels);
+            int key = ((int)color * (FillLevels + 1) + level) * FillFrames + frame;
             if (_fills.TryGetValue(key, out var sp) && sp) return sp;
-            sp = MakeFill(color, frame);
+            sp = MakeFill(color, frame, level / (float)FillLevels);
             _fills[key] = sp;
             return sp;
         }
@@ -132,7 +178,7 @@ namespace KatKat.View
             return b;
         }
 
-        private static Sprite MakeFill(KatKat.Core.LayerColor color, int frame)
+        private static Sprite MakeFill(KatKat.Core.LayerColor color, int frame, float fill)
         {
             const int N = FillN;
             var b = FillBase(color);
@@ -141,9 +187,11 @@ namespace KatKat.View
             float ph = frame / (float)FillFrames * Mathf.PI * 2f;
             // 2026-11-25 (kullanıcı: "Yarısı dolu olsun şeklin"): su oyuğun alt yarısında; yüzey çalkalanır ve dalgalanır, üstü boş oyuk.
             var bnd = _fillBounds[(int)color];
-            float mid = Mathf.Lerp(bnd.x, bnd.y, 0.5f);
-            var deep = new Color(0.03f, 0.40f, 0.97f);
-            var shallow = new Color(0.38f, 0.86f, 1f);
+            // Dolu oyukta yüzey üst kenarın biraz üstünde (menisküs görünmez, su ağzına kadar); boşalırken iner.
+            float mid = fill >= 1f ? bnd.y + 0.05f : Mathf.Lerp(bnd.x - 0.02f, bnd.y, fill);
+            // 2026-11-25 (kullanıcı: "suyun rengini biraz daha açalım"): açık turkuaz su.
+            var deep = new Color(0.22f, 0.64f, 1f);
+            var shallow = new Color(0.68f, 0.96f, 1f);
             for (int y = 0; y < N; y++)
             for (int x = 0; x < N; x++)
             {
@@ -151,13 +199,13 @@ namespace KatKat.View
                 if (cov <= 0f) { px[y * N + x] = new Color(0, 0, 0, 0); continue; }
                 float edge = b[(y * N + x) * 2 + 1];
                 float u = (x + 0.5f) / N - 0.5f, v = (y + 0.5f) / N - 0.5f;
-                float surf = mid + 0.16f * Mathf.Sin(ph) * u + 0.012f * Mathf.Sin(u * 30f + ph * 2f) + 0.006f * Mathf.Sin(u * 61f - ph * 3f);
+                float surf = mid + (fill >= 1f ? 0f : 0.10f * Mathf.Sin(ph) * u) + 0.012f * Mathf.Sin(u * 30f + ph * 2f) + 0.006f * Mathf.Sin(u * 61f - ph * 3f);
                 float wet = Mathf.Clamp01((surf - v) * N + 0.5f);
                 float meniscus = Mathf.Clamp01(1f - Mathf.Abs(v - surf) * N / 1.6f);
                 if (wet <= 0f && meniscus <= 0f) { px[y * N + x] = new Color(0, 0, 0, 0); continue; }
                 // Su gövdesi: ortası açık, kenara doğru derin (oyuğun çeperi); hafif saydam (taşın dibi altından okunur).
                 var c = Color.Lerp(shallow, deep, 0.35f + 0.55f * edge);
-                float a = 0.80f + 0.15f * edge;
+                float a = 0.72f + 0.18f * edge;
                 // Kayan ışık ağı (üstten bakılan havuz): iki dalga ağının parlak düğümleri, kare evresiyle kayar.
                 float k1 = Mathf.Sin(u * 38f + v * 14f + ph) + Mathf.Sin(u * -17f + v * 33f + ph * 1f + 1.3f);
                 float k2 = Mathf.Sin(u * 25f - v * 29f - ph + 2.1f);

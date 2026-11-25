@@ -57,6 +57,7 @@ namespace KatKat.Levels
                 }
             }
 
+            if (o.ContainsKey("waterCap")) d.WaterCap = Int(o, "waterCap", where);
             foreach (var g in List(o, "goals", where))
             {
                 var go = AsObj(g, where, "goals");

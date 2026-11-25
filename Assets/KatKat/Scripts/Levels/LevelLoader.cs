@@ -96,6 +96,7 @@ namespace KatKat.Levels
                 s.Goals.Add(gs);
             }
             if (d.Hazard != null) s.Hazard = d.Hazard.ToState(board, d.Id); // konsept pilotu
+            s.WaterCap = d.WaterCap; // 2026-11-26 su kovası
             if (d.Buckets.Count > 0) // 2026-11-23 kova kipi
             {
                 var orders = new List<BucketOrder>();

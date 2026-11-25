@@ -54,6 +54,17 @@ namespace KatKat.Core
                 return result;
             }
 
+            if (cmd.Type == CommandType.SendBucket && state.WaterCap > 0)
+            {
+                // 2026-11-26 su kovası: kovadaki su görevi ilerletir, kova boşalır; hamle harcamaz.
+                result.WaterSent = state.WaterHave;
+                foreach (var g in state.Goals)
+                    if (g.Type == GoalType.FillWater && g.Stage == state.ActiveStage) g.Progress += state.WaterHave;
+                state.WaterHave = 0;
+                Finish(state, result, scoreBefore);
+                return result;
+            }
+
             if (cmd.Type == CommandType.SendBucket)
             {
                 // 2026-11-23 kova kipi: içindeki kadarı teslim edilir, eksik kısım sıranın sonuna; hamle harcamaz.
@@ -281,6 +292,8 @@ namespace KatKat.Core
                 if (!board.InBounds(cmd.X, cmd.Y)) return RejectReason.OutOfBounds;
                 return TrayHasEffect(board, state.Tray[cmd.Slot], cmd.X, cmd.Y) ? RejectReason.None : RejectReason.TrayNoEffect;
             }
+            if (cmd.Type == CommandType.SendBucket && state.WaterCap > 0)
+                return state.WaterHave > 0 ? RejectReason.None : RejectReason.BucketEmpty; // su kovası: boşken gönderilmez
             if (cmd.Type == CommandType.SendBucket)
                 return state.Bucket != null && state.Bucket.Active ? RejectReason.None : RejectReason.BucketEmpty; // 2026-11-23: boş torba da gönderilir
             if (cmd.Type == CommandType.Bomb)
@@ -455,6 +468,7 @@ namespace KatKat.Core
         {
             if (TrayUsable(state)) return true;
             if (state.Bucket != null && state.Bucket.Active) return true; // torba (boş da) gönderilebilir
+            if (state.WaterCap > 0 && state.WaterHave > 0) return true; // su kovası gönderilebilir
             if (state.MovesLeft <= 0) return false;
             if (GroupFinder.HasValidGroup(state.Board)) return true;
             for (int i = 0; i < state.Board.Count; i++)
@@ -801,7 +815,17 @@ namespace KatKat.Core
                     _removedColor[i] = removed;
                     cell.Layers.RemoveAt(cell.Layers.Count - 1);
                     _peeled[i] = true;
-                    if (cell.Protected) _state.ProtectedBroken = true; // v12 deneme: kristal soyuldu
+                    // v12 deneme: kristal soyuldu → kayıp. 2026-11-25 su kipi (kullanıcı: "Sulu bölümde yasaklı taşlar patlatılır ise tepsi
+                    // delinsin ve su boşalsın"): kayıp yok; bombalı yığın gider, tepsi o sütunun altından yarılır (sızıntı görünümde).
+                    if (cell.Protected)
+                    {
+                        if (WaterMode(_state))
+                        {
+                            cell.Protected = false;
+                            if (!_result.Cracks.Contains(board.X(i))) _result.Cracks.Add(board.X(i));
+                        }
+                        else _state.ProtectedBroken = true;
+                    }
                     if (_state.Bucket != null) { if (BucketTake(_state, _result, removed)) pw.BucketCells.Add(pw.Cells.Count); }
                     else AddGoal(_state, removed);
                     score += Scoring.Layer(pw.Index);
@@ -1144,8 +1168,22 @@ namespace KatKat.Core
                 if (g.Type == GoalType.CollectColor && g.Color == color && g.Stage == state.ActiveStage) g.Progress++;
         }
 
+        /// <summary>Su kipi: görevde tepsiyi doldurma var.</summary>
+        public static bool WaterMode(LevelState state)
+        {
+            foreach (var g in state.Goals) if (g.Type == GoalType.FillWater) return true;
+            return false;
+        }
+
         private static void AddWater(LevelState state, int units)
         {
+            if (state.WaterCap > 0)
+            {
+                // Su kovası: kova kapasitesine kadar; fazlası taşar (görev yalnız gönderimle ilerler).
+                int room = Math.Max(0, state.WaterCap - state.WaterHave);
+                state.WaterHave += Math.Min(room, units);
+                return;
+            }
             foreach (var g in state.Goals)
                 if (g.Type == GoalType.FillWater && g.Stage == state.ActiveStage) g.Progress += units;
         }

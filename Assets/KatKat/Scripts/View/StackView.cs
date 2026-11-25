@@ -520,17 +520,15 @@ namespace KatKat.View
             if (!show) return;
             if (_layers.Count > 0) _waterColor = _layers[_layers.Count - 1];
             int frame = KatKat.UI.Motion.Reduced ? 0 : Mathf.FloorToInt((_waterClock + transform.position.x * 0.37f) * 10f);
-            int units = _waterDrain >= 0f ? 3 : _waterUnits;
-            _waterFill.sprite = WaterArt.SymbolFill(_waterColor, units, frame);
+            // Dolu; boşalırken seviye yukarıdan aşağı iner (su şeklin en altından akar: BoardView akışı oradan başlar).
+            int level = _waterDrain >= 0f ? Mathf.RoundToInt(WaterArt.FillLevels * (1f - Mathf.Clamp01(_waterDrain))) : WaterArt.FillLevels;
+            _waterFill.sprite = WaterArt.SymbolFill(_waterColor, level, frame);
             _waterFill.sortingOrder = _renderer.sortingOrder + 3;
             float a = 1f, sy = 1f;
             if (_waterDrain >= 0f)
             {
-                // Boşalma: şekildeki su aşağı çekilir ve söner (akış şeridi buradan başlar).
-                _waterDrain += dt / 0.3f;
-                float d = Mathf.Clamp01(_waterDrain);
-                a = 1f - d;
-                sy = 1f - 0.6f * d;
+                // Boşalma: seviye 0,45 sn'de dibe iner.
+                _waterDrain += dt / 0.45f;
                 if (_waterDrain >= 1f) { _waterDrain = -1f; _waterFill.gameObject.SetActive(false); return; }
             }
             _waterFill.color = new Color(1f, 1f, 1f, a);

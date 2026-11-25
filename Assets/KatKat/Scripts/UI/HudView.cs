@@ -189,6 +189,7 @@ namespace KatKat.UI
                 _vr2Goals = back;
                 goals.color = Color.clear; // iç dolgu yok: zemin yuvanın kendi krem tabanı
             }
+            _goalsCard = (RectTransform)goals.transform.parent; // 2026-11-26 su kovası: görev kartının kendisi suyla dolar
             _goalsBar = Vr2.Ready
                 ? UiFactory.Stretch(UiFactory.Rect("Goals", goals.transform), 18f, 18f, 0f, 0f) // kapsül uçlarının içinde (çip alanı Ui1 hesabıyla)
                 : Ui1.Ready
@@ -398,7 +399,7 @@ namespace KatKat.UI
         private RectTransform _safe;
         private float _boardBottom = ShellH + 22f;
         private Text _moves, _toast, _tutorial, _movesLabel;
-        private RectTransform _goalsBar;
+        private RectTransform _goalsBar, _goalsCard;
         private RectTransform _tutorialBox, _toastBox;
         private RectTransform _goalsRow;
         private Button _undo, _roll;
@@ -1109,20 +1110,6 @@ namespace KatKat.UI
 
         /// <param name="title">Başlık hapındaki yazı (bölge adı, ör. "SAHİL").</param>
         /// <param name="levelNumber">Altın dairedeki bölüm numarası (1 tabanlı).</param>
-        private TMPro.TextMeshProUGUI _waterGoalText;
-        private int _waterPctShown = -1;
-        /// <summary>Su kipi: tepsinin gösterilen doluluğu (0–1); hedef yazısındaki yüzde buradan.</summary>
-        public Func<float> WaterPercent;
-
-        private void TickWaterGoal()
-        {
-            if (_waterGoalText == null || !_waterGoalText.gameObject.activeSelf || WaterPercent == null) return;
-            int pct = Mathf.Clamp(Mathf.RoundToInt(WaterPercent() * 100f), 0, 100);
-            if (pct == _waterPctShown) return;
-            _waterPctShown = pct;
-            _waterGoalText.text = Loc.F("goal.water.pct", pct);
-        }
-
         public void SetLevel(string title, int moves, IList<GoalState> goals, bool rollEnabled, int levelNumber = 0)
         {
             SetMoves(moves);
@@ -1147,30 +1134,11 @@ namespace KatKat.UI
                 if (goals[i].Type == GoalType.FillWater) _chips[i].Root.gameObject.SetActive(false);
                 else visible = true;
             }
-            // 2026-11-25 (kullanıcı: "Tepsiyi suyla doldur yazısının rengini hamle sayısının renginden yapalım. Ve doluluk yüzdesi olsun
-            // o alanda"): hamle sayısıyla aynı sarı + mor kontur; sonunda doluluk yüzdesi (su yükseldikçe sayar).
+            // 2026-11-26 (kullanıcı: "görev çubuğunda kovayı suyla doldur kaldıralım … görev çubuğu yatayda su dolan progress bar gibi
+            // olsun"): su görevinde yazı yerine suyla dolan ilerleme çubuğu.
             bool hasWater = false;
             foreach (var g in goals) hasWater |= g.Type == GoalType.FillWater;
-            bool waterOnly = hasWater;
-            if (waterOnly && _waterGoalText == null)
-            {
-                _waterGoalText = UiFactory.Title("WaterGoal", _goalsRow, Loc.F("goal.water.pct", 0), 44, new Color32(0xFF, 0xCE, 0x3A, 0xFF), new Color32(0x3A, 0x18, 0x6A, 0xFF));
-                _waterGoalText.raycastTarget = false;
-                _waterGoalText.alignment = TMPro.TextAlignmentOptions.Center;
-                _waterGoalText.textWrappingMode = TMPro.TextWrappingModes.NoWrap;
-                var le = _waterGoalText.gameObject.AddComponent<LayoutElement>();
-                le.preferredWidth = 700f;
-                le.minWidth = 600f;
-                le.preferredHeight = 80f;
-            }
-            if (_waterGoalText != null)
-            {
-                _waterGoalText.gameObject.SetActive(waterOnly);
-                _waterGoalText.text = Loc.F("goal.water.pct", 0);
-                _waterPctShown = 0;
-                var le2 = _waterGoalText.GetComponent<LayoutElement>();
-                if (le2 != null) le2.preferredWidth = visible ? 520f : 760f;
-            }
+            ShowWaterBar(hasWater, visible);
             _mascot?.SetWorried(false);
             _roll.gameObject.SetActive(rollEnabled);
             _rollGlow.gameObject.SetActive(rollEnabled);
@@ -1549,7 +1517,7 @@ namespace KatKat.UI
             TickBottomButtons(Time.unscaledDeltaTime);
             TickTray(Time.unscaledDeltaTime);
             TickBucket(Time.unscaledDeltaTime);
-            TickWaterGoal();
+            TickWaterBar(Time.unscaledDeltaTime);
             TickSkills(Time.unscaledDeltaTime);
             TickVeil(Time.unscaledDeltaTime);
             TickScore(Time.unscaledDeltaTime);

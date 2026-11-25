@@ -542,7 +542,6 @@ namespace KatKat.View
             float padW = pad / (float)ResTray * _pitch;
             _floorSr.transform.localPosition = new Vector3(gridLeft - padW, gridTop - _height * _rowPitch - padW, 0f);
             _floorSr.transform.localScale = new Vector3(_pitch, _pitch, 1f);
-            BuildWaterMask(tw, th, ResTray); // 2026-11-25 su kipi: tepsinin iç alanı
             // Hafif dış gölge: aynı şekil, koyu, biraz aşağıda (tepsi arka plandan ayrılsın).
             if (_floorShadow == null)
             {
@@ -877,7 +876,7 @@ namespace KatKat.View
                     if (cp.Water > 0)
                     {
                         var wc = cp;
-                        At(start + delay + StarRiseAt * 0.5f, () => LaunchWater(wc.X, wc.Y, wc.Water));
+                        At(start, () => LaunchWater(wc.X, wc.Y, wc.Water)); // 2026-11-25: taş kalkmadan oyuk alttan boşalır
                     }
                     if (cp.StarCollected)
                         At(start + delay + StarRiseAt, () => LaunchStar(StackAt(cp.X, cp.Y), starTarget != null ? starTarget() : transform.position + Vector3.up * 5f));

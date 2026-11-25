@@ -185,13 +185,13 @@ namespace KatKat.Tests
             Assert.AreEqual("lab_01", _gc.CurrentLevel.Id);
             Assert.IsTrue(_gc.WaterLevel, "test bölümü sulu");
             Assert.AreEqual(0, _gc.Board.WaterShown, "tepsi boş başlar");
-            Assert.IsFalse(_gc.TimedActive, "su bölümü hamleli");
+            Assert.IsTrue(_gc.TimedActive, "su bölümü süreli (2026-11-25)");
             var st = _gc.Session.State;
             var wetCell = Enumerable.Range(0, st.Board.Count).First(i => st.Board[i].Water > 0);
             Assert.AreEqual(st.Board[wetCell].Water, _gc.Board.StackAt(st.Board.X(wetCell), st.Board.Y(wetCell)).WaterUnits, "hücre dibinde su");
             _gc.Board.Director.TimeScale = 10f;
             var goal = st.Goals.First(g => g.Type == KatKat.Core.GoalType.FillWater);
-            for (int k = 0; k < 30 && goal.Progress == 0 && st.Status == KatKat.Core.GameStatus.Idle; k++)
+            for (int k = 0; k < 30 && st.WaterHave == 0 && goal.Progress == 0 && st.Status == KatKat.Core.GameStatus.Idle; k++)
             {
                 var b = st.Board;
                 var groups = KatKat.Core.GroupFinder.AllComponents(b).Where(g => g.Count >= KatKat.Core.GroupFinder.MinGroup).ToList();
@@ -203,13 +203,29 @@ namespace KatKat.Tests
                 st = _gc.Session.State;
                 goal = st.Goals.First(g => g.Type == KatKat.Core.GoalType.FillWater);
             }
-            Assert.Greater(goal.Progress, 0, "su kovaya aktı");
+            // 2026-11-26 kova: su kovaya girer (kapasiteye kadar); görev yalnız "Gönder" ile ilerler.
+            Assert.Greater(st.WaterCap, 0, "kova kapasitesi var");
+            Assert.LessOrEqual(st.WaterCap * 3, goal.Amount, "en az 3 gönderim");
+            Assert.Greater(st.WaterHave, 0, "su kovaya aktı");
+            Assert.AreEqual(0, goal.Progress, "görev gönderimden önce ilerlemez");
             float limit = Time.realtimeSinceStartup + 4f;
-            while ((_gc.Board.WaterFlying || _gc.Board.WaterShown != Mathf.Min(goal.Progress, goal.Amount)) && Time.realtimeSinceStartup < limit) yield return null;
-            Assert.AreEqual(Mathf.Min(goal.Progress, goal.Amount), _gc.Board.WaterShown, "tepsi suyu mantıkla eşit");
+            while ((_gc.Board.WaterFlying || _gc.Board.WaterShown != st.WaterHave) && Time.realtimeSinceStartup < limit) yield return null;
+            Assert.AreEqual(st.WaterHave, _gc.Board.WaterShown, "kova suyu mantıkla eşit");
             limit = Time.realtimeSinceStartup + 3f;
             while (_gc.Board.WaterLevel01 < 0.001f && Time.realtimeSinceStartup < limit) yield return null;
-            Assert.Greater(_gc.Board.WaterLevel01, 0f, "tepside su yükseldi");
+            Assert.Greater(_gc.Board.WaterLevel01, 0f, "kovada su yükseldi");
+            int sent = st.WaterHave;
+            _gc.SendWaterBucket();
+            yield return WaitStable();
+            st = _gc.Session.State;
+            goal = st.Goals.First(g => g.Type == KatKat.Core.GoalType.FillWater);
+            Assert.AreEqual(sent, goal.Progress, "kovadaki su göreve aktı");
+            Assert.AreEqual(0, st.WaterHave, "kova boşaldı");
+            limit = Time.realtimeSinceStartup + 3f;
+            while (_gc.Hud.WaterBarShown < 0.001f && Time.realtimeSinceStartup < limit) yield return null;
+            Assert.Greater(_gc.Hud.WaterBarShown, 0f, "görev kartı suyla doldu");
+            var bl = _gc.Board.BucketLocal;
+            Assert.Less(bl.y, _gc.Board.CellCenter(0, _gc.Session.State.Board.Height - 1).y, "kova tahtanın alt kısmında");
         }
 
         /// <summary>C03: taş kazanıldı, uygulama sunumdan önce kapandı → sonraki açılışta vitrin bir kez; taş ikinci kez verilmez.</summary>

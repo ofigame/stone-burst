@@ -95,6 +95,7 @@ switch ($Command) {
     'capture-game'    { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CaptureAll') 'capture-game' }
     'capture-pop'     { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CapturePop') 'capture-pop' } # taş akışı ara kareleri (2026-11-19)
     'catalog-bags'    { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.LabLevels.BuildCatalogBags') 'catalog-bags' } # 2026-11-24 15'ten 8'de bir torba bölümü → Resources/Levels
+    'catalog-water'   { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.LabLevels.BuildCatalogWater') 'catalog-water' } # 2026-11-26 19'dan 8'de bir su (kova) bölümü
     'lab-levels'      { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.LabLevels.Build') 'lab-levels' } # 2026-11-21 yeni özellik test bölümleri → Resources/Lab
     'build-android'   { $c = Invoke-Unity @('-quit', '-buildTarget', 'Android', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildAndroid') 'build-android' }
     'build-android-acik' { $c = Invoke-Unity @('-quit', '-buildTarget', 'Android', '-executeMethod', 'KatKat.EditorTools.BuildScripts.BuildAndroidUnlockAll') 'build-android-acik' }

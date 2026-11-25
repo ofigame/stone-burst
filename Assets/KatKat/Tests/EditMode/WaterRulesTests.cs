@@ -49,6 +49,43 @@ namespace KatKat.Tests
         }
 
         [Test]
+        public void Water_ProtectedPeel_CracksTray_NoLoss()
+        {
+            // 2026-11-25 (kullanıcı: "Sulu bölümde yasaklı taşlar patlatılır ise tepsi delinsin ve su boşalsın"): kayıp yok, yarık.
+            var s = WithWater(new[] { "c c c b", "y y b y" }, 5, (3, 0, 1));
+            s.Board[1, 0].Protected = true;
+            var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
+            Assert.IsTrue(r.Accepted);
+            Assert.IsFalse(s.ProtectedBroken);
+            Assert.AreNotEqual(GameStatus.LostProtected, s.Status);
+            CollectionAssert.Contains(r.Cracks, 1, "yarık bombanın sütununda");
+            // Susuz bölümde aynı hamle kaybettirir.
+            var dry = State(20, new[] { "c c c b", "y y b y" }, (LayerColor.Coral, 3));
+            dry.Board[1, 0].Protected = true;
+            RulesEngine.TryApply(dry, Command.Tap(0, 0));
+            Assert.AreEqual(GameStatus.LostProtected, dry.Status);
+        }
+
+        [Test]
+        public void WaterBucket_FillsToCap_Spills_SendMovesToGoal()
+        {
+            // 2026-11-26 (kullanıcı: "kova doldukça gönder diyelim … kovayı en az 3 kez gönderebileceğimiz şekilde olmalı").
+            var s = WithWater(new[] { "c c c b", "y y b y" }, 6, (0, 0, 2), (1, 0, 2));
+            s.WaterCap = 3;
+            Assert.IsFalse(RulesEngine.TryApply(s, Command.SendBucket()).Accepted, "boş kova gönderilmez");
+            RulesEngine.TryApply(s, Command.Tap(0, 0));
+            Assert.AreEqual(3, s.WaterHave, "kapasiteye kadar; fazlası taştı");
+            Assert.AreEqual(0, s.Goals[0].Progress, "görev gönderimden önce ilerlemez");
+            int moves = s.MovesLeft;
+            var r = RulesEngine.TryApply(s, Command.SendBucket());
+            Assert.IsTrue(r.Accepted);
+            Assert.AreEqual(3, r.WaterSent);
+            Assert.AreEqual(3, s.Goals[0].Progress);
+            Assert.AreEqual(0, s.WaterHave, "kova boşaldı");
+            Assert.AreEqual(moves, s.MovesLeft, "gönderim hamle harcamaz");
+        }
+
+        [Test]
         public void Water_GoalComplete_Wins()
         {
             var s = WithWater(new[] { "c c c b" }, 2, (1, 0, 2));
@@ -94,13 +131,14 @@ namespace KatKat.Tests
                 var d = LevelParser.Parse(File.ReadAllText(Path.Combine(dir, $"lab_{i:00}.json")), "lab");
                 Assert.IsEmpty(LevelValidator.ValidateStatic(d, LevelValidator.ScopeFor(d)), d.Id);
                 Assert.IsTrue(d.Goals.Any(g => g.Type == "fillWater"), d.Id + " su görevi");
-                Assert.AreEqual(0, d.TimeLimit, d.Id + " hamleli");
+                Assert.Greater(d.TimeLimit, 0, d.Id + " süreli (2026-11-25)");
                 var st = LevelLoader.ToState(d);
                 int wet = 0, total = 0;
                 for (int k = 0; k < st.Board.Count; k++) if (st.Board[k].Water > 0) { wet++; total += st.Board[k].Water; }
                 Assert.Less(wet, st.Board.Count / 3, d.Id + " su yalnız bazı hücrelerde");
                 Assert.GreaterOrEqual(total, d.Goals.First(g => g.Type == "fillWater").Amount);
-                Assert.IsTrue(st.Board[(d.Width - 1) / 2, 0].Active, d.Id + " oyuksuz (kova yok, su tepsiye dolar)");
+                Assert.IsFalse(st.Board[(d.Width - 1) / 2, d.Height - 1].Active, d.Id + " alt ortada kova oyuğu (2026-11-26)");
+                Assert.IsTrue(st.Board[(d.Width - 1) / 2, 0].Active, d.Id + " üstte oyuk yok");
             }
         }
     }

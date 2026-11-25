@@ -38,6 +38,12 @@ namespace KatKat.Core
         public BucketRun Bucket;
         /// <summary>2026-11-24 yukarıdan dolma (yoksa null): boşalan hücrelere üstten kayma ve sınırlı yeni yığın.</summary>
         public RefillRun Refill;
+        /// <summary>
+        /// 2026-11-26 su kovası (kullanıcı: "kova doldukça gönder diyelim … kovayı en az 3 kez gönderebileceğimiz şekilde olmalı"):
+        /// kova kapasitesi (0 → kovasız: su doğrudan görevi ilerletir) ve kovadaki su. Akan su kovaya girer, kova doluysa fazlası taşar;
+        /// gönderilince kovadaki su görevi ilerletir, kova boşalır.
+        /// </summary>
+        public int WaterCap, WaterHave;
 
         /// <summary>Aşama sayısı (hedeflerin en büyük aşaması + 1).</summary>
         public int StageCount { get { int m = 0; foreach (var g in Goals) if (g.Stage > m) m = g.Stage; return m + 1; } }
@@ -72,6 +78,8 @@ namespace KatKat.Core
                 Hazard = Hazard?.Clone(),
                 Bucket = Bucket?.Clone(),
                 Refill = Refill?.Clone(),
+                WaterCap = WaterCap,
+                WaterHave = WaterHave,
             };
             foreach (var g in Goals) s.Goals.Add(g.Clone());
             s.Tray.AddRange(Tray);
@@ -82,7 +90,7 @@ namespace KatKat.Core
         {
             if (MovesLeft != o.MovesLeft || RollEnabled != o.RollEnabled || RollSlotFull != o.RollSlotFull || Status != o.Status
                 || SpecialsEnabled != o.SpecialsEnabled || Score != o.Score || PaintLeft != o.PaintLeft || ProtectedBroken != o.ProtectedBroken
-                || ActiveStage != o.ActiveStage) return false;
+                || ActiveStage != o.ActiveStage || WaterCap != o.WaterCap || WaterHave != o.WaterHave) return false;
             if ((Hazard == null) != (o.Hazard == null) || (Hazard != null && !Hazard.ContentEquals(o.Hazard))) return false;
             if ((Bucket == null) != (o.Bucket == null) || (Bucket != null && !Bucket.ContentEquals(o.Bucket))) return false;
             if ((Refill == null) != (o.Refill == null) || (Refill != null && !Refill.ContentEquals(o.Refill))) return false;

@@ -26,7 +26,7 @@ namespace KatKat.UI
             if (rule == "hazard_orders" || rule == "hazard_cycle") return KatKat.View.HazardPaint.Clock;
             // 2026-11-16: oyunun parçalarından (hamle sayacı, taşlar, tepsi) parlak kabartmalı simgeler.
             // 2026-11-21 (kullanıcı): patlatılması yasak yığının işareti kristal değil, kızıl fitilli bomba.
-            if (rule == "protect") return KatKat.View.FuseBombArt.Body;
+            if (rule == "protect" || rule == "crack") return KatKat.View.FuseBombArt.Body; // crack: su kipinde bomba tepsiyi yarar
             if (rule == "exact") return KatKat.View.HazardPaint.RuleExact;
             if (rule == "scarce") return KatKat.View.HazardPaint.RuleScarce;
             if (rule == "noSpecials") return KatKat.View.HazardPaint.RuleNoSpecials;

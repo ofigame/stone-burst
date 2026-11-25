@@ -194,6 +194,7 @@ namespace KatKat.Levels
                 }
                 else if (g.Type == "fillWater")
                 {
+                    if (d.WaterCap < 0 || (d.WaterCap > 0 && d.WaterCap * 3 > g.Amount)) e.Add($"{id}: su kovası kapasitesi {d.WaterCap}, görevin üçte birini aşamaz (en az 3 gönderim)");
                     if (!d.Capabilities.Contains("water")) e.Add($"{id}: su hedefi için water yeteneği gerekli");
                     if (g.Amount > water) e.Add($"{id}: su hedefi {g.Amount}, tahtada {water} birim su var");
                 }
@@ -214,7 +215,7 @@ namespace KatKat.Levels
             }
 
             foreach (var s in d.Solution)
-                if (s.Type != "tap" && s.Type != "roll" && s.Type != "rotate" && s.Type != "paint" && s.Type != "use" && !(s.Type == "send" && d.Buckets.Count > 0)) e.Add($"{id}: bilinmeyen çözüm adımı '{s.Type}'");
+                if (s.Type != "tap" && s.Type != "roll" && s.Type != "rotate" && s.Type != "paint" && s.Type != "use" && !(s.Type == "send" && (d.Buckets.Count > 0 || d.WaterCap > 0))) e.Add($"{id}: bilinmeyen çözüm adımı '{s.Type}'");
 
             if (e.Count == 0)
             {

@@ -6,29 +6,22 @@ using UnityEngine;
 namespace KatKat.View
 {
     /// <summary>
-    /// Su kipi sunumu (2026-11-25, kullanıcı: "Damla olmayacak. Gerçekten hücrenin dibinde su olacak, su kovasını iptal edelim. hücre
-    /// dibindeki su tepsinin içine akacak ve tepsinin dibinden yukarıya doğru su akıttıkça artacak. Su seviyesi yükseldikçe taşlar
-    /// suyun içinde kalacak. Animasyonları çarpıcı ve eğlenceli hale getirelim … Gizli sayaç olacak ve o sayaca göre tepside seviye
-    /// yükselecek ve tüm tepsi su dolunca bölüm bitecek").
-    /// <para>Tepsi suyu tek ağ: etkin hücrelerin alanı alttan seviyeye kadar saydam mavi (derinleştikçe koyu, ışık oyunu), üstte
-    /// dalgalı köpük çizgisi; taşlar suyun altında renkleriyle görünür. Hücre boşalınca suyu bir şerit halinde yüzeye dökülür
-    /// (yerçekimiyle hızlanır, kıvrılır), değdiği yerde sıçrama halkası ve köpük; su yükselir (yaylı, hafif taşarak), yüzey
-    /// çalkalanır, kabarcıklar çıkar. Yüzeyin altındaki hücreden su kabarcık patlamasıyla katılır.</para>
-    /// <para>Seviye = varan su / gereken (gizli sayaç); dolu tepside su tahtanın üstünü (taş yüksekliği dahil) kaplar.</para>
+    /// Su kipi sunumu: kova (2026-11-26, kullanıcı çizimi: "Su bölümlerini kovaya çeviriyoruz. Ve kova tepsinin alt kısmında bu şekilde
+    /// konumlanacak. Çeşitli tepsi şekilleri olabilir. Kovayı dolduracağız").
+    /// <para>Kova tepsinin alt ortasındaki oyukta (cam kova; suyu camdan görünür). Oyuğun üst kenarı boşalma yeri: hücrenin oyuğundaki
+    /// su, hücre dibine kadar boşalınca alttan akar, tepsi üzerinden boşalma yerine kıvrılarak gider ve oradan kovaya dökülür
+    /// (oyuğun yanındaki alçak hücrelerden su yandan kovanın ağzına akar). Varışta sıçrama, halkalar, kabarcık; kova suyu yaylı
+    /// yükselir, telefon eğimiyle eğilir (gölgelendirici: KatKatTrayWater, maske: kovanın iç yüzü).</para>
+    /// <para>Seviye = varan su / gereken (gizli sayaç). Çatlak ve sızıntı: <see cref="OpenCrack"/> (BoardView.Crack).</para>
     /// </summary>
     public sealed partial class BoardView
     {
-        /// <summary>Bir dökülme yüzeye vardı (su birimi): ses ve titreşim.</summary>
+        /// <summary>Bir dökülme kovaya vardı (su birimi): ses ve titreşim.</summary>
         public Action<int> WaterArrived { get; set; }
 
         private bool _waterOn;
         private int _waterNeed, _waterLogic = -1;
         private float _waterHave, _waterShown, _waterVel, _waterSurge, _waterClock, _waterIdle, _waterBubbleT;
-        private bool[] _waterActive;
-        private GameObject _waterGo;
-        private Mesh _waterMesh;
-        private MeshRenderer _waterMr;
-        /// <summary>Dökülen şeritler ayrı ağda, taşların üstünde (su gövdesi taşların arkasında).</summary>
         private GameObject _pourGo;
         private Mesh _pourMesh;
         private MeshRenderer _pourMr;
@@ -36,12 +29,26 @@ namespace KatKat.View
         private readonly List<Color> _wc = new List<Color>(4096);
         private readonly List<int> _wt = new List<int>(8192);
 
+        // Kova geometrisi (tahta yerel): merkez x, taban y, boy (doku birimi = S), boşalma yeri.
+        private float _bucketX, _bucketBottom, _bucketS, _placedPitch = -1f;
+        private BoardState _waterBoard;
+        private Vector3 _drain;
+        private Transform _bucketRoot;
+        private SpriteRenderer _bucketBack, _bucketFront, _waterSr;
+        private Material _waterShaderMat;
+        private float _waterTilt;
+        /// <summary>Ekran yakalama / test: ivmeölçer yerine bu (x = sağa eğim, y = aşağı yerçekimi).</summary>
+        public static Vector3? TiltOverride;
+
         private sealed class Pour
         {
-            public Vector3 From;
-            public float Age, Width;
+            /// <summary>Sabit yol: hücreden tepsi üzerinden kenarlığın dudağına ve dudağın altına (ya da kova ağzına). Son noktadan
+            /// kovadaki su yüzeyine düşüş her karede eklenir (yüzey hareket eder); tek kesintisiz şerit.</summary>
+            public Vector3[] Path;
+            public float[] Arc;
+            public float Length, Age, Width;
             public int Units;
-            public bool Landed, Under;
+            public bool Landed;
         }
 
         private struct Ripple { public float X, Age, Amp; }
@@ -60,39 +67,31 @@ namespace KatKat.View
         private readonly List<Bubble> _bubbles = new List<Bubble>();
 
         public bool WaterFlying => _pours.Count > 0;
-        /// <summary>Testler: tepsiye varmış su (birim).</summary>
+        /// <summary>Testler: kovaya varmış su (birim).</summary>
         public int WaterShown => Mathf.RoundToInt(_waterHave);
-        /// <summary>Testler ve yakalama: gösterilen seviye (0–1).</summary>
+        /// <summary>Gösterilen doluluk (0–1): hedef yazısındaki yüzde.</summary>
         public float WaterLevel01 => _waterNeed > 0 ? Mathf.Clamp01(_waterShown / _waterNeed) : 0f;
+        /// <summary>Testler / yakalama: kovanın tahta yerel merkezi ve boyu.</summary>
+        public Vector3 BucketLocal => new Vector3(_bucketX, _bucketBottom, _bucketS);
 
         /// <summary>Su kipini kurar ya da kapatır (bölüm başı, geri al, yeniden başla): seviye hemen mantık değerinde.</summary>
         public void SetWater(int need, int have, BoardState board)
         {
             ClearWaterFx();
+            ClearCracks();
             _waterOn = need > 0 && board != null;
             _waterNeed = need;
             _waterHave = _waterShown = Mathf.Min(have, need);
             _waterVel = 0f;
             _waterSurge = 0f;
             _waterLogic = -1;
-            if (!_waterOn)
+            if (_bucketRoot != null) _bucketRoot.gameObject.SetActive(_waterOn);
+            if (_pourGo != null) _pourGo.SetActive(_waterOn);
+            if (!_waterOn) return;
+            _waterBoard = board;
+            PlaceBucket(board);
+            if (_pourGo == null)
             {
-                if (_waterGo != null) _waterGo.SetActive(false);
-                if (_pourGo != null) _pourGo.SetActive(false);
-                if (_waterSr != null) _waterSr.enabled = false;
-                return;
-            }
-            _waterActive = new bool[board.Count];
-            for (int i = 0; i < board.Count; i++) _waterActive[i] = board[i].Active;
-            if (_waterGo == null)
-            {
-                _waterGo = new GameObject("TrayWater");
-                _waterGo.transform.SetParent(transform, false);
-                _waterMesh = new Mesh { name = "TrayWater" };
-                _waterMesh.MarkDynamic();
-                _waterGo.AddComponent<MeshFilter>().sharedMesh = _waterMesh;
-                _waterMr = _waterGo.AddComponent<MeshRenderer>();
-                _waterMr.sharedMaterial = WaterArt.Material;
                 _pourGo = new GameObject("WaterPour");
                 _pourGo.transform.SetParent(transform, false);
                 _pourMesh = new Mesh { name = "WaterPour" };
@@ -101,14 +100,9 @@ namespace KatKat.View
                 _pourMr = _pourGo.AddComponent<MeshRenderer>();
                 _pourMr.sharedMaterial = WaterArt.Material;
             }
-            _pourGo.SetActive(true);
-            _pourMr.sortingOrder = 10 + _height * 4 + 5; // akış taşların üstünden dökülür
-            _waterGo.SetActive(true);
-            EnsureWaterSprite();
-            // 2026-11-25 (kullanıcı: "Tepsiyi doldurduğumuzda anlaşılması zor oluyor taş renklerini"; "Taşların arasında yükselen
-            // suyla devam et"): su gövdesi taşların arkasında (tepsi zemini ve çerçeveden sonra, yığınlardan önce); taş yüzleri hep açıkta.
-            _waterMr.sortingOrder = 6;
-            BuildWaterMesh();
+            _pourMr.sortingOrder = 10 + _height * 4 + 5; // akış taşların üstünden
+            UpdateWaterShader();
+            BuildPourMesh();
         }
 
         /// <summary>Hamle sonu mantık değeri: dökülme kalmayınca gösterim buna eşitlenir.</summary>
@@ -124,437 +118,110 @@ namespace KatKat.View
 
         public void AdvanceWater(float sec) { for (float t = 0f; t < sec - 1e-4f; t += 0.02f) TickWater(0.02f); }
 
-        // ---- Geometri ----------------------------------------------------------------------------
+        // ---- Kova yerleşimi --------------------------------------------------------------------------
 
-        /// <summary>Su tepsinin iç kenarından başlar (alt boşluk dahil); dolu tepside üst boşluk da kaplanır.</summary>
-        private float WaterBottomY => CellCenter(0, _height - 1).y - _rowPitch * 0.5f - _pitch * 0.2f;
-        /// <summary>Dolu tepside su taşların üst yüzünü de örter (en üst satırın üstünde yığın payı).</summary>
-        private float WaterTopY => CellCenter(0, 0).y + _rowPitch * 0.5f + _pitch * 0.25f;
-        private float WaterCenterX => (CellCenter(0, 0).x + CellCenter(_width - 1, 0).x) * 0.5f;
+        /// <summary>
+        /// Oyuk: alt satırdan yukarı, ortadaki sütun(lar) etkin olmayan satırlar. En iç satırın genişliği kovanın sığacağı genişlik;
+        /// üst kenarı boşalma yeri. Tepsi kenarı hücre kenarından <see cref="TrayArt.Reach"/> taşar (oyuğun görünen ağzı daralır).
+        /// Oyuk yoksa kova tahtanın altında.
+        /// </summary>
+        private void PlaceBucket(BoardState b)
+        {
+            _placedPitch = _pitch;
+            int w = b.Width, h = b.Height;
+            int c0 = (w - 1) / 2, c1 = w / 2;
+            int top = h;
+            for (int y = h - 1; y >= 0; y--)
+            {
+                if (b[c0, y].Active || b[c1, y].Active) break;
+                top = y;
+            }
+            float reach = TrayArt.Reach * _pitch;
+            // Tepsi zemini yığın yüksekliği kadar kaydırılarak çizilir (BoardView.LayoutFloorTiles: mid); oyuk ve kenarlar oradan.
+            StackExtent(out float exTop, out float exBottom);
+            float mid = (exTop + exBottom) * 0.5f * _pitch;
+            // Tepsinin alt kenarı: etkin hücresi olan en alt satır (köşe boşlukları ve oyuk bütün alt satırı boşaltabilir).
+            int low = h - 1;
+            for (; low > 0; low--) { bool any = false; for (int x = 0; x < w; x++) any |= b[x, low].Active; if (any) break; }
+            float gridBottom = CellCenter(0, low).y - _rowPitch * 0.5f + mid;
+            float cx = (CellCenter(c0, 0).x + CellCenter(c1, 0).x) * 0.5f;
+            float visW, drainY;
+            if (top < h)
+            {
+                int l = c0, r = c1;
+                while (l - 1 >= 0 && !b[l - 1, top].Active) l--;
+                while (r + 1 < w && !b[r + 1, top].Active) r++;
+                visW = (r - l + 1) * _colPitch - 2f * reach;
+                drainY = CellCenter(0, top).y + _rowPitch * 0.5f - reach + mid;
+            }
+            else
+            {
+                visW = 3f * _colPitch;
+                drainY = gridBottom - reach;
+            }
+            float s = Mathf.Max(_pitch, visW * 0.92f / (2f * WaterArt.BucketHalfMouth));
+            // Ağız boşalma yerinin biraz altında. 2026-11-26 (kullanıcı: "testteki 10. bölümde kova güçlendiricilerin altında kalmış"):
+            // kovanın görünen tabanı tepsinin alt kenarını geçmez (alt çubukla çakışmaz); oyuk sığsa kova küçülür.
+            float mouthY = drainY - _pitch * 0.18f;
+            float maxS = (mouthY - (gridBottom - _pitch * 0.08f)) / (WaterArt.BucketMouth - WaterArt.BucketBottom);
+            s = Mathf.Min(s, Mathf.Max(_pitch * 0.8f, maxS));
+            _bucketS = s;
+            _bucketX = cx;
+            _bucketBottom = drainY - _pitch * 0.18f - s * WaterArt.BucketMouth;
+            _drain = new Vector3(cx, drainY, 0f);
+            if (_bucketRoot == null)
+            {
+                _bucketRoot = new GameObject("WaterBucket").transform;
+                _bucketRoot.SetParent(transform, false);
+                _bucketBack = BucketLayer("Back", WaterArt.BucketBack, 5);
+                _waterSr = BucketLayer("Water", WaterArt.BucketMask, 6);
+                var sh = KatKat.View.Res.Load<Shader>("Shaders/KatKatTrayWater");
+                if (sh != null)
+                {
+                    _waterShaderMat = new Material(sh) { name = "KatKatBucketWater", hideFlags = HideFlags.DontSave };
+                    _waterSr.sharedMaterial = _waterShaderMat;
+                }
+                _bucketFront = BucketLayer("Front", WaterArt.BucketFront, 8);
+            }
+            _bucketRoot.gameObject.SetActive(true);
+            _bucketRoot.localPosition = new Vector3(_bucketX, _bucketBottom, 0f);
+            _bucketRoot.localScale = Vector3.one * _bucketS;
+        }
+
+        private SpriteRenderer BucketLayer(string name, Sprite sp, int order)
+        {
+            var go = new GameObject(name);
+            go.transform.SetParent(_bucketRoot, false);
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sprite = sp;
+            sr.sortingOrder = order;
+            return sr;
+        }
+
+        // ---- Kova suyu ---------------------------------------------------------------------------------
+
+        private float WaterBottomY => _bucketBottom + _bucketS * WaterArt.WaterInBottom;
+        private float WaterTopY => _bucketBottom + _bucketS * WaterArt.WaterInTop;
+        private float WaterCenterX => _bucketX;
         private float WaterSurfaceY => Mathf.Lerp(WaterBottomY, WaterTopY, _waterNeed > 0 ? Mathf.Clamp01(_waterShown / _waterNeed) : 0f);
+        /// <summary>Dalga ölçeği: kovanın boyuna göre.</summary>
+        private float WavePitch => Mathf.Max(0.001f, _bucketS * 0.28f);
+        private float WaveAmp => WavePitch * (0.05f + 0.12f * Mathf.Min(1.5f, _waterSurge));
 
-        private float WaveAmp => _pitch * (0.035f + 0.09f * Mathf.Min(1.5f, _waterSurge));
-
-        /// <summary>Yüzeyin x'teki yüksekliği: iki sinüs + yayılan sıçrama halkaları.</summary>
+        /// <summary>Yüzeyin x'teki yüksekliği: eğim + iki sinüs + yayılan sıçrama halkaları (gölgelendiriciyle aynı formül).</summary>
         private float SurfaceAt(float x)
         {
             float level = WaterSurfaceY;
-            if (_waterShown <= 0.001f && _ripples.Count == 0) return level;
-            float k = 1f / Mathf.Max(0.01f, _pitch);
+            float k = 1f / Mathf.Max(0.01f, WavePitch);
             float y = level + _waterTilt * (x - WaterCenterX) + WaveAmp * (0.6f * Mathf.Sin(x * k * 2.1f + _waterClock * 2.4f) + 0.4f * Mathf.Sin(x * k * 4.7f - _waterClock * 3.3f));
             foreach (var r in _ripples)
             {
-                float d = Mathf.Abs(x - r.X), front = r.Age * _pitch * 3.2f;
-                if (d > front + _pitch) continue;
-                float env = Mathf.Exp(-r.Age * 1.8f) * Mathf.Clamp01(1f - (d - front) / _pitch);
-                y += r.Amp * _pitch * env * Mathf.Cos((d - front) * k * 5f);
+                float d = Mathf.Abs(x - r.X), front = r.Age * WavePitch * 3.2f;
+                if (d > front + WavePitch) continue;
+                float env = Mathf.Exp(-r.Age * 1.8f) * Mathf.Clamp01(1f - (d - front) / WavePitch);
+                y += r.Amp * WavePitch * env * Mathf.Cos((d - front) * k * 5f);
             }
             return y;
-        }
-
-        private int Quad(Vector3 a, Vector3 b, Vector3 c, Vector3 d, Color ca, Color cb, Color cc, Color cd)
-        {
-            int i = _wv.Count;
-            _wv.Add(a); _wv.Add(b); _wv.Add(c); _wv.Add(d);
-            _wc.Add(ca); _wc.Add(cb); _wc.Add(cc); _wc.Add(cd);
-            _wt.Add(i); _wt.Add(i + 1); _wt.Add(i + 2);
-            _wt.Add(i); _wt.Add(i + 2); _wt.Add(i + 3);
-            return i;
-        }
-
-        private Color BodyColor(float x, float y, float surf)
-        {
-            float span = Mathf.Max(0.01f, WaterTopY - WaterBottomY);
-            float depth = Mathf.Clamp01((surf - y) / (span * 0.6f));
-            var c = Color.Lerp(new Color(0.30f, 0.76f, 1f, 0.78f), new Color(0.04f, 0.30f, 0.78f, 0.92f), depth);
-            float k = 1f / Mathf.Max(0.01f, _pitch);
-            // Işık oyunu (kostik): kesişen iki dalganın parlak düğümleri.
-            float caustic = Mathf.Max(0f, Mathf.Sin(x * k * 3.1f + y * k * 1.7f + _waterClock * 1.9f) * Mathf.Sin(x * k * 1.3f - y * k * 2.9f - _waterClock * 1.4f));
-            c = Color.Lerp(c, new Color(0.85f, 0.98f, 1f, c.a), caustic * caustic * 0.45f);
-            return c;
-        }
-
-        private void BuildWaterMesh()
-        {
-            _wv.Clear(); _wc.Clear(); _wt.Clear();
-            if (_waterOn && _waterActive != null && _waterSr == null && (_waterShown > 0.001f || _ripples.Count > 0))
-            {
-                float bottom = WaterBottomY, top = WaterTopY;
-                const int Cols = 4, Rows = 3;
-                for (int y = 0; y < _height; y++)
-                for (int x = 0; x < _width; x++)
-                {
-                    if (!_waterActive[y * _width + x]) continue;
-                    var c = CellCenter(x, y);
-                    float x0 = c.x - _colPitch * 0.5f, x1 = c.x + _colPitch * 0.5f;
-                    float y0 = y == _height - 1 ? bottom : c.y - _rowPitch * 0.5f;
-                    float y1 = y == 0 ? top : c.y + _rowPitch * 0.5f;
-                    var xs = new float[Cols + 1];
-                    var tops = new float[Cols + 1];
-                    var surf = new float[Cols + 1];
-                    bool any = false;
-                    for (int i = 0; i <= Cols; i++)
-                    {
-                        xs[i] = Mathf.Lerp(x0, x1, i / (float)Cols);
-                        surf[i] = SurfaceAt(xs[i]);
-                        tops[i] = Mathf.Clamp(surf[i], y0, y1);
-                        any |= tops[i] > y0 + 1e-4f;
-                    }
-                    if (!any) continue;
-                    for (int i = 0; i < Cols; i++)
-                        for (int j = 0; j < Rows; j++)
-                        {
-                            float ya0 = Mathf.Lerp(y0, tops[i], j / (float)Rows), ya1 = Mathf.Lerp(y0, tops[i], (j + 1) / (float)Rows);
-                            float yb0 = Mathf.Lerp(y0, tops[i + 1], j / (float)Rows), yb1 = Mathf.Lerp(y0, tops[i + 1], (j + 1) / (float)Rows);
-                            Quad(new Vector3(xs[i], ya0), new Vector3(xs[i], ya1), new Vector3(xs[i + 1], yb1), new Vector3(xs[i + 1], yb0),
-                                BodyColor(xs[i], ya0, surf[i]), BodyColor(xs[i], ya1, surf[i]), BodyColor(xs[i + 1], yb1, surf[i + 1]), BodyColor(xs[i + 1], yb0, surf[i + 1]));
-                        }
-                    // Köpük çizgisi: yüzey bu hücrenin içindeyse (dolu tepsinin tavanında yok).
-                    float band = _pitch * 0.07f, line = _pitch * 0.018f;
-                    for (int i = 0; i < Cols; i++)
-                    {
-                        float sa = surf[i], sb = surf[i + 1];
-                        if ((sa < y0 && sb < y0) || (sa > y1 + band && sb > y1 + band) || surf[i] >= top - 1e-3f) continue;
-                        float fa = Mathf.Clamp(sa, y0, y1), fb = Mathf.Clamp(sb, y0, y1);
-                        var foam = new Color(0.75f, 0.96f, 1f, 0.75f);
-                        var clear = new Color(0.55f, 0.9f, 1f, 0f);
-                        Quad(new Vector3(xs[i], Mathf.Max(y0, fa - band)), new Vector3(xs[i], fa), new Vector3(xs[i + 1], fb), new Vector3(xs[i + 1], Mathf.Max(y0, fb - band)), clear, foam, foam, clear);
-                        var white = new Color(1f, 1f, 1f, 0.95f);
-                        Quad(new Vector3(xs[i], fa - line), new Vector3(xs[i], fa + line), new Vector3(xs[i + 1], fb + line), new Vector3(xs[i + 1], fb - line), white, white, white, white);
-                    }
-                }
-            }
-            // Dökülen şeritler (suyun üstünde).
-            _waterMesh.Clear();
-            _waterMesh.SetVertices(_wv);
-            _waterMesh.SetColors(_wc);
-            _waterMesh.SetTriangles(_wt, 0);
-            _wv.Clear(); _wc.Clear(); _wt.Clear();
-            foreach (var p in _pours) PourRibbon(p);
-            _pourMesh.Clear();
-            _pourMesh.SetVertices(_wv);
-            _pourMesh.SetColors(_wc);
-            _pourMesh.SetTriangles(_wt, 0);
-        }
-
-        /// <summary>Hücreden yüzeye dökülen kıvrımlı şerit: başı yerçekimiyle iner, kuyruğu 0,5 sn (+0,12 sn/birim) sonra.</summary>
-        private void PourRibbon(Pour p)
-        {
-            // 2026-11-25 (kullanıcı: "hücreden akan su daha gerçekçi olsun"): şerit düştükçe hızlanır ve incelir (süreklilik:
-            // genişlik ~ 1/√hız), kenarları yumuşak saydam, ortası açık; aşağı akan parlak çizgiler hareketi gösterir, bir yanda ışık
-            // yansıması. Düşüşle salınım artar; baş yuvarlak, kuyruk kopunca sivrilir.
-            if (p.Under) return;
-            float g = _pitch * 26f;
-            float head = p.From.y - 0.5f * g * p.Age * p.Age;
-            float tt = Mathf.Max(0f, p.Age - 0.5f - 0.12f * p.Units);
-            float tail = p.From.y - 0.5f * g * tt * tt;
-            float surf = SurfaceAt(p.From.x);
-            head = Mathf.Max(head, surf - _pitch * 0.05f);
-            if (tail <= head) return;
-            const int Seg = 22;
-            float k = 1f / Mathf.Max(0.01f, _pitch);
-            float v0 = _pitch * 2.2f; // dudaktan çıkış hızı
-            bool detached = tt > 0f;
-            var pl = new Vector3[5];
-            var cl = new Color[5];
-            Vector3[] prev = null;
-            Color[] prevC = null;
-            for (int s = 0; s <= Seg; s++)
-            {
-                float u = s / (float)Seg;
-                float y = Mathf.Lerp(tail, head, u);
-                float fallen = Mathf.Max(0f, p.From.y - y);
-                float v = Mathf.Sqrt(v0 * v0 + 2f * g * fallen);
-                float w = p.Width * Mathf.Clamp(Mathf.Sqrt(v0 / v), 0.6f, 1f);
-                // Uçlar: baş yuvarlak, kuyruk (kopmuşsa) sivri, dudakta hafif geniş.
-                float headCap = Mathf.Sqrt(Mathf.Clamp01((1f - u) * (tail - head) / (p.Width * 0.5f)));
-                float tailCap = detached ? Mathf.Clamp01(u * (tail - head) / (p.Width * 1.2f)) : 1f + 0.25f * Mathf.Clamp01(1f - fallen * k * 2f);
-                w *= headCap * tailCap;
-                float wob = _pitch * (0.012f + 0.04f * Mathf.Clamp01(fallen * k / 4f));
-                float cx = p.From.x + Mathf.Sin(y * k * 4.2f + _waterClock * 13f) * wob + Mathf.Sin(y * k * 9f - _waterClock * 21f) * wob * 0.35f;
-                float streak = 0.5f + 0.5f * Mathf.Sin((fallen * k * 5f) - _waterClock * 18f + p.From.x * k);
-                var body = Color.Lerp(new Color(0.08f, 0.45f, 0.95f), new Color(0.55f, 0.88f, 1f), 0.15f + 0.4f * streak);
-                var edge = new Color(0.10f, 0.45f, 0.92f, 0f);
-                float a = 0.95f * Mathf.Clamp01(1f - fallen * k * 0.03f);
-                pl[0] = new Vector3(cx - w * 0.5f, y); cl[0] = edge;
-                pl[1] = new Vector3(cx - w * 0.40f, y); cl[1] = new Color(body.r * 0.85f, body.g * 0.9f, body.b, a);
-                pl[2] = new Vector3(cx - w * 0.12f, y); cl[2] = new Color(Mathf.Lerp(body.r, 1f, 0.55f), Mathf.Lerp(body.g, 1f, 0.55f), 1f, a); // ışık yansıması
-                pl[3] = new Vector3(cx + w * 0.40f, y); cl[3] = new Color(body.r, body.g, body.b, a);
-                pl[4] = new Vector3(cx + w * 0.5f, y); cl[4] = edge;
-                if (prev != null)
-                    for (int j = 0; j < 4; j++) Quad(prev[j], pl[j], pl[j + 1], prev[j + 1], prevC[j], cl[j], cl[j + 1], prevC[j + 1]);
-                prev = (Vector3[])pl.Clone();
-                prevC = (Color[])cl.Clone();
-            }
-        }
-
-        // ---- Dökülme -----------------------------------------------------------------------------
-
-        /// <summary>Hücre boşaldı: dipteki su (birim) tepsiye dökülür. Hücre birikintisi şişip söner.</summary>
-        private void LaunchWater(int x, int y, int units)
-        {
-            if (!_waterOn || units <= 0) return;
-            var stack = StackAt(x, y);
-            if (stack != null) stack.SetWater(0, true);
-            var from = CellCenter(x, y) + new Vector3(0f, -_pitch * 0.2f, 0f);
-            if (KatKat.UI.Motion.Reduced) { Land(units, from.x); return; }
-            bool under = from.y <= WaterSurfaceY;
-            _pours.Add(new Pour { From = from, Units = units, Width = _pitch * (0.34f + 0.08f * units), Under = under });
-            // Fışkırma: birikintiden yukarı köpük sıçrar.
-            for (int i = 0; i < 4 + units * 2; i++)
-                SpawnFoam(from + new Vector3(UnityEngine.Random.Range(-0.3f, 0.3f) * _pitch, _pitch * 0.1f), new Vector3(UnityEngine.Random.Range(-1.2f, 1.2f), UnityEngine.Random.Range(1.5f, 3.2f)) * _pitch, 0.12f);
-            if (under) for (int i = 0; i < 6 + units * 4; i++) SpawnBubble(from + new Vector3(UnityEngine.Random.Range(-0.35f, 0.35f) * _pitch, UnityEngine.Random.Range(-0.2f, 0.2f) * _pitch), true);
-        }
-
-        private void Land(int units, float x)
-        {
-            _waterHave = Mathf.Min(_waterNeed, _waterHave + units);
-            _waterSurge = Mathf.Min(1.8f, _waterSurge + 0.6f + 0.25f * units);
-            _waterVel += 0.6f * units; // hafif taşma (yay)
-            _ripples.Add(new Ripple { X = x, Age = 0f, Amp = 0.10f + 0.04f * units });
-            if (_ripples.Count > 8) _ripples.RemoveAt(0);
-            float s = WaterSurfaceY;
-            if (!KatKat.UI.Motion.Reduced)
-            {
-                for (int i = 0; i < 6 + units * 3; i++)
-                {
-                    float a = UnityEngine.Random.Range(0.15f, 0.85f) * Mathf.PI;
-                    SpawnFoam(new Vector3(x, s), new Vector3(Mathf.Cos(a) * UnityEngine.Random.Range(1f, 2.6f), Mathf.Sin(a) * UnityEngine.Random.Range(2f, 4f)) * _pitch, 0.11f);
-                }
-                for (int i = 0; i < 3 + units * 2; i++) SpawnBubble(new Vector3(x + UnityEngine.Random.Range(-0.4f, 0.4f) * _pitch, s - UnityEngine.Random.Range(0.2f, 0.9f) * _pitch), true);
-            }
-            if (_waterHave >= _waterNeed && !KatKat.UI.Motion.Reduced)
-                for (int i = 0; i < 30; i++) SpawnBubble(new Vector3(Mathf.Lerp(CellCenter(0, 0).x, CellCenter(_width - 1, 0).x, UnityEngine.Random.value), Mathf.Lerp(WaterBottomY, WaterTopY, UnityEngine.Random.value)), true);
-            WaterArrived?.Invoke(units);
-        }
-
-        // ---- Kabarcık ve köpük -------------------------------------------------------------------
-
-        private void SpawnBubble(Vector3 p, bool burst)
-        {
-            if (_bubbles.Count > 90) return;
-            var go = new GameObject("WaterBubble");
-            go.transform.SetParent(transform, false);
-            var sr = go.AddComponent<SpriteRenderer>();
-            sr.sprite = WaterArt.Bubble;
-            sr.sortingOrder = 7; // suyun içinde, taşların arkasında
-            _bubbles.Add(new Bubble { R = sr, P = p, Vy = _pitch * UnityEngine.Random.Range(0.9f, burst ? 2.2f : 1.4f), Size = _pitch * UnityEngine.Random.Range(0.07f, burst ? 0.2f : 0.13f), Life = 6f, Phase = UnityEngine.Random.value * 6f });
-        }
-
-        private void SpawnFoam(Vector3 p, Vector3 v, float size)
-        {
-            if (_bubbles.Count > 90) return;
-            var go = new GameObject("WaterFoam");
-            go.transform.SetParent(transform, false);
-            var sr = go.AddComponent<SpriteRenderer>();
-            sr.sprite = SpecialArt.Glow;
-            sr.sortingOrder = 10 + _height * 4 + 7;
-            _bubbles.Add(new Bubble { R = sr, P = p, V = v, Foam = true, Size = _pitch * size * UnityEngine.Random.Range(0.7f, 1.4f), Life = UnityEngine.Random.Range(0.45f, 0.7f) });
-        }
-
-        private void TickBubbles(float dt)
-        {
-            float g = _pitch * 9f;
-            for (int i = _bubbles.Count - 1; i >= 0; i--)
-            {
-                var b = _bubbles[i];
-                b.Age += dt;
-                if (b.R == null) { _bubbles.RemoveAt(i); continue; }
-                float a;
-                if (b.Foam)
-                {
-                    b.V.y -= g * dt;
-                    b.P += b.V * dt;
-                    a = Mathf.Clamp01(1f - b.Age / b.Life);
-                    b.R.color = new Color(0.85f, 0.98f, 1f, a);
-                    b.R.transform.localScale = Vector3.one * (b.Size * (0.6f + 0.4f * a) / Mathf.Max(0.01f, b.R.sprite.bounds.size.x));
-                }
-                else
-                {
-                    b.P.y += b.Vy * dt;
-                    b.P.x += Mathf.Sin(b.Age * 7f + b.Phase) * _pitch * 0.25f * dt;
-                    float surf = SurfaceAt(b.P.x);
-                    if (b.P.y >= surf) { b.Age = b.Life; }
-                    a = Mathf.Clamp01(b.Age / 0.15f) * 0.85f;
-                    b.R.color = new Color(1f, 1f, 1f, a);
-                    b.R.transform.localScale = Vector3.one * (b.Size * (1f + 0.15f * Mathf.Sin(b.Age * 11f)) / Mathf.Max(0.01f, b.R.sprite.bounds.size.x));
-                }
-                b.R.transform.localPosition = b.P;
-                if (b.Age >= b.Life)
-                {
-                    if (!b.Foam && b.Size > _pitch * 0.12f) SpawnFoam(new Vector3(b.P.x, SurfaceAt(b.P.x)), new Vector3(0f, _pitch * 1.2f), 0.06f); // yüzeyde patlar
-                    Destroy(b.R.gameObject);
-                    _bubbles.RemoveAt(i);
-                }
-            }
-        }
-
-        // ---- Kare --------------------------------------------------------------------------------
-
-        private void TickWater(float dt)
-        {
-            if (!_waterOn) return;
-            _waterClock += dt;
-            TickTilt(dt);
-            // Dökülmeler: baş yüzeye değince su katılır; kuyruk da inince şerit biter.
-            float g = _pitch * 26f;
-            for (int i = _pours.Count - 1; i >= 0; i--)
-            {
-                var p = _pours[i];
-                p.Age += dt;
-                if (p.Under)
-                {
-                    if (!p.Landed && p.Age > 0.3f) { p.Landed = true; Land(p.Units, p.From.x); }
-                    if (p.Age > 0.4f) _pours.RemoveAt(i);
-                    continue;
-                }
-                float head = p.From.y - 0.5f * g * p.Age * p.Age;
-                float surf = SurfaceAt(p.From.x);
-                if (!p.Landed && head <= surf) { p.Landed = true; Land(p.Units, p.From.x); }
-                if (p.Landed && !KatKat.UI.Motion.Reduced && UnityEngine.Random.value < dt * 34f)
-                    SpawnFoam(new Vector3(p.From.x, surf), new Vector3(UnityEngine.Random.Range(-1.4f, 1.4f), UnityEngine.Random.Range(1.2f, 2.6f)) * _pitch, 0.08f);
-                float tt = Mathf.Max(0f, p.Age - 0.5f - 0.12f * p.Units);
-                float tail = p.From.y - 0.5f * g * tt * tt;
-                if (p.Landed && tail <= surf) _pours.RemoveAt(i);
-                else if (p.Age > 4f) { if (!p.Landed) Land(p.Units, p.From.x); _pours.RemoveAt(i); }
-            }
-            // Mantığa eşitleme: dökülme bitince (ya da 3 sn sonra).
-            if (_waterLogic >= 0)
-            {
-                _waterIdle += dt;
-                if (_pours.Count == 0 || _waterIdle > 3f)
-                {
-                    if (Mathf.Abs(_waterHave - _waterLogic) > 0.01f) _waterHave = _waterLogic;
-                    _waterLogic = -1;
-                }
-            }
-            // Seviye: yaylı yükseliş (hafif taşarak oturur).
-            float target = _waterHave;
-            _waterVel += (target - _waterShown) * 34f * dt;
-            _waterVel *= Mathf.Exp(-7.5f * dt);
-            _waterShown += _waterVel * dt;
-            if (_waterShown < 0f) { _waterShown = 0f; _waterVel = 0f; }
-            if (_waterShown > _waterNeed) { _waterShown = _waterNeed; _waterVel = Mathf.Min(0f, _waterVel); }
-            _waterSurge = Mathf.MoveTowards(_waterSurge, 0f, dt * 0.8f);
-            for (int i = _ripples.Count - 1; i >= 0; i--)
-            {
-                var r = _ripples[i];
-                r.Age += dt;
-                _ripples[i] = r;
-                if (r.Age > 2.2f) _ripples.RemoveAt(i);
-            }
-            // Ortam kabarcıkları: su varken ara ara dipten yükselir.
-            if (_waterShown > 0.05f && !KatKat.UI.Motion.Reduced)
-            {
-                _waterBubbleT -= dt;
-                if (_waterBubbleT <= 0f)
-                {
-                    _waterBubbleT = UnityEngine.Random.Range(0.15f, 0.45f);
-                    float bx = Mathf.Lerp(CellCenter(0, 0).x, CellCenter(_width - 1, 0).x, UnityEngine.Random.value);
-                    float surf = WaterSurfaceY;
-                    float by = Mathf.Lerp(WaterBottomY, surf, UnityEngine.Random.Range(0f, 0.4f));
-                    if (surf - WaterBottomY > _pitch * 0.4f && IsWaterColumn(bx)) SpawnBubble(new Vector3(bx, by), false);
-                }
-            }
-            TickBubbles(dt);
-            FloatStacks();
-            BuildWaterMesh();
-            UpdateWaterShader();
-        }
-
-        /// <summary>
-        /// Su altındaki taşlar yüzer (kullanıcı 2026-11-25: "suyun içinde kalan taşlar yavaş yüzme efekti olsun, yani oldukları yerden
-        /// biraz yüzüyormuş gibi olsunlar"): her yığın kendi evresinde yavaşça salınır (yatay ve dikey, ~%3 hücre); su yüzeyine
-        /// yaklaştıkça etki söner. Azaltılmış harekette yok.
-        /// </summary>
-        private void FloatStacks()
-        {
-            float t = _waterClock;
-            for (int y = 0; y < _height; y++)
-            for (int x = 0; x < _width; x++)
-            {
-                var st = StackAt(x, y);
-                if (st == null) continue;
-                var c = CellCenter(x, y);
-                float k = KatKat.UI.Motion.Reduced ? 0f : Mathf.Clamp01((SurfaceAt(c.x) - (c.y + _pitch * 0.2f)) / (_pitch * 0.6f));
-                float ph = x * 1.7f + y * 2.3f;
-                var off = new Vector3(Mathf.Sin(t * 0.8f + ph) * _pitch * 0.028f, Mathf.Sin(t * 1.15f + ph * 1.4f) * _pitch * 0.04f, 0f) * k;
-                st.transform.localPosition = new Vector3(c.x + off.x, c.y + off.y, st.transform.localPosition.z);
-            }
-        }
-
-        private bool IsWaterColumn(float x)
-        {
-            int col = Mathf.Clamp(Mathf.RoundToInt((x - CellCenter(0, 0).x) / Mathf.Max(0.01f, _colPitch)), 0, _width - 1);
-            return _waterActive != null && _waterActive[(_height - 1) * _width + col];
-        }
-
-        // ---- Doğal tepsi suyu (gölgelendirici, maske, eğim) ---------------------------------------------------------------
-
-        private SpriteRenderer _waterSr;
-        private Material _waterShaderMat;
-        private Sprite _waterMaskSprite;
-        private Texture2D _waterMaskTex;
-        private float _waterTilt;
-        /// <summary>Ekran yakalama / test: ivmeölçer yerine bu (x = sağa eğim, y = aşağı yerçekimi).</summary>
-        public static Vector3? TiltOverride;
-
-        /// <summary>Tepsi pişirilince (TrayArt) iç alan maskesi: aynı boy, pivot ve piksel/birim; aynı yerde durur.</summary>
-        private void BuildWaterMask(int tw, int th, float ppu)
-        {
-            var m = TrayArt.LastWaterMask;
-            if (m == null || m.Length != tw * th) { _waterMaskSprite = null; return; }
-            if (_waterMaskTex == null || _waterMaskTex.width != tw || _waterMaskTex.height != th)
-            {
-                if (_waterMaskTex != null) DestroyImmediate(_waterMaskTex);
-                _waterMaskTex = new Texture2D(tw, th, TextureFormat.Alpha8, false) { hideFlags = HideFlags.DontSave, wrapMode = TextureWrapMode.Clamp, filterMode = FilterMode.Bilinear, name = "tray_water_mask" };
-            }
-            _waterMaskTex.SetPixelData(m, 0);
-            _waterMaskTex.Apply(false, false);
-            if (_waterMaskSprite != null) DestroyImmediate(_waterMaskSprite);
-            _waterMaskSprite = Sprite.Create(_waterMaskTex, new Rect(0, 0, tw, th), Vector2.zero, ppu);
-            _waterMaskSprite.hideFlags = HideFlags.DontSave;
-            if (_waterSr != null) PlaceWaterSprite();
-        }
-
-        private void EnsureWaterSprite()
-        {
-            if (_waterMaskSprite == null || _floorSr == null) { if (_waterSr != null) _waterSr.enabled = false; return; }
-            if (_waterShaderMat == null)
-            {
-                var sh = KatKat.View.Res.Load<Shader>("Shaders/KatKatTrayWater");
-                if (sh == null) return;
-                _waterShaderMat = new Material(sh) { name = "KatKatTrayWater", hideFlags = HideFlags.DontSave };
-            }
-            if (_waterSr == null)
-            {
-                _waterSr = new GameObject("TrayWaterShaded").AddComponent<SpriteRenderer>();
-                _waterSr.transform.SetParent(transform, false);
-                _waterSr.sharedMaterial = _waterShaderMat;
-                _waterSr.sortingOrder = 6; // taşların arkasında
-            }
-            PlaceWaterSprite();
-        }
-
-        private void PlaceWaterSprite()
-        {
-            _waterSr.sprite = _waterMaskSprite;
-            _waterSr.transform.localPosition = _floorSr.transform.localPosition;
-            _waterSr.transform.localScale = _floorSr.transform.localScale;
-            _waterSr.enabled = _waterOn;
-        }
-
-        /// <summary>
-        /// Ekran eğimi (kullanıcı 2026-11-25: "ekranı çevirdiğimiz yön doğrultusunda su eğim alsın"): yerçekiminin ekrandaki yönüne
-        /// dik yüzey; telefon sağa yatınca su sağda yükselir. Yumuşak izler; azaltılmış harekette düz.
-        /// </summary>
-        private void TickTilt(float dt)
-        {
-            Vector3 a = TiltOverride ?? (SystemInfo.supportsAccelerometer ? Input.acceleration : Vector3.zero);
-            float want = 0f;
-            if (!KatKat.UI.Motion.Reduced && a.sqrMagnitude > 0.01f)
-                want = Mathf.Clamp(a.x / Mathf.Max(0.35f, -a.y), -0.55f, 0.55f);
-            _waterTilt = Mathf.Lerp(_waterTilt, want, 1f - Mathf.Exp(-4f * dt));
         }
 
         private void UpdateWaterShader()
@@ -570,7 +237,7 @@ namespace KatKat.View
             m.SetFloat("_CenterX", t.TransformPoint(new Vector3(WaterCenterX, 0f, 0f)).x);
             m.SetFloat("_Tilt", _waterTilt);
             m.SetFloat("_Amp", WaveAmp * sc);
-            m.SetFloat("_Pitch", _pitch * sc);
+            m.SetFloat("_Pitch", WavePitch * sc);
             m.SetFloat("_WTime", _waterClock);
             m.SetFloat("_Span", (WaterTopY - WaterBottomY) * sc);
             m.SetFloat("_Bottom", t.TransformPoint(new Vector3(0f, WaterBottomY, 0f)).y);
@@ -583,19 +250,492 @@ namespace KatKat.View
             }
         }
 
-        /// <summary>Atlama: dökülmeler hemen yüzeye varır, kabarcıklar silinir.</summary>
+        // ---- Akış --------------------------------------------------------------------------------------
+
+        // 2026-11-26 (kullanıcı: "suyun rengini ve tazyiğini daha belirgin yapalım"): daha hızlı ve kalın akış.
+        private const float PourAccel = 26f, PourV0 = 3.4f; // adım/sn², adım/sn
+
+        /// <summary>
+        /// Hücre boşaldı: oyuktaki su alttan akar. Yol: hücrenin altından aşağı inip boşalma yerine kıvrılır (ikinci derece eğri);
+        /// boşalma yerinin altındaki hücrelerden ise yatay akıp kovanın ağzına yandan döner. Sonra kovaya düşer.
+        /// </summary>
+        private void LaunchWater(int x, int y, int units)
+        {
+            if (!_waterOn || units <= 0) return;
+            var stack = StackAt(x, y);
+            if (stack != null) stack.SetWater(0, true);
+            var from = CellCenter(x, y) + new Vector3(0f, -_pitch * 0.28f, 0f); // oyuğun en alt noktası
+            if (KatKat.UI.Motion.Reduced) { Land(units, _bucketX); return; }
+            // 2026-11-26 (kullanıcı: "suyun kovaya akma efektinde bordera denk gelen yerinde sorun var"): yol tek parça. Üstteki
+            // hücreden: aşağı inip tepsi üzerinde boşalma yerine kıvrılır, kenarlığın üstünden dudağa, dudaktan aşağı (kova suyuna düşüş
+            // aynı şeritte devam eder). Oyuğun yanındaki alçak hücreden: yatay akıp kova ağzının üstünden düşer.
+            var pts = new List<Vector3>(40);
+            float rimTop = _drain.y + TrayArt.Reach * _pitch + _pitch * 0.04f;
+            if (from.y > rimTop + _pitch * 0.1f)
+            {
+                var lip = new Vector3(_drain.x, rimTop, 0f);
+                var ctrl = new Vector3(from.x, Mathf.Lerp(from.y, lip.y, 0.8f), 0f);
+                const int N = 22;
+                for (int i = 0; i <= N; i++)
+                {
+                    float t = i / (float)N;
+                    pts.Add((1 - t) * (1 - t) * from + 2 * (1 - t) * t * ctrl + t * t * lip);
+                }
+                // Dudak: kenarlığın üstünden hafif ileri taşıp aşağı kıvrılır.
+                for (int i = 1; i <= 6; i++)
+                {
+                    float t = i / 6f;
+                    float bulge = Mathf.Sin(t * Mathf.PI) * _pitch * 0.04f;
+                    pts.Add(new Vector3(_drain.x + bulge, Mathf.Lerp(rimTop, _drain.y - _pitch * 0.06f, t), 0f));
+                }
+            }
+            else
+            {
+                float mouth = _bucketS * WaterArt.BucketHalfMouth * 0.5f;
+                var end = new Vector3(_bucketX + Mathf.Sign(from.x - _bucketX) * mouth, _bucketBottom + _bucketS * WaterArt.BucketMouth + _pitch * 0.08f, 0f);
+                var ctrl = new Vector3(end.x, from.y, 0f);
+                const int N = 22;
+                for (int i = 0; i <= N; i++)
+                {
+                    float t = i / (float)N;
+                    pts.Add((1 - t) * (1 - t) * from + 2 * (1 - t) * t * ctrl + t * t * end);
+                }
+            }
+            var path = pts.ToArray();
+            var arc = new float[path.Length];
+            for (int i = 1; i < path.Length; i++) arc[i] = arc[i - 1] + (path[i] - path[i - 1]).magnitude;
+            _pours.Add(new Pour { Path = path, Arc = arc, Length = arc[arc.Length - 1], Units = units, Width = _pitch * (0.2f + 0.05f * units) }); // 2026-11-26: ince su ipliği (kalın boru değil)
+        }
+
+        private float PourDist(float age) => Mathf.Max(0f, PourV0 * _pitch * age + 0.5f * PourAccel * _pitch * age * age);
+        private float TailDelay(Pour p) => 0.45f + 0.12f * p.Units;
+
+        /// <summary>Toplam yol: sabit yol + son noktadan kova suyuna düşüş.</summary>
+        private float TotalLen(Pour p)
+        {
+            var o = p.Path[p.Path.Length - 1];
+            return p.Length + Mathf.Max(0f, o.y - SurfaceAt(o.x));
+        }
+
+        private Vector3 PointAt(Pour p, float s)
+        {
+            if (s <= p.Length) return PathAt(p, s);
+            var o = p.Path[p.Path.Length - 1];
+            return new Vector3(o.x, o.y - (s - p.Length), 0f);
+        }
+
+        private Vector3 PathAt(Pour p, float s)
+        {
+            s = Mathf.Clamp(s, 0f, p.Length);
+            int i = 1;
+            while (i < p.Arc.Length - 1 && p.Arc[i] < s) i++;
+            float seg = Mathf.Max(1e-5f, p.Arc[i] - p.Arc[i - 1]);
+            return Vector3.Lerp(p.Path[i - 1], p.Path[i], (s - p.Arc[i - 1]) / seg);
+        }
+
+        private void Land(int units, float x)
+        {
+            // 2026-11-26 su kovası: dolu kovaya gelen su taşar (ağızdan köpük ve sıçrama).
+            if (_waterHave + units > _waterNeed + 0.01f && !KatKat.UI.Motion.Reduced)
+            {
+                float top = _bucketBottom + _bucketS * WaterArt.BucketMouth;
+                for (int i = 0; i < 10; i++)
+                {
+                    float side = i % 2 == 0 ? -1f : 1f;
+                    SpawnFoam(new Vector3(_bucketX + side * _bucketS * WaterArt.BucketHalfMouth * 0.9f, top), new Vector3(side * UnityEngine.Random.Range(0.6f, 1.6f), UnityEngine.Random.Range(0.2f, 1.4f)) * _pitch, 0.08f);
+                }
+            }
+            _waterHave = Mathf.Min(_waterNeed, _waterHave + units);
+            _waterSurge = Mathf.Min(1.8f, _waterSurge + 0.6f + 0.25f * units);
+            _waterVel += 0.6f * units;
+            _ripples.Add(new Ripple { X = x, Age = 0f, Amp = 0.10f + 0.04f * units });
+            if (_ripples.Count > 8) _ripples.RemoveAt(0);
+            float s = SurfaceAt(x);
+            if (!KatKat.UI.Motion.Reduced)
+            {
+                for (int i = 0; i < 9 + units * 4; i++)
+                {
+                    float a = UnityEngine.Random.Range(0.15f, 0.85f) * Mathf.PI;
+                    SpawnFoam(new Vector3(x, s), new Vector3(Mathf.Cos(a) * UnityEngine.Random.Range(0.8f, 2.4f), Mathf.Sin(a) * UnityEngine.Random.Range(2f, 3.8f)) * _pitch, 0.1f);
+                }
+                for (int i = 0; i < 3 + units * 2; i++) SpawnBubble(new Vector3(x + UnityEngine.Random.Range(-0.3f, 0.3f) * _pitch, s - UnityEngine.Random.Range(0.15f, 0.6f) * _pitch), true);
+            }
+            WaterArrived?.Invoke(units);
+        }
+
+        // ---- Çizim --------------------------------------------------------------------------------------
+
+        private int Quad(Vector3 a, Vector3 b, Vector3 c, Vector3 d, Color ca, Color cb, Color cc, Color cd)
+        {
+            int i = _wv.Count;
+            _wv.Add(a); _wv.Add(b); _wv.Add(c); _wv.Add(d);
+            _wc.Add(ca); _wc.Add(cb); _wc.Add(cc); _wc.Add(cd);
+            _wt.Add(i); _wt.Add(i + 1); _wt.Add(i + 2);
+            _wt.Add(i); _wt.Add(i + 2); _wt.Add(i + 3);
+            return i;
+        }
+
+        /// <summary>
+        /// Gerçekçi su şeridi bir çizgi boyunca: yumuşak saydam kenarlar, açık gövde, bir yanda ışık yansıması, akışla kayan parlak
+        /// çizgiler; uçlar yuvarlanır. <paramref name="speedAt"/>: noktadaki hız (genişlik ~ 1/√hız).
+        /// </summary>
+        private void Ribbon(List<Vector3> pts, float width, Func<int, float> speedAt, bool roundHead, bool sharpTail)
+        {
+            int n = pts.Count;
+            if (n < 2) return;
+            float k = 1f / Mathf.Max(0.01f, _pitch);
+            var pl = new Vector3[5];
+            var cl = new Color[5];
+            Vector3[] prev = null;
+            Color[] prevC = null;
+            float along = 0f;
+            for (int i = 0; i < n; i++)
+            {
+                var p = pts[i];
+                var dir = (i < n - 1 ? pts[i + 1] - p : p - pts[i - 1]).normalized;
+                if (dir.sqrMagnitude < 1e-6f) dir = Vector3.down;
+                var nrm = new Vector3(-dir.y, dir.x, 0f);
+                if (i > 0) along += (p - pts[i - 1]).magnitude;
+                float u = i / (float)(n - 1);
+                float w = width * Mathf.Clamp(Mathf.Sqrt(PourV0 * _pitch / Mathf.Max(PourV0 * _pitch, speedAt(i))), 0.6f, 1f);
+                if (roundHead) w *= Mathf.Sqrt(Mathf.Clamp01((1f - u) * (n - 1) / 2.5f));
+                if (sharpTail) w *= Mathf.Clamp01(u * (n - 1) / 3f);
+                // 2026-11-26 (kullanıcı: "Suyun hücreden akması … gerçekçi durmuyor"): su ipliği; kalınlık akışla hafifçe titrer,
+                // gövde yarı saydam (altındaki taş seçilir), kenarda koyu kırılma çizgisi, bir yanda dar parlak yansıma, aşağı kayan
+                // açık çizgiler akışı gösterir.
+                float sway = Mathf.Sin(along * k * 4.2f - _waterClock * 13f) * _pitch * 0.012f;
+                w *= 1f + 0.16f * Mathf.Sin(along * k * 9f - _waterClock * 24f) + 0.08f * Mathf.Sin(along * k * 17f - _waterClock * 31f);
+                var c = p + nrm * sway;
+                float streak = 0.5f + 0.5f * Mathf.Sin(along * k * 6f - _waterClock * 22f);
+                var body = Color.Lerp(new Color(0.20f, 0.60f, 1f), new Color(0.62f, 0.92f, 1f), 0.2f + 0.4f * streak);
+                var edge = new Color(0.10f, 0.40f, 0.90f, 0f);
+                pl[0] = c - nrm * w * 0.5f; cl[0] = edge;
+                pl[1] = c - nrm * w * 0.34f; cl[1] = new Color(0.12f, 0.46f, 0.92f, 0.85f);
+                pl[2] = c - nrm * w * 0.14f; cl[2] = new Color(0.95f, 1f, 1f, 0.92f);
+                pl[3] = c + nrm * w * 0.34f; cl[3] = new Color(body.r, body.g, body.b, 0.72f);
+                pl[4] = c + nrm * w * 0.5f; cl[4] = edge;
+                if (prev != null)
+                    for (int j = 0; j < 4; j++) Quad(prev[j], pl[j], pl[j + 1], prev[j + 1], prevC[j], cl[j], cl[j + 1], prevC[j + 1]);
+                prev = (Vector3[])pl.Clone();
+                prevC = (Color[])cl.Clone();
+            }
+        }
+
+        private readonly List<Vector3> _rp = new List<Vector3>(64);
+
+        private void PourRibbons(Pour p)
+        {
+            float total = TotalLen(p);
+            float head = Mathf.Min(PourDist(p.Age), total);
+            float tailAge = p.Age - TailDelay(p);
+            float tail = PourDist(tailAge);
+            if (tail >= total || head <= tail) return;
+            _rp.Clear();
+            const int S = 30;
+            for (int i = 0; i <= S; i++) _rp.Add(PointAt(p, Mathf.Lerp(tail, head, i / (float)S)));
+            float age = p.Age;
+            Ribbon(_rp, p.Width, i => PourV0 * _pitch + PourAccel * _pitch * Mathf.Max(0f, age - (1f - i / (float)S) * 0.25f), true, tailAge > 0f);
+        }
+
+        private void BuildPourMesh()
+        {
+            _wv.Clear(); _wc.Clear(); _wt.Clear();
+            foreach (var p in _pours) PourRibbons(p);
+            LeakRibbons();
+            SendRibbons();
+            _pourMesh.Clear();
+            _pourMesh.SetVertices(_wv);
+            _pourMesh.SetColors(_wc);
+            _pourMesh.SetTriangles(_wt, 0);
+        }
+
+        // ---- Gönderim (2026-11-26, kullanıcı: "kova doldukça gönder diyelim") ----------------------------------------------
+
+        private sealed class SendArc { public Vector3[] Path; public float[] Arc; public float Length, Age, Width; public bool Arrived; public SpriteRenderer R; public Vector3 Prev; }
+        private readonly List<SendArc> _sends = new List<SendArc>();
+        private Action _jetDone;
+        private const float SendHead = 0.75f, SendTail = 0.45f;
+
+        /// <summary>"Gönder" düğmesinin dünya noktası: kovanın gövdesinin önü.</summary>
+        // 2026-11-26 (kullanıcı: "Kovanın üzerinde gönder yazdığı için çatlak görünmüyor. Gönderi kovanın altına konumlandıralım").
+        /// <summary>Kovanın dünya alanı: alt-sol ve üst-sağ köşe (kovaya dokununca gönderilir; 2026-11-26).</summary>
+        public Vector3 WaterBucketMinWorld => transform.TransformPoint(new Vector3(_bucketX - _bucketS * WaterArt.BucketHalfMouth, _bucketBottom + _bucketS * WaterArt.BucketBottom, 0f));
+        public Vector3 WaterBucketMaxWorld => transform.TransformPoint(new Vector3(_bucketX + _bucketS * WaterArt.BucketHalfMouth, _bucketBottom + _bucketS * WaterArt.BucketMouth, 0f));
+
+        public Vector3 WaterSendAnchorWorld => transform.TransformPoint(new Vector3(_bucketX, _bucketBottom + _bucketS * WaterArt.BucketBottom - _pitch * 0.32f, 0f));
+
+        /// <summary>
+        /// Kovadaki su gönderilir: kova çalkalanarak boşalır, su ağızdan kalın bir şerit halinde fışkırıp yay çizerek görev kartına akar
+        /// (aynı gerçekçi su şeridi). Baş vardığında <paramref name="onArrive"/> (kart dolar).
+        /// </summary>
+        public void SendWater(Vector3 targetWorld, Action onArrive)
+        {
+            if (!_waterOn) { onArrive?.Invoke(); return; }
+            float amount = Mathf.Clamp01(_waterHave / Mathf.Max(1f, _waterNeed));
+            _waterHave = 0f;
+            _waterSurge = Mathf.Min(1.8f, _waterSurge + 1f);
+            if (_jetDone != null) { var prev = _jetDone; _jetDone = null; prev(); }
+            _jetDone = onArrive;
+            if (KatKat.UI.Motion.Reduced) { var d = _jetDone; _jetDone = null; d?.Invoke(); return; }
+            var to = transform.InverseTransformPoint(targetWorld);
+            to.z = 0f;
+            var from = new Vector3(_bucketX, _bucketBottom + _bucketS * WaterArt.BucketMouth - _pitch * 0.05f, 0f);
+            // 2026-11-26 (kullanıcı: "Kovayı gönder dediğimizde görev çubuğunun altından doluyor su. Üstünden ve çubuğun dolu olduğu
+            // uçtan dolmalı"): su kovadan yükselir, kartın üstünden döner ve dolu uca yukarıdan iner (üçüncü derece eğri; son teğet aşağı).
+            float side = Mathf.Sign(to.x - from.x + 0.01f);
+            var c1 = new Vector3(from.x - side * _pitch * 1.2f, from.y + _pitch * 3f, 0f);
+            var c2 = new Vector3(to.x - side * _pitch * 0.6f, to.y + _pitch * 3.2f, 0f);
+            const int N = 48;
+            var path = new Vector3[N + 1];
+            var arc = new float[N + 1];
+            for (int i = 0; i <= N; i++)
+            {
+                float t = i / (float)N, mt = 1f - t;
+                path[i] = mt * mt * mt * from + 3f * mt * mt * t * c1 + 3f * mt * t * t * c2 + t * t * t * to;
+                if (i > 0) arc[i] = arc[i - 1] + (path[i] - path[i - 1]).magnitude;
+            }
+            // 2026-11-26 (kullanıcı: "kovadan görev çubuğuna giden suda da sorun var gerçekçi durmuyor"): boru değil, sallanan su topu.
+            var go = new GameObject("WaterBlob");
+            go.transform.SetParent(transform, false);
+            var blob = go.AddComponent<SpriteRenderer>();
+            blob.sprite = WaterArt.Droplet;
+            blob.sortingOrder = 10 + _height * 4 + 9;
+            go.transform.localPosition = from;
+            go.transform.localScale = Vector3.zero;
+            _sends.Add(new SendArc { Path = path, Arc = arc, Length = arc[N], Width = _pitch * (0.7f + 0.45f * amount), R = blob, Prev = from });
+            for (int i = 0; i < 14; i++)
+            {
+                float a = UnityEngine.Random.Range(0.2f, 0.8f) * Mathf.PI;
+                SpawnFoam(from, new Vector3(Mathf.Cos(a) * UnityEngine.Random.Range(0.6f, 1.8f), Mathf.Sin(a) * UnityEngine.Random.Range(1.5f, 3.2f)) * _pitch, 0.1f);
+            }
+        }
+
+        private Vector3 SendAt(SendArc p, float s)
+        {
+            s = Mathf.Clamp(s, 0f, p.Length);
+            int i = 1;
+            while (i < p.Arc.Length - 1 && p.Arc[i] < s) i++;
+            float seg = Mathf.Max(1e-5f, p.Arc[i] - p.Arc[i - 1]);
+            return Vector3.Lerp(p.Path[i - 1], p.Path[i], (s - p.Arc[i - 1]) / seg);
+        }
+
+        private void TickJets(float dt)
+        {
+            for (int i = _sends.Count - 1; i >= 0; i--)
+            {
+                var p = _sends[i];
+                p.Age += dt;
+                float u = Mathf.Clamp01(p.Age / SendHead);
+                float e = u * u * (3f - 2f * u);
+                var pos = SendAt(p, p.Length * e);
+                if (p.R != null && !p.Arrived)
+                {
+                    // Uçan su topu: hız yönünde uzar, yana basılır; kendi içinde jöle gibi salınır; arkasında damla izi.
+                    var vel = (pos - p.Prev) / Mathf.Max(1e-4f, dt);
+                    float sp = vel.magnitude;
+                    float stretch = 1f + Mathf.Clamp(sp / (_pitch * 14f), 0f, 0.6f);
+                    float wob = 1f + 0.08f * Mathf.Sin(p.Age * 32f);
+                    float grow = Mathf.Clamp01(p.Age / 0.12f);
+                    float size = p.Width * grow / Mathf.Max(0.01f, p.R.sprite.bounds.size.x);
+                    p.R.transform.localPosition = pos;
+                    p.R.transform.localScale = new Vector3(size * stretch * wob, size / Mathf.Sqrt(stretch) / wob, 1f);
+                    if (sp > 1e-4f) p.R.transform.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(vel.y, vel.x) * Mathf.Rad2Deg);
+                    if (!KatKat.UI.Motion.Reduced && sp > 1e-4f && UnityEngine.Random.value < dt * 45f)
+                        SpawnFoam(pos - vel.normalized * p.Width * 0.3f, -vel * 0.08f + new Vector3(UnityEngine.Random.Range(-0.6f, 0.6f), UnityEngine.Random.Range(-0.2f, 0.6f)) * _pitch, 0.09f);
+                }
+                p.Prev = pos;
+                if (!p.Arrived && p.Age >= SendHead)
+                {
+                    p.Arrived = true;
+                    var end = p.Path[p.Path.Length - 1];
+                    if (p.R != null) Destroy(p.R.gameObject);
+                    for (int k = 0; k < 16; k++)
+                    {
+                        float a = UnityEngine.Random.Range(0.1f, 0.9f) * Mathf.PI;
+                        SpawnFoam(end, new Vector3(Mathf.Cos(a) * UnityEngine.Random.Range(0.8f, 2.4f), Mathf.Sin(a) * UnityEngine.Random.Range(1.2f, 3.2f)) * _pitch, 0.11f);
+                    }
+                    var d = _jetDone; _jetDone = null; d?.Invoke();
+                }
+                if (p.Age >= SendHead + 0.05f) { if (p.R != null) Destroy(p.R.gameObject); _sends.RemoveAt(i); }
+            }
+        }
+
+        private void SendRibbons()
+        {
+            if (_sends.Count >= 0) return; // 2026-11-26: gönderim su topu (TickJets); şerit yok
+            foreach (var p in _sends)
+            {
+                float u = Mathf.Clamp01(p.Age / SendHead);
+                float head = p.Length * (1f - (1f - u) * (1f - u)); // fışkırır, sonra yavaşlar
+                float v = Mathf.Clamp01((p.Age - SendTail) / SendHead);
+                float tail = p.Length * v * v;
+                if (head <= tail) continue;
+                _rp.Clear();
+                const int S = 30;
+                for (int i = 0; i <= S; i++) _rp.Add(SendAt(p, Mathf.Lerp(tail, head, i / (float)S)));
+                Ribbon(_rp, p.Width, i => PourV0 * _pitch * 2f, true, p.Age > SendTail);
+            }
+        }
+
+        // ---- Kabarcık ve köpük ------------------------------------------------------------------------
+
+        private void SpawnBubble(Vector3 p, bool burst)
+        {
+            if (_bubbles.Count > 90) return;
+            var go = new GameObject("WaterBubble");
+            go.transform.SetParent(transform, false);
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sprite = WaterArt.Bubble;
+            sr.sortingOrder = 7; // kova suyunun içinde, ön camın arkasında
+            _bubbles.Add(new Bubble { R = sr, P = p, Vy = _pitch * UnityEngine.Random.Range(0.8f, burst ? 1.8f : 1.2f), Size = _pitch * UnityEngine.Random.Range(0.05f, burst ? 0.14f : 0.09f), Life = 6f, Phase = UnityEngine.Random.value * 6f });
+        }
+
+        private void SpawnFoam(Vector3 p, Vector3 v, float size)
+        {
+            if (_bubbles.Count > 90) return;
+            var go = new GameObject("WaterFoam");
+            go.transform.SetParent(transform, false);
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sprite = WaterArt.Droplet; // 2026-11-26: ışık lekesi değil gerçek su damlası
+            sr.sortingOrder = 10 + _height * 4 + 7;
+            _bubbles.Add(new Bubble { R = sr, P = p, V = v, Foam = true, Size = _pitch * size * UnityEngine.Random.Range(0.7f, 1.4f), Life = UnityEngine.Random.Range(0.45f, 0.7f) });
+        }
+
+        private void TickBubbles(float dt)
+        {
+            float g = _pitch * 9f;
+            for (int i = _bubbles.Count - 1; i >= 0; i--)
+            {
+                var b = _bubbles[i];
+                b.Age += dt;
+                if (b.R == null) { _bubbles.RemoveAt(i); continue; }
+                if (b.Foam)
+                {
+                    b.V.y -= g * dt;
+                    b.P += b.V * dt;
+                    float a = Mathf.Clamp01(1f - b.Age / b.Life);
+                    b.R.color = new Color(1f, 1f, 1f, Mathf.Clamp01(a * 1.4f));
+                    b.R.transform.localScale = Vector3.one * (b.Size * (0.6f + 0.4f * a) / Mathf.Max(0.01f, b.R.sprite.bounds.size.x));
+                }
+                else
+                {
+                    b.P.y += b.Vy * dt;
+                    b.P.x += Mathf.Sin(b.Age * 7f + b.Phase) * _pitch * 0.18f * dt;
+                    if (b.P.y >= SurfaceAt(b.P.x)) b.Age = b.Life;
+                    b.R.color = new Color(1f, 1f, 1f, Mathf.Clamp01(b.Age / 0.15f) * 0.85f);
+                    b.R.transform.localScale = Vector3.one * (b.Size * (1f + 0.15f * Mathf.Sin(b.Age * 11f)) / Mathf.Max(0.01f, b.R.sprite.bounds.size.x));
+                }
+                b.R.transform.localPosition = b.P;
+                if (b.Age >= b.Life)
+                {
+                    Destroy(b.R.gameObject);
+                    _bubbles.RemoveAt(i);
+                }
+            }
+        }
+
+        // ---- Kare --------------------------------------------------------------------------------------
+
+        private void TickWater(float dt)
+        {
+            if (!_waterOn) return;
+            // Tahta ölçüsü sonradan (ilk yerleşim, ekran boyu) değişirse kova yeniden oturur (ölçüsüz yerleşimde boy 0 kalıyordu).
+            if (_waterBoard != null && Mathf.Abs(_placedPitch - _pitch) > 1e-5f) PlaceBucket(_waterBoard);
+            if (_bucketS <= 0f) return;
+            _waterClock += dt;
+            TickTilt(dt);
+            float g = 26f * _pitch;
+            for (int i = _pours.Count - 1; i >= 0; i--)
+            {
+                var p = _pours[i];
+                p.Age += dt;
+                float total = TotalLen(p);
+                var o = p.Path[p.Path.Length - 1];
+                float surf = SurfaceAt(o.x);
+                if (!p.Landed && PourDist(p.Age) >= total) { p.Landed = true; Land(p.Units, o.x); }
+                // Tazyik: düştüğü yerde sürekli köpük ve sıçrama tacı.
+                if (!KatKat.UI.Motion.Reduced && UnityEngine.Random.value < dt * 10f)
+                {
+                    // İplikten kopan damlacık: yol üzerinde rastgele bir noktadan yana savrulur, düşer.
+                    float hd = Mathf.Min(PourDist(p.Age), total), tl = PourDist(p.Age - TailDelay(p));
+                    if (hd > tl) SpawnFoam(PointAt(p, UnityEngine.Random.Range(tl, hd)), new Vector3(UnityEngine.Random.Range(-0.9f, 0.9f), UnityEngine.Random.Range(-0.4f, 0.6f)) * _pitch, 0.05f);
+                }
+                if (p.Landed && !KatKat.UI.Motion.Reduced && UnityEngine.Random.value < dt * 40f)
+                {
+                    float a = UnityEngine.Random.Range(0.15f, 0.85f) * Mathf.PI;
+                    SpawnFoam(new Vector3(o.x, surf), new Vector3(Mathf.Cos(a) * UnityEngine.Random.Range(0.8f, 1.8f), Mathf.Sin(a) * UnityEngine.Random.Range(1.4f, 2.8f)) * _pitch, 0.08f);
+                }
+                if (p.Landed && PourDist(p.Age - TailDelay(p)) >= total) _pours.RemoveAt(i);
+                else if (p.Age > 6f) { if (!p.Landed) Land(p.Units, _bucketX); _pours.RemoveAt(i); }
+            }
+            if (_waterLogic >= 0)
+            {
+                _waterIdle += dt;
+                if (_pours.Count == 0 || _waterIdle > 3f)
+                {
+                    if (Mathf.Abs(_waterHave - _waterLogic) > 0.01f) _waterHave = _waterLogic;
+                    _waterLogic = -1;
+                }
+            }
+            _waterVel += (_waterHave - _waterShown) * 34f * dt;
+            _waterVel *= Mathf.Exp(-7.5f * dt);
+            _waterShown += _waterVel * dt;
+            if (_waterShown < 0f) { _waterShown = 0f; _waterVel = 0f; }
+            if (_waterShown > _waterNeed) { _waterShown = _waterNeed; _waterVel = Mathf.Min(0f, _waterVel); }
+            _waterSurge = Mathf.MoveTowards(_waterSurge, 0f, dt * 0.8f);
+            for (int i = _ripples.Count - 1; i >= 0; i--)
+            {
+                var r = _ripples[i];
+                r.Age += dt;
+                _ripples[i] = r;
+                if (r.Age > 2.2f) _ripples.RemoveAt(i);
+            }
+            // Kova suyunda ara ara dipten kabarcık.
+            if (_waterShown > 0.3f && !KatKat.UI.Motion.Reduced)
+            {
+                _waterBubbleT -= dt;
+                if (_waterBubbleT <= 0f)
+                {
+                    _waterBubbleT = UnityEngine.Random.Range(0.25f, 0.7f);
+                    float half = _bucketS * WaterArt.BucketHalfBottom * 0.8f;
+                    SpawnBubble(new Vector3(_bucketX + UnityEngine.Random.Range(-half, half), WaterBottomY + _pitch * 0.05f), false);
+                }
+            }
+            TickCracks(dt);
+            TickJets(dt);
+            TickBubbles(dt);
+            UpdateWaterShader();
+            BuildPourMesh();
+        }
+
+        /// <summary>
+        /// Ekran eğimi (kullanıcı 2026-11-25: "ekranı çevirdiğimiz yön doğrultusunda su eğim alsın"): yerçekiminin ekrandaki yönüne
+        /// dik yüzey; telefon sağa yatınca su sağda yükselir. Yumuşak izler; azaltılmış harekette düz.
+        /// </summary>
+        private void TickTilt(float dt)
+        {
+            Vector3 a = TiltOverride ?? (SystemInfo.supportsAccelerometer ? Input.acceleration : Vector3.zero);
+            float want = 0f;
+            if (!KatKat.UI.Motion.Reduced && a.sqrMagnitude > 0.01f)
+                want = Mathf.Clamp(a.x / Mathf.Max(0.35f, -a.y) * 1.3f, -0.9f, 0.9f);
+            _waterTilt = Mathf.Lerp(_waterTilt, want, 1f - Mathf.Exp(-4f * dt));
+        }
+
+        /// <summary>Atlama: dökülmeler hemen kovaya varır, kabarcıklar silinir (çatlaklar sürer).</summary>
         private void FinishWater()
         {
-            foreach (var p in _pours) if (!p.Landed) { p.Landed = true; Land(p.Units, p.From.x); }
-            _pours.Clear();
+            foreach (var p in _pours) if (!p.Landed) { p.Landed = true; Land(p.Units, _bucketX); }
             ClearWaterFx();
             _waterShown = _waterHave;
             _waterVel = 0f;
-            if (_waterOn && _waterMesh != null) BuildWaterMesh();
+            if (_waterOn && _pourMesh != null) { UpdateWaterShader(); BuildPourMesh(); }
         }
 
         private void ClearWaterFx()
         {
+            foreach (var p in _sends) if (p.R != null) Destroy(p.R.gameObject);
+            _sends.Clear();
+            if (_jetDone != null) { var d = _jetDone; _jetDone = null; d(); }
             _pours.Clear();
             _ripples.Clear();
             foreach (var b in _bubbles) if (b.R != null) Destroy(b.R.gameObject);

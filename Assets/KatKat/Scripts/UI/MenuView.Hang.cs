@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace KatKat.UI
@@ -18,6 +19,8 @@ namespace KatKat.UI
 
         /// <summary>İpler kartın üst kenarının bu kadar içine bağlanır (düğüm kartın üstünde görünür).</summary>
         private const float RopeTuck = 10f;
+        /// <summary>İpin karttaki yatay yeri (kart genişliği oranı): simge çerçevesinin (~%30) dışı.</summary>
+        private const float RopeX = 0.40f;
 
         /// <summary>Sol sütun askıları ve sağdaki koleksiyon kartını iplere bağlar, sallanmayı başlatır.</summary>
         private void HangColumns(RectTransform shell)
@@ -42,7 +45,9 @@ namespace KatKat.UI
             {
                 var h = left[i];
                 bool first = i == 0 && behind >= 0;
-                Hang(h, first ? HangBehindY : above, first ? PlateBottomY : above, BadgeW * 0.3f, i, RopeTuck, !first);
+                // 2026-11-26 (kullanıcı: "ipli menülerin ip bağlantıları iconun altında olan arkaplanına sabitlensin"): halkalar simge
+                // çerçevesinin dışında, kartın krem arka planında (köşelere yakın).
+                Hang(h, first ? HangBehindY : above, first ? PlateBottomY : above, BadgeW * RopeX, i, RopeTuck, !first);
                 if (first) h.SetSiblingIndex(behind++);
                 above = h.anchoredPosition.y - h.sizeDelta.y * h.pivot.y + EyeletInset; // üst kartın alt kenarındaki halka
             }
@@ -180,12 +185,14 @@ namespace KatKat.UI
     /// sert sallayınca sallanacaklar") eşiği aşan yanal ivme askıyı iter, yaylı sarkaç gibi salınıp birkaç saniyede söner. Telefonu
     /// çevirmek/eğmek etkisiz. Zincirdeki askı üstündekine bağlı (göreli açı) ve daha az itilir. Açı en çok <see cref="MaxAngle"/>.
     /// </summary>
-    public sealed class HangSwing : MonoBehaviour
+    public sealed class HangSwing : MonoBehaviour, IInitializePotentialDragHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         /// <summary>Durgun salınımda askının alt kenarındaki en büyük yanal kayma (px) ve periyodu (sn).</summary>
         public const float EdgePx = 4f, Period = 4.2f;
         /// <summary>En büyük açı (derece), sarsıntı eşiği (g), eşiği aşan ivmenin kazancı (derece/sn² / g) ve sönüm oranı.</summary>
-        public const float MaxAngle = 12f, ShakeThreshold = 0.55f, ShakeGain = 1500f, Damping = 0.18f;
+        public const float MaxAngle = 16f, ShakeThreshold = 0.55f, ShakeGain = 1500f, Damping = 0.18f;
+        /// <summary>Parmakla itme kazancı (derece/sn, ekran genişliği oranında sürükleme başına).</summary>
+        public const float DragGain = 900f;
         public float Amp = 1f, Phase;
         /// <summary>Sarkaç boyu (px, ipin üstünden askının altına): uzun askı daha yavaş salınır.</summary>
         public float Radius = 200f;
@@ -204,6 +211,37 @@ namespace KatKat.UI
         public float ShakeSwing => _swing;
 
         private void Update() => Advance(Time.unscaledDeltaTime);
+
+        // 2026-11-26 (kullanıcı: "Butonlara basılı tutup parmağımızı oynatırsak butonlar ip desteği ile o yönde sallansın"): sürükleme
+        // askıyı parmağın yönünde iter (yatay hız kadar), bırakınca yaylı sarkaç gibi salınıp söner. Sürükleme başlayınca düğmenin
+        // tıklaması düşer (sürükleyen askı, basılan düğme değil).
+        public void OnInitializePotentialDrag(PointerEventData e) => e.useDragThreshold = true;
+        public void OnBeginDrag(PointerEventData e) { }
+        public void OnDrag(PointerEventData e)
+        {
+            if (Motion.Reduced) return;
+            float dx = e.delta.x / Mathf.Max(1f, Screen.width);
+            PushChain(dx);
+        }
+        public void OnEndDrag(PointerEventData e) { }
+
+        /// <summary>Testler: parmakla itmeyi taklit eder (ekran genişliği oranında yatay kayma).</summary>
+        public void Push(float dxScreenFraction) => _vel += dxScreenFraction * DragGain;
+
+        /// <summary>
+        /// 2026-11-26 (kullanıcı: "ipli butonu sürüklediğimde üstündeki butonlar da sallanmalı. ip bağlantı noktasından konumunu korumalı"):
+        /// itme sürüklenen askıya tam, üstündeki askılara azalarak (her basamakta %70) aktarılır; alttaki askı üsttekinin halkalarına
+        /// bağlı (çocuğu) olduğundan ip uçları ayrılmaz, sütun birlikte sallanır.
+        /// </summary>
+        public void PushChain(float dxScreenFraction)
+        {
+            float f = 1f;
+            for (var sw = this; sw != null; sw = sw.transform.parent != null ? sw.transform.parent.GetComponentInParent<HangSwing>() : null)
+            {
+                sw._vel += dxScreenFraction * DragGain * f;
+                f *= 0.7f;
+            }
+        }
 
         /// <summary>İvmeölçer kare başına bir kez okunur: hızla izlenen kısım yerçekimi (çevirme), kalan ani kısım sarsıntı.</summary>
         private static void Sample(float dt)
