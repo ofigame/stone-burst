@@ -199,6 +199,22 @@ namespace KatKat.UI
 
             private void Update() => Advance(Time.unscaledDeltaTime * 1000f);
 
+            private RectTransform _goalCard;
+
+            /// <summary>2026-11-25 (kullanıcı: "kazandığımız yıldızlar külçeye doğru gidiyor. onun yerine koleksiyon butonumuza gitsin
+            /// iple asılı olan"): yıldızlar ipteki koleksiyon kartına (StarGoal) gider; kart sallansa da her karede izlenir.</summary>
+            private bool GoalCardPos(out Vector2 pos)
+            {
+                pos = default;
+                if (_goalCard == null)
+                    foreach (var rt in _shell.GetComponentsInChildren<RectTransform>(true))
+                        if (rt.name == "StarGoal") { _goalCard = rt; break; }
+                if (_goalCard == null || !_goalCard.gameObject.activeInHierarchy) return false;
+                Vector3 world = _goalCard.TransformPoint(_goalCard.rect.center);
+                pos = (Vector2)_shell.InverseTransformPoint(world) + new Vector2(0f, _shell.rect.height * 0.5f);
+                return true;
+            }
+
             private void ResolveCounter()
             {
                 if (_counter != null) return;
@@ -238,8 +254,8 @@ namespace KatKat.UI
                         continue;
                     }
                     float e = Ease.InOutSine(u);
-                    Vector2 to = _counter != null ? _counterPos : new Vector2(160f, -56f);
-                    Vector2 mid = (from + to) * 0.5f + new Vector2(220f, -40f); // sağdan yay: başlık yazısının üstünden geçmez
+                    Vector2 to = GoalCardPos(out var card) ? card : _counter != null ? _counterPos : new Vector2(160f, -56f);
+                    Vector2 mid = (from + to) * 0.5f + new Vector2(-160f, 60f); // yay: koleksiyon kartına yukarıdan iner
                     Vector2 p = Vector2.Lerp(Vector2.Lerp(from, mid, e), Vector2.Lerp(mid, to, e), e);
                     rt.anchoredPosition = p;
                     rt.localScale = Vector3.one * (u < 0.15f ? Ease.OutBack(u / 0.15f) : Mathf.Lerp(1f, 0.7f, e));

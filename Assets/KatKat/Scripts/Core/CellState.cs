@@ -24,6 +24,9 @@ namespace KatKat.Core
         public LayerColor EnvelopeColor;
         /// <summary>Son katman kaldırılınca bir kez yıldız verir; toplanınca false olur.</summary>
         public bool HasBottomStar;
+        /// <summary>2026-11-25 su kipi (kullanıcı: "her hücrenin içinde su olacak ve hücredeki taşlar gittiğinde dipteki su … kovaya
+        /// dolacak"): hücre dibindeki su birimi (0 kuru). Son katman kalkınca bir kez kovaya akar; taşlarla birlikte kaymaz.</summary>
+        public int Water;
         /// <summary>Döner taban (M08): kalıcıdır; döndürme komutu eski üstü en alta indirir.</summary>
         public bool HasRotor;
         /// <summary>Üstte duran özel taş (v5 §2). Varken hücre renk grubuna katılmaz; dokunulunca ateşlenir.</summary>
@@ -72,7 +75,7 @@ namespace KatKat.Core
             var c = new CellState
             {
                 Active = Active, ClipHitsRemaining = ClipHitsRemaining, IceHitsRemaining = IceHitsRemaining,
-                LockColor = LockColor, LockRemaining = LockRemaining, HasBottomStar = HasBottomStar,
+                LockColor = LockColor, LockRemaining = LockRemaining, HasBottomStar = HasBottomStar, Water = Water,
                 HasEnvelope = HasEnvelope, EnvelopeColor = EnvelopeColor, HasRotor = HasRotor,
                 Special = Special, SpecialColor = SpecialColor,
                 SpongeNeed = SpongeNeed, SpongeHave = SpongeHave, LinkId = LinkId, LinkHits = LinkHits,
@@ -86,7 +89,7 @@ namespace KatKat.Core
         public bool ContentEquals(CellState o)
         {
             if (Active != o.Active || ClipHitsRemaining != o.ClipHitsRemaining || IceHitsRemaining != o.IceHitsRemaining
-                || LockRemaining != o.LockRemaining || (LockRemaining > 0 && LockColor != o.LockColor) || HasBottomStar != o.HasBottomStar
+                || LockRemaining != o.LockRemaining || (LockRemaining > 0 && LockColor != o.LockColor) || HasBottomStar != o.HasBottomStar || Water != o.Water
                 || HasEnvelope != o.HasEnvelope || (HasEnvelope && EnvelopeColor != o.EnvelopeColor) || HasRotor != o.HasRotor
                 || Special != o.Special || (Special == SpecialKind.Rainbow && SpecialColor != o.SpecialColor)
                 || SpongeNeed != o.SpongeNeed || SpongeHave != o.SpongeHave || LinkId != o.LinkId || LinkHits != o.LinkHits

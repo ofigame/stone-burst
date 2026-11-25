@@ -176,6 +176,7 @@ namespace KatKat.Core.Live
                 case LiveCommandType.Swap:
                 {
                     if (cmd.HandSlot < 0 || cmd.HandSlot >= Hands[p].Count) return LiveReject.BadHandSlot;
+                    if (cmd.Side == LiveSide.Opponent && !Rules.AllowAttack) return LiveReject.AttackOff;
                     var b = TargetBoard(p, cmd.Side);
                     if (!b.InBounds(cmd.X, cmd.Y)) return LiveReject.OutOfBounds;
                     color = Hands[p][cmd.HandSlot];
@@ -215,7 +216,7 @@ namespace KatKat.Core.Live
                     var g = LiveMoves.GroupIfSwapped(own, i, c);
                     list.Add(new LiveMove { Type = LiveCommandType.Swap, Side = LiveSide.Own, Slot = slot, Color = c, Target = i, Gain = g.Count >= LiveRules.MinGroup ? g.Count : 0 });
                 }
-                for (int i = 0; i < opp.Count; i++)
+                for (int i = 0; Rules.AllowAttack && i < opp.Count; i++)
                 {
                     if (LiveMoves.CheckAttack(opp, i, c, Rules) != LiveReject.None) continue;
                     list.Add(new LiveMove { Type = LiveCommandType.Swap, Side = LiveSide.Opponent, Slot = slot, Color = c, Target = i });
@@ -240,7 +241,7 @@ namespace KatKat.Core.Live
                     foreach (var c in colors)
                     {
                         if (b[i].Top == c) continue;
-                        if (b == Boards[p] || LiveMoves.CheckAttack(b, i, c, Rules) == LiveReject.None) return true;
+                        if (b == Boards[p] || (Rules.AllowAttack && LiveMoves.CheckAttack(b, i, c, Rules) == LiveReject.None)) return true;
                     }
                 }
             return false;

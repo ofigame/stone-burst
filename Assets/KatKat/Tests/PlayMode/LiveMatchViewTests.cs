@@ -173,7 +173,7 @@ namespace KatKat.Tests
 
         /// <summary>Kullanıcı 2026-11-14: "sıra kimdeyse 5 sn süresi olsun" → "10 saniye yapalım". Süre dolunca sıra geçer; çubuk ve saniye görünür.</summary>
         [UnityTest]
-        public IEnumerator TurnTimer_TenSeconds_ExpiresToPass()
+        public IEnumerator TurnTimer_FifteenSeconds_ExpiresToPass()
         {
             _gc.ShowLive();
             yield return null;
@@ -181,7 +181,7 @@ namespace KatKat.Tests
             v.BotDelay = 99f; // bot beklesin
             var m = v.Match;
             Assert.AreEqual(LiveMatchView.Human, m.Current);
-            Assert.LessOrEqual(v.TimeLeft, 10f); Assert.Greater(v.TimeLeft, 8.5f, "sıra başında 10 sn (ilk kare süresi düşülür)");
+            Assert.LessOrEqual(v.TimeLeft, 15f); Assert.Greater(v.TimeLeft, 13.5f, "sıra başında 15 sn (kullanıcı 2026-11-25; ilk kare süresi düşülür)");
             float t0 = v.TimeLeft;
             var bar = GameObject.Find("TimerBar");
             Assert.IsNotNull(bar, "süre çubuğu");
@@ -194,7 +194,7 @@ namespace KatKat.Tests
             Assert.AreEqual(0, m.Scores[0]);
             Assert.IsFalse(string.IsNullOrEmpty(v.Message), "süre doldu yazısı");
             yield return null;
-            Assert.Greater(v.TimeLeft, 8.5f, "rakibin süresi yeniden başlar");
+            Assert.Greater(v.TimeLeft, 13.5f, "rakibin süresi yeniden başlar");
             _gc.CloseLive();
             yield return null;
         }
@@ -256,10 +256,22 @@ namespace KatKat.Tests
             Assert.AreEqual(s0, v.ShownScore(0), "skor kutusu toplamı gösterir");
             Assert.AreEqual(s1, v.ShownScore(1));
             PlayOut(v, rng);
+            // 2026-11-25 (kullanıcı: "3 raunta çıkartalım"): 2. raunttan sonra son raunt; başka dizilim, geride olan başlar.
+            Assert.IsFalse(v.SeriesOver, "3. raunt var");
+            Assert.IsFalse(v.EndShown);
+            int r2a = v.Match.Scores[0], r2b = v.Match.Scores[1];
+            int t0 = s0 + r2a, t1 = s1 + r2b;
+            limit = Time.realtimeSinceStartup + 5f;
+            while ((v.RoundNumber < 3 || v.RoundBreak) && Time.realtimeSinceStartup < limit) yield return null;
+            Assert.AreEqual(3, v.RoundNumber, "3. raunt kendiliğinden başladı");
+            Assert.AreNotSame(layout, v.Match.Layout, "son raunt başka dizilimde");
+            if (t0 != t1) Assert.AreEqual(t0 < t1 ? 0 : 1, v.Match.FirstPlayer, "geride olan başlar");
+            Assert.AreEqual(t0, v.ShownScore(0), "skor kutusu iki rauntun toplamı");
+            PlayOut(v, rng);
             Assert.IsTrue(v.SeriesOver);
             Assert.IsTrue(v.EndShown, "sonuç kartı");
-            Assert.AreEqual(s0 + v.Match.Scores[0], v.ShownScore(0));
-            Assert.AreEqual(s1 + v.Match.Scores[1], v.ShownScore(1));
+            Assert.AreEqual(t0 + v.Match.Scores[0], v.ShownScore(0));
+            Assert.AreEqual(t1 + v.Match.Scores[1], v.ShownScore(1));
             _gc.CloseLive();
             yield return null;
         }

@@ -20,6 +20,7 @@ namespace KatKat.Levels
                 cell.Active = c.Active;
                 cell.ClipHitsRemaining = c.ClipHitsRemaining;
                 cell.HasBottomStar = c.HasBottomStar;
+                cell.Water = c.Water;
                 cell.IceHitsRemaining = c.IceHits;
                 cell.HasRotor = c.HasRotor;
                 if (!string.IsNullOrEmpty(c.EnvelopeColor))
@@ -87,6 +88,7 @@ namespace KatKat.Levels
                     if (!ColorIds.TryParse(g.Color, out gs.Color)) throw new FormatException($"{d.Id}: hedefte bilinmeyen renk '{g.Color}'");
                 }
                 else if (g.Type == "collectStars") gs.Type = GoalType.CollectStars;
+                else if (g.Type == "fillWater") gs.Type = GoalType.FillWater;
                 else if (g.Type == "collectToken" && g.Kind == "envelope") gs.Type = GoalType.CollectEnvelopes;
                 else if (g.Type == "collectToken" && g.Kind == "sponge") gs.Type = GoalType.CollectSponges;
                 else if (g.Type == "collectToken" && g.Kind == "balloon") gs.Type = GoalType.CollectBalloons;

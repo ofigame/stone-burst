@@ -41,6 +41,14 @@ namespace KatKat.Meta
         /// <summary>2026-11-22 süreli bölüm: süre (sn) ve bitişte kalan süre; 0 → hamleli bölüm.</summary>
         public int timeLimit;
         public float timeLeft;
+        /// <summary>
+        /// 2026-11-25 (kullanıcı: "ZPE hesaplamalarında hala sorun var roket veya altın rulo kullanılınca - olmasın fakat desteksiz
+        /// bitirmeye göre daha az puan versin"): kazanılan bölümün puanı en az bu taban (0–1); kayıt anındaki endeks ve küçük pay.
+        /// Böylece kazanç endeksi düşürmez; roket/Altın Rulo kullanılan kazanç desteksizden az pay alır.
+        /// </summary>
+        public double floor;
+        /// <summary>Kullanılan tepsi özel taşı ve Altın Rulo sayısı.</summary>
+        public int specials;
 
         /// <summary>Oturum sonucundan ZPE kaydı: hız bileşeni karar süresini kullanır.</summary>
         public static ZpeRecord From(SessionOutcome o, long time) => new ZpeRecord
@@ -49,6 +57,7 @@ namespace KatKat.Meta
             success = o.Success,
             firstAttempt = o.FirstAttempt,
             assisted = o.Assisted,
+            specials = o.SpecialsUsed,
             movesUsed = o.MovesUsed,
             moveLimit = o.MoveLimit,
             moveBonus = o.MoveBonus,
@@ -190,9 +199,10 @@ namespace KatKat.Meta
             p.FirstTry = r.firstAttempt ? 1 : 0.4;
             double expected = c.TimeBase + c.TimePerStep * steps;
             p.Time = r.seconds > 0.5 ? Clamp01(expected / r.seconds) : 0.5;
-            p.NoAssist = r.assisted ? 0.3 : 1;
+            p.NoAssist = r.assisted ? 0.3 : r.specials > 0 ? 0.8 : 1; // roket/Altın Rulo: yardım değil ama desteksizden az
             double wsum = c.WEfficiency + c.WDifficulty + c.WFirstTry + c.WTime + c.WNoAssist;
             p.Total = (p.Efficiency * c.WEfficiency + p.Difficulty * c.WDifficulty + p.FirstTry * c.WFirstTry + p.Time * c.WTime + p.NoAssist * c.WNoAssist) / wsum;
+            if (r.floor > 0) p.Total = Math.Max(p.Total, Math.Min(1.0, r.floor)); // kazanç endeksi düşürmez
             return p;
         }
 

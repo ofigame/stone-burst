@@ -18,7 +18,7 @@ namespace KatKat.Levels
         public static readonly ValidationScope SecondStage = new ValidationScope { AllowedSizes = new[] { 4, 5, 6 }, MaxLayers = 4, AllowClips = true, AllowStars = true };
 
         /// <summary>schemaVersion 2'de geçerli yetenek adları (Premium-v2 rehberi §12).</summary>
-        public static readonly string[] KnownCapabilities = { "clip", "star", "ice", "colorLock", "envelope", "rotor", "specials", "sponge", "linkedClip", "gate", "paint", "stages", "seal", "areas", "gravel", "buckets", "refill" }; // vr1 P3: stages/seal/areas yalnız pilot katalog (v14: seal tanınır ama reddedilir)
+        public static readonly string[] KnownCapabilities = { "clip", "star", "ice", "colorLock", "envelope", "rotor", "specials", "sponge", "linkedClip", "gate", "paint", "stages", "seal", "areas", "gravel", "buckets", "refill", "water" }; // vr1 P3: stages/seal/areas yalnız pilot katalog (v14: seal tanınır ama reddedilir)
 
         /// <summary>
         /// schemaVersion 1: belge Bölüm 15 — ilk 20 bölümde ataş, yıldız, 6x6 ve dört katman yok (kimlik "level_###").
@@ -93,7 +93,7 @@ namespace KatKat.Levels
 
             var seen = new HashSet<long>();
             var colorTotals = new int[LayerColors.Count];
-            int stars = 0, envelopes = 0;
+            int stars = 0, envelopes = 0, water = 0;
             foreach (var c in d.Cells)
             {
                 string at = $"{id}: ({c.X},{c.Y})";
@@ -101,7 +101,7 @@ namespace KatKat.Levels
                 if (!seen.Add(((long)c.X << 32) | (uint)c.Y)) e.Add($"{at} iki kez yazılmış");
                 if (!c.Active)
                 {
-                    if (c.Layers.Count > 0 || c.CoverCount > 0 || c.HasBottomStar) e.Add($"{at} inactive hücre boş, örtüsüz ve yıldızsız olmalı");
+                    if (c.Layers.Count > 0 || c.CoverCount > 0 || c.HasBottomStar || c.Water != 0) e.Add($"{at} inactive hücre boş, örtüsüz, yıldızsız ve susuz olmalı");
                     // M11: geçit hücresinin potansiyel katmanları hedef üst sınırına sayılır (rehber §12).
                     if (c.GateId > 0)
                     {
@@ -155,6 +155,14 @@ namespace KatKat.Levels
                 if (c.ClipHitsRemaining < 0 || c.ClipHitsRemaining > 2) e.Add($"{at} ataş 0-2 olmalı");
                 if (c.ClipHitsRemaining > 0 && c.Layers.Count == 0) e.Add($"{at} boş hücrede ataş olamaz");
                 if (c.ClipHitsRemaining > 0 && !scope.AllowClips) e.Add($"{at} ataş bu bölümün kapsamı dışında");
+                if (c.Water != 0)
+                {
+                    water += c.Water;
+                    if (c.Water < 0 || c.Water > 3) e.Add($"{at} su 1-3 birim olmalı");
+                    if (c.Layers.Count == 0) e.Add($"{at} sulu hücre en az bir katman içermeli");
+                    if (!d.Capabilities.Contains("water")) e.Add($"{at} su için water yeteneği gerekli");
+                    if (d.HasRefill) e.Add($"{at} su yukarıdan dolma ile birlikte kullanılamaz");
+                }
                 if (c.HasBottomStar)
                 {
                     stars++;
@@ -183,6 +191,11 @@ namespace KatKat.Levels
                 {
                     if (!ColorIds.TryParse(g.Color, out var col)) e.Add($"{id}: hedefte bilinmeyen renk '{g.Color}'");
                     else if (!d.HasRefill && g.Amount > colorTotals[(int)col]) e.Add($"{id}: {g.Color} hedefi {g.Amount}, tahtada {colorTotals[(int)col]} katman var");
+                }
+                else if (g.Type == "fillWater")
+                {
+                    if (!d.Capabilities.Contains("water")) e.Add($"{id}: su hedefi için water yeteneği gerekli");
+                    if (g.Amount > water) e.Add($"{id}: su hedefi {g.Amount}, tahtada {water} birim su var");
                 }
                 else if (g.Type == "collectChain") e.Add($"{id}: zincir hedefi (collectChain) v14'te kaldırıldı, desteklenmiyor");
                 else if (g.Type == "collectStars")
@@ -242,7 +255,7 @@ namespace KatKat.Levels
             report.FinalStatus = st.Status;
             report.MovesLeft = st.MovesLeft;
             foreach (var g in st.Goals)
-                report.Goals.Add($"{(g.Type == GoalType.CollectColor ? ColorIds.ToId(g.Color) : g.Type == GoalType.CollectStars ? "star" : g.Type == GoalType.CollectSponges ? "sponge" : "envelope")} {g.Progress}/{g.Amount}");
+                report.Goals.Add($"{(g.Type == GoalType.CollectColor ? ColorIds.ToId(g.Color) : g.Type == GoalType.CollectStars ? "star" : g.Type == GoalType.FillWater ? "water" : g.Type == GoalType.CollectSponges ? "sponge" : "envelope")} {g.Progress}/{g.Amount}");
             if (report.Error == null && st.Status != GameStatus.Won) report.Error = $"çözüm sonunda durum {st.Status}";
             report.Success = report.Error == null;
             return report;

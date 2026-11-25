@@ -221,6 +221,7 @@ namespace KatKat.Core
                 c.Special = SpecialKind.None;
                 c.ClipHitsRemaining = c.IceHitsRemaining = c.LockRemaining = 0;
                 c.HasEnvelope = c.HasBottomStar = false;
+                c.Water = 0;
                 c.Moss = false;
                 r.HazardCells.Add(new Coord(x, h.Row));
             }

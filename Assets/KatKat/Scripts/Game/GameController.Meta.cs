@@ -138,7 +138,20 @@ namespace KatKat.Game
             // vr1 P0 (02_ZPE): hız bileşeni yalnız karar süresinden (animasyon/öğretici/reklam/modal hariç).
             _zpeLast = ZpeRecord.From(o, DateTimeOffset.UtcNow.ToUnixTimeSeconds());
             if (_level != null && _level.TimeLimit > 0) { _zpeLast.timeLimit = _level.TimeLimit; _zpeLast.timeLeft = Mathf.Max(0f, _timeLeft); } // v4 süreli bölüm
-            Zpe.Add(_save.Data.meta, _zpeLast, ZpeRef, _zpeConfig ?? new ZpeConfig());
+            var cfg = _zpeConfig ?? new ZpeConfig();
+            // 2026-11-25: kazanılan bölüm endeksi düşürmez; desteksiz kazanç en az biraz artırır, roket/Altın Rulo ile kazanç
+            // en az yerinde tutar (taban, kayıt anındaki endeks + pay; gerekirse pay büyütülür).
+            if (o.Success && _zpeBefore >= 0)
+            {
+                double margin = o.SpecialsUsed > 0 ? 0.0 : 0.02;
+                _zpeLast.floor = _zpeBefore / (double)Math.Max(1, cfg.Scale) + margin;
+            }
+            Zpe.Add(_save.Data.meta, _zpeLast, ZpeRef, cfg);
+            if (o.Success && _zpeBefore >= 0)
+            {
+                int want = _zpeBefore + (o.SpecialsUsed > 0 ? 0 : 1);
+                for (int i = 0; i < 20 && CurrentZpe().Score < want && _zpeLast.floor < 1.0; i++) _zpeLast.floor = Math.Min(1.0, _zpeLast.floor + 0.02);
+            }
             _save.Save();
         }
 

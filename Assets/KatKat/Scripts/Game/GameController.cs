@@ -390,6 +390,7 @@ namespace KatKat.Game
             // 2026-11-23 (130. bölüm): özel taşı kapalı ama çakıllı bölümde de Kürek tepsiye gelir; tepsi görünmeli.
             _hud.SetTrayVisible(_session.State.SpecialsEnabled || KatKat.Core.RulesEngine.HasGravel(_session.State.Board) || _session.State.Bucket != null);
             BucketBegin();
+            WaterBegin(); // 2026-11-25 su kipi
             _hud.SetTray(_session.State.Tray, _traySlot = -1);
             _board.SetLevelPalette(index);
             BoostersAtLevelStart();
@@ -671,6 +672,7 @@ namespace KatKat.Game
         private void Play(MoveResult r)
         {
             _lastResult = r;
+            if (_outcome != null && (r.Command.Type == CommandType.UseSpecial || r.RollConsumed)) _outcome.SpecialsUsed++; // ZPE (2026-11-25)
             _hud.BucketQueue(r); // kova kipi: bu hamlenin kovaya giden taşları ve gönderimleri
             SetPhase(Phase.Animating);
             _hud.SetMoves(r.MovesLeftAfter);
@@ -1096,6 +1098,7 @@ namespace KatKat.Game
             _hud.SetMoves(s.MovesLeft);
             _hud.SetTray(s.Tray, _traySlot = -1);
             _hud.BucketSettle(s.Bucket);
+            WaterAfterPlay();
             if (_lastResult != null && _lastResult.Falls.Count > 0) _board.PlayDrops(_lastResult.Falls); // 2026-11-24 yukarıdan dolma
             ConceptAfterPlay(_lastResult); // konsept pilotu: tehdit olayı, durum satırı
             if (s.Status == GameStatus.Idle && s.MovesLeft <= 0 && s.Tray.Count > 0)
@@ -1256,6 +1259,7 @@ namespace KatKat.Game
             var s = _session.State;
             _board.Sync(s);
             _hud.SetBucketMode(s.Bucket); // kova kipi: gösterim mantık durumundan (havadaki taşlar yukarıda bitti)
+            WaterResync();
             _hud.SetMoves(s.MovesLeft);
             _hud.SetGoalsImmediate(s.Goals);
             _hud.SetGoalStages(s.Goals, s.ActiveStage); // vr1 P3 (tek aşamalıda etkisiz)

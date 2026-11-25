@@ -123,15 +123,14 @@ namespace KatKat.Tests
         /// doldurur (gösterim mantıkla eşit), kovaya dokununca yarım kova gider, yenisi gelir, eksik kısım sıranın sonunda.
         /// </summary>
         [UnityTest]
-        public IEnumerator Lab_BucketLevel_FillsAndSendsBucket()
+        public IEnumerator Catalog_BucketLevel_FillsAndSendsBucket()
         {
-            Vr1Proto.Override = true;
-            _gc.ShowPilots();
-            _gc.StartTrial(0);
+            // 2026-11-25: test alanı su bölümlerine geçti; torba bölümü katalogdan (15. bölüm).
+            _gc.StartLevel(14);
             yield return null;
             _gc.Hud.HideRuleCard(false);
-            Assert.AreEqual("lab_01", _gc.CurrentLevel.Id);
-            Assert.IsTrue(_gc.BucketLevel, "test bölümü kovalı");
+            Assert.AreEqual("level_015", _gc.CurrentLevel.Id);
+            Assert.IsTrue(_gc.BucketLevel, "15. bölüm torbalı");
             Assert.IsTrue(_gc.Hud.BucketMode);
             Assert.IsTrue(_gc.TimedActive, "kovalı bölüm süreli");
             var st = _gc.Session.State;
@@ -169,6 +168,48 @@ namespace KatKat.Tests
             }
             else Assert.Greater(st.Goals.First(g => g.Color == color).Progress, 0, "dolan kova teslim edildi");
             Assert.AreEqual(KatKat.Core.GameStatus.Idle, st.Status);
+        }
+
+        /// <summary>
+        /// 2026-11-25 su kipi (test bölümleri): sulu hücrelerin dibinde su; dibine kadar boşalan hücrenin suyu tepsiye dökülür, tepsi
+        /// alttan dolar (gizli sayaç), gösterim mantık ilerlemesine eşitlenir.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator Lab_WaterLevel_DrainsIntoBucket()
+        {
+            Vr1Proto.Override = true;
+            _gc.ShowPilots();
+            _gc.StartTrial(0);
+            yield return null;
+            _gc.Hud.HideRuleCard(false);
+            Assert.AreEqual("lab_01", _gc.CurrentLevel.Id);
+            Assert.IsTrue(_gc.WaterLevel, "test bölümü sulu");
+            Assert.AreEqual(0, _gc.Board.WaterShown, "tepsi boş başlar");
+            Assert.IsFalse(_gc.TimedActive, "su bölümü hamleli");
+            var st = _gc.Session.State;
+            var wetCell = Enumerable.Range(0, st.Board.Count).First(i => st.Board[i].Water > 0);
+            Assert.AreEqual(st.Board[wetCell].Water, _gc.Board.StackAt(st.Board.X(wetCell), st.Board.Y(wetCell)).WaterUnits, "hücre dibinde su");
+            _gc.Board.Director.TimeScale = 10f;
+            var goal = st.Goals.First(g => g.Type == KatKat.Core.GoalType.FillWater);
+            for (int k = 0; k < 30 && goal.Progress == 0 && st.Status == KatKat.Core.GameStatus.Idle; k++)
+            {
+                var b = st.Board;
+                var groups = KatKat.Core.GroupFinder.AllComponents(b).Where(g => g.Count >= KatKat.Core.GroupFinder.MinGroup).ToList();
+                var pick = groups.FirstOrDefault(g => g.Any(i => b[i].Water > 0 && b[i].Layers.Count == 1))
+                    ?? groups.OrderByDescending(g => g.Sum(i => b[i].Water > 0 ? 3 : 1)).FirstOrDefault();
+                Assert.IsNotNull(pick, "oynanacak grup var");
+                _gc.OnCellPressed(b.X(pick[0]), b.Y(pick[0]));
+                yield return WaitStable();
+                st = _gc.Session.State;
+                goal = st.Goals.First(g => g.Type == KatKat.Core.GoalType.FillWater);
+            }
+            Assert.Greater(goal.Progress, 0, "su kovaya aktı");
+            float limit = Time.realtimeSinceStartup + 4f;
+            while ((_gc.Board.WaterFlying || _gc.Board.WaterShown != Mathf.Min(goal.Progress, goal.Amount)) && Time.realtimeSinceStartup < limit) yield return null;
+            Assert.AreEqual(Mathf.Min(goal.Progress, goal.Amount), _gc.Board.WaterShown, "tepsi suyu mantıkla eşit");
+            limit = Time.realtimeSinceStartup + 3f;
+            while (_gc.Board.WaterLevel01 < 0.001f && Time.realtimeSinceStartup < limit) yield return null;
+            Assert.Greater(_gc.Board.WaterLevel01, 0f, "tepside su yükseldi");
         }
 
         /// <summary>C03: taş kazanıldı, uygulama sunumdan önce kapandı → sonraki açılışta vitrin bir kez; taş ikinci kez verilmez.</summary>

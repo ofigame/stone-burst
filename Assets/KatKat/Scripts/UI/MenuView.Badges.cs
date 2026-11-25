@@ -62,7 +62,8 @@ namespace KatKat.UI
             shadow.type = Image.Type.Sliced;
             shadow.color = new Color(1f, 1f, 1f, 0.32f);
             UiFactory.Place(shadow.rectTransform, new Vector2(0.5f, 0.5f), at + new Vector2(0f, -6f), cardSize + new Vector2(4f, 2f));
-            var card = Decor(name + "Card", shell, Ui3.Rounded(34f, Ui3.IvoryTop, Ui3.IvoryBottom, 3f, Ui3.Brass));
+            // 2026-11-25 (kullanıcı: "iple asılı menü butonlarımızın borderları beyaz olsun"): kontur beyaz.
+            var card = Decor(name + "Card", shell, Ui3.Rounded(34f, Ui3.IvoryTop, Ui3.IvoryBottom, 4f, Color.white));
             card.type = Image.Type.Sliced;
             card.color = new Color(1f, 1f, 1f, 0.95f);
             UiFactory.Place(card.rectTransform, new Vector2(0.5f, 0.5f), at, cardSize);

@@ -21,7 +21,7 @@ namespace KatKat.Core.Live
         public int Width = 7, Height = 6;
 
         /// <summary>Hamle süresi (sn; kullanıcı 2026-11-14: "sıra kimdeyse 5 sn süresi olsun", sonra "5 saniye çok az olmuş … 10 saniye yapalım"). Dolunca tur pas geçer. 0 = süresiz.</summary>
-        public float TurnSeconds = 10f;
+        public float TurnSeconds = 15f; // 2026-11-25 (kullanıcı: "Hamle süresini 15 saniyeye çıkartalım")
         /// <summary>El boyutu (belge: hızlı yerel test için 8; çizimdeki 8 yuva).</summary>
         public int HandSize = 8;
         /// <summary>Oyuncu başına tur (belge: hızlı yerel test için 8). Pas da bir tur harcar.</summary>
@@ -63,6 +63,18 @@ namespace KatKat.Core.Live
         /// rauntun toplam puanıyla belirlenir (<see cref="LiveSeries"/>).
         /// </summary>
         public bool TwoRounds = true;
+
+        /// <summary>
+        /// Raunt sayısı (kullanıcı 2026-11-25: "3 raunta çıkartalım"); <see cref="TwoRounds"/> kapalıysa tek raunt. 1. raunt normal,
+        /// 2. rauntta eller ve ilk oynayan değişir, 3. raunt havuzdaki sonraki dizilimde yeni ve denk ellerle, geride olan başlar.
+        /// </summary>
+        public int Rounds = 3;
+
+        /// <summary>Rakibin tahtasına taş koyma (saldırı). Kullanıcı 2026-11-25: "rakibe taş koymayı iptal edelim" → kapalı.</summary>
+        public bool AllowAttack = false;
+
+        /// <summary>Oynanacak raunt sayısı.</summary>
+        public int RoundCount => TwoRounds ? System.Math.Max(1, Rounds) : 1;
 
         public LiveRules Clone() => (LiveRules)MemberwiseClone();
 

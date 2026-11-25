@@ -50,6 +50,8 @@ namespace KatKat.Meta
         public bool Finished;
         public bool Success;
         public AssistFlags Assists;
+        /// <summary>2026-11-25: oturumda kullanılan tepsi özel taşı ve Altın Rulo sayısı (ZPE: desteksize göre az puan).</summary>
+        public int SpecialsUsed;
         /// <summary>Oyuncunun etkin süresi (duraklatma ve uygulama arka plandayken sayılmaz): karar + animasyon + öğretici.</summary>
         public double ActiveSeconds;
         /// <summary>vr1 P0 (02_ZPE): oyuncunun gerçekten girdi verebildiği karar süresi (Idle/Targeting). ZPE hız

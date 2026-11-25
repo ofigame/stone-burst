@@ -12,5 +12,7 @@
         // 4 = CollectChain v14'te kaldırıldı (kullanıcı 2026-11-16: zincir tamamen kaldırılsın); numara boş bırakıldı.
         /// <summary>Konsept pilotu "Balonlar": patlayan balon. Veride collectToken(kind=balloon).</summary>
         CollectBalloons = 5,
+        /// <summary>2026-11-25 su kipi: kovayı su ile doldur (birim). Veride fillWater; su, hücre dibine kadar boşalınca akar.</summary>
+        FillWater = 6,
     }
 }

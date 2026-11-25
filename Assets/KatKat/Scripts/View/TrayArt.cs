@@ -142,6 +142,12 @@ namespace KatKat.View
         public static float Reach => Gap + Rim;
 
         /// <summary>
+        /// 2026-11-25 su kipi (kullanıcı: "tepsinin köşelerinde su çizgi gibi duruyor. Tepsiyi köşelerden tam kapasın"): son pişirmenin
+        /// iç alan maskesi (kenarın iç çizgisine kadar, köşeler kenarla aynı yuvarlak), doku ile aynı boy ve sıra (0–255).
+        /// </summary>
+        public static byte[] LastWaterMask;
+
+        /// <summary>
         /// Doku pikselleri (Unity sırası: alt satır önce). <paramref name="inShape"/> satır 0 üstte; hücre resX×resY piksel
         /// (dünyada kare piksel için resY = resX·satırAdımı/adım); <paramref name="pad"/> her yanda boş piksel.
         /// <paramref name="socketDy"/>: yuva merkezinin hücre merkezinden aşağı kayması (satır adımı oranı);
@@ -202,6 +208,9 @@ namespace KatKat.View
             int blend0 = _rh - 24;
             float vFloor = (_rh - 1) / rowsPerPx; // bu iç uzaklıktan sonra yalnız zemin
             var px = new Color32[n];
+            var wm = new byte[n];
+            LastWaterMask = wm;
+            float wEdge = vFloor * 0.8f; // kenarın iç gölgesinin altına biraz girer: çizgi kalmaz
             var fxs = new int[tw];
             for (int x = 0; x < tw; x++) fxs[x] = ((int)(x * floorPer)) % _fw;
             for (int y = 0; y < th; y++)
@@ -220,6 +229,7 @@ namespace KatKat.View
                     float a0 = sd[y0 * lw + x0], a1 = sd[y0 * lw + x1], b0 = sd[y1 * lw + x0], b1 = sd[y1 * lw + x1];
                     float s = ((a0 + (a1 - a0) * fx) * (1f - fy) + (b0 + (b1 - b0) * fx) * fy) * Q;
                     int o = orow + x;
+                    wm[o] = (byte)(Mathf.Clamp01(s - wEdge + 0.5f) * 255f);
                     if (s <= -0.5f) continue; // saydam (varsayılan 0)
                     if (s >= vFloor) { px[o] = floorPx[frow + fxs[x]]; continue; } // zemin: tam opak
                     float v = s > 0f ? s * rowsPerPx : 0f;

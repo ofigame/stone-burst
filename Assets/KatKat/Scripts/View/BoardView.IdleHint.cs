@@ -71,6 +71,7 @@ namespace KatKat.View
             TickHeartbeat(Time.unscaledDeltaTime); // süreli bölüm (BoardView.Timed)
             TickFall(Time.unscaledDeltaTime);
             TickDrops(Time.unscaledDeltaTime);
+            TickWater(Time.unscaledDeltaTime);
         }
 
         private void TickIdleHint(float dt)

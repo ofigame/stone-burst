@@ -11,6 +11,8 @@ namespace KatKat.Levels
         public readonly List<string> Layers = new List<string>();
         public int ClipHitsRemaining;
         public bool HasBottomStar;
+        /// <summary>2026-11-25 su kipi: "water": n — hücre dibindeki su birimi (1–3).</summary>
+        public int Water;
         /// <summary>schemaVersion 2: overlay {kind:"ice", hits}.</summary>
         public int IceHits;
         /// <summary>schemaVersion 2: overlay {kind:"colorLock", color, remaining}. Boşsa kilit yok.</summary>

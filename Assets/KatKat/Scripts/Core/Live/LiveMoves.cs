@@ -22,6 +22,8 @@ namespace KatKat.Core.Live
         TapDisabled,
         NoReadyGroup,
         PassWithLegalMove,
+        /// <summary>Saldırı kapalı (<see cref="LiveRules.AllowAttack"/>): taş yalnız kendi tahtaya konur.</summary>
+        AttackOff,
     }
 
     /// <summary>

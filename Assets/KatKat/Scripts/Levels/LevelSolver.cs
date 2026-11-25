@@ -174,6 +174,7 @@ namespace KatKat.Levels
                 if (c.HasEnvelope) sb.Append('e').Append((int)c.EnvelopeColor);
                 if (c.HasRotor) sb.Append('r');
                 if (c.HasBottomStar) sb.Append('*');
+                if (c.Water > 0) sb.Append('~').Append(c.Water);
                 if (c.HasSpecial) sb.Append('s').Append((int)c.Special).Append((int)c.SpecialColor);
                 if (c.SpongeNeed != 0) sb.Append('g').Append(c.SpongeNeed).Append(':').Append(c.SpongeHave);
                 if (c.LinkHits > 0) sb.Append('n').Append(c.LinkId).Append(':').Append(c.LinkHits);

@@ -813,8 +813,16 @@ namespace KatKat.Core
                         AddStar(_state);
                         score += Scoring.BottomStar;
                     }
+                    // Su kipi (2026-11-25): hücre dibine kadar boşaldıysa dipteki su bir kez kovaya akar.
+                    int water = cell.Layers.Count == 0 ? cell.Water : 0;
+                    if (water > 0)
+                    {
+                        cell.Water = 0;
+                        AddWater(_state, water);
+                        score += Scoring.Water * water;
+                    }
                     pw.Cells.Add(new CellPeel(board.X(i), board.Y(i), removed, cell.Layers.Count,
-                        cell.Layers.Count > 0 ? cell.Top : default, star));
+                        cell.Layers.Count > 0 ? cell.Top : default, star, water));
                 }
 
                 // Örtü etkileri (Bölüm 7; Premium-v2 §9 adım 5–6; v5 doğrudan vuruş). Dalga öncesi örtü durumundan
@@ -1134,6 +1142,12 @@ namespace KatKat.Core
             if (!HazardRules.Counts(state, color)) return; // Dönen Hedef: yalnız etkin renk
             foreach (var g in state.Goals)
                 if (g.Type == GoalType.CollectColor && g.Color == color && g.Stage == state.ActiveStage) g.Progress++;
+        }
+
+        private static void AddWater(LevelState state, int units)
+        {
+            foreach (var g in state.Goals)
+                if (g.Type == GoalType.FillWater && g.Stage == state.ActiveStage) g.Progress += units;
         }
 
         private static void AddStar(LevelState state)

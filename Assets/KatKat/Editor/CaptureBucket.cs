@@ -45,6 +45,8 @@ namespace KatKat.EditorTools
                 gc.Hud.SetTray(s.Tray, -1);
             });
             Shot("07_patron", 9, gc => { });
+            // 2026-11-24 katalog torba bölümleri: farklı oyuk ve tahta biçimleri.
+            foreach (int n in new[] { 15, 47, 55, 63, 71, 79, 87, 103, 111 }) CatalogShot($"katalog_{n:000}", n - 1);
             Debug.Log("[KatKat] kova yakalamaları tamam → " + Path.Combine(PeelCapture.OutDir, "kova"));
         }
 
@@ -57,6 +59,19 @@ namespace KatKat.EditorTools
                 gc.Hud.HideRuleCard(false);
                 act(gc);
                 UnityEngine.Canvas.ForceUpdateCanvases(); // torba yerleşimi son kanvas ölçeğiyle
+                gc.Hud.AdvanceBucket(0f);
+            });
+        }
+
+        private static void CatalogShot(string name, int index)
+        {
+            GameCapture.ShotPublic($"kova/{name}.png", W, H, gc =>
+            {
+                gc.StartLevel(index);
+                gc.Hud.HideRuleCard(false);
+                for (int i = 0; i < 8; i++) gc.Hud.BucketStoneIn();
+                gc.Hud.AdvanceBucket(2f);
+                UnityEngine.Canvas.ForceUpdateCanvases();
                 gc.Hud.AdvanceBucket(0f);
             });
         }

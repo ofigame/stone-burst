@@ -472,6 +472,7 @@ namespace KatKat.View
         private void LateUpdate()
         {
             AnimateBomb(Time.unscaledDeltaTime);
+            if (_waterFill != null && (_waterUnits > 0 || _waterDrain >= 0f)) AnimateWater(Time.unscaledDeltaTime);
             if (_special == null || !_special.gameObject.activeSelf) return;
             _specialClock += Time.unscaledDeltaTime;
             _popT += Time.unscaledDeltaTime;
@@ -484,6 +485,59 @@ namespace KatKat.View
                 k *= x < 0.55f ? Mathf.Lerp(0f, 1.04f, Ease.OutCubic(x / 0.55f)) : Mathf.Lerp(1.04f, 1f, Ease.InOutQuad((x - 0.55f) / 0.45f));
             }
             _special.transform.localScale = Vector3.one * baseScale * k;
+        }
+
+        // ---- Su kipi (2026-11-25, kullanıcı: "Taşların ortasındaki şekilleri su ile dolduralım su dolu hücredeki taşların"): sulu
+        // hücrenin en üst taşının ortasındaki şekil su birimi kadar dolu (üçte bir / üçte iki / tam), yüzeyi dalgalanır. Üst taş kalkınca
+        // alttakinin şekli dolu gelir. Hücre dibine kadar boşalınca şekildeki su boşalır (BoardView akışı başlar).
+        private int _waterUnits;
+        private SpriteRenderer _waterFill;
+        private float _waterClock, _waterDrain = -1f;
+        private LayerColor _waterColor;
+        public int WaterUnits => _waterUnits;
+
+        /// <summary>Şekil kutusunun yüz genişliğine oranı (taş görselindeki simgeyle hizalı).</summary>
+        public const float SymbolWidth = 1f; // doku taş yüzünün tamamı; oyuk şekli görselden ölçülü
+
+        public void SetWater(int units, bool drain = false)
+        {
+            units = Mathf.Clamp(units, 0, 3);
+            if (units == _waterUnits && !drain) { AnimateWater(0f); return; }
+            if (units == 0 && _waterUnits > 0 && drain && !KatKat.UI.Motion.Reduced && _waterFill != null) _waterDrain = 0f;
+            _waterUnits = units;
+            if (units > 0) _waterDrain = -1f;
+            if (_renderer == null) return;
+            if (units > 0 && _waterFill == null) _waterFill = Mark("WaterFill", WaterArt.SymbolFill(LayerColor.Coral, 1, 0), 3);
+            AnimateWater(0f);
+        }
+
+        private void AnimateWater(float dt)
+        {
+            if (_waterFill == null) return;
+            _waterClock += dt;
+            bool show = (_waterUnits > 0 && _layers.Count > 0) || _waterDrain >= 0f;
+            _waterFill.gameObject.SetActive(show);
+            if (!show) return;
+            if (_layers.Count > 0) _waterColor = _layers[_layers.Count - 1];
+            int frame = KatKat.UI.Motion.Reduced ? 0 : Mathf.FloorToInt((_waterClock + transform.position.x * 0.37f) * 10f);
+            int units = _waterDrain >= 0f ? 3 : _waterUnits;
+            _waterFill.sprite = WaterArt.SymbolFill(_waterColor, units, frame);
+            _waterFill.sortingOrder = _renderer.sortingOrder + 3;
+            float a = 1f, sy = 1f;
+            if (_waterDrain >= 0f)
+            {
+                // Boşalma: şekildeki su aşağı çekilir ve söner (akış şeridi buradan başlar).
+                _waterDrain += dt / 0.3f;
+                float d = Mathf.Clamp01(_waterDrain);
+                a = 1f - d;
+                sy = 1f - 0.6f * d;
+                if (_waterDrain >= 1f) { _waterDrain = -1f; _waterFill.gameObject.SetActive(false); return; }
+            }
+            _waterFill.color = new Color(1f, 1f, 1f, a);
+            const float pulse = 1f; // oyuğa oturur, büyüyüp küçülmez
+            float w = Size * SymbolWidth * pulse / Mathf.Max(0.01f, _waterFill.sprite.bounds.size.x);
+            _waterFill.transform.localPosition = TopFaceLocal - new Vector3(0f, Size * SymbolWidth * 0.5f * (1f - sy), 0f);
+            _waterFill.transform.localScale = new Vector3(w, w * sy, 1f);
         }
 
         private float SpecialScale()
@@ -548,6 +602,7 @@ namespace KatKat.View
             UpdateEnvelope(face);
             UpdateRotor();
             UpdateFlower();
+            if (_waterFill != null) AnimateWater(0f);
             if (_star != null)
             {
                 _star.gameObject.SetActive(_hasStar);

@@ -38,9 +38,10 @@ namespace KatKat.Tests
         private static readonly string[] Bottom = { "PPPC", "CCCC", "BBB." };
         private const string Hand = "CBPYCBPY";
 
-        private static LiveRules Rules(bool tap = false) => new LiveRules { Width = 4, Height = 3, TapReadyGroups = tap, DifferentHands = false, BottomDiffersFromTop = false, FullBoard = false, Layers = 2 };
+        // Saldırı mekaniği testleri saldırıyı açar (2026-11-25'ten beri varsayılan kapalı: AllowAttack).
+        private static LiveRules Rules(bool tap = false) => new LiveRules { Width = 4, Height = 3, TapReadyGroups = tap, DifferentHands = false, BottomDiffersFromTop = false, FullBoard = false, Layers = 2, AllowAttack = true };
         /// <summary>Aynı eller havuzu (live_pool_v1) için kurallar; varsayılan artık farklı ama denk eller.</summary>
-        private static LiveRules SameHands() => new LiveRules { DifferentHands = false, BottomDiffersFromTop = false, FullBoard = false, Layers = 2, Width = 6, Height = 6 };
+        private static LiveRules SameHands() => new LiveRules { DifferentHands = false, BottomDiffersFromTop = false, FullBoard = false, Layers = 2, Width = 6, Height = 6, AllowAttack = true };
 
         private static string Snapshot(LiveMatch m)
         {
@@ -183,6 +184,18 @@ namespace KatKat.Tests
                 // Rakip de boş hücreye saldıramaz.
                 Assert.AreEqual(LiveReject.EmptyCell, LiveMoves.CheckAttack(m.Boards[0], 0, LayerColor.Blue, m.Rules));
             }
+        }
+
+        [Test]
+        public void DefaultRules_AttackRejected_NoOpponentMoves()
+        {
+            var r = Rules();
+            r.AllowAttack = false;
+            var m = new LiveMatch(Make(Top, Bottom, Hand), r);
+            Assert.IsFalse(m.LegalMoves(0).Exists(mv => mv.Side == LiveSide.Opponent), "rakip tahtada yasal hamle yok");
+            var res = m.Submit(LiveCommand.Swap(0, 1, 0, LiveSide.Opponent, 0, 0));
+            Assert.IsFalse(res.Accepted);
+            Assert.AreEqual(LiveReject.AttackOff, res.Reject);
         }
 
         [Test]
@@ -388,7 +401,7 @@ namespace KatKat.Tests
         private static string V5PoolPath => Path.Combine(Path.GetDirectoryName(PoolPath), "live_pool_v5.txt");
 
         [Test]
-        public void Default_ThreeLayers_7x6_TenSeconds_TwoRounds_FullBoard_DifferentHands()
+        public void Default_ThreeLayers_7x6_FifteenSeconds_ThreeRounds_NoAttack_FullBoard_DifferentHands()
         {
             var r = new LiveRules();
             Assert.IsTrue(r.DifferentHands);
@@ -398,7 +411,9 @@ namespace KatKat.Tests
             Assert.AreEqual(3, r.Layers, "3 katman");
             Assert.AreEqual(7, r.Width, "bir sütun fazla");
             Assert.AreEqual(6, r.Height);
-            Assert.AreEqual(10f, r.TurnSeconds, "10 sn hamle süresi (kullanıcı: 5 sn çok az)");
+            Assert.AreEqual(15f, r.TurnSeconds, "15 sn hamle süresi (kullanıcı 2026-11-25)");
+            Assert.AreEqual(3, r.RoundCount, "3 raunt (kullanıcı 2026-11-25)");
+            Assert.IsFalse(r.AllowAttack, "rakibe taş koyma kapalı (kullanıcı 2026-11-25)");
             Assert.AreEqual(LiveTieBreak.BiggestGroupThenSecond, r.TieBreak);
             foreach (var l in LiveLayout.ParsePool(File.ReadAllText(V5PoolPath)).Take(20))
                 Assert.IsNull(LiveGenerator.Validate(l, r), l.Id);

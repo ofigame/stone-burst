@@ -73,6 +73,7 @@ namespace KatKat.Levels
                     ClipHitsRemaining = co.ContainsKey("clipHitsRemaining") ? Int(co, "clipHitsRemaining", where) : 0,
                     HasBottomStar = OptBool(co, "hasBottomStar"),
                     Protected = OptBool(co, "protected"),
+                    Water = co.ContainsKey("water") ? Int(co, "water", where) : 0,
                 };
                 if (co.TryGetValue("overlay", out var ov) && ov != null)
                 {

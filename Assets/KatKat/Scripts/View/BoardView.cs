@@ -542,6 +542,7 @@ namespace KatKat.View
             float padW = pad / (float)ResTray * _pitch;
             _floorSr.transform.localPosition = new Vector3(gridLeft - padW, gridTop - _height * _rowPitch - padW, 0f);
             _floorSr.transform.localScale = new Vector3(_pitch, _pitch, 1f);
+            BuildWaterMask(tw, th, ResTray); // 2026-11-25 su kipi: tepsinin iç alanı
             // Hafif dış gölge: aynı şekil, koyu, biraz aşağıda (tepsi arka plandan ayrılsın).
             if (_floorShadow == null)
             {
@@ -684,6 +685,7 @@ namespace KatKat.View
                 {
                     s.SetLayers(System.Array.Empty<LayerColor>());
                     s.SetMarks(0, false);
+                    s.SetWater(0);
                     s.SetCovers(0, default, 0);
                     s.SetGravel(false);
                     s.SetRotor(false, false);
@@ -697,6 +699,7 @@ namespace KatKat.View
                 s.SetGhost(false);
                 s.SetLayers(cell.Layers);
                 s.SetMarks(cell.ClipHitsRemaining + cell.LinkHits, cell.HasBottomStar);
+                s.SetWater(cell.Water);
                 s.SetLinkTint(cell.LinkHits > 0 ? cell.LinkId : 0);
                 s.SetSponge(cell.SpongeNeed, cell.SpongeHave);
                 s.SetButton(cell.ButtonGate > 0);
@@ -831,6 +834,14 @@ namespace KatKat.View
                     if (bagRank.TryGetValue(ci, out var br))
                     {
                         delay = (special ? SD(cp.X, cp.Y) : 0f) + br.Rank * bagStep;
+                        // 2026-11-25 (kullanıcı: "tıkladığımız grup anlaşılabilmesi için tıkladığımız anda ışıltılı olsun ve oldukları
+                        // yerde hafifçe titresinler"): dokunuşta grubun bütün taşları parlar ve kalkana dek yerinde titrer.
+                        if (tapStream)
+                        {
+                            var held = cp;
+                            float wait = delay;
+                            At(start, () => TapCharge(StackAt(held.X, held.Y), wait, held.Removed));
+                        }
                         bagFly = 240f + 34f * br.Dist;
                         streamArrive = Mathf.Max(streamArrive, delay + PeelSequence.IntactHopMs + bagFly);
                         streamSpread = Mathf.Max(streamSpread, delay);
@@ -863,6 +874,11 @@ namespace KatKat.View
                         }
                         else Debug.LogError($"[KatKat] Görünüm mantıktan ayrıştı: ({cp.X},{cp.Y}) boş");
                     });
+                    if (cp.Water > 0)
+                    {
+                        var wc = cp;
+                        At(start + delay + StarRiseAt * 0.5f, () => LaunchWater(wc.X, wc.Y, wc.Water));
+                    }
                     if (cp.StarCollected)
                         At(start + delay + StarRiseAt, () => LaunchStar(StackAt(cp.X, cp.Y), starTarget != null ? starTarget() : transform.position + Vector3.up * 5f));
                 }
@@ -1455,6 +1471,25 @@ namespace KatKat.View
             }
             go.transform.position = from;
             _fx.Add(new Fx { Kind = FxKind.Travel, T = go.transform, R = sr, Owned = true, From = from, To = to, BaseScale = go.transform.localScale, Lead = SpecialArt.HasV11 ? SpecialLead : 0f, Dur = SpecialLead + (steps + 1) * RocketCellMs });
+        }
+
+        /// <summary>Dokunulan grubun taşı: yumuşak ışıltı ve kalkana dek (<paramref name="ms"/>) hafif titreme.</summary>
+        private void TapCharge(StackView s, float ms, LayerColor color)
+        {
+            if (s == null) return;
+            var go = new GameObject("TapGlow");
+            go.transform.SetParent(transform, false);
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sprite = SpecialArt.Glow;
+            var c = Color.Lerp(LayerPalette.FrontColor(color), Color.white, 0.55f);
+            sr.color = new Color(c.r, c.g, c.b, 0.85f);
+            sr.sortingOrder = 10 + _height * 4 + 6;
+            FxKit.MakeAdditive(sr);
+            go.transform.position = s.transform.position + s.TopFaceLocal;
+            go.transform.localScale = Vector3.one * (_pitch * 0.95f / sr.sprite.bounds.size.x);
+            _fx.Add(new Fx { Kind = FxKind.Burst, T = go.transform, R = sr, Owned = true, BaseScale = go.transform.localScale, Dur = Mathf.Min(900f, ms + 260f) });
+            if (KatKat.UI.Motion.Reduced) return;
+            _shakes.Add(new Shake { Stack = s, Start = Time.unscaledTime, Dur = Mathf.Clamp(ms / 1000f + 0.12f, 0.18f, 0.9f), Amp = 3f });
         }
 
         /// <summary>Hücrede kısa parlama (beyaz ya da renkli ışık).</summary>
@@ -2255,6 +2290,7 @@ namespace KatKat.View
             _timeline.Clear();
             _director?.CompleteAll();
             FinishDrops();
+            FinishWater();
             _veil?.Clear();
             ResetFlowFocus();
             foreach (var s in _shakes) if (s.Stack) s.Stack.transform.localRotation = Quaternion.identity;
@@ -2315,14 +2351,17 @@ namespace KatKat.View
             for (int i = _shakes.Count - 1; i >= 0; i--)
             {
                 var s = _shakes[i];
-                float x = (Time.unscaledTime - s.Start) / 0.22f;
+                float dur = s.Dur > 0f ? s.Dur : 0.22f;
+                float x = (Time.unscaledTime - s.Start) / dur;
                 if (!s.Stack || x >= 1f)
                 {
                     if (s.Stack) s.Stack.transform.localRotation = Quaternion.identity;
                     _shakes.RemoveAt(i);
                     continue;
                 }
-                float a = Mathf.Sin(x * Mathf.PI * 4f) * (1f - x) * 7f;
+                float a = s.Amp > 0f
+                    ? Mathf.Sin((Time.unscaledTime - s.Start) * 55f) * s.Amp * Mathf.Min(1f, (1f - x) * 4f) // hafif, sürekli titreme
+                    : Mathf.Sin(x * Mathf.PI * 4f) * (1f - x) * 7f;
                 s.Stack.transform.localRotation = Quaternion.Euler(0f, 0f, a);
             }
         }
@@ -2337,6 +2376,8 @@ namespace KatKat.View
         {
             public StackView Stack;
             public float Start;
+            /// <summary>Süre (sn) ve genlik (derece); 0 → geçersiz seçim sallanması (0,22 sn, 7°).</summary>
+            public float Dur, Amp;
         }
 
         private enum FxKind { Pop, Away, Fly, Streak, Tumble, Spin, Burst, Expand, Travel, Bolt, Spark, Flame, Balloon }

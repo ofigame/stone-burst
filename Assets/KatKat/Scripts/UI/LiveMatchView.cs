@@ -97,6 +97,7 @@ namespace KatKat.UI
                 b.SetTheme(ThemeDefinition.Coast);
                 b.SetLevelPalette(0);
                 b.SetVr2Skin(_skin); // arka planla aynı bölge teması
+                b.StreamArrived = StreamTick; // 2026-11-25: taşlar sırayla skor kutusuna, her varışta ses
                 _boards[p] = b;
             }
             BuildCanvas();
@@ -352,7 +353,7 @@ namespace KatKat.UI
             if (Pool == null || Pool.Count == 0) { SetMessage(Loc.T("live.nopool")); return; }
             PoolIndex = (index % Pool.Count + Pool.Count) % Pool.Count;
             _first = first;
-            Round1 = null;
+            _rounds.Clear();
             HideRoundBanner();
             Begin(new LiveMatch(Pool[PoolIndex], Rules, first));
         }
@@ -362,19 +363,33 @@ namespace KatKat.UI
         /// dizilim, eller ve ilk oynayan değişir; skor kutuları iki rauntun toplamını gösterir. Raunt arası kendiliğinden gelir
         /// (<see cref="RoundBreakSeconds"/>); testler/yakalama doğrudan çağırabilir.
         /// </summary>
-        public void StartRound2()
+        public void StartRound2() => StartNextRound();
+
+        /// <summary>
+        /// Sonraki raunt (kullanıcı 2026-11-25: "3 raunta çıkartalım"): 2. rauntta aynı dizilim, eller ve ilk oynayan değişir;
+        /// 3. raunt havuzdaki sonraki dizilimde yeni ve denk ellerle, toplamda geride olan başlar (<see cref="LiveSeries.Decider"/>).
+        /// </summary>
+        public void StartNextRound()
         {
-            if (Match == null || !Match.IsOver || Round1 != null) return;
+            if (Match == null || !Match.IsOver || _rounds.Count + 1 >= TotalRounds) return;
             _breakAt = -1f;
-            Round1 = Match;
-            Begin(LiveSeries.Rematch(Round1));
+            _rounds.Add(Match);
+            if (_rounds.Count == 1) Begin(LiveSeries.Rematch(Match));
+            else Begin(LiveSeries.Decider(Pool[(PoolIndex + Pool.Count / 2 + 1) % Pool.Count], Rules, _rounds)); // başka bir dizilim
         }
 
-        /// <summary>2. rauntta 1. rauntun maçı; 1. rauntta null.</summary>
-        public LiveMatch Round1 { get; private set; }
+        /// <summary>Biten rauntlar (oynanan raunt hariç).</summary>
+        private readonly List<LiveMatch> _rounds = new List<LiveMatch>();
 
-        /// <summary>Maçın (iki rauntun) tamamı bitti mi.</summary>
-        public bool SeriesOver => Match != null && Match.IsOver && (Round1 != null || !Rules.TwoRounds);
+        /// <summary>2. ve sonraki rauntlarda 1. rauntun maçı; 1. rauntta null (testler).</summary>
+        public LiveMatch Round1 => _rounds.Count > 0 ? _rounds[0] : null;
+
+        /// <summary>Oynanan raunt (1 tabanlı) ve toplam raunt sayısı.</summary>
+        public int RoundNumber => _rounds.Count + 1;
+        public int TotalRounds => Rules.RoundCount;
+
+        /// <summary>Maçın (bütün rauntların) tamamı bitti mi.</summary>
+        public bool SeriesOver => Match != null && Match.IsOver && _rounds.Count + 1 >= TotalRounds;
 
         /// <summary>Raunt arası gösterimi açık mı (girdi, süre ve bot bekler).</summary>
         public bool RoundBreak => _banner != null;
@@ -382,7 +397,7 @@ namespace KatKat.UI
         /// <summary>1. raunt bittikten sonra 2. rauntun başlamasına kadar (tahta bu sürenin yarısında yenilenir, yazı sonunda kalkar).</summary>
         public float RoundBreakSeconds = 2.6f;
 
-        private int Base(int p) => Round1 != null ? Round1.Scores[p] : 0;
+        private int Base(int p) { int t = 0; foreach (var r in _rounds) t += r.Scores[p]; return t; }
 
         private void Begin(LiveMatch m)
         {
@@ -408,7 +423,7 @@ namespace KatKat.UI
             if (Match == null || Match.IsOver || Match.Current != Human || Animating) return;
             if (slot < 0 || slot >= Match.Hands[Human].Count) return;
             _selected = _selected == slot ? -1 : slot;
-            Sound?.Play(Sfx.Tap, 0, 0.6f);
+            if (Sound != null && !Sound.PlayV17("ui-button", 2f, 0.7f)) Sound.Play(Sfx.Tap, 0, 0.6f);
             SetMessage(Loc.T(_selected < 0 ? "live.pick" : "live.where"));
             Refresh();
         }
@@ -431,6 +446,7 @@ namespace KatKat.UI
                 }
                 _seq--;
             }
+            if (side == LiveSide.Opponent && !Match.Rules.AllowAttack) { SetMessage(Loc.T("live.rej.own")); Sound?.Play(Sfx.Invalid); return; }
             if (_selected < 0) { SetMessage(Loc.T(Match.Rules.TapReadyGroups ? "live.pick.tap" : "live.pick")); Sound?.Play(Sfx.Invalid); return; }
             var cmd = LiveCommand.Swap(Human, ++_seq, _selected, side, x, y);
             var r = Match.Submit(cmd, 0);
@@ -452,6 +468,7 @@ namespace KatKat.UI
             LiveReject.SameColor => Loc.T("live.rej.same"),
             LiveReject.AttackMakesGroup => Loc.T("live.rej.group"),
             LiveReject.EmptyCell => Loc.T("live.rej.empty"),
+            LiveReject.AttackOff => Loc.T("live.rej.own"),
             LiveReject.OutOfBounds => Loc.T("live.rej.empty"),
             _ => Loc.T("live.rej.other"),
         };
@@ -464,6 +481,7 @@ namespace KatKat.UI
             var bs = Match.Boards[boardOwner];
             int tx = bs.X(r.Target), ty = bs.Y(r.Target);
             var paint = new MoveResult { Accepted = true, Command = Command.Paint(tx, ty, r.Color), Painted = new Coord(tx, ty), PaintTo = r.Color };
+            if (Sound != null && !Sound.PlayV17("booster-recolor", 0f, 0.75f)) Sound.Play(Sfx.Tap); // taş yerine konur
             _animating++;
             Refresh();
             board.Play(paint, _ => ScoreTarget(player), null, null, () =>
@@ -492,7 +510,7 @@ namespace KatKat.UI
         private void Peel(int player, int boardOwner, int tx, int ty, LayerColor removed, LiveResult r)
         {
             var bs = Match.Boards[boardOwner];
-            Sound?.Play(Sfx.Peel);
+            if (Sound != null && !Sound.HasV17("jelly-pop")) Sound.Play(Sfx.Peel); // V17 varken sesler her taşın varışında (StreamTick)
             var wave = new PeelWave { Kind = WaveKind.Tap, Index = 0, GoalProgressAfter = new int[0] };
             foreach (int i in r.Peeled)
             {
@@ -515,8 +533,21 @@ namespace KatKat.UI
         {
             _shown[player] = Base(player) + Match.Scores[player];
             _popAt[player] = _clock;
-            Sound?.Play(Sfx.Tap, 2, 0.7f);
+            if (Sound != null && !Sound.HasV17("jelly-pop")) Sound.Play(Sfx.Tap, 2, 0.7f);
             Refresh();
+        }
+
+        /// <summary>Taş skor kutusuna vardı: oyundaki varış sesi (tizden pese), son taşta dolma sesi.</summary>
+        private void StreamTick(int i, int total)
+        {
+            if (Sound == null || total <= 0) return;
+            if (i == total - 1)
+            {
+                if (!Sound.QueueV17("goal-collect", 0f, 0.9f, true)) Sound.Play(Sfx.CoinFinal, 0, 0.8f);
+                return;
+            }
+            float u = total <= 1 ? 0f : i / (float)(total - 1);
+            if (!Sound.PlayV17("jelly-pop", Mathf.Lerp(6f, -1f, u), Mathf.Lerp(0.5f, 0.85f, u))) Sound.Play(Sfx.Coin, 0, 0.6f);
         }
 
         private void Done(int boardOwner)
@@ -599,7 +630,7 @@ namespace KatKat.UI
             float left = TimeLeft;
             if (!Match.IsOver && left >= 0f) who += " · " + Loc.F("live.secs", Mathf.CeilToInt(left));
             string round = Loc.F("live.round", turn, Match.Rules.TurnsPerPlayer);
-            if (Rules.TwoRounds) round = Loc.T(Round1 != null ? "live.leg2" : "live.leg1") + " · " + round;
+            if (TotalRounds > 1) round = Loc.F("live.legn", RoundNumber + "/" + TotalRounds) + " · " + round;
             return who + "\n" + round;
         }
 
@@ -613,19 +644,20 @@ namespace KatKat.UI
         {
             _breakAt = _clock + RoundBreakSeconds;
             _breakHideAt = _breakAt;
-            Sound?.Play(Sfx.Peel);
+            if (Sound != null && !Sound.PlayV17("star-gain", 0f, 0.9f)) Sound.Play(Sfx.Peel);
+            int next = RoundNumber + 1;
             var scrim = UiFactory.Image("RoundScrim", _safe.parent, null, new Color(0f, 0f, 0f, 0.35f));
             scrim.raycastTarget = true;
             UiFactory.Stretch(scrim.rectTransform);
             _banner = scrim.rectTransform;
             var card = Ui3.Surface("RoundCard", scrim.transform, 48f, Ui3.IvoryTop, Ui3.IvoryBottom, 360f, 4f, Ui3.Brass);
             UiFactory.Place(card.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(820f, 360f));
-            var t = UiFactory.Title("Title", card.transform, Loc.T("live.leg2"), 84, Ui3.Purple, Ui3.RimShadow);
+            var t = UiFactory.Title("Title", card.transform, Loc.F("live.legn", next), 84, Ui3.Purple, Ui3.RimShadow);
             UiFactory.Place(t.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -85f), new Vector2(760f, 110f));
-            var s = UiFactory.Text("Score", card.transform, Loc.F("live.round1.score", Match.Scores[Human], Match.Scores[Bot]), 40, Ui3.Ink);
+            var s = UiFactory.Text("Score", card.transform, Loc.F("live.total.score", Base(Human) + Match.Scores[Human], Base(Bot) + Match.Scores[Bot]), 40, Ui3.Ink);
             UiFactory.Place(s.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -190f), new Vector2(760f, 60f));
             s.enableAutoSizing = true; s.fontSizeMax = 40; s.fontSizeMin = 24;
-            var n = UiFactory.Text("Note", card.transform, Loc.T("live.round2.note"), 30, Ui3.InkSecondary);
+            var n = UiFactory.Text("Note", card.transform, Loc.T(next >= TotalRounds && next >= 3 ? "live.round3.note" : "live.round2.note"), 30, Ui3.InkSecondary);
             UiFactory.Place(n.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -265f), new Vector2(740f, 70f));
             n.enableAutoSizing = true; n.fontSizeMax = 30; n.fontSizeMin = 20;
             SetMessage("");
@@ -641,7 +673,7 @@ namespace KatKat.UI
         /// <summary>Testler/yakalama: raunt arasını hemen bitirir (2. raunt başlar, yazı kalkar).</summary>
         public void SkipRoundBreak()
         {
-            if (Round1 == null && Match != null && Match.IsOver) StartRound2();
+            if (Match != null && Match.IsOver && !SeriesOver) StartNextRound();
             HideRoundBanner();
         }
 
@@ -662,7 +694,7 @@ namespace KatKat.UI
             if (_banner != null)
             {
                 // Raunt arası: yarısında 2. raunt kurulur, sonunda yazı kalkar.
-                if (Round1 == null && Match.IsOver && _clock >= _breakAt - RoundBreakSeconds * 0.5f) StartRound2();
+                if (Match.IsOver && !SeriesOver && _clock >= _breakAt - RoundBreakSeconds * 0.5f) StartNextRound();
                 if (_clock >= _breakHideAt) HideRoundBanner();
                 return;
             }
@@ -713,7 +745,7 @@ namespace KatKat.UI
                 {
                     var c = Match.Boards[p][x, y];
                     if (!c.Active) return;
-                    TapCell(p == Human ? LiveSide.Own : LiveSide.Opponent, x, y);
+                    TapCell(p == Human ? LiveSide.Own : LiveSide.Opponent, x, y); // saldırı kapalıyken rakip tahta yalnız uyarı
                     return;
                 }
             }
@@ -821,11 +853,14 @@ namespace KatKat.UI
             var hand = Match.Hands[Bot];
             const float S = 56f, Gap = 64f;
             float x0 = -(hand.Count - 1) * Gap * 0.5f;
+            // 2026-11-25 (kullanıcı: "Rakibin hamle taşları görünmesin"): yalnız kaç taşı kaldığı; renkler kapalı (ters taş).
             for (int i = 0; i < hand.Count; i++)
             {
-                var img = UiFactory.Image("BotStone" + i, _botHandRow, PremiumArt.Chip(hand[i]) ?? UiArt.Chip(hand[i]), Color.white);
-                img.preserveAspect = true;
-                UiFactory.Place(img.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(x0 + i * Gap, 0f), new Vector2(S, S));
+                var img = UiFactory.Image("BotStone" + i, _botHandRow, Ui3.Rounded(14f, Ui3.Purple, Ui3.PurpleDark, 3f, new Color32(0xE8, 0xB8, 0x4A, 0xFF)), Color.white);
+                UiFactory.Place(img.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(x0 + i * Gap, 0f), new Vector2(S - 6f, S - 6f));
+                var q = UiFactory.Title("Q", img.transform, "?", 30, new Color32(0xFF, 0xCE, 0x3A, 0xFF), new Color32(0x3A, 0x18, 0x6A, 0xFF));
+                q.raycastTarget = false;
+                UiFactory.Stretch(q.rectTransform);
                 _botChips.Add(img.rectTransform);
             }
         }
@@ -839,9 +874,10 @@ namespace KatKat.UI
         {
             if (_end != null || _banner != null) return;
             // 1. raunt bitti: kart yok, "2. Raunt" gösterilir ve 2. raunt kendiliğinden başlar.
-            if (Rules.TwoRounds && Round1 == null) { BeginRoundBreak(); return; }
-            int w = Round1 != null ? LiveSeries.Winner(Round1, Match) : Match.Winner;
-            Sound?.Play(w == Human ? Sfx.Peel : Sfx.Tap);
+            if (!SeriesOver) { BeginRoundBreak(); return; }
+            var all = new List<LiveMatch>(_rounds) { Match };
+            int w = all.Count > 1 ? LiveSeries.Winner(all) : Match.Winner;
+            if (Sound != null && !Sound.PlayV17(w == Human ? "star-gain" : "ui-button", 0f, 0.9f)) Sound.Play(w == Human ? Sfx.Peel : Sfx.Tap);
             var scrim = UiFactory.Image("EndScrim", _safe.parent, null, Ui3.ScrimColor);
             scrim.raycastTarget = true;
             UiFactory.Stretch(scrim.rectTransform);
@@ -855,7 +891,7 @@ namespace KatKat.UI
             t.enableAutoSizing = true; t.fontSizeMax = 72; t.fontSizeMin = 40;
             var s = UiFactory.Text("Scores", card.transform, Loc.F("live.final", Base(Human) + Match.Scores[Human], Base(Bot) + Match.Scores[Bot]), 44, Ui3.Ink);
             UiFactory.Place(s.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -195f), new Vector2(760f, 64f));
-            string reason = Round1 != null ? SeriesReason() : TieReason();
+            string reason = all.Count > 1 ? SeriesReason(all) : TieReason();
             if (reason != null)
             {
                 var rr = UiFactory.Text("Reason", card.transform, reason, 30, Ui3.InkSecondary);
@@ -869,11 +905,13 @@ namespace KatKat.UI
         }
 
         /// <summary>Maç sonu: iki rauntun skorları; toplam eşitse en büyük tek grup gerekçesi.</summary>
-        private string SeriesReason()
+        private string SeriesReason(List<LiveMatch> all)
         {
-            string legs = Loc.F("live.legs", Round1.Scores[Human], Round1.Scores[Bot], Match.Scores[Human], Match.Scores[Bot]);
-            if (LiveSeries.DecidedByBestGroup(Round1, Match))
-                legs += "\n" + Loc.F("live.tie.biggest", LiveSeries.Best(Round1, Match, Human), LiveSeries.Best(Round1, Match, Bot));
+            var parts = new List<string>();
+            for (int i = 0; i < all.Count; i++) parts.Add(Loc.F("live.legn", i + 1) + " " + all[i].Scores[Human] + " – " + all[i].Scores[Bot]);
+            string legs = string.Join(" · ", parts);
+            if (LiveSeries.DecidedByBestGroup(all))
+                legs += "\n" + Loc.F("live.tie.biggest", LiveSeries.Best(all, Human), LiveSeries.Best(all, Bot));
             return legs;
         }
 

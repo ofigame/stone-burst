@@ -47,6 +47,17 @@ namespace KatKat.Core
         /// <summary>Bu dalganın kazandırdığı puan.</summary>
         public int Score;
 
+        /// <summary>Bu dalgada kovaya akan su (birim).</summary>
+        public int WaterCollected
+        {
+            get
+            {
+                int n = 0;
+                foreach (var c in Cells) n += c.Water;
+                return n;
+            }
+        }
+
         public int StarsCollected
         {
             get

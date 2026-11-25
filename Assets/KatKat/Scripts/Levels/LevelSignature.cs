@@ -41,6 +41,7 @@ namespace KatKat.Levels
                 if (c.LockRemaining > 0) sb.Append('L').Append(Label(relabel, c.LockColor)).Append(c.LockRemaining);
                 if (!string.IsNullOrEmpty(c.EnvelopeColor)) sb.Append('E').Append(Label(relabel, c.EnvelopeColor));
                 if (c.HasBottomStar) sb.Append('*');
+                if (c.Water > 0) sb.Append('~').Append(c.Water);
                 if (c.HasRotor) sb.Append('R');
                 sb.Append('/');
             }

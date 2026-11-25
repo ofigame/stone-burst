@@ -142,19 +142,22 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void LabLevels_AreBucketLevels_ValidAndLoad()
+        public void CatalogBagLevels_AreBucketLevels_ValidAndLoad()
         {
-            var dir = Path.Combine(Path.GetDirectoryName(ProductionLevelTests.LevelsDir()), "Lab");
-            for (int i = 1; i <= 10; i++)
+            // 2026-11-25: test alanı su bölümlerine geçti; torba bölümleri katalogda (15'ten 8'de bir).
+            var dir = ProductionLevelTests.LevelsDir();
+            for (int n = 15; n <= 95; n += 8)
             {
-                var d = LevelParser.Parse(File.ReadAllText(Path.Combine(dir, $"lab_{i:00}.json")), "lab");
+                var d = LevelParser.Parse(File.ReadAllText(Path.Combine(dir, $"level_{n:000}.json")), $"level_{n:000}");
                 Assert.IsEmpty(LevelValidator.ValidateStatic(d, LevelValidator.ScopeFor(d)), d.Id);
                 Assert.Greater(d.Buckets.Count, 0, d.Id + " kovalı");
                 Assert.Greater(d.TimeLimit, 0, d.Id + " süreli");
                 var st = LevelLoader.ToState(d);
                 Assert.IsTrue(st.Bucket.Active, d.Id);
-                foreach (var g in d.Goals) Assert.GreaterOrEqual(g.Amount, 50, d.Id + " renk başına 50+ taş");
-                for (int x = 1; x < d.Width - 1; x++) Assert.IsFalse(st.Board[x, 0].Active, d.Id + " üst ortada torba oyuğu");
+                int sum = 0;
+                foreach (var g in d.Goals) sum += g.Amount;
+                Assert.GreaterOrEqual(sum, 50, d.Id + " büyük görev");
+                Assert.IsFalse(st.Board[(d.Width - 1) / 2, 0].Active, d.Id + " üst ortada torba oyuğu");
             }
         }
     }

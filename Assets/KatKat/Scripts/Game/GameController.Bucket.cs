@@ -56,7 +56,8 @@ namespace KatKat.Game
                 // Torba tahtanın üst ortasındaki basamaklı oyukta (bölüm verisinde boş hücreler): tabanı oyuğun en alt satırının
                 // altında, boyu ~3 satır.
                 _hud.BucketBottom = BagNotchBottom;
-                _hud.BucketWorldHeight = () => BagNotchWidth() / BagFullWidth;
+                // Boyu oyuğun dip genişliğine göre; sığ oyukta derinliği de aşmaz (oyuk biçimleri farklı, 2026-11-24).
+                _hud.BucketWorldHeight = () => Mathf.Min(BagNotchWidth() / BagFullWidth, RowWorld() * (NotchDeepest(_session.State.Board) + 1.9f));
             }
             else
             {

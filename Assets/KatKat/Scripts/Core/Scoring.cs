@@ -7,6 +7,8 @@ namespace KatKat.Core
         public const int CoverHit = 20;
         public const int Envelope = 50;
         public const int BottomStar = 50;
+        /// <summary>Su kipi: kovaya akan her su birimi.</summary>
+        public const int Water = 30;
         public const int RocketCreated = 50;
         public const int RainbowCreated = 100;
         public const int ShovelCreated = 30;

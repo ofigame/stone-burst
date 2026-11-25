@@ -28,6 +28,46 @@ namespace KatKat.Core.Live
             return -1;
         }
 
+        // ---- Çok raunt (kullanıcı 2026-11-25: "3 raunta çıkartalım") ----------------------------------------------
+
+        public static int Total(System.Collections.Generic.IList<LiveMatch> rounds, int player)
+        {
+            int t = 0;
+            foreach (var r in rounds) t += r.Scores[player];
+            return t;
+        }
+
+        public static int Best(System.Collections.Generic.IList<LiveMatch> rounds, int player)
+        {
+            int b = 0;
+            foreach (var r in rounds) b = System.Math.Max(b, r.BestMove[player]);
+            return b;
+        }
+
+        /// <summary>-1 berabere, yoksa kazanan: rauntların toplamı; eşitse en büyük tek grup.</summary>
+        public static int Winner(System.Collections.Generic.IList<LiveMatch> rounds)
+        {
+            int t0 = Total(rounds, 0), t1 = Total(rounds, 1);
+            if (t0 != t1) return t0 > t1 ? 0 : 1;
+            int b0 = Best(rounds, 0), b1 = Best(rounds, 1);
+            if (b0 != b1) return b0 > b1 ? 0 : 1;
+            return -1;
+        }
+
+        public static bool DecidedByBestGroup(System.Collections.Generic.IList<LiveMatch> rounds) =>
+            Total(rounds, 0) == Total(rounds, 1) && Best(rounds, 0) != Best(rounds, 1);
+
+        /// <summary>
+        /// Son raunt: havuzdaki başka dizilim, onun denk iki eli (<see cref="LiveLayout.Hand2"/>); toplamda geride olan başlar,
+        /// eşitse ilk rauntta ikinci oynayan.
+        /// </summary>
+        public static LiveMatch Decider(LiveLayout layout, LiveRules rules, System.Collections.Generic.IList<LiveMatch> done)
+        {
+            int t0 = Total(done, 0), t1 = Total(done, 1);
+            int first = t0 < t1 ? 0 : t1 < t0 ? 1 : 1 - done[0].FirstPlayer;
+            return new LiveMatch(layout, rules, first, first == 1);
+        }
+
         /// <summary>Eşit toplamda kazananı belirleyen gerekçe (ekran); toplam farklıysa ya da tam beraberlikte null.</summary>
         public static bool DecidedByBestGroup(LiveMatch a, LiveMatch b) =>
             Total(a, b, 0) == Total(a, b, 1) && Best(a, b, 0) != Best(a, b, 1);

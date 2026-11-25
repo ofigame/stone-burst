@@ -155,6 +155,7 @@ namespace KatKat.UI
                 case GoalType.CollectStars: return KatKat.View.SpecialArt.V6("tripo/bottom-star") ?? PremiumArt.Get("icon_star") ?? ProceduralArt.StarSprite;
                 case GoalType.CollectEnvelopes: return TileSkin.Sprite("mechanics/envelope-closed") ?? PremiumArt.Get("ov_envelope") ?? ProceduralArt.StarSprite;
                 case GoalType.CollectSponges: return SpecialArt.SpongeGoal;
+                case GoalType.FillWater: return WaterArt.Puddle; // 2026-11-25 su kipi
                 case GoalType.CollectBalloons: return HazardPaint.Balloon; // konsept pilotu
                 default: return PremiumArt.Chip(goal.Color) ?? UiArt.Chip(goal.Color);
             }
