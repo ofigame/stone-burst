@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dalga; çözüm 8 + 6 tepsi / sınır 12; rastgele 0,005; açgözlü kaybeder; yumuşak 0,04
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dalga; çözüm 8 + 7 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_440
 moves: 12
 roll: off
 specials: on
+refill: 29 2-3
 type: boss
 rules: scarce
-goals: coral 27, blue 25, sponge 1
+goals: yellow 41, blue 39, sponge 1
 grid:
-#     bby   #     byp   #     npn   #     pby
-pby   bby   bpy   byp   nyp   nby   bby   pby
-ppy   cby   cpb   yyp   nbp   ybc   bny   bcp
-cyy   cyb   cpb   cpp   nbp   ybp   pnp   nyp
-nyp   nyp   ccp   nyp   nyp   yyc   pbn   cyp
-npp   nyp   ycp   nbp   nbp   nyc   nbc   cbp
-cpp   cyp   yyy   npy   npp   byb   nby   cbpSb
-cpn   cyn   ync   yny   ypb   cpb   cpy   cpy
-ypn   #     yyc   #     cpb   #     cpy   #
-solution: 3,0 ; 1,0 ; use 0,1,0 ; 2,1 ; use 0,1,2 ; 5,3 ; 3,6 ; 6,5 ; 7,6 ; 5,0 ; use 2,0,1 ; use 0,0,3 ; use 0,3,2 ; use 0,1,3
+#     cyp   #     bbc   #     bny   #     cpb
+cyy   cnp   bnc   byc   ypc   bpy   ccy   cpb
+cyy   cpn   cbc   nyb   nyc   nbb   ncc   ncb
+pyy   cnn   pbn   bcb   pyb   ppn   cyb   ycc
+pyy   pyp   pbp   bcp   pcb   ppy   yyb   yycSy
+cny   cnp   ybp   cnb   cyp   byy   bcc   pyn
+ync   ybp   ynb   pnb   cny   byy   pcn   ppb
+ycc   bcc   bcb   pnn   pbn   bnn   bcn   ypn
+yyc   #     byb   #     pnc   #     bcn   #
+solution: 1,4 ; 2,4 ; use 1,7,0 ; 6,3 ; 0,1 ; 3,5 ; use 3,5,0 ; use 0,5,0 ; use 0,5,0 ; 6,1 ; 4,3 ; use 1,1,0 ; use 0,2,1 ; use 0,2,1 ; 2,6

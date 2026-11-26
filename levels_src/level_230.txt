@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil zikzak; çözüm 7 + 6 tepsi / sınır 12; rastgele 0,055; açgözlü kaybeder; yumuşak 0,31
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil zikzak; çözüm 10 + 5 tepsi / sınır 15; rastgele 0,040; açgözlü kaybeder; yumuşak 0,56
 id: level_230
-moves: 12
+moves: 15
 roll: off
 specials: on
+refill: 32 2-3
 type: boss
 rules: scarce
-goals: coral 26, star 2, envelope 2
+goals: coral 29, star 2, envelope 2
 grid:
 bcp   bnp   cbp   cbb   ncb   cby   ccy   #
-#     cnn   bbn   cbn   nyb   yby*  cbb   yyb
-cnn   cnn   ybp   ybp   byy   byy   ncy   #
-#     nnp   ynp   ynp   bny   bny   nny   cnc
-bpy   ppy   pny   bby   pby   nbp   nnn   #
-#     pyp*  pcp   pny   bnp   pbp   nnn   nny
-ybp   pyp   pcp   bcp   bnp   pnp   ybn   #
-#     yypEy ycb   bnb   bcb   cbp   cbb   ncb
-bcb   bcb   cbb   bbc   bbb   bbp   cpnEb #
-solution: 5,4 ; 5,0 ; 2,7 ; 2,2 ; use 0,3,0 ; use 0,4,0 ; 4,1 ; 4,0 ; use 2,0,0 ; 1,0 ; use 0,0,0 ; use 0,0,0 ; use 0,2,0
+#     cnn   nbn   pbn   nyb   cby*  bcb   yyb
+ynn   cpn   ybp   ybp   byn   byp   ncn   #
+#     cnp   ybp   ynp   bny   bnyEp nny   cnc
+bpb   ppy   bny   pby   bbn   nbp   nnn   #
+#     pyp   pcp   pny   bnb*  pbp   nnn   nby
+ybp   pyc   pcp   bcpEc bnp   pnp   ybn   #
+#     yyp   ycb   bcb   bcb   cbp   cbb   ncb
+bcb   bcb   cbb   bbc   bbb   cbp   cpn   #
+solution: 2,7 ; 2,7 ; 5,4 ; 3,7 ; use 1,4,0 ; 5,2 ; 3,1 ; use 1,4,1 ; 4,6 ; 6,2 ; 4,5 ; use 0,0,0 ; use 0,0,0 ; 4,0 ; use 0,4,1

@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dikdörtgen; çözüm 7 + 7 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,13
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil T (ayna); çözüm 7 + 6 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,48
 id: level_260
-moves: 12
+moves: 11
 roll: off
 specials: on
+refill: 26 2-3
 type: boss
 rules: scarce
-goals: purple 35, blue 36, envelope 3
+goals: navy 16, blue 26, envelope 3
 grid:
-cyp   cyn   cyp   cyn   cbp   npb   ppb   bbb
-cbp   ybp   pyp   cyp   pyb   pbb   pnbEc ynb
-yyc   cyp   cyb   bpn   bbn   ybb   yby   ybc
-ybc   cbbk2 ybb   npb   bcn   bcc   bbp   bbc
-cnck1 cpn   ycnEn ncb   ccn   cbc   bpp   bpp
-cnnk1 cnn   ycnEp bcn   pcy   ccy   ccb   cpp
-nyc   nbn   ybc   npn   ncb   ccb   ynp   cnp
-npc   nbn   pbnk1 npn   pcb   pcp   ynp   ynp
-solution: 0,0 ; use 0,0,5 ; 1,4 ; 6,3 ; use 0,6,0 ; 5,0 ; use 0,7,0 ; 1,6 ; use 0,4,0 ; 0,1 ; use 1,4,0 ; 2,0 ; use 0,0,7 ; use 0,6,0
+ypn   ypy   pny   ypy   ycp   ycp   ypp   ypn
+byc   yyc   nny   ypp   ncpk1 ccc   cpbEn ccb
+bcy   ccc   nbp   ccp   npbk1 ccc   nyb   ncb
+bcy   pcy   cbnk2 cbb   ypc   cbc   ccn   nbb
+pcy   pcyEc cbc   cbc   cpy   bbn   cbn   bpb
+#     #     ycc   cbb   bpy   cby   #     #
+#     #     ycc   ppcEn byy   ccb   #     #
+#     #     ypc   ppyk1 pcy   ccb   #     #
+solution: 2,4 ; use 0,6,0 ; 0,2 ; use 0,3,0 ; 0,1 ; use 0,6,1 ; 5,1 ; 4,0 ; use 0,7,0 ; 0,0 ; use 0,2,0 ; 2,1 ; use 0,1,0

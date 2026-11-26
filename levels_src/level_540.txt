@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil elmas; çözüm 9 + 7 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil elmas; çözüm 10 + 7 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_540
-moves: 13
+moves: 14
 roll: off
 specials: on
+refill: 22 2-3
 type: boss
 rules: protect
-goals: purple 20, blue 22, coral 21, sponge 1
+goals: purple 23, blue 28, coral 23, sponge 1
 grid:
-#     #     #     pbn   bbnP  #     #     #
-#     #     ynb   ppn   npn   ybp   #     #
-#     bnc   bpb   ypn   nbn   ybp   ypp   #
-byb   bnc   npc   ypc   ybb   yyy   byp   bcnP
-bybK1:1 bnc   nnc   cpcSyn ccbK1:1 ycb   cyb   pcb
-byb   bbcK1:1 npp   npp   nyp   ccp   cyp   pcb
-#     nbc   ncc   bcc   pyc   pyp   byp   #
-#     #     bcc   bcc   pyc   nyc   #     #
-#     #     #     pccP  pcc   #     #     #
-solution: 2,5 ; 4,3 ; use 0,0,4 ; use 0,0,4 ; 1,2 ; use 0,1,2 ; 2,1 ; 2,2 ; 5,1 ; use 0,5,1 ; 5,1 ; use 1,2,7 ; 6,5 ; 5,5 ; use 0,5,1 ; use 0,6,2
+#     #     #     pbnK1:1 bbn   #     #     #
+#     #     ynb   ppnSy npnK1:1 ybp   #     #
+#     bnc   bpb   ypn   nbnK1:1 ybp   ypp   #
+bybP  bnc   nyc   ypc   pbb   yyy   byp   bcn
+byb   bnn   nnc   cpc   ccb   ycb   cbb   pcb
+yyb   bbc   nyp   npp   nyp   ccp   cyp   pcbP
+#     nbc   ncc   bcc   pbc   pyp   byp   #
+#     #     bcc   bcc   pyy   nyc   #     #
+#     #     #     pcb   pcnP  #     #     #
+solution: 1,2 ; use 0,3,0 ; 1,5 ; 2,5 ; 3,0 ; 3,1 ; use 1,0,4 ; use 2,0,4 ; use 1,2,1 ; 3,6 ; use 0,6,2 ; 6,2 ; 5,1 ; use 0,1,2 ; 6,5 ; use 1,0,4 ; 1,4

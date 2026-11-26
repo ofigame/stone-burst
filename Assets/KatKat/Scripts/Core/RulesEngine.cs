@@ -226,6 +226,7 @@ namespace KatKat.Core
                     to.Special = c.Special; c.Special = SpecialKind.None;
                     to.SpecialColor = c.SpecialColor;
                     to.HasBottomStar = c.HasBottomStar; c.HasBottomStar = false;
+                    to.Water = c.Water; c.Water = 0; // 2026-11-26: su taşın oyuğunda, taşla birlikte kayar
                     to.Quiet = c.Quiet; c.Quiet = 0;
                     result.Falls.Add(new FallMove { From = new Coord(x, seg[k]), To = new Coord(x, seg[write]) });
                 }

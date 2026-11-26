@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U; çözüm 26 + 0 tepsi / sınır 29; rastgele 0,155; açgözlü kazanır; yumuşak 0,40; YEDEK: rastgele;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dikdörtgen; çözüm 15 + 0 tepsi / sınır 19; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_370
-moves: 29
+moves: 19
 roll: off
+refill: 32 2-3
 type: boss
 rules: noSpecials
-goals: navy 24, coral 20, envelope 3
+goals: yellow 28, navy 32, envelope 3
 grid:
-nnn   npy   ppy   #     #     npc   pyc   cyc
-pnn   pyc   ppc   #     #     npc   ppc   cpy
-nnc   cyc   nyp   #     #     npc   ncc   ccy
-pny   cynR  nnp   npp   ypc   ncc   ncc   ccy
-pnp   pny   nnp   nnp   pcp   ncc   nnc   cny
-pnp   ynn   ynp   pnp   pyp   ncc   nnc   cpcEp
-pcp   ynnEy yncR  ccp   cyp   pyp   ypc   ypc
-ynp   ynn   ycn   ccn   cyn   pyy   nyy   pnc
-ynn   nnnEy nnn   pnn   ppn   npn   nycR  nny
-solution: 5,0 ; 2,2 ; 1,3 ; 0,4 ; 0,7 ; 0,4 ; 0,3 ; 1,1 ; 0,0 ; rot 2,6 ; 4,5 ; rot 6,8 ; 6,0 ; 5,0 ; 7,0 ; 5,0 ; 1,0 ; 2,2 ; 3,6 ; 1,0 ; 0,0 ; 7,2 ; 0,3 ; 4,4 ; 1,6 ; 2,6
+ccy   cyn   yyc   nyc   cyn   cby   ncy   ccb
+cyc   byc   nyc   ncc   cnb   cby   nby   ccb
+bbc   bby   cbb   ccb   nny   ccy   ncn   ycb
+yny   bnb   cnb   ycb   nbc   cnn   nny   yny
+byn   byc   nyb   byb   bcyEb nnb   cbn   ybyEb
+yyn   cnyR  cbn   nbc   nyc   cbc   cbb   nby
+bbn   bnc   ybn   nbb   nyb   cbc   ynn   yycR
+nbc   bnn   ynn   nnb   ncc   bbc   bnbR  bcy
+ncy   bny   cny   nnb   byn   bcnEb bcn   bcy
+solution: 3,5 ; 2,2 ; 2,4 ; 1,3 ; 4,5 ; 4,0 ; 2,5 ; 4,5 ; 2,6 ; rot 7,6 ; 7,5 ; 6,3 ; 6,5 ; 6,5 ; 5,1

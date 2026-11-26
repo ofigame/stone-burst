@@ -54,6 +54,22 @@ namespace KatKat.Tests
         }
 
         /// <summary>
+        /// 2026-11-26 (kullanıcı: "tüm bölümlerde taşlar hücrede bitince yukarıdan aşağıya taşlar konumlansın. Oyuna belli sayıda taş
+        /// girsin. Tüm oyun bu akışta olsun"): her bölümde sınırlı sayıda yeni yığınla yukarıdan dolma var.
+        /// </summary>
+        [Test]
+        public void EveryLevel_HasRefill()
+        {
+            foreach (var f in Files())
+            {
+                var d = LevelParser.Parse(File.ReadAllText(f), Path.GetFileName(f));
+                Assert.IsTrue(d.HasRefill, $"{d.Id}: yukarıdan dolma yok");
+                Assert.Greater(d.RefillCount, 0, $"{d.Id}: yeni yığın sayısı");
+                Assert.IsTrue(d.Capabilities.Contains("refill"), $"{d.Id}: refill yeteneği");
+            }
+        }
+
+        /// <summary>
         /// v14 (kullanıcı 2026-11-16: "ortası delik tahtaları kaldıralım", docs/v14/PLAN.md kural 2): hiçbir bölümde iç boşluk yok
         /// (tahta kenarına değmeyen boş bölge); açılışta boş etkin hücre yok; zincire bağlı veri yok; yıldız eşikleri yazılı.
         /// </summary>

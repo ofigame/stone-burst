@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil dalga; çözüm 10 + 8 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil zikzak; çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_357
-moves: 10
+moves: 8
 roll: off
 specials: on
+refill: 28 2-3
 type: exact
 rules: exact
-goals: purple 44, navy 26, coral 33
+goals: yellow 29, navy 40, blue 25
 grid:
-#     ypc   #     bcy   #     bbc   #     cyp
-nyy   cybR  pcy   bby   bby   bby   ybp   cpp
-cyy   cny   ppb   pbbi1 yby   ybn   ypc   ypc
-cpc   ypc   bpb   bpbi1 nby   ncy   ncc   ncbi2
-cpc   ppn   bbc   bbc   nny   nnb   pcb   pbb
-cyy   pnn   cnn   cnc   nnn   nyni1 pyni1 nbn
-nyy   npy   ynbR  ppn   ppbR  pnp   cpy   cby
-npy   ppc   yppi2 ppp   ppp   ccp   ccp   ccy
-bpy   #     ypc   #     pnb   #     ncp   #
-solution: rot 4,6 ; 4,6 ; 3,0 ; use 1,1,0 ; 3,0 ; 5,2 ; use 1,1,0 ; use 1,4,4 ; 0,5 ; 1,4 ; 7,3 ; use 2,0,3 ; 5,0 ; use 3,6,3 ; 5,5 ; use 1,7,0 ; use 1,7,0 ; use 1,6,1
+npp   ncp   ncp   cpn   cpni2 cpn   nnb   #
+#     yyy   nycR  nnni2 bnn   bbb   ppp   cnp
+byy   yyy   ccy   nnn   byy   pyyi1 ppp   #
+#     ncp   pcp   nbp   bpp   bpy   bppi1 npcR
+nyc   nnc   cnc   cnc   ppc   cyb   cyn   #
+#     ynyR  ynn   pnn   pbb   nyb   nbni1 pyn
+bpb   bnn   bbn   bbp   bbb   byb   byn   #
+#     pny   ncp   ycp   ycbi1 yyp   pnn   pnc
+cyc   cnc   cbn   cbn   ybn   yyn   ycc   #
+solution: rot 2,1 ; 5,4 ; use 0,1,0 ; 1,4 ; 6,4 ; use 0,1,1 ; 4,5 ; use 0,1,0 ; use 0,3,0 ; 6,3 ; use 0,1,0 ; 5,0 ; 3,1 ; use 1,6,1

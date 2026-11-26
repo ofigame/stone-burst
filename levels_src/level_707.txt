@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil dikdörtgen; çözüm 9 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil dikdörtgen; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_707
-moves: 9
+moves: 8
 roll: off
 specials: on
 paint: 2
+refill: 29 2-3
 type: exact
 rules: exact
-goals: navy 12, blue 33, yellow 58, envelope 3
+goals: navy 20, blue 35, yellow 56, envelope 3
 grid:
-ypy   ynp   ycc   yyc   ppc   ycc   yyc   yyc
-ypy   yny   pcc   pyn   ppc   ncb   ccb   yyb
-pby   ppn   ppnEy yyn   pyb   npb   cpb   cpbEc
-yby   ypy   pby   yby   pnp   ypc   ybc   ccb
-ybb   yyb   byy   pyc   pnp   yny   ycy   ycb
-cbb   cbbEb yyc   yyc   yyy   yyy   ypy   nbb
-cpp   cpp   ynp   ypc   cpy   cbp   ycc   ybb
-ppy   cpb   cnb   ypb   ybb   cbp   ccc   bcb
-solution: 3,4 ; 0,0 ; use 0,5,1 ; 1,1 ; 5,3 ; 0,6 ; 1,4 ; use 2,7,2 ; 0,0 ; use 2,1,0 ; 2,0 ; use 2,0,0 ; 4,0 ; use 2,5,1 ; use 2,3,0
+ypn   ynp   ycc   yyc   npc   ycc   yyc   yyn
+ypy   yny   pcc   pynEn ppc   ncbEy ccb   yyc
+pbc   ppn   bpn   yyn   pyb   npy   cpb   cpb
+yby   ypy   pby   yby   cnp   ypc   nbc   ccb
+ybb   yyb   byy   pyc   pnp   yny   bcy   ycb
+cbb   cbb   nyc   yyc   yyyEp nyy   ypy   nbb
+cpp   cpp   ynp   npc   cpy   cbp   ycc   yby
+ppy   cpb   cnb   bpb   ybb   cbp   ccc   bcb
+solution: 2,0 ; use 0,0,2 ; 3,2 ; 4,0 ; use 1,5,1 ; use 0,0,5 ; 1,4 ; use 0,0,0 ; 6,1 ; use 0,3,0 ; 0,1 ; use 0,5,0 ; 5,2 ; 2,4 ; use 1,3,0

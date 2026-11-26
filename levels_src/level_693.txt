@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 9 + 5 tepsi / sınır 11; rastgele 0,000; açgözlü kazanır; yumuşak 0,08; döndürmeyle başlar; YEDEK: mek:rotor;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı (ayna); çözüm 9 + 3 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10
 id: level_693
 moves: 11
 roll: off
 specials: on
-goals: yellow 21, coral 14, navy 36
+refill: 25 2-2
+goals: coral 20, purple 26, yellow 21
 grid:
-bc    bb    G1:pn G1:pp G1:pp G1:yp pc    pc
-bc    nb    pn    pp    pb    bn    pn    pn
-nyR   nn    nn    cnB1  yb    bp    nn    nn
-ynR   py    py    cy    yb    bp    pp    pb
-#     #     py    cn    cn    pn    #     #
-nb    ny    yp    yn    pn    pn    nn    nb
-nb    ny    yp    yn    pn    py    yn    nb
-bc    cy    cy    cn    cn    cy    yy    ny
-cnR   #     #     #     #     #     #     nn
-solution: 3,4 ; use 0,0,2 ; 5,2 ; use 0,0,0 ; 2,1 ; use 0,0,2 ; 5,1 ; 3,0 ; 1,3 ; use 1,5,0 ; 0,5 ; 0,5 ; use 1,7,0 ; 6,5
+#     #     G1:yy ycR   G1:py ycR   #     #
+#     #     yc    ny    nn    by    #     #
+pb    yn    yn    nb    ny    ycR   by    cp
+pb    yn    bn    yy    cp    cp    cy    cp
+pn    yn    yb    nc    nb    nb    ny    nb
+bp    pn    bp    nc    cb    pb    py    pc
+pp    pp    pc    nb    cy    ny    pc    bc
+#     #     np    pcB1  pc    nb    #     #
+#     #     np    pc    nc    nb    #     #
+solution: rot 5,0 ; rot 5,2 ; 5,0 ; use 0,3,0 ; 1,2 ; 0,4 ; 2,0 ; use 1,7,2 ; 5,4 ; use 1,4,1 ; 5,3 ; 7,4

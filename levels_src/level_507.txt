@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil artı; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil artı; çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_507
 moves: 8
 roll: off
 specials: on
+refill: 25 2-3
 type: protect
 rules: protect, exact
-goals: coral 45, yellow 30, purple 25
+goals: coral 35, yellow 32, purple 30
 grid:
-#     #     ypc   ybbP  bbb   bcy   #     #
-#     #     ncc   ybck1 bcb   bcy   #     #
-bnc   nnc   ncn   ncnk1 ncpK1:1 ncp   cbp   cbc
-bbp   nbc   npc   ync   ycyK1:1 yyy   yyy   ybc
-nbp   nbp   cpp   ycc   ccc   ccyk2 ypck1 ypc
-ybpK1:1 yby   cpp   ccc   cyc   ccc   ccc   cpc
-ybyP  yby   cpp   pyc   cyc   ppy   ppy   ppc
-#     #     pny   pyy   ppy   ppy   #     #
-#     #     ynb   nybP  nyc   cyc   #     #
-solution: 0,3 ; 0,2 ; use 1,2,0 ; 4,5 ; use 1,2,0 ; 4,3 ; 4,2 ; use 0,5,0 ; 0,2 ; 3,3 ; use 0,0,3 ; 0,2 ; use 1,0,5 ; use 2,2,0 ; use 1,0,3
+#     #     ypc   ybbk2 bbbk1 bny   #     #
+#     #     nccK1:2 ybc   bcb   bpy   #     #
+bncP  nnc   pcn   ncn   npp   ncpK1:2 cbp   cbc
+bbp   nbc   npc   ynp   ycy   yyy   yyy   ybc
+nbp   nbp   cpp   ycc   cccK1:2 ccy   ynck1 ppc
+ybp   yby   cpp   bcc   cyp   ccc   ncp   cpc
+yby   ycy   bpp   pyc   cyc   ppyk1 ppy   ppc
+#     #     pny   pyy   ppy   ypy   #     #
+#     #     ynb   nyb   nycP  cycP  #     #
+solution: 4,3 ; 7,2 ; use 0,4,2 ; 4,3 ; 4,5 ; use 0,5,0 ; 2,4 ; 4,4 ; 0,3 ; use 0,6,3 ; 1,3 ; use 1,2,0 ; use 1,2,0 ; use 0,2,0

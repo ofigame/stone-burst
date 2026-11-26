@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil elmas; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L; çözüm 8 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_895
 moves: 10
 roll: off
 specials: on
-goals: blue 25, purple 27, coral 32
+refill: 27 2-3
+goals: blue 30, navy 41, yellow 33
 grid:
-#     #     #     cpp   cbc   #     #     #
-#     #     cyp   npp   cpc   cpb   #     #
-#     pnp   pnp   npbR  ccp   bpb   ypb   #
-cyc   pyc   pnn   pcp   ccp   byy   pcc   ncc
-nyc   nyc   bpn   ppn   cbp   pyp   pbc   ncc
-nyn   nnb   bnb   nbn   nbc   pcbR  nbc   ncy
-#     ybb   nyc   nyb   byb   byy   yyy   #
-#     #     ncc   ncb   nby   nby   #     #
-#     #     #     ycy   yby   #     #     #
-solution: rot 3,2 ; 3,0 ; use 0,5,1 ; 4,0 ; use 0,4,2 ; 1,2 ; use 0,3,0 ; 2,6 ; 2,4 ; use 0,4,0 ; 0,3 ; use 0,3,0 ; 3,5 ; use 1,1,3
+bbc   bpc   ncn   npn   npy   #     #     #
+ypn   ypc   ynpR  ycn   pby   #     #     #
+bcp   ccb   bcb   pcy   pyy   #     #     #
+byp   cbp   bby   byy   pyb   #     #     #
+cbc   ncyR  ynb   pnn   pny   cnp   ccc   ccc
+cpc   ppc   bpy   npc   pcp   nyp   cyp   cpp
+ybb   nyc   cyy   pyy   ncn   nnp   npp   nbb
+ybb   cyn   ypy   ypy   cpc   ppc   cpc   ynp
+bbn   bbn   bnn   nny   nnn   nnn   pbb   nnp
+solution: rot 2,1 ; 2,5 ; use 0,3,0 ; 5,4 ; use 0,4,0 ; 4,4 ; 0,4 ; use 0,3,1 ; 6,6 ; use 0,2,0 ; use 0,4,0 ; 0,7 ; 4,3 ; use 1,3,0 ; use 0,0,8

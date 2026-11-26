@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dalga; çözüm 9 + 8 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dalga; çözüm 13 + 10 tepsi / sınır 17; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_840
-moves: 13
+moves: 17
 roll: off
 specials: on
+refill: 29 2-3
 type: boss
 rules: protect
-goals: blue 41, purple 28, navy 14
+goals: blue 38, purple 30, navy 17
 grid:
-#     bnp   #     yncP  #     yyn   #     cpbP
-bby   bby   yyb   ync   ycb   yyb   cpb   cpb
-cbc   cpy   cyb   cyc   ccb   cyn   ppb   ppb
-ybcP  cbc   pby   ppc   pcb   ccn   cpb   cbb
-ybc   pycG  pbyG  ppy   bnn   bnc   cbc   cbc
-ypnG  pypG  cybG  ypyG  bcn   ync   bbc   pbc
-bbn   bbpG  yypG  ycp   ycb   bnb   bnc   pnc
-cbn   ppc   ppc   ppc   yyc   bbn   bbn   pbb
+#     bnp   #     ync   #     yyn   #     cpb
+bby   bby   yyb   ync   ycb   yyb   cpc   cpbP
+pbc   cpy   cyb   cyc   ccp   byn   ppb   ppb
+ybc   cbc   pny   ppc   pcb   ccn   cpb   cbb
+ybc   pyc   pby   ppyG  bnn   bnc   cbc   bbc
+ypn   pyp   cybG  ypyG  bcnG  ync   bbp   pbc
+bbn   bbp   yypG  ycpG  ycbG  bnb   bnc   pnc
+cbnP  ppc   ppc   ppcG  yyc   bbn   bbn   pbbP
 cbn   #     ppc   #     yyc   #     bbp   #
-solution: 5,4 ; 5,2 ; 1,7 ; use 2,0,1 ; use 0,5,0 ; 4,2 ; use 1,1,0 ; 5,7 ; 4,1 ; use 2,6,2 ; use 1,1,0 ; use 0,1,0 ; 0,6 ; 2,3 ; 2,2 ; use 0,1,0 ; use 0,6,1
+solution: 0,2 ; use 0,5,0 ; 6,4 ; 4,4 ; 0,1 ; 0,1 ; use 0,6,1 ; use 0,6,1 ; 5,0 ; use 0,1,0 ; 6,1 ; 2,1 ; 0,1 ; use 0,1,0 ; use 2,2,1 ; 2,1 ; use 1,2,1 ; use 0,3,0 ; 1,5 ; use 0,1,0 ; 1,0 ; 1,1 ; use 0,4,1

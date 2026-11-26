@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil dalga; çözüm 12 + 7 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil elmas; çözüm 8 + 7 tepsi / sınır 9; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
 id: level_477
-moves: 13
+moves: 9
 roll: off
 specials: on
+refill: 22 2-3
 type: scarce
 rules: scarce
-goals: coral 24, purple 34, sponge 1
+goals: blue 33, purple 22, sponge 1
 grid:
-#     ppb   #     pbc   #     cnb   #     nby
-yyy   pyp   ypp   pbc   nnni1 cnn   ppy   pcyi1
-ypp   pppi2 ypn   nbc   yyc   pnb   pcyi2 pyp
-ynci1 bny   ynp   nbn   ybn   ybb   ccp   pyp
-bnc   bby   ncc   nny   bcy   bpb   cyb   nypi1
-cpp   nbp   nbn   pyb   bcy   byb   nyy   ncySpc
-ppp   ppp   pcn   pbb   bbb   nyb   nyy   npy
-ppp   ypp   ypy   pyy   nyb   nyb   ncb   ycb
-ppp   #     ccy   #     nnc   #     ynp   #
-solution: 5,2 ; 7,2 ; 7,0 ; use 0,3,0 ; 6,1 ; use 1,7,0 ; 0,5 ; use 0,1,1 ; use 0,0,3 ; 2,2 ; 3,0 ; 3,0 ; 0,1 ; 6,5 ; use 0,7,5 ; 6,5 ; 4,1 ; use 1,0,1 ; use 0,5,1
+#     #     #     npy   bpp   #     #     #
+#     #     ynp   bnc   bpp   bpc   #     #
+#     cnb   pcb   ync   ync   ybp   ybc   #
+cnc   nnb   bcy   pcci1 ybn   ybb   nnb   nny
+cnc   ccb   pcb   pcc   pby   bnb   bnc   bnci2
+cnni2 cyb   cybSyn cyc   byy   pyb   pcc   bpc
+#     byp   ycy   nyc   ynb   pcb   pnci1 #
+#     #     cnyi1 yny   yyc   cyb   #     #
+#     #     #     yyyi1 yyc   #     #     #
+solution: 1,2 ; use 0,1,2 ; 0,3 ; 0,3 ; use 0,3,1 ; 2,1 ; 3,0 ; 5,1 ; 4,4 ; use 1,5,1 ; 3,0 ; use 3,4,0 ; use 0,3,0 ; use 0,2,2 ; use 0,3,3

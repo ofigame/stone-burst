@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil artı; çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil artı; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_818
 moves: 8
 roll: off
 specials: on
+refill: 22 2-3
 type: protect
 rules: protect, exact
-goals: navy 29, coral 11, purple 24, envelope 2
+goals: navy 30, coral 20, purple 28, envelope 2
 grid:
-#     #     ccck1 nyc   cny   cny   #     #
-#     #     ycc   nyn   bnpk1 cyp   #     #
-nbn   npnk1 ypn   nnn   bnn   cyp   cyy   pyy
-nbn   bpbk2 bpb   nnb   ynp   cyp   cyy   pyyk1
-nbbP  npb   npb   nnb   cnbk2 bpp   pyn   pny
-nyb   nybEp npp   npn   cpbk1 npn   nny   nnyP
-#     #     byp   ppn   npp   nyp   #     #
-#     #     pypEy ppp   pcp   nypP  #     #
-solution: 5,1 ; use 0,2,0 ; 2,0 ; 3,0 ; use 0,3,0 ; 4,0 ; use 0,3,0 ; 3,1 ; 1,2 ; use 0,4,0 ; 3,3 ; use 0,4,0 ; use 0,4,0 ; 3,6
+#     #     ccc   nyc   cnyk2 ccy   #     #
+#     #     ycc   nyn   bnp   cyp   #     #
+nbnP  npn   ypnk1 pcn   bnn   cyp   cyy   pyy
+nbnP  bpb   bpb   nnc   ynp   cyp   cyyEy pyy
+nbp   cpb   nyb   nnb   cnb   bpp   pcn   pnyEb
+nyyk1 yybk1 npp   npn   cyc   npn   nny   nny
+#     #     bypk1 ppn   npp   nyp   #     #
+#     #     pypP  ppp   pcbk1 nypk2 #     #
+solution: 4,1 ; 3,1 ; 1,3 ; use 2,0,4 ; 4,0 ; use 0,4,0 ; 2,0 ; use 0,4,0 ; 3,3 ; 3,0 ; use 0,2,1 ; use 1,5,0 ; use 1,3,0 ; 4,2 ; use 1,1,2

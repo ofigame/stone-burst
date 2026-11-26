@@ -112,10 +112,10 @@ namespace KatKat.Game
                 {
                     if (o == AdOutcome.Rewarded)
                     {
-                        Hearts.Refill(_save.Data.meta);
+                        Hearts.Gain(_save.Data.meta, HeartNow, Hearts.AdHearts); // 2026-11-26: reklam 1 kalp
                         _save.Save();
                         _menu.CloseHeartsCard();
-                        _menu.ShowToast(Loc.T("hearts.got"), 2f);
+                        _menu.ShowToast(Loc.T("hearts.gotone"), 2f);
                         after?.Invoke();
                         return;
                     }
@@ -125,6 +125,6 @@ namespace KatKat.Game
         }
 
         /// <summary>Test: kalp kartındaki reklam düğmesi (sahte reklamla ödül).</summary>
-        public void RefillHeartsForTest() => Ads.Show(AdPlacements.ExtraLife, (o, t) => { if (o == AdOutcome.Rewarded) { Hearts.Refill(_save.Data.meta); _save.Save(); } });
+        public void RefillHeartsForTest() => Ads.Show(AdPlacements.ExtraLife, (o, t) => { if (o == AdOutcome.Rewarded) { Hearts.Gain(_save.Data.meta, HeartNow, Hearts.AdHearts); _save.Save(); } });
     }
 }

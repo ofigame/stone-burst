@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dalga; çözüm 9 + 0 tepsi / sınır 12; rastgele 0,020; açgözlü kaybeder; yumuşak 0,10
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kenar çentikleri; çözüm 13 + 0 tepsi / sınır 17; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_460
-moves: 12
+moves: 17
 roll: off
+refill: 25 2-3
 type: boss
 rules: noSpecials
-goals: navy 30, blue 39, sponge 1
+goals: coral 33, blue 30, sponge 1
 grid:
-npy   #     bbnSy #     pnn   #     byb   #
-npy   nny   yny   ynn   pnn   ppn   byb   pbb
-pyy   nnn   yny   bny   bpy   ppp   byp   pbb
-pbb   pbn   pby   yby   nby   npn   bbn   pbn
-ybb   bbn   bbn   ybn   nbp   nnn   nnn   nnn
-bnb   ynn   pbn   pbb   bbp   bbp   bbn   npy
-bnb   npb   ppp   byb   yyb   byb   ppb   ppn
-#     nyp   #     bby   #     bpb   #     pbn
-solution: 4,4 ; 4,4 ; 0,0 ; 2,0 ; 3,2 ; 6,0 ; 0,5 ; 0,3 ; 4,0
+bbc   cyb   bbb   nbc   cnc   #     #     cbn
+bbc   cnc   ccb   bbc   cbc   #     #     cbn
+nbn   nny   nyy   byc   cyn   cyc   nbcScy nbn
+nyc   yyn   bcn   bnc   ync   nby   ycb   ncb
+ybc   bbc   nyn   bcb   cnn   bbn   #     #
+ybb   ybc   cyb   cnb   ncn   bcn   #     #
+nny   yny   cbb   cbb   bbn   bcc   ccc   ccy
+bny   bby   cbb   cbn   nbn   #     ccn   ccn
+solution: 0,3 ; 0,4 ; 4,4 ; 3,0 ; 1,0 ; 3,5 ; 3,0 ; 4,0 ; 5,2 ; 3,3 ; 0,0 ; 6,2 ; 2,6

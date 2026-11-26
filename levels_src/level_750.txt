@@ -1,20 +1,21 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe (ayna); çözüm 8 + 7 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe (ayna); çözüm 9 + 5 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_750
 moves: 12
 roll: off
 specials: on
 paint: 2
+refill: 27 2-3
 type: boss
 rules: protect
-goals: navy 26, coral 21, yellow 35
+goals: navy 28, coral 24, yellow 34
 grid:
-#     #     bnc   bnpP  pnp   pyp   #     #
-#     ppb   cpy   bnp   nyp   nyp   nyp   #
-pcc   ppn   cny   pnp   pby   yby   ybc   yyc
-ppcP  ppn   ncn   nny   nbn   nny   yyc   pyc
-ycn   npy   ncy   ncy   bby   bby   ybn   pnb
-ypy   cby   cbb   bbb   pcc   ycb   ynb   pnb
-ypbP  ypb   ccb   bpc   ppc   pcb   ybp   pnb
+#     #     bnc   bnp   pnp   pyp   #     #
+#     ppb   cpy   bnb   nyp   nyp   nyp   #
+pcc   ppn   cny   pnp   pby   ybn   ybc   yyc
+ppc   ppn   ncn   nny   nbn   nny   byc   pyc
+ycn   npy   ncp   ncy   bby   bby   ybn   pnb
+ypyP  cby   cbb   bbb   pcc   ycb   ynb   pnb
+ypb   ypb   ccb   bpc   ppc   pcb   ybp   pnb
 #     yyc   yyc   bcp   byp   yyn   pbp   #
-#     #     cnp   bnp   ynn   yyn   #     #
-solution: 4,2 ; 4,4 ; use 0,1,2 ; 4,5 ; paint 0,3,p ; use 0,2,0 ; 4,2 ; 5,2 ; 7,3 ; use 2,2,1 ; 2,2 ; use 1,2,0 ; use 0,2,8 ; use 1,1,1 ; use 0,4,1
+#     #     cnpP  bnp   ynnP  yyn   #     #
+solution: paint 3,2,y ; 2,1 ; 1,2 ; use 0,2,0 ; 4,2 ; 3,0 ; 5,0 ; 2,0 ; use 0,3,0 ; 6,4 ; paint 0,5,b ; use 0,5,0 ; use 2,5,0 ; use 0,1,7

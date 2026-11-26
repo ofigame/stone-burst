@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil L (ayna); çözüm 7 + 3 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04; YEDEK: kısa;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil elmas; çözüm 6 + 5 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_317
-moves: 7
+moves: 6
 roll: off
 specials: on
+refill: 22 2-2
 type: order
 rules: exact
-goals: purple 20, yellow 22, navy 21
+goals: yellow 27, purple 15, navy 31
 grid:
-#     #     #     nn    bn    bp    npLb3 yc
-#     #     #     nb    bn    pp    yp    ypLb5
-#     #     #     nb    bb    bp    by    yy
-#     #     #     nb    yp    bp    cy    cn
-cc    yc    yb    yb    yp    yn    cn    cn
-cc    np    pb    pn    pb    nb    nb    cc
-cy    cy    pb    bn    nn    nb    nc    pc
-cy    yb    yb    yn    yy    py    pc    pc
-cc    bb    yn    bn    by    pc    pc    pc
-solution: 3,1 ; 5,0 ; use 0,3,0 ; use 0,6,1 ; 6,3 ; 7,6 ; 4,5 ; 1,5 ; 5,5 ; use 0,7,2
+#     #     #     py    py    #     #     #
+#     #     nn    yb    yc    yp    #     #
+#     ny    ny    py    cyLn5 ny    nn    #
+ny    nb    nn    pn    bn    ny    nc    nb
+bb    bb    py    pb    bp    yy    nb    nb
+yb    yp    yb    yb    pyLn3 yc    cb    pn
+#     yp    yb    nn    yn    yb    cb    #
+#     #     nb    nn    yn    yb    #     #
+#     #     #     nn    nn    #     #     #
+solution: 3,6 ; 1,2 ; 2,1 ; use 2,1,2 ; 3,3 ; 2,4 ; use 2,5,1 ; use 2,2,1 ; use 0,3,0 ; 5,3 ; use 0,1,6

@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil elmas; çözüm 7 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil T; çözüm 7 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_247
 moves: 9
 roll: off
 specials: on
+refill: 30 2-3
 type: order
-goals: coral 18, navy 30, envelope 2
+goals: navy 28, coral 50, envelope 2
 grid:
-#     #     #     nnb   nnn   #     #     #
-#     #     bnb   nnb   nbb   nbb   #     #
-#     nyb   byy   cny   cby   cpcEc bncEb #
-nyn   nyb   nnb   cnb   cpy   cpcLy4 bnc   cbp
-ypn   ynb   cpb   cnn   cyn   byy   byy   bcy
-ynp   ynp   npb   ncb   nbb   ycb   bcb   bcb
-#     ppn   npn   nbc   nbcLy5 ypy   ypy   #
-#     #     pyn   byy   bpp   ypy   #     #
-#     #     #     byy   nyp   #     #     #
-solution: 1,2 ; 3,0 ; use 1,1,2 ; 3,0 ; use 0,3,0 ; use 0,3,2 ; 0,4 ; 0,5 ; 4,3 ; use 0,4,0 ; use 1,4,2 ; 0,3 ; use 0,0,3
+yyc   cyb   nnb   nbb   npc   ypp   pyc   pyc
+yyc   yyc   cnb   ybc   npc   cpp   npc   nyc
+byc   ybcEp cyp   ycc   yncEp cnp   ypnLc3 byn
+bpc   bpc   byy   cby   cbp   ynn   ynnLc5 cyn
+ppy   bpy   byy   cnb   ybb   ybb   ybp   bcb
+ppy   ppc   cyc   cnn   yyb   npb   npc   ycc
+#     #     pcc   pyn   nyc   cpb   #     #
+#     #     pcc   nyc   npy   cpn   #     #
+#     #     ccc   cnc   cnb   cpb   #     #
+solution: 1,5 ; 6,2 ; use 1,0,2 ; 2,2 ; use 1,0,0 ; 3,0 ; use 0,3,0 ; 3,1 ; use 0,4,0 ; use 0,4,0 ; 2,2 ; use 0,5,0 ; 3,3 ; use 0,5,3

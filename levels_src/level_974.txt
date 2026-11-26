@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven (ayna); çözüm 8 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven (ayna); çözüm 8 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: level_974
 moves: 10
 roll: off
 specials: on
-goals: yellow 19, navy 44, blue 45, envelope 2
+refill: 28 2-3
+goals: yellow 25, navy 49, blue 52, envelope 2
 grid:
-#     #     #     #     bnc   bnc   bcc   ccb
-#     #     #     cncEn pnc   bnn   ynn   cnb
-#     #     nybK1:1 nbb   pbnEb ybn   yyb   nyb
+#     #     #     #     bnc   bnc   bccEc ccb
+#     #     #     cnc   pnc   bnn   ynnK1:1 cnb
+#     #     nybEy nbb   pbn   ybn   yyb   nyb
 #     pcb   ncb   nbp   nnp   ybp   bbc   nnb
-bcb   pcb   ccn   cbnK1:1 byn   bnn   bnc   nbc
+bcb   pcbK1:1 ccn   cbn   byn   bnn   bnc   nbc
 byp   pcy   bny   cny   byc   byy   nby   nbp
 bnp   bnp   bby   cbb   ycb   ynb   cpp   ppp
 ppn   bnp   nny   cbb   ycn   pnn   ppn   ppp
-pnn   nnp   nny   pny   pcn   pcb   npb   npb
-solution: 0,5 ; 0,5 ; use 0,3,1 ; use 0,5,1 ; 7,0 ; 1,3 ; use 0,2,2 ; 4,0 ; 4,0 ; 7,5 ; use 3,5,0 ; use 0,4,0 ; 6,3 ; use 1,7,3 ; use 0,0,4
+pnn   nnp   ncy   pny   pcn   pcb   npb   npb
+solution: 0,5 ; 0,5 ; use 0,2,2 ; use 0,4,0 ; 0,6 ; 1,3 ; use 0,4,0 ; 4,4 ; use 0,4,0 ; 3,4 ; use 1,4,1 ; 4,4 ; use 1,5,0 ; 5,4 ; use 0,4,0

@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil elmas (ayna); çözüm 7 + 6 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil elmas (ayna); çözüm 7 + 7 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
 id: level_110
 moves: 11
 roll: off
 specials: on
+refill: 24 2-3
 type: boss
 rules: scarce
-goals: blue 17, purple 29, star 2
+goals: blue 18, purple 28, star 2
 grid:
 #     #     #     bpp   byn   #     #     #
 #     #     cpb   ppy   ccn   cyy   #     #
-#     nnb   cpb   ppy   pcy   pyy   cyn   #
-cnp   ynn   ybp   yby   pyp   pby   cbn   bbc
-cyp   yyn   pnp   pyn   pnp*  bny*  bby   bbc
-cyp   yyn   nyn   cyp   ccpi1 bnc   bcc   bcc
-#     pcc   ccc   yyy   ccp   ccp   ccni1 #
+#     nnb   cpb   ppn   pcy   pyy   cyn   #
+cnp*  ynn*  ybp   ybn   pyp   pby   cbn   bbc
+cypi1 yyn   pnp   byn   pnp   bny   bby   bbc
+cyp   yyni1 nyn   cpp   ccp   bnc   bpc   bcci1
+#     pcc   ccc   yyy   ccp   ccp   ccn   #
 #     #     cnp   cnn   ncn   pcn   #     #
-#     #     #     nnp   npni1 #     #     #
-solution: 3,1 ; use 0,3,0 ; 7,3 ; 0,3 ; 5,3 ; use 0,4,0 ; 2,1 ; 3,0 ; use 1,6,2 ; use 0,3,0 ; 2,3 ; use 0,5,1 ; use 0,5,2
+#     #     #     nnp   npn   #     #     #
+solution: 4,3 ; use 0,2,1 ; 3,2 ; 4,5 ; use 0,3,0 ; 5,1 ; use 1,1,2 ; use 0,0,3 ; 1,3 ; use 0,2,1 ; 5,5 ; use 0,2,2 ; 2,1 ; use 0,2,1

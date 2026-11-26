@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil merdiven (ayna); çözüm 12 + 0 tepsi / sınır 15; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kum saati (ayna); çözüm 17 + 0 tepsi / sınır 21; rastgele 0,020; açgözlü kaybeder; yumuşak 0,06
 id: level_880
-moves: 15
+moves: 21
 roll: off
+refill: 25 2-3
 type: boss
 rules: noSpecials
-goals: navy 38, purple 28, blue 26, envelope 3
+goals: navy 33, coral 23, blue 23, envelope 3
 grid:
-#     #     #     #     ypn   ypn   ypy   nny
-#     #     #     npn   npn   npy   ypy   nnbEn
-#     #     npn   bpn   bpb   bpb   bbb   pnb
-#     yyp   nbn   bbn   nbb   bbb   bbn   pnb
-ypp   ypp   npn   bpy   byp   bnp   pnn   pnn
-ypn   pnp   bnn   bny   nnpEp nnp   nnnEp nnp
-pnn   pnb   pnn   bnb   pnb   ppb   bpp   bpp
-pnn   nny   nby   nbb   yny   yyb   yyp   ppp
-solution: 3,6 ; 4,4 ; 4,0 ; 4,2 ; 4,5 ; 7,2 ; 4,0 ; 3,2 ; 1,3 ; 2,2 ; 6,4 ; 6,2
+byn   cbc   cbc   cyb   cnb   ynn   nyn   nyn
+cyn   cycEn bny   cnb   ycb   byc   nyc   nyn
+#     yyy   yyy   ycn   ycy   cby   yby   #
+#     nyn   bcn   ncn   yny   cby   cby   #
+#     nby   ycy   ybb   nbc   nbcEy ccc   #
+#     nyy   nny   ccc   nnc   cny   cny   #
+bnb   nbb   nnn   cbn   bnb   ynn   ybyEy bbn
+nnb   yyn   nyn   yyc   byn   bnn   bcy   bbn
+solution: 3,0 ; 2,1 ; 2,1 ; 3,1 ; 3,1 ; 4,4 ; 5,1 ; 4,0 ; 4,1 ; 3,3 ; 4,0 ; 1,0 ; 4,5 ; 1,1 ; 0,6 ; 2,5 ; 4,0

@@ -298,6 +298,15 @@ static partial class Program
                 case "roll": d.RollEnabled = val != "off"; d.StartingRoll = val == "start"; break;
                 case "specials": if (val == "on" && !d.Capabilities.Contains("specials")) d.Capabilities.Add("specials"); break;
                 case "paint": d.Paint = int.Parse(val, CultureInfo.InvariantCulture); break;
+                case "refill": // 2026-11-26 yukarıdan dolma: "refill: sayı enaz-ençok"
+                {
+                    var p = val.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    d.HasRefill = true;
+                    d.RefillCount = int.Parse(p[0], CultureInfo.InvariantCulture);
+                    if (p.Length > 1) { var mm = p[1].Split('-'); d.RefillMinLayers = int.Parse(mm[0], CultureInfo.InvariantCulture); d.RefillMaxLayers = int.Parse(mm[^1], CultureInfo.InvariantCulture); }
+                    if (!d.Capabilities.Contains("refill")) d.Capabilities.Add("refill");
+                    break;
+                }
                 case "type": d.TrialType = val; break; // v8 bölüm türü (exact, chain, protect, boss…)
                 case "rules": d.Rules.AddRange(val.Split(',').Select(r => r.Trim()).Where(r => r.Length > 0)); break;
                 case "goals":
@@ -413,7 +422,7 @@ static partial class Program
     /// <summary>schemaVersion 2 yalnızca yeni örtü (buz/kilit) kullanan bölümlerde; 1–60 biçimi bayt bayt aynı kalır.</summary>
     static bool NeedsV2(LevelData d) => d.Capabilities.Contains("specials") || d.Paint > 0
         || !string.IsNullOrEmpty(d.TrialType) || d.Rules.Count > 0 || d.Goals.Any(g => g.Type == "collectChain") || d.Cells.Any(c => c.Protected)
-        || d.Cells.Any(c => c.SpongeColors.Count > 0 || c.LinkHits > 0 || c.ButtonGate > 0 || c.GateId > 0) || d.Cells.Any(c => c.IceHits > 0 || c.LockRemaining > 0 || !string.IsNullOrEmpty(c.EnvelopeColor) || c.HasRotor || c.Gravel) || d.TimeLimit > 0;
+        || d.Cells.Any(c => c.SpongeColors.Count > 0 || c.LinkHits > 0 || c.ButtonGate > 0 || c.GateId > 0) || d.Cells.Any(c => c.IceHits > 0 || c.LockRemaining > 0 || !string.IsNullOrEmpty(c.EnvelopeColor) || c.HasRotor || c.Gravel) || d.TimeLimit > 0 || d.HasRefill;
 
     static List<string> CapabilitiesOf(LevelData d)
     {
@@ -429,6 +438,7 @@ static partial class Program
         if (d.Cells.Any(c => c.ButtonGate > 0 || c.GateId > 0)) caps.Add("gate");
         if (d.Paint > 0) caps.Add("paint");
         if (d.Cells.Any(c => c.Gravel)) caps.Add("gravel");
+        if (d.HasRefill) caps.Add("refill"); // 2026-11-26 yukarıdan dolma (her bölüm)
         if (d.Capabilities.Contains("specials")) caps.Add("specials");
         return caps;
     }
@@ -488,6 +498,7 @@ static partial class Program
         sb.AppendLine($"  \"startingRoll\": {(d.StartingRoll ? "true" : "false")},");
         if (d.StarThresholds != null) sb.AppendLine($"  \"stars\": [{d.StarThresholds[0]}, {d.StarThresholds[1]}],");
         if (d.Paint > 0) sb.AppendLine($"  \"paint\": {d.Paint},");
+        if (d.HasRefill) sb.AppendLine($"  \"refill\": {{ \"count\": {d.RefillCount}, \"minLayers\": {d.RefillMinLayers}, \"maxLayers\": {d.RefillMaxLayers} }},");
         sb.AppendLine("  \"goals\": [");
         sb.AppendLine(string.Join(",\n", d.Goals.Select(g => g.Type == "collectToken"
             ? $"    {{ \"type\": \"collectToken\", \"kind\": \"{g.Kind}\", \"amount\": {g.Amount} }}"

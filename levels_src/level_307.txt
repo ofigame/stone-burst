@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil artı; çözüm 15 + 0 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil zikzak; çözüm 20 + 0 tepsi / sınır 20; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_307
-moves: 15
+moves: 20
 roll: off
+refill: 28 2-3
 type: pure
 rules: noSpecials, exact
-goals: blue 21, navy 27, envelope 2
+goals: blue 26, coral 31, envelope 2
 grid:
-#     #     yyy   yyp   pyn   pyn   #     #
-#     #     bny   bnp   pnb   pyn   #     #
-bnp   bpnR  ypy   yny   ypb   ybyR  ppb   nby
-bbp   bpp   nby   nny   npb   ppb   ppn   nnn
-bbb   bnpEp nby   nnn   npb   ppb   npb   nnb
-pnb   bnp   bpp   bpp   bpb   pbn   ybnEy yyn
-pbb   pbb   npn   pnn   bpb   bpn   yyp   yyp
-#     #     nnn   bny   bnn   bnb   #     #
-#     #     nyn   nny   ynn   ynb   #     #
-solution: rot 5,2 ; 4,1 ; 0,2 ; 0,3 ; 4,0 ; 6,3 ; 2,6 ; 3,7 ; 3,6 ; 4,7 ; 3,7 ; 5,5 ; 3,0 ; 7,5 ; 4,3
+#     bcc   bbb   ynb   ynbEb cnb   nbc   nbc
+nyc   nyc   nbn   ybnEc byn   cny   ccbR  #
+#     bnc   bny   nnn   byy   byb   yyc   ncc
+byc   byb   bnb   nnc   nnn   bcn   ybn   #
+#     yyb   bcc   nbc   yyb   ybb   nyc   nyc
+ycc   ycb   ncy   yyb   bcb   cnn   cyy   #
+#     yyb   nyb   yyc   ycc   bcb   byy   ccn
+cyn   ccn   ncn   ycc   yby   bcc   yyc   #
+#     ccyR  ycc   ybb   bbc   ycc   ycy   ncn
+solution: rot 6,1 ; 6,0 ; 5,0 ; 1,3 ; 2,5 ; 3,3 ; 3,4 ; 1,0 ; 5,7 ; 2,0 ; 2,5 ; 4,5 ; 3,2 ; 0,1 ; 2,1 ; 1,0 ; 1,3 ; 4,0 ; 1,2 ; 5,0

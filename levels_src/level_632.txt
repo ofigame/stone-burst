@@ -1,16 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dalga; çözüm 9 + 8 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dalga; çözüm 8 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_632
-moves: 11
+moves: 10
 roll: off
 specials: on
-goals: coral 15, yellow 46, blue 29, sponge 2
+refill: 25 2-3
+goals: coral 20, yellow 42, blue 33, sponge 2
 grid:
-G1:yyn #     G1:pnn #     G1:ypy #     G1:ynn #
-yyc   ync   ynn   ppn   ypy   yyy   ypy   cpy
-cyb   cnc   byn   ypc   ypcSyb nnp   nny   npy
-cyb   cyb   byc   ypc   yby   nbp   npy   cpy
-nnb   nnb   byn   bpy   bpy   bpp   nyy   cyyB1
-pnb   nbn   bpn   nyy   nyp   yyp   yyb   cybSp
+G1:yyn #     G1:pnn #     G1:npy #     G1:pnn #
+yyc   ync   ynn   ppn   ypy   yyb   ypy   cpy
+cyb   cnc   byn   ypc   ypcB1 nnn   nny   npy
+cyb   cpb   byc   ycc   yby   nbpSpc npb   cpy
+nnb   nnb   byn   bpy   bpy   bpp   ncy   cyy
+pnb   nbn   bpn   nyy   nyp   ybpSb yyb   cyb
 pnc   pbn   ppn   nyb   yyp   bpp   bpb   bpp
 #     cbb   #     bnb   #     bbp   #     bpp
-solution: 4,1 ; use 0,0,2 ; 6,1 ; 4,3 ; use 0,4,3 ; use 0,0,1 ; 2,0 ; 3,1 ; 4,0 ; 0,2 ; 0,4 ; use 1,0,1 ; 2,2 ; use 0,7,1 ; use 0,1,5 ; use 1,0,0 ; use 0,0,0
+solution: 6,5 ; 0,2 ; 5,4 ; use 0,5,1 ; 4,1 ; use 0,4,3 ; use 0,0,1 ; 4,1 ; use 0,0,1 ; 6,2 ; 7,1 ; use 0,4,0 ; use 0,7,1 ; 6,0 ; use 0,0,0

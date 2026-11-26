@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kenar çentikleri; çözüm 8 + 5 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kenar çentikleri; çözüm 8 + 7 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_410
 moves: 12
 roll: off
 specials: on
+refill: 25 2-3
 type: boss
 rules: scarce
-goals: navy 19, coral 24, sponge 1
+goals: navy 28, coral 36, sponge 1
 grid:
 nbc   npc   ypc   #     bbn   bby   cby   cby
-nbc   npb   npb   nyy   bbnSbn bby   ynb   ybb
-cbb   ybb   ycb   cbp   byp   cyp   cbb   bbb
-#     yyc   ycc   cbc   cyc   ybp   bbp   bbp
-#     pyy   pyy   cyy   cny   nyb   nbp   bbpk1
-cpy   ppyk1 pyp   cyp   byyk2 bynk2 #     #
-#     #     nypk1 cyn   ypy   bpn   #     #
-ncc   ncc   ncn   ccc   ypb   bpyk1 pyy   pyy
-solution: 3,2 ; 6,1 ; 5,0 ; use 1,4,0 ; 4,0 ; use 1,0,0 ; 0,0 ; use 1,2,2 ; 1,0 ; use 1,0,0 ; 2,5 ; 2,2 ; use 0,2,6
+nbcSy npb   npb   nyy   bbn   bby   ynb   ycb
+nbb   ybb   ycb   cbp   byp   cynk1 cbb   bbbk1
+#     yyc   ycc   bbck2 cyck2 ybpk1 bcp   bbp
+#     pyy   pyy   ccy   cny   nyb   nbp   bbpk1
+cpy   ppy   pcp   cyp   byy   byn   #     #
+#     #     npp   cyn   ypc   bpn   #     #
+ncc   ncc   ncn   ccn   ypn   bpy   pyy   pyy
+solution: 1,1 ; use 0,0,1 ; 2,5 ; 1,4 ; use 0,4,0 ; 0,0 ; use 0,2,0 ; 2,3 ; 5,0 ; use 0,7,0 ; 3,3 ; use 0,5,0 ; use 0,0,0 ; 4,1 ; use 0,4,1

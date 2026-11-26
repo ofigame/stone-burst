@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil T (ayna); çözüm 9 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil kum saati (ayna); çözüm 9 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_807
 moves: 9
 roll: off
 specials: on
+refill: 25 2-3
 type: order
 rules: exact
-goals: navy 21, purple 37, blue 30, sponge 1
+goals: navy 27, yellow 37, purple 39, sponge 1
 grid:
-bbb   bpb   ppy   cpy   yny   ynp   bpp   bpy
-bcbSbn npc   ppc   cyc   ync   cbc   pbc   pby
-bcc   ncc   npb   cyc   yyc   npc   ppc   pby
-ycc   nbc   nbb   nyn   ncnLc3 npc   npp   cnp
-ycc   ncn   pbp   bcp   bcn   pbp   ppp   cnp
-#     #     pbc   ypnLc5 ycn   pbn   #     #
-#     #     byc   ypc   ppc   pyb   #     #
-#     #     byb   byc   bpb   bpb   #     #
-solution: 1,1 ; use 0,5,0 ; 5,2 ; 4,3 ; use 0,0,0 ; use 0,5,0 ; 7,0 ; 6,0 ; 2,4 ; use 0,0,0 ; 2,0 ; use 1,1,0 ; 2,2 ; 0,1 ; use 0,1,0 ; use 0,0,0
+yyy   ccn   cby   ccy   pcy   ppb   ppc   bpc
+yynLy3 pcnLy3 pbn   pby   ycy   yybSp ync   bpc
+#     pcy   nbn   nbc   npn   pbb   ybc   #
+#     yyn   nyp   bbp   bnn   pcb   ycc   #
+#     nyy   npp   ybp   ync   nnp   ycp   #
+#     nyy   byn   bnb   bbb   ybp   pcp   #
+pbp   byp   bpp   bnp   bbb   ybc   pyp   pcp
+pyp   ppp   ppp   cny   cny   byy   cyy   cyc
+solution: 5,4 ; 6,0 ; use 1,0,0 ; use 0,6,0 ; 1,0 ; 0,6 ; use 1,1,4 ; 6,0 ; use 0,6,0 ; 4,2 ; 7,0 ; use 2,0,0 ; 1,3 ; 6,3 ; use 2,5,2 ; use 0,6,0 ; use 0,6,0

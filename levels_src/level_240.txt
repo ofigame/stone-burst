@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil elmas; çözüm 7 + 6 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil elmas; çözüm 8 + 5 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_240
 moves: 12
 roll: off
 specials: on
+refill: 24 2-3
 type: boss
 rules: protect
-goals: blue 16, navy 17, envelope 3
+goals: blue 21, navy 28, envelope 3
 grid:
-#     #     #     bncP  bnc   #     #     #
-#     #     bcb   cnb   byp   bypi1 #     #
-#     ncb   bcp   bnp   pyc   ppp   npn   #
-nnbi1 ncb   ccy   bcpi2 cyc   cyp   npn   nnnP
-npc   npc   ccy   ccc   cyb   byb   bpn   nnnP
-cbnEn cbn   cpn   npc   cnp   yyp   yybi1 cyn
-#     cbn   pbc   npc   cbp   ybpEn cyb   #
-#     #     cnc   cnc   cpc   ypci2 #     #
-#     #     #     cpp   cppEn #     #     #
-solution: 3,4 ; 3,5 ; use 0,4,0 ; 1,5 ; use 0,5,1 ; 4,1 ; use 1,2,1 ; 1,2 ; use 0,0,3 ; 1,2 ; use 0,6,2 ; 4,3 ; use 0,0,3
+#     #     #     bnc   bncP  #     #     #
+#     #     bcb   cnb   bbp   byp   #     #
+#     ncb   bcp   bnp   pyc   pppEn npn   #
+nnb   ncb   ccy   bcp   cyci1 cyp   npn   nnn
+npcP  npc   cyyi1 ycn   pyb   byb   bpnEb nnni2
+cbn   cbni1 ypn   npc   cnp   yyp   ycb   cyn
+#     cbn   pbci2 npc   cbp   ybp   cyb   #
+#     #     cnc   cncEc cpc   ypc   #     #
+#     #     #     npp   bppP  #     #     #
+solution: 6,2 ; 4,1 ; use 0,3,0 ; 3,5 ; 6,5 ; use 0,0,5 ; 3,4 ; use 0,2,1 ; 5,3 ; 6,2 ; use 0,3,0 ; 6,2 ; use 0,3,0

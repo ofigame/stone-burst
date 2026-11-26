@@ -161,7 +161,6 @@ namespace KatKat.Levels
                     if (c.Water < 0 || c.Water > 3) e.Add($"{at} su 1-3 birim olmalı");
                     if (c.Layers.Count == 0) e.Add($"{at} sulu hücre en az bir katman içermeli");
                     if (!d.Capabilities.Contains("water")) e.Add($"{at} su için water yeteneği gerekli");
-                    if (d.HasRefill) e.Add($"{at} su yukarıdan dolma ile birlikte kullanılamaz");
                 }
                 if (c.HasBottomStar)
                 {

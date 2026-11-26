@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T; çözüm 8 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T; çözüm 6 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_713
-moves: 10
+moves: 8
 roll: off
 specials: on
 paint: 2
-goals: purple 28, yellow 34, navy 35, sponge 2
+refill: 27 2-3
+goals: purple 27, yellow 30, navy 30, sponge 2
 grid:
-pcy   pyy   nyy   nnb   ynb   bnp   bbb   bbb
-pcp   bcy   yny   nnb   bnb   bnn   nbb   nbn
-pcp   pcb   yypSp nnb   bpn   bbn   cbp   nyp
+pcyScb pyy   nyy   nnb   ynb   bnp   bbb   bbb
+pcp   bcy   yby   nyb   bnb   bnn   nbb   nbn
+pcp   pcb   ypp   nnb   bpn   bbc   cbp   nyp
 pyp   byp   yyp   nnn   ynn   ynn   cnb   npb
-byb   byb   cyy   cpb   ccn   ynn   pnb   cpp
-byb   byy   ccy   cpb   ccb   nbp   pbp   cbp
+byb   byb   cny   bpb   ccn   ynn   pnb   cpp
+bybSn byy   ccy   cpb   pcb   nbp   pbp   cbp
 #     #     cyp   cbp   ybb   nbn   #     #
-#     #     cyp   cyb   ccb   ppb   #     #
-#     #     yny   cny   ycySy ppb   #     #
-solution: 3,4 ; use 0,5,0 ; 0,3 ; use 0,5,0 ; 3,0 ; 3,0 ; use 0,2,2 ; 0,0 ; use 0,1,0 ; 2,0 ; 1,2 ; 0,4 ; use 0,7,1
+#     #     cyp   yyc   ccb   ppb   #     #
+#     #     yny   cny   ycy   ppb   #     #
+solution: 3,0 ; use 0,0,0 ; 1,0 ; use 0,0,0 ; 2,0 ; 3,2 ; use 0,1,0 ; 0,3 ; 5,0 ; use 1,5,1 ; use 0,3,0 ; use 0,0,0

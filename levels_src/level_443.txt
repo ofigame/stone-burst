@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven; çözüm 7 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04; YEDEK: kısa;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven; çözüm 6 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_443
-moves: 9
+moves: 8
 roll: off
 specials: on
-goals: navy 26, yellow 24, sponge 1
+refill: 28 2-2
+goals: navy 26, yellow 29, sponge 1
 grid:
-nb    nc    nc    nb    #     #     #     #
+nb    nc    yc    nb    #     #     #     #
 pp    pp    nc    nb    yb    #     #     #
-ppSb  ny    nc    nc    yb    pn    #     #
+pp    cy    bcSb  nc    yb    pn    #     #
 ny    ny    nn    cn    cy    bp    pp    #
-nb    cpi1  np    nn    nni1  by    pp    yp
-cb    py    py    yn    yb    pb    yb    yc
-cb    cy    py    pp    yp    pp    pb    yc
-yy    cpi2  yp    bp    yy    pp    nb    nci1
-cni2  cn    bc    by    yy    np    np    nc
-solution: 1,0 ; use 0,0,0 ; 3,0 ; 0,0 ; use 0,4,1 ; 1,4 ; 1,2 ; 5,4 ; use 0,4,5 ; use 0,5,2 ; 5,2 ; use 0,7,4
+pb    cp    np    pn    nn    by    pp    yp
+cb    py    py    yn    yb    pbi1  yb    yc
+cb    cy    py    ppi1  ypi2  pp    pb    yc
+yy    cp    yp    bp    yy    ppi2  nb    nc
+cn    cn    bc    by    yyi1  nn    np    nc
+solution: 2,3 ; 1,5 ; use 0,3,0 ; 1,4 ; use 1,1,0 ; 3,2 ; 2,4 ; use 1,1,2 ; 4,2 ; use 1,4,1 ; use 0,0,7

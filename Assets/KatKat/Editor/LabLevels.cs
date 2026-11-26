@@ -256,6 +256,7 @@ namespace KatKat.EditorTools
                 Protect = n < 40 ? 0 : Math.Min(4, 1 + (n - 40) / 150),
                 Ice = n >= 200 && idx % 3 == 0 ? 4 : 0, Clips = n >= 300 && idx % 3 == 1 ? 3 : 0, CoverOnWater = true,
                 Catalog = true, Palette = open.ToArray(), Hole = hole,
+                Refill = (int)Mathf.Lerp(20f, 30f, t), // 2026-11-26 (kullanıcı: "Tüm oyun bu akışta olsun")
             };
         }
 
@@ -546,6 +547,7 @@ namespace KatKat.EditorTools
             var caps = new List<string> { "specials", "water" };
             if (sp.Clips > 0) caps.Add("clip");
             if (sp.Ice > 0) caps.Add("ice");
+            if (sp.Refill > 0) caps.Add("refill"); // 2026-11-26: su bölümünde de yukarıdan dolma (yeni yığın susuz)
             var sb = new StringBuilder();
             sb.Append("{\n  \"schemaVersion\": 2,\n  \"id\": \"").Append(id).Append("\",\n");
             sb.Append("  \"capabilities\": [").Append(string.Join(", ", caps.ConvertAll(c => "\"" + c + "\""))).Append("],\n");
@@ -555,6 +557,7 @@ namespace KatKat.EditorTools
             if (timed > 0) sb.Append($"  \"timeLimit\": {timed},\n");
             // 2026-11-26 (kullanıcı: "kovayı en az 3 kez gönderebileceğimiz şekilde olmalı"): kapasite görevin en çok üçte biri.
             sb.Append($"  \"waterCap\": {Math.Max(2, need / 3)},\n");
+            if (sp.Refill > 0) sb.Append($"  \"refill\": {{ \"count\": {sp.Refill}, \"minLayers\": 2, \"maxLayers\": 3 }},\n");
             sb.Append("  \"rollEnabled\": false,\n  \"startingRoll\": false,\n");
             int s1 = Math.Max(100, (int)(score * 0.55f) / 10 * 10), s2 = Math.Max(s1 + 50, (int)(score * 0.8f) / 10 * 10);
             sb.Append($"  \"stars\": [{s1}, {s2}],\n  \"goals\": [\n");

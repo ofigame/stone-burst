@@ -3,15 +3,16 @@ id: level_831
 moves: 10
 roll: off
 specials: on
-goals: purple 24, yellow 21, blue 35, star 3
+refill: 21 2-3
+goals: purple 27, blue 18, coral 29, star 3
 grid:
-#     #     nby   nbyi1 nby   #     #
-#     #     ybp   yby   nny   #     #
-bpy   bcy   ybc   ync   bny   bby   pby
-bpp   ccn   ccc   ncy   ncc   bby   pyyi2
-bpp   cnn   pnc   bpc   bpc*  ypy   pyy*
-bpn   bnpi1 bnp   bnb   bpp*  ybn   pnb
-byn   bnni1 bnc   nnb   npbi1 ybni1 ynb
-#     #     bcc   bpb   ppb   #     #
-#     #     pcc   pcb   ppb   #     #
-solution: 4,0 ; 2,2 ; use 0,4,1 ; 0,3 ; use 0,4,0 ; 3,4 ; use 0,2,0 ; use 0,2,1 ; 1,4 ; 0,2 ; 5,2 ; use 0,2,0 ; 2,1 ; use 0,6,2
+#     #     pyc   ppc   ppb   #     #
+#     #     ccc   cpy   pppi1 #     #
+bcy   pyni1 pcy*  ccy   ncni1 npy   nby
+cnn   ccc   cnn   bpp*  bpyi2 ppy   ybb
+ync   ycn   bcc   bcb   npy   nnc   nnb
+ypc   cpc   ppci1 pcc   bcc   nny   pcc
+cny   cnp*  cby   cbn   ncb   nyc   pcbi1
+#     #     ppn   pbn   ppb   #     #
+#     #     cpn   bpb   bpb   #     #
+solution: 3,1 ; 2,0 ; use 0,3,0 ; 0,4 ; use 0,3,0 ; 3,4 ; use 0,3,1 ; 1,3 ; 2,4 ; 3,5 ; use 0,4,0 ; 2,5 ; use 0,4,0 ; use 0,2,0

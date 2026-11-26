@@ -3,15 +3,16 @@ id: level_515
 moves: 10
 roll: off
 specials: on
-goals: yellow 25, blue 28, navy 35
+refill: 28 2-3
+goals: yellow 31, blue 34, navy 38
 grid:
 cpb   ypb   ypp   nbp   bbp   bcb   bcb   #
-#     byp   bnp   cbnK1:2 nbn   ncc   npc   ppy
-byc   byp   bnp   cyp   cyb   nyb   npc   #
-#     yyp   yppK1:2 cpp   npb   nnb   nnb   yyy
-pyn   pyn   pynK1:2 ccp   ccc   nnc   ppbLc4 #
-#     ccc   pcn   ccp   pcb   ncc   cpb   ync
-cnc   cnc   ncc   cyp   pyn   cyc   cyb   #
-#     npc   npc   cbp   pyn   cbc   cyb   cyc
+#     byp   bnc   cbn   nbnK1:2 pcc   npc   ppy
+byc   byp   bnp   cyp   cyb   yyb   npc   #
+#     yyp   ypp   bpp   npn   nnb   nnb   yyy
+pyn   pyn   pyn   ccy   ccc   nnc   ppp   #
+#     cbp   pcn   ccp   pcb   ncc   cpbLb5 ync
+cnc   cnc   ncy   cyp   pyn   cyc   cyb   #
+#     npc   npcK1:2 cbp   pcnK1:2 nbc   cyb   cyc
 cpc   npc   npc   nnp   cnn   cnb   nyb   #
-solution: 2,0 ; use 0,5,1 ; 4,2 ; use 0,2,1 ; 1,1 ; 0,0 ; use 1,7,1 ; use 0,4,0 ; 3,4 ; 5,2 ; 1,7 ; 2,6 ; use 2,0,0 ; use 0,1,0 ; use 0,6,0
+solution: 0,6 ; 3,5 ; use 1,0,0 ; 0,0 ; 0,6 ; use 1,7,1 ; use 1,1,1 ; 4,0 ; 0,4 ; 4,4 ; use 1,5,0 ; use 2,1,0 ; 5,3 ; use 2,3,0 ; use 0,5,0

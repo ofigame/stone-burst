@@ -78,13 +78,27 @@ static partial class Program
     }
 
     /// <summary>Rastgele bot kazanma tavanı (PLAN): 1–30 %60; 31–100 %25; 101–300 %10; 301+ %3; nefeste sınır yok.</summary>
-    static double V14RandomCap(int n) => V14Breath(n) ? 1.0 : n <= 30 ? 0.60 : n <= 100 ? 0.25 : n <= 300 ? 0.10 : 0.03;
+    // 2026-11-26 (kullanıcı: "rasgele bassam bile bölümü geçebiliyorum"): 11–20 %35, 21–30 %25, 31–100 %18, 101–300 %8,
+    // 301+ %3; nefes bölümü %60 (rahatlatır ama kendi kendine bitmez). 2–10 kolay kalır (rastgele en az %50 kazanır).
+    static double V14RandomCap(int n) => V14Breath(n) ? 0.60 : n <= 20 ? 0.35 : n <= 30 ? 0.25 : n <= 100 ? 0.18 : n <= 300 ? 0.08 : 0.03;
+
+    /// <summary>2026-11-26: plan yapmayan iyi oyuncu yaklaşığı (yumuşak açgözlü bot) için taban: bölüm "imkânsız" hissettirmesin,
+    /// kaybeden oyuncu yakın kaybetsin ve yeniden denesin. 100'den sonra insan planı bottan çok güçlü; taban yok.</summary>
+    static double V14SoftMin(int n) => n <= 10 ? 0 : V14Breath(n) ? 0.6 : n <= 30 ? 0.35 : n <= 100 ? (V14Master(n) ? 0.08 : 0.15) : 0;
+
+    /// <summary>2026-11-26 (kullanıcı: "tüm bölümlerde taşlar hücrede bitince yukarıdan aşağıya taşlar konumlansın. Oyuna belli
+    /// sayıda taş girsin"): hücre sayısına oranla yeni yığın (ilk 10 ve nefes bol, geç bölümler biraz az).</summary>
+    static double V14RefillFrac(int n) => n <= 10 || V14Breath(n) ? 0.7 : n <= 100 ? 0.55 : n <= 300 ? 0.5 : 0.45;
 
     sealed class V14Spec
     {
         public int N, W, H, LMin, LMax, Colors, ColorGoals, BlobMin, BlobMax, LenLo, LenHi, SlackLo, SlackHi, Slack, MaxGoals;
         /// <summary>Katman düzlemi başına en büyük grup (0 = sınırsız): erken küçük tahtada Altın Rulo tek dokunuşta bitirmesin.</summary>
         public int MaxGroup;
+        /// <summary>2026-11-26 yukarıdan dolma: hücre sayısına oran (0 = yok; günlük bulmaca kullanmaz).</summary>
+        public double RefillFrac;
+        /// <summary>Yeni yığınlardan beklenen renk payının hedefe sayılan oranı (0.5; çözüm kısa kalırsa ya da mekanik atlanırsa artar).</summary>
+        public double RefillShare = 0.5;
         public double Frac, RandomCap;
         public bool Breath, Master, Showcase, GreedyMustLose, NoSpecialsInSolution;
         /// <summary>Vitrin 2/3: çözümün ilk iki adımı zorunlu (roket ya da Altın Rulo doğar → tepsiden kullanılır).</summary>
@@ -175,7 +189,9 @@ static partial class Program
             // Nefes: 1–2 kat, büyük tahta, büyük gruplar, bol özel taş, geniş hamle; kısa ve eğlenceli.
             sp.W = n < 31 ? 7 : 8; sp.H = n < 31 ? 8 : n <= 80 ? 8 : 9;
             sp.LMin = sp.LMax = 2; sp.Colors = n < 200 ? 3 : 4; sp.ColorGoals = 2; // 2026-11-22: eşit kat (2)
-            sp.BlobMin = 4; sp.BlobMax = 9; sp.LenLo = 3; sp.LenHi = 10; sp.Frac = 0.55;
+            // 2026-11-26 (kullanıcı: "Büyük taş gruplarından bahsettiğim bölüm sadece büyük taş gruplarından oluşuyor"): lekeler
+            // 4–9 yerine 2–5, grup en çok 7 (roket var, açılışta Altın Rulo yok); rahatlık bol hamle ve dolmadan gelir.
+            sp.BlobMin = 2; sp.BlobMax = 5; sp.MaxGroup = 7; sp.LenLo = 6; sp.LenHi = 13; sp.Frac = 0.5;
             sp.Slack = sp.SlackHi;
             return sp;
         }
@@ -231,6 +247,8 @@ static partial class Program
                 case "order": sp.Order = true; if (n >= 300) { sp.Exact = true; sp.Rules.Add("exact"); } break;
             }
         }
+        // 2026-11-26: açılışta grup en çok 7 (iri lekeler birleşip tahtayı tek dokunuşa indirmesin; roket kurmak oyuncunun işi).
+        if (sp.MaxGroup == 0) sp.MaxGroup = 7;
         // Kesin hamle: sınır = çözüm (1–99'da +1, eski kural kartı metniyle aynı).
         sp.Slack = sp.Exact ? (n < 100 ? 1 : 0) : m >= 1 && m <= 3 ? sp.SlackHi : m >= 7 || m == 9 ? sp.SlackLo : (sp.SlackLo + sp.SlackHi + 1) / 2;
         // Saf plan (özel taş yok): renk 2 eksik (grup bulunabilsin), hedef küçük; kıt renkle birleşmez (tekil hedef taşı özel taşsız toplanamaz).
@@ -548,6 +566,14 @@ static partial class Program
         foreach (var kv in byIndex)
             for (int level = 0; level < depth[kv.Key]; level++) kv.Value.Layers.Add(colorAt[(kv.Key, level)]);
         if (!sp.NoSpecials) d.Capabilities.Add("specials");
+        if (sp.RefillFrac > 0)
+        {
+            d.HasRefill = true;
+            d.RefillCount = Math.Max(6, (int)Math.Round(d.Cells.Count * sp.RefillFrac));
+            d.RefillMinLayers = 2;
+            d.RefillMaxLayers = Math.Max(2, Math.Min(3, sp.LMax));
+            d.Capabilities.Add("refill");
+        }
         return d;
     }
 
@@ -688,11 +714,15 @@ static partial class Program
         d.Goals.Clear();
         int tokens = (d.Cells.Any(c => c.HasBottomStar) ? 1 : 0) + (d.Cells.Any(c => !string.IsNullOrEmpty(c.EnvelopeColor)) ? 1 : 0) + (d.Cells.Any(c => c.SpongeColors.Count > 0) ? 1 : 0);
         int colorGoals = Math.Max(1, Math.Min(sp.ColorGoals, sp.MaxGoals - tokens));
+        // 2026-11-26 yukarıdan dolma: yeni yığınların bu renkten beklenen katmanının yarısı hedefe sayılır (tahtadakinden fazlası
+        // istenebilir; oyuncu dolmayı da kullanır).
+        double refillShare = d.HasRefill ? d.RefillCount * (d.RefillMinLayers + d.RefillMaxLayers) / 2.0 / Math.Max(1, d.Cells.SelectMany(c => c.Layers).Distinct().Count()) * sp.RefillShare : 0;
         for (int i = 0; i < colorGoals && i < goalColors.Count; i++)
         {
             var color = goalColors[i];
-            int avail = LayersOf(d, color, c => c.Protected);
-            if (avail < 4) continue;
+            int avail0 = LayersOf(d, color, c => c.Protected);
+            if (avail0 < 4) continue;
+            int avail = avail0 + (int)refillShare;
             int amount = (int)Math.Round(avail * Math.Min(0.95, frac * mult[i]));
             amount = Math.Max(3, Math.Min(amount, (int)(avail * 0.95)));
             if (sp.Protect) amount = Math.Min(amount, avail - 1);
@@ -987,6 +1017,15 @@ static partial class Program
         }
         // Sıkıştırılmış çözüm bandın altına indiyse bölüm sandığımızdan kısadır: daha büyük hedefle yeniden denenir.
         if (L < sp.LenLo) { ev.Fail = "kısa"; ev.Violation = 50 + (sp.LenLo - L) * 5; return ev; }
+        double softMin = sp.RefillFrac > 0 && !sp.Exact ? V14SoftMin(sp.N) : 0; // kesin hamle bulmacası tabandan muaf
+        if (softMin > 0)
+        {
+            var s0 = LevelLoader.ToState(d);
+            var sbr = new Random(sp.N * 31 + 7); int sw = 0;
+            for (int g = 0; g < 48; g++) if (BotPlay(s0.Clone(), sbr, 0.35)) sw++;
+            ev.Soft = sw / 48.0;
+            if (ev.Soft < softMin) { ev.Fail = "sert"; ev.Violation = 3 + (softMin - ev.Soft) * 20; return ev; }
+        }
         if (sp.Showcase && sp.N >= 4)
         {
             // Vitrin "kolay": plan yapmayan iyi oyuncu yaklaşığı (yumuşak açgözlü bot) yeterince kazanmalı (5. bölüm dar hamle: %15).
@@ -1007,7 +1046,15 @@ static partial class Program
     }
 
     // KATKAT_SALT: üretilemeyen bölüm için başka tahta tohumu (2026-11-22, bölüm 400).
-    static V14Result V14Make(int n) => V14Make(V14SpecFor(n), n * 7919 + 1416 + V14Salt(n), n * 31);
+    static V14Result V14Make(int n)
+    {
+        var sp = V14SpecFor(n);
+        sp.RefillFrac = V14RefillFrac(n);
+        // 2026-11-26: dolma her hamleyi güçlendirir (yeni yığın kayar, grup büyür); çözüm alt sınırı 2 hamle aşağı. Önce "kısa" sayılan
+        // tahtalar rastgele/açgözlü ölçüme hiç girmeden yedek oluyordu.
+        if (n > 10) sp.LenLo = Math.Max(3, sp.LenLo - 2);
+        return V14Make(sp, n * 7919 + 1416 + V14Salt(n), n * 31);
+    }
     static int V14Salt(int n) => n == 400 ? 1 : int.TryParse(Environment.GetEnvironmentVariable("KATKAT_SALT"), out var s) ? s : 0;
 
     /// <summary>Tarif ve tohumla üretim (ana bölüm: <see cref="V14Make(int)"/>; günlük bulmaca kendi tarif ve tohumunu verir).</summary>
@@ -1021,6 +1068,8 @@ static partial class Program
         var mechMiss = new Dictionary<string, int>();
         int maxBoards = sp.Showcase ? 60 : n <= 30 ? 24 : 14;
         double budgetSec = sp.Showcase ? 600 : n <= 100 ? 240 : 420;
+        // 2026-11-26 ikinci tur (KATKAT_PASS2=1): yedek çıkan bölümlere iki kat tahta ve süre.
+        if (Environment.GetEnvironmentVariable("KATKAT_PASS2") == "1") { maxBoards *= 2; budgetSec *= 1.6; }
         for (int b = 0; b < maxBoards && sw.Elapsed.TotalSeconds < budgetSec; b++)
         {
             res.Boards++;
@@ -1051,6 +1100,7 @@ static partial class Program
                 if (best == null || (ev.Sol != null && (best.Sol == null || ev.Violation < best.Violation))) { best = ev; bestShape = shape; }
                 if (ev.Ok) { res.D = ev.D; res.Ev = ev; res.Shape = shape; res.Seconds = sw.Elapsed.TotalSeconds; return Finish(res); }
                 if (ev.Fail == "zor") { if (slack < sp.SlackHi + 3) slack++; else frac *= 0.9; }
+                else if (ev.Fail == "sert") { if (slack < sp.SlackHi + 2 && !sp.Exact) slack++; else frac *= 0.9; }
                 else if (ev.Fail == "beam" || ev.Fail == "vitrin zor") frac *= 0.86;
                 else if (ev.Fail == "uzun") frac *= 0.88;
                 else if (ev.Fail == "kısa") frac = Math.Min(0.95, frac * 1.15);
@@ -1058,6 +1108,12 @@ static partial class Program
                 {
                     if (slack > sp.SlackLo && !sp.Exact) slack--;
                     else frac = Math.Min(0.96, frac * 1.1);
+                }
+                else if (ev.Fail.StartsWith("mek:") && (ev.Fail.Contains("örtü") || ev.Fail.Contains("kilit")) && sp.RefillFrac > 0 && sp.RefillShare < 1.2)
+                {
+                    // Dolmayla hedef örtüye/kilide uğramadan bitiyor: hedef büyür (tahtanın daha çoğu gerekir).
+                    sp.RefillShare += 0.25; frac = Math.Min(0.95, frac * 1.08);
+                    continue;
                 }
                 else if (ev.Fail.StartsWith("mek:"))
                 {
@@ -1070,6 +1126,7 @@ static partial class Program
                     if (ev.Fail == "vitrin başlangıcı yok" && sp.ForcedRotate && !sp.Showcase) mechMiss["rotor"] = mechMiss.TryGetValue("rotor", out var rk) ? rk + 1 : 1;
                     break;
                 }
+                if (frac >= 0.955 && ev.Fail == "kısa" && sp.RefillFrac > 0 && sp.RefillShare < 1.4) { sp.RefillShare += 0.3; continue; } // dolmayla kısa kalan bölüm: hedef yeni yığınları daha çok sayar
                 if (frac >= 0.955 && (ev.Fail == "kısa" || ev.Fail == "rastgele")) break;
             }
             // Dekor kalan mekanik (döner taban, boya, geçit) üç tahtada kullanılmadıysa bölümden çıkar (yerine sade tahta).

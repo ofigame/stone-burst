@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil elmas (ayna); çözüm 7 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil elmas (ayna); çözüm 13 + 5 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_227
-moves: 9
+moves: 15
 roll: off
 specials: on
+refill: 24 2-3
 type: protect
 rules: protect
-goals: yellow 28, purple 10, envelope 3
+goals: yellow 28, purple 15, envelope 3
 grid:
-#     #     #     bcpP  cnp   #     #     #
+#     #     #     bcp   cnpP  #     #     #
 #     #     bcb   bcb   cnc   cyc   #     #
 #     bnn   byn   nnb   nnb   cyb   cyb   #
-ynpEp ynp   byc   nnc   nbc   ybc   yyc   nyc
-bbpP  ybp   yyc   yyc   nbc   byb   bybG  bnc
-cbyP  ccy   ycy   yyn   pynEb pyyG  byyG  bncG
-#     ycp   ycp   ypn   ppn   pby   byyG  #
-#     #     bcb   ypb   ypy   ybyEn #     #
+ynp   cnp   byy   nnc   nbnEb ybc   ypc   nycP
+bbp   ybp   cycG  yycG  nbcG  bybG  bbb   bnc
+cbyP  ccyEp ycy   ybn   pynG  pyy   byy   bnc
+#     ycp   ycp   ypn   ppn   pbyEn byy   #
+#     #     bcb   ppb   ypy   yby   #     #
 #     #     #     ypb   ypy   #     #     #
-solution: 2,3 ; use 0,2,1 ; 5,2 ; use 0,1,2 ; 1,2 ; 2,6 ; 2,2 ; use 1,5,1 ; 4,5 ; use 2,6,2 ; 5,5 ; use 2,2,1
+solution: 3,5 ; 5,5 ; 2,7 ; 1,6 ; 2,1 ; 0,3 ; use 0,5,1 ; 5,5 ; 4,7 ; 1,6 ; use 1,1,6 ; 1,6 ; use 1,3,0 ; 2,5 ; 0,3 ; use 3,2,7 ; 2,4 ; use 3,5,1

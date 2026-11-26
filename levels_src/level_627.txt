@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil kum saati (ayna); çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil L; çözüm 6 + 4 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_627
-moves: 8
+moves: 6
 roll: off
 specials: on
+refill: 27 2-2
 type: resource
 rules: exact
-goals: blue 27, yellow 24, navy 28, star 3
+goals: purple 23, yellow 29, navy 18, star 3
 grid:
-bc    bc    bb    nn    bb    bb    pb    pb
-pc    pn    pn    nn    nn    nb    pb    byR
-pc    yn    py*   pn    nc    pc    pc    pn*
-#     yp    yy    yn    np    np    pp    #
-#     pp    py    ny    nn    ny    np    #
-#     pb    py    ny    ny    ny    nc    #
-yb    yb    by    by    bb    bp    bp    bc
-yc    yp*   yp    np    nb    bb    nb    nc
-yc    yp    pp    yp    yb    bb    nc    cyR
-solution: rot 7,1 ; 1,7 ; 2,2 ; 1,5 ; use 1,2,0 ; 3,0 ; use 0,0,2 ; 6,0 ; use 0,3,0 ; 1,3 ; use 0,7,1 ; 7,6 ; use 1,6,0 ; use 0,2,0
+bc*   bc    bc    by    np    #     #     #
+bb    bc    py    np    np    #     #     #
+bc    cp*   cy    ny    pb    #     #     #
+cc    cp    bp    ynR   pb*   #     #     #
+yn    ncR   nn    py    py    bp    bp    pb
+yy    bb    nc    yn    ny    pb    pb    yb
+by    bb    ny    pc    cy    nn    cy    yp
+pn    yb    yp    py    cy    cn    cn    yb
+pn    yb    yb    cy    cc    yb    yb    yb
+solution: rot 3,3 ; 2,1 ; use 0,0,1 ; 4,0 ; 3,1 ; use 0,3,0 ; use 0,3,0 ; 1,0 ; use 0,0,0 ; 0,1

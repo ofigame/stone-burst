@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil kum saati; çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil merdiven (ayna); çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_367
 moves: 8
 roll: off
 specials: on
+refill: 28 2-2
 type: protect
 rules: protect, exact
-goals: yellow 15, coral 19, star 3
+goals: yellow 13, navy 30, star 3
 grid:
-bc    nc    nc    cpP   cbi1  nb    nb    bb
-bn    nc    cc    bp    cp    np    nb    bb
-bn    by    cy    bpi1  yp    np    by    bb
-#     pb    yb    yb    yc    nc*   ny    #
-#     pp    cc    cc    bc    yc    yc    #
-#     pp    np    cc    bb    bb    bb    #
-ppP   pc    bc    bc    bb    pp    pyi1  nyi2
-np    nc    bp    yp    pp    bp*   by    nyi1
-nn    nn*   yn    yp    ypi2  bb    nb    nyP
-solution: 5,6 ; use 0,0,7 ; 4,3 ; 0,0 ; use 1,1,3 ; 1,2 ; 0,7 ; use 0,1,0 ; use 0,1,4 ; 4,5 ; use 0,0,2 ; 5,0 ; use 0,4,0 ; 2,8
+#     #     #     #     pci2  nc    nn    cnP
+#     #     #     yb    bb    nc    nn    pn
+#     #     cc    cc    bp    bp    pp    bpi1
+#     nn    pc    nc    cc    bc    pp    cp
+nn    pp    pn    nn    cpi1  cp    bn    pn
+pn    yn    py    pn    cp    pp    pn    pn
+npi1  yc*   pn    pc    cc    nb*   pb    cn
+npP   yc    nb    bp*   bc    bc    bc    yy
+by    yy    cb    pb    bbi1  bci2  bc    pyP
+solution: 3,6 ; 5,6 ; 7,4 ; use 2,1,3 ; 1,5 ; 3,6 ; use 2,6,0 ; use 1,5,0 ; use 0,0,4 ; 2,6 ; 6,1 ; use 1,6,0 ; 0,4 ; use 1,3,1

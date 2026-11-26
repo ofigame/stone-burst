@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil kesik köşe (ayna); çözüm 8 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil dikdörtgen; çözüm 6 + 5 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_668
-moves: 8
+moves: 6
 roll: off
 specials: on
+refill: 32 2-2
 type: exact
 rules: exact
-goals: yellow 22, coral 19, blue 30
+goals: blue 22, coral 27, purple 31
 grid:
-#     #     G1:np G1:by G1:by cy    #     #
-#     bp    np    by    by    cy    cpk1  #
-bc    bc    ny    ny    bck1  bc    np    np
-bc    yc    yb    yb    cp    cp    np    np
-yc    yp    bb    bc    py    py    cc    pp
-yb    ybk1  bb    bc    py    py    cc    ppk2
-cb    nb    nb    bb    ny    ny    np    ppB1
-#     nb    nb    bp    bp    nc    nc    #
-#     #     yb    yb    yb    nc    #     #
-solution: 2,3 ; 5,0 ; 6,1 ; use 0,5,0 ; 2,4 ; use 0,1,3 ; 7,4 ; use 0,1,1 ; 1,1 ; 3,1 ; 4,6 ; use 0,3,0 ; use 0,3,0
+nb    nc    G1:cc G1:cc G1:pc nn    pn    pc
+yb    pc    cc    yp    pn    nn    np    pc
+yb    pn    bn    yy    yn    cp    yp    yc
+py    py    nb    cb    nn    cb    yp    yp
+yy    nc    bpk1  cb    nb    yb    ybk2  yp
+yn    nn    nc    nc    pc    bn    nn    nnk1
+yn    by    nc    ncB1  bn    pc    bc    cn
+yb    by    pp    bp    bc    cc    bc    bn
+yc    pc    py    ppk1  np    np    np    np
+solution: 2,5 ; 0,5 ; use 1,1,0 ; 7,0 ; use 1,0,0 ; 0,1 ; 2,6 ; use 1,0,0 ; use 1,0,1 ; 1,0 ; use 0,0,0

@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil çatı; çözüm 12 + 9 tepsi / sınır 16; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil çatı; çözüm 10 + 9 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: level_990
-moves: 16
+moves: 14
 roll: off
 specials: on
+refill: 29 2-3
 type: boss
 rules: protect
-goals: yellow 29, purple 34, coral 26, star 4
+goals: yellow 35, purple 38, coral 32, star 4
 grid:
-#     #     #     bpc   bpcP  #     #     #
+#     #     #     bpc   bpc   #     #     #
 #     bpy   cbc   nbc   bcp   cyc   cyc   #
-nnp   bpy   cby   nby   pcp   yyp   ybb   bbb
-nnp   npp   cbp   cyy   ppp   ppp   ppb   pbc
-pnp   cpb   ypb   yyb*  yyp   nyb   bbp   pycK1:2
-ppb   cbb   ypcK1:2 ypp   bcn   nyp   ybp   ybc
-cpp   cbp   bpp   bcp   bcn*  ycn   ycc   nbn*
-nbp   byp   byb   byy   ncy   ycy   ycc   ybn
-byb   byb   byb   byb   npbP  cpb*  ccc   ybnP
-solution: 1,4 ; 0,2 ; use 1,4,1 ; 1,1 ; use 0,1,1 ; use 0,5,1 ; 6,6 ; 4,5 ; 4,5 ; 1,1 ; use 3,0,6 ; 2,1 ; 7,3 ; 6,2 ; use 0,5,1 ; 7,4 ; 4,3 ; use 3,0,6 ; use 0,5,1 ; use 0,5,1 ; use 0,3,7
+nnp   bpy   cby   nby   pcp   yyp*  ybb   bbb
+nnpP  npp   cbp   cyy   pppK1:1 ppp   ppb   pbc
+pnp   cpb   ypb   yyb   yyp   nyb   bbp*  pyc
+ppb   cbb*  ypc   ypp   bcn   nyp   cbp   ybc
+cppP  cbp   bnp   bcp   bcn   ypn   ycc   nbnK1:1
+nbpP  byp   cyb   byy   ncy*  ycy   yyc   ybn
+byb   cyb   byb   pyb   npb   cpb   ccc   ybn
+solution: 2,7 ; 2,7 ; 3,8 ; use 1,4,0 ; 4,0 ; use 1,6,1 ; use 0,0,4 ; 6,2 ; 4,5 ; 3,0 ; use 2,4,1 ; use 0,1,1 ; 2,5 ; use 0,1,1 ; use 0,1,1 ; 1,5 ; use 0,0,5 ; 2,2 ; use 0,0,5

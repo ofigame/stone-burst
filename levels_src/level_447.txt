@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil elmas; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil L; çözüm 11 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_447
-moves: 8
+moves: 11
 roll: off
+refill: 25 2-3
 type: pure
 rules: noSpecials, exact
-goals: navy 17, yellow 14, sponge 1
+goals: blue 38, coral 21, sponge 1
 grid:
-#     #     #     ccc   bcc   #     #     #
-#     #     bcc   bcc   bcc   bnn   #     #
-#     nnc   nnc   bnb   cbc   cyc   cnc   #
-nyy   nyb   byb   bnb   byb   byc   cnc   ccc
-nyy   nyy   bnySc cnb   cyb   bcc   bcy   bcy
-#     cny   cnn   cbn   cyb   bcc   ccy   #
-#     #     cyn   ccc   ncc   bcc   #     #
-#     #     #     cnc   nnc   #     #     #
-solution: 0,3 ; 3,0 ; 3,2 ; 1,2 ; 5,2 ; 3,4 ; 0,3 ; 1,2
+bbp   bcb   bcc   cnc   pnc   #     #     #
+bbp   nbb   bcc   pnn   pbn   #     #     #
+nnp   nbb   npp   pbn   nbn   #     #     #
+nnp   nbb   pppSn pnb   pbb   bpn   bpn   nnp
+bnp   nnc   bbb   nnb   bcb   nnn   bpn   cnp
+bpc   bcc   bbn   pbc   bcc   pnc   cnc   nnp
+cpb   ppb   bcn   pbc   bbb   cnb   cbb   bpp
+cbb   cbb   bcn   ccn   cpb   ccb   ccb   bcb
+solution: 2,5 ; 3,3 ; 3,1 ; 4,4 ; 2,0 ; 2,4 ; 2,3 ; 0,0 ; 0,0 ; 5,7 ; 0,0

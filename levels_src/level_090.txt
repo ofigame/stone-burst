@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil L; çözüm 6 + 5 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,25
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil L; çözüm 8 + 5 tepsi / sınır 13; rastgele 0,005; açgözlü kaybeder; yumuşak 0,31
 id: level_090
-moves: 11
+moves: 13
 roll: off
 specials: on
+refill: 33 2-3
 type: boss
 rules: protect
-goals: navy 19, purple 29, blue 19
+goals: navy 21, purple 30, blue 22
 grid:
-bnyi1 bnc   cnc   cnc   ypc   #     #     #
-bppP  bnc   cypG  cnp   cpc   #     #     #
-cppi1 cbpG  cypG  cnpG  cpc   #     #     #
-pcn   bbn   ypbG  ypyG  cpc   #     #     #
+bny   bnc   nnc   cnc   ypc   #     #     #
+bpp   bny   cyp   cnp   bpci1 #     #     #
+cpp   cbp   cypi1 cnp   ypc   #     #     #
+pcn   bbn   ypb   ypy   cpc   #     #     #
 bcb   bcb   bbb   ybp   cbp   bbp   cnc   cnc
-bnb   ynb   yyn   yyc   yyb   bbb   bnb   npb
-pyn   yyn   yyn   pyci2 yyn   yyn   bnpi1 npp
-pbn   yyn   yyn   ppn   ppn   ppp   nyc   npp
-yby   yby   ypp   ppp   ppnP  cpp   cpc   cpp
-solution: 1,0 ; 4,0 ; 1,0 ; use 2,0,7 ; use 0,1,0 ; 3,7 ; 7,5 ; use 1,0,6 ; 3,7 ; use 1,7,4 ; use 0,2,4
+bnb   ynb   npn   yyc   yyb   bbb   bnbG  npbG
+pyy   yyni1 cyn   pcc   yyp   yyn   bnpG  nbpG
+pbni2 yyp   yyn   ppn   ppn   ppp   nycG  nppG
+yby   yby   yppP  pypP  ppc   cnp   cpc   cpp
+solution: 2,3 ; 0,5 ; use 1,1,0 ; 0,1 ; use 1,1,0 ; 1,2 ; use 0,4,0 ; use 0,1,1 ; 2,0 ; 1,5 ; use 1,4,0 ; 5,7 ; 0,3

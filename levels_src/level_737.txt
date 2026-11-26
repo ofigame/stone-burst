@@ -4,17 +4,18 @@ moves: 8
 roll: off
 specials: on
 paint: 1
+refill: 27 2-3
 type: order
 rules: exact
-goals: coral 25, blue 30, purple 24, sponge 1
+goals: coral 25, blue 30, purple 25, sponge 1
 grid:
-#     #     pycLb3 byn   pyn   ppn   #     #
+#     #     pyc   byn   pyn   ppn   #     #
 #     cyb   cyb   bpy   bpy   cpn   ybn   #
-yyn   yyb   cpp   cpy   nby   cbb   ybn   ybn
-nbb   yby   cpy   cbp   nnn   ypc   yyc   yyc
-nyb   nny   cpc   bccLb3 bnn   yny   ncy   bbnSnp
+yyn   yyb   cpp   cny   nby   cbb   bbn   ybn
+nbb   yby   npn   cbpSc nnn   ypcLp4 yyc   nycLp3
+nyb   nny   cpc   bcc   bnn   yny   ncy   bbn
 nyp   nny   ccc   bcy   bpp   ycy   ncy   bcn
 bcp   bby   cby   cyy   pbp   ypb   pyn   byn
-#     cbp   cbn   ybp   pbp   ybb   pyb   #
+#     cbp   cbn   ybp   ppp   ybb   pyb   #
 #     #     ccn   ycn   pcb   byb   #     #
-solution: 5,6 ; 7,5 ; use 0,7,2 ; 1,3 ; use 0,1,1 ; 5,4 ; use 0,2,0 ; 4,5 ; 2,0 ; 3,1 ; use 0,3,1 ; use 0,2,0 ; 1,1 ; use 1,5,2
+solution: paint 2,7,p ; 4,5 ; use 0,0,3 ; 1,1 ; 4,6 ; 1,1 ; use 2,1,1 ; 5,3 ; use 2,4,0 ; 3,3 ; use 2,1,1 ; 2,0 ; use 0,2,0 ; use 0,2,0

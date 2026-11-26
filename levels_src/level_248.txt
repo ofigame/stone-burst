@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil elmas; çözüm 8 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil dalga; çözüm 7 + 7 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_248
-moves: 8
+moves: 7
 roll: off
 specials: on
+refill: 28 2-2
 type: exact
 rules: exact
-goals: blue 11, navy 16, envelope 3
+goals: blue 25, navy 18, envelope 3
 grid:
-#     #     #     pp    pp    #     #     #
-#     #     cy    nn    np    ny    #     #
-#     by    by    nn    yp    yy    yyEc  #
-np    cp    pp    yn    ycEb  pc    pp    bp
-cb    cb    py    yn    pn    pn    pp    bp
-#     cp    cp    ncEn  nn    bn    pn    #
-#     #     np    pc    pb    bb    #     #
-#     #     #     yb    yb    #     #     #
-solution: 3,1 ; 5,5 ; 6,3 ; use 2,1,2 ; use 0,1,2 ; use 0,4,0 ; 5,1 ; 3,1 ; 3,3 ; 0,3 ; 1,3 ; use 0,3,0 ; use 0,0,3
+yy    #     yy    #     yc    #     by    #
+py    py    yy    yc    yy    yb    nb    pc
+pn    by    bb    pb    pc    yy    pb    pc
+pn    by    bb    bc    pc    pyEc  yp    yc
+cn    nb    cb    cc    cy    py    pp    yp
+cc    nn    bn    bb    bb    ny    pp    yc
+yc    yc    bc    bc    bp    ynEb  yn    pn
+#     yc    #     pn    #     cn    #     pnEb
+solution: 2,2 ; 4,2 ; use 0,5,1 ; 0,2 ; use 0,7,1 ; 2,3 ; 4,2 ; use 2,2,2 ; 5,2 ; use 2,7,1 ; 4,0 ; use 0,5,1 ; use 1,0,0 ; use 0,2,0

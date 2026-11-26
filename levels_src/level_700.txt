@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dalga; çözüm 13 + 0 tepsi / sınır 17; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil T (ayna); çözüm 20 + 0 tepsi / sınır 24; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_700
-moves: 17
+moves: 24
 roll: off
+refill: 27 2-3
 type: boss
 rules: protect, noSpecials
-goals: navy 24, coral 36, yellow 27, envelope 2
+goals: coral 27, navy 28, yellow 32, envelope 2
 grid:
-cnn   #     G1:nyp #     G1:ccp #     G1:ncn #
-cnn   ppn   npp   ycp   ycn   nnn   ycc   ccn
-cnnP  npp   npp   yyp   cyn   cyn   ycc   ccc
-cny   npp   nyp   yyp   yyn   cyn   ycn   yyn
-cyy   ncy   nnn   ncn   ncy   ncc   ncc   nyc
-cyy   ycp   ynn   ynn   cpy   ypy   yny   cyc
-pcyP  ccnEp yyn   ync   ccp   ycp   ynpB1 ync
-pcyP  ccp   cpc   npc   cpc   ccc   ypp   ync
-#     cyp   #     npcEc #     ycc   #     ycp
-solution: 3,6 ; 4,1 ; 6,1 ; 2,1 ; 3,2 ; 4,5 ; 2,3 ; 3,1 ; 2,4 ; 5,5 ; 3,1 ; 1,6 ; 2,5
+byn   nyb   G1:cyc G1:cby G1:bby byy   ycc   yncEc
+ycy   ycc   yyc   cyy   cny   bby   ycc   ynnP
+ncyP  ccy   yncB1 bbc   byb   byb   bcy   ynn
+ncy   ycc   ync   nny   nbb   nbb   ycc   ybn
+cbb   yby   cnn   nnn   ybc   bnc   bnc   bbnP
+bby   nyy   nny   nnn   cynEb cnb   bnb   nnb
+#     #     yyc   byc   cyy   cyy   #     #
+#     #     yyc   ncy   byy   bbc   #     #
+#     #     nbc   nnb   bnb   bnc   #     #
+solution: 1,1 ; 6,3 ; 3,2 ; 5,0 ; 6,0 ; 2,2 ; 4,4 ; 2,6 ; 1,4 ; 4,5 ; 2,4 ; 4,5 ; 2,5 ; 0,4 ; 1,4 ; 2,1 ; 2,7 ; 2,6 ; 0,0 ; 2,4

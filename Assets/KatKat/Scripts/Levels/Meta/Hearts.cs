@@ -8,7 +8,7 @@ namespace KatKat.Meta
     /// - En çok 5 kalp; eksik kalp her 30 dakikada bir dolar (sayaç ilk eksilmede başlar).
     /// - Kalp yalnız ana bölümde, deneme kaybedilip bırakılınca (yeniden başlat / çık) gider; kazanınca gitmez.
     ///   Geri al ya da reklamla devam ederken gitmez. İlk <see cref="FreeLevels"/> bölüm kalpsizdir.
-    /// - Ödüllü reklam bütün kalpleri doldurur.
+    /// - Ödüllü reklam 1 kalp verir (2026-11-26: önerildi, kullanıcı "Tamam öyle yapalım"; önce bütün kalpler).
     /// Kayıtta eksik kalp sayısı tutulur (eski kayıtta 0 = dolu).
     /// </summary>
     public static class Hearts
@@ -16,6 +16,8 @@ namespace KatKat.Meta
         public const int Max = 5;
         public const int RegenSeconds = 30 * 60;
         public const int FreeLevels = 20;
+        /// <summary>Ödüllü reklamın verdiği kalp (2026-11-26).</summary>
+        public const int AdHearts = 1;
 
         /// <summary>0 tabanlı bölüm sırası kalp kullanır mı.</summary>
         public static bool LevelUses(int index) => index >= FreeLevels;
@@ -70,6 +72,14 @@ namespace KatKat.Meta
         {
             m.heartsInfiniteUntil = Math.Max(m.heartsInfiniteUntil, now) + seconds;
             Refill(m);
+        }
+
+        /// <summary>Kalp ekler (en çok dolu olana kadar); dolunca sayaç durur, değilse kalan süre korunur.</summary>
+        public static void Gain(MetaSave m, long now, int n)
+        {
+            Settle(m, now);
+            m.heartsMissing = Math.Max(0, m.heartsMissing - n);
+            if (m.heartsMissing == 0) m.heartsStamp = 0;
         }
 
         public static void Refill(MetaSave m)

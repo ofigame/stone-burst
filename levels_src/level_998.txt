@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil T (ayna); çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil T (ayna); çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_998
 moves: 9
 roll: off
 specials: on
+refill: 27 2-3
 type: scarce
 rules: scarce
-goals: yellow 11, coral 52, purple 37
+goals: yellow 17, coral 52, purple 37
 grid:
 npc   npb   G1:npb G1:npp G1:ppp ppp   pyb   pcb
-bcc   bcb   bcb   pcp   pcp   ncc   ccc   ccb
-bcci1 bcc   ncy   ccp   cyci1 nyc   nnb   ccb
-bcci1 pbc   ccp   cyp   cyc   nnb   bnb   cnn
-pbc   pbp   bcp   ncpi1 npc   nnc   bcn   pcn
-pbp   nbp   ncp   ncp   ncy   ynb   pcb   pcbi2
-#     #     nbpB1 nbp   nny   ynb   #     #
-#     #     cbc   npb   ncb   ypb   #     #
-#     #     cbc   cpb   pcbi1 ypbi2 #     #
-solution: 3,1 ; use 0,1,0 ; 0,0 ; use 0,6,0 ; 5,2 ; 3,0 ; use 0,0,0 ; 0,1 ; 5,5 ; use 1,5,1 ; 2,0 ; 5,3 ; use 0,2,8 ; use 0,2,0 ; use 0,6,1
+bcc   bcb   bcb   pcp   pnp   ncc   ccc   ccbi1
+bcc   bpc   nyy   ccn   cyc   nyc   nnb   ccb
+bcc   pbc   ccp   cybi1 cycB1 nnb   bpb   cnn
+pbc   pbp   bcn   ncp   npc   pnc   bcn   pcn
+pby   cbpi1 ncpi1 ncp   ncy   ynbi1 pcb   pcp
+#     #     ybp   pbp   cny   ynb   #     #
+#     #     cbc   npy   ncc   ypbi2 #     #
+#     #     cbc   cpbi2 pcb   ypb   #     #
+solution: 7,3 ; 5,1 ; 6,0 ; use 0,6,1 ; use 0,0,0 ; 4,2 ; 2,6 ; use 0,0,0 ; 5,1 ; use 0,0,1 ; use 0,6,1 ; 1,0 ; 3,1 ; use 0,5,2

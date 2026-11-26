@@ -3,15 +3,16 @@ id: level_479
 moves: 9
 roll: off
 specials: on
-goals: blue 34, purple 39, star 4
+refill: 27 2-3
+goals: blue 38, purple 43, star 4
 grid:
-ppy   ppy   cny   cny   cny   #     #     #
-bpy   bpy   bpy   npc   bnc   #     #     #
-bpy   byy   nyc   npc   bnc   #     #     #
-ypy   bpc   npc   cpc   bpy   #     #     #
-ypp   ccp*  ccp   ppc   ppy*  cpp   cpn   cbn
-ycp   cpb   cpb   yyp   yyb   ybp   ybn   cby
-bcp   bcb   pcc*  ybb*  ybb   pbb   nby   nby
-bbp   ycp   pbc   pby   pbc   ycc   pcy   bcy
+ppy*  ppy   cnc   cny*  cny   #     #     #
+bpy   bpy   bby   npc   bnc   #     #     #
+bnb   byy   nyb   npc   bnc*  #     #     #
+ypy*  bpb   nnc   cbc   bpy   #     #     #
+ypp   ccp   ccp   ppc   ppy   cpp   cpn   cbn
+ycp   cpb   cpb   yyp   yyb   ybp   ycn   cby
+bcp   bcb   pcc   ypb   ybb   pbb   nby   nny
+bbp   ycp   pbc   pby   ppc   ycc   pcy   bcy
 ybn   ncn   ncn   npn   nbc   yyc   pyc   byc
-solution: 3,1 ; use 0,0,0 ; 0,0 ; 4,7 ; 4,5 ; use 0,0,1 ; use 0,0,0 ; 3,5 ; 1,4 ; use 0,3,3 ; 6,4 ; use 0,0,6 ; 2,0 ; use 1,0,0 ; use 0,4,1 ; use 0,6,4
+solution: 0,4 ; 3,1 ; use 0,4,0 ; use 0,4,1 ; 4,3 ; 1,4 ; use 0,4,0 ; 0,2 ; use 0,3,1 ; 0,5 ; 3,5 ; use 0,1,0 ; use 1,0,0 ; 2,1 ; use 0,3,0 ; use 0,3,0

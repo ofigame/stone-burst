@@ -1,16 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe; çözüm 7 + 6 tepsi / sınır 10; rastgele 0,005; açgözlü kaybeder; yumuşak 0,17
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T; çözüm 7 + 6 tepsi / sınır 10; rastgele 0,005; açgözlü kaybeder; yumuşak 0,04
 id: level_273
 moves: 10
 roll: off
 specials: on
-goals: blue 37, star 2, envelope 2
+refill: 26 2-3
+goals: purple 38, star 2, envelope 2
 grid:
-#     #     cyn   cnn   ppn   ppn   #     #
-#     byb   byb   ynb   ynb   nbc   bnb   #
-pbp   nyp   ncp   yyc   ync   bbc   bnp   pnp
-nbb   pbb   pbcEc pyc   pnc   bnc   pcp   pcn
-nyb   ynb   bnb   byn   bpc   cbc*  pcy   pcn
-nyc   byn   bnn   ypn   bpc   bbc   byy   byp
-#     bycEc pyc   yyy   ycy   yby   byy   #
-#     #     pbc   pbc   bcy   bby*  #     #
-solution: 6,4 ; 5,1 ; 5,4 ; 0,3 ; use 3,0,4 ; use 0,1,1 ; 2,0 ; 2,0 ; use 1,1,1 ; 1,5 ; use 0,2,1 ; use 0,4,0 ; use 0,0,2
+npp   ppy   cpy   cpn   cnc   npc   bnc*  bnb
+ycp   pcp   ycy   ycn   yyc   cyp   bnc   bnc
+ycp   ppn   ycy   byn   yyn   ccp   pnp   pnc
+ccb   cby   yyy   byp   cnp   cyp   pyb*  pbb
+cyp   bcn   nyp   npn   nnb   bbb   bbb   bbb
+#     #     ncn   nbp   ycpEb ycy   #     #
+#     #     npc   pyp   nyc   yccEp #     #
+#     #     bpp   pyp   nyy   ycy   #     #
+solution: 6,3 ; use 0,0,3 ; 5,1 ; use 0,5,0 ; 4,0 ; use 0,3,0 ; 7,0 ; 1,0 ; use 1,0,0 ; 2,0 ; 0,0 ; use 0,3,0 ; use 0,2,0

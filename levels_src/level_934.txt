@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı; çözüm 9 + 6 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı; çözüm 8 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_934
-moves: 11
+moves: 10
 roll: off
 specials: on
-goals: blue 34, coral 9, navy 45, envelope 3
+refill: 25 2-3
+goals: blue 38, coral 17, navy 48, envelope 3
 grid:
 #     #     yny   ynp   ynp   yyy   #     #
-#     #     yny   ynyi1 yyp   yyp   #     #
-ync   ync   bnb   pnb   ynbEy ynb   bnbi2 bbb
-ypci1 ypyi1 bpp   bnp   bpn   bnn   bpb   bbb
-pnci1 bpyEp bby   nby   nbnEn pbn   pnn   pnb
-pnn   cnb   cnb   cpc   ypn   ypn   ynn   bnn
-ynn   ynn   ync   ypb   ypy   ypy   ynni1 bnn
-#     #     nyc   nyb   bby   ypy   #     #
-#     #     nyc   nbb   bby   bny   #     #
-solution: 4,3 ; use 0,2,2 ; 0,5 ; 1,5 ; use 0,0,4 ; 4,6 ; use 0,4,0 ; use 0,4,2 ; 0,4 ; 0,2 ; 6,2 ; 0,2 ; 2,0 ; use 0,2,0 ; use 0,2,2
+#     #     pny   ycy   yyp   byp   #     #
+ync   yyc   bnni1 pnb   nbb   ynb   nnb   pbb
+ypc   ypy   bpp   bnp   bpni2 bnc   bpb   bbb
+pncEy bpy   pbyi1 nby   nbn   pbn   pnp   pnc
+pnn   cnb   cnb   cpc   bpn   cpp   ynni1 bnb
+ynn   ynn   ync   ypb   ypyi1 ypy   nnnEy bnn
+#     #     nyc   nybi1 bby   ypy   #     #
+#     #     nyc   nbb   bbyEn bny   #     #
+solution: 3,2 ; use 0,0,3 ; 2,2 ; use 0,2,0 ; 7,2 ; 0,3 ; use 0,3,1 ; use 0,5,1 ; 2,1 ; use 0,5,0 ; 3,1 ; use 0,3,0 ; 0,2 ; use 0,4,2 ; 3,5

@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil kenar çentikleri; çözüm 10 + 10 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil kenar çentikleri; çözüm 9 + 8 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_617
-moves: 11
+moves: 10
 roll: off
 specials: on
+refill: 30 2-3
 type: scarce
 rules: scarce
-goals: yellow 26, blue 43, coral 22, envelope 3
+goals: yellow 32, blue 40, coral 28, envelope 3
 grid:
-pbp   pbp   G1:nbb G1:nbb G1:cyb G1:cyn ncn   ccy
-ppp   npp   nbb   nbb   ccb   ccnEp cbp   cbn
-#     #     nnbEb nyb   bcb   ccn   pbn   npy
-#     #     pnb   pyn   bcp   cnp   pnn   nnn
-bbb   bbb   pyb   pyn   bpp   cpy   cpp   npc
-ybb   ccb   cybEp yyb   cyb   ppb   ppc   nyc
-ynb   bnb   ynb   ynb   ycb   bnb   bpy   nyy
-#     #     bpn   ypc   ycc   cbb   bpb   ynyB1
-nbp   nbp   npp   cbp   cbc   bbp   bbb   ynb
-solution: 2,3 ; 2,1 ; use 1,0,5 ; 4,5 ; use 0,7,0 ; 4,3 ; use 0,5,1 ; 4,1 ; 5,6 ; use 0,7,0 ; use 0,7,0 ; use 0,7,0 ; 2,0 ; use 0,0,0 ; 2,0 ; 0,6 ; use 0,5,0 ; 2,7 ; use 0,2,7 ; use 0,0,0
+pbc   G1:pbp nbnEp G1:nbb G1:cyy G1:cyn ccn   ccy
+ppp   npp   nbp   nbb   ccb   ccn   bbp   cby
+#     #     nnb   nyy   bcb   ccn   pbn   npy
+#     #     pnb   pyn   byp   cnp   pnn   nnn
+bbb   bby   pyb   pyn   bpp   npy   cpy   npc
+ybbEy ccb   cpp   nyb   yyc   pbn   ppc   nyc
+yncEy ynn   ynb   cny   ycn   bnb   bpy   nyy
+#     #     bpn   npc   ycc   ybb   bpb   yny
+nbpB1 nbp   npp   cbp   cbc   bbp   bbb   ynb
+solution: 0,1 ; 2,1 ; use 0,0,0 ; 2,0 ; use 0,7,0 ; 3,2 ; 2,3 ; use 1,0,0 ; use 0,0,0 ; 5,0 ; use 0,4,0 ; 5,0 ; use 0,5,0 ; 2,2 ; use 0,6,0 ; 2,0 ; use 0,4,0

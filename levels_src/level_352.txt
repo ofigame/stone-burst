@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T (ayna); çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04; döndürmeyle başlar;
 id: level_352
 moves: 10
 roll: off
 specials: on
-goals: yellow 30, coral 21, purple 38
+refill: 27 2-3
+goals: yellow 28, navy 24, coral 21
 grid:
-ynyR  bcn   pnn   pycR  pcy   ppy   pyp   pyp
-ynb   bcn   nnn   ppb   bpy   ppy   ypn   ppp
-bnb   nnb   nnn   ppn   bbn   ybb   ybn   ypn
-bby   bycR  bbb   ppp   nbp   nbb   nbn   bpc
-cby   byy   bcy   ppnG  ncp   npn   npn   byn
-cby   byy   bcpG  npnG  ncyG  ycyG  ycy   yyy
-#     #     ccp   npnG  npy   ccy   #     #
-#     #     ccp   npc   npc   cby   #     #
-#     #     cpb   cpy   cpy   cby   #     #
-solution: rot 1,3 ; 4,0 ; use 0,3,4 ; 4,5 ; use 0,5,0 ; 0,3 ; 2,4 ; 0,1 ; use 1,3,0 ; 6,1 ; use 0,3,0 ; 3,0 ; use 0,0,0 ; use 0,6,0
+pyn   bbn   bpy   ppy   bby   cpy   cpp   bnp
+yyn   bpb   ppb   pbb   cypR  nbn   cpb   bnb
+ynn   ybb   cbb   pny   cpy   nbn   cpn   ynb
+ycn   ybp   cbb   cyy   npb   nyn   nyp   ynp
+pcn   pbp   ycp   yyp   nyy   cyy   pbb   pnp
+ccn   ccy   bcp   pcp   nnp   yycR  pbb   bnp
+#     #     bbc   pbnG  ppy   ppy   #     #
+#     #     bcbR  bbnG  ypnG  ycn   #     #
+#     #     bpcG  ypcG  bpbG  bpb   #     #
+solution: rot 4,1 ; 1,3 ; 2,0 ; use 1,0,0 ; 1,0 ; use 1,4,1 ; 3,3 ; 5,1 ; use 1,2,0 ; 0,0 ; 3,0 ; use 0,0,0 ; use 2,0,0 ; use 0,0,0

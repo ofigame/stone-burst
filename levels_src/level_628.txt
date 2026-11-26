@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil U; çözüm 9 + 4 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; YEDEK: mek:kilit;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil elmas (ayna); çözüm 7 + 4 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_628
-moves: 9
+moves: 7
 roll: off
 specials: on
+refill: 22 2-2
 type: order
 rules: exact
-goals: blue 41, yellow 21, navy 10
+goals: coral 16, blue 26, yellow 17
 grid:
-pbLc4 G1:pb G1:bb #     #     G1:yc yc    yyk2
-pc    bck1  bn    #     #     yb    yb    yy
-pc    bn    bn    #     #     yb    bb    bp
-py    by    by    bb    yb    ybk1  bpk1  bp
-py    bb    pb    pb    yy    yy    pb    pp
-cp    cp    pb    pn    pn    nn    bb    bcB1
-cb    cc    cc    pp    py    nb    nbk1  nc
-cbLc3 bb    bb    cpk2  cb    cb    yp    yp
-cn    cb    cp    cp    cp    yb    yb    yp
-solution: 3,3 ; use 0,0,5 ; 6,4 ; use 0,2,1 ; 7,2 ; 5,1 ; 5,1 ; use 1,7,1 ; 1,0 ; 6,7 ; 6,7 ; 1,7 ; use 1,2,0
+#     #     #     G1:yp G1:yp #     #     #
+#     #     bb    yp    yb    yb    #     #
+#     bp    bn    cp    cy    bp    bb    #
+ny    pp    ppk1  cn    cy    bpk2  bb    bn
+np    np    bp    bnB1  cy    nn    pnk1  pp
+bcLn5 bck1  bp    bnk1  bp    nnk2  pp    pp
+#     cb    cn    cn    yy    ny    pp    #
+#     #     cn    bn    by    ny    #     #
+#     #     #     bc    ncLn4 #     #     #
+solution: 1,2 ; use 0,4,1 ; 4,2 ; 3,3 ; use 0,2,1 ; 0,5 ; 4,2 ; use 0,2,2 ; 3,2 ; 4,6 ; use 0,2,2

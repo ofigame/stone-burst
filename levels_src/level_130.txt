@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil zikzak; çözüm 9 + 1 tepsi / sınır 13; rastgele 0,050; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil artı (ayna); çözüm 11 + 0 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_130
-moves: 13
+moves: 15
 roll: off
+refill: 28 2-3
 type: boss
 rules: noSpecials
-goals: purple 40, blue 46, navy 55
+goals: yellow 45, navy 37, coral 41
 grid:
-nbn   nbn   nnn   bnn   nnn   npp   ppp   #
-#     nbn   nnn   bnn   bnn   nnn   nnn   nbn
-pnb   pnb   pnb   ppb   ppn   bnn   bnn   #
-#     pnb   bpb   bpb   bnp   bnb   pnb   ppb
-bbb   bnb   bnb   bpp   bpn   bpb   npp   #
-#     pnb   pnb   bpn   bpn   bpnLb5 bpn   bpn
-bnn   pbb   pnn   pbn   pbn   pbnG  bbp   #
-#     nbb   bpb   bnn   bnpG  bppG  npp   nnn
-npb   npb   npb   npn   npn   nppG  npb   #
-solution: 0,2 ; use 0,5,6 ; 0,0 ; 0,2 ; 3,7 ; 5,3 ; 2,0 ; 5,2 ; 3,6 ; 6,3
+#     #     nny   ccc   cyc   cnc   #     #
+#     #     yyy   cny   ccn   nyy   #     #
+cyy   cyy   yyc   ycy   nnnLy5 nnc   cnn   cnn
+yyy   yyn   ccc   ycy   nnn   ncy   nyy   ccn
+cnc   ynn   ncn   ncy   cnn   ycc   nnc   ynnG
+cyy   cyy   ync   ycn   cyn   yyc   yycG  ncyG
+ccy   ccy   ycy   yyn   nyy   cyy   yny   ncyG
+#     #     yyc   ccc   nny   cyy   #     #
+#     #     nnc   cnc   cnn   ccn   #     #
+solution: 1,3 ; 2,2 ; 4,3 ; 2,1 ; 0,2 ; 3,2 ; 3,5 ; 2,1 ; 0,4 ; 3,2 ; 2,3

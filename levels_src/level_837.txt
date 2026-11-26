@@ -1,20 +1,21 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dikdörtgen; çözüm 7 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; YEDEK: kısa;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dikdörtgen; çözüm 6 + 4 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_837
-moves: 7
+moves: 6
 roll: off
 specials: on
 paint: 2
+refill: 32 2-2
 type: resource
 rules: exact
-goals: blue 37, yellow 14, purple 26
+goals: blue 36, yellow 17, purple 24
 grid:
 bb    bc    G1:bn G1:pn G1:by G1:by bb    bb
-bb    bc    pn    pn    by    by    yb    pp
+cb    nc    pn    pn    by    by    yb    pp
 bb    by    bn    np    np    yp    yn    pp
 nb    ny    bp    ny    ny    yn    cn    pb
-pb    pc    pp    pp    nb    nb    cn    pn
-pc    pc    bn    cb    nb    cb    cc    bn
-pc    nc    bn    cb    cp    cp    cc    bn
-np    bp    bnB1  cn    yp    yn    cc    bn
-nn    pp    cb    cb    cn    yn    cn    cc
-solution: 2,5 ; 4,4 ; 6,2 ; use 0,7,1 ; use 0,0,0 ; 4,0 ; 1,4 ; use 0,7,1 ; 4,0 ; use 0,1,0 ; 0,0 ; use 0,0,7 ; use 0,5,0
+pb    pc    pp    pp    nb    nb    yn    pn
+pc    pc    bnB1  cb    nb    cb    cc    bn
+pc    nc    bn    yb    cp    cp    cc    bb
+np    bp    bn    cn    yp    yn    cc    bn
+nn    pp    nb    bb    cn    yn    bn    cc
+solution: 2,5 ; 4,4 ; 6,2 ; use 0,4,1 ; 5,1 ; use 0,0,0 ; 3,0 ; 4,0 ; use 0,3,0 ; use 0,0,0

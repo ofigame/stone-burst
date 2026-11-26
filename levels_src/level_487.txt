@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dikdörtgen; çözüm 10 + 9 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dikdörtgen; çözüm 12 + 7 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,08
 id: level_487
-moves: 10
+moves: 12
 roll: off
 specials: on
+refill: 32 2-3
 type: resource
 rules: exact
-goals: coral 46, navy 32, sponge 1
+goals: coral 40, navy 31, sponge 1
 grid:
-pbc   pbc   yby   yby   npn   nbn   nyc   cpc
-cpc   cpc   nbyG  ncnG  ncn   ybp   yyc   ppc
-cpb   cypG  ybpG  ccnG  nbnG  bbp   byy   pyb
-ypb   yyp   yppG  cnn   cbn   ybn   byy   pyb
-bpy   bnp   bpc   ccc   ccc   ycn   bypSc pyb
-bpb   bnp   npp   cnc   ccc   ypc   byp   byb
+pbc   pbc   yby   yby   npnG  nbnG  nycG  cpc
+cpc   cpc   nby   ncn   ncnG  ybpG  yycG  ppc
+cpb   cyp   ybp   ccn   nbnSny bbpG  byy   pyb
+ypb   yyp   ypp   cnn   cby   ybn   bcy   pyb
+bpy   bnn   bpc   ccc   ccc   ycn   byp   pbb
+bpb   bnp   npp   cnb   ccc   ypb   byp   byb
 bcb   cnp   bpb   bnn   bpc   bpc   npp   bcp
-bby   cby   pbb   cnn   cpn   bcc   ncc   ncc
-bnb   pnb   pnb   pnp   cpp   pbc   pbb   pbb
-solution: 3,3 ; 2,4 ; use 0,2,1 ; 4,0 ; use 0,0,0 ; 0,1 ; use 1,3,1 ; 6,4 ; 2,6 ; 3,6 ; use 1,0,1 ; 6,0 ; use 0,6,0 ; 4,2 ; use 0,4,0 ; 1,4 ; use 0,0,0 ; use 2,5,0 ; use 0,7,0
+bby   cby   pbb   cnn   cpn   bcc   ncn   ncc
+cnb   pnb   pnb   pnp   cpp   pbn   pbb   pbb
+solution: 2,4 ; use 0,3,0 ; 2,6 ; 3,5 ; use 0,4,0 ; 1,2 ; use 0,4,2 ; use 0,0,0 ; 4,5 ; 6,4 ; use 0,1,1 ; use 0,1,2 ; 0,3 ; 0,2 ; 7,3 ; 0,4 ; 0,3 ; 6,7 ; use 1,0,1

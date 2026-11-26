@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U; çözüm 14 + 9 tepsi / sınır 19; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U; çözüm 8 + 6 tepsi / sınır 13; rastgele 0,010; açgözlü kaybeder; yumuşak 0,02
 id: level_290
-moves: 19
+moves: 13
 roll: off
 specials: on
+refill: 33 2-3
 type: boss
 rules: scarce
-goals: purple 32, blue 27, envelope 2
+goals: purple 36, blue 34, envelope 2
 grid:
-bnb   cyb   yybEc #     #     cpb   npp   ypp
-nnp   cyb   cyn   #     #     nbb   ncp   ccb
-ncp   pypG  yyn   #     #     bnb   bnp   pcb
-bcpG  yynG  yyn   ynb   byb   bpb   bcp   pyc
-byn   nynG  yyb   bpn   nyn   bnc   bnn   pyc
-pbc   nyn   ycb   ycy   cyy   cnc   pnnEb ppc
-pbc   nby   nby   ccy   pbp   cpy   cnn   cpp
+bnb   cyb   pyb   #     #     cpb   npp   byp
+nnp   cyb   cbn   #     #     npb   ncp   ycb
+ncp   nyp   yyn   #     #     bnb   bnp   pcb
+bcpEb ybp   ynn   ypb   bcb   bbp   bcp   pyc
+byn   nyn   yyb   bpn   pyn   bnc   bnn   pycG
+ybc   nyn   ycb   ycy   pyb   pnc   ynnG  cycG
+pbc   nby   nbp   ccy   ppp   cpc   cnp   cpbG
 pyy   pny   nbc   bcc   bbb   cbb   cbb   pcn
-nyy   nyy   nby   bcb   bnb   ynp   pcn   pcn
-solution: 5,0 ; 3,5 ; use 0,2,0 ; 5,0 ; use 1,6,0 ; use 0,0,0 ; 7,1 ; use 0,7,0 ; 7,3 ; 7,6 ; 7,7 ; use 0,0,0 ; 0,1 ; 1,3 ; 1,0 ; use 0,5,0 ; 3,3 ; use 1,1,2 ; 2,5 ; use 3,0,0 ; 2,2 ; use 1,0,0 ; 0,5
+nyy   cyy   nbn   bcb   bnb   pnp   pcnEp pcn
+solution: 0,4 ; 0,4 ; use 0,0,0 ; 5,0 ; use 0,6,0 ; 7,7 ; 4,7 ; 4,4 ; use 0,0,6 ; 4,6 ; 1,5 ; use 1,1,0 ; use 0,6,0 ; use 0,6,0

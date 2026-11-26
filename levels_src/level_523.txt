@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U (ayna); çözüm 6 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
 id: level_523
-moves: 10
+moves: 8
 roll: off
 specials: on
-goals: yellow 12, coral 33, navy 33, envelope 3
+refill: 30 2-2
+goals: coral 24, navy 14, yellow 29, envelope 3
 grid:
-ny    nyEp  cb    cb    nb    npEn  yp    yp
-ny    nc    bcK1:2 cc    nb    nn    nc    yc
-nn    nn    bc    cp    bb    cn    cc    yc
-nb    bb    bn    cn    bp    cn    yn    yc
-cb    bb    bnK1:2 bc    cp    cp    pn    pc
-cb    bb    bn    yc    pc    cp    cn    cy
-cp    cp    bn    yb    nb    nb    nn    nbEy
-yp    bp    bb    cb    cc    bc    bc    bb
-yn    yn    bb    cn    bn    bn    bb    bbK1:2
-solution: 6,1 ; 5,1 ; use 0,1,0 ; use 0,0,0 ; 4,3 ; 5,2 ; use 1,0,0 ; 0,3 ; use 1,2,1 ; 2,0 ; use 1,3,5 ; 7,6 ; use 1,4,0 ; 2,0
+pp    pn    by    #     #     yp    py    bp
+pp    pc    bc    #     #     pp    pyK1:2 pp
+nc    pc    pc    #     #     yp    pb    pb
+pcEn  yc    pp    bb    py    bp    bc    py
+pp    pp    yp    yb    cy    cy    ccK1:2 cy
+pn    nc    cp    yb    yy    yp    yp    cy
+pp    ycEb  yp    cb    cp    pbK1:2 py    cy
+np    py    yb    yp    cp    pc    pb    ny
+pp    pb    bbEp  pp    np    np    np    ny
+solution: 1,1 ; 0,0 ; use 1,2,0 ; use 0,1,0 ; 4,6 ; use 0,0,4 ; 0,0 ; 7,7 ; use 0,0,0 ; 0,1 ; use 1,7,0

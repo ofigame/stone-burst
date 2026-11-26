@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven (ayna); çözüm 7 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L (ayna); çözüm 7 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: level_265
 moves: 10
 roll: off
 specials: on
-goals: yellow 28, purple 14, envelope 3
+refill: 30 2-2
+goals: yellow 24, coral 36, envelope 3
 grid:
-#     #     #     #     yy    yy    pc    pn
-#     #     #     cy    cy    yp    pck2  pc
-#     #     bp    bn    bn    bp    bc    bck1
-#     yp    yp    bc    bc    bn    bcEb  bn
-cb    bb    yb    by    ny    nnEc  nc    nn
-py    byk2  cy    by    ny    nc    pc    ny
-pc    py    cyk1  yy    yy    nc    py    ny
-pc    nb    nb    nn    ynEb  nn    cn    cy
-nb    nb    nb    nc    yn    yn    cn    cc
-solution: 1,7 ; 3,4 ; use 0,0,7 ; use 0,5,1 ; 4,0 ; use 0,1,3 ; 6,0 ; 4,4 ; 3,6 ; 6,0 ; use 0,4,0 ; use 1,0,4 ; use 0,6,5
+#     #     #     cb    cb    nn    bn    bn
+#     #     #     yb    nb    cc    nc    by
+#     #     #     nck1  nc    pc    cy    pcEy
+#     #     #     nc    py    cc    bp    pb
+ny    py    nc    nn    yp    yn    byEy  cy
+np    cp    ncEp  yc    yc    bn    bn    cy
+cb    pp    pc    yc    pp    bbk1  bn    cck2
+bb    py    bb    yb    yc    nc    nn    cc
+bb    by    by    cb    cnk2  pc    nn    yc
+solution: 1,7 ; 0,6 ; use 0,7,1 ; 0,5 ; 2,5 ; use 0,4,0 ; use 0,5,1 ; 1,4 ; 4,6 ; use 0,3,1 ; 3,1 ; use 0,4,0

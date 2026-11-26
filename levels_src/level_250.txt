@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil T; çözüm 9 + 0 tepsi / sınır 13; rastgele 0,070; açgözlü kaybeder; yumuşak 0,25
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U (ayna); çözüm 15 + 0 tepsi / sınır 20; rastgele 0,005; açgözlü kaybeder; yumuşak 0,04
 id: level_250
-moves: 13
+moves: 20
 roll: off
+refill: 33 2-3
 type: boss
 rules: noSpecials
-goals: blue 19, yellow 29, envelope 3
+goals: coral 28, blue 37, envelope 3
 grid:
-pnn   bynk1 byp   pyp   yyp   yyy   yyy   npy
-pnp   bnn   bnb   pyp   byp   ynn   nyb   nynk1
-nnp   byb   pyb   pnp   ypn   ypy   ynb   bnn
-nny   nnb   nny   bny   nny   nny   bnb   bnpEb
-pyy   bnb   bny   byy   nyy   npy   bpb   ypp
-yyy   ynb   byb   bybk2 byb   bnb   pnp   pnp
-#     #     yyp   bpb   bnb   bnb   #     #
-#     #     ypp   ypp   ppbEp bny   #     #
-#     #     ypy   pny   pnyEy yny   #     #
-solution: 6,1 ; 2,6 ; 4,5 ; 3,6 ; 2,1 ; 1,2 ; 2,0 ; 2,0 ; 4,0
+cnp   cnp   cpb   #     #     nnb   ccb   ccn
+cpn   nnb   nnc   #     #     nnb   cnb   ccn
+cbb   bnb   bnn   #     #     bnb   bcb   bnn
+cbnk1 cbb   bpb   bnc   pbb   pbc   bbc   bbpEn
+nbb   nbc   ncn   ncb   bbp   npc   npbEb bbp
+cbb   bcb   pcb   bcpEc bbc   cpp   pcb   pcb
+cbb   bcp   npn   cpb   ppc   pbck1 bpn   bpn
+cnp   cpb   pnn   pbp   ppc   ppc   ncb   bcc
+ncn   ncn   nbp   ncn   ppn   npn   nbp   ncck2
+solution: 5,3 ; 5,0 ; 0,4 ; 1,4 ; 5,0 ; 1,1 ; 6,0 ; 6,0 ; 6,0 ; 1,2 ; 0,3 ; 0,3 ; 5,3 ; 4,5 ; 1,1

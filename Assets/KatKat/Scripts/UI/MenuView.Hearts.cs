@@ -104,7 +104,7 @@ namespace KatKat.UI
             tick.Long = true;
             tick.Refresh();
             if (!m.Full && watchAd != null)
-                AdButton("Refill", card, Loc.F("hearts.refill", m.Max), new Vector2(0.5f, 1f), new Vector2(0f, -(540f + 62f)), new Vector2(748f, 124f), watchAd);
+                AdButton("Refill", card, Loc.T("hearts.adone"), new Vector2(0.5f, 1f), new Vector2(0f, -(540f + 62f)), new Vector2(748f, 124f), watchAd);
             for (int i = 0; i < offers.Count; i++)
             {
                 var o = offers[i];

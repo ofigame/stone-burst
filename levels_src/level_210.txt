@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil merdiven (ayna); çözüm 9 + 8 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil merdiven (ayna); çözüm 7 + 6 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: level_210
-moves: 13
+moves: 12
 roll: off
 specials: on
+refill: 31 2-3
 type: boss
 rules: protect
-goals: blue 37, purple 30, envelope 2
+goals: blue 34, purple 33, envelope 2
 grid:
-#     #     #     #     bbn   bbn   pbn   pyc
-#     #     #     ncp   bcb   bpn   bnc   bnc
-#     #     nnb   bcp   bcp   bpc   bpcEc bnp
-#     bpc   ncb   ncp   bny   ync   cnpEb cnp
-bpb   pcb   pcb   pcc   byc   ync   cnc   cbc
-bnb   bnc   nnc   nnc   bbb   ycn   ybn   pbc
-bncP  bnc   npb   npb   cbb   pcn   pcp   pyyP
-bpp   bnp   nnp   npy   ccb   ccy   yyy   yyyP
-bpp   bcp   ycy   ycy   ccc   cyc   ypc   cpc
-solution: 4,5 ; use 0,6,0 ; 2,6 ; use 0,0,5 ; 0,5 ; use 0,6,0 ; 5,2 ; 3,1 ; 4,0 ; use 0,6,0 ; 3,1 ; 4,0 ; 7,2 ; use 0,4,0 ; use 0,3,1 ; use 1,6,0 ; use 0,6,6
+#     #     #     #     bbn   cbn   pbn   pyc
+#     #     #     ncp   pcb   bpn   bcc   bnc
+#     #     nnb   bcp   nbp   bpc   bpb   bbp
+#     bpc   ncb   npp   bny   ync   cnp   cnp
+ypb   pcbEc pcb   pcc   byp   ync   cnc   cbc
+bnb   bnc   nnc   nnc   bbb   yyn   ybn   pbc
+bncP  bnc   npb   npb   cbb   pcn   pnp   pyyP
+bpp   byp   nnp   npy   ccb   ccy   yyy   yyyP
+bpp   ccp   ycy   ycy   cccEc cyc   ypc   cpc
+solution: 4,5 ; use 0,4,0 ; 2,6 ; use 0,0,5 ; 2,2 ; 4,6 ; 5,2 ; use 2,3,1 ; 2,3 ; use 2,3,1 ; 5,0 ; use 2,5,0 ; use 0,6,0

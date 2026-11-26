@@ -3,17 +3,18 @@ id: level_877
 moves: 8
 roll: off
 specials: on
+refill: 28 2-3
 type: order
 rules: exact
-goals: blue 39, yellow 43, navy 30
+goals: blue 40, yellow 42, navy 35
 grid:
-cbc   cbpK1:1 cbc   bnb   bnb   ynb   nnb   #
-#     cbp   nbc   bbbLc5 bcb   ncp   ncb   cyb
-cyc   cyc   npc   nyc   byb   ncc   cyc   #
-#     bpy   bpbLc4 yyb   yyb   cyc   cnc   ybp
-cyp   cyy   cyy   yyb   yyb   cnp   bnc   #
-#     cyn   pcn   ppn   npn   cpp   bncK1:1 ync
-yby   yyy   pyy   bnn   bnp   ypp   bcp   #
-#     yny   ynb   ynb   yyy   ypy   bcc   byc
-cbn   cbn   cbn   nyb   pynK1:1 pyn   pcn   #
-solution: 2,0 ; 2,0 ; 0,2 ; use 1,3,0 ; 3,3 ; use 1,3,0 ; use 0,1,7 ; 0,6 ; 5,4 ; 6,1 ; use 0,6,0 ; use 0,5,0 ; 6,4 ; use 0,1,0 ; use 0,1,0
+cbc   cbp   cbc   bnb   bnb   ynb   nnb   #
+#     cbp   nbc   bbb   bcc   ncp   ncb   cyb
+cyc   cycK1:2 npc   nyc   byn   ncc   cyc   #
+#     bpy   bpn   ycb   yybK1:2 cyc   cnc   ybp
+cnp   cyy   cny   yyb   yybLn4 cnp   bnc   #
+#     cpn   pcn   ppn   npn   cpp   bnc   ync
+yby   yyy   pyyK1:2 bnn   bnp   ppp   bcp   #
+#     yny   ynb   ynbLn3 yyy   ypy   bcc   byc
+cbn   cbn   cbn   nyb   pyn   pyn   pcn   #
+solution: 2,0 ; 2,0 ; 6,1 ; use 0,7,1 ; use 0,3,0 ; 5,4 ; use 0,4,0 ; 4,5 ; 0,6 ; use 0,3,0 ; 5,3 ; 3,1 ; use 0,4,3 ; use 0,3,0 ; use 0,3,0

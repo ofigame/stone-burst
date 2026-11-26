@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe (ayna); çözüm 8 + 7 tepsi / sınır 13; rastgele 0,005; açgözlü kaybeder; yumuşak 0,17
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil L (ayna); çözüm 7 + 6 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: level_170
-moves: 13
+moves: 12
 roll: off
 specials: on
+refill: 30 2-3
 type: boss
 rules: scarce
-goals: blue 38, purple 35, star 2
+goals: yellow 34, purple 39, star 2
 grid:
-#     #     ynp   ycp   ypb   npb   #     #
-#     cbb   ycy   ycy   nyb   npb   ppc   #
-ccy   cby   pbb   pcy   byb   bpb   bpb   pnp
-ccn   ncy   nby*  nby   nyn   ynb   pnb   pnp
-ccb   cpb   bbn   bby   byn   ybb   pbb   ppb
-ycp   ybb   bbn   yyn   ynn   yny   bnn   ppn
-ybpLy4 ybn   ccn   ycy   pcc   ncy   npy   ppc
-#     byn   byy   pcy   ppc   npn   npn*  #
-#     #     ppc   ppc   pyc   pyc   #     #
-solution: 4,3 ; 2,1 ; 4,0 ; use 0,0,3 ; 2,0 ; use 0,1,1 ; 2,6 ; 3,7 ; use 0,2,0 ; 3,0 ; use 0,2,2 ; 2,0 ; use 1,0,6 ; use 2,4,0 ; use 0,6,6
+#     #     #     cbc   cbc   ycb   bny   yny
+#     #     #     cyy   yyc   ycb   ycc   yny
+#     #     #     cpb   pyb   bcb   byc   yyc
+#     #     #     bpn   cpn   cbc   bcp   bnp
+cpb*  bbb   cnn   bnn   cbc   cbc   npb   nnp
+cpp   bpb   ypc   bnc   pcp   pcc   ppb   pnp
+cyp   yyp   nyn   ync   ppc   ppy   npbLc4 nnp
+ycp   ypp   cpn   ycc   ycc   bcy   byy   npn
+ypp   npp   cpn   bcn*  bpc   bpb   bpb   bbn
+solution: 2,6 ; 0,5 ; 2,5 ; use 0,5,0 ; use 0,3,3 ; 4,0 ; 5,0 ; use 0,5,0 ; 0,6 ; use 0,4,1 ; use 0,4,0 ; 6,0 ; use 0,7,0

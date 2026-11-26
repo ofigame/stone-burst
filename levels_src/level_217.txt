@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil artı (ayna); çözüm 7 + 7 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil zikzak; çözüm 5 + 5 tepsi / sınır 5; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_217
-moves: 7
+moves: 5
 roll: off
 specials: on
+refill: 32 2-2
 type: exact
 rules: exact
-goals: yellow 18, blue 26, envelope 2
+goals: purple 22, yellow 28, envelope 2
 grid:
-#     #     cn    cb    yb    yb    #     #
-#     #     yn    yb    py    py    #     #
-by    by    ypi1  bp    bb    nbEb  nc    nc
-bc    by    yc    bp    pp    pp    pc    nc
-bc    nb    yc    bc    pci1  pn    nn    nn
-np    nb    yc    cc    cn    cn    nn    nnEc
-yp    nb    nb    cb    cpi2  yb    ybi2  yb
-#     #     nb    np    bp    bb    #     #
-#     #     nc    yc    yp    bp    #     #
-solution: 2,3 ; 2,2 ; 3,0 ; 0,2 ; use 2,0,2 ; use 0,7,2 ; 4,0 ; use 0,0,6 ; 7,2 ; 4,6 ; use 1,2,8 ; use 1,0,6 ; use 0,4,0 ; use 0,5,0
+#     yb    yp    cp    bn    nn    pc    cy
+pn    yb    pc    cp    nb    nc    pc    #
+#     yy    ny    cy    yb    nc    pn    bn
+pp    ny    nc    bc    yb    yb    yn    #
+#     cb    yyEp  cpi2  cb    cy    cy    yy
+ppEy  ypi1  yb    yp    pbi1  by    bc    #
+#     bp    bp    yni2  nn    bc    bc    bp
+bc    np    np    yn    yn    cc    bc    #
+#     cb    cc    cp    nc    cc    yp    yp
+solution: 4,1 ; 1,2 ; 5,2 ; use 1,2,0 ; use 0,1,0 ; use 0,2,0 ; 2,0 ; 1,4 ; use 0,1,0 ; use 0,7,0

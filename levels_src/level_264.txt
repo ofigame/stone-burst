@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil L; çözüm 3 + 2 tepsi / sınır 10; rastgele 0,945; açgözlü kazanır; yumuşak 1,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil kenar çentikleri; çözüm 6 + 5 tepsi / sınır 13; rastgele 0,040; açgözlü kaybeder; yumuşak 0,81
 id: level_264
-moves: 10
+moves: 13
 roll: off
 specials: on
-goals: navy 22, blue 25
+refill: 46 2-2
+goals: purple 44, coral 34
 grid:
-bc    bc    bb    bb    nb    #     #     #
-bc    bc    bb    nb    ny    #     #     #
-bb    yb    nb    nb    ny    #     #     #
-yb    yb    bb    nb    ny    #     #     #
-yb    yn    bn    bn    by    cy    cy    cy
-cb    yc    bn    cc    cb    yc    cy    cy
-yb    yc    yc    cc    cc    cc    cc    ny
-yc    yc    yc    nn    cn    nc    nc    nc
-bc    bc    yc    nn    nn    nn    nc    nc
-solution: 2,0 ; 0,5 ; use 0,4,0 ; use 0,2,0 ; 3,7
+pc    py    yy    #     yc    py    pp    pp
+cc    py    py    #     yb    pp    by    bp
+#     #     pb    cy    yp    yb    pp    bc
+by    yp    bb    cy    py    yp    pp    bp
+by    bc    py    yy    yp    pp    cy    cb
+#     #     pc    yc    yc    pb    pp    pb
+cb    pb    yc    cb    yb    yb    pb    by
+cy    pb    by    cy    bc    bc    bc    cc
+cp    yp    yy    yy    bc    bc    #     cy
+solution: 4,7 ; 5,5 ; use 1,7,0 ; 3,2 ; use 1,0,0 ; 4,1 ; 7,4 ; 4,1 ; use 1,7,0 ; use 1,5,0 ; use 0,0,0

@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil çatı (ayna); çözüm 15 + 0 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil elmas (ayna); çözüm 18 + 0 tepsi / sınır 18; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_898
-moves: 15
+moves: 18
 roll: off
+refill: 22 2-3
 type: pure
 rules: noSpecials, exact
-goals: yellow 25, purple 34, coral 21, star 4
+goals: navy 26, yellow 23, coral 20, star 4
 grid:
-#     #     #     pcp   ppp   #     #     #
-#     ypn   cpn   cpn   ppn   pcn   ncc   #
-pyy   yyn   ccn   ncn*  pcpi1 pcp   pcp   yyn
-pypi1 yyp*  cpp   npp   cnp*  cyc   pyc   pyc
-pnni2 ynn   cpn   ccp   cnp   cpc   cyni1 pyci2
-ppn   ypn   yyn   ccp   ccp   npn   pcn   pnp
-ypn   ypn   yyn   pyp   cny   nny   pnn*  pnp
-ycy   yyy   pyyi1 pyy   pyy   nnp   nyp   pnp
-ycy   ycn   pyn   pyn   pyy   npp   pnp   pnp
-solution: 1,1 ; 3,0 ; 3,0 ; 1,4 ; 2,5 ; 2,5 ; 7,5 ; 2,3 ; 3,2 ; 2,2 ; 1,1 ; 0,2 ; 6,4 ; 5,6 ; 7,5
+#     #     #     nnni1 npp   #     #     #
+#     #     cny*  ynn   ncn   pcp   #     #
+#     ncp   pny   ynn   pcni2 ppy   nyp   #
+ccn   ycp   nnp   npy   ppy   pyp   nyp   nyc
+ccn   npp*  nnc   ncy*  cny   ccp   pyc   nnc
+ccn   nyp*  yyci1 cyc   npp   cnp   pyc   pnyi1
+#     nyc   ypp   pyy   nny   nyn   pcyi1 #
+#     #     ypp   ypy   pyy   nnni2 #     #
+#     #     #     pny   pyy   #     #     #
+solution: 3,3 ; 1,2 ; 2,4 ; 1,5 ; 0,3 ; 3,1 ; 3,0 ; 2,1 ; 2,2 ; 1,2 ; 0,3 ; 7,3 ; 5,2 ; 3,0 ; 3,4 ; 2,1 ; 0,5 ; 0,4

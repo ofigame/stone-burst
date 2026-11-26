@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil merdiven (ayna); çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil merdiven (ayna); çözüm 13 + 0 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_587
-moves: 9
+moves: 13
 roll: off
+refill: 28 2-3
 type: pure
 rules: noSpecials, exact
-goals: navy 29, blue 35, coral 21
+goals: navy 30, blue 37, coral 29
 grid:
-#     #     #     #     cnp   bnc   bnp   bnb
-#     #     #     cbb   cnn   bnc   bnp   pnp
-#     #     bpc   cbb   pbn   bnc   cnp   pbb
-#     npb   ppc   pbb   pnn   bnc   cbc   cbc
-ppn   npb   cbb   cnb   nnn   nnb   nbn   bnc
-pnn   nnp   cnp   cnn   ncb   pcb   pbnK1:2 bbn
-ppn   cnnK1:2 ccn   ccn   bcb   bcc   bbn   bbb
-ppn   pnn   nbb   nbb   bbb   ncc   bbc   bbb
-ppp   pcp   pcp   nbp   bbp   ncb   bcc   bcb
-solution: 5,0 ; 5,4 ; 5,0 ; 5,0 ; 4,3 ; 4,5 ; 6,5 ; 4,4 ; 3,4
+#     #     #     #     cnp   bpc   bnp   bcb
+#     #     #     cbb   cnn   bcc   bnp   pnp
+#     #     bpc   cbb   pbnK1:2 bnc   cnp   pbb
+#     npb   ppc   pbb   pnn   bpc   cbc   cbc
+ppn   npb   cbb   cpb   nnn   nnb   nbn   bnc
+pnn   ncp   cnp   cnn   ncb   pcb   pbn   ccn
+ppc   cnn   ccn   ccn   bcb   ccc   bbn   bbb
+ppn   pnn   nbb   nbb   bbb   nnc   bpc   bnb
+ppp   pcp   bcpK1:2 nbp   bbp   ncb   bcc   bcb
+solution: 5,0 ; 6,4 ; 7,2 ; 4,0 ; 4,0 ; 3,1 ; 4,5 ; 6,3 ; 6,0 ; 4,6 ; 4,4 ; 7,1 ; 2,2

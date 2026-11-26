@@ -3,17 +3,18 @@ id: level_277
 moves: 7
 roll: off
 specials: on
+refill: 33 2-3
 type: resource
 rules: exact
-goals: blue 46, navy 33, envelope 3
+goals: blue 32, navy 28, envelope 3
 grid:
-cpy   cpn   cyn   #     #     cnb   bnb   nnp
-cpy   bpy   byn   #     #     ccc   bnp   nypEn
-cbyEc ncni1 ncn   #     #     cyc   cbc   yyp
-nbp   ncb   ccn   cpy   npy   nyp   cyb   yyc
-nbp   nbb   bbb   cpc   npc   nyb   yyb   ypc
-pyb   yyp   ypp   bpp   ynci1 ynb   bnb   ypb
-pyb   yyp   ypn   bpn   byn   byb   bnb   bpb
-nbb   nbn   ybc   bbci2 pbn   cby   cyy   byc
-pbb   ncn   bcc   bbcEc pbp   cbc   cyc   ncc
-solution: 6,3 ; use 0,7,0 ; 0,3 ; use 0,1,0 ; 3,3 ; use 0,5,1 ; 3,7 ; 6,5 ; 3,3 ; use 0,5,0 ; use 0,5,0 ; 0,0 ; use 0,2,0
+cpy   cpn   cyn   #     #     cnb   bnbEc nnp
+cpyEy bpy   byn   #     #     ccc   bnp   nyp
+cby   ncnEn ncn   #     #     cyc   cbc   yyp
+nbp   ncb   ccni1 cpy   npy   nyp   cyb   yyc
+nbp   nbb   bbb   ccc   npc   nyy   ybb   ypc
+pyb   yypi2 ypp   bpp   ync   ynb   nnb   ypb
+pyb   yypi1 ypn   bpn   byn   byp   bnb   bpb
+npb   nbn   ybc   bbc   pbn   cby   cyy   pyc
+pbb   ncn   bcc   nbc   ppp   cbc   cyc   ncc
+solution: 6,3 ; use 0,1,0 ; 2,0 ; use 0,6,0 ; 2,7 ; 0,5 ; use 0,0,7 ; use 0,6,1 ; 0,0 ; use 0,0,0 ; 0,0 ; 0,0 ; use 1,2,0

@@ -42,11 +42,13 @@ namespace KatKat.Meta
         public float SearchSeconds = 5f;
         public int ExtraMoves = 1; // 2026-11-09: +1 hamle ve 1 taş yerleştirme (kullanıcı)
         public int ExtraMovesPerLevel = 1;
-        public int InterstitialFirstLevel = 11;
-        public int InterstitialEveryLevels = 4;
-        public float InterstitialMinSeconds = 240f;
-        public float InterstitialAfterRewardedSeconds = 120f;
-        public int InterstitialSessionCap = 8;
+        // 2026-11-26 (kullanıcı: "hem oyuncuyu boğmayalım hem de para kazanalım"): 11→8. bölüm, 4→3 bölümde bir, 240→150 sn,
+        // ödüllüden sonra 120→90 sn, oturum sınırı 8→12 (Resources/Ads/ad_config.json ile aynı).
+        public int InterstitialFirstLevel = 8;
+        public int InterstitialEveryLevels = 3;
+        public float InterstitialMinSeconds = 150f;
+        public float InterstitialAfterRewardedSeconds = 90f;
+        public int InterstitialSessionCap = 12;
 
         public static AdConfig Parse(string json)
         {

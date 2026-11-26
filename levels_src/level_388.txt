@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil çatı; çözüm 8 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar; YEDEK: mek:rotor;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil çatı; çözüm 8 + 4 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,08
 id: level_388
 moves: 8
 roll: off
 specials: on
+refill: 29 2-2
 type: exact
 rules: exact
-goals: purple 35, yellow 16, blue 14
+goals: purple 18, blue 25, yellow 32
 grid:
-#     #     #     cy    cy    #     #     #
-#     by    ynR   by    yc    yc    pc    #
-bn    bn    ny    ynR   yp    cc    pc    pc
-bn    cn    yc    yc    yp    cn    cn    pn
-cy    cy    cc    cp    bn    bn    pc    pn
-pp    cp    cp    cp    bp    bb    pb    pn
-pp    cp    yn    yn    pp    bn    pn    pn
-pp    pp    pp    cn    pn    bp    nn    nn
-nb    np    pp    cc    pc    pbR   nn    nn
-solution: 5,3 ; 4,1 ; use 0,6,1 ; 4,4 ; use 0,3,0 ; 2,1 ; use 0,1,1 ; 0,5 ; 1,3 ; 3,2 ; 2,6 ; use 0,0,6 ; use 1,6,5
+#     #     #     nb    ny    #     #     #
+#     yp    yp    cb    py    yy    bc    #
+cy    cc    yc    pb    py    ypR   bc    bp
+cy    bn    bc    yy    yc    py    cc    bp
+cy    by    cb    cb    cy    ny    cc    np
+yy    cy    cb    bcR   py    ny    nc    nb
+yy    cn    pcR   bp    bp    np    yb    nb
+bn    bn    by    cc    cy    cy    yy    yy
+bn    cn    cy    cb    pb    pb    pc    pc
+solution: rot 5,2 ; 4,0 ; 0,2 ; use 1,3,0 ; use 0,1,1 ; 1,4 ; 0,2 ; 0,2 ; 3,1 ; use 1,3,0 ; 6,6 ; use 0,1,1

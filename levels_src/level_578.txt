@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil dikdörtgen; çözüm 11 + 7 tepsi / sınır 12; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil dikdörtgen; çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_578
-moves: 12
+moves: 9
 roll: off
 specials: on
+refill: 32 2-3
 type: scarce
 rules: scarce
-goals: navy 46, yellow 20, purple 36, sponge 1
+goals: navy 45, yellow 27, purple 44, sponge 1
 grid:
-pyn   pyn   yyy   yyy   bcc   ycp   nbp   bbp
-pycK1:2 pyp   pyp   nyp   nyc   nyc   bpn   bbp
-pbn   cnb   cpp   bnp   byc   cyp   cpp   bpp
-ccb   cpb   nnp   bnc   bnb   cby   nyc   nyp
-ycp   cyy   pnp   nnc   pcb   nyy   cpy   ccpK1:2
-bbp   cyy   cyn   cnc   ccb   nyn   npy   ccn
-bbp   byp   byn   ncn   ccb   nbb   nnp   nny
-ncp   npp   cnp   ynn   pcp   pnb   pny   npy
-ncp   ppp   ppc   pnn   pnp   cbpScp ccc   npc
-solution: 5,0 ; use 0,1,1 ; 2,3 ; use 0,4,0 ; 2,0 ; 3,1 ; 1,7 ; 7,6 ; use 0,0,0 ; 3,2 ; 6,7 ; 6,6 ; 0,4 ; use 3,5,0 ; 4,4 ; use 0,4,3 ; use 2,6,0 ; use 1,6,0
+pyn   pyn   yyy   yyy   ncc   ccp   nbp   bbp
+ppb   pybK1:1 pyp   nyp   nbc   nyy   bpn   bby
+pbn   cny   cyp   bnp   bpc   cyp   cpp   bpp
+ccb   ycb   nnp   bcc   bnb   cny   pyc   nyp
+ycp   cny   nyp   npc   nnb   byy   npy   ccpK1:1
+bbp   cyy   cby   cyc   ccb   nyn   npn   ccn
+bbc   byp   byn   ycn   ncb   ybb   nnn   nby
+ncp   cpp   cnp   nyn   pcp   pnb   pny   npy
+ncp   ppp   ppcSbc pnn   pyp   cnp   cnc   ppc
+solution: 1,6 ; use 0,2,0 ; 1,4 ; use 0,2,0 ; 4,0 ; 3,1 ; use 0,3,0 ; 4,1 ; use 0,0,0 ; 4,7 ; use 0,0,0 ; 0,0 ; use 0,2,2 ; 3,3 ; use 0,4,0

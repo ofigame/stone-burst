@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil çatı (ayna); çözüm 13 + 0 tepsi / sınır 17; rastgele 0,020; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil çatı (ayna); çözüm 25 + 0 tepsi / sınır 29; rastgele 0,010; açgözlü kaybeder; yumuşak 0,00
 id: level_970
-moves: 17
+moves: 29
 roll: off
+refill: 29 2-3
 type: boss
 rules: noSpecials
-goals: blue 21, coral 32, purple 26, star 4
+goals: blue 22, coral 26, purple 24, star 4
 grid:
 #     #     #     cpb   cpb   #     #     #
-#     npp*  nnp   cnb   ncb   nnp   nnp   #
-bnb   npp   pnc   pcb   ccb   cnn*  nnb   cbb
-bnb   bpc   ppc   pbb   ccn   cnn   nbn   cbn
-pnn   pnc   pbc   nbc   nbc   npn   nnc   nbc
-ppc   pnc   nbp   ncc   npc   npc   bnc*  bbc
-bpc   ppc   npp   ncc   npb   ncb   ncb   ncc
-bcc   cpc   cpp*  ncc   npp   bpp   bpp   bcp
-bpb   cpc   cpc   pcc   pcc   pcb   bpb   ccb
-solution: 2,2 ; 5,2 ; 6,2 ; 3,5 ; 5,4 ; 3,0 ; 5,2 ; 1,1 ; 4,1 ; 0,7 ; 2,1 ; 1,1 ; 1,1
+#     npp   nnp   cnb*  bcb   nnp   nnp   #
+bnb   npp   pnn   pcb   ccb   cnn   nnb   cbb
+bnb   bpn   ppp   pbb   ccn   cnn   pbn   cbn
+nnn   pnc   pbc   nbc   pbc   npn   cnc   nbc
+ppc   nnn   cbp   ncc   npn*  ppc   bnc   bbc
+bpc   ppc   bnp   ncc   npb   ncb   pcb   ccc
+bcc   cpn*  cpp   bcc   npp*  bbp   bpp   bcp
+bbb   cpc   cpc   pcp   pcn   pcb   bpb   ccb
+solution: 1,4 ; 3,0 ; 4,7 ; 4,6 ; 6,4 ; 0,5 ; 6,6 ; 2,3 ; 5,7 ; 4,6 ; 4,3 ; 4,6 ; 5,2 ; 5,3 ; 3,5 ; 3,4 ; 2,5 ; 7,4 ; 5,5 ; 1,3 ; 1,6 ; 2,7 ; 1,6 ; 1,2 ; 0,7

@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe (ayna); çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil zikzak; çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_879
 moves: 9
 roll: off
 specials: on
-goals: coral 27, blue 37, navy 31, envelope 3
+refill: 24 2-3
+goals: navy 29, purple 32, yellow 27, envelope 3
 grid:
-#     #     nyp   cyn   pyn   #     #
-#     nyp   nyp   pyn   pyy   npyEc #
-cyb   cybEy nyy   bnc   npc   npc   bpy
-bbb   bnb   bny   bbc   ncc   npc   npy
-cbn   bcn   bnn   bbn   bcn   nbbLc5 nbb
-cbnEn ccn   pnn   pyc   cpb   cpb   bbc
-bcb   bcb   bnb   bcn   bpc   pyc   byc
-#     bcb   yyn   ccn   bcn   pyn   #
-#     #     yyy   ycn   ppn   #     #
-solution: 0,4 ; 3,2 ; use 1,2,0 ; 3,3 ; use 1,3,0 ; 3,5 ; 0,2 ; 0,4 ; use 1,0,3 ; 2,0 ; use 0,0,2 ; use 0,2,0 ; use 0,3,0 ; 2,5 ; use 0,0,3
+yyb   ypb   byc   pyc   yyc   yyc   #
+#     ycb   ppp   bnp   cnn   yyb   nyp
+ncy   ncb   bpb   bcp   ccn   ccb   #
+#     cyb   cpb   bpp   bbb   cbb   bbp
+ccn   ccp   ncn   bpn   cpn   cbn   #
+#     ncp   ncnEy ncp   cbn   nbp   nnc
+bpn   npb   ycb   ynn   nnc   npp   #
+#     pnb   pyb   nnyLp5 yny   yyy   yyp
+pyc   pyc   pyc   cpcEy cpbEn cpy   #
+solution: 2,4 ; 2,1 ; use 1,2,0 ; 2,7 ; use 0,0,6 ; use 0,1,7 ; 2,2 ; 0,0 ; use 0,0,0 ; use 0,1,0 ; 1,6 ; 0,2 ; use 0,3,1 ; use 0,1,1 ; 2,0

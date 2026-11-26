@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil elmas; çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil elmas; çözüm 9 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_577
-moves: 8
+moves: 9
 roll: off
 specials: on
+refill: 22 2-3
 type: protect
 rules: protect, exact
-goals: purple 20, yellow 18, navy 23, envelope 2
+goals: purple 23, yellow 24, navy 29, envelope 2
 grid:
-#     #     #     bpp   ypp   #     #     #
-#     #     ppyEc bpy   ypp   ycp   #     #
-#     bpy   cpy   cpc   ycc   ycc   cyc   #
-ppb   bpn   cbn   cbn   cbn   cpc   cpy   ncpP
-ppnEb cbb   cbb   cbc   bnc   ppp   ppp   ncp
-ypn   cnb   nnc   cnc   bnc   ync   nby   ncy
-#     nnc   nnc   nyc   cnb   ynb   nby   #
-#     #     nyc   nyc   cnb   yyb   #     #
-#     #     #     nybP  cbbP  #     #     #
-solution: 3,4 ; 3,2 ; use 0,3,1 ; 1,3 ; use 0,0,4 ; 3,0 ; 5,1 ; 3,0 ; use 0,4,0 ; 1,2 ; 0,4 ; use 1,0,4 ; use 2,6,2 ; use 0,7,4
+#     #     #     bnp   ypp   #     #     #
+#     #     ppy   bpy   ypp   ycp   #     #
+#     byy   npy   cpc   ycc   ycc   cyc   #
+ppb   bpn   pbn   cbn   cbn   npc   cpy   ncpP
+ppnP  cbb   cbb   nby   bnc   ppp   ppp   ncpP
+ypn   cnb   npc   cnc   bnc   yncEp nby   ncy
+#     nnc   nnn   nyc   cnb   ynb   nby   #
+#     #     nyp   nyn   cpbEp yyb   #     #
+#     #     #     nyb   cbb   #     #     #
+solution: 4,4 ; 1,3 ; use 1,2,7 ; 2,3 ; use 0,5,1 ; use 0,2,1 ; 2,6 ; use 0,4,0 ; 2,1 ; 4,3 ; 4,0 ; 3,1 ; use 2,2,1 ; use 0,4,1 ; use 0,0,5 ; 2,5

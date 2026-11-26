@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil U; çözüm 11 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil U; çözüm 12 + 0 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_758
-moves: 11
+moves: 12
 roll: off
 paint: 2
+refill: 30 2-2
 type: pure
 rules: noSpecials, exact
-goals: yellow 20, blue 16, navy 22
+goals: yellow 24, blue 21, navy 23
 grid:
-cc    cy    cyk1  #     #     ny    nyk1  cn
+cc    cy    cy    #     #     ny    nyk1  cn
 nc    yc    yc    #     #     nb    ny    cy
-nn    yb    yb    #     #     bc    bn    cn
-yn    yy    ynk1  nn    bn    bc    yb    yb
-ny    ny    ny    nn    nnk1  cc    yb    ybk1
-nn    nb    nb    nb    yn    cc    yb    cb
-nn    nn    nb    nc    yc    yn    cn    cn
-cb    nb    yb    nc    yc    nb    bb    bb
-cb    cy    yy    yyk2  yy    nb    nb    ny
-solution: 1,5 ; 3,6 ; 3,3 ; 4,5 ; 6,3 ; 1,3 ; 0,2 ; 6,3 ; 5,7 ; 0,3 ; 2,8
+nn    yb    yb    #     #     bc    bn    cnk1
+yn    yy    yn    cn    bn    bc    yb    yb
+ny    by    ny    nn    nn    cc    yb    yb
+cn    nb    yb    nb    yn    cc    yb    cb
+yn    nn    nb    bck2  yc    yn    cn    cn
+cb    nc    yb    nc    yc    nbk1  bbk1  bb
+cb    cy    yy    by    yy    nb    nbk1  ny
+solution: 1,5 ; 1,3 ; 0,2 ; 5,2 ; 5,1 ; 5,1 ; 6,1 ; 2,3 ; 2,6 ; 5,6 ; 5,7 ; 6,7

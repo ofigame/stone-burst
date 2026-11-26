@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil kum saati (ayna); çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil zikzak; çözüm 6 + 5 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_358
-moves: 8
+moves: 6
 roll: off
 specials: on
+refill: 28 2-2
 type: reverse
 rules: exact
-goals: navy 21, coral 20, purple 37
+goals: purple 26, coral 36, blue 23
 grid:
-yb    py    pn    bp    np    bp    bci1  bc
-yb    py    bn    bp    npk1  pc    pb    bbi1
-yb    pb    bn    bb    bp    py    cp    cp
-#     pb    pb    pb    ny    py    cy    #
-#     pb    py    py    pn    cc    cc    #
-#     pb    py    pbi2  pn    nn    nn    #
-cp    pp    pb    nb    pc    yn    nb    nb
-pn    bck1  pck2  nn    pn    pc    cb    ybi1
-pn    bc    pc    np    cn    cck1  cc    cc
-solution: 0,0 ; use 0,2,0 ; 1,2 ; use 0,7,0 ; 5,2 ; 2,0 ; 6,2 ; 4,4 ; use 1,3,0 ; use 0,4,0 ; use 0,2,0 ; 2,4 ; 0,0 ; use 0,1,0
+pn    pn    py    ny    cp    cb    bc    #
+#     pb    pb    py    py    bb    bc    cn
+yc    cy    yn    yn    yn    bn    bc    #
+#     yn    cb    cn    cpk1  bb    bci1  yc
+cn    yn    yp    cc    yp    nn    nn    #
+#     cck2  pp    cbi1  yn    cn    cn    cc
+pci1  pc    pb    pb    cy    pc    pc    #
+#     yn    yn    nn    yy    py    pci2  cck1
+ybk1  yb    pb    pb    yy    nc    pc    #
+solution: 2,2 ; 2,0 ; use 1,5,0 ; use 0,0,4 ; 4,0 ; use 0,1,0 ; 4,0 ; use 0,3,0 ; 5,4 ; use 0,4,1 ; 0,0

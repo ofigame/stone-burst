@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil zikzak; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,13; döndürmeyle başlar;
 id: level_851
 moves: 10
 time: 60
 roll: off
 specials: on
-goals: blue 28, navy 27, yellow 17
+refill: 30 2-2
+goals: yellow 34, blue 19, purple 34
 grid:
-npi1  np    nb    nb    ny    yy    pb    #
-#     npi1  ny    yp    bb    pb    pb    pb
-bp    bp    by    yc    bn    cb    cb    #
-#     yp    ny    nc    nn    cy    yc    yc
-yb    yb    pn    pp    bn    cn    pc    #
-#     bcR   pni1  ncR   bb    pb    pb    pbi2
-ny    nb    pb    pni2  yp    yp    nb    #
-#     np    np    bni1  yp    yn    nb    nb
-pbR   npi1  bb    bb    yn    nn    nb    #
-solution: rot 1,5 ; 0,4 ; use 0,4,0 ; 4,4 ; 6,6 ; use 0,5,0 ; 6,0 ; use 0,3,0 ; use 0,3,0 ; 3,7 ; 2,4 ; 5,2 ; use 0,5,0 ; use 0,1,0
+cy    cn    nn    nyi1  py    pb    bb    pb
+cy    cn    pni2  ny    py    ynR   ypR   pc
+cy    cy    nc    np    cp    cy    cy    bc
+#     cc    nc    np    cp    cci1  yn    #
+#     yc    yy    pp    pc    nc    cyR   #
+#     yc    yyi1  yy    cy    cc    pc    #
+yc    yp    bc    bc    pc    py    pb    bb
+pp    ppi1  yc    yy    cc    yy    pn    bni2
+pp    pb    pbi1  py    cc    cn    pn    bb
+solution: rot 5,1 ; 4,0 ; 7,1 ; use 1,5,0 ; 4,0 ; use 1,0,0 ; 4,3 ; use 1,4,0 ; 2,5 ; 1,6 ; use 2,4,0 ; 1,4 ; use 2,4,0 ; use 0,0,0

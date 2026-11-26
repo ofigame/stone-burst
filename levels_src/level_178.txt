@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil merdiven (ayna); çözüm 7 + 4 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil kesik köşe; çözüm 7 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_178
 moves: 7
 roll: off
 specials: on
+refill: 30 2-2
 type: exact
 rules: exact
-goals: coral 26, navy 14, yellow 21
+goals: blue 30, coral 33, yellow 22
 grid:
-#     #     #     #     cc    nc    np    np
-#     #     #     yp    cc    cc    np    bp
-#     #     py    by    bp    yy    by    by
-#     pn    pn    by    cc    yb    py    py
-cn    cn    py    bb    bc    pc    py    cn
-pp    cp    cy    yb    bc    pn    pb    cn
-cp    pp    yc    yb    yp    pp    bb    bn
-cp    pp    yc    yc    yn    yn    cb    bn
-cy    cy    by    by    bp    cp    cn    cn
-solution: 7,4 ; use 0,4,0 ; 2,6 ; 2,4 ; 1,3 ; use 0,4,0 ; 0,5 ; use 0,5,0 ; 5,2 ; 2,2 ; use 0,0,4
+#     #     bn    bc    bb    np    #     #
+#     cy    bn    pc    yb    np    np    #
+bc    bc    yn    pn    yp    yc    np    yp
+bc    yc    yp    py    yc    yc    bc    bp
+nb    cp    cp    by    yy    yy    ny    bc
+nb    pc    pp    bb    pn    pp    nc    nc
+nc    bc    bn    yn    bc    bp    cp    cb
+#     bc    bn    cn    cn    cn    cc    #
+#     #     bb    bc    nn    np    #     #
+solution: 5,2 ; 5,2 ; 6,1 ; use 0,3,1 ; use 0,3,1 ; 2,6 ; use 0,0,3 ; 2,1 ; use 0,5,0 ; 4,3 ; use 0,0,4 ; 2,6

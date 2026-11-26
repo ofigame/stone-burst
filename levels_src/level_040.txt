@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil zikzak; çözüm 6 + 5 tepsi / sınır 10; rastgele 0,055; açgözlü kaybeder; yumuşak 0,06
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil çatı (ayna); çözüm 6 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,21
 id: level_040
 moves: 10
 roll: off
 specials: on
+refill: 26 2-3
 type: boss
-goals: yellow 42, purple 19
+goals: purple 31, blue 36
 grid:
-#     pyb   ppp   cpy   ycb   yby   cbp
-byb   pyb   pyy   bcy   ycb   cpy   #
-#     bbb   bbpk1 bpp   ypy   cpy   cpbk1
-bcp   bcp   ybp   ccp   ccy   cby   #
-#     ycp   cyy   cyp   cbb   cbb   ybc
-ycc   ycy   ycy   ycy   yyc   yyb   #
-#     ybc   ybc   ycc   cyc   cyb   cyy
-cbb   cbb   ybc   byc   byc   byb   #
-solution: 4,5 ; use 0,3,0 ; 5,1 ; 5,3 ; 1,0 ; use 0,1,0 ; use 0,1,0 ; 4,0 ; 3,0 ; use 1,4,0 ; use 0,2,0
+#     #     #     pbb   #     #     #
+#     ybc   pbc   pbb   bbb   bcy   #
+ypp   pyc   pyc   pcb   ypb   byb   pyb
+ybc   yby   yyy   pby   cyc   pyy   ppp
+cbc   cbc   byb   bpy   byp   cbp   bpb
+yyp   ybb   bpc   bbp   byp   bcpk1 ppy
+yyp   yyy   ybc   cbp   cyb   pcp   pcc
+yyp   ycc   bcck1 bcy   bcc   ypy   ypc
+solution: 4,4 ; 1,3 ; 3,0 ; use 0,3,0 ; 2,4 ; use 1,3,0 ; use 1,3,1 ; 3,4 ; 1,1 ; use 1,3,1 ; use 1,3,0

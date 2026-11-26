@@ -1,20 +1,21 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil U (ayna); çözüm 9 + 7 tepsi / sınır 9; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil merdiven; çözüm 6 + 5 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_767
-moves: 9
+moves: 6
 roll: off
 specials: on
 paint: 2
+refill: 28 2-2
 type: resource
 rules: exact
-goals: navy 26, coral 19, blue 28
+goals: navy 26, purple 24, blue 27
 grid:
-cn    cb    by    #     #     yn    pn    cn
-pn    bb    by    #     #     by    py    cb
-pn    ny    by    #     #     by    ny    bb
-nn    ny    cy    pp    np    np    by    bb
-yc    nn    cn    cn    cb    bb    bb    yc
-yc    nb    pn    yb    yy    cn    cn    yy
-ycG   nbG   pb    yb    py    cn    cn    py
-ycG   cpG   cb    yb    py    cn    cy    py
-bpG   bpG   cb    nb    ny    nn    ny    py
-solution: 2,0 ; 0,0 ; use 1,1,0 ; use 0,4,3 ; 5,5 ; use 0,0,0 ; 5,1 ; 7,2 ; paint 6,1,n ; 5,0 ; use 0,1,0 ; paint 5,0,b ; use 0,5,0 ; 3,5 ; use 1,0,1 ; use 0,0,0
+pn    yn    cb    pb    #     #     #     #
+py    py    py    nb    cb    #     #     #
+nc    pb    pb    pb    yp    pp    #     #
+py    bn    bn    yn    pp    pn    ny    #
+nb    bb    nc    yc    bp    pb    pp    cy
+pbG   bnG   nn    yy    ny    nc    pb    cy
+ncG   nnG   ybG   yy    pb    nb    ny    ny
+nb    nbG   yn    cb    cy    np    ny    cy
+nb    nc    cb    cb    pb    pb    yc    cy
+solution: 2,0 ; use 0,0,1 ; 0,1 ; use 0,1,1 ; 2,0 ; use 0,0,0 ; 6,4 ; 6,6 ; 1,3 ; use 0,1,0 ; use 0,2,0

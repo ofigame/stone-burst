@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil T; çözüm 7 + 4 tepsi / sınır 11; rastgele 0,000; açgözlü kazanır; yumuşak 0,56; YEDEK: kısa;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil T; çözüm 8 + 6 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,19
 id: level_830
-moves: 11
+moves: 12
 roll: off
 specials: on
 paint: 1
+refill: 23 2-3
 type: boss
 rules: scarce
-goals: navy 27, purple 20, yellow 25, sponge 2
+goals: navy 36, purple 31, yellow 33, sponge 2
 grid:
-pyy   yybk1 yyp   yyp   nbn   nbn   pbn   nyp
-yby   yyb   byp   bypk1 bynk1 byn   pyc   yyp
-pby   ypn   byn   bpnk1 cpp   npp   bpp   bnp
-pby   ypy   bpn   cpn   cnck2 pnn   nny   bny
-pcySc ycc   bcc   ccc   cnn   ccy   bny   bny
-#     #     bcb   cpb   cnn   ccy   #     #
-#     #     ccc   ccb   ccnSyc ccy   #     #
-#     #     ccc   ccp   cpp   cpp   #     #
-solution: 7,0 ; 6,3 ; use 0,0,4 ; use 0,4,0 ; 1,2 ; use 0,2,0 ; 0,0 ; 5,0 ; 1,0 ; 0,0 ; use 0,4,0
+pyyk1 yyb   ypp   yyp   nbn   nbn   pbn   nyp
+yby   yyb   bypk1 byp   bnn   bynSyb pnnk1 nyp
+pby   ypp   cyn   bpn   ypp   nbp   bpp   bnp
+pby   npy   bpn   cpy   cnnSb nnn   nnyk1 bny
+pcy   ycc   bcc   ccc   cbn   ccy   nny   bny
+#     #     bcb   nnb   cnn   pcy   #     #
+#     #     cnck2 pnb   ccn   ycy   #     #
+#     #     ccc   ccp   ypp   ppp   #     #
+solution: 0,1 ; use 0,4,0 ; 2,2 ; 2,0 ; use 0,0,0 ; 4,0 ; 1,0 ; 0,2 ; use 0,0,0 ; use 0,0,0 ; 4,1 ; use 1,4,0 ; 1,1 ; use 0,0,3

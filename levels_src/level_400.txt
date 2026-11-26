@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dikdörtgen; çözüm 11 + 0 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar; YEDEK: mek:rotor;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kum saati (ayna); çözüm 20 + 0 tepsi / sınır 24; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_400
-moves: 15
+moves: 24
 roll: off
+refill: 30 2-3
 type: boss
 rules: protect, noSpecials
-goals: purple 22, blue 23, star 2
+goals: yellow 40, coral 17, star 2
 grid:
-bccP  bnc   pbc   pbc   bcc   bpn   cbn   cbn
-ncp   pnc   pcnR  pnb   bcc   ccc   cnn   cnn
-ncp   bnc   bcpR  nnc   ncc   ncc   npn   npbP
-pcb   bcb   bpnR  cpp   ncc   pcp   npp   npb
-pbb   bnb   bnp   cpp   cbp   ppp   bpc   bcc
-pcb   bnb   bcn   ccn   cbn   pbp   ncp   bccP
-ncb   nnb*  bbp   ccn   cbn   ccn   ncp   ncc
-cbb   nbp   ccp   ccp   cbc   pcn*  ncp   bcp
-cbb   nbp   ncc   nbp   cbc   pcc   pcb   bpb
-solution: 2,5 ; 5,6 ; 3,3 ; 0,3 ; 2,6 ; 2,3 ; 0,7 ; 1,6 ; 4,4 ; 2,2 ; 2,3
+yby   yby   ybn   bbn   bcn   ncn   nbyR  ybb
+nbyP  nyc   ncnR  ncb   ybb   yyn   bcb   bnbP
+nby   nby   bcy   nby   ycn   cyc   nnn   nnn
+#     byn   bnc   cyb   ynb   ync   nyn   #
+#     ycy   nny   nbnR  yyb   yyn   nyn   #
+#     nyc   ynb*  nnb*  bnb   bcy   ycy   #
+ync   yyc   byy   byy   nnb   bby   byn   yyn
+ync   yny   bby   bbn   nnn   bbn   nyy   yyy
+ybc   bbbP  bbb   cbb   nyb   bby   byy   yyn
+solution: 3,3 ; 3,4 ; 1,4 ; 3,2 ; 2,3 ; 3,2 ; 4,2 ; 4,2 ; 4,2 ; rot 2,1 ; 1,1 ; 0,6 ; 1,4 ; 1,5 ; 1,3 ; 6,2 ; 5,3 ; 6,7 ; 2,0 ; 4,0

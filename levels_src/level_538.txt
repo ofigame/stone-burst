@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil elmas; çözüm 9 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil elmas; çözüm 11 + 7 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_538
-moves: 9
+moves: 11
 roll: off
 specials: on
+refill: 22 2-3
 type: protect
 rules: protect, exact
-goals: blue 24, navy 19, purple 19, sponge 1
+goals: blue 26, navy 25, purple 22, sponge 1
 grid:
 #     #     #     bbp   pbp   #     #     #
-#     #     pyb   pybK1:2 pyp   yyp   #     #
-#     nbc   bcb   byn   pbn   ybn   ppn   #
-ncc   nbc   ncc   ncp   pcc   pbc   ppn   ypnK1:2
-ycbP  pnb   ycc   ncb   ncc   bbb   npc   nnnP
-ycb   yny   yyb   yyb   bbb   bbc   ync   nnnP
-#     bcy   bcn   bcn   bcp   bcp   ypc   #
-#     #     nnn   bnp   bcp   ccpSyn #     #
-#     #     #     bnpK1:2 bnp   #     #     #
-solution: 3,2 ; 4,6 ; use 1,5,1 ; 5,3 ; use 1,3,0 ; 2,6 ; use 0,2,7 ; 3,0 ; 2,1 ; use 0,4,0 ; 1,2 ; use 1,0,3 ; 1,2 ; 1,2 ; use 0,2,1
+#     #     pyb   pyb   pyp   yyp   #     #
+#     nbc   bcbK1:2 byn   pbn   ybn   ppn   #
+ncc   nbc   ncc   ncp   pcc   pbc   bpb   ypn
+ycbP  pnb   ycc   ncb   ncc   bbb   npc   nnn
+ycb   yny   yyb   yyb   bbb   nbcSyp yncK1:2 nnnP
+#     bcy   bcn   pcn   bcp   bcp   ypcK1:2 #
+#     #     nnn   bnp   bcp   ccp   #     #
+#     #     #     pnpP  nnp   #     #     #
+solution: 3,2 ; 3,4 ; 1,2 ; 4,2 ; 3,0 ; use 1,5,1 ; use 1,5,1 ; 4,3 ; use 1,4,0 ; 6,2 ; use 1,0,3 ; 4,3 ; 3,0 ; 1,2 ; use 3,2,7 ; 2,6 ; use 1,5,1 ; use 1,5,1

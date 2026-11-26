@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil U (ayna); çözüm 8 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil kenar çentikleri; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_157
 moves: 10
 roll: off
 specials: on
+refill: 33 2-2
 type: protect
 rules: protect
-goals: navy 19, blue 24, star 3
+goals: blue 32, purple 23, star 3
 grid:
-py*   pn    pn    #     #     pc    py*   py
-pbP   pb    pn    #     #     yc*   yy    yn
-pb    yb    ny    #     #     bb    yb    bn
-pb    py    ny    cn    cn    yb    bb    bn
-pb    py    nb    yb    yb    yy    yn    yb
-bn    pb    yb    yb    nc    cy    yn    ybP
-yn    pn    nn    pn    py    cy    yb    yb
-yn    bb    nnLy5 pp    cy    cy    pc    pc
-bp    bn    bn    bp    nb    nb    pb    pb
-solution: 5,4 ; 0,5 ; use 1,1,0 ; use 0,5,0 ; 6,0 ; 5,0 ; use 0,0,2 ; 0,3 ; use 0,0,0 ; 0,0 ; 3,6 ; 1,7 ; use 0,0,3
+bc    bp    nn    nn    nn    np    cn*   cn
+bn    pn    nc    bc    cc    cp    cn    bb
+cn    pc    nc    bp    bp    bp    cy*   ybP
+bn    nn    yy    pn    yn    yn    bn*   yy
+ncP   bn    yy    np    yp    yy    bn    bn
+ny    bn    nc    cp    bpLc4 yy    by    #
+ny    bp    cc    cc    bp    ny    ny    #
+ny    bb    bb    #     #     nn    pp    np
+nb    bb    bb    #     #     pb    pb    nc
+solution: 5,0 ; use 0,6,0 ; 6,0 ; 1,7 ; 2,0 ; use 0,1,0 ; 6,5 ; 1,4 ; use 2,1,0 ; 2,1 ; 4,4 ; use 0,0,1 ; use 1,0,1 ; use 1,4,0

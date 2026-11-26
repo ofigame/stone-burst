@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil T (ayna); çözüm 8 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil merdiven (ayna); çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
 id: level_488
 moves: 8
 roll: off
 specials: on
+refill: 28 2-2
 type: order
 rules: exact
-goals: blue 22, coral 18, yellow 24
+goals: navy 26, blue 27, yellow 27
 grid:
-pc    yc    yn    yn    yn    bb    bn    bnG
-pp    nb    nb    nb    nb    nb    nbG   nnG
-pp    ny    np    ny    ny    bpR   bnG   nnG
-ybLc3 by    bp    cy    cc    cc    bcG   ycG
-bb    ypR   yn    cb    cc    cp    yc    yy
-cb    yy    yn    cb    cbLc3 bp    bc    by
-#     #     yp    yb    pc    bc    #     #
-#     #     cp    yp    pc    by    #     #
-#     #     yb    yb    py    by    #     #
-solution: rot 5,2 ; 5,0 ; 4,3 ; use 0,0,5 ; 4,3 ; use 0,5,0 ; 2,6 ; 1,5 ; use 1,1,2 ; 2,0 ; use 1,0,0 ; 1,0 ; use 0,0,4
+#     #     #     #     cy    py    pc    cy
+#     #     #     np    bcR   pb    py    cy
+#     #     ny    nc    cb    cb    ny    nnLp3
+#     bp    nc    cn    cb    cb    nn    yy
+bp    bp    np    ny    pb    pp    yy    yy
+bpG   bnG   pc    pn    pc    pb    cc    yy
+cpG   pyG   nnG   bn    cb    cb    yb    yb
+cnG   cnG   ynLp5 bc    bb    pb    yy    ycR
+cp    cb    cy    cn    bn    pp    ny    yy
+solution: rot 4,1 ; 5,5 ; 7,3 ; use 1,4,0 ; use 0,0,4 ; 4,1 ; 4,0 ; use 0,2,2 ; 5,0 ; 6,2 ; use 2,5,0 ; use 0,2,2 ; 5,5 ; use 0,3,6

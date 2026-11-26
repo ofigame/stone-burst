@@ -1,17 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil T; çözüm 12 + 0 tepsi / sınır 16; rastgele 0,020; açgözlü kaybeder; yumuşak 0,10
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil L; çözüm 15 + 0 tepsi / sınır 18; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_670
-moves: 16
+moves: 18
 roll: off
+refill: 25 2-3
 type: boss
 rules: noSpecials
-goals: coral 21, yellow 22, navy 27, star 4
+goals: yellow 23, purple 32, coral 24, star 4
 grid:
-ybn   G1:ybc G1:bcc bcn*  G1:bnc G1:cnc cyc   cyy
-cbc   nbc   bbn   cnn   bny   cyy   cyb   cyy
-cnc   bnn*  bnnB1 cnn   byy   byy   ccy   ncy
-bbc   bbc   nny   nnn*  cnn   cnn   cnc   byc
-bnc   bby   nbn   nbn   bbn   bbn   yyn   byc
-#     #     byn   byn*  bby   bby   #     #
-#     #     bcn   ccy   byy   nyy   #     #
-#     #     ycn   ycn   nyn   nyy   #     #
-solution: 3,0 ; 3,1 ; 2,1 ; 1,0 ; 4,3 ; 6,0 ; 2,6 ; 2,5 ; 2,4 ; 3,3 ; 4,0 ; 3,0
+pyp   G1:pyc G1:cbc G1:bpc G1:ppy #     #     #
+cbb   pcy   ycy   bpy   bpb   #     #     #
+pyb   pcb   ccy   bpy   bpy   #     #     #
+pyb   cpy   pbb   bpp*  byp   ypp*  ypy   ycb
+pyp   ccp   pbc   pbc   pby*  pcp   ycy   ccy
+cpp   ccc*  byb   bcp   bbc   bpp   bppB1 ccb
+bpp   bcp   cpy   bpc   bpc   ypc   ypy   yyb
+cbp   cby   cby   cyp   cyp   bbc   bbc   yyb
+solution: 3,3 ; 4,5 ; 2,6 ; 0,4 ; 1,1 ; 4,3 ; 3,2 ; 4,1 ; 3,2 ; 3,0 ; 1,4 ; 3,2 ; 3,1 ; 3,4 ; 1,6

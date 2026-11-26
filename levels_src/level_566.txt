@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati; çözüm 9 + 6 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 6 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
 id: level_566
-moves: 11
+moves: 8
 time: 60
 roll: off
 specials: on
-goals: purple 33, navy 31, yellow 13, envelope 3
+refill: 29 2-2
+goals: blue 28, yellow 28, navy 27, envelope 3
 grid:
-bn    bn    bn    bbEp  cb    nb    np    pn
-nn    pc    pb    nb    nc    bc    bn    pnK1:2
-ny    yc    pb    nb    yb    yc    pp    pp
-#     ypEp  pp    pp    bp    bc    np    #
-#     pb    pb    yy    py    pb    npEb  #
-#     nb    np    yp    yy    nb    yb    #
-pn    nn    nn    np    nc    nc    pp    pnK1:2
-py    py    bn    pb    pb    nc    bp    nn
-bb    bb    bp    pp    pn    bn    by    ny
-solution: 1,4 ; 2,3 ; 4,1 ; use 0,0,2 ; 2,1 ; use 0,0,0 ; 2,1 ; use 0,3,0 ; 6,2 ; 0,0 ; use 1,5,0 ; 6,0 ; use 1,4,0 ; 3,7 ; use 0,0,6
+bc    cc    cc    by    yy    cy    by    byK1:2
+#     #     cb    cp    by    yy    #     #
+pp    np    bp    bp    yb    bb    bb    yn
+pn    pb    bn    bp    ny    cyEn  yb    yn
+pn    pb    yn    bb    bb    cy    ny    ny
+#     #     yy    py    nb    nb    #     #
+pn    yn    yn    pp    pp    cc    cy    cp
+pbEc  nc    ncEp  cc    cy    pp    pp    cp
+pb    nb    nn    nc    npK1:2 cp    nc    nc
+solution: 3,1 ; use 0,0,7 ; 2,1 ; 4,0 ; use 0,3,1 ; use 0,6,0 ; 7,2 ; 5,0 ; use 0,2,0 ; 3,2 ; use 0,4,0

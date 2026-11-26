@@ -1,19 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil elmas; çözüm 8 + 7 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil elmas; çözüm 8 + 6 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
 id: level_810
 moves: 12
 roll: off
 specials: on
+refill: 22 2-3
 type: boss
 rules: protect
-goals: yellow 27, blue 21, coral 14, envelope 2
+goals: yellow 30, blue 24, coral 18, envelope 2
 grid:
-#     #     #     ynp   pnpP  #     #     #
-#     #     bnp   ynb   ybb   cby   #     #
-#     bbcEy bbp   ycp   bbb   cyyEy yyy   #
+#     #     #     ynpEy pnp   #     #     #
+#     #     bnp   ynb   ybbEp cby   #     #
+#     bbc   bbp   ycp   bbb   cyy   yby   #
 pnp   pbc   pcp   ycn   ycp   cyy   yyy   yyy
-pncP  pnc   ppn   ppn   cyp   cyn   ybn   nyp
-pnbP  ccb   cyb   pyb   pcn   pcn   yby   nbp
+bnc   pnc   ppn   ppn   cyp   cyn   ybn   nyp
+pnbP  ccb   cyb   pyb   ycn   pcn   yby   nbpP
 #     ncn   ycn   ybp   bcp   pcy   pby   #
 #     #     ybn   ybn   byn   pyy   #     #
-#     #     #     bbn   byn   #     #     #
-solution: 1,6 ; use 0,0,3 ; 5,1 ; use 0,1,2 ; 5,2 ; 5,2 ; 6,5 ; use 0,1,6 ; 2,5 ; use 1,6,2 ; 2,1 ; use 0,1,2 ; use 0,2,1 ; 2,1 ; use 0,1,2
+#     #     #     bbnP  byn   #     #     #
+solution: 5,1 ; 5,4 ; use 0,4,0 ; 5,2 ; 5,2 ; 4,3 ; 6,3 ; use 0,4,0 ; use 0,1,2 ; use 1,5,3 ; 4,3 ; use 1,6,2 ; 6,3 ; use 0,2,1

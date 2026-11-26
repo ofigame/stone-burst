@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe (ayna); çözüm 8 + 1 tepsi / sınır 12; rastgele 0,015; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe (ayna); çözüm 16 + 1 tepsi / sınır 20; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_610
-moves: 12
+moves: 20
 roll: off
+refill: 27 2-3
 type: boss
 rules: noSpecials
-goals: navy 25, blue 18, purple 25
+goals: navy 31, blue 25, purple 28
 grid:
 #     #     G1:ncc G1:pbb G1:bcb bcn   #     #
 #     nnc   ncc   pbn   pcn   bnn   bcc   #
-nnp   nnc   pnb   pnb   pnp   pnc   bnc   cpb
-nppB1 nppG  cpp   pnb   pnp   cnc   cpc   cpb
-pppG  cppG  cnpG  bnpG  bnp   bbc   cbn   cnb
-pnc   pppG  pnc   bnc   bnc   pbc   ppn   cnn
-cnc   cpc   npc   bpc   ncp   ccc   bpc   bpn
+nnp   nbc   pnb   pnb   pnp   nnc   bnc   cpb
+npp   npp   ccp   pbb   npp   cnn   cpc   cpbB1
+pppG  cppG  cnb   bnp   bcp   bbc   cbn   cnb
+pncG  pppG  pnnG  bbc   bnc   pbb   ppn   cnn
+cnn   cpcG  npc   bnc   ncp   ccc   bpc   bpn
 #     bcc   ncc   ncp   nbp   ccp   ccc   #
-#     #     bpc   ncc   cbc   cbc   #     #
-solution: 6,4 ; 6,1 ; use 0,1,3 ; 0,2 ; 5,0 ; 0,3 ; 0,2 ; 3,0 ; 2,2
+#     #     bpp   ncc   cbc   cbc   #     #
+solution: 2,2 ; 6,1 ; 5,0 ; 2,2 ; 5,1 ; 5,2 ; 4,6 ; 7,2 ; 4,1 ; 4,1 ; 5,3 ; 5,2 ; 3,4 ; 2,4 ; use 0,2,0 ; 0,2 ; 2,4

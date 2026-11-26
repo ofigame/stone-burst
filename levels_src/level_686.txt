@@ -4,15 +4,16 @@ moves: 10
 time: 60
 roll: off
 specials: on
-goals: purple 34, blue 25, navy 31
+refill: 27 2-3
+goals: purple 38, blue 32, navy 38
 grid:
-nyc   yyc   G1:yny G1:cpy G1:ppb #     #     #
+nyc   yyc   G1:yny G1:cyy G1:ppb #     #     #
 npy   npc   bpy   ppp   ppp   #     #     #
 nny   ypy   byy   bnp   bnp   #     #     #
-bnb   yyb   cyp   bnp   nyp   #     #     #
-ynp   ycb   cyp   byn   nyn   nyn   cyn   cbn
-ynp   ycb   cbp   nyn   nyy   pyy   cnp   ybp
-cyp   byp   cby   pyn   pyn   pyy   cnp   ycp
+bnb   yyb   ccp   bnp   nyc   #     #     #
+ynp   ycb   cyy   bpn   nyn   nyn   ccy   cbn
+ynp   ycb   cbp   nyn   nny   pyy   cnp   ybp
+cyp   byp   cbyB1 pcn   pyn   pyy   cnp   ycp
 ncy   byc   yyb   pby   cby   pyb   pcp   ccn
-nyc   nyc   nyb   cyb   cyb   cyb   ccbB1 ccn
-solution: 3,1 ; 3,2 ; 0,1 ; 0,3 ; use 0,0,1 ; 4,5 ; use 0,0,1 ; 6,4 ; use 0,0,0 ; use 0,4,0 ; use 0,4,0 ; 1,2 ; 0,0 ; use 0,0,0 ; use 0,2,2
+nyc   nyc   nnb   cyb   cnb   cbb   ccb   ccn
+solution: 3,4 ; 4,4 ; 2,7 ; use 1,3,1 ; use 1,3,3 ; 0,4 ; 1,3 ; 1,5 ; use 2,1,0 ; use 2,4,0 ; 1,3 ; use 0,0,0 ; use 1,0,1 ; 2,0 ; use 0,4,0

@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil çatı; çözüm 11 + 0 tepsi / sınır 15; rastgele 0,055; açgözlü kaybeder; yumuşak 0,04
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil çatı; çözüm 13 + 0 tepsi / sınır 18; rastgele 0,010; açgözlü kaybeder; yumuşak 0,00
 id: level_280
-moves: 15
+moves: 18
 roll: off
+refill: 32 2-3
 type: boss
 rules: noSpecials
-goals: purple 23, blue 27, envelope 2
+goals: purple 30, blue 28, envelope 2
 grid:
-#     #     #     ypb   yppk1 #     #     #
-#     cpp   bcb   bbb   pbb   pyb   pyb   #
-bpc   pyb   bcb   byc   pbb   pyb   pbyk2 pcy
-bpy   pyy   pcp   byc   bby   bbyk1 bby   yby
-bpp   ppy   ypy   ypb   bpb   bpb   ccb   ypb
-bcp   ccy   ypc   ypb   bcc   bcck1 ccb   cpc
-ybp   cpy   ypp   ybp   byc   yyc   pcbEy cpc
-ycp   cpy   cyy   bbc   byc   pyy   pcy   cyc
-ycc   ccc   byy   byy   bycEp pyy   ycy   yyp
-solution: 5,7 ; 3,0 ; 5,1 ; 3,1 ; 1,2 ; 0,3 ; 3,0 ; 6,4 ; 4,6 ; 7,4 ; 4,3
+#     #     #     ypb   ypp   #     #     #
+#     cpp   bcb   cyb   pbb   pyp   pyc   #
+bpc   pyb   bcb   byc   pbp   pyb   pby   pcy
+bpy   pyy   pcp   byc   cbyk1 yby   cby   yby
+bpp   ppy   yyb   ypb   bpb   pyp   ccb   ypb
+bcp   ccy   ypcEy ypbk1 pcc   bcc   ccb   cpc
+ybp   cpyk1 ypp   ybp   byck2 yyc   pcb   cpc
+ycp   cpyEy ccb   bbc   bpc   pyy   pcy   cyc
+ycc   ccc   byy   byy   byc   pyy   ycy   yyp
+solution: 4,5 ; 2,4 ; 3,4 ; 0,3 ; 0,3 ; 6,2 ; 2,1 ; 6,3 ; 4,4 ; 1,3 ; 3,4 ; 1,2 ; 7,4

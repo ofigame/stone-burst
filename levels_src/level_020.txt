@@ -1,16 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U; çözüm 5 + 0 tepsi / sınır 10; rastgele 0,860; açgözlü kazanır; yumuşak 1,00; YEDEK: rastgele;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U; çözüm 3 + 3 tepsi / sınır 8; rastgele 0,330; açgözlü kaybeder; yumuşak 0,94
 id: level_020
-moves: 10
+moves: 8
 roll: off
 specials: on
+refill: 26 2-2
 type: boss
-goals: blue 30, coral 21
+goals: yellow 35, blue 24
 grid:
-by    cy    by    #     cy    by    by
-by    cb    cb    #     cy    yb    yb
-by    cy    yc    yc    by    bb    yb
-yb    cb    cc    bb    by    cy    cy
-yb    yb    cc    cb    by    yy    cy
-yb    yb    cb    cb    bc    by    bc
-yb    by    by    cy    cc    cc    bc
-solution: 2,2 ; 0,0 ; 0,0 ; 1,0 ; 4,5
+yb    yb    cc    #     bc    cy    cy
+yb    yy    cy    #     bc    yy    cy
+yc    yc    by    by    bc    cb    yy
+cy    cc    bb    yy    yb    yb    bb
+cc    by    cb    cy    yc    cb    yb
+cc    cc    bc    yy    bc    yy    yb
+bc    cc    cc    bb    by    yc    yc
+solution: 1,1 ; use 0,4,0 ; 4,0 ; use 0,0,0 ; 4,0 ; use 0,0,0

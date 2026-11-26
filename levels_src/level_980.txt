@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kenar çentikleri; çözüm 8 + 5 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kenar çentikleri; çözüm 10 + 8 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_980
-moves: 12
+moves: 14
 roll: off
 specials: on
+refill: 24 2-3
 type: boss
 rules: scarce
-goals: blue 20, navy 20, yellow 34
+goals: blue 34, navy 30, yellow 44
 grid:
-ypy   ppy   pcy   pyy   nnbR  yyp   pyb   pyy
-#     #     ycy   ycyi2 nbn   bnp   #     #
-#     #     yny   nbn   nnn   nnp   #     #
-#     cnc   cnp   pbn   pyb   yncR  yyn   #
-ynb   cbc   bnp   pcpi1 byb   nyn   ynbR  ycp
-ypy   bpb   nbpi1 cyp   cyni1 nyc   nyc   ycc
-npp   nnci1 ypc   ypy   yyc   ycn   yyy   yny
-bnb   bnb   bpy   ypy   ycc   ycc   ypc   ypy
-solution: rot 5,3 ; 5,0 ; 4,1 ; use 0,4,0 ; 5,5 ; 4,3 ; 5,4 ; use 0,0,0 ; 2,3 ; 4,0 ; use 0,1,0 ; use 0,1,4 ; use 0,3,0
+bpy   ppy   pcy   pyy   nyp   byp   pyb   pyb
+#     #     ycy   ycy   nbn   bnpi1 #     #
+#     #     yny   nbn   nncR  nnp   #     #
+#     cnc   cnp   pbni1 pyb   ynni1 cyn   #
+ybb   cbc   bnp   bcpi1 byb   npn   ycn   ycp
+ypb   bpb   bbp   cyp   cyb   nyc   nyc   ycc
+npb   nnc   ypc   bpy   ybpR  ycn   bby   yypR
+bnbi2 bnb   bpy   ppy   ycc   ycc   ypc   ppy
+solution: 3,6 ; 2,3 ; 4,3 ; use 0,3,0 ; 3,3 ; 6,4 ; 4,3 ; use 1,3,0 ; use 1,6,0 ; use 1,0,0 ; 5,3 ; 1,3 ; use 0,5,0 ; 5,1 ; use 0,2,0 ; use 1,3,0 ; rot 7,6 ; use 0,0,0

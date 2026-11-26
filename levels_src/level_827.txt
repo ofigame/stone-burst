@@ -1,20 +1,21 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil dalga; çözüm 8 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil dalga; çözüm 8 + 7 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_827
 moves: 9
 roll: off
 specials: on
 paint: 1
+refill: 29 2-3
 type: scarce
 rules: scarce
-goals: purple 40, coral 33, yellow 19
+goals: purple 45, coral 41, yellow 28
 grid:
-ccc   #     cbb   #     nnc   #     nnb   #
-ccc   ycn   ybn   pyn   nnn   npn   nbb   nby
-pny   yny   pbb   pyn   ynn   npn   bnc   nyy
-pby   pby   cby   pnn   ynb   bnb   bnc   byc
-ncn   nbn   cyp   pyp   byb   bnn   bnn   ypc
-ncc   bcn   cyn   ppn   pcb   bcb   cnp   ppp
-bcc   bcc   ccn   cbp   cpp   ccp   npn   ppc
-pbp   pbc   pbn   cbp   cpb   bpb   npp   ppc
+ccc   #     cbb   #     nnc   #     npb   #
+ccc   ycn   ybp   pyn   nnn   npn   cbb   nby
+pny   yny   pbb   pyn   ynn   npn   bpc   nyy
+pby   pby   nby   pnn   ynb   ccb   bnc   byc
+ncn   nbn   cyp   pyp   byb   bnn   bnn   ppc
+ncc   bcn   cyn   ppn   pcb   bcp   cbp   ppp
+bcc   bcc   ccn   cby   cnp   ccp   npp   ppc
+pbp   pbc   pbn   cbp   ypb   bbb   npp   pyc
 #     bbc   #     nnp   #     bpc   #     npc
-solution: 0,4 ; 2,4 ; 0,2 ; 1,1 ; use 1,0,0 ; use 1,5,1 ; use 1,1,1 ; 3,6 ; 0,5 ; 2,0 ; use 1,3,1 ; 4,3 ; use 0,4,0 ; use 2,4,0 ; use 0,5,1 ; use 0,3,3
+solution: 0,4 ; 0,4 ; use 1,2,1 ; 0,2 ; use 1,0,0 ; 4,0 ; 2,1 ; use 0,7,1 ; 0,3 ; use 0,3,1 ; use 1,0,0 ; 4,0 ; use 1,0,1 ; 0,1 ; use 1,0,2

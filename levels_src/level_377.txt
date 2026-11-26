@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil kenar çentikleri; çözüm 10 + 0 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil kum saati (ayna); çözüm 23 + 0 tepsi / sınır 23; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_377
-moves: 10
+moves: 23
 roll: off
+refill: 30 2-3
 type: pure
 rules: noSpecials, exact
-goals: navy 25, yellow 22, coral 33
+goals: blue 39, navy 33, coral 28
 grid:
-ccn   ccc   cyc   #     #     cypk1 yyp   yyp
-ycn   cyn   pyc   pcc   pcp   cypk1 #     #
-#     cpn   ppnk2 npn   pnn   ync   pcc   pcc
-ccn   pcn   pcp   ypp   yyn   ync   #     #
-cnyR  pcn   pcn   pnn   pyn   ync   #     #
-ncp   ccn   cnn   nnn   cyn   cnc   cnc   cyc
-ncc   cnc   cyn   nyn   cynk2 cyn   cyy   cyy
-ycn   ync   cyc   cyp   cyp   cpn   nnp   yny
-yypk1 yyp   cyc   ccyR  cpck1 npc   nnp   yny
-solution: rot 0,4 ; 5,2 ; 0,6 ; 0,0 ; 2,6 ; 0,3 ; 5,2 ; 7,5 ; 0,0 ; 2,0
+bnn   bbbk1 nbbk1 bbn   npc   pbc   nbp   nbb
+bbn   pcb   pcb   bbn   ccc   pcc   nnb   bnb
+bbp   pbc   pcc   nnb   ccb   pnp   nbcR  bnb
+#     cpc   nnc   ncnR  ccc   pppk2 pbpk1 #
+#     cpck2 cnp   cbp   bcn   ppp   ppp   #
+#     nnb   pnc   bcn   ccb   nnnk1 nnb   #
+cbb   cbb   ccn   bbn   cbp   nnb   nnb   pcn
+bcp   bpp   cnn   bbn   pnp   npp   cbb   pbb
+pnp   bnp   cnn   cnn   bnp   cpc   pbb   pbb
+solution: rot 3,3 ; 4,6 ; 3,5 ; 4,5 ; 1,2 ; 2,7 ; 2,5 ; 4,5 ; 3,0 ; 4,4 ; 3,6 ; 3,0 ; 5,5 ; 3,2 ; 5,1 ; 7,0 ; 6,1 ; 4,0 ; 5,0 ; 5,0 ; 1,5 ; 2,3 ; 3,2

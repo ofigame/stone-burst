@@ -9,22 +9,23 @@ namespace KatKat.Tests
     public class AdsTests
     {
         [Test]
-        public void Interstitial_NotInFirstTenLevels_EveryFourLevels_240s_NotAfterRewarded()
+        public void Interstitial_FromLevel8_EveryThreeLevels_150s_NotAfterRewarded()
         {
-            // 2026-11-09 (kullanıcı: "kullanıcıyı çok bunaltmasın"): ilk 10 bölüm yok, 4 bölümde bir, 240 sn, ödüllüden sonra 120 sn.
+            // 2026-11-26 (kullanıcı: "hem oyuncuyu boğmayalım hem de para kazanalım"): ilk 7 bölüm yok, 3 bölümde bir, 150 sn,
+            // ödüllüden sonra 90 sn.
             var p = new InterstitialPolicy(new AdConfig());
-            for (int lv = 1; lv <= 10; lv++) { p.LevelCompleted(lv); Assert.IsFalse(p.ShouldShow(lv, 1000), $"bölüm {lv}"); }
-            p.LevelCompleted(11); p.LevelCompleted(12); p.LevelCompleted(13);
-            Assert.IsFalse(p.ShouldShow(13, 1000), "11. bölümden beri yalnız 3 bölüm");
-            p.LevelCompleted(14);
-            Assert.IsTrue(p.ShouldShow(14, 1000));
+            for (int lv = 1; lv <= 7; lv++) { p.LevelCompleted(lv); Assert.IsFalse(p.ShouldShow(lv, 1000), $"bölüm {lv}"); }
+            p.LevelCompleted(8); p.LevelCompleted(9);
+            Assert.IsFalse(p.ShouldShow(9, 1000), "8. bölümden beri yalnız 2 bölüm");
+            p.LevelCompleted(10);
+            Assert.IsTrue(p.ShouldShow(10, 1000));
             p.Shown(1000);
-            for (int lv = 15; lv <= 18; lv++) p.LevelCompleted(lv);
-            Assert.IsFalse(p.ShouldShow(18, 1200), "240 sn dolmadı");
-            Assert.IsTrue(p.ShouldShow(18, 1241));
-            p.RewardedShown(1200);
-            Assert.IsFalse(p.ShouldShow(18, 1241), "ödüllüden 120 sn geçmedi");
-            Assert.IsTrue(p.ShouldShow(18, 1321));
+            for (int lv = 11; lv <= 13; lv++) p.LevelCompleted(lv);
+            Assert.IsFalse(p.ShouldShow(13, 1100), "150 sn dolmadı");
+            Assert.IsTrue(p.ShouldShow(13, 1151));
+            p.RewardedShown(1100);
+            Assert.IsFalse(p.ShouldShow(13, 1151), "ödüllüden 90 sn geçmedi");
+            Assert.IsTrue(p.ShouldShow(13, 1191));
         }
 
         [Test]
@@ -45,9 +46,11 @@ namespace KatKat.Tests
             Assert.AreEqual(5f, c.SearchSeconds);
             Assert.AreEqual(1, c.ExtraMoves);
             Assert.AreEqual(1, c.ExtraMovesPerLevel);
-            Assert.AreEqual(11, c.InterstitialFirstLevel);
-            Assert.AreEqual(4, c.InterstitialEveryLevels);
-            Assert.AreEqual(8, c.InterstitialSessionCap);
+            Assert.AreEqual(8, c.InterstitialFirstLevel);
+            Assert.AreEqual(3, c.InterstitialEveryLevels);
+            Assert.AreEqual(150f, c.InterstitialMinSeconds);
+            Assert.AreEqual(90f, c.InterstitialAfterRewardedSeconds);
+            Assert.AreEqual(12, c.InterstitialSessionCap);
         }
 
         [Test]

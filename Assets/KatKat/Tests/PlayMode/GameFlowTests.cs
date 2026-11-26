@@ -338,13 +338,13 @@ namespace KatKat.Tests
         /// PNG, döndürülmeden), yuva seçilince hedefleme, tahtada çalışır; geri alma tepsiyi geri getirir. Roket
         /// ateşlenince simge ikiye bölünür (iki "RocketHalf"). Kurallar motor testlerinde (SpecialRulesTests).
         /// </summary>
-        /// <summary>130. bölüm (özel taş kapalı, çakıllı): tepsi görünür; kayıtlı çözümün ilk dokunuşu Kürek verir ve tepside görünür.</summary>
+        /// <summary>610. bölüm (özel taş kapalı, çakıllı; 2026-11-26 yeniden üretimden sonra 130 yerine): tepsi görünür; kayıtlı çözümün ilk dokunuşu Kürek verir ve tepside görünür.</summary>
         [UnityTest]
-        public IEnumerator GravelNoSpecials_Level130_TrayShown_ShovelUsable()
+        public IEnumerator GravelNoSpecials_Level610_TrayShown_ShovelUsable()
         {
-            _gc.StartLevel(129);
+            _gc.StartLevel(609);
             _gc.Board.Director.TimeScale = Speed;
-            Assert.IsFalse(_gc.Session.State.SpecialsEnabled, "130: özel taş kapalı");
+            Assert.IsFalse(_gc.Session.State.SpecialsEnabled, "610: özel taş kapalı");
             Assert.IsTrue(_gc.Hud.SkillsShown, "çakıllı bölümde tepsi görünür");
             var sol = _gc.CurrentLevel.Solution;
             int useAt = sol.FindIndex(st => st.Type == "use");
@@ -647,10 +647,10 @@ namespace KatKat.Tests
                 // 30 dakika sonra 1 kalp.
                 GameController.HeartClock = () => now + KatKat.Meta.Hearts.RegenSeconds;
                 Assert.AreEqual(1, _gc.HeartCount);
-                // Reklamla dolum.
+                // Reklam 1 kalp verir (2026-11-26; önce bütün kalpler).
                 GameController.FakeAds.Next = KatKat.Meta.AdOutcome.Rewarded;
                 _gc.RefillHeartsForTest();
-                Assert.AreEqual(5, _gc.HeartCount);
+                Assert.AreEqual(2, _gc.HeartCount, "reklam +1 kalp");
                 _gc.Menu.CloseHeartsCard();
             }
             finally { GameController.HeartClock = null; }

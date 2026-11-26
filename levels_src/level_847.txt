@@ -3,17 +3,18 @@ id: level_847
 moves: 8
 roll: off
 specials: on
+refill: 30 2-3
 type: exact
 rules: exact
-goals: blue 35, purple 48, coral 24, star 3
+goals: blue 38, purple 46, coral 32, star 3
 grid:
-ppy   cpy   cpn   #     #     ccb   ycc   ycp
-ppp   ppy   cpn   #     #     ccc   cbc   cbp
-npp   pyp   ppp   #     #     ccb*  cbb   cbp
-nyb   nyb   ppp   npy   nby   pbb   pyb   nyb
-nyb   yyb   pyp   pnn   nny   pyy   pyb   nyb*
-yyb   yyb   nnp   nnp   nyc   pyy   nyy   pyy
-ypb   npn   nbb   nbc   byc   pyb*  nyb   pyy
-npy   ncn   npb   nnc   bnb   byb   cnp   cpy
+pcy   cpy   cpn   #     #     ccb   ycc   ycp
+pyp   ppy*  cpn   #     #     ccc   cbc   cbp
+npp   pyp   ppp   #     #     ccb   cbb   cbp
+nyb   nyb   cpp   npy*  nby   pbb   pyb   nyb
+nyb   yyb   pyc   pnn   nny   pyy   pyb   nyb
+ycb   yyb   nnp   nnp   cyc   pny   nyn   pyy
+ypb   npn*  bbb   nbc   bpc   pyb   ncb   pny
+npy   ncn   ppb   nnc   bnb   byb   cnp   cpy
 npy   npb   ypb   yyc   yyb   ypb   ypp   bpp
-solution: 3,3 ; use 0,5,0 ; 6,3 ; use 0,7,0 ; 5,0 ; 6,1 ; 5,0 ; use 0,7,0 ; 0,0 ; 0,0 ; 4,5 ; use 3,2,0 ; use 0,0,0 ; use 0,1,0 ; use 0,5,3
+solution: 7,0 ; 7,1 ; use 0,5,0 ; 5,0 ; 7,2 ; use 0,7,0 ; 3,3 ; use 0,6,0 ; 0,0 ; 1,0 ; use 0,1,0 ; use 0,0,3 ; use 0,7,0 ; 7,2 ; use 0,5,2

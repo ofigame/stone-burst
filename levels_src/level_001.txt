@@ -1,16 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 vitrin; şekil dalga; çözüm 5 + 0 tepsi / sınır 9; rastgele 0,450; açgözlü kazanır; yumuşak 1,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 vitrin; şekil artı (ayna); çözüm 5 + 0 tepsi / sınır 9; rastgele 0,620; açgözlü kazanır; yumuşak 1,00
 id: level_001
 moves: 9
 roll: off
 specials: on
-goals: coral 10, blue 8
+refill: 28 2-2
+goals: coral 8, yellow 9
 grid:
-#     cc    #     bb    #     cc    #
-yy    bb    bb    cc    cc    bb    cc
-yy    yy    bb    cc    bb    cc    cc
-yy    cc    bb    cc    yy    yy    yy
-bb    bb    cc    bb    cc    yy    bb
-cc    bb    yy    bb    cc    bb    cc
-yy    yy    cc    bb    bb    cc    cc
-yy    #     bb    #     cc    #     cc
-solution: 1,1 ; 1,1 ; 3,1 ; 3,1 ; 6,1
+#     #     cc    yy    yy    #     #
+#     #     yy    bb    bb    #     #
+bb    bb    yy    yy    bb    yy    bb
+cc    bb    bb    cc    yy    cc    cc
+cc    yy    cc    yy    bb    cc    cc
+bb    bb    yy    yy    bb    bb    yy
+#     #     yy    cc    bb    #     #
+#     #     cc    yy    cc    #     #
+solution: 5,3 ; 5,3 ; 3,4 ; 3,4 ; 2,3

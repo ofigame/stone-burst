@@ -1,16 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil L; çözüm 8 + 5 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı; çözüm 7 + 4 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06; döndürmeyle başlar;
 id: level_805
 moves: 9
 roll: off
 specials: on
-goals: blue 19, purple 24, coral 22, envelope 3
+refill: 22 2-2
+goals: purple 13, yellow 13, navy 19, envelope 3
 grid:
-cy    cy    nn    nn    nn    #     #     #
-cy    cy    cc    nn    pn    #     #     #
-pp    cp    pp    pc    pc    #     #     #
-py    yn    yp    pc    cpR   bn    bn    cy
-cy    yn    pp    pc    cc    bn    by    cy
-cy    pn    pn    pc    bbEb  pc    pc    cyEc
-cb    yb    yb    nb    bpR   pc    yp    yn
-cbEy  nb    nb    nb    bb    bp    bp    bp
-solution: rot 4,6 ; 3,2 ; use 0,0,0 ; 1,6 ; 0,2 ; use 0,0,0 ; 5,5 ; use 0,2,0 ; use 0,5,3 ; 7,3 ; 7,3 ; 2,4 ; use 0,4,0
+#     #     bc    bn    bnEn  bc    #     #
+#     #     bc    bn    cc    cc    #     #
+cb    cb    nc    nn    nb    nb    nb    pn
+nb    ny    by    cp    cy    ypR   nn    yn
+ny    ny    nb    cp    cy    ny    pp    cn
+np    bp    bb    cpEy  cp    yy    np    bpEc
+#     #     bp    nc    np    yy    #     #
+#     #     bc    bc    yb    ypR   #     #
+solution: rot 5,3 ; 4,2 ; 3,0 ; 4,3 ; use 1,3,0 ; use 0,3,0 ; 5,1 ; use 0,4,0 ; 3,2 ; use 0,7,2 ; 5,5

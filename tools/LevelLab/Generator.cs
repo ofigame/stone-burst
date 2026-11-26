@@ -379,6 +379,7 @@ static partial class Program
         sb.AppendLine($"roll: {(d.RollEnabled ? (d.StartingRoll ? "start" : "on") : "off")}");
         if (d.Capabilities.Contains("specials")) sb.AppendLine("specials: on");
         if (d.Paint > 0) sb.AppendLine($"paint: {d.Paint}");
+        if (d.HasRefill) sb.AppendLine($"refill: {d.RefillCount} {d.RefillMinLayers}-{d.RefillMaxLayers}");
         if (!string.IsNullOrEmpty(d.TrialType)) sb.AppendLine($"type: {d.TrialType}");
         if (d.Rules.Count > 0) sb.AppendLine("rules: " + string.Join(", ", d.Rules));
         sb.AppendLine("goals: " + string.Join(", ", d.Goals.Select(g => g.Type == "collectStars" ? $"star {g.Amount}" : g.Type == "collectToken" ? $"{g.Kind} {g.Amount}"
