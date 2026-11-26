@@ -1,10 +1,10 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil zikzak; çözüm 4 + 0 tepsi / sınır 12; rastgele 0,030; açgözlü kaybeder; yumuşak 0,77
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil zikzak; çözüm 5 + 2 tepsi / sınır 12; rastgele 0,215; açgözlü kazanır; yumuşak 0,98
 id: level_162
 moves: 12
 roll: off
 specials: on
 refill: 44 2-2
-goals: purple 36, yellow 42
+goals: purple 24, yellow 28
 grid:
 #     yp    py    pp    yb    bb    bb    bb
 bp    pp    pp    yy    bb    bb    by    #
@@ -15,4 +15,4 @@ bb    yp    bp    by    pb    bb    pp    #
 #     by    yy    yp    bp    bp    py    pb
 yp    by    py    by    yp    yp    yy    #
 #     yb    bb    bb    bb    by    by    by
-solution: 3,4 ; 4,4 ; swap 4,4,2 ; 4,8
+solution: 1,2 ; 3,1 ; use 1,1,0 ; 1,5 ; use 0,1,0

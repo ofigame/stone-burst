@@ -4,16 +4,16 @@
   "capabilities": ["star", "paint", "refill", "specials"],
   "width": 8,
   "height": 9,
-  "moveLimit": 12,
+  "moveLimit": 16,
   "rollEnabled": false,
   "startingRoll": false,
-  "stars": [8992, 11990],
+  "stars": [2408, 3210],
   "paint": 1,
   "refill": { "count": 25, "minLayers": 2, "maxLayers": 3 },
   "goals": [
-    { "type": "collectColor", "color": "purple", "amount": 21 },
-    { "type": "collectColor", "color": "blue", "amount": 24 },
-    { "type": "collectColor", "color": "coral", "amount": 25 },
+    { "type": "collectColor", "color": "purple", "amount": 23 },
+    { "type": "collectColor", "color": "blue", "amount": 27 },
+    { "type": "collectColor", "color": "coral", "amount": 27 },
     { "type": "collectStars", "color": "", "amount": 3 }
   ],
   "cells": [
@@ -75,15 +75,20 @@
     { "x": 5, "y": 8, "active": true, "layers": ["blue", "coral", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false }
   ],
   "solution": [
-    { "type": "tap", "x": 2, "y": 8 },
+    { "type": "tap", "x": 2, "y": 2 },
+    { "type": "use", "slot": 0, "x": 3, "y": 0 },
     { "type": "tap", "x": 1, "y": 3 },
-    { "type": "tap", "x": 1, "y": 4 },
-    { "type": "swap", "x": 1, "y": 3, "dir": 1 },
-    { "type": "tap", "x": 1, "y": 6 },
-    { "type": "tap", "x": 1, "y": 5 },
-    { "type": "swap", "x": 1, "y": 6, "dir": 3 },
-    { "type": "paint", "x": 5, "y": 3, "color": "coral" },
-    { "type": "tap", "x": 6, "y": 6 },
-    { "type": "tap", "x": 1, "y": 6 }
+    { "type": "tap", "x": 1, "y": 3 },
+    { "type": "use", "slot": 0, "x": 2, "y": 3 },
+    { "type": "use", "slot": 0, "x": 3, "y": 0 },
+    { "type": "tap", "x": 2, "y": 5 },
+    { "type": "tap", "x": 5, "y": 2 },
+    { "type": "tap", "x": 3, "y": 6 },
+    { "type": "use", "slot": 2, "x": 2, "y": 0 },
+    { "type": "tap", "x": 5, "y": 3 },
+    { "type": "tap", "x": 0, "y": 2 },
+    { "type": "paint", "x": 7, "y": 6, "color": "coral" },
+    { "type": "tap", "x": 5, "y": 6 },
+    { "type": "use", "slot": 0, "x": 4, "y": 1 }
   ]
 }

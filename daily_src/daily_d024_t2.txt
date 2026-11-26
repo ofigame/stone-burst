@@ -1,7 +1,7 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 41 + tür reverse; şekil kesik köşe (ayna); çözüm 7 + 0 tepsi / sınır 8; rastgele 0,005; açgözlü kaybeder; yumuşak 0,04
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 41 + tür reverse; şekil kesik köşe (ayna); çözüm 6 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,23
 id: daily_d024_t2
 title: Günlük 24
-moves: 8
+moves: 10
 roll: on
 specials: on
 type: reverse
@@ -16,4 +16,4 @@ pcb   byp   byp   pyy   byc   pcb*  bbp
 pcb   bbc   bbc   cyy   pyb*  pcp   bbp
 #     ybc   bbc   ypy   ycy   pcy   #
 #     #     bbc   bcy   ycy*  #     #
-solution: 6,3 ; 6,2 ; 4,6 ; swap 6,2,1 ; roll 4 ; 2,3 ; roll 4
+solution: 3,0 ; 3,4 ; 1,5 ; use 2,2,0 ; use 1,4,0 ; use 0,0,4

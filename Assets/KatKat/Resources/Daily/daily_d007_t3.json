@@ -7,14 +7,14 @@
   "rules": ["exact"],
   "width": 8,
   "height": 9,
-  "moveLimit": 7,
+  "moveLimit": 10,
   "rollEnabled": true,
   "startingRoll": false,
-  "stars": [645, 860],
+  "stars": [840, 1120],
   "goals": [
-    { "type": "collectColor", "color": "yellow", "amount": 12 },
-    { "type": "collectColor", "color": "blue", "amount": 19 },
-    { "type": "collectColor", "color": "purple", "amount": 15 }
+    { "type": "collectColor", "color": "yellow", "amount": 14 },
+    { "type": "collectColor", "color": "blue", "amount": 22 },
+    { "type": "collectColor", "color": "purple", "amount": 17 }
   ],
   "cells": [
     { "x": 0, "y": 0, "active": true, "layers": ["navy", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
@@ -81,10 +81,11 @@
   "solution": [
     { "type": "tap", "x": 4, "y": 1 },
     { "type": "tap", "x": 1, "y": 1 },
-    { "type": "swap", "x": 1, "y": 1, "dir": 0 },
-    { "type": "roll", "row": 3 },
+    { "type": "use", "slot": 0, "x": 1, "y": 0 },
+    { "type": "use", "slot": 0, "x": 1, "y": 0 },
     { "type": "tap", "x": 0, "y": 2 },
-    { "type": "swap", "x": 0, "y": 2, "dir": 3 },
+    { "type": "use", "slot": 0, "x": 0, "y": 0 },
+    { "type": "tap", "x": 7, "y": 1 },
     { "type": "tap", "x": 3, "y": 4 }
   ]
 }

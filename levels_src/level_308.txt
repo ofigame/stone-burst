@@ -1,6 +1,6 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil zikzak; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil zikzak; çözüm 8 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_308
-moves: 8
+moves: 10
 roll: off
 specials: on
 refill: 28 2-3
@@ -17,4 +17,4 @@ bcy   pbc   ppc   ynp   bpb   npp   pnp   #
 #     nbp   ppp*  pnb   cpb   nnb   ppp   ppp
 nbc   nbp   ppp*  nnb   ccn   ncn   cyp   #
 #     nbc   ppc   nnb   ncp   ccn   cyp   cbp
-solution: 3,8 ; 5,8 ; 3,6 ; 2,4 ; 2,4 ; 2,4 ; 5,5 ; swap 5,7,1
+solution: 4,5 ; 3,6 ; use 1,1,0 ; 3,4 ; use 1,4,0 ; use 0,4,0 ; 2,4 ; use 0,1,0

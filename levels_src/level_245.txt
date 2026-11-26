@@ -1,6 +1,6 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe; çözüm 8 + 0 tepsi / sınır 11; rastgele 0,005; açgözlü kaybeder; yumuşak 0,10
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe; çözüm 9 + 4 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,35
 id: level_245
-moves: 11
+moves: 12
 roll: off
 specials: on
 refill: 30 2-3
@@ -15,4 +15,4 @@ bcc   ppb   cbp   ynpi1 ypy   byp   ccc   pcbi1
 bcc   npc   nbp   cbpi1 pyb   byp   ycp   pcb
 #     ncy   pcy   cpy   pyb   bpy   npy   #
 #     #     ppp   ppp   ppy   ppy   #     #
-solution: 5,2 ; 4,1 ; 4,2 ; 6,2 ; 0,3 ; swap 6,2,2 ; 5,1 ; swap 5,3,0
+solution: 6,2 ; 5,3 ; use 0,4,0 ; 4,4 ; 2,5 ; 5,0 ; use 0,2,1 ; use 0,2,0 ; use 0,2,1

@@ -1,7 +1,7 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 881 + tür resource; şekil dikdörtgen; çözüm 11 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 881 + tür resource; şekil dikdörtgen; çözüm 12 + 4 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: daily_d020_t8
 title: Günlük 20
-moves: 11
+moves: 12
 roll: on
 specials: on
 type: resource
@@ -17,4 +17,4 @@ yy    np    pp    yp    yc    pc    yy
 cyk1  nc    cnk1  cn    nn    pp    pb
 nc    np    pp    pb    cy    cy    cn
 ny    nn    pn    pn    cnk1  cy    py
-solution: 0,3 ; 0,3 ; 0,0 ; 0,0 ; 5,0 ; roll 0 ; 4,0 ; swap 5,0,2 ; 5,3 ; swap 5,3,2 ; roll 1
+solution: 0,3 ; use 0,0,0 ; 0,0 ; use 0,3,0 ; roll 0 ; 2,0 ; roll 5 ; use 0,0,4 ; 6,3 ; use 0,0,6 ; 6,0 ; 5,5

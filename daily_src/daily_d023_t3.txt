@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 104 + tür protect; şekil zikzak; çözüm 19 + 0 tepsi / sınır 19; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 104 + tür protect; şekil T (ayna); çözüm 7 + 2 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,17
 id: daily_d023_t3
 title: Günlük 23
-moves: 19
+moves: 10
 roll: on
 specials: on
 type: protect
 rules: protect, exact
-goals: purple 21, coral 25, yellow 24
+goals: yellow 23, navy 19, coral 16
 grid:
-#     cp    cb    cn    cbP   bb    bb    bp
-yp    yp    yy    yn    cn    bb    bb    #
-#     cp    yy    yy    cbi1  bb    bn    cn
-pc    cc    cp    cci1  pc    py    yy    #
-#     yc    yp    pc    pc    yc    yn    bb
-yyi2  yc    yp    bn    bn    bc    pp    #
-#     bp    cp    cp    yc    yn    yp    ccP
-bp    bb    cn    cy    np    yp    pp    #
-#     cy    cb    nn    nn    pn    pn    yn
-solution: 1,6 ; 1,4 ; 4,7 ; swap 1,4,0 ; roll 3 ; 1,0 ; 3,2 ; 2,6 ; 3,8 ; roll 8 ; 4,7 ; 4,0 ; 5,2 ; roll 2 ; 5,0 ; roll 5 ; 1,6 ; 3,8 ; 3,2
+nn    yn    bc    ccP   cc    py    py    py
+nn    yn    by    nc    bb    bb    bp    pp
+ncP   nc    yy    yn    yb    bn    bn    bp
+bc    bc    yy    yc    yc    nn    cni2  nn
+yn    yc    cp    cp    cy    yni1  np    nc
+yn    yc    pp    pb    pb    yc    yc    yc
+#     #     py    py    yb    cp    #     #
+#     #     py    pb    yy    ypi1  #     #
+#     #     ny    ny    yy    yn    #     #
+solution: 3,5 ; 2,6 ; use 0,2,0 ; 2,4 ; use 0,0,0 ; 1,0 ; 5,0

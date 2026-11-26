@@ -242,7 +242,8 @@ static partial class Program
         _ => old,
     };
 
-    static int CountMoves(IEnumerable<Command> sol) => sol.Count(c => c.Type != CommandType.UseSpecial);
+    // 2026-11-26 (kullanıcı: "Tepsiden 1 hamle götürsün"): tepsi kullanımı da hamle; yalnız torba/kova gönderimi hamlesiz.
+    static int CountMoves(IEnumerable<Command> sol) => sol.Count(c => c.Type != CommandType.SendBucket);
 
     /// <summary>
     /// v7 bot hedefi: 6–15 v6 ile aynı (HardTarget − 0.05); 16–30 arasında 0.06 daha aşağı iner ve öyle kalır.

@@ -82,42 +82,78 @@ namespace KatKat.EditorTools
                         gc.Hud.AdvanceWaterBar(0.3f);
                         gc.SendWaterBucket();
                     }, 18, (gc, f) => { gc.Board.AdvanceWater(0.13f); gc.Hud.AdvanceWaterBar(0.13f); UnityEngine.Canvas.ForceUpdateCanvases(); });
-            // 2026-11-26 özel taş efektleri kare kare (test bölümleri): senaryo = lab no, tür, eylem (tap / drag yön).
+            // 2026-11-26 özel taş efektleri kare kare (test bölümleri; özel taşlar açılışta tepside): senaryo = lab no, tür, eylem.
+            // Eylem: "use" yuva seç + hücreye dokun (yuvadan hedefe uçuş, sonra efekt), "drag" yuvadan sürükle (hayalet + önizleme,
+            // 6. karede bırak), "hold" sürükle ve bırakma (yalnız önizleme), "create" büyük gruba dokun (doğan taş tepsiye uçar).
             if (Environment.GetEnvironmentVariable("KATKAT_FXFRAMES") == "1")
             {
-                var scen = new (string Name, int Lab, KatKat.Core.SpecialKind Kind, bool Drag)[]
+                var scen = new (string Name, int Lab, SpecialKind Kind, string Act)[]
                 {
-                    ("roket_satir", 1, KatKat.Core.SpecialKind.RocketRow, false),
-                    ("roket_sutun", 1, KatKat.Core.SpecialKind.RocketColumn, false),
-                    ("cift_birlesme", 2, KatKat.Core.SpecialKind.RocketRow, true),
-                    ("cift_roket", 2, KatKat.Core.SpecialKind.RocketColumn2, false),
-                    ("altin_rulo", 3, KatKat.Core.SpecialKind.Rainbow, true),
-                    ("bomba_imha", 4, KatKat.Core.SpecialKind.RocketRow, false),
-                    ("kurek", 5, KatKat.Core.SpecialKind.Shovel, false),
-                    ("torba", 7, KatKat.Core.SpecialKind.RocketRow, false),
+                    ("roket_satir", 1, SpecialKind.RocketRow, "use"),
+                    ("roket_sutun", 1, SpecialKind.RocketColumn, "use"),
+                    ("cift_roket", 2, SpecialKind.RocketRow2, "use"),
+                    ("cift_sutun", 2, SpecialKind.RocketColumn2, "use"),
+                    ("altin_rulo", 3, SpecialKind.Rainbow, "use"),
+                    ("bomba_imha", 4, SpecialKind.RocketRow, "use"),
+                    ("kurek", 5, SpecialKind.Shovel, "use"),
+                    ("torba", 7, SpecialKind.RocketRow, "use"),
+                    ("surukle_roket", 1, SpecialKind.RocketRow, "drag"),
+                    ("onizle_cift", 2, SpecialKind.RocketColumn2, "hold"),
+                    ("onizle_rulo", 3, SpecialKind.Rainbow, "hold"),
+                    ("onizle_kurek", 5, SpecialKind.Shovel, "hold"),
+                    ("dogan_tepsi", 0, SpecialKind.None, "create"),
                 };
                 string only = Environment.GetEnvironmentVariable("KATKAT_FXONLY");
                 foreach (var sc in scen)
                 {
-                    if (!string.IsNullOrEmpty(only) && !only.Contains(sc.Name)) continue;
+                    if (!string.IsNullOrEmpty(only) && !only.Split(',').Any(o => sc.Name.Contains(o.Trim()))) continue;
+                    int slot = -1, tx = -1, ty = -1;
                     GameCapture.FramesPublic($"kap/fx_{sc.Name}", W, H, gc =>
                     {
                         gc.ShowPilots();
                         gc.StartTrial(sc.Lab);
                         gc.Hud.HideRuleCard(false);
-                        var b = gc.Session.State.Board;
-                        int at = -1;
-                        for (int i = 0; i < b.Count; i++) if (b[i].Active && b[i].Special == sc.Kind) { at = i; break; }
-                        if (at < 0) { Debug.LogWarning("[KatKat] fx " + sc.Name + ": özel taş yok"); return; }
-                        int x = b.X(at), y = b.Y(at);
-                        if (!sc.Drag) { gc.OnCellPressed(x, y); return; }
-                        for (int dir = 0; dir < 4; dir++)
+                        UnityEngine.Canvas.ForceUpdateCanvases();
+                        var st = gc.Session.State;
+                        if (sc.Act == "create")
                         {
-                            var cmd = KatKat.Core.Command.Swap(x, y, dir);
-                            if (KatKat.Core.RulesEngine.Validate(gc.Session.State, cmd, out _) == KatKat.Core.RejectReason.None) { gc.OnSpecialDrag(x, y, dir); return; }
+                            st.Tray.Clear();
+                            gc.Hud.SetTray(st.Tray, -1);
+                            var big = GroupFinder.AllComponents(st.Board).Where(c => RulesEngine.Validate(st, Command.Tap(st.Board.X(c[0]), st.Board.Y(c[0])), out _) == RejectReason.None)
+                                .OrderByDescending(c => c.Count).FirstOrDefault();
+                            if (big == null || big.Count < 5) { Debug.LogWarning($"[KatKat] fx {sc.Name}: 5+ grup yok ({big?.Count})"); if (big == null) return; }
+                            Debug.Log($"[KatKat] fx {sc.Name}: grup {big.Count}");
+                            gc.OnCellPressed(st.Board.X(big[0]), st.Board.Y(big[0]));
+                            return;
                         }
-                        Debug.LogWarning("[KatKat] fx " + sc.Name + ": geçerli sürükleme yok");
-                    }, 16, (gc, fr) => { gc.Board.Advance(fr == 0 ? 30f : 110f); gc.Hud.AdvanceEffects(110f); UnityEngine.Canvas.ForceUpdateCanvases(); });
+                        slot = st.Tray.IndexOf(sc.Kind);
+                        if (slot < 0) { Debug.LogWarning($"[KatKat] fx {sc.Name}: tepside {sc.Kind} yok (tepsi: {string.Join(",", st.Tray)})"); return; }
+                        (tx, ty) = BestTarget(st, slot, sc.Name == "bomba_imha");
+                        if (tx < 0) { Debug.LogWarning($"[KatKat] fx {sc.Name}: geçerli hedef yok"); return; }
+                        Debug.Log($"[KatKat] fx {sc.Name}: yuva {slot} {sc.Kind} → ({tx},{ty})");
+                        if (sc.Act == "use") { gc.PressTraySlot(slot); gc.OnCellPressed(tx, ty); return; }
+                        // Sürükleme: yuvadan başlar, hedefe doğru kayar.
+                        gc.TrayDragBegin(slot, gc.TraySlotScreenPoint(slot));
+                    }, sc.Act == "hold" ? 8 : 22, (gc, fr) =>
+                    {
+                        if (sc.Act == "drag" || sc.Act == "hold")
+                        {
+                            if (slot >= 0 && tx >= 0 && (sc.Act == "hold" || fr <= 6))
+                            {
+                                var a = gc.TraySlotScreenPoint(slot);
+                                var b = gc.CellScreenPoint(tx, ty);
+                                float u = Mathf.Clamp01((fr + 1) / 4f);
+                                var p = Vector2.Lerp(a, b, u * u * (3f - 2f * u));
+                                if (sc.Act == "drag" && fr == 6) gc.TrayDragEnd(b);
+                                else gc.TrayDragMove(p);
+                            }
+                        }
+                        float ms = fr == 0 ? 16f : fr < 6 ? 45f : 100f;
+                        gc.Board.Advance(ms);
+                        gc.Board.Director.Advance(ms);
+                        gc.Hud.AdvanceEffects(ms);
+                        UnityEngine.Canvas.ForceUpdateCanvases();
+                    });
                 }
             }
             // 2026-11-26 ortak taş patlaması ve hedefe uçuş kare kare (KATKAT_BLASTFRAMES=1; KATKAT_FXONLY süzer): hedef renginde küçük
@@ -133,6 +169,30 @@ namespace KatKat.EditorTools
                 }
             }
             Debug.Log("[KatKat] kap yakalamaları tamam");
+        }
+
+        /// <summary>
+        /// Tepsi yuvasının en etkili hedefi (kopyada denenir): en çok hücre soyan / çakıl kaldıran; <paramref name="defuse"/> ise en çok
+        /// bomba imha eden. Eşitlikte tahtanın ortasına yakın olan.
+        /// </summary>
+        private static (int, int) BestTarget(LevelState st, int slot, bool defuse)
+        {
+            int bx = -1, by = -1;
+            float best = -1f;
+            var b = st.Board;
+            for (int y = 0; y < b.Height; y++)
+            for (int x = 0; x < b.Width; x++)
+            {
+                var cmd = Command.UseSpecial(slot, x, y);
+                if (RulesEngine.Validate(st, cmd, out _) != RejectReason.None) continue;
+                var r = RulesEngine.TryApply(st.Clone(), cmd);
+                if (r == null || !r.Accepted || r.Waves.Count == 0) continue;
+                var w = r.Waves[0];
+                float score = w.Cells.Count + w.GravelCleared.Count * 2f + (defuse ? w.Defused.Count * 100f : w.Defused.Count * 3f);
+                score -= (Mathf.Abs(x - (b.Width - 1) * 0.5f) + Mathf.Abs(y - (b.Height - 1) * 0.5f)) * 0.1f;
+                if (score > best) { best = score; bx = x; by = y; }
+            }
+            return (bx, by);
         }
 
         /// <summary>Senaryoya uygun bölüm ve grup bulur, dokunur. Hedef rengi: CollectColor görevi.</summary>

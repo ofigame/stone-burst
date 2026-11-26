@@ -34,7 +34,7 @@ namespace KatKat.View
         private static Material _lineMat, _lineAdd;
         private Material _spriteMat;
 
-        public bool Busy => _plan.Count > 0 || _beams.Count > 0 || _rockets.Count > 0 || _tokens.Count > 0 || _shovel != null;
+        public bool Busy => _plan.Count > 0 || _beams.Count > 0 || _rockets.Count > 0 || _tokens.Count > 0 || _shovel != null || _flyers.Count > 0;
 
         public static BoosterFx Attach(BoardView board)
         {
@@ -80,6 +80,7 @@ namespace KatKat.View
             TickWobbles(ms);
             TickLaneGlows(ms);
             TickShovel(ms);
+            TickFlyers(ms);
         }
 
         /// <summary>Bütün efektleri hemen bitirir (bölüm değişimi, atlama). Tahta yığınlarının ölçeği geri yüklenir.</summary>
@@ -98,6 +99,8 @@ namespace KatKat.View
             _laneGlows.Clear();
             if (_shovel != null) { Release(_shovel); _shovel = null; }
             _shovelPts.Clear();
+            foreach (var f in _flyers) { Release(f.Sr); Release(f.Glow); f.OnArrive?.Invoke(); }
+            _flyers.Clear();
         }
 
         private void PlaySound(string name, float pitch, float vol, float gapMs, int max)
@@ -300,8 +303,10 @@ namespace KatKat.View
 
             // Aşama 1 – aktivasyon (dokunuşla aynı kare).
             PunchToken(token, src, Cell * 0.95f, 0f, c.ActivateMs + c.TargetMs, c.ActivateScale, Vector2.right, true);
-            RingFx(src, gold, 0.3f, 2.2f, 0.35f, 0.9f);
-            Flash(src, gold, 1.6f, 0.25f, 0.6f);
+            // 2026-11-26 (kullanıcı: "Efektler çok pasif"): daha büyük halka ve parlama, ardından ikinci beyaz halka.
+            RingFx(src, gold, 0.3f, c.ActivateRing, 0.38f, 1f);
+            RingFx(src, Color.white, 0.2f, c.ActivateRing * 0.7f, 0.3f, 0.8f);
+            Flash(src, gold, c.ActivateFlash, 0.3f, 0.9f);
             int orbit = N(c.OrbitParticles);
             for (int i = 0; i < orbit; i++)
             {
@@ -313,7 +318,7 @@ namespace KatKat.View
                     Cell * 0.16f, Cell * 0.06f, Color.Lerp(col, Color.white, 0.4f), new Color(col.r, col.g, col.b, 0f), drag: 0.8f);
             }
             Sound?.Invoke("special-charge", 0f, c.Volume * 0.8f);
-            Haptic?.Invoke(0);
+            Haptic?.Invoke(1);
 
             // Aşama 2 – hedefler parlar, şişer, titrer.
             At(c.ActivateMs, () =>
@@ -363,7 +368,7 @@ namespace KatKat.View
                 RingFx(src, main, 0.3f, c.FinalWave * 0.7f * big, c.FinalMs / 1000f, 0.4f);
                 Emit(FxKit.Glow, true, Order - 3, _board.WorldCenter, Vector3.zero, c.FinalMs / 1000f, Cell * 6f, Cell * 9f,
                     new Color(1f, 0.96f, 0.85f, c.FinalFlash * (tier >= 2 ? 1.2f : 1f)), new Color(1f, 0.9f, 0.7f, 0f));
-                int st = N(tier >= 2 ? 12 : 6);
+                int st = N(tier >= 2 ? c.FinalStarsBig : c.FinalStars);
                 for (int i = 0; i < st; i++)
                 {
                     float a = R(0f, Mathf.PI * 2f);
@@ -415,7 +420,9 @@ namespace KatKat.View
                 if (!b.Arrived && b.Age >= b.Travel)
                 {
                     b.Arrived = true;
-                    Flash(b.To, b.Color, 1.1f, 0.2f, 0.85f);
+                    var rc = BoosterFxConfig.Current.Rainbow;
+                    Flash(b.To, b.Color, rc.BeamArriveFlash, 0.22f, 1f);
+                    RingFx(b.To, b.Color, 0.2f, rc.BeamArriveFlash * 0.9f, 0.22f, 0.7f);
                 }
                 if (tail >= 1f) { Release(b.Core); Release(b.Glow); _beams.RemoveAt(i); continue; }
                 b.Core.positionCount = S + 1;
@@ -436,7 +443,7 @@ namespace KatKat.View
                 b.Core.widthMultiplier = b.Width;
                 b.Glow.widthMultiplier = b.Width * (BoosterFxConfig.Current.Rainbow.BeamGlowWidth / Mathf.Max(0.01f, BoosterFxConfig.Current.Rainbow.BeamWidth));
                 // Işın üzerinde ilerleyen enerji parçacığı.
-                if (!b.Arrived && UnityEngine.Random.value < ms * 0.03f * Cfg.ParticleK)
+                if (!b.Arrived && UnityEngine.Random.value < ms * BoosterFxConfig.Current.Rainbow.BeamSparkRate * Cfg.ParticleK)
                     Emit(FxKit.Dot, true, Order + 3, BeamPoint(b, head, b.Age), Vector3.zero, 0.18f, Cell * 0.14f, Cell * 0.03f,
                         new Color(1f, 1f, 1f, 1f), new Color(b.Color.r, b.Color.g, b.Color.b, 0f));
             }
@@ -472,11 +479,13 @@ namespace KatKat.View
 
             // Aşama 1 – aktivasyon: %115, sıkışma, ters yönde esneme beklentisi, motor kıvılcımları, ince halka.
             PunchToken(token, src, Cell * 0.95f, tokenAngle, c.ActivateMs + 30f, c.ActivateScale, axis, false);
-            RingFx(src, new Color(1f, 0.85f, 0.4f, 1f), 0.25f, 1.4f, 0.22f, 0.8f);
+            // 2026-11-26 (kullanıcı: "Efektler çok pasif"): halka 1,4 → ActivateRing, motor kıvılcımı 5 → LaunchSparks.
+            RingFx(src, new Color(1f, 0.85f, 0.4f, 1f), 0.25f, c.ActivateRing, 0.26f, 1f);
+            Flash(src, new Color(1f, 0.9f, 0.55f, 1f), c.LaunchFlash * 0.6f, c.ActivateMs / 1000f + 0.06f, 0.7f);
             for (int s = -1; s <= 1; s += 2)
             {
                 var end = src + axis * s * Cell * 0.45f;
-                int k = N(5);
+                int k = N(c.LaunchSparks);
                 for (int i = 0; i < k; i++)
                     Emit(FxKit.Dot, true, Order + 5, end, (axis * s * R(0.3f, 1.2f) + new Vector3(R(-0.6f, 0.6f), R(-0.6f, 0.6f), 0f)) * Cell, c.ActivateMs / 1000f + 0.05f,
                         Cell * 0.14f, Cell * 0.04f, new Color(1f, 0.92f, 0.5f, 1f), new Color(flame.r, flame.g, flame.b, 0f), drag: 2f);
@@ -487,9 +496,10 @@ namespace KatKat.View
             // Aşama 2 – iki zıt yöne fırlatma (her şerit).
             At(c.ActivateMs, () =>
             {
-                Flash(src, new Color(1f, 0.86f, 0.45f, 1f), 1.6f, 0.18f, 0.9f);
+                Flash(src, new Color(1f, 0.86f, 0.45f, 1f), c.LaunchFlash, 0.22f, 1f);
+                RingFx(src, new Color(1f, 0.95f, 0.75f, 1f), 0.3f, c.LaunchFlash * 0.9f, 0.24f, 0.85f);
                 Sound?.Invoke("rocket-sweep", 0f, c.Volume);
-                Haptic?.Invoke(1);
+                Haptic?.Invoke(lanes.Count > 1 ? 2 : 1);
                 foreach (var lane in lanes)
                 {
                     for (int s = -1; s <= 1; s += 2)
@@ -521,7 +531,8 @@ namespace KatKat.View
                 At(at, () =>
                 {
                     var dir = axis * hit.Sign;
-                    Flash(hit.Pos, Color.Lerp(hit.Color, Color.white, 0.5f), 0.9f, 0.14f, 0.8f * c.Impact);
+                    Flash(hit.Pos, Color.Lerp(hit.Color, Color.white, 0.5f), c.ImpactFlash, 0.18f, Mathf.Min(1f, 0.8f * c.Impact));
+                    RingFx(hit.Pos, hit.Color, 0.2f, c.ImpactRing, 0.22f, 0.65f);
                     float k = tier >= 2 ? 1.2f : 1f;
                     if (!_board.BlastOn) Jelly(hit.Pos, hit.Color, c.JellyMin, c.JellyMax, c.JellySize * k, dir, c.Impact * k); // ortak patlama açıkken StoneBlast
                     PlaySound("jelly-pop", Mathf.Min(6f, rank * c.PitchStep), c.Volume * 0.7f, c.MinSoundGapMs, c.MaxImpactSounds);
@@ -556,7 +567,7 @@ namespace KatKat.View
                 if (!r.Out && done)
                 {
                     r.Out = true;
-                    Flash(pos, new Color(1f, 0.85f, 0.45f, 1f), 1.1f, 0.16f, 0.75f);
+                    Flash(pos, new Color(1f, 0.85f, 0.45f, 1f), 1.6f, 0.2f, 0.9f);
                 }
                 float fadeK = r.Out ? 1f : 0f;
                 // İz: geçmiş konumlar, uzunluk sınırlı; çekirdek beyaz-sarı, dış alev turuncu-altın; uca doğru incelir.
@@ -604,13 +615,13 @@ namespace KatKat.View
                     r.Sr.color = col;
                 }
                 // Kıvılcımlar ve hız çizgileri.
-                if (!r.Out && UnityEngine.Random.value < ms * 0.05f * Cfg.ParticleK)
+                if (!r.Out && UnityEngine.Random.value < ms * c.SparkRate * Cfg.ParticleK)
                 {
                     var back = -r.Dir;
                     Emit(FxKit.Dot, true, Order + 4, pos + back * Cell * 0.3f, (back * R(1f, 2.5f) + new Vector3(R(-0.9f, 0.9f), R(-0.9f, 0.9f), 0f)) * Cell, R(0.18f, 0.32f),
                         Cell * R(0.08f, 0.14f), Cell * 0.02f, new Color(1f, 0.95f, 0.6f, 1f), new Color(1f, 0.55f, 0.15f, 0f), drag: 3f, stretch: 0.12f / Mathf.Max(0.01f, Cell));
                 }
-                if (!r.Out && speed > 0.7f && UnityEngine.Random.value < ms * 0.012f * Cfg.ParticleK)
+                if (!r.Out && speed > 0.7f && UnityEngine.Random.value < ms * c.StreakRate * Cfg.ParticleK)
                 {
                     var off = new Vector3(-r.Dir.y, r.Dir.x, 0f) * R(-0.45f, 0.45f) * Cell;
                     Emit(FxKit.Streak, true, Order + 3, pos - r.Dir * Cell * 0.8f + off, r.Dir * Cell * 4f, 0.14f, Cell * 0.5f, Cell * 0.2f,
@@ -702,6 +713,107 @@ namespace KatKat.View
             var col = Color.white; col.a = f > hops ? 1f - (f - hops) / 0.6f : 1f;
             _shovel.color = col;
         }
+
+        // ---- Simge uçuşu (2026-11-26, kullanıcı: "Roket ve rulo yine tahtanın üst kısmında olsun … Roketlere tıklandığında
+        // anlaşılmıyor") ----
+
+        private sealed class Flyer
+        {
+            public SpriteRenderer Sr, Glow;
+            public Vector3 From, To, Ctrl;
+            public float Age, Dur, K0, K1, Swell, TrailRate, GlowK, Angle;
+            public Color Trail;
+            public Action OnArrive;
+            public bool Arrive;
+        }
+
+        private readonly List<Flyer> _flyers = new List<Flyer>();
+
+        /// <summary>
+        /// Simge yay çizerek uçar: hızlı başlar, ortada büyür, arkasında ışık izi ve yıldızcıklar; varışta (isteğe bağlı) parlama ve
+        /// halka, sonra <paramref name="onArrive"/>. Boylar dünya biriminde (simgenin uzun kenarı). Tepsiden hedef hücreye kullanım
+        /// uçuşu ve doğan taşın tepsiye uçuşu bunu kullanır.
+        /// </summary>
+        public void FlyIcon(Sprite s, float angle, Vector3 from, Vector3 to, float ms, float size0, float size1, float arcCells, float swell,
+            float trailRate, Color trail, bool arriveFx, Action onArrive)
+        {
+            if (s == null || ms <= 0f) { onArrive?.Invoke(); return; }
+            float span = Mathf.Max(0.0001f, Mathf.Max(s.bounds.size.x, s.bounds.size.y));
+            var sr = Sprite(s, Order + 30);
+            var glow = Sprite(FxKit.Glow, Order + 29);
+            if (FxKit.Additive != null) glow.sharedMaterial = FxKit.Additive;
+            float k0 = size0 / Lossy / span, k1 = size1 / Lossy / span;
+            sr.transform.position = from;
+            sr.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            sr.transform.localScale = Vector3.one * k0; // ilk karede doğru boy
+            float gk = 1f / Lossy / Mathf.Max(0.0001f, FxKit.Glow.bounds.size.x);
+            glow.transform.position = from;
+            glow.transform.localScale = Vector3.one * size0 * 1.9f * gk;
+            glow.color = new Color(trail.r, trail.g, trail.b, 0.8f);
+            var mid = (from + to) * 0.5f;
+            var d = to - from;
+            // Yay: uçuş yönüne dik, yukarı doğru (dik iniş ve yatay uçuşta da yukarı kabarır).
+            var perp = new Vector3(-d.y, d.x, 0f).normalized;
+            if (perp.y < 0f) perp = -perp;
+            if (perp.sqrMagnitude < 0.01f) perp = Vector3.up;
+            var ctrl = mid + perp * arcCells * Cell + Vector3.up * arcCells * Cell * 0.35f;
+            _flyers.Add(new Flyer { Sr = sr, Glow = glow, From = from, To = to, Ctrl = ctrl, Dur = ms, K0 = k0, K1 = k1, Swell = swell, TrailRate = trailRate, Trail = trail, GlowK = gk, Angle = angle, OnArrive = onArrive, Arrive = arriveFx });
+            Flash(from, trail, size0 / Mathf.Max(0.0001f, Cell) * 1.4f, 0.16f, 0.8f);
+        }
+
+        private void TickFlyers(float ms)
+        {
+            for (int i = _flyers.Count - 1; i >= 0; i--)
+            {
+                var f = _flyers[i];
+                float prevU = Mathf.Clamp01(f.Age / f.Dur);
+                f.Age += ms;
+                float u = Mathf.Clamp01(f.Age / f.Dur);
+                float e = 1f - (1f - u) * (1f - u) * 0.65f - (1f - u) * 0.35f; // hızlı çıkış, hedefe yumuşak oturuş
+                e = Mathf.Clamp01(Mathf.Lerp(u, e, 0.7f));
+                float m = 1f - e;
+                var p = m * m * f.From + 2f * m * e * f.Ctrl + e * e * f.To;
+                float k = Mathf.Lerp(f.K0, f.K1, e) * (1f + f.Swell * Mathf.Sin(u * Mathf.PI));
+                f.Sr.transform.position = p;
+                f.Sr.transform.localScale = Vector3.one * k;
+                f.Sr.transform.rotation = Quaternion.Euler(0f, 0f, f.Angle + Mathf.Sin(u * Mathf.PI) * 12f);
+                f.Glow.transform.position = p;
+                float size = k * Lossy * Mathf.Max(f.Sr.sprite.bounds.size.x, f.Sr.sprite.bounds.size.y);
+                f.Glow.transform.localScale = Vector3.one * size * 1.9f * f.GlowK;
+                f.Glow.color = new Color(f.Trail.r, f.Trail.g, f.Trail.b, 0.85f);
+                // İz: yol boyunca (kare hızından bağımsız) ışık noktaları ve ara ara yıldız.
+                if (!KatKat.UI.Motion.Reduced && f.TrailRate > 0f)
+                {
+                    int n = Mathf.Max(1, Mathf.RoundToInt(ms * f.TrailRate * Cfg.ParticleK));
+                    for (int j = 0; j < n; j++)
+                    {
+                        float uu = Mathf.Lerp(prevU, u, (j + 1f) / n);
+                        float ee = Mathf.Clamp01(Mathf.Lerp(uu, 1f - (1f - uu) * (1f - uu) * 0.65f - (1f - uu) * 0.35f, 0.7f));
+                        float mm = 1f - ee;
+                        var q = mm * mm * f.From + 2f * mm * ee * f.Ctrl + ee * ee * f.To;
+                        bool star = (j & 3) == 0;
+                        Emit(star ? FxKit.Star : FxKit.Dot, true, Order + 28, q + new Vector3(R(-0.1f, 0.1f), R(-0.1f, 0.1f), 0f) * size,
+                            new Vector3(R(-0.5f, 0.5f), R(-0.5f, 0.2f), 0f) * Cell, R(0.22f, 0.34f), size * (star ? 0.38f : 0.26f), size * 0.04f,
+                            Color.Lerp(f.Trail, Color.white, 0.45f), new Color(f.Trail.r, f.Trail.g, f.Trail.b, 0f), drag: 2.5f, rot: R(0f, 45f), rotVel: R(-120f, 120f));
+                    }
+                }
+                if (u >= 1f)
+                {
+                    if (f.Arrive)
+                    {
+                        var tc = Cfg.Tray;
+                        Flash(f.To, f.Trail, tc.UseArriveFlash, 0.2f, 1f);
+                        RingFx(f.To, f.Trail, 0.25f, tc.UseArriveRing, 0.24f, 0.9f);
+                    }
+                    Release(f.Sr); Release(f.Glow);
+                    _flyers.RemoveAt(i);
+                    f.OnArrive?.Invoke();
+                }
+            }
+        }
+
+        /// <summary>Uçan simge var mı (testler, yakalama).</summary>
+        public int FlyingIcons => _flyers.Count;
 
         // ---- Yumuşatmalar -------------------------------------------------------------------------
 

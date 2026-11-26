@@ -125,6 +125,7 @@ namespace KatKat.Game
             _hud.PaintPressed += TogglePaint;
             _hud.PaintColorChosen += OnPaintColor;
             _hud.TraySlotPressed += OnTraySlot;
+            TrayDragWire(); // 2026-11-26 tepsiden sürükle-bırak, doğan taşın yuvaya varışı
             _hud.BucketPressed += SendBucket;
             _hud.PlaceStoneChosen += OnPlaceStoneChosen;
             _board.TrayTarget = () => _hud.TraySlotPosition(Mathf.Max(0, _session.State.Tray.Count - 1));
@@ -397,8 +398,9 @@ namespace KatKat.Game
             _hud.HidePalette();
             _hud.SetPaint(_session.State.PaintLeft, false);
             // 2026-11-23 (130. bölüm): özel taşı kapalı ama çakıllı bölümde de Kürek tepsiye gelir; tepsi görünmeli.
-            // 2026-11-26: özel taşlar tahtada (tepsi yok); torba bölümünde bant torbayı taşır.
-            _hud.SetTrayVisible(false);
+            // 2026-11-26 (kullanıcı: "Roket ve rulo yine tahtanın üst kısmında olsun"): özel taşlar yine tepside; torba bölümünde
+            // yuvalar torbanın iki yanında.
+            _hud.SetTrayVisible(_session.State.SpecialsEnabled || KatKat.Core.RulesEngine.HasGravel(_session.State.Board) || _session.State.Bucket != null || _session.State.Tray.Count > 0);
             BucketBegin();
             WaterBegin(); // 2026-11-25 su kipi
             _hud.SetTray(_session.State.Tray, _traySlot = -1);
@@ -497,6 +499,7 @@ namespace KatKat.Game
 
             // Öğretici bilgi adımı: ekranın herhangi bir yerine dokunuş (arayüz düğmeleri dahil) adımı geçer.
             if (_tourOn && _tourInfoShowing && !_hud.PanelOpen && !_menu.IsOpen) { TourConsumesPress(); return; }
+            if (TrayAimTick()) return; // 2026-11-26 tepsi sürüklemesi / seçili yuvayla nişan
             if (SpecialDragTick()) return;
             if (!TryGetPress(out var screenPos)) return;
             // Bitiş kutlaması dokununca atlanır (tekrar oynarken bekletmesin).
@@ -510,6 +513,8 @@ namespace KatKat.Game
                 return;
             }
             if (!_board.TryCellAt(world, out int x, out int y)) return;
+            // 2026-11-26: seçili tepsi yuvasıyla basış önizler, bırakınca kullanır (TrayAimTick).
+            if (_traySlot >= 0 && TourAllowsCell(x, y) && BeginTrayAim(x, y)) return;
             if (BeginSpecialDrag(screenPos, x, y)) return; // 2026-11-26: özel taş: bırakınca dokunuş, sürükleyince komşuya
             // v12 deneme: dokunuş bırakınca; basılı tutunca katman görünümü.
             if (TrialHandlePress(screenPos, x, y)) return;
@@ -715,6 +720,7 @@ namespace KatKat.Game
             // 2026-11-19: yavaş taş akışı girdiyi kilitlemesin; yalnız bölümü bitiren hamle taşların varmasını bekler.
             _board.HoldUntilArrive = _session.State.Status != GameStatus.Idle;
             _board.GoalQuota = GoalQuotaFor();
+            _board.TraySize = _hud.TrayIconWorldSize(Mathf.Max(0, _session.State.Tray.Count - 1)); // 2026-11-26 doğan taş yuva boyuna küçülür
             _board.Play(r, _hud.GoalTarget, _hud.StarTarget,
                 wave =>
                 {
@@ -867,25 +873,33 @@ namespace KatKat.Game
             if (_traySlot < 0) { _hud.HideToast(); return; }
             var kind = tray[_traySlot];
             _sound.Play(Sfx.Tap);
+            Haptics.Light();
             if (_tourOn) { TourShowCurrent(); return; } // tur kendi açıklamasını gösterir
-            _hud.ShowToast(kind == SpecialKind.Shovel ? Loc.T("toast.use.shovel")
-                : kind == SpecialKind.Rainbow ? Loc.T("toast.use.rainbow")
-                : kind == SpecialKind.RocketRow ? Loc.T("toast.use.row")
-                : Loc.T("toast.use.col"), 2.6f);
+            _hud.ShowToast(Loc.T(TrayToastKey(kind)), 2.6f); // 2026-11-26: çift roketin kendi yönergesi
         }
 
         private void UseTraySlot(int x, int y)
         {
             var usedKind = _traySlot < _session.State.Tray.Count ? _session.State.Tray[_traySlot] : SpecialKind.None;
+            // 2026-11-26 (kullanıcı: "Roketlere tıklandığında anlaşılmıyor"): simge sürükleme hayaletinden (yoksa yuvadan) hedefe uçar.
+            var ghost = _hud.TrayGhostWorld;
+            var launch = ghost ?? _hud.TraySlotPosition(_traySlot);
+            float launchSize = ghost.HasValue ? _hud.TrayGhostWorldSize : _hud.TrayIconWorldSize(_traySlot);
+            _board.HideAim();
             var r = _session.Submit(Command.UseSpecial(_traySlot, x, y));
             if (!r.Accepted)
             {
                 _sound.Play(Sfx.Invalid);
                 Haptics.Light();
                 if (_session.State.Board.InBounds(x, y)) _board.ShakeCells(new[] { new Coord(x, y) });
-                _hud.ShowToast(r.Reason == RejectReason.TrayNoEffect ? Loc.T("toast.use.noeffect") : Loc.T("toast.use.invalid"));
+                _hud.ShowToast(r.Reason == RejectReason.TrayNoEffect ? Loc.T("toast.use.noeffect")
+                    : r.Reason == RejectReason.NoMovesLeft ? Loc.T("toast.nomoves.tray") : Loc.T("toast.use.invalid"));
+                if (ghost.HasValue) { _hud.SnapTrayGhost(); _traySlot = -1; _hud.SetTray(_session.State.Tray, -1); }
                 return;
             }
+            _hud.HideTrayGhost();
+            _board.LaunchFrom = launch;
+            _board.LaunchSize = launchSize;
             _traySlot = -1;
             _hud.SetTray(_session.State.Tray, -1);
             _hud.HideToast();

@@ -1,12 +1,12 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 44 + tür reverse; şekil merdiven; çözüm 6 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 44 + tür reverse; şekil merdiven; çözüm 7 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10
 id: daily_d010_t2
 title: Günlük 10
-moves: 7
+moves: 10
 roll: on
 specials: on
 type: reverse
 rules: exact
-goals: coral 37, purple 22, star 3
+goals: coral 21, purple 12, star 3
 grid:
 byp   yyc*  yyc   #     #     #     #
 ycp   ypb   cpp   cpb   #     #     #
@@ -16,4 +16,4 @@ pcb   cbp*  bpp   bcy   bcy   pcp   bcp
 pbb   pcy   pcb   cyc   yyc   yyc   byp
 cyc   cyb   bcb   bbb   ybc   ycc   pcb
 cyc   ccc   bcc   bcy   yby   ycb   yyb
-solution: 3,3 ; roll 4 ; 3,2 ; 3,1 ; swap 3,2,1 ; 0,7
+solution: 1,1 ; 0,0 ; use 0,0,3 ; use 0,1,0 ; roll 3 ; 0,0 ; use 0,0,0

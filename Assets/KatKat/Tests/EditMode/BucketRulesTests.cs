@@ -120,15 +120,15 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void BagLevels_SpecialsStayOnBoard()
+        public void BagLevels_UseNormalFourSlotTray()
         {
-            // 2026-11-26 (kullanıcı: "Torba ise tahtanın üst kısmındaki altın ve roket rulolarının yerine gelsin"): torba bölümünde de
-            // roket dokunulan taşın yerinde; tepsi kullanılmaz.
+            // 2026-11-23: "altın rulo ve roket yine normal düzeninde 4 tane olsun"; 2026-11-26: torba bantta ortada, yuvalar iki yanında.
             var s = WithBuckets(State(9, new[] { "c c c c c", "y y y y y", "b b b b b" }), (LayerColor.Purple, 5));
             s.SpecialsEnabled = true;
             RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.AreEqual(0, s.Tray.Count);
-            Assert.IsTrue(s.Board[0, 0].HasSpecial);
+            RulesEngine.TryApply(s, Command.Tap(0, 1));
+            Assert.AreEqual(2, s.Tray.Count, "iki roket de tepside");
+            Assert.IsTrue(RulesEngine.TrayAccepts(s, SpecialKind.Shovel));
         }
 
         [Test]

@@ -1,10 +1,10 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dalga; çözüm 8 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dalga; çözüm 8 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,21; döndürmeyle başlar;
 id: level_325
-moves: 9
+moves: 10
 roll: off
 specials: on
 refill: 29 2-2
-goals: yellow 24, coral 26, navy 30
+goals: yellow 22, coral 24, navy 27
 grid:
 #     bc    #     by    #     by    #     nn
 cn    cn    bp    bp    ny    ny    ynR   npR
@@ -15,4 +15,4 @@ pc    pn    cc    cp    pb    pb    pb    nb
 ny    nc    bc    cc    cc    cc    py    nb
 ny    ny    bn    cn    bn    cc    py    ny
 cy    #     bn    #     bb    #     py    #
-solution: rot 4,4 ; 3,6 ; 3,6 ; 5,2 ; swap 5,2,1 ; 1,5 ; 1,2 ; swap 1,5,1
+solution: rot 4,4 ; 2,5 ; use 0,0,6 ; 5,2 ; use 0,3,0 ; 0,4 ; 1,2 ; use 0,0,1

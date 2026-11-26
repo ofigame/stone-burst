@@ -1,6 +1,6 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil zikzak; çözüm 11 + 0 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil zikzak; çözüm 12 + 5 tepsi / sınır 16; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_380
-moves: 15
+moves: 16
 roll: off
 specials: on
 refill: 28 2-3
@@ -17,4 +17,4 @@ cnb   nnb   bny   npp   pnp   cnb   cnb   #
 ynn   bcn   ync   nnp   nyp   bynR  bbpR  #
 #     ncb   ppb   ncy   ycp   ncc   nyc   npn
 pyb   pcb   ppb   npp   pny   nnb   nnb   #
-solution: rot 6,6 ; 5,4 ; 4,5 ; 4,5 ; 1,4 ; 1,7 ; 4,2 ; swap 4,2,3 ; 4,2 ; 3,2 ; swap 3,2,0
+solution: rot 6,6 ; 0,0 ; use 0,1,7 ; 1,0 ; use 0,4,0 ; 3,0 ; use 0,3,0 ; 3,0 ; 2,0 ; 4,0 ; use 0,0,0 ; use 0,1,0

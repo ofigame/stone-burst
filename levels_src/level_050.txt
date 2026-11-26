@@ -1,11 +1,11 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil merdiven (ayna); çözüm 7 + 0 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil merdiven (ayna); çözüm 10 + 5 tepsi / sınır 15; rastgele 0,005; açgözlü kaybeder; yumuşak 0,15
 id: level_050
-moves: 12
+moves: 15
 roll: off
 specials: on
 refill: 25 2-3
 type: boss
-goals: blue 23, yellow 19, coral 23
+goals: blue 26, yellow 21, coral 26
 grid:
 #     #     #     #     pcp   pbp   pbp
 #     #     #     ybp   ycp   yby   ybc
@@ -15,4 +15,4 @@ ccc   cyck1 cypG  yyyG  cyy   ypy   yby
 ycc   ybc   ccp   bcp   cbb   yby   yby
 bcp   ybck2 ybc   pcp   cbp   ybb   ypc
 bpp   bpp   cbbk1 bcb   bcp   ccy   cpck1
-solution: 6,4 ; 5,4 ; swap 5,4,0 ; 4,3 ; 5,4 ; 5,2 ; swap 5,3,2
+solution: 4,3 ; 4,0 ; use 0,5,0 ; use 0,4,0 ; 5,2 ; 4,2 ; use 0,4,0 ; use 0,3,1 ; 4,3 ; use 0,3,1

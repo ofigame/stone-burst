@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 393 + tür resource; şekil kesik köşe (ayna); çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 393 + tür resource; şekil artı (ayna); çözüm 9 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,19; döndürmeyle başlar;
 id: daily_d013_t5
 title: Günlük 13
-moves: 9
+moves: 10
 roll: on
 specials: on
 type: resource
 rules: exact
-goals: navy 18, purple 26, yellow 25
+goals: purple 24, navy 13, blue 15
 grid:
-#     #     cy    ny    ny    nc    #     #
-#     cy    cy    cn    cn    nc    yy    #
-cp    yn    ny    cb    pb    cc    yyi2  pp
-cn    np    byi2  yb    yb    yc    pp    pp
-cn    pc    pci1  pnR   bp    yn    cb    pb
-bn    pc    pc    pp    yp    yni1  cy    cy
-bn    pc    cc    cp    pp    yn    cy    cy
-#     ppi1  cp    cci1  yc    npR   pn    #
-#     #     yy    yy    yc    cn    #     #
-solution: rot 3,4 ; 3,4 ; 2,6 ; 2,5 ; swap 2,5,1 ; 4,3 ; 4,0 ; 7,2 ; roll 1
+#     #     bb    bc    cc    yc    #     #
+#     #     cb    bb    bp    ppi1  #     #
+by    bp    cb    cbi1  cp    bn    bpi1  bp
+yyi1  bp    bc    pyR   cp    cn    pcR   pb
+yn    yn    cc    yn    yn    yn    pp    pc
+cci2  pn    pp    pn    yp    yc    pp    pc
+cc    pc    yp    pp    ny    nn    nc    pc
+#     #     yp    yp    ny    ny    #     #
+#     #     yp    cp    nbi2  ny    #     #
+solution: rot 3,3 ; 5,2 ; 2,5 ; use 1,4,1 ; 2,0 ; 3,3 ; use 1,2,0 ; use 1,0,4 ; use 0,6,2

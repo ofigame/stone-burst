@@ -1,12 +1,12 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 129 + tür resource; şekil merdiven; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 129 + tür resource; şekil merdiven; çözüm 8 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10
 id: daily_d020_t3
 title: Günlük 20
-moves: 8
+moves: 10
 roll: on
 specials: on
 type: resource
 rules: exact
-goals: blue 12, purple 22, navy 26
+goals: blue 10, purple 19, navy 23
 grid:
 ynn   yyn   ypy   bpy   #     #     #     #
 nnc   byc   ycc   ypc   yny   #     #     #
@@ -17,4 +17,4 @@ pnn   nnn   nbp   yyp   yyc   bcn   cnp   pbn
 pyp   pyp   bpp   pyb   pbc   pyb   pyn   nbn
 ncn   ncn   pyy   npb   ccp   ccp   npc   npn
 pcc   pcc   ppc   npc   ccn   ccn   ccy   ccy
-solution: 5,3 ; roll 5 ; 6,3 ; roll 6 ; swap 6,3,2 ; 3,6 ; 2,1 ; 2,0
+solution: 5,2 ; use 0,0,6 ; roll 6 ; 3,4 ; use 0,0,0 ; 0,1 ; 0,3 ; use 0,3,1

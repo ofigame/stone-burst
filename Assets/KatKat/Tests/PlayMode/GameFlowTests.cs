@@ -334,40 +334,125 @@ namespace KatKat.Tests
         }
 
         /// <summary>
-        /// v11 özel güç simgeleri: bölüm 2'nin (v14 roket turu) kayıtlı çözümüyle özel taş normal yoldan oluşur, tepsiye gelir (yeni
-        /// PNG, döndürülmeden), yuva seçilince hedefleme, tahtada çalışır; geri alma tepsiyi geri getirir. Roket
-        /// ateşlenince simge ikiye bölünür (iki "RocketHalf"). Kurallar motor testlerinde (SpecialRulesTests).
+        /// 2026-11-26 (kullanıcı: "Kürek de yukarıya eski yerine gelsin. Kürek tek tek temizlesin ama temizlemeden çakıl yok olmasın"):
+        /// test bölümü lab_06'da Kürek açılışta tepside; tepsi görünür, simge yuvada. Yuva + çakıl: bir hamle; çakıllar kürek varana
+        /// dek yerinde görünür, sonunda hepsi kalkar; geri alma Küreği tepsiye geri getirir.
         /// </summary>
-        /// <summary>610. bölüm (özel taş kapalı, çakıllı; 2026-11-26 yeniden üretimden sonra 130 yerine): tepsi görünür; kayıtlı çözümün ilk dokunuşu Kürek verir ve tepside görünür.</summary>
         [UnityTest]
-        public IEnumerator Gravel_ShovelOnBoard_TapClearsGravel_NoTray()
+        public IEnumerator Gravel_ShovelFromTray_ClearsGravelOneByOne_CostsMove_Undo()
         {
-            // 2026-11-26 (kullanıcı: "Kürekte tahtada olsun ve üzerine basıldığında kendisi tek tek gidip çakılları temizlesin"):
-            // Kürek tepsiye değil dokunulan taşın yerine; tepsi görünmez; Küreğe dokununca çakıllar kalkar (bir hamle).
-            var (idx, at) = FindSolutionStep(d => KatKat.Core.RulesEngine.HasGravel(LevelLoader.ToState(d).Board), (st, c) => c.Type == CommandType.Tap && st.Board[c.X, c.Y].Special == SpecialKind.Shovel);
-            Assert.GreaterOrEqual(idx, 0, "Kürek kullanan çakıllı bölüm");
-            _gc.StartLevel(idx);
+            _gc.StartCustom(Lab("lab_06"), 0);
             _gc.Board.Director.TimeScale = Speed;
-            var sol = _gc.CurrentLevel.Solution;
-            for (int i = 0; i < at; i++)
-            {
-                _gc.PlayStep(sol[i]);
-                yield return WaitStable();
-                for (float until = Time.realtimeSinceStartup + 10f; _gc.Board.IsPlaying && Time.realtimeSinceStartup < until;) yield return null;
-            }
-            Assert.AreEqual(0, _gc.Session.State.Tray.Count, "tepsi kullanılmaz");
-            var cmd = LevelLoader.ToCommand(sol[at]);
-            Assert.AreEqual(SpecialKind.Shovel, _gc.Session.State.Board[cmd.X, cmd.Y].Special, "Kürek tahtada");
-            Assert.AreEqual(SpecialKind.Shovel, _gc.Board.StackAt(cmd.X, cmd.Y).Special, "Kürek simgesi yığının üstünde");
-            int gravel = 0;
-            { var gb = _gc.Session.State.Board; for (int q = 0; q < gb.Count; q++) if (gb[q].Active && gb[q].Gravel) gravel++; }
-            int moves = _gc.Session.State.MovesLeft;
-            _gc.PlayStep(sol[at]);
+            yield return null;
+            var st = _gc.Session.State;
+            Assert.IsTrue(_gc.Hud.TrayVisible, "tepsi görünür");
+            int slot = st.Tray.IndexOf(SpecialKind.Shovel);
+            Assert.GreaterOrEqual(slot, 0, "Kürek tepside");
+            Assert.IsTrue(_gc.Hud.TrayIcon(slot).gameObject.activeSelf, "Kürek simgesi yuvada");
+            Assert.AreSame(KatKat.View.SpecialArt.For(SpecialKind.Shovel), _gc.Hud.TrayIcon(slot).sprite);
+            var gravel = new List<Coord>();
+            for (int y = 0; y < st.Board.Height; y++)
+            for (int x = 0; x < st.Board.Width; x++)
+                if (st.Board[x, y].Active && st.Board[x, y].Gravel) gravel.Add(new Coord(x, y));
+            Assert.Greater(gravel.Count, 2, "çakıllı test bölümü");
+            var before = st.Clone();
+            var target = gravel[0];
+            _gc.PressTraySlot(slot);
+            _gc.OnCellPressed(target.X, target.Y);
+            Assert.AreEqual(before.MovesLeft - 1, _gc.Session.State.MovesLeft, "tepsiden kullanım bir hamle");
+            Assert.AreEqual(before.Tray.Count - 1, _gc.Session.State.Tray.Count, "Kürek tepsiden çıktı");
+            for (int q = 0; q < _gc.Session.State.Board.Count; q++) Assert.IsFalse(_gc.Session.State.Board[q].Active && _gc.Session.State.Board[q].Gravel, "mantıkta bütün çakıl kalktı");
+            // Görünüm: en uzak çakıl kürek varana dek yerinde.
+            var far = gravel.OrderByDescending(g => Mathf.Abs(g.X - target.X) + Mathf.Abs(g.Y - target.Y)).First();
+            Assert.IsTrue(_gc.Board.StackAt(far.X, far.Y).HasGravel, "uzak çakıl hamlenin başında görünür");
             yield return WaitStable();
-            int after = 0;
-            { var gb = _gc.Session.State.Board; for (int q = 0; q < gb.Count; q++) if (gb[q].Active && gb[q].Gravel) after++; }
-            Assert.Less(after, gravel, "Kürek çakılı temizledi");
-            if (_gc.Session.State.Status == GameStatus.Idle) Assert.AreEqual(moves - 1, _gc.Session.State.MovesLeft, "Kürek bir hamle");
+            foreach (var g in gravel) Assert.IsFalse(_gc.Board.StackAt(g.X, g.Y).HasGravel, $"({g.X},{g.Y}) çakılı kazındı");
+            if (_gc.Session.CanUndo)
+            {
+                _gc.Undo();
+                Assert.IsTrue(_gc.Session.State.ContentEquals(before), "geri alma Küreği ve çakılı geri getirir");
+                Assert.IsTrue(_gc.Hud.TrayIcon(slot).gameObject.activeSelf, "Kürek simgesi yuvaya döndü");
+                Assert.IsTrue(_gc.Board.StackAt(far.X, far.Y).HasGravel);
+                AssertViewMatchesState();
+            }
+        }
+
+        private static LevelData Lab(string id) => LevelParser.Parse(Resources.Load<TextAsset>("Lab/" + id).text, id);
+
+        /// <summary>
+        /// 2026-11-26 (kullanıcı: "Roket ve rulo yine tahtanın üst kısmında olsun"): büyük grup özel taşı tepsiye verir (yeni simge
+        /// yuvada); tepsiden sürükle-bırak önizlemeyi gösterir ve bir hamleyle ateşler; geri alma tepsiyi geri getirir.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator V11_Special_CreatedToTray_DraggedFromTray_Undone_WithNewIcons()
+        {
+            Assert.IsTrue(KatKat.View.SpecialArt.HasV11, "v11 simgeleri yüklü");
+            _gc.StartCustom(Lab("lab_01"), 0);
+            _gc.Board.Director.TimeScale = Speed;
+            yield return null;
+            var st = _gc.Session.State;
+            Assert.IsTrue(_gc.Hud.TrayVisible, "özel taşlı bölümde tepsi görünür");
+            st.Tray.Clear();
+            _gc.Hud.SetTray(st.Tray, -1);
+            var big = GroupFinder.AllComponents(st.Board).Where(c => RulesEngine.Validate(st, Command.Tap(st.Board.X(c[0]), st.Board.Y(c[0])), out _) == RejectReason.None)
+                .OrderByDescending(c => c.Count).First();
+            Assert.GreaterOrEqual(big.Count, 5, "özel taş veren grup");
+            _gc.OnCellPressed(st.Board.X(big[0]), st.Board.Y(big[0]));
+            yield return WaitStable();
+            for (float until = Time.realtimeSinceStartup + 10f; _gc.Board.IsPlaying && Time.realtimeSinceStartup < until;) yield return null;
+            st = _gc.Session.State;
+            Assert.AreEqual(1, st.Tray.Count, "özel taş tepsiye geldi");
+            var kind = st.Tray[0];
+            for (int q = 0; q < st.Board.Count; q++) Assert.IsFalse(st.Board[q].HasSpecial, "tahtada özel taş yok");
+            Assert.IsTrue(_gc.Hud.TrayIcon(0).gameObject.activeSelf, "simge yuvada");
+            Assert.AreSame(KatKat.View.SpecialArt.For(kind), _gc.Hud.TrayIcon(0).sprite, "yeni simge");
+            if (_gc.Session.State.Status != GameStatus.Idle) Assert.Inconclusive("hamle bölümü bitirdi");
+            // Sürükle: hedef önizlenir, bırakınca kullanılır.
+            int tx = -1, ty = -1;
+            for (int y = 0; y < st.Board.Height && tx < 0; y++)
+            for (int x = 0; x < st.Board.Width && tx < 0; x++)
+                if (RulesEngine.Validate(st, Command.UseSpecial(0, x, y), out _) == RejectReason.None) { tx = x; ty = y; }
+            Assert.GreaterOrEqual(tx, 0, "geçerli hedef");
+            var before = st.Clone();
+            _gc.TrayDragBegin(0, _gc.TraySlotScreenPoint(0));
+            Assert.IsTrue(_gc.TrayDragging && _gc.Hud.TrayGhostShown, "sürükleme hayaleti");
+            _gc.TrayDragMove(_gc.CellScreenPoint(tx, ty));
+            Assert.IsTrue(_gc.TrayAimValid, "geçerli hedef önizlemesi");
+            Assert.AreNotEqual(KatKat.View.BoardView.AimStyle.None, _gc.Board.AimShown);
+            Assert.Greater(_gc.Board.AimCellCount, 0, "vurulacak hücreler gösterilir");
+            _gc.TrayDragEnd(_gc.CellScreenPoint(tx, ty));
+            Assert.IsFalse(_gc.Hud.TrayGhostShown, "hayalet simge uçuşuna geçti");
+            Assert.AreEqual(KatKat.View.BoardView.AimStyle.None, _gc.Board.AimShown, "önizleme kalktı");
+            Assert.AreEqual(before.MovesLeft - 1, _gc.Session.State.MovesLeft, "tepsiden kullanım bir hamle");
+            Assert.AreEqual(0, _gc.Session.State.Tray.Count, "tepsi boşaldı");
+            yield return WaitStable();
+            if (_gc.Session.CanUndo)
+            {
+                _gc.Undo();
+                Assert.IsTrue(_gc.Session.State.ContentEquals(before), "geri alma özel taşı tepsiye geri getirir");
+                Assert.IsTrue(_gc.Hud.TrayIcon(0).gameObject.activeSelf, "simge yuvaya döndü");
+                AssertViewMatchesState();
+            }
+        }
+
+        /// <summary>2026-11-26: tahta dışına bırakılan sürükleme iptal edilir (hamle harcanmaz, hayalet yuvaya döner, seçim kalkar).</summary>
+        [UnityTest]
+        public IEnumerator Tray_DragReleasedOffBoard_Cancels()
+        {
+            _gc.StartCustom(Lab("lab_02"), 0);
+            yield return null;
+            var st = _gc.Session.State;
+            Assert.Greater(st.Tray.Count, 0);
+            var before = st.Clone();
+            _gc.TrayDragBegin(0, _gc.TraySlotScreenPoint(0));
+            var off = _gc.TraySlotScreenPoint(0) + new Vector2(0f, 40f);
+            _gc.TrayDragMove(off);
+            Assert.AreEqual(KatKat.View.BoardView.AimStyle.None, _gc.Board.AimShown, "tahta dışında önizleme yok");
+            _gc.TrayDragEnd(off);
+            Assert.IsTrue(_gc.Session.State.ContentEquals(before), "hamle harcanmadı");
+            Assert.IsFalse(_gc.TrayDragging);
+            for (int i = 0; i < 40 && _gc.Hud.TrayGhostShown; i++) { _gc.Hud.AdvanceEffects(50f); yield return null; }
+            Assert.IsFalse(_gc.Hud.TrayGhostShown, "hayalet yuvaya döndü");
         }
 
         /// <summary>Katalogda koşulu sağlayan ilk bölüm ve kayıtlı çözümünde aranan adımın sırası (yoksa -1).</summary>
@@ -450,43 +535,6 @@ namespace KatKat.Tests
             for (int i = 0; i < 30; i++) yield return null;
             _gc.Board.AdvanceTimedFx(2f);
             Assert.AreEqual(0, beats, "görev bittikten sonra uyarı atışı yok");
-        }
-        [UnityTest]
-        public IEnumerator V11_Special_CreatedOnBoard_Fired_Undone_WithNewIcons()
-        {
-            // 2026-11-26 (kullanıcı: "Roket ve altın rulolar tıkladığımız taşın olduğu yere konacak … roket ise … tıklandığında kendi
-            // özelliğine göre"): roket dokunulan taşın yerinde doğar, dokununca bir hamleyle ateşlenir, geri alınınca tahtaya döner.
-            Assert.IsTrue(KatKat.View.SpecialArt.HasV11, "v11 simgeleri yüklü");
-            var (idx, at) = FindSolutionStep(d => true, (st, c) => c.Type == CommandType.Tap && st.Board[c.X, c.Y].Special.IsRocket());
-            Assert.GreaterOrEqual(idx, 0, "roket kullanan bölüm");
-            _gc.StartLevel(idx);
-            _gc.Board.Director.TimeScale = Speed;
-            var sol = _gc.CurrentLevel.Solution;
-            for (int i = 0; i < at; i++)
-            {
-                _gc.PlayStep(sol[i]);
-                yield return WaitStable();
-                for (float until = Time.realtimeSinceStartup + 10f; _gc.Board.IsPlaying && Time.realtimeSinceStartup < until;) yield return null;
-            }
-            var cmd = LevelLoader.ToCommand(sol[at]);
-            var kind = _gc.Session.State.Board[cmd.X, cmd.Y].Special;
-            Assert.IsTrue(kind.IsRocket(), "roket tahtada");
-            Assert.AreEqual(0, _gc.Session.State.Tray.Count, "tepsi kullanılmaz");
-            var stack = _gc.Board.StackAt(cmd.X, cmd.Y);
-            Assert.AreEqual(kind, stack.Special, "simge yığının üstünde");
-            Assert.AreSame(KatKat.View.SpecialArt.For(kind), stack.SpecialRenderer.sprite, "yeni simge");
-            var before = _gc.Session.State.Clone();
-            _gc.PlayStep(sol[at]);
-            yield return WaitStable();
-            Assert.IsFalse(_gc.Session.State.ContentEquals(before), "roket tahtada çalıştı");
-            Assert.IsFalse(_gc.Session.State.Board[cmd.X, cmd.Y].HasSpecial, "roket harcandı");
-            if (_gc.Session.State.Status == GameStatus.Idle) Assert.AreEqual(before.MovesLeft - 1, _gc.Session.State.MovesLeft, "roket bir hamle");
-            if (_gc.Session.CanUndo)
-            {
-                _gc.Undo();
-                Assert.IsTrue(_gc.Session.State.ContentEquals(before), "geri alma roketi tahtaya geri getirir");
-                AssertViewMatchesState();
-            }
         }
 
         [Test]

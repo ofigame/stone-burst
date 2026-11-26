@@ -1,6 +1,6 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil dikdörtgen; çözüm 5 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil dikdörtgen; çözüm 7 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,31
 id: level_267
-moves: 7
+moves: 10
 roll: off
 specials: on
 refill: 36 2-2
@@ -17,4 +17,4 @@ bc    cy    bb    bb    bb    pn    pn    cn
 yc    yb    pb    cp    yp    pn    yn    cb
 yp    pp    pp    cn    yp    cn    cn    bb
 pc    pp    py    py    yc    cc    cc    bb
-solution: 4,4 ; 4,5 ; swap 4,4,1 ; 4,3 ; swap 4,4,1
+solution: 4,4 ; use 0,5,0 ; 4,3 ; 3,0 ; 0,0 ; use 1,0,2 ; use 0,2,1

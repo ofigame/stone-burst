@@ -1,12 +1,12 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 56 + tür exact; şekil kum saati (ayna); çözüm 6 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 56 + tür exact; şekil kum saati (ayna); çözüm 7 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d019_t2
 title: Günlük 19
-moves: 7
+moves: 10
 roll: on
 specials: on
 type: exact
 rules: exact
-goals: purple 26, yellow 21, coral 27
+goals: purple 25, yellow 20, coral 26
 grid:
 py    pp    yb    cy    cy    py    py    cy
 py    pp    by    cc    yp    py    pb    cb
@@ -16,4 +16,4 @@ py    pp    by    cc    yp    py    pb    cb
 #     yp    yp    yc    yc    yc    cb    #
 yc    pp    pb    yb    pb    cb    pc    pc
 pc    pp    pp    pb    cb    cb    cp    pc
-solution: 5,3 ; 5,4 ; 4,4 ; swap 5,4,3 ; swap 4,4,0 ; roll 1
+solution: 2,6 ; use 0,0,0 ; 5,4 ; use 0,3,0 ; 4,1 ; use 0,0,0 ; roll 3

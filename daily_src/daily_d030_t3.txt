@@ -1,12 +1,12 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 115 + tür protect; şekil dalga; çözüm 7 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 115 + tür protect; şekil dalga; çözüm 8 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d030_t3
 title: Günlük 30
-moves: 7
+moves: 10
 roll: on
 specials: on
 type: protect
 rules: protect, exact
-goals: purple 19, coral 25, navy 24
+goals: purple 19, coral 24, navy 23
 grid:
 cnp   #     pyc   #     pbp   #     cnpk1 #
 cnpP  cyn   pynk1 ppn   bpc   bpc   cnpi1 byp
@@ -17,4 +17,4 @@ bby   bcb   bcn   yny   bbn   nbb   yyc   npy
 bbyP  nnb   nnn   nny   ynb   ybb   ncci1 npy
 bby   ccbk2 ycc   ycbi1 ynbk1 ccb   ccc   ncy
 #     cnp   #     nbn   #     ycb   #     pcy
-solution: 5,5 ; 5,4 ; swap 5,4,1 ; roll 2 ; 0,0 ; roll 3 ; 1,6
+solution: 5,5 ; 5,4 ; use 1,0,0 ; roll 2 ; 0,0 ; use 1,2,0 ; 3,2 ; use 1,0,0

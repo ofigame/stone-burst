@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil dikdörtgen; çözüm 7 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil zikzak; çözüm 13 + 5 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
 id: level_357
-moves: 7
+moves: 13
 roll: off
 specials: on
-refill: 32 2-3
+refill: 28 2-3
 type: exact
 rules: exact
-goals: yellow 43, purple 35, coral 22
+goals: yellow 29, navy 40, blue 25
 grid:
-ycy   ycy   ccp   pnp   pcn   pcyi1 ynn   ypn
-pcb   pcy   ccp   ypp   pcn   pyy   ynn   nyy
-nyb   pybi1 cyb   cbni2 nny   nny   yyn   nybR
-nyy   nyp   nyp   ynp   ycy   cnn   bbn   nyy
-pyy   yby   pbb   bpyR  yyn   ync   ynb   bpni1
-ppyi1 ybni2 ycp   bcp   bpy   npp   ppp   cpc
-bcb   ncn   bbn   bcb   ppnR  bpp   bpb   pnb
-bnb   ncn   bnn   ynp   nnp   yny   yny   pcy
-nbb   nbb   bbn   pnn   pnp   ycc   ycn   ypn
-solution: 6,0 ; rot 7,2 ; 5,0 ; swap 5,0,0 ; 0,3 ; 0,4 ; swap 0,4,3
+npp   ncp   ncp   cpn   cpni2 cpn   nnb   #
+#     yyy   nycR  nnni2 bnn   bbb   ppp   cnp
+byy   yyy   ccy   nnn   byy   pyyi1 ppp   #
+#     ncp   pcp   nbp   bpp   bpy   bppi1 npcR
+nyc   nnc   cnc   cnc   ppc   cyb   cyn   #
+#     ynyR  ynn   pnn   pbb   nyb   nbni1 pyn
+bpb   bnn   bbn   bbp   bbb   byb   byn   #
+#     pny   ncp   ycp   ycbi1 yyp   pnn   pnc
+cyc   cnc   cbn   cbn   ybn   yyn   ycc   #
+solution: rot 2,1 ; 0,4 ; 1,4 ; use 1,3,0 ; 5,4 ; use 1,5,0 ; 4,2 ; 2,1 ; 6,5 ; use 2,5,0 ; use 1,4,0 ; 4,0 ; use 1,3,0

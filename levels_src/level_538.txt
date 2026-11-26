@@ -1,6 +1,6 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil elmas; çözüm 10 + 0 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil elmas; çözüm 11 + 5 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_538
-moves: 10
+moves: 11
 roll: off
 specials: on
 refill: 22 2-3
@@ -17,4 +17,4 @@ ycb   yny   yyb   yyb   bbb   nbcSyp yncK1:2 nnnP
 #     bcy   bcn   pcn   bcp   bcp   ypcK1:2 #
 #     #     nnn   bnp   bcp   ccp   #     #
 #     #     #     pnpP  nnp   #     #     #
-solution: 3,4 ; 4,3 ; swap 4,3,2 ; 4,3 ; 4,4 ; swap 4,4,3 ; 3,6 ; 3,6 ; 3,7 ; 7,4
+solution: 3,4 ; 1,2 ; use 0,3,0 ; 6,4 ; 2,6 ; use 0,4,0 ; use 0,5,1 ; 4,1 ; use 0,3,0 ; 5,2 ; use 0,1,2

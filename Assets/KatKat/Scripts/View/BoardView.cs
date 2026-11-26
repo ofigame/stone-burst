@@ -103,6 +103,7 @@ namespace KatKat.View
         public void Build(LevelState state, Rect worldArea)
         {
             CompleteImmediately();
+            HideAim();
             _width = state.Board.Width;
             _height = state.Board.Height;
             int needed = _width * _height;
@@ -781,6 +782,15 @@ namespace KatKat.View
                 return;
             }
             bool created = result.SpecialCreated != SpecialKind.None;
+            // 2026-11-26 (kullanıcı: "Roketlere tıklandığında anlaşılmıyor"): tepsiden kullanılan özel taşın simgesi önce yuvadan hedef
+            // hücreye uçar; bütün dalgalar (roket, Altın Rulo, Kürek turu) varışta başlar.
+            if (result.Command.Type == CommandType.UseSpecial && LaunchFrom.HasValue)
+            {
+                float fly = PlayUseFly(result, LaunchFrom.Value, LaunchSize);
+                t += fly;
+                last = t;
+            }
+            LaunchFrom = null;
             // 2026-11-21 sürükle-değiştir: iki taş yer değiştirir, sonra oluşan grup dokunuş gibi patlar.
             // 2026-11-26: özel taş sürüklemesinde taş yer değiştirmez (SwapLayer yok); efekt hemen başlar.
             if (result.Command.Type == CommandType.Swap && result.UsedSpecial == SpecialKind.None && result.Waves.Count > 0 && result.Waves[0].Kind != WaveKind.Special) { PlaySwapChips(result); t = SwapMs; }
@@ -980,7 +990,9 @@ namespace KatKat.View
                     var gc = w.GravelCleared[gi];
                     // 2026-11-26: Kürek çakılları en yakından başlayarak tek tek gezer; her çakıl kürek vardığında kalkar.
                     float at = shovelTour ? start + (gi + 1) * ShovelHopMs : start + (special ? SD(gc.X, gc.Y) : 0f) + 60f;
-                    At(at, () => ClearGravel(StackAt(gc.X, gc.Y), gc.X - w.FiredAt.X, gc.Y - w.FiredAt.Y));
+                    At(at, () => ClearGravel(StackAt(gc.X, gc.Y), gc.X - w.FiredAt.X, gc.Y - w.FiredAt.Y, shovelTour));
+                    // 2026-11-26 (kullanıcı: "temizlemeden çakıl yok olmasın"): hamle (ve Sync) son çakıl kazılmadan bitmez.
+                    last = Mathf.Max(last, at + 140f);
                 }
                 foreach (var e in w.EnvelopeOpens)
                 {
@@ -1070,7 +1082,7 @@ namespace KatKat.View
                 t += step;
                 interval = Mathf.Max(MinChainInterval, interval * 0.85f);
             }
-            if (created) last = Mathf.Max(last, PeelSequence.ReadableAt + StarFlight + 160f); // tepsiye uçuş bitsin
+            if (created) last = Mathf.Max(last, PeelSequence.ReadableAt + Mathf.Max(StarFlight, BoosterFxConfig.Current.Tray.CreateFlyMs) + 160f); // tepsiye uçuş bitsin
             if (flowArrive >= 0f) At(flowArrive + 20f, () => FlowFinal?.Invoke()); // kapanış "ka-ching"
             // 2026-11-21 çakıl yayılması: hamle sonunda dokunulmayan komşu hücre çakıla döner (balon gibi şişerek).
             if (result.GravelGrew)
@@ -1238,8 +1250,10 @@ namespace KatKat.View
             bool combo = w.ComboWith != SpecialKind.None;
             if (w.Kind == WaveKind.Special)
             {
-                if (w.Fired == SpecialKind.Rainbow || w.ComboWith == SpecialKind.Rainbow) { amp = combo ? 0.05f : 0.025f; dur = combo ? 600f : 320f; }
-                else if (w.Fired.IsRocket()) { amp = combo ? 0.04f : 0.022f; dur = combo ? 420f : 280f; }
+                // 2026-11-26 (kullanıcı: "Efektler çok pasif"): genlik ayardan (önce 0,025 / 0,022), çift roket biraz daha güçlü.
+                var fc = BoosterFxConfig.Current;
+                if (w.Fired == SpecialKind.Rainbow || w.ComboWith == SpecialKind.Rainbow) { amp = combo ? 0.05f : fc.Rainbow.PopShake; dur = combo ? 600f : 340f; }
+                else if (w.Fired.IsRocket()) { amp = combo ? 0.04f : fc.Rocket.PopShake * (w.Fired.IsDoubleRocket() ? 1.25f : 1f); dur = combo ? 420f : 300f; }
                 return;
             }
             if (w.Index >= 1) { amp = 0.012f * Mathf.Min(4, w.Index); dur = 260f; }
@@ -1540,8 +1554,18 @@ namespace KatKat.View
             go.transform.position = from;
             go.transform.rotation = Quaternion.Euler(0f, 0f, SpecialArt.Angle(r.SpecialCreated));
             go.transform.localScale = Vector3.one * (_pitch * 0.9f / Mathf.Max(sr.sprite.bounds.size.x, sr.sprite.bounds.size.y));
-            if (r.SpecialToTray && TrayTarget != null) // 2026-11-26: özel taş tahtada kalır; tepsi uçuşu yalnız eski kayıtlar için
-                _fx.Add(new Fx { Kind = FxKind.Fly, T = go.transform, R = sr, Owned = true, From = from, To = TrayTarget(), BaseScale = go.transform.localScale, Dur = SpecialFlyMs });
+            if (r.SpecialToTray && TrayTarget != null)
+            {
+                // 2026-11-26 (kullanıcı: "Roket ve rulo yine tahtanın üst kısmında olsun … Belli olmuyorlar"): doğan taş büyük, ışıklı ve
+                // izli bir yayla yuvasına uçar; varışta yuva büyüyüp patlar (TrayTokenArrived → HUD).
+                Destroy(go);
+                var tc = BoosterFxConfig.Current.Tray;
+                var col = r.SpecialCreated == SpecialKind.Rainbow ? new Color(1f, 0.84f, 0.36f, 1f) : r.SpecialCreated == SpecialKind.Shovel ? new Color(0.95f, 0.85f, 0.62f, 1f) : new Color(0.3f, 0.95f, 0.88f, 1f);
+                ImpactBurst(from, col, 1.4f, PeelDirector.PeelSortingOrder + 1100);
+                var kind = r.SpecialCreated;
+                Booster.FlyIcon(SpecialArt.For(kind), SpecialArt.Angle(kind), from, TrayTarget(), tc.CreateFlyMs, WorldCell * tc.CreateToken, TraySize > 0f ? TraySize : WorldCell * 0.9f,
+                    tc.CreateArc, 0.35f, tc.CreateTrailRate, col, false, () => TrayTokenArrived?.Invoke(kind));
+            }
             else
                 _fx.Add(new Fx { Kind = FxKind.Burst, T = go.transform, R = sr, Owned = true, BaseScale = go.transform.localScale, Dur = 360f });
         }
@@ -1913,14 +1937,30 @@ namespace KatKat.View
         /// Çakılın kalkması (2026-11-21, kullanıcı: "Çakıl patlatıldığında olduğu yerden parçalanarak aşağıya akacak"): yığın kendi
         /// yerinde 5×5 parçaya bölünür; parçalar hafifçe sıçrar, yerçekimiyle aşağı dökülür (yukarıdakiler biraz gecikir, akış hissi).
         /// </summary>
-        private void ClearGravel(StackView stack, int dx, int dy)
+        private void ClearGravel(StackView stack, int dx, int dy, bool dig = false)
         {
             stack.SetGravel(false);
-            Flash(stack, new Color(1f, 0.95f, 0.8f, 0.9f), 1.1f);
+            var sc = BoosterFxConfig.Current.Shovel;
+            Flash(stack, new Color(1f, 0.95f, 0.8f, 0.9f), dig ? sc.DigFlash : 1.1f);
             if (KatKat.UI.Motion.Reduced) return;
             var pos = stack.transform.position + stack.TopFaceLocal;
             float size = stack.Size * stack.transform.lossyScale.x;
             int order = PeelDirector.PeelSortingOrder + 1102;
+            if (dig)
+            {
+                // 2026-11-26 (kullanıcı: "temizlediği çakıl efektle yok olsun"): kürek vardığında toz halkası, toz bulutları, açılan
+                // yığının küçük sekmesi ve hafif sarsıntı.
+                Particles.Emit(FxKit.Ring, true, order + 1, pos, Vector3.zero, 0.32f, size * 0.25f, size * sc.DigRing, new Color(1f, 0.93f, 0.76f, 0.85f), new Color(0.9f, 0.78f, 0.6f, 0f));
+                for (int i = 0; i < sc.DigDust; i++)
+                {
+                    float a = i / (float)Mathf.Max(1, sc.DigDust) * Mathf.PI * 2f + R(-0.3f, 0.3f);
+                    var dir = new Vector3(Mathf.Cos(a), Mathf.Sin(a) * 0.6f + 0.3f, 0f).normalized;
+                    Particles.Emit(FxKit.Puff, false, order - 1, pos + dir * size * 0.2f, dir * WorldPitch * R(0.6f, 1.1f), R(0.45f, 0.7f), size * 0.45f, size * 1.1f,
+                        new Color(0.9f, 0.83f, 0.72f, 0.6f), new Color(0.88f, 0.8f, 0.7f, 0f), drag: 2.4f);
+                }
+                if (sc.DigBounce > 0f) _fx.Add(new Fx { Kind = FxKind.Pop, T = stack.transform, BaseScale = Vector3.one, Lead = sc.DigBounce, Dur = 260f });
+                if (sc.DigShake > 0f) ShakeBoard(sc.DigShake, 140f);
+            }
             const int G = 5;
             for (int gy = 0; gy < G; gy++)
             for (int gx = 0; gx < G; gx++)
@@ -2389,7 +2429,7 @@ namespace KatKat.View
                 switch (f.Kind)
                 {
                     case FxKind.Pop:
-                        f.T.localScale = f.BaseScale * (1f + 0.22f * Mathf.Sin(x * Mathf.PI));
+                        f.T.localScale = f.BaseScale * (1f + (f.Lead > 0f ? f.Lead : 0.22f) * Mathf.Sin(x * Mathf.PI)); // Lead: genlik (Kürek kazması)
                         break;
                     case FxKind.Balloon:
                     {
@@ -2674,6 +2714,7 @@ namespace KatKat.View
             // ms gerçek süre; olay planı Motion.Pace ile yavaşlar, parçacıklar gerçek zamanla (2026-11-18).
             Particles.Tick(ms); // parçacıklar (FxKit); erişim Active'i de bu tahtaya ayarlar
             TickVeil(ms);
+            TickAim(ms); // 2026-11-26 tepsi hedef önizlemesi (gerçek zamanla)
             ms *= KatKat.UI.Motion.Pace;
             if (_fx.Count > 0) TickFx(ms);
             if (_booster != null) _booster.Tick(ms);

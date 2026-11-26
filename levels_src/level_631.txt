@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 6 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil zikzak; çözüm 11 + 4 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_631
-moves: 8
+moves: 13
 roll: off
 specials: on
-refill: 32 2-2
-goals: yellow 23, blue 22, purple 15
+refill: 28 2-2
+goals: navy 17, purple 14, coral 22
 grid:
-pp    pp    G1:py G1:yy G1:yn nb    nb    nn
-nb    ny    cy    bb    cb    nb    nb    nn
-yb    yy    yc    cyR   yc    yc    yn    nc
-nb    yn    pp    yp    yp    pc    py    pc
-nb    np    pb    yb    np    nc    yy    yy
-pc    yc    cb    nc    np    np    ybR   cy
-pc    cc    cb    bc    cc    cb    cn    bb
-yc    yy    cy    bc    cb    py    pb    cb
-yy    yc    bc    bc    nb    nb    cb    ccB1
-solution: rot 6,5 ; 3,8 ; 3,7 ; 2,3 ; swap 3,7,1 ; swap 2,6,3
+nb    yb    G1:yb G1:yc G1:ny ny    ny    #
+#     np    nc    nc    py    cy    cc    cy
+nc    np    nc    yy    yb    bb    pb    #
+#     py    ypR   by    bpR   yb    pc    nc
+nc    yn    bn    nb    bb    by    by    #
+#     by    pb    pn    pn    cc    cb    nb
+cc    cc    ypB1  yb    yn    cy    yn    #
+#     cc    cn    pn    pb    bc    cb    cp
+ny    cy    bp    pn    pn    cb    cb    #
+solution: rot 4,3 ; 4,2 ; use 0,1,1 ; 1,4 ; 1,1 ; use 1,0,6 ; 4,1 ; use 0,0,6 ; 5,0 ; use 0,1,7 ; 3,7

@@ -53,10 +53,10 @@
     { "x": 5, "y": 5, "active": true, "layers": ["coral", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false }
   ],
   "solution": [
-    { "type": "tap", "x": 2, "y": 0 },
-    { "type": "tap", "x": 2, "y": 0 },
-    { "type": "tap", "x": 1, "y": 0 },
+    { "type": "tap", "x": 2, "y": 4 },
+    { "type": "tap", "x": 0, "y": 2 },
+    { "type": "use", "slot": 0, "x": 0, "y": 1 },
     { "type": "tap", "x": 1, "y": 2 },
-    { "type": "swap", "x": 1, "y": 0, "dir": 0 }
+    { "type": "use", "slot": 0, "x": 1, "y": 0 }
   ]
 }

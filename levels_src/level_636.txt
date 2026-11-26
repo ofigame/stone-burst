@@ -1,6 +1,6 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil U (ayna); çözüm 5 + 0 tepsi / sınır 11; rastgele 0,035; açgözlü kaybeder; yumuşak 0,75
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil U (ayna); çözüm 6 + 2 tepsi / sınır 12; rastgele 0,155; açgözlü kazanır; yumuşak 1,00
 id: level_636
-moves: 11
+moves: 12
 roll: off
 specials: on
 refill: 46 2-2
@@ -15,4 +15,4 @@ nn    nc    bn    bc    yy    yy    nb    yn
 bb    nb    by    bb    yb    yb    cb    ny
 by    cb    cn    bc    nb    cb    cy    cc
 bb    cb    cy    bc    bc    cy    cc    cc
-solution: 3,3 ; 3,5 ; swap 3,5,2 ; 3,4 ; swap 3,4,1
+solution: 3,3 ; 3,5 ; use 1,6,1 ; 5,4 ; use 1,7,0 ; 0,2

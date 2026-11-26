@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 716 + tür exact; şekil U (ayna); çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 716 + tür exact; şekil kesik köşe; çözüm 11 + 4 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: daily_d029_t7
 title: Günlük 29
-moves: 9
+moves: 11
 roll: on
 specials: on
 type: exact
 rules: exact
-goals: navy 27, purple 32, coral 26
+goals: yellow 26, purple 26, coral 16
 grid:
-cbb   ccb   ccp   #     #     pcnk1 pny   bny
-bbn   cpb   ypc   #     #     nbn   pbp   nnn
-bbn   cpn   ypc   #     #     pby   pbb   pcc
-nny   cnn   bbc   nby   ncp   nby   cbc   pnbk2
-yny   bnyk1 ybc   cyn   ypy   cny   cnb   cnb
-bpy   pbc   bnbk1 ycy   bcp   ypy   ppn   pby
-bpc   bnc   pny   ync   ypn   ypn   ppnk2 pbn
-bpb   bnb   pyc   pcn   ncc   ynp   ypp   pyc
-ypy   yyy   ppbR  pnpR  ycn   pnp   pypk1 cyc
-solution: rot 3,8 ; 5,5 ; roll 6 ; 5,6 ; 5,8 ; swap 5,6,3 ; 3,3 ; 4,5 ; swap 4,5,0
+#     #     byb   yyb   pypk1 nyp   #     #
+#     cpp   yybk1 npb   pcb   nyp   cybk2 #
+ypn   bpp   bcn   bby   ppy   ybn   cbb   ccb
+bpn   ybp   ybn   bby   pny   yyn   bnpR  bcn
+bcc   ynp   ybn   bbp   ybpk1 yyn   byy   bcy
+bcc   ynck1 ypp   bpn   bnn   ypbk2 pby   pbc
+ync   pby   pbp   ypb   ppn   byn   byc   ybc
+#     cby   cbp   cpb   ppb   bnc   bcnR  #
+#     #     cbp   ybn   pbb   cnc   #     #
+solution: rot 6,7 ; 7,5 ; use 0,5,0 ; 3,2 ; 5,5 ; use 0,4,0 ; 2,0 ; use 0,2,0 ; roll 2 ; use 0,4,1 ; 4,0

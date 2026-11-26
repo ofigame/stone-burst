@@ -133,9 +133,8 @@ namespace KatKat.Tests
                 var d = LevelParser.Parse(File.ReadAllText(Path.Combine(dir, $"lab_{i:00}.json")), "lab");
                 Assert.IsEmpty(LevelValidator.ValidateStatic(d, LevelValidator.ScopeFor(d)), d.Id);
                 var s0 = LevelLoader.ToState(d);
-                bool anySpecial = false;
-                for (int k = 0; k < s0.Board.Count; k++) anySpecial |= s0.Board[k].Active && s0.Board[k].HasSpecial;
-                Assert.IsTrue(anySpecial, d.Id + " tahtada hazır özel taş");
+                // 2026-11-26 (kullanıcı: "Roket ve rulo yine tahtanın üst kısmında olsun"): hazır özel taşlar açılışta tepside.
+                Assert.Greater(s0.Tray.Count, 0, d.Id + " tepside hazır özel taş");
                 if (i > 1) continue;
                 Assert.IsTrue(d.Goals.Any(g => g.Type == "fillWater"), d.Id + " su görevi");
                 Assert.Greater(d.TimeLimit, 0, d.Id + " süreli (2026-11-25)");

@@ -1,7 +1,7 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 895 + tür reverse; şekil dalga; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,08; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 895 + tür reverse; şekil dalga; çözüm 10 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: daily_d017_t8
 title: Günlük 17
-moves: 9
+moves: 10
 roll: on
 specials: on
 type: reverse
@@ -17,4 +17,4 @@ bpc   ybb   nbc   ncb   bcb   bbn   ccn   ncy
 bnb   ybb   nbb   bbn   bbn   byb   pnn   npy
 yyc   yyn   nyn   nyn   byc   bnb   cnn   cpy
 #     yyn   #     nyn   #     ync   #     cpy
-solution: rot 6,1 ; 2,7 ; 5,7 ; 4,5 ; 2,7 ; 5,5 ; swap 5,5,2 ; 0,0 ; roll 3
+solution: rot 6,1 ; 3,6 ; use 0,0,2 ; 3,2 ; use 0,0,2 ; 6,0 ; 7,2 ; use 0,2,0 ; use 0,6,1 ; roll 5

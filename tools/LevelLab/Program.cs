@@ -281,6 +281,7 @@ static partial class Program
             if (r.Outcome != SolveOutcome.Solved || r.Solution == null) { Console.WriteLine($"{path}: çözüm yok ({r.Outcome}, {r.NodesExpanded} düğüm)"); bad++; continue; }
             var steps = r.Solution.Select(ToStep).Select(st => st.Type == "swap"
                 ? $"    {{ \"type\": \"swap\", \"x\": {st.X}, \"y\": {st.Y}, \"dir\": {st.Row} }}"
+                : st.Type == "use" ? $"    {{ \"type\": \"use\", \"slot\": {st.Row}, \"x\": {st.X}, \"y\": {st.Y} }}"
                 : st.Type == "roll" ? $"    {{ \"type\": \"roll\", \"row\": {st.Row} }}"
                 : $"    {{ \"type\": \"{st.Type}\", \"x\": {st.X}, \"y\": {st.Y} }}");
             int a = text.IndexOf("\"solution\": [", StringComparison.Ordinal);

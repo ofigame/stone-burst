@@ -13,6 +13,7 @@ namespace KatKat.Levels
         public static LevelState ToState(LevelData d)
         {
             var board = new BoardState(d.Width, d.Height);
+            var startTray = new List<SpecialKind>();
             foreach (var c in d.Cells)
             {
                 if (!board.InBounds(c.X, c.Y)) throw new FormatException($"{d.Id}: ({c.X},{c.Y}) tahta dışında");
@@ -47,17 +48,16 @@ namespace KatKat.Levels
                 cell.LinkHits = c.LinkHits;
                 cell.ButtonGate = c.ButtonGate;
                 cell.Protected = c.Protected;
-                // 2026-11-26: açılışta tahtadaki özel taş (test bölümleri); rengi yığının üst rengi.
+                // 2026-11-26 test bölümleri: hücredeki "special" açılışta tepsiye girer (2026-11-26: özel taşlar tepside).
                 switch (c.Special)
                 {
-                    case "row": cell.Special = SpecialKind.RocketRow; break;
-                    case "col": cell.Special = SpecialKind.RocketColumn; break;
-                    case "row2": cell.Special = SpecialKind.RocketRow2; break;
-                    case "col2": cell.Special = SpecialKind.RocketColumn2; break;
-                    case "rainbow": cell.Special = SpecialKind.Rainbow; break;
-                    case "shovel": cell.Special = SpecialKind.Shovel; break;
+                    case "row": startTray.Add(SpecialKind.RocketRow); break;
+                    case "col": startTray.Add(SpecialKind.RocketColumn); break;
+                    case "row2": startTray.Add(SpecialKind.RocketRow2); break;
+                    case "col2": startTray.Add(SpecialKind.RocketColumn2); break;
+                    case "rainbow": startTray.Add(SpecialKind.Rainbow); break;
+                    case "shovel": startTray.Add(SpecialKind.Shovel); break;
                 }
-                if (cell.HasSpecial && cell.Layers.Count > 0) cell.SpecialColor = cell.Layers[cell.Layers.Count - 1];
                 cell.Area = c.Area;
                 cell.Gravel = c.Gravel;
                 if (c.GateId > 0)
@@ -106,6 +106,7 @@ namespace KatKat.Levels
                 else throw new FormatException($"{d.Id}: bilinmeyen hedef tipi '{g.Type}'");
                 s.Goals.Add(gs);
             }
+            foreach (var k in startTray) if (s.Tray.Count < LevelState.TrayCapacity) s.Tray.Add(k);
             if (d.Hazard != null) s.Hazard = d.Hazard.ToState(board, d.Id); // konsept pilotu
             s.WaterCap = d.WaterCap; // 2026-11-26 su kovası
             if (d.Buckets.Count > 0) // 2026-11-23 kova kipi

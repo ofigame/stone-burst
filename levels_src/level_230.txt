@@ -1,6 +1,6 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil zikzak; çözüm 6 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil zikzak; çözüm 14 + 4 tepsi / sınır 19; rastgele 0,005; açgözlü kaybeder; yumuşak 0,17
 id: level_230
-moves: 11
+moves: 19
 roll: off
 specials: on
 refill: 32 2-3
@@ -17,4 +17,4 @@ bpb   ppy   bny   pby   bbn   nbp   nnn   #
 ybp   pyc   pcp   bcpEc bnp   pnp   ybn   #
 #     yyp   ycb   bcb   bcb   cbp   cbb   ncb
 bcb   bcb   cbb   bbc   bbb   cbp   cpn   #
-solution: 5,6 ; 2,7 ; 3,7 ; swap 2,7,0 ; 4,4 ; swap 4,8,2
+solution: 2,7 ; use 0,1,7 ; 5,4 ; 3,7 ; use 0,4,1 ; 4,1 ; 4,0 ; 6,1 ; use 0,0,0 ; 1,0 ; 5,6 ; use 1,0,0 ; 6,5 ; 4,6

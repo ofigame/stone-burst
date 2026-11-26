@@ -10,7 +10,7 @@
   "timeLimit": 60,
   "rollEnabled": false,
   "startingRoll": false,
-  "stars": [660, 960],
+  "stars": [1070, 1560],
   "goals": [
     { "type": "collectColor", "color": "yellow", "amount": 45 },
     { "type": "collectColor", "color": "coral", "amount": 35 }
@@ -24,12 +24,25 @@
   ],
   "solution": [
     { "type": "tap", "x": 0, "y": 1 },
-    { "type": "swap", "x": 0, "y": 1, "dir": 1 },
+    { "type": "tap", "x": 0, "y": 2 },
+    { "type": "tap", "x": 5, "y": 7 },
+    { "type": "tap", "x": 6, "y": 0 },
     { "type": "send" },
     { "type": "tap", "x": 4, "y": 0 },
-    { "type": "swap", "x": 4, "y": 0, "dir": 0 },
+    { "type": "tap", "x": 0, "y": 0 },
+    { "type": "tap", "x": 4, "y": 4 },
     { "type": "send" },
-    { "type": "tap", "x": 4, "y": 0 },
+    { "type": "tap", "x": 5, "y": 1 },
+    { "type": "send" },
+    { "type": "send" },
+    { "type": "send" },
+    { "type": "tap", "x": 2, "y": 0 },
+    { "type": "tap", "x": 6, "y": 1 },
+    { "type": "send" },
+    { "type": "send" },
+    { "type": "send" },
+    { "type": "tap", "x": 4, "y": 3 },
+    { "type": "tap", "x": 3, "y": 3 },
     { "type": "send" }
   ],
   "cells": [

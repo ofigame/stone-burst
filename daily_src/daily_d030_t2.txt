@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 43 + tür reverse; şekil dikdörtgen; çözüm 6 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 43 + tür reverse; şekil T (ayna); çözüm 8 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: daily_d030_t2
 title: Günlük 30
-moves: 7
+moves: 10
 roll: on
 specials: on
 type: reverse
 rules: exact
-goals: coral 13, purple 12, star 2
+goals: coral 16, purple 17, star 2
 grid:
-yc*   pc    pb    yb    yc    bc    bc
-yb    yb    pc    pp    bb    cc    bc
-yb    yb    bc    cp    cc    by    bc
-yck1  pc    pc    yp    bc    cy    by
-cy    by    pyk2  by    yc    cp    cy
-pc    pb    pc    bp    pb    cp    cp
-pc    cc    bc    bc    pp    pb    pp
-bc    yp    bb*   by    py    py    pbk1
-solution: 3,1 ; 4,4 ; roll 6 ; 5,4 ; swap 4,4,0 ; 2,6
+bp    bp    bp    bp*   py    cp    pp
+cyk1  yp    cp    cp    py    cp    pb
+by    yb    yy    cb    bp    cb*   yp
+cb    cb    pc    yb    pb    yc    yy
+cb    cc    cc    yc    yb    cbk1  yyk2
+#     #     cb    yp    yb    #     #
+#     #     cb    by    by    #     #
+#     #     bb    by    cy    #     #
+solution: 0,0 ; use 0,0,0 ; 4,0 ; 3,2 ; use 0,5,0 ; 1,2 ; 0,3 ; use 0,0,3

@@ -1,11 +1,11 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil zikzak; çözüm 3 + 0 tepsi / sınır 8; rastgele 0,345; açgözlü kazanır; yumuşak 0,98
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil zikzak; çözüm 5 + 2 tepsi / sınır 10; rastgele 0,255; açgözlü kazanır; yumuşak 0,90
 id: level_020
-moves: 8
+moves: 10
 roll: off
 specials: on
 refill: 23 2-2
 type: boss
-goals: coral 24, yellow 18
+goals: coral 30, yellow 22
 grid:
 cy    by    yc    cc    cc    bc    #
 #     cc    cc    by    cb    bc    bb
@@ -14,4 +14,4 @@ bb    by    bb    yc    cy    cy    #
 bc    cy    cy    yb    yy    cb    #
 #     bb    cc    cc    cc    yc    cc
 bb    bc    by    yc    cy    yy    #
-solution: 5,3 ; 5,2 ; swap 5,2,1
+solution: 2,0 ; use 0,1,3 ; 2,3 ; use 0,1,0 ; 2,0

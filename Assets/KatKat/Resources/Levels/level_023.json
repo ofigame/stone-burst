@@ -10,7 +10,7 @@
   "timeLimit": 60,
   "rollEnabled": false,
   "startingRoll": false,
-  "stars": [810, 1190],
+  "stars": [770, 1120],
   "goals": [
     { "type": "collectColor", "color": "blue", "amount": 30 },
     { "type": "collectColor", "color": "coral", "amount": 35 }
@@ -24,8 +24,9 @@
   ],
   "solution": [
     { "type": "tap", "x": 6, "y": 2 },
+    { "type": "tap", "x": 4, "y": 0 },
     { "type": "send" },
-    { "type": "swap", "x": 6, "y": 2, "dir": 1 },
+    { "type": "tap", "x": 3, "y": 0 },
     { "type": "tap", "x": 1, "y": 1 },
     { "type": "send" },
     { "type": "tap", "x": 1, "y": 0 },
@@ -34,11 +35,10 @@
     { "type": "send" },
     { "type": "send" },
     { "type": "send" },
-    { "type": "tap", "x": 2, "y": 2 },
+    { "type": "tap", "x": 3, "y": 0 },
+    { "type": "tap", "x": 3, "y": 4 },
     { "type": "send" },
-    { "type": "swap", "x": 2, "y": 3, "dir": 0 },
-    { "type": "send" },
-    { "type": "tap", "x": 0, "y": 5 },
+    { "type": "tap", "x": 1, "y": 2 },
     { "type": "send" }
   ],
   "cells": [

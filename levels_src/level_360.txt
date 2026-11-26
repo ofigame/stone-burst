@@ -1,12 +1,12 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil L (ayna); çözüm 15 + 0 tepsi / sınır 18; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil L (ayna); çözüm 12 + 5 tepsi / sınır 16; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_360
-moves: 18
+moves: 16
 roll: off
 specials: on
 refill: 25 2-3
 type: boss
 rules: protect
-goals: blue 33, purple 39, navy 30
+goals: blue 27, purple 32, navy 25
 grid:
 #     #     #     bynG  bynG  cnnG  cpn   ypcP
 #     #     #     bynG  byyG  cnb   bpp   ycnR
@@ -16,4 +16,4 @@ ppc   ncc   npp   npp   byn   ppp   cny   nnb
 ppc   nbc   nbc   ypc   bbp   ppp   cybR  nnn
 pppP  bpnR  bpc   ypp   ybb   ccp   cyy   ynn
 bbp   bbp   ppnP  npp   nbb   yyb   yyy   yyn
-solution: rot 1,6 ; 2,6 ; 3,7 ; 2,6 ; 2,6 ; 6,2 ; 2,4 ; 2,5 ; 4,3 ; 6,4 ; 5,3 ; 4,4 ; swap 4,4,1 ; 2,3 ; swap 2,3,1
+solution: rot 1,6 ; 0,4 ; use 0,0,6 ; 4,2 ; 6,1 ; use 0,6,2 ; 0,3 ; 0,3 ; use 1,7,1 ; use 0,3,0 ; 4,0 ; use 0,4,0

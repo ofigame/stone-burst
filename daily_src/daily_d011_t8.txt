@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 874 + tür scarce; şekil kesik köşe; çözüm 10 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 874 + tür scarce; şekil kesik köşe; çözüm 11 + 5 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d011_t8
 title: Günlük 11
-moves: 11
+moves: 12
 roll: on
 specials: on
 type: scarce
 rules: scarce
-goals: yellow 21, coral 32, blue 31
+goals: yellow 18, coral 27, blue 27
 grid:
 #     #     bpy   ppc   bpc   bcc   #     #
 #     cyp   pcb   ppb   bbb   bbb   bcc   #
-ynp   yyp   pbp   pbc   pbcLp6 bbc   cyc   cpc
+ynp   byp   pbp   pbc   pbcLp6 bbc   cyc   cpc
 bnp   bnc   bbb   pny   bny   ycb   cyb   cpy
-pnb   bpb   npb   npy   nnc   nnc   nyp   nyp
-cnb   cnb   ypc   bnn   bpc   cbcLc5 pny   yyy
+pnb   bpb   npb   npy   nnc   nnc   nyp   ncp
+cnb   cnb   ypc   bnn   bpc   cbcLc5 pnc   yyy
 bbb   bpn   cnp   nnp   ync   nnc   nny   pcy
 #     ppp   cpn   cpp   ccp   ccn   bcn   #
 #     #     cpp   npp   cpp   ccn   #     #
-solution: 1,1 ; 2,1 ; roll 3 ; 6,1 ; swap 2,1,2 ; 5,0 ; 1,4 ; 1,5 ; swap 1,4,1 ; 6,4
+solution: 2,3 ; roll 2 ; 2,1 ; use 0,6,1 ; use 0,3,0 ; 1,4 ; use 0,2,0 ; 3,3 ; use 0,4,1 ; 2,0 ; use 0,1,1

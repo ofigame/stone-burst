@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kenar çentikleri; çözüm 22 + 0 tepsi / sınır 25; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe (ayna); çözüm 17 + 0 tepsi / sınır 21; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_610
-moves: 25
+moves: 21
 roll: off
-refill: 29 2-3
+refill: 27 2-3
 type: boss
 rules: noSpecials
-goals: navy 37, purple 35, blue 35
+goals: navy 31, blue 25, purple 28
 grid:
-pby   #     #     G1:ynp G1:npp G1:nyn ynn   nyn
-pby   pnp   ynn   ynn   nyn   npb   yyn   npn
-bby   bbp   bbp   pbp   byp   bnb   yyb   yyp
-#     bpn   ppp   pyb   nyy   ynb   ynb   ynp
-#     bbn   ybn   nyp   nnb   pyy   nny   bnp
-bbbG  bbb   nnb   nnp   nnyB1 pby   yby   bpp
-nbbG  ybnG  pyb   yny   ppb   pby   nbb   ppp
-nybG  ybnG  yny   ppn   ppn   ppb   #     pyp
-nbnG  #     bby   npy   nyn   npn   #     nyp
-solution: 1,3 ; 1,1 ; 1,2 ; 3,7 ; 5,4 ; 5,5 ; 4,6 ; 6,0 ; 7,1 ; 4,1 ; 5,1 ; 3,2 ; 5,3 ; 4,4 ; 1,3 ; 1,3 ; 3,0 ; 3,0 ; 2,1 ; 2,5 ; 1,1 ; 2,1
+#     #     G1:ncc G1:pbb G1:bcb bcn   #     #
+#     nnc   ncc   pbn   pcn   bnn   bcc   #
+nnp   nbc   pnb   pnb   pnp   nnc   bnc   cpb
+npp   npp   ccp   pbb   npp   cnn   cpc   cpbB1
+pppG  cppG  cnb   bnp   bcp   bbc   cbn   cnb
+pncG  pppG  pnnG  bbc   bnc   pbb   ppn   cnn
+cnn   cpcG  npc   bnc   ncp   ccc   bpc   bpn
+#     bcc   ncc   ncp   nbp   ccp   ccc   #
+#     #     bpp   ncc   cbc   cbc   #     #
+solution: 2,2 ; 6,1 ; 5,0 ; 2,2 ; 5,1 ; 5,2 ; 4,6 ; 7,2 ; 4,1 ; 5,3 ; 4,2 ; 3,4 ; 2,4 ; 6,2 ; 5,5 ; 5,0 ; 5,1

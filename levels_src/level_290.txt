@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U; çözüm 15 + 0 tepsi / sınır 19; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U; çözüm 14 + 5 tepsi / sınır 19; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_290
 moves: 19
 roll: off
@@ -6,15 +6,15 @@ specials: on
 refill: 33 2-3
 type: boss
 rules: scarce
-goals: purple 39, blue 38, envelope 2
+goals: purple 36, blue 34, envelope 2
 grid:
 bnb   cyb   pyb   #     #     cpb   npp   byp
 nnp   cyb   cbn   #     #     npb   ncp   ycb
 ncp   nyp   yyn   #     #     bnb   bnp   pcb
-bcpEb ybp   ynn   ypb   bcb   bpp   bcp   pyc
+bcpEb ybp   ynn   ypb   bcb   bbp   bcp   pyc
 byn   nyn   yyb   bpn   pyn   bnc   bnn   pycG
-pbc   nyn   ycb   ycy   pyb   pnc   ynnG  pycG
+ybc   nyn   ycb   ycy   pyb   pnc   ynnG  cycG
 pbc   nby   nbp   ccy   ppp   cpc   cnp   cpbG
 pyy   pny   nbc   bcc   bbb   cbb   cbb   pcn
 nyy   cyy   nbn   bcb   bnb   pnp   pcnEp pcn
-solution: 5,0 ; 5,0 ; swap 5,0,0 ; 4,8 ; 1,8 ; 4,8 ; 2,1 ; 4,7 ; 4,3 ; 4,4 ; 7,8 ; 1,1 ; swap 4,4,3 ; 0,4 ; swap 0,4,3
+solution: 0,4 ; 0,4 ; use 0,0,0 ; 5,0 ; use 0,6,0 ; 7,7 ; 4,7 ; 4,4 ; 0,3 ; use 2,5,0 ; 0,2 ; use 3,0,1 ; 1,4 ; use 3,1,0

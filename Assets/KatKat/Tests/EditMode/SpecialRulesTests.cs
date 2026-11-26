@@ -15,7 +15,7 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void FiveWideGroup_CreatesRowRocket_OnTappedCell()
+        public void FiveWideGroup_CreatesRowRocket_InTray_NotOnBoard()
         {
             var s = S(5, new[]
             {
@@ -26,21 +26,21 @@ namespace KatKat.Tests
             Assert.IsTrue(r.Accepted);
             Assert.AreEqual(SpecialKind.RocketRow, r.SpecialCreated);
             Assert.AreEqual(new Coord(2, 0), r.SpecialCreatedAt, "uçuşun başladığı hücre");
-            // 2026-11-26 (kullanıcı: "Roket ve altın rulolar tıkladığımız taşın olduğu yere konacak"): özel taş tahtada, tepsi boş.
-            Assert.IsFalse(r.SpecialToTray);
-            Assert.AreEqual(0, s.Tray.Count);
-            Assert.AreEqual(SpecialKind.RocketRow, s.Board[2, 0].Special, "roket dokunulan taşın yerinde");
-            Assert.IsFalse(s.Board[2, 0].IsSelectable, "özel taşlı yığın grup olarak seçilmez");
+            Assert.IsTrue(r.SpecialToTray);
+            CollectionAssert.AreEqual(new[] { SpecialKind.RocketRow }, s.Tray);
+            Assert.IsFalse(s.Board[2, 0].HasSpecial, "v6: özel taş tahtada durmaz");
+            Assert.IsTrue(s.Board[2, 0].IsSelectable);
         }
 
         [Test]
-        public void TrayRocket_FiresAtChosenCell_WithoutSpendingMove()
+        public void TrayRocket_FiresAtChosenCell_SpendsOneMove()
         {
             var s = S(5, new[] { "yb c yb", "c  y c", "b  c b" }, (LayerColor.Coral, 99));
             s.Tray.Add(SpecialKind.RocketColumn);
             var r = RulesEngine.TryApply(s, Command.UseSpecial(0, 1, 2));
             Assert.IsTrue(r.Accepted);
-            Assert.AreEqual(5, s.MovesLeft, "tepsi hamle harcamaz");
+            // 2026-11-26 (kullanıcı: "Tepsiden 1 hamle götürsün"): tepsi bir hamle.
+            Assert.AreEqual(4, s.MovesLeft, "tepsi bir hamle harcar");
             Assert.AreEqual(0, s.Tray.Count);
             Assert.AreEqual(SpecialKind.RocketColumn, r.UsedSpecial);
             Assert.AreEqual(".", TestBoards.Cell(s, 1, 0));
@@ -61,17 +61,57 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void Tray_KeepsGameAliveAfterLastMove_AndRejectsUselessTarget()
+        public void Tray_NeedsMove_GameEndsAtZeroMoves_AndRejectsUselessTarget()
         {
+            // 2026-11-26 (kullanıcı: "Tepsiden 1 hamle götürsün"): tepsi de hamle ister; hamle bitince tepside taş olsa da bölüm biter.
             var s = S(1, new[] { "c c c y", "y b y b" }, (LayerColor.Coral, 3), (LayerColor.Yellow, 9));
             s.Tray.Add(SpecialKind.RocketRow);
             RulesEngine.TryApply(s, Command.Tap(0, 0));
             Assert.AreEqual(0, s.MovesLeft);
-            Assert.AreEqual(GameStatus.Idle, s.Status, "hamle bitti ama tepside roket var");
+            Assert.AreEqual(GameStatus.LostOutOfMoves, s.Status, "hamle bitti: tepsideki roket kullanılamaz");
             var bad = S(5, new[] { "c .", "y b" }, (LayerColor.Coral, 9));
             bad.Tray.Add(SpecialKind.Rainbow);
             Assert.IsFalse(RulesEngine.TryApply(bad, Command.UseSpecial(0, 1, 0)).Accepted, "boş hücrede Altın Rulo etkisiz");
             Assert.IsFalse(RulesEngine.TryApply(bad, Command.UseSpecial(1, 0, 0)).Accepted, "olmayan yuva");
+        }
+
+        [Test]
+        public void SevenGroup_DoubleRocketToTray_ClearsTwoColumns()
+        {
+            // 2026-11-26 (kullanıcı: "çift rokette getirelim. Çift roket 2 satır veya sütunu yok edecek").
+            var s = S(5, new[] { "bc y y", "bc y b", "bc b y", "bc y b", "bc b y", "bc y b", "bc b y" }, (LayerColor.Coral, 99));
+            var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
+            Assert.AreEqual(SpecialKind.RocketColumn2, r.SpecialCreated, "7'lik dikey grup çift sütun roketi");
+            CollectionAssert.AreEqual(new[] { SpecialKind.RocketColumn2 }, s.Tray);
+            Assert.IsTrue(RulesEngine.TryApply(s, Command.UseSpecial(0, 0, 3)).Accepted);
+            Assert.AreEqual(3, s.MovesLeft);
+            for (int y = 0; y < 7; y++)
+            {
+                Assert.AreEqual(".", TestBoards.Cell(s, 0, y), "kendi sütunu");
+                Assert.AreEqual(".", TestBoards.Cell(s, 1, y), "sağındaki sütun");
+            }
+            Assert.AreNotEqual(".", TestBoards.Cell(s, 2, 0), "üçüncü sütun kalır");
+        }
+
+        [Test]
+        public void TrayRocketAndGoldRoll_DefuseTrapBomb_NoLoss()
+        {
+            // 2026-11-26 (kullanıcı: "roketler veya altın rulolar. Tuzaklı bombaları imha edecekler, eğer denk gelirse").
+            var s = S(5, new[] { "c b c y" }, (LayerColor.Blue, 99));
+            s.Board[2, 0].Protected = true;
+            s.Tray.Add(SpecialKind.RocketRow);
+            var r = RulesEngine.TryApply(s, Command.UseSpecial(0, 0, 0));
+            Assert.IsTrue(r.Accepted);
+            Assert.IsFalse(s.ProtectedBroken, "roket bombayı imha eder, kayıp yok");
+            Assert.IsFalse(s.Board[2, 0].Protected);
+            Assert.AreEqual(1, r.Waves.Sum(w => w.Defused.Count));
+
+            var t = S(5, new[] { "c b", "y c" }, (LayerColor.Blue, 99));
+            t.Board[1, 1].Protected = true;
+            t.Tray.Add(SpecialKind.Rainbow);
+            RulesEngine.TryApply(t, Command.UseSpecial(0, 0, 0));
+            Assert.IsFalse(t.ProtectedBroken);
+            Assert.IsFalse(t.Board[1, 1].Protected);
         }
 
         [Test]
@@ -104,9 +144,7 @@ namespace KatKat.Tests
             var r = RulesEngine.TryApply(s, Command.Tap(1, 1));
             Assert.AreEqual(SpecialKind.Rainbow, r.SpecialCreated);
             Assert.AreEqual(LayerColor.Coral, r.SpecialCreatedColor);
-            // 2026-11-26 (kullanıcı: "Roket ve altın rulolar tıkladığımız taşın olduğu yere konacak"): özel taş tahtada, tepsi boş.
-            Assert.AreEqual(SpecialKind.Rainbow, s.Board[1, 1].Special);
-            Assert.AreEqual(0, s.Tray.Count);
+            CollectionAssert.AreEqual(new[] { SpecialKind.Rainbow }, s.Tray);
         }
 
         [Test]
@@ -170,10 +208,8 @@ namespace KatKat.Tests
                 "b  yc ycLb2",
             }, (LayerColor.Coral, 99));
             s.Board[1, 0].Special = SpecialKind.Rainbow;
-            s.Board[1, 0].SpecialColor = LayerColor.Yellow;
-            // 2026-11-26: Altın Rulo komşu mercan taşa sürüklenir (renk sürüklenen komşudan).
-            var r = RulesEngine.TryApply(s, Command.Swap(1, 0, 2));
-            Assert.IsTrue(r.Accepted);
+            s.Board[1, 0].SpecialColor = LayerColor.Coral;
+            var r = RulesEngine.TryApply(s, Command.Tap(1, 0));
             Assert.AreEqual("y", TestBoards.Cell(s, 0, 0));
             Assert.AreEqual("y", TestBoards.Cell(s, 2, 0));
             Assert.AreEqual("y", TestBoards.Cell(s, 1, 1));
@@ -182,10 +218,8 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void RocketDraggedOntoRocket_DoubleRocket_ClearsTwoRows()
+        public void RocketPlusRocket_RowAndColumn()
         {
-            // 2026-11-26 (kullanıcı: "çift rokette getirelim. Çift roket 2 satır veya sütunu yok edecek"; birleşim "İkisi de"):
-            // satır roketi komşu rokete sürüklenince hedefte çift satır roketi: kendi satırı ve altındaki.
             var s = S(5, new[]
             {
                 "c c c",
@@ -194,83 +228,15 @@ namespace KatKat.Tests
             }, (LayerColor.Coral, 99));
             s.Board[1, 1].Special = SpecialKind.RocketRow;
             s.Board[2, 1].Special = SpecialKind.RocketColumn;
-            var r = RulesEngine.TryApply(s, Command.Swap(1, 1, 0));
-            Assert.IsTrue(r.Accepted);
-            Assert.AreEqual(SpecialKind.RocketRow2, r.Waves[0].Fired);
-            Assert.AreEqual(new Coord(1, 1), r.Waves[0].MergedFrom);
-            Assert.AreEqual(4, s.MovesLeft, "sürükleme bir hamle");
-            for (int x = 0; x < 3; x++)
-            {
-                Assert.AreEqual("c", TestBoards.Cell(s, x, 0), "üst satır etkilenmez");
-                Assert.AreEqual(".", TestBoards.Cell(s, x, 2), "alttaki satır da temizlenir");
-            }
+            var r = RulesEngine.TryApply(s, Command.Tap(1, 1));
+            Assert.AreEqual(SpecialKind.RocketColumn, r.Waves[0].ComboWith);
+            Assert.AreEqual(".", TestBoards.Cell(s, 1, 0));
             Assert.AreEqual(".", TestBoards.Cell(s, 0, 1));
-            Assert.IsFalse(s.Board[1, 1].HasSpecial || s.Board[2, 1].HasSpecial, "iki roket de harcanır");
-        }
-
-        [Test]
-        public void SevenGroup_CreatesDoubleRocket_TapClearsTwoColumns()
-        {
-            var s = S(5, new[] { "bc y y", "bc y b", "bc b y", "bc y b", "bc b y", "bc y b", "bc b y" }, (LayerColor.Coral, 99));
-            var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.AreEqual(SpecialKind.RocketColumn2, r.SpecialCreated, "7'lik dikey grup çift sütun roketi");
-            Assert.AreEqual(SpecialKind.RocketColumn2, s.Board[0, 0].Special);
-            var r2 = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.IsTrue(r2.Accepted);
-            Assert.AreEqual(3, s.MovesLeft, "dokunuş bir hamle");
-            for (int y = 0; y < 7; y++)
-            {
-                Assert.AreEqual(".", TestBoards.Cell(s, 0, y), "kendi sütunu");
-                Assert.AreEqual(".", TestBoards.Cell(s, 1, y), "sağındaki sütun");
-            }
-            Assert.AreNotEqual(".", TestBoards.Cell(s, 2, 0), "üçüncü sütun kalır");
-        }
-
-        [Test]
-        public void GoldRoll_TapRejected_DragOntoNeighbourPeelsThatColor()
-        {
-            var s = S(5, new[] { "c b c", "y c b" }, (LayerColor.Blue, 99));
-            s.Board[0, 1].Special = SpecialKind.Rainbow;
-            s.Board[0, 1].SpecialColor = LayerColor.Yellow;
-            Assert.AreEqual(RejectReason.SpecialNeedsDrag, RulesEngine.TryApply(s, Command.Tap(0, 1)).Reason);
-            Assert.AreEqual(5, s.MovesLeft);
-            var r = RulesEngine.TryApply(s, Command.Swap(0, 1, 3)); // yukarıdaki mercana
-            Assert.IsTrue(r.Accepted);
-            Assert.AreEqual(4, s.MovesLeft);
-            Assert.AreEqual(".", TestBoards.Cell(s, 0, 0));
-            Assert.AreEqual(".", TestBoards.Cell(s, 2, 0));
+            Assert.AreEqual(".", TestBoards.Cell(s, 1, 2));
             Assert.AreEqual(".", TestBoards.Cell(s, 1, 1));
-            Assert.AreEqual("b", TestBoards.Cell(s, 1, 0), "başka renk kalır");
-        }
-
-        [Test]
-        public void Rocket_DragOntoPlainStone_Rejected()
-        {
-            var s = S(5, new[] { "c b c" }, (LayerColor.Blue, 99));
-            s.Board[0, 0].Special = SpecialKind.RocketRow;
-            Assert.AreEqual(RejectReason.SpecialDragInvalid, RulesEngine.TryApply(s, Command.Swap(0, 0, 0)).Reason);
-            Assert.AreEqual(5, s.MovesLeft);
-        }
-
-        [Test]
-        public void RocketAndGoldRoll_DefuseTrapBomb_NoLoss()
-        {
-            // 2026-11-26 (kullanıcı: "roketler veya altın rulolar. Tuzaklı bombaları imha edecekler, eğer denk gelirse").
-            var s = S(5, new[] { "c b c y" }, (LayerColor.Blue, 99));
-            s.Board[0, 0].Special = SpecialKind.RocketRow;
-            s.Board[2, 0].Protected = true;
-            var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.IsTrue(r.Accepted);
-            Assert.IsFalse(s.ProtectedBroken, "roket bombayı imha eder, kayıp yok");
-            Assert.IsFalse(s.Board[2, 0].Protected);
-            Assert.AreEqual(1, r.Waves.Sum(w => w.Defused.Count));
-
-            var t = S(5, new[] { "c b", "y c" }, (LayerColor.Blue, 99));
-            t.Board[0, 1].Special = SpecialKind.Rainbow;
-            t.Board[1, 1].Protected = true;
-            RulesEngine.TryApply(t, Command.Swap(0, 1, 3));
-            Assert.IsFalse(t.ProtectedBroken);
-            Assert.IsFalse(t.Board[1, 1].Protected);
+            Assert.AreEqual(".", TestBoards.Cell(s, 2, 1));
+            Assert.AreEqual("c", TestBoards.Cell(s, 0, 0), "köşe etkilenmez");
+            Assert.IsFalse(s.Board[2, 1].HasSpecial, "ortak taş da harcanır");
         }
 
         [Test]
@@ -279,7 +245,7 @@ namespace KatKat.Tests
             var s = S(5, new[] { "yc yb y", "bc yy yp" }, (LayerColor.Coral, 99));
             s.Board[0, 0].Special = SpecialKind.Rainbow;
             s.Board[1, 0].Special = SpecialKind.Rainbow;
-            RulesEngine.TryApply(s, Command.Swap(0, 0, 0)); // 2026-11-26: birleşim sürüklemeyle
+            RulesEngine.TryApply(s, Command.Tap(0, 0));
             Assert.AreEqual("y", TestBoards.Cell(s, 0, 0));
             Assert.AreEqual("y", TestBoards.Cell(s, 1, 0));
             Assert.AreEqual(".", TestBoards.Cell(s, 2, 0));
@@ -300,7 +266,7 @@ namespace KatKat.Tests
             s.Board[0, 0].Special = SpecialKind.RocketRow;
             s.Board[1, 0].Special = SpecialKind.Rainbow;
             s.Board[1, 0].SpecialColor = LayerColor.Blue;
-            var r = RulesEngine.TryApply(s, Command.Swap(1, 0, 2)); // 2026-11-26: Altın Rulo komşu rokete sürüklenir
+            var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
             Assert.AreEqual(2, r.Waves[0].Triggered.Count, "iki mavi yığın rokete döndü");
             Assert.AreEqual(3, r.Waves.Count, "dönüşüm + iki roket");
             Assert.AreEqual(SpecialKind.RocketRow, r.Waves[1].Fired);

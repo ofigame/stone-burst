@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil kesik köşe (ayna); çözüm 19 + 0 tepsi / sınır 19; rastgele 0,000; açgözlü kaybeder; yumuşak 0,35
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil elmas; çözüm 13 + 5 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_328
-moves: 19
+moves: 13
 roll: off
 specials: on
-refill: 27 2-3
+refill: 22 2-3
 type: protect
 rules: protect, exact
-goals: navy 25, purple 22, blue 32
+goals: navy 17, purple 13, blue 31
 grid:
-#     #     nyn   pcn   bcc   bccP  #     #
-#     cbb   pyn   pyn   ccbR  ycc   nyc   #
-ypb   cpb   cnn   ppn   ypc   ybn   pyn   cyn
-ypb   ycy   cny   pyy   ycn   ncn   ccy   cby
-bpb   bcp   ypcR  nyp   ccb   cby   cybR  bbyP
-ppc   bbb   bnb   pyp   bcb   ync   pny   cnyP
-bpc   bbb   pbb   byp   byp   ync   cnb   cnb
-#     nbp   bbn   ybn   byb   pcc   ccb   #
-#     #     npn   npn   ncn   bpn   #     #
-solution: 5,8 ; 2,6 ; 2,6 ; 2,0 ; 1,1 ; 0,3 ; 2,7 ; 2,7 ; swap 2,0,0 ; 4,3 ; 5,5 ; 1,2 ; 3,3 ; swap 4,3,2 ; rot 2,4 ; 3,3 ; 0,5 ; 0,4 ; 5,8
+#     #     #     ybbP  cbp   #     #     #
+#     #     yyp   ybnR  bbcR  ncb   #     #
+#     yyy   yyb   bnb   bcb   ncc   bbc   #
+bbc   byb   nby   ncb   cpb   ccc   bcb   bbnR
+nbc   ccc   nby   cny   npc   ycy   byy   byb
+nccP  bbc   nbc   nbp   cpp   cpc   cyy   bnb
+#     nnc   bbp   bbb   cyp   npc   yyc   #
+#     #     ppy   bnp   byp   bnp   #     #
+#     #     #     bcyP  bcy   #     #     #
+solution: rot 3,1 ; 5,4 ; 5,2 ; use 0,3,0 ; 4,3 ; 4,1 ; use 0,5,1 ; 6,4 ; 6,2 ; use 2,2,1 ; use 1,2,1 ; use 0,3,1 ; 6,2

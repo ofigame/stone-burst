@@ -10,7 +10,7 @@
   "timeLimit": 60,
   "rollEnabled": false,
   "startingRoll": false,
-  "stars": [860, 1260],
+  "stars": [940, 1370],
   "goals": [
     { "type": "collectColor", "color": "blue", "amount": 30 },
     { "type": "collectColor", "color": "purple", "amount": 35 }
@@ -26,16 +26,17 @@
     { "type": "tap", "x": 0, "y": 0 },
     { "type": "send" },
     { "type": "tap", "x": 4, "y": 1 },
-    { "type": "swap", "x": 4, "y": 1, "dir": 1 },
+    { "type": "tap", "x": 5, "y": 6 },
     { "type": "send" },
     { "type": "send" },
     { "type": "send" },
     { "type": "send" },
     { "type": "send" },
-    { "type": "swap", "x": 0, "y": 0, "dir": 0 },
+    { "type": "tap", "x": 1, "y": 0 },
     { "type": "tap", "x": 2, "y": 0 },
     { "type": "send" },
-    { "type": "swap", "x": 2, "y": 0, "dir": 0 },
+    { "type": "tap", "x": 2, "y": 0 },
+    { "type": "tap", "x": 4, "y": 2 },
     { "type": "send" }
   ],
   "cells": [

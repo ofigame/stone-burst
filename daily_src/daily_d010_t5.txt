@@ -1,12 +1,12 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 359 + tür reverse; şekil U; çözüm 11 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 359 + tür reverse; şekil U; çözüm 10 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04; döndürmeyle başlar;
 id: daily_d010_t5
 title: Günlük 10
-moves: 11
+moves: 10
 roll: on
 specials: on
 type: reverse
 rules: exact
-goals: yellow 19, navy 26, blue 14
+goals: yellow 16, navy 22, blue 12
 grid:
 cy    ny    cy    #     nc    bc    nb
 cy    ny    cy    #     cy    cy    nb
@@ -17,4 +17,4 @@ nb    ny    nn    yc    yci1  np    np
 pyR   yp    yn    yc    yn    bn    cn
 np    nc    cci2  cy    yn    cn    cn
 pb    pb    cc    cy    bn    by    by
-solution: rot 1,2 ; 4,8 ; roll 6 ; 3,8 ; swap 3,8,0 ; 1,3 ; roll 5 ; 4,3 ; 4,1 ; roll 7 ; 1,3
+solution: rot 1,2 ; 0,0 ; 2,2 ; use 0,1,0 ; 4,6 ; use 1,4,0 ; roll 5 ; use 0,6,0 ; 6,0 ; use 0,0,0

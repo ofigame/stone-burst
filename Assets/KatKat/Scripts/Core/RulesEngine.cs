@@ -43,7 +43,8 @@ namespace KatKat.Core
 
             if (cmd.Type == CommandType.UseSpecial)
             {
-                // v6 tepsi: hamle harcamaz. Özel taş hedef hücrede ateşlenir (Altın Rulo hedefin üst rengini toplar).
+                // 2026-11-26 (kullanıcı: "Roket ve rulo yine tahtanın üst kısmında olsun"; "Tepsiden 1 hamle götürsün"): tepsiden kullanım bir hamle. Özel taş hedef hücrede ateşlenir (Altın Rulo hedefin üst rengini toplar).
+                state.MovesLeft--;
                 var kind = state.Tray[cmd.Slot];
                 state.Tray.RemoveAt(cmd.Slot);
                 result.UsedSpecial = kind;
@@ -122,7 +123,7 @@ namespace KatKat.Core
                 // Özel taşa dokunuş: tek başına ateşlenir (2026-11-26: birleşim yalnız sürüklemeyle). Bir hamle.
                 result.TappedGroup.Add(new Coord(cmd.X, cmd.Y));
                 var resolver = new Resolver(state, result);
-                resolver.EnqueueSingle(state.Board.Index(cmd.X, cmd.Y));
+                resolver.EnqueueTapped(state.Board.Index(cmd.X, cmd.Y)); // 2026-11-26: özel taşlar tepside; tahtadaki eski yol (birleşimli dokunuş) aynen
                 resolver.Run(null, WaveKind.Special, -1);
                 Finish(state, result, scoreBefore);
                 return result;
@@ -304,6 +305,7 @@ namespace KatKat.Core
             if (cmd.Type == CommandType.UseSpecial)
             {
                 if (cmd.Slot < 0 || cmd.Slot >= state.Tray.Count) return RejectReason.TrayEmpty;
+                if (state.MovesLeft <= 0) return RejectReason.NoMovesLeft; // 2026-11-26: tepsi de hamle ister
                 if (!board.InBounds(cmd.X, cmd.Y)) return RejectReason.OutOfBounds;
                 return TrayHasEffect(board, state.Tray[cmd.Slot], cmd.X, cmd.Y) ? RejectReason.None : RejectReason.TrayNoEffect;
             }
@@ -321,7 +323,7 @@ namespace KatKat.Core
             {
                 if (!board.InBounds(cmd.X, cmd.Y)) return RejectReason.OutOfBounds;
                 var cell = board[cmd.X, cmd.Y];
-                if (cell.Active && cell.HasSpecial) return cell.Special == SpecialKind.Rainbow ? RejectReason.SpecialNeedsDrag : RejectReason.None;
+                if (cell.Active && cell.HasSpecial) return RejectReason.None;
                 if (!cell.IsSelectable) return RejectReason.NotSelectable;
                 wave0 = GroupFinder.Component(board, cmd.X, cmd.Y);
                 return wave0.Count >= GroupFinder.MinGroup ? RejectReason.None : RejectReason.GroupTooSmall;
@@ -480,11 +482,19 @@ namespace KatKat.Core
             if (kind == SpecialKind.Shovel) return ShovelHasEffect(board, x, y);
             if (kind == SpecialKind.Rainbow) return c.IsSelectable;
             bool areas = HasAreas(board);
-            for (int k = 0; k < (kind == SpecialKind.RocketRow ? board.Width : board.Height); k++)
+            bool row = kind.IsRowRocket();
+            // Çift roket (2026-11-26): kendi şeridi ve yanındaki (altı / sağı; kenarda üstü / solu).
+            int lanes = kind.IsDoubleRocket() ? 2 : 1;
+            for (int l = 0; l < lanes; l++)
             {
-                var o = kind == SpecialKind.RocketRow ? board[k, y] : board[x, k];
-                if (areas && o.Area != c.Area) continue;
-                if (Hittable(o)) return true;
+                int ly = row ? (l == 0 ? y : (y + 1 < board.Height ? y + 1 : y - 1)) : y;
+                int lx = row ? x : (l == 0 ? x : (x + 1 < board.Width ? x + 1 : x - 1));
+                for (int k = 0; k < (row ? board.Width : board.Height); k++)
+                {
+                    var o = row ? board[k, ly] : board[lx, k];
+                    if (areas && o.Area != c.Area) continue;
+                    if (Hittable(o)) return true;
+                }
             }
             return false;
         }
@@ -503,7 +513,7 @@ namespace KatKat.Core
         /// <summary>Yasal komut: geçerli grup, özel taş, etkili rulo veya döndürülebilir taban (rehber §9); tepsi.</summary>
         public static bool HasLegalMove(LevelState state)
         {
-            if (TrayUsable(state)) return true;
+            if (state.MovesLeft > 0 && TrayUsable(state)) return true;
             if (state.Bucket != null && state.Bucket.Active) return true; // torba (boş da) gönderilebilir
             if (state.WaterCap > 0 && state.WaterHave > 0) return true; // su kovası gönderilebilir
             if (state.MovesLeft <= 0) return false;
@@ -526,8 +536,8 @@ namespace KatKat.Core
             if (state.ProtectedBroken) return GameStatus.LostProtected; // kristal kuralı kazanmadan önce
             if (state.AllGoalsComplete) return GameStatus.Won;
             if (state.Hazard != null && state.Hazard.Lost) return GameStatus.LostHazard;
-            // v6: hamle bitse de tepside kullanılabilir özel taş varsa oyun sürer (tepsi hamle harcamaz).
-            if (state.MovesLeft <= 0 && !TrayUsable(state)) return GameStatus.LostOutOfMoves;
+            // 2026-11-26 (kullanıcı: "Roket ve rulo yine tahtanın üst kısmında olsun"; "Tepsiden 1 hamle götürsün"): tepsi de hamle harcar; hamle bitince oyun biter.
+            if (state.MovesLeft <= 0) return GameStatus.LostOutOfMoves;
             if (!HasLegalMove(state)) return GameStatus.LostNoLegalMoves;
             return GameStatus.Idle;
         }
@@ -1121,12 +1131,11 @@ namespace KatKat.Core
                 _result.SpecialCreated = kind;
                 _result.SpecialCreatedAt = new Coord(_board.X(tapped), _board.Y(tapped));
                 _result.SpecialCreatedColor = _removedColor[tapped];
-                // 2026-11-26: özel taş tepsiye değil dokunulan taşın yerine (yığının üstüne) konur.
-                var at = _board[tapped];
-                if (at.Active && !at.HasCover && !at.HasSpecial)
+                // 2026-11-26 (kullanıcı: "Roket ve rulo yine tahtanın üst kısmında olsun"; "Tepsiden 1 hamle götürsün"): özel taş yine tepsiye; tepsi doluysa yalnız puan.
+                if (TrayAccepts(_state, kind))
                 {
-                    at.Special = kind;
-                    at.SpecialColor = _removedColor[tapped];
+                    _state.Tray.Add(kind);
+                    _result.SpecialToTray = true;
                 }
             }
 

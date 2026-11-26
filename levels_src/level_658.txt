@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dalga; çözüm 7 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil kesik köşe; çözüm 13 + 6 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_658
-moves: 7
+moves: 13
 roll: off
 specials: on
-refill: 25 2-3
+refill: 23 2-3
 type: resource
 rules: exact
-goals: purple 29, yellow 23, navy 28, star 3
+goals: navy 32, yellow 25, purple 25, star 3
 grid:
-G1:cnn #     G1:ccy #     G1:ccy #     cpp
-cnn   bnn   cby   pcy   bcy   ycb   ccb
-yyn   byn   ncy   pyy   pcb   ccb   nbb
-npy   ncp   pcc*  pcc*  npn   cny   bby
-npy*  nyc   ppc   pcc   ccn   cyn   bbp
-ppc   pbb   cby   ccc   nbn   yyn   ybp
-ypcB1 pbb   npp   cpc   cpy   ybp   ybc
-nyc   npn   npc   cyn   ycp   cnp   pbc
-#     npn   #     cpn   #     cnp   #
-solution: 2,1 ; 2,2 ; swap 2,2,3 ; 3,5 ; 1,3 ; 3,4 ; swap 3,4,1
+#     #     G1:ybn G1:ypp G1:ynn #     #
+#     cbn   ybn   ypc   ynp   pcn   #
+cnn   cnc   pbc   ppy   pnn   pyb   ppy
+bnn*  ynb   ybc   cyp   cbn   nyn   npb
+cnn   nnb*  ncc   nyp   cbb   nyn   ncp
+ccy   pby   pny   nnp   ynbB1 cpn   ccn
+ccy*  pyy   pyp   nyy   byp   npp   cpp
+#     npn   nyc   yyy   nbb   nbb   #
+#     #     yyc   ypb   npb   #     #
+solution: 0,5 ; 1,3 ; use 0,0,5 ; 1,1 ; use 0,1,1 ; 2,2 ; use 0,2,1 ; 2,4 ; use 0,3,0 ; 3,5 ; use 0,0,2 ; 1,1 ; use 0,1,1

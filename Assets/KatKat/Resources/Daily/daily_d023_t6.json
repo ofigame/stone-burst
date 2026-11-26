@@ -7,10 +7,10 @@
   "rules": ["protect", "exact"],
   "width": 8,
   "height": 9,
-  "moveLimit": 8,
+  "moveLimit": 10,
   "rollEnabled": true,
   "startingRoll": false,
-  "stars": [4275, 5700],
+  "stars": [1140, 1520],
   "goals": [
     { "type": "collectColor", "color": "purple", "amount": 21 },
     { "type": "collectColor", "color": "coral", "amount": 28 },
@@ -87,12 +87,14 @@
   ],
   "solution": [
     { "type": "tap", "x": 1, "y": 2 },
+    { "type": "use", "slot": 0, "x": 0, "y": 6 },
     { "type": "tap", "x": 1, "y": 3 },
-    { "type": "tap", "x": 0, "y": 8 },
-    { "type": "swap", "x": 1, "y": 3, "dir": 3 },
-    { "type": "tap", "x": 3, "y": 6 },
-    { "type": "tap", "x": 3, "y": 1 },
-    { "type": "tap", "x": 3, "y": 6 },
-    { "type": "tap", "x": 6, "y": 6 }
+    { "type": "use", "slot": 0, "x": 3, "y": 0 },
+    { "type": "tap", "x": 1, "y": 5 },
+    { "type": "use", "slot": 0, "x": 2, "y": 1 },
+    { "type": "tap", "x": 0, "y": 6 },
+    { "type": "use", "slot": 0, "x": 6, "y": 0 },
+    { "type": "roll", "row": 8 },
+    { "type": "tap", "x": 7, "y": 7 }
   ]
 }

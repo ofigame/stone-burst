@@ -25,31 +25,41 @@ namespace KatKat.View
         {
             [Header("Aşama 1 – Aktivasyon")]
             public float ActivateMs = 150f;
-            public float ActivateScale = 1.15f;
-            public int OrbitParticles = 10;
+            // 2026-11-26 (kullanıcı: "Efektler çok pasif. Mevcut efektleride koruyarak daha yoğun efekt yapalım"): değerler yükseldi
+            // (önce 1,15 ölçek, 10 parçacık; halka 2,2, parlama 1,6 hücre).
+            public float ActivateScale = 1.3f;
+            public int OrbitParticles = 18;
+            [Tooltip("Aktivasyon halkası ve parlaması (hücre).")]
+            public float ActivateRing = 3.2f, ActivateFlash = 2.6f;
             [Header("Aşama 2 – Hedefler")]
             public float TargetMs = 200f;
             public float TargetGrow = 1.1f;
-            public float TargetGlow = 0.75f;
+            public float TargetGlow = 0.95f;
             [Header("Aşama 3 – Enerji ışınları")]
             public float BeamTravelMs = 190f;
             public float BeamWindowMs = 300f;
-            public int MaxBeams = 14;
-            public float BeamWidth = 0.13f;
-            public float BeamGlowWidth = 0.42f;
+            public int MaxBeams = 20;
+            public float BeamWidth = 0.19f;
+            public float BeamGlowWidth = 0.66f;
+            [Tooltip("Işın hedefe varınca parlama boyu (hücre) ve ışın üstündeki parçacık sıklığı (ms başına).")]
+            public float BeamArriveFlash = 1.6f, BeamSparkRate = 0.07f;
             [Range(0f, 1f)] public float BeamCurve = 0.32f;
             public float BeamWobble = 0.12f;
             [Header("Aşama 4 – Jöle patlamaları")]
             public float ChainMs = 450f;
             [Tooltip("<1: patlamalar başta seyrek, sonra hızlanır.")]
             [Range(0.3f, 1f)] public float ChainAccel = 0.58f;
-            public int JellyMin = 4, JellyMax = 7;
-            public float JellySize = 0.2f;
+            public int JellyMin = 5, JellyMax = 9;
+            public float JellySize = 0.26f;
             [Header("Aşama 5 – Final")]
             public float FinalMs = 250f;
-            public float FinalWave = 4.5f;
-            public float FinalFlash = 0.16f;
-            public float Shake = 0.014f;
+            public float FinalWave = 6f;
+            public float FinalFlash = 0.28f;
+            [Tooltip("Finalde saçılan yıldız: küçük/orta hamle, büyük hamle.")]
+            public int FinalStars = 10, FinalStarsBig = 20;
+            public float Shake = 0.022f;
+            [Tooltip("Taşlar patladığı anda tahta sarsıntısı (önce 0,025, sabit).")]
+            public float PopShake = 0.034f;
             [Tooltip("Hedef sayısı eşikleri: küçük ≤, orta ≤, büyük ≤ (üstü dev).")]
             public Vector3Int Tiers = new Vector3Int(5, 12, 20);
             [Header("Ses")]
@@ -65,29 +75,39 @@ namespace KatKat.View
         {
             [Header("Aşama 1 – Aktivasyon")]
             public float ActivateMs = 120f;
-            public float ActivateScale = 1.15f;
+            // 2026-11-26 (kullanıcı: "Efektler çok pasif"): önce 1,15 ölçek, halka 1,4, parlama 1,6 hücre, 5 motor kıvılcımı.
+            public float ActivateScale = 1.3f;
             [Tooltip("Fırlatma öncesi ters yönde esneme (hücre).")]
-            public float Recoil = 0.1f;
+            public float Recoil = 0.14f;
+            [Tooltip("Aktivasyon halkası, fırlatma parlaması (hücre) ve her uçtaki motor kıvılcımı.")]
+            public float ActivateRing = 2.4f, LaunchFlash = 2.6f;
+            public int LaunchSparks = 10;
             [Header("Aşama 2-3 – Fırlatma ve hareket")]
             [Tooltip("Tam hıza çıkma süresi.")]
             public float AccelMs = 110f;
             [Tooltip("Tam hızda hücre başına süre.")]
             public float CellMs = 38f;
-            public float TrailLength = 2.4f;
-            public float TrailWidth = 0.34f;
+            public float TrailLength = 3.3f;
+            public float TrailWidth = 0.5f;
             public Color TrailCore = new Color(1f, 0.98f, 0.82f, 1f);
-            public Color TrailFlame = new Color(1f, 0.62f, 0.18f, 0.85f);
-            public float Flame = 1f;
+            public Color TrailFlame = new Color(1f, 0.55f, 0.12f, 1f);
+            public float Flame = 1.35f;
+            [Tooltip("Uçuşta kıvılcım ve hız çizgisi sıklığı (ms başına; önce 0,05 ve 0,012).")]
+            public float SparkRate = 0.12f, StreakRate = 0.03f;
             public float Stretch = 0.3f;
             [Header("Aşama 4 – Çarpışma")]
-            public int JellyMin = 4, JellyMax = 7;
-            public float JellySize = 0.2f;
-            public float Impact = 1f;
+            public int JellyMin = 5, JellyMax = 9;
+            public float JellySize = 0.26f;
+            public float Impact = 1.4f;
+            [Tooltip("Çarpışma parlaması ve halkası (hücre; önce yalnız 0,9 parlama).")]
+            public float ImpactFlash = 1.35f, ImpactRing = 1.5f;
             [Header("Aşama 5-6 – Çevre ve çıkış")]
-            public float NeighborWobble = 0.05f;
-            public float LaneGlow = 0.55f;
+            public float NeighborWobble = 0.08f;
+            public float LaneGlow = 0.85f;
             public float ExitCells = 1.2f;
-            public float Shake = 0.012f;
+            public float Shake = 0.02f;
+            [Tooltip("Taşlar patladığı anda tahta sarsıntısı (önce 0,022, sabit); çift roket 1,25 kat.")]
+            public float PopShake = 0.03f;
             public Vector3Int Tiers = new Vector3Int(4, 8, 12);
             [Header("Ses")]
             public float Volume = 0.9f;
@@ -141,6 +161,8 @@ namespace KatKat.View
             public float RingLife = 0.26f;
             public float RingAlpha = 0.5f;
             public float Glow = 0.35f;
+            [Tooltip("2026-11-26 (kullanıcı: Efektler çok pasif): roket / Altın Rulo vuruşunda parçacık çarpanı, halka, ışık ve parça hızı (dokunuş patlaması aynı kalır).")]
+            public float SpecialBoost = 1.5f, SpecialRingK = 1.35f, SpecialRingAlpha = 0.75f, SpecialGlow = 0.6f, SpecialChipSpeed = 1.2f;
             [Header("4 – Grup dalgası")]
             [Tooltip("Dokunulan hücreden uzaklık halkası başına gecikme (en çok / en az).")]
             public float RingStepMs = 22f;
@@ -154,7 +176,7 @@ namespace KatKat.View
             [Tooltip("Kademeye göre titreşim: 0 yok, 1 tık, 2 hafif, 3 orta (küçük, orta, büyük, dev).")]
             public Vector4 HapticByTier = new Vector4(0f, 1f, 2f, 3f);
             [Tooltip("9+ grupta kontrollü küçük tahta sarsıntısı (dev grupta 1,5 kat).")]
-            public float BigShake = 0.012f;
+            public float BigShake = 0.016f;
             [Header("5 – Hedefe uçuş")]
             [Tooltip("Mini kopyanın başlangıç boyu (taş boyu oranı).")]
             public float MiniStart = 0.58f;
@@ -201,6 +223,55 @@ namespace KatKat.View
             public int MaxConcurrent = 60;
         }
 
+        /// <summary>
+        /// 2026-11-26 (kullanıcı: "Roket ve rulo yine tahtanın üst kısmında olsun … Belli olmuyorlar … Roketlere tıklandığında
+        /// anlaşılmıyor"): tepsiden sürükleme hayaleti, hedef önizlemesi, yuvadan hedefe uçuş ve doğan taşın tepsiye uçuşu.
+        /// </summary>
+        [Serializable]
+        public sealed class TraySettings
+        {
+            [Header("Kullanım uçuşu (yuva → hedef hücre)")]
+            public float UseFlyMs = 180f;
+            [Tooltip("Uçuş yayının yüksekliği (hücre).")]
+            public float UseFlyArc = 0.9f;
+            [Tooltip("Uçuşun ortasında simgenin büyümesi.")]
+            public float UseFlySwell = 0.25f;
+            [Tooltip("İz parçacığı (ms başına) ve varışta parlama / halka (hücre).")]
+            public float UseTrailRate = 0.16f, UseArriveFlash = 2.2f, UseArriveRing = 2.4f;
+            [Header("Sürükleme hayaleti ve önizleme")]
+            [Tooltip("Hayaletin yuvadaki simgeye oranı ve ışık halesi.")]
+            public float GhostScale = 1.7f, GhostGlow = 0.9f;
+            [Tooltip("Bırakma iptalinde hayaletin yuvaya dönüşü.")]
+            public float SnapBackMs = 220f;
+            [Tooltip("Önizleme nabız süresi; hücre ışığı, çerçeve ve şerit saydamlığı.")]
+            public float PreviewPulseMs = 560f, PreviewGlow = 1f, PreviewFrame = 1f, PreviewLane = 0.55f;
+            [Tooltip("Kürek önizlemesinde sıradaki çakıla geçen nabız (ms).")]
+            public float PreviewGravelStepMs = 110f;
+            [Header("Doğan özel taşın tepsiye uçuşu")]
+            public float CreateFlyMs = 520f;
+            [Tooltip("Uçan simgenin boyu (hücre), yay (hücre) ve iz parçacığı (ms başına).")]
+            public float CreateToken = 1.3f, CreateArc = 1.6f, CreateTrailRate = 0.12f;
+            [Tooltip("Yuvaya varışta büyüme (ölçek), süre (ms) ve kıvılcım sayısı.")]
+            public float ArrivePop = 1.55f, ArrivePopMs = 380f;
+            public int ArriveSparks = 16;
+            [Header("Seçili yuva")]
+            [Tooltip("Seçili yuvanın yükselmesi (px) ve yukarı-aşağı salınımı (px).")]
+            public float SelectLift = 8f, SelectBob = 4f;
+        }
+
+        /// <summary>2026-11-26 (kullanıcı: "temizlediği çakıl efektle yok olsun"): Kürek kazma efekti.</summary>
+        [Serializable]
+        public sealed class ShovelSettings
+        {
+            [Tooltip("Kazmada toz bulutu sayısı, parlama (hücre), toz halkası (hücre) ve yığının sekmesi.")]
+            public int DigDust = 5;
+            public float DigFlash = 1.5f, DigRing = 1.7f, DigBounce = 0.14f;
+            [Tooltip("Her kazmada tahtanın hafif sarsıntısı.")]
+            public float DigShake = 0.006f;
+        }
+
+        public TraySettings Tray = new TraySettings();
+        public ShovelSettings Shovel = new ShovelSettings();
         public RainbowSettings Rainbow = new RainbowSettings();
         public RocketSettings Rocket = new RocketSettings();
         public BlastSettings Blast = new BlastSettings();

@@ -553,7 +553,31 @@ namespace KatKat.UI
             band = Rect.MinMaxRect(lo.x, lo.y, hi.x, hi.y);
             float s = _bucketRoot.localScale.y * 1.12f; // en büyük zıplama
             var p = _bucketRoot.localPosition;
-            bag = new Rect(p.x - BucketSize * s * 0.5f, p.y - BucketSize * s * 0.5f, BucketSize * s, BucketSize * s);
+            // 2026-11-26: yatayda sayı rozeti (sağ üst) gövdeden taşar; denetim onu da kapsar.
+            float hw = BagHalfWidthUnits * s;
+            bag = new Rect(p.x - hw, p.y - BucketSize * s * 0.5f, 2f * hw, BucketSize * s);
+            return true;
+        }
+
+        /// <summary>
+        /// 2026-11-26 denetim (kullanıcı: "Bantta, iki yanında yuvalar"): tepsi yuvalarının en geniş görünür alanı (seçili roket simgesi
+        /// boyu) torbayla aynı uzayda. Torba kipinde değilse false.
+        /// </summary>
+        public bool AuditTraySlots(List<Rect> slots)
+        {
+            slots.Clear();
+            if (!_bucketMode || _bucketRoot == null || _trayRoot == null || !_trayRoot.gameObject.activeInHierarchy || !(_bucketRoot.parent is RectTransform parent)) return false;
+            for (int i = 0; i < LevelState.TrayCapacity; i++)
+            {
+                var srt = (RectTransform)_traySlots[i].transform;
+                var c = parent.InverseTransformPoint(srt.position);
+                // Yuvanın kendi ölçeği (seçim dahil değil) → en geniş simge seçili haliyle.
+                var w = new Vector3[4];
+                srt.GetWorldCorners(w);
+                float slotW = (parent.InverseTransformPoint(w[2]).x - parent.InverseTransformPoint(w[0]).x) / (i == _traySelected ? TraySelScale : 1f);
+                float half = slotW * 1.6f * 0.5f * TraySelScale;
+                slots.Add(new Rect(c.x - half, c.y - half, 2f * half, 2f * half));
+            }
             return true;
         }
 

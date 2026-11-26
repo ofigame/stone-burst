@@ -1,6 +1,6 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati; çözüm 8 + 0 tepsi / sınır 10; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati; çözüm 11 + 4 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04; döndürmeyle başlar;
 id: level_545
-moves: 10
+moves: 13
 roll: off
 specials: on
 refill: 25 2-3
@@ -14,4 +14,4 @@ cnn   cnn   bcy   ncy   nnnK1:2 nnn   ync   bcpR
 #     pyy   ppy   pyb   bcb   bcp   ccp   #
 pny   pcc   nbc   bcb   cnp   cpb   pcb   nyb
 nnyK1:2 ncp   ncp   byn   byn   cpb   cpb   cpn
-solution: rot 2,4 ; 4,3 ; 7,6 ; 5,3 ; swap 5,3,2 ; 3,6 ; 7,6 ; 4,5
+solution: rot 2,4 ; 2,2 ; use 0,0,6 ; 5,3 ; use 0,6,0 ; 2,0 ; 6,4 ; 4,3 ; use 0,3,0 ; 1,2 ; use 0,6,0

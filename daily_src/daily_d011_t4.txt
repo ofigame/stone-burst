@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 202 + tür scarce; şekil zikzak; çözüm 9 + 0 tepsi / sınır 11; rastgele 0,010; açgözlü kaybeder; yumuşak 0,04
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 202 + tür scarce; şekil dikdörtgen; çözüm 10 + 3 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
 id: daily_d011_t4
 title: Günlük 11
-moves: 11
+moves: 12
 roll: on
 specials: on
 type: scarce
 rules: scarce
-goals: yellow 14, star 3, envelope 2
+goals: yellow 20, star 3, envelope 2
 grid:
-#     cp    cp    cp    pb    pbEb  nb    pc
-cb    cb*   yp    yc    bc    pb*   nbEb  #
-#     yb    cy    yy    yp    nn    nb    pb
-bp    yb    by    yp    bb    bn    py    #
-#     bb    bc    cc    by    by    cy    cp
-cb    cc    cc    cp    pp    nc    nc    #
-#     pn    nn    yb    cb    yb    pp    pp
-pp    pp    pp    bp    cb    nc    cc    #
-#     np    pp    pp    pb    cc    cc    cc*
-solution: 1,4 ; roll 1 ; 2,1 ; 5,7 ; 6,7 ; roll 1 ; 6,3 ; 3,6 ; 2,1
+cn    cn    cp    cb    yy    yy    pn    by
+cn    yn    pp    ny    bn    bn    ny    nb
+nb    pb    py    pc    yp    pp*   pp    pc
+cc    cc    yb    nc    pp    yp    nc    pc
+cb    cb    nc    nc    pc    py    np    np
+cb    cb    cc*   by    py    bb    pb    pb
+pb    np    yp    bc    cb    yb    ypEy  np
+pnEy  cn*   cn    bc    cc    pn    pb    pb
+py    by    by    bn    pn    pn    yn    pn
+solution: 3,2 ; 3,2 ; use 1,0,5 ; roll 8 ; 7,2 ; 5,2 ; use 1,4,0 ; 1,6 ; 4,6 ; use 1,0,0

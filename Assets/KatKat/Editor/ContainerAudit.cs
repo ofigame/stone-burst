@@ -181,6 +181,20 @@ namespace KatKat.EditorTools
                 const float tolPx = 1.5f;
                 if (bagR.yMin < band.yMin - tolPx || bagR.yMax > band.yMax + tolPx || bagR.xMin < band.xMin - tolPx || bagR.xMax > band.xMax + tolPx)
                     fails.Add(new Fail { Level = n, Size = sz.Name, Case = kase, Step = step, Detail = $"torba banttan taşıyor: torba {Fmt(bagR)} bant {Fmt(band)}" });
+                // 2026-11-26 (kullanıcı: "Bantta, iki yanında yuvalar"): tepsi yuvaları (en geniş simge, seçili) torbaya binmez, bantta kalır.
+                var slots = new List<Rect>();
+                if (gc.Hud.AuditTraySlots(slots))
+                    for (int i = 0; i < slots.Count; i++)
+                    {
+                        var s = slots[i];
+                        if (s.Overlaps(bagR)) fails.Add(new Fail { Level = n, Size = sz.Name, Case = kase, Step = step, Detail = $"yuva {i} torbaya biniyor: yuva {Fmt(s)} torba {Fmt(bagR)}" });
+                        if (s.xMin < band.xMin - tolPx || s.xMax > band.xMax + tolPx || s.yMin < band.yMin - tolPx || s.yMax > band.yMax + tolPx)
+                            fails.Add(new Fail { Level = n, Size = sz.Name, Case = kase, Step = step, Detail = $"yuva {i} banttan taşıyor: yuva {Fmt(s)} bant {Fmt(band)}" });
+                        for (int j = i + 1; j < slots.Count; j++)
+                            if (s.Overlaps(slots[j]) && Mathf.Min(s.xMax, slots[j].xMax) - Mathf.Max(s.xMin, slots[j].xMin) > s.width * 0.25f)
+                                fails.Add(new Fail { Level = n, Size = sz.Name, Case = kase, Step = step, Detail = $"yuva {i} ile {j} üst üste" });
+                    }
+                else fails.Add(new Fail { Level = n, Size = sz.Name, Case = kase, Step = step, Detail = "torba bölümünde tepsi görünmüyor" });
                 return;
             }
             else r = gc.AuditWaterBucketWorldRect();

@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil T (ayna); çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil T (ayna); çözüm 11 + 5 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_428
-moves: 9
+moves: 11
 roll: off
 specials: on
 refill: 27 2-3
 type: reverse
 rules: exact
-goals: purple 28, star 4, sponge 1
+goals: blue 42, star 4, sponge 1
 grid:
-pcn   ncp   nnp*  nbc   ybp   bbb   npb   bnb
-bbn   bny   nnp   nnc   nbp   bcb   ncb   bnp
-bbp   ybn   ybn   ncc   pcp   bcp   ncb   pyn
-pnp   pnp   ynn   ppc   pcy   pyy   pyb   pyn
-nnc   pcn   cyn   cpc   yny   ynp   yyc   ypc
-ncc   pcc*  pcb   nyn   ncy   ycc   yyy   ypp
-#     #     bnn   nyb   pyy*  pcy   #     #
-#     #     bny*  ycb   yyn   nyn   #     #
-#     #     bnc   bnc   nyc   nycSy #     #
-solution: 5,0 ; 4,3 ; 4,3 ; 4,0 ; 3,0 ; swap 3,0,2 ; 6,2 ; 6,4 ; swap 6,3,1
+byy   pnb   cbp   bbp   cpb   bnb   ybb   ynb
+pyy   pyb   pbbSy bbp   bpn   pbb   nbb   yny
+pny   pyb   ppb   nnn   byn   byn*  nnc   ybp
+ync   yyb*  yyc   bcn   pny   bny   ncy   pny
+bnp   bcn   bbb   cpy   cpp   ypy   nny   pnn
+ncp*  ncc   ncn   ccn   cpc   ybc   ynn   pnn
+#     #     ncb   bcn*  cnc   cbc   #     #
+#     #     ppb   pyn   ppn   bpc   #     #
+#     #     pby   pcn   pcn   bbc   #     #
+solution: 2,5 ; use 0,2,0 ; 1,0 ; 3,5 ; use 0,3,0 ; 0,0 ; use 1,0,0 ; 1,4 ; use 0,1,0 ; 4,2 ; use 0,0,1

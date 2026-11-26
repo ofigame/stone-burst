@@ -28,14 +28,7 @@ namespace KatKat.Tests
             s.SpecialsEnabled = true;
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
             Assert.AreEqual(SpecialKind.Shovel, r.SpecialCreated);
-            // 2026-11-26 (kullanıcı: "Roket ve altın rulolar tıkladığımız taşın olduğu yere konacak"): özel taş tahtada, tepsi boş.
-            Assert.AreEqual(SpecialKind.Shovel, s.Board[0, 0].Special);
-            Assert.AreEqual(0, s.Tray.Count);
-            // Kürek dokunuşla çakılların hepsini (yakından uzağa) temizler, bir hamle.
-            var r2 = RulesEngine.TryApply(s, Command.Tap(0, 0));
-            Assert.IsTrue(r2.Accepted);
-            Assert.AreEqual(3, s.MovesLeft);
-            Assert.IsFalse(s.Board[2, 1].Gravel);
+            Assert.AreEqual(SpecialKind.Shovel, s.Tray.Single());
         }
 
         [Test]
@@ -58,13 +51,13 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void Shovel_OnAnyGravel_ClearsAllGravel_NoMoveSpent_NoPeel()
+        public void Shovel_OnAnyGravel_ClearsAllGravel_OneMove_NoPeel()
         {
             var s = State(5, new[] { "bG bG bG y", "bG bG bG y", "y y y yG" }, FarGoal);
             s.Tray.Add(SpecialKind.Shovel);
             var r = RulesEngine.TryApply(s, Command.UseSpecial(0, 1, 1));
             Assert.IsTrue(r.Accepted);
-            Assert.AreEqual(5, s.MovesLeft);
+            Assert.AreEqual(4, s.MovesLeft, "2026-11-26: tepsiden kullanım bir hamle");
             Assert.AreEqual(7, r.Waves.Sum(w => w.GravelCleared.Count));
             Assert.AreEqual(0, r.Waves.Sum(w => w.Cells.Count));
             Assert.IsTrue(s.Board[1, 1].IsSelectable);

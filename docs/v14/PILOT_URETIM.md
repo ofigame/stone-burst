@@ -15,7 +15,7 @@ Canlı 1–1000 bölüme dokunulmadı. Her bölümün kayıtlı çözümü motor
 | P08 | pilot_wing | Düğmeli kanat: hedefin bir kısmı kanatta, düğmeyi doğru anda boşalt | 7×7 | 16 | 14 adım | 2/6 | kaybeder | kaybeder | 0 | 4 |
 | P09 | pilot_wing | Düğmeli kanat + buz: düğmeye giden yol buzla kapalı | 7×7 | 13 | 11 adım | 4/5 | kaybeder | kaybeder | 0 | 2 |
 | P10 | pilot_wing | Düğmeli kanat, derin yığınlar (zor; düğme yığını 3–4 katman) | 7×7 | 15 | 13 adım | 6/7 | kaybeder | kaybeder | 0 | 1 |
-| P11 | pilot_twin | İki alan, ortak hamle ve tepsi; roket yalnız seçilen alanda | 7×6 | 6 | 4 adım | 10/10 | kazanır | kazanır | 0 | 1 |
-| P12 | pilot_twin | İki alan: bir alanda üretilen özel taş diğerinde kullanılır | — | — | — | — | — | — | — | 589 (bulunamadı) |
+| P11 | pilot_twin | İki alan, ortak hamle ve tepsi; roket yalnız seçilen alanda | 7×6 | 6 | 4 adım (tepsi) | 4/4 | kazanır | kaybeder | 0 | 2 |
+| P12 | pilot_twin | İki alan: bir alanda üretilen özel taş diğerinde kullanılır | 7×6 | 5 | 4 adım (tepsi) | 12/13 | kaybeder | kaybeder | 0 | 4 |
 
 Notlar: "Kazandıran ilk hamle" = ilk hamleden sonra bütçe içinde doğrulanmış çözüm bulunan yasal hamle sayısı / yasal hamle (alternatif yol göstergesi; bütçe dolan dal kazandırmaz sayılır). "En derin zincir" = kayıtlı çözümdeki en uzun otomatik zincir dalgası sayısı.

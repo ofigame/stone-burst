@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 873 + tür order; şekil kum saati; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 873 + tür order; şekil L (ayna); çözüm 9 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: daily_d028_t8
 title: Günlük 28
-moves: 8
+moves: 10
 roll: on
 specials: on
 type: order
 rules: exact
-goals: navy 26, purple 14, blue 17, star 3
+goals: yellow 18, coral 15, purple 14, star 3
 grid:
-py    ny    nn    np    cn    nn    by    by
-ny    nb    nb    cb    cn    pn    pnK1:1 nn
-ny    pb    pb    cnK1:1 yc    pc    pn    nb
-#     bc    pb    py    pn    bn*   nb    #
-#     bc*   yy    by    cy    bn    bb    #
-#     cp    cb    pb    py    ny    yb    #
-bb    bb    py    bp    yp    yp    nb    pn
-pb    nb    ny    nb    yb    nn    nn    pn
-py    ny    ny    ny    yy    ynLc4 pnLc5 pn*
-solution: 4,3 ; 5,3 ; 1,1 ; 6,3 ; swap 6,3,2 ; 3,3 ; roll 8 ; swap 3,3,1
+#     #     #     bp    yn    cn    cnK1:1 pb
+#     #     #     yp    yp    yb    yb    pb
+#     #     #     by    cy    yb    nn    cn
+#     #     #     nyLp3 ny    yn    bp    cp
+np    np    cp    nb    np    nn    cp    np
+bp    np    cp    by    np    yp    cc    nc
+yc    nc    yb    by    cc    np    np    nb
+ycK1:1 yn*   yn    pp    cy    bc    bc    pc
+yy    yy    cy    byLp3 by    bc*   bc    pb*
+solution: 0,4 ; 4,7 ; 4,6 ; use 2,0,5 ; 5,7 ; use 2,0,7 ; 0,6 ; roll 3 ; use 0,3,2

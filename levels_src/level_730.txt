@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil U; çözüm 20 + 0 tepsi / sınır 23; rastgele 0,010; açgözlü kaybeder; yumuşak 0,04
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil T; çözüm 21 + 1 tepsi / sınır 24; rastgele 0,025; açgözlü kaybeder; yumuşak 0,00
 id: level_730
-moves: 23
+moves: 24
 roll: off
 paint: 2
-refill: 30 2-3
+refill: 27 2-3
 type: boss
 rules: noSpecials
-goals: blue 18, navy 25, coral 24
+goals: yellow 33, purple 27, blue 34
 grid:
-cnb   nnc   pcp   #     #     cbp   ccp   ccn
-cnb   nnc   pcp   #     #     bbb   ncb   pcn
-cpc   ncb   pnp   #     #     pnp   bpp   bcn
-ppc   ppc   nnp   nnp   pcb   ppb   cpb   ncc
-cpp   cnc   ppc   pnc   bbb   ppn   pcb   ppc
-pbc   cbn   ppn   ccp   nnb   bnn   ppn   bpc
-ppc   ppn   ppn   bbp   ccb   cpn   npc   bcb
-npp   bppG  bnnG  bbcG  ccn   ppc   pcc   ccb
-nnpG  ncpG  bnbG  bnnG  pnn   nnn   cnc   pnn
-solution: 4,3 ; 0,2 ; 1,4 ; 7,0 ; 7,0 ; 5,4 ; 6,6 ; 4,7 ; paint 1,1,b ; 0,0 ; paint 6,2,b ; 5,1 ; 5,2 ; 7,5 ; 7,6 ; 0,0 ; 0,0 ; 0,0 ; 1,0 ; 3,8
+pyy   pcy   pcy   yby   ybb   ycb   cbyG  ybb
+cyy   pcb   pcc   ybb   byy   bcp   ybbG  pbbG
+cbb   cbc   ybb   ppb   cpb   bcpG  ypbG  cpbG
+cbp   cbc   bbb   ppb   pyc   pcp   ycbG  cbb
+ycp   cby   ccc   pbb   cpp   pcp   cyy   cby
+ycy   yyy   ybc   cyc   pcp   bpy   byc   byy
+#     #     bpc   bpy   bpp   pby   #     #
+#     #     bpc   ypy   ybc   yyy   #     #
+#     #     bpc   yyy   ybc   ypc   #     #
+solution: 0,0 ; 3,0 ; 5,5 ; 5,3 ; 2,4 ; 3,5 ; 4,4 ; 2,5 ; 5,4 ; 3,4 ; 3,7 ; 2,6 ; 4,6 ; 3,6 ; use 0,0,0 ; 7,0 ; 5,0 ; 3,7 ; 5,4 ; 2,3 ; 6,0

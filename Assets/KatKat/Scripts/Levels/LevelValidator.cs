@@ -229,7 +229,7 @@ namespace KatKat.Levels
         public static ReplayReport ReplaySolution(LevelData d)
         {
             // v6: tepsi kullanımı ("use") hamle harcamaz; adım sayısı yalnız hamle harcayan adımlar.
-            var report = new ReplayReport { LevelId = d.Id, MoveLimit = d.MoveLimit, Steps = d.Solution.FindAll(s => s.Type != "use").Count };
+            var report = new ReplayReport { LevelId = d.Id, MoveLimit = d.MoveLimit, Steps = d.Solution.FindAll(s => s.Type != "send").Count /* 2026-11-26: tepsi de hamle */ };
             if (d.Solution.Count == 0) { report.Error = "kayıtlı çözüm yok"; return report; }
             var session = new GameSession(LevelLoader.ToState(d));
             for (int i = 0; i < d.Solution.Count; i++)

@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe; çözüm 9 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı; çözüm 10 + 4 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_435
-moves: 11
+moves: 12
 roll: off
 specials: on
-refill: 23 2-3
-goals: blue 18, navy 19, purple 29
+refill: 25 2-3
+goals: navy 10, blue 31, yellow 23
 grid:
-#     #     nbn   npy   cbp   pbp   #     #
-#     cyc   pbnLc6 ppp   cpp   bbb   pbp   #
-bcpLb4 pcn   pbn   nbp   cpc   pyp   pyp   ppy
-bby   cby   pcc   nnc   bnn   bbp   yby   ppy
-cynR  ccc   ncc   pnc   ppc   bcnR  npc   ppy
-cpy   bpy   bpn   cpy   cpy   bcc   ncy   pny
-#     yny   yyn   byc   bny   bcn   pncR  #
-#     #     yyc   ycc   pyc   ppn   #     #
-solution: rot 6,6 ; 4,0 ; 6,1 ; 7,5 ; 7,4 ; swap 7,5,3 ; 5,1 ; 1,1 ; 5,2
+#     #     #     byc   byy   #     #     #
+#     pyp   byp   bbp   ypy   bpy   bpp   #
+ypc   ybc   ybp   ypb   ypp   bpp   ycp   ppb
+ppp   ybb   byb   nbcR  bpp   pcp   ycb   cbb
+ypp   cpb   bbc   bbn   pbn   pbn   cpy   cbyLc4
+yyp   cyb   yyn   bcb   ppb   ppp   cby   nby
+cncLn5 cnb   yncR  pcb   bcb   bcc   cpc   cpy
+cnb   bcc   bcnR  pbp   bbb   bcc   ncy   cpy
+solution: rot 3,3 ; 3,2 ; 3,3 ; use 0,1,1 ; 1,2 ; 6,4 ; use 1,2,1 ; 7,2 ; use 1,2,1 ; use 0,3,0

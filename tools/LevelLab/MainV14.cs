@@ -80,6 +80,9 @@ static partial class Program
     /// <summary>Rastgele bot kazanma tavanı (PLAN): 1–30 %60; 31–100 %25; 101–300 %10; 301+ %3; nefeste sınır yok.</summary>
     // 2026-11-26 (kullanıcı: "rasgele bassam bile bölümü geçebiliyorum"): 11–20 %35, 21–30 %25, 31–100 %18, 101–300 %8,
     // 301+ %3; nefes bölümü %60 (rahatlatır ama kendi kendine bitmez). 2–10 kolay kalır (rastgele en az %50 kazanır).
+    /// <summary>2026-11-26 (kullanıcı: "hamle sayılarını 10 dan aşağı yapmayalım"): en küçük hamle sınırı.</summary>
+    const int MinMoveLimit = 10;
+
     static double V14RandomCap(int n) => V14Breath(n) ? 0.60 : n <= 20 ? 0.35 : n <= 30 ? 0.25 : n <= 100 ? 0.18 : n <= 300 ? 0.08 : 0.03;
 
     /// <summary>2026-11-26: plan yapmayan iyi oyuncu yaklaşığı (yumuşak açgözlü bot) için taban: bölüm "imkânsız" hissettirmesin,
@@ -961,7 +964,9 @@ static partial class Program
         if (L > sp.LenHi) { ev.Fail = "uzun"; ev.Violation = 50 + (L - sp.LenHi) * 5; return ev; }
         var sf = V14Stats(d, sp, sol, ev);
         if (sf != null) { ev.Fail = sf; ev.Violation = sf.StartsWith("mek:") ? 30 + 10 * sf.Split('+').Length : 40; return ev; }
-        int limit = L + slack;
+        // 2026-11-26 (kullanıcı: "hamle sayılarını 10 dan aşağı yapmayalım … Hamle sayıları artsın ama kolaylaşmasın"): sınır en az
+        // 10; fazla pay bölümü kolaylaştırırsa rastgele/açgözlü tavanları reddeder, üretim daha büyük hedefle yeniden dener.
+        int limit = Math.Max(MinMoveLimit, L + slack);
         d.MoveLimit = limit;
         ev.Limit = limit;
         if (!full) { ev.Ok = true; return ev; }
@@ -1011,7 +1016,7 @@ static partial class Program
             ev.Sol = sol; ev.L = L; ev.Uses = sol.Count(c => c.Type == CommandType.UseSpecial);
             ev.Rotates = probe.Rotates; ev.Paints = probe.Paints; ev.Specials = probe.Specials; ev.Rainbows = probe.Rainbows;
             ev.CoverUse = probe.CoverUse; ev.Gates = probe.Gates; ev.LockOpens = probe.LockOpens;
-            limit = L + slack;
+            limit = Math.Max(MinMoveLimit, L + slack);
             d.MoveLimit = limit;
             ev.Limit = limit;
         }

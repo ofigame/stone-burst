@@ -10,15 +10,15 @@
   "moveLimit": 10,
   "rollEnabled": true,
   "startingRoll": false,
-  "stars": [960, 1280],
+  "stars": [825, 1100],
   "goals": [
-    { "type": "collectColor", "color": "navy", "amount": 24 },
-    { "type": "collectColor", "color": "coral", "amount": 16 },
+    { "type": "collectColor", "color": "navy", "amount": 21 },
+    { "type": "collectColor", "color": "coral", "amount": 14 },
     { "type": "collectToken", "kind": "envelope", "amount": 2 }
   ],
   "cells": [
     { "x": 2, "y": 0, "active": true, "layers": ["purple", "blue"], "overlay": { "kind": "envelope", "sealColor": "blue" }, "hasBottomStar": false },
-    { "x": 3, "y": 0, "active": true, "layers": ["purple", "navy"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 3, "y": 0, "active": true, "layers": ["purple", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 4, "y": 0, "active": true, "layers": ["navy", "navy"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 5, "y": 0, "active": true, "layers": ["yellow", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 2, "y": 1, "active": true, "layers": ["purple", "navy"], "overlay": { "kind": "none" }, "hasBottomStar": false },
@@ -27,7 +27,7 @@
     { "x": 5, "y": 1, "active": true, "layers": ["navy", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 0, "y": 2, "active": true, "layers": ["coral", "navy"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 1, "y": 2, "active": true, "layers": ["yellow", "purple"], "overlay": { "kind": "none" }, "hasBottomStar": false },
-    { "x": 2, "y": 2, "active": true, "layers": ["blue", "navy"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 2, "y": 2, "active": true, "layers": ["blue", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 3, "y": 2, "active": true, "layers": ["navy", "navy"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 4, "y": 2, "active": true, "layers": ["coral", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 5, "y": 2, "active": true, "layers": ["coral", "navy"], "overlay": { "kind": "none" }, "hasBottomStar": false },
@@ -48,7 +48,7 @@
     { "x": 4, "y": 4, "active": true, "layers": ["purple", "purple"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 5, "y": 4, "active": true, "layers": ["coral", "navy"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 6, "y": 4, "active": true, "layers": ["navy", "purple"], "overlay": { "kind": "none" }, "hasBottomStar": false },
-    { "x": 7, "y": 4, "active": true, "layers": ["navy", "navy"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 7, "y": 4, "active": true, "layers": ["purple", "navy"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 0, "y": 5, "active": true, "layers": ["purple", "blue"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 1, "y": 5, "active": true, "layers": ["blue", "blue"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 2, "y": 5, "active": true, "layers": ["blue", "blue"], "overlay": { "kind": "none" }, "hasBottomStar": false },
@@ -75,13 +75,12 @@
     { "x": 5, "y": 8, "active": true, "layers": ["purple", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false }
   ],
   "solution": [
-    { "type": "tap", "x": 3, "y": 0 },
+    { "type": "tap", "x": 4, "y": 0 },
     { "type": "roll", "row": 3 },
     { "type": "tap", "x": 5, "y": 0 },
-    { "type": "tap", "x": 3, "y": 0 },
-    { "type": "swap", "x": 5, "y": 0, "dir": 1 },
+    { "type": "use", "slot": 0, "x": 3, "y": 0 },
     { "type": "tap", "x": 2, "y": 6 },
-    { "type": "tap", "x": 2, "y": 6 },
-    { "type": "roll", "row": 4 }
+    { "type": "use", "slot": 1, "x": 2, "y": 0 },
+    { "type": "use", "slot": 0, "x": 4, "y": 0 }
   ]
 }

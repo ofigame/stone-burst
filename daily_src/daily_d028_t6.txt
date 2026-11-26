@@ -1,12 +1,12 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 561 + tür order; şekil artı; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 561 + tür order; şekil artı; çözüm 11 + 4 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d028_t6
 title: Günlük 28
-moves: 8
+moves: 11
 roll: on
 specials: on
 type: order
 rules: exact
-goals: navy 24, purple 14, star 4, sponge 1
+goals: navy 24, purple 15, star 4, sponge 1
 grid:
 #     #     pbb   npn*  nny   cypSbc #     #
 #     #     cbn   npnLy3 ynn   ynp   #     #
@@ -17,4 +17,4 @@ ccy*  yby   bny   yyy   nyc   nyc   ycp   ycb
 cbb   ybc   bny   ynb   ypnLy3 nyc*  nyp   yyb
 #     #     nyc   nyp   bpp   nyc   #     #
 #     #     ncn   nyn   pyp   ypp   #     #
-solution: 6,2 ; 5,7 ; swap 5,7,1 ; 1,4 ; 3,4 ; swap 3,4,0 ; 1,3 ; swap 1,4,3
+solution: 6,2 ; 4,2 ; use 0,5,0 ; use 0,3,0 ; 2,0 ; use 0,4,0 ; 3,0 ; 3,0 ; 1,4 ; use 0,0,4 ; roll 5

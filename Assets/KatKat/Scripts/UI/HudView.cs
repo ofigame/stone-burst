@@ -763,7 +763,8 @@ namespace KatKat.UI
             if (roll) top.Add((RectTransform)_roll.transform);
             int trayFirst = top.Count;
             if (tray) for (int i = 0; i < LevelState.TrayCapacity; i++) top.Add((RectTransform)_traySlots[i].transform);
-            if (top.Count > 0)
+            if (_bucketMode && tray) LayoutBagBand(roll);
+            else if (top.Count > 0)
             {
                 float step = Mathf.Min(SkillStep, 1000f / top.Count);
                 // Ölçek görünen simgeye göre (roket/Altın Rulo simgesi yuvanın ~1,3 katı); bant yüksekliğini de aşmaz.
@@ -843,6 +844,72 @@ namespace KatKat.UI
             }
         }
 
+        /// <summary>
+        /// 2026-11-26 (kullanıcı: "Bantta, iki yanında yuvalar"): torba bandın ortasında; tepsinin dört yuvası ikisi solda, ikisi
+        /// sağda, torbadan (sayı rozeti, "Gönder" etiketi ve %12 zıplama dahil) açık bir boşlukla ayrık; rulo varsa en solda. Yuvalar
+        /// bandın genişliğine sığmazsa aralık, sonra ölçek küçülür.
+        /// </summary>
+        private void LayoutBagBand(bool roll)
+        {
+            float halfW = Mathf.Max(300f, (_skillBar.rect.width > 1f ? _skillBar.rect.width : RefWidth) * 0.5f) - 10f;
+            float bagHalf = BagHalfWidthBand;
+            var left = new List<RectTransform>();
+            if (roll) left.Add((RectTransform)_roll.transform);
+            left.Add((RectTransform)_traySlots[0].transform);
+            left.Add((RectTransform)_traySlots[1].transform);
+            var right = new List<RectTransform> { (RectTransform)_traySlots[2].transform, (RectTransform)_traySlots[3].transform };
+            int side = Mathf.Max(left.Count, right.Count);
+            float scale = SkillScaleMax, step = SkillStep, inner = 0f;
+            for (int k = 0; k < 8; k++)
+            {
+                float half = SlotFootHalf(scale);
+                inner = bagHalf + BagSlotGap + half;
+                step = Mathf.Min(SkillStep * scale / SkillScaleMax, 2f * half + 8f);
+                float outer = inner + (side - 1) * step + half;
+                if (outer <= halfW) break;
+                float room = (halfW - half - inner) / Mathf.Max(1, side - 1);
+                if (room >= half * 1.7f) { step = room; break; }
+                scale *= 0.92f;
+            }
+            _bottomScale = scale;
+            // Sol taraf: içten dışa yuva 1, yuva 0, (rulo); sağ: yuva 2, yuva 3.
+            for (int i = 0; i < left.Count; i++)
+            {
+                float x = -(inner + (left.Count - 1 - i) * step);
+                var rt = left[i];
+                rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+                if (roll && i == 0)
+                {
+                    rt.localScale = Vector3.one * _bottomScale;
+                    rt.anchoredPosition = new Vector2(x, 0f);
+                    _rollGlow.rectTransform.anchoredPosition = new Vector2(x, 0f);
+                }
+                else _trayX[roll ? i - 1 : i] = x;
+            }
+            for (int i = 0; i < right.Count; i++) _trayX[2 + i] = inner + i * step;
+            // Tepsi kökü yuvaları kapsar (öğretici odağı, nabız); kök ortada, yuvalar kök içinde.
+            _trayRoot.anchorMin = _trayRoot.anchorMax = new Vector2(0.5f, 0.5f);
+            _trayRoot.anchoredPosition = Vector2.zero;
+            _trayRoot.sizeDelta = new Vector2(2f * (inner + step) + TraySlot + 24f, TraySlot + 24f);
+            for (int i = 0; i < LevelState.TrayCapacity; i++)
+            {
+                var srt = (RectTransform)_traySlots[i].transform;
+                srt.anchorMin = srt.anchorMax = new Vector2(0.5f, 0.5f);
+                srt.anchoredPosition = new Vector2(_trayX[i], srt.anchoredPosition.y);
+                srt.localScale = Vector3.one * _bottomScale * (i == _traySelected ? TraySelScale : 1f);
+            }
+        }
+
+        private readonly float[] _trayX = new float[LevelState.TrayCapacity];
+        /// <summary>Torba ile iç yuva arasındaki boşluk (referans px).</summary>
+        private const float BagSlotGap = 22f;
+        /// <summary>Yuvanın en geniş görünür yarı boyu: roket simgesi (yuvanın 1,6 katı), seçili büyüme dahil.</summary>
+        private static float SlotFootHalf(float scale) => TraySlot * 1.6f * 0.5f * scale * TraySelScale;
+        /// <summary>Torbanın banttaki en geniş yarı boyu: gövde, sağ üstteki sayı rozeti ve %12 zıplama (bant birimi).</summary>
+        private static float BagHalfWidthBand => BagHalfWidthUnits * (BagBandH * BagBandFill / BucketSize) * 1.12f;
+        /// <summary>Torba gövdesinin merkezden en uzak yatay ucu (torba birimi): sayı rozeti 0,36·boy + 33 px.</summary>
+        private static float BagHalfWidthUnits => Mathf.Max(BucketSize * 0.5f, BucketSize * 0.36f + 33f);
+
         private void PlaceExtra(RectTransform rt, float x)
         {
             rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
@@ -875,6 +942,10 @@ namespace KatKat.UI
                 int slot = i;
                 var b = UiFactory.SpriteButton("Slot" + i, _trayRoot, UiArt.Circle, new Vector2(TraySlot, TraySlot), () => TraySlotPressed?.Invoke(slot));
                 UiFactory.Place((RectTransform)b.transform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(TraySlot, TraySlot));
+                // 2026-11-26: yuvadan tahtaya sürükle-bırak (HudView.TrayDrag).
+                var drag = b.gameObject.AddComponent<TraySlotDrag>();
+                drag.Hud = this;
+                drag.Slot = slot;
                 var disc = PurpleSlot(b);
                 var ring = UiFactory.Image("Ring", b.transform, SpecialArt.Glow, new Color(1f, 0.85f, 0.35f, 0f));
                 ring.raycastTarget = false;
@@ -931,8 +1002,8 @@ namespace KatKat.UI
                 icon.gameObject.SetActive(full);
                 _traySlots[i].interactable = full;
                 _trayDiscs[i].color = full ? SlotOn : SlotEmpty;
-                // 2026-11-20: boş yuva soluk daire (tepsi alanı belli olsun, güçlendiriciler sağda tek başına kalmasın); dolu yuvada yok.
-                ((Image)_traySlots[i].targetGraphic).color = full ? new Color(1f, 1f, 1f, 0f) : new Color(1f, 0.96f, 0.86f, 0.1f);
+                // 2026-11-20: boş yuva soluk daire (tepsi alanı belli olsun, güçlendiriciler sağda tek başına kalmasın).
+                ((Image)_traySlots[i].targetGraphic).color = full ? new Color(1f, 0.96f, 0.85f, 0.26f) : new Color(1f, 0.96f, 0.86f, 0.1f); // 2026-11-26 (kullanıcı: "Belli olmuyorlar"): dolu yuvada da yumuşak krem zemin
                 SetSkill(_traySlots[i], full ? icon : null, full && tray[i] != SpecialKind.Rainbow ? RocketGlow : Color.white, full, full && tray[i] == SpecialKind.Rainbow);
                 if (full)
                 {
@@ -941,16 +1012,19 @@ namespace KatKat.UI
                     icon.sprite = SpecialArt.For(kind);
                     icon.rectTransform.localRotation = Quaternion.Euler(0f, 0f, SpecialArt.Angle(kind)); // v11: dikey simge kendi yönünde
                     // Kullanıcı (2026-11-08): biraz daha büyük (yuva çerçevesi kalktı).
-                    float s = kind == SpecialKind.Shovel ? 1.45f : kind == SpecialKind.Rainbow ? (SpecialArt.HasV11 ? 1.22f : 1.0f) : (SpecialArt.HasV11 ? 1.38f : 1.1f);
+                    // 2026-11-26 (kullanıcı: "Belli olmuyorlar"): simgeler büyüdü (önce Kürek 1,45, Altın Rulo 1,22, roket 1,38).
+                    float s = kind == SpecialKind.Shovel ? 1.5f : kind == SpecialKind.Rainbow ? (SpecialArt.HasV11 ? 1.32f : 1.0f) : (SpecialArt.HasV11 ? 1.6f : 1.1f);
                     icon.rectTransform.sizeDelta = new Vector2(TraySlot * s, TraySlot * s);
                 }
                 bool sel = i == selected;
                 _trayFull[i] = full;
                 _traySlots[i].transform.localScale = Vector3.one * _bottomScale * (sel ? TraySelScale : 1f);
                 var srt = (RectTransform)_traySlots[i].transform;
-                srt.anchoredPosition = new Vector2(srt.anchoredPosition.x, TrayRaise + (sel ? TraySelLift : 0f));
+                srt.anchoredPosition = new Vector2(srt.anchoredPosition.x, TrayRaise + (sel ? BoosterFxConfig.Current.Tray.SelectLift : 0f));
                 _trayRings[i].color = new Color(1f, 0.85f, 0.35f, sel ? 0.95f : (full ? 0.4f : 0f));
-                _trayRings[i].rectTransform.sizeDelta = Vector2.one * TraySlot * (sel ? 2.0f : 1.6f);
+                // 2026-11-26 (kullanıcı: "Belli olmuyorlar"): seçili yuvanın halesi daha geniş, dolu yuvanınki de belirgin.
+                _trayRings[i].rectTransform.sizeDelta = Vector2.one * TraySlot * (sel ? 2.3f : 1.75f);
+                if (i != _ghostSlot && _trayIcons[i] != null && full) _trayIcons[i].color = Color.white;
                 if (_traySel[i] != null) _traySel[i].color = new Color(1f, 0.84f, 0.3f, sel ? 1f : 0f);
                 var ol = _traySlots[i].GetComponent<Outline>() ?? _traySlots[i].gameObject.AddComponent<Outline>();
                 ol.effectColor = new Color32(0xFF, 0xE4, 0x7A, 0xFF);
@@ -993,7 +1067,8 @@ namespace KatKat.UI
                 if (full)
                 {
                     float p = Mathf.Sin(t * 2f * Mathf.PI / HaloPeriod + i * 1.3f);
-                    _trayRings[i].color = new Color(1f, 0.85f, 0.35f, sel ? 0.75f + 0.2f * p : 0.38f + 0.14f * p);
+                    _trayRings[i].color = new Color(1f, 0.85f, 0.35f, sel ? 0.8f + 0.2f * Mathf.Sin(t * 7f) : 0.5f + 0.18f * p);
+                    _trayRings[i].rectTransform.localScale = Vector3.one * (sel ? 1f + 0.12f * Mathf.Sin(t * 7f) : 1f);
                 }
                 // Seçim halkası döner ve nabız atar.
                 if (_traySel[i] != null && sel)
@@ -1287,6 +1362,8 @@ namespace KatKat.UI
 
         public Rect? GoalsRect() => RectOf(_goalsBar != null ? _goalsBar : _goalsRow);
         public Rect? MovesRect() => RectOf(_movesPill);
+        /// <summary>Tepsi görünür mü (testler).</summary>
+        public bool TrayVisible => _trayRoot != null && _trayRoot.gameObject.activeSelf;
         public Rect? TrayRect() => RectOf(_trayBg);
         public Rect? PaintRect() => _paint != null ? RectOf((RectTransform)_paint.transform) : null;
         public Rect? TraySlotRect(int slot) => RectOf((RectTransform)_traySlots[Mathf.Clamp(slot, 0, LevelState.TrayCapacity - 1)].transform);
@@ -1545,6 +1622,7 @@ namespace KatKat.UI
             foreach (var c in _chips) c.Tick(Time.unscaledDeltaTime);
             TickBottomButtons(Time.unscaledDeltaTime);
             TickTray(Time.unscaledDeltaTime);
+            TickTrayFx(Time.unscaledDeltaTime); // 2026-11-26 sürükleme hayaleti, yuva varışı, seçili yuva
             TickBucket(Time.unscaledDeltaTime);
             TickWaterBar(Time.unscaledDeltaTime);
             TickSkills(Time.unscaledDeltaTime);
@@ -1755,6 +1833,7 @@ namespace KatKat.UI
             _mascot?.Advance(ms);
             TickToast(ms / 1000f);
             TickBoosterFx(ms / 1000f);
+            TickTrayFx(ms / 1000f);
         }
 
         /// <summary>Şu ana dek yanan yıldız sayısı (zafer kartı bunu gösterir).</summary>

@@ -1,12 +1,12 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 364 + tür protect; şekil U; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 364 + tür protect; şekil U; çözüm 11 + 4 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: daily_d002_t5
 title: Günlük 2
-moves: 8
+moves: 11
 roll: on
 specials: on
 type: protect
 rules: protect, exact
-goals: yellow 13, blue 7, coral 23
+goals: yellow 19, blue 10, coral 33
 grid:
 yn    pb    pb    #     #     cp    cp    pn
 yc    bnR   bb    #     #     cy    cy    pn
@@ -17,4 +17,4 @@ cn    nn    yp    nn    np    cc    yp    yb
 cy    cyLy4 yp    cp    cc    nc    yc    yc
 ny    yy    yn    nc    cp    ny    nb    pcP
 nc    ncP   ppP   nn    cn    nc    nc    pb
-solution: rot 6,2 ; 0,4 ; 0,5 ; 1,0 ; swap 0,5,1 ; 6,2 ; 6,2 ; roll 6
+solution: rot 6,2 ; 0,1 ; roll 1 ; 5,1 ; use 1,1,0 ; 2,5 ; use 1,6,0 ; use 0,4,3 ; 5,5 ; use 0,5,0 ; roll 4

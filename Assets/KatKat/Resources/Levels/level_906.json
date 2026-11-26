@@ -79,9 +79,9 @@
     { "x": 7, "y": 8, "active": true, "layers": ["navy", "navy"], "overlay": { "kind": "none" }, "hasBottomStar": false }
   ],
   "solution": [
-    { "type": "tap", "x": 2, "y": 2 },
-    { "type": "tap", "x": 2, "y": 2 },
+    { "type": "tap", "x": 3, "y": 0 },
+    { "type": "use", "slot": 0, "x": 2, "y": 0 },
     { "type": "tap", "x": 6, "y": 4 },
-    { "type": "swap", "x": 6, "y": 4, "dir": 3 }
+    { "type": "use", "slot": 0, "x": 1, "y": 0 }
   ]
 }

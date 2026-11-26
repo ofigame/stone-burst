@@ -32,7 +32,7 @@ namespace KatKat.Tests
                 Assert.AreEqual(GameStatus.Won, s.Status, d.Id + " kayıtlı çözüm kazanır");
                 if (d.Rules.Contains("exact"))
                 {
-                    int taps = d.Solution.Count(x => x.Type != "use");
+                    int taps = d.Solution.Count(x => x.Type != "send"); // 2026-11-26: tepsi kullanımı da hamle
                     Assert.AreEqual(d.MoveLimit, taps, d.Id + " kesin hamle: sınır = en kısa çözüm");
                 }
             }

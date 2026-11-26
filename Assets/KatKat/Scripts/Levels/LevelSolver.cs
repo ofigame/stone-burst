@@ -91,13 +91,13 @@ namespace KatKat.Levels
             }
             // v6 tepsi: her özel taş türü için ilk yuva; roket satır/sütun başına bir hedef, Altın Rulo renk başına bir.
             int seenKinds = 0;
-            for (int slot = 0; slot < s.Tray.Count; slot++)
+            for (int slot = 0; slot < (s.MovesLeft > 0 ? s.Tray.Count : 0); slot++) // 2026-11-26: tepsi de hamle ister
             {
                 var kind = s.Tray[slot];
                 if ((seenKinds & (1 << (int)kind)) != 0) continue;
                 seenKinds |= 1 << (int)kind;
                 var b = s.Board;
-                if (kind == SpecialKind.RocketRow)
+                if (kind.IsRowRocket()) // 2026-11-26: çift roket de satır/sütun adayları
                 {
                     // vr1 P3: alan başına ilk etkin hücre (iki alanlı tahtada roket yalnız kendi alanında işler); tek alanlı
                     // tahtada eskisi gibi satırın ilk etkin hücresi (aday sırası değişmez).
@@ -112,7 +112,7 @@ namespace KatKat.Levels
                         }
                     }
                 }
-                else if (kind == SpecialKind.RocketColumn)
+                else if (kind.IsRocket())
                 {
                     for (int x = 0; x < b.Width; x++)
                     {

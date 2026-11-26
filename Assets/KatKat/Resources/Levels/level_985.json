@@ -4,10 +4,10 @@
   "capabilities": ["ice", "envelope", "rotor", "refill", "specials"],
   "width": 8,
   "height": 9,
-  "moveLimit": 11,
+  "moveLimit": 10,
   "rollEnabled": false,
   "startingRoll": false,
-  "stars": [2198, 2930],
+  "stars": [952, 1270],
   "refill": { "count": 22, "minLayers": 2, "maxLayers": 2 },
   "goals": [
     { "type": "collectColor", "color": "yellow", "amount": 16 },
@@ -67,13 +67,12 @@
   ],
   "solution": [
     { "type": "rotate", "x": 5, "y": 6 },
-    { "type": "tap", "x": 6, "y": 6 },
-    { "type": "tap", "x": 7, "y": 4 },
-    { "type": "tap", "x": 5, "y": 6 },
-    { "type": "swap", "x": 5, "y": 6, "dir": 0 },
-    { "type": "tap", "x": 3, "y": 3 },
-    { "type": "tap", "x": 3, "y": 6 },
-    { "type": "tap", "x": 3, "y": 6 },
-    { "type": "tap", "x": 2, "y": 2 }
+    { "type": "tap", "x": 2, "y": 1 },
+    { "type": "tap", "x": 2, "y": 1 },
+    { "type": "use", "slot": 0, "x": 3, "y": 0 },
+    { "type": "tap", "x": 3, "y": 0 },
+    { "type": "use", "slot": 0, "x": 3, "y": 0 },
+    { "type": "tap", "x": 6, "y": 2 },
+    { "type": "use", "slot": 0, "x": 3, "y": 0 }
   ]
 }

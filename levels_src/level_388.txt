@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil çatı; çözüm 7 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil T; çözüm 8 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06; döndürmeyle başlar;
 id: level_388
-moves: 7
+moves: 10
 roll: off
 specials: on
-refill: 29 2-2
+refill: 27 2-2
 type: exact
 rules: exact
-goals: purple 16, blue 22, yellow 28
+goals: yellow 21, navy 15, blue 20
 grid:
-#     #     #     nb    ny    #     #     #
-#     yp    yp    cb    py    yy    bc    #
-cy    cc    yc    pb    py    ypR   bc    bp
-cy    bn    bc    yy    yc    py    cc    bp
-cy    by    cb    cb    cy    ny    cc    np
-yy    cy    cb    bcR   py    ny    nc    nb
-yy    cn    pcR   bp    bp    np    yb    nb
-bn    bn    by    cc    cy    cy    yy    yy
-bn    cn    cy    cb    pb    pb    pc    pc
-solution: rot 5,2 ; 4,0 ; swap 4,0,2 ; 1,2 ; 0,2 ; swap 0,2,0 ; 3,0
+cc    nc    nc    nc    pb    pc    py    py
+ny    yy    ny    by    bb    pc    bc    bc
+ypR   ny    ny    py    pb    bb    bc    bc
+yc    nc    pc    bp    yb    pb    by    bc
+cy    cc    yb    cp    cy    py    py    np
+ynR   cp    yb    yn    nc    nc    nc    cnR
+#     #     nc    yc    pb    pb    #     #
+#     #     yp    yp    nb    bp    #     #
+#     #     yn    cb    cb    bp    #     #
+solution: rot 0,2 ; 0,1 ; use 0,0,0 ; 4,0 ; use 0,1,0 ; 6,3 ; use 0,3,0 ; 1,1

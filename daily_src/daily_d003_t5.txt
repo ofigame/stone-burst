@@ -1,12 +1,12 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 376 + tür reverse; şekil dikdörtgen; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 376 + tür reverse; şekil dikdörtgen; çözüm 8 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,29; döndürmeyle başlar;
 id: daily_d003_t5
 title: Günlük 3
-moves: 9
+moves: 10
 roll: on
 specials: on
 type: reverse
 rules: exact
-goals: blue 21, yellow 29, star 3
+goals: blue 18, yellow 25, star 3
 grid:
 pb    pb    pb    nc    nc    pc    yc    yc
 yb    yc    cc    cp    cc    py*   py    yc
@@ -17,4 +17,4 @@ pn    py*   bb    bb    yb    nn    np    nn
 py    by    bnR   pp    cc    cp    np    nn
 py    cy    pb    pn    bc    bb    yb    pc
 bc    yc    yb    yy    ynR   yy    py    py
-solution: rot 2,6 ; 3,5 ; 3,3 ; swap 3,3,2 ; swap 3,5,2 ; 3,0 ; swap 3,0,2 ; 6,0 ; 0,1
+solution: rot 2,6 ; 3,3 ; 3,0 ; use 0,6,0 ; use 0,0,4 ; 5,3 ; use 0,5,0 ; roll 2

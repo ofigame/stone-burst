@@ -39,7 +39,7 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void Ocean_GivesRowRocket_ThatPeelsTheRow_WithoutSpendingMoves()
+        public void Ocean_GivesRowRocket_ThatPeelsTheRow_SpendsOneMove()
         {
             var s = Specials();
             Assert.IsTrue(StonePowers.Apply(StonePowers.Ocean, s));
@@ -48,7 +48,7 @@ namespace KatKat.Tests
             var r = RulesEngine.TryApply(s, Command.UseSpecial(0, 2, 1));
             Assert.IsTrue(r.Accepted, r.Reason.ToString());
             Assert.Less(RowLayers(s, 1), row, "satır soyuldu");
-            Assert.AreEqual(moves, s.MovesLeft, "tepsi kullanımı hamle harcamaz");
+            Assert.AreEqual(moves - 1, s.MovesLeft, "2026-11-26 (kullanıcı: \"Tepsiden 1 hamle götürsün\"): tepsi kullanımı bir hamle");
             Assert.IsEmpty(s.Tray);
             Assert.GreaterOrEqual(other, RowLayers(s, 0)); // zincir olabilir; satır 1 kesin soyuldu
         }

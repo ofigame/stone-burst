@@ -314,7 +314,9 @@ namespace KatKat.View
             if (KatKat.UI.Motion.Reduced) return;
             var cfg = BoosterFxConfig.Current;
             float tierK = b.Tier <= 0 ? c.ParticleByTier.x : b.Tier == 1 ? c.ParticleByTier.y : b.Tier == 2 ? c.ParticleByTier.z : c.ParticleByTier.w;
-            float k = cfg.ParticleK * tierK * (_bursts.Count > c.MaxConcurrent ? 0.5f : 1f);
+            // 2026-11-26 (kullanıcı: "Efektler çok pasif"): roket / Altın Rulo vuruşunda daha çok ve hızlı parça, daha büyük halka ve ışık.
+            float boost = b.Special ? c.SpecialBoost : 1f;
+            float k = cfg.ParticleK * tierK * boost * (_bursts.Count > c.MaxConcurrent ? 0.5f : 1f);
             int N(float n) => Mathf.Max(0, Mathf.RoundToInt(n * k));
             float s = b.Size;
             var pos = b.Pos; pos.z -= 0.02f;
@@ -331,7 +333,7 @@ namespace KatKat.View
                 float sz = s * c.ChipSize * R(0.7f, 1.35f) * 1.6f;
                 var col = Color.Lerp(b.Main, b.Accent, R(0f, 0.5f));
                 var spr = (i & 1) == 0 ? Jelly : StoneShatter.Chip(i);
-                Emit(spr, false, FxOrder + 2, pos + dir * s * 0.18f, (dir * R(0.75f, 1.2f) * c.ChipSpeed + Vector3.up * 0.5f) * s, c.ChipLife * R(0.85f, 1.15f),
+                Emit(spr, false, FxOrder + 2, pos + dir * s * 0.18f, (dir * R(0.75f, 1.2f) * c.ChipSpeed * (b.Special ? c.SpecialChipSpeed : 1f) + Vector3.up * 0.5f) * s, c.ChipLife * R(0.85f, 1.15f),
                     sz, sz * 0.25f, new Color(col.r, col.g, col.b, 1f), new Color(col.r, col.g, col.b, 0f),
                     gravity: -s * 5f, drag: 3.6f, rot: R(0f, 360f), rotVel: R(-380f, 380f));
             }
@@ -372,10 +374,11 @@ namespace KatKat.View
             // İnce, yumuşak, kendi renginde genişleyen halka ve hafif ışık (parlama/flaş yok).
             float ringK = b.Tier >= 3 ? 1.25f : b.Tier == 2 ? 1.12f : 1f;
             var rc = Color.Lerp(b.Main, b.Accent, 0.35f);
+            if (b.Special) ringK *= c.SpecialRingK;
             Emit(FxKit.Ring, true, FxOrder + 1, pos, Vector3.zero, c.RingLife, s * c.RingFrom, s * c.RingTo * ringK,
-                new Color(rc.r, rc.g, rc.b, c.RingAlpha), new Color(rc.r, rc.g, rc.b, 0f));
+                new Color(rc.r, rc.g, rc.b, b.Special ? c.SpecialRingAlpha : c.RingAlpha), new Color(rc.r, rc.g, rc.b, 0f));
             var gl = Color.Lerp(b.Main, Color.white, 0.35f);
-            Emit(FxKit.Glow, true, FxOrder, pos, Vector3.zero, 0.18f, s * 0.9f, s * 1.5f, new Color(gl.r, gl.g, gl.b, c.Glow), new Color(b.Main.r, b.Main.g, b.Main.b, 0f));
+            Emit(FxKit.Glow, true, FxOrder, pos, Vector3.zero, b.Special ? 0.24f : 0.18f, s * 0.9f, s * (b.Special ? 1.9f : 1.5f), new Color(gl.r, gl.g, gl.b, b.Special ? c.SpecialGlow : c.Glow), new Color(b.Main.r, b.Main.g, b.Main.b, 0f));
         }
 
         // ---- Hedefe uçan mini taş ---------------------------------------------------------------------
