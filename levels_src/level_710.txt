@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dalga; çözüm 9 + 7 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil dalga; çözüm 9 + 0 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_710
 moves: 13
 roll: off
@@ -7,15 +7,15 @@ paint: 1
 refill: 29 2-3
 type: boss
 rules: scarce
-goals: navy 44, blue 40, purple 43
+goals: navy 33, blue 31, purple 34
 grid:
 ccb   #     nby   #     pnbLb4 #     ypc   #
-ncp   ncp   nby   pny   pnb   yyb   yyc   npy
+ncp   ncp   nby   pny   pcb   yyb   yyc   npy
 nbp   nbc   npc   pbc   bpy   bpc   bpc   npnLb4
 pyc   ybc   pyp   pbc   ccy   bny   bnn   ncn
 pyn   nyy   byn   ppc   cby   pby   pby   pcn
 pyb   pyn   bbn   cbb   cnc   pcc   ybc   nyc
-nbb   ypn   bnb   cnb   nnb   nny   yyy   pyy
-ycp   ynb   bnb   bpp   ypy   npy   pcy   pby
-#     cyb   #     pnp   #     nyb   #     pbn
-solution: 0,1 ; 0,1 ; use 0,0,0 ; 2,4 ; 2,2 ; use 0,0,1 ; 2,1 ; use 1,1,1 ; 2,1 ; 3,1 ; use 1,2,1 ; use 1,0,0 ; 6,2 ; 5,6 ; use 1,0,0 ; use 1,0,1
+bbb   ypn   bnb   cnb   nnb   cny   yyy   pyy
+ycp   ybb   bpb   bpp   ypy   npy   pcy   pby
+#     cyb   #     ppp   #     nyb   #     pbn
+solution: 4,6 ; 4,7 ; 4,6 ; 2,4 ; 2,5 ; swap 2,6,1 ; 5,3 ; 4,3 ; swap 4,3,0

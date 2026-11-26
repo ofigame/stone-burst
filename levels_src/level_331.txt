@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dalga; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 9 + 0 tepsi / sınır 11; rastgele 0,005; açgözlü kaybeder; yumuşak 0,13
 id: level_331
-moves: 10
+moves: 11
 roll: off
 specials: on
-refill: 29 2-2
-goals: yellow 31, blue 23, navy 26
+refill: 25 2-2
+goals: coral 15, yellow 19, blue 15
 grid:
-pn    #     pn    #     yy    #     pn    #
-pn    cn    pn    yc    nn    cy    cc    cy
-yy    pn    pp    pn    nb    nb    nc    by
-yy    ybR   nc    bc    bb    pb    pp    by
-yyk1  yy    cc    pc    bc    cp    cp    np
-yyk1  npk2  yn    yp    bp    cy    cy    ycR
-nb    nb    yp    pb    cp    cy    cb    nb
-pb    yp    yp    bc    pn    ynk1  yb    yb
-#     bp    #     bc    #     yn    #     yck1
-solution: rot 1,3 ; 0,0 ; use 0,5,1 ; 2,3 ; use 0,4,2 ; 4,2 ; 2,1 ; use 1,2,1 ; 2,6 ; use 1,5,1 ; 3,5 ; 0,3 ; use 2,3,1 ; use 1,6,3
+yy    yy    nc    nc    nb    nb    bn    bn
+yy    ypk1  yp    bp    bc    yy    yn    yn
+#     #     yp    bc    cy    cc    #     #
+#     #     by    bc    pc    bb    #     #
+#     bb    nn    cbR   pc    bn    bn    #
+#     yb    yn    yc    cc    nn    cn    #
+py    yb    yck1  yyk1  ny    yn    pc    bc
+pb    cb    cpR   nc    nyk1  yc    pyk2  by
+nb    #     #     nc    ny    #     #     by
+solution: rot 3,4 ; 4,5 ; 4,5 ; 3,2 ; 3,3 ; 1,4 ; 4,5 ; 0,0 ; 0,0

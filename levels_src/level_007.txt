@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çanak 8×8; çözüm 4 + 2 tepsi / sınır 8; rastgele 0,605; açgözlü kazanır; yumuşak 0,94
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çanak 8×8; çözüm 4 + 0 tepsi / sınır 12; rastgele 0,545; açgözlü kazanır; yumuşak 1,00
 id: level_007
-moves: 8
+moves: 12
 roll: off
 specials: on
 refill: 38 2-2
-goals: yellow 67, blue 71
+goals: blue 34, yellow 34
 grid:
-yb    #     #     #     #     #     #     bb
-yb    yb    #     #     #     #     yb    yy
-bb    yb    by    by    bb    yy    yy    yb
-yy    bb    by    yb    yb    by    bb    by
-bb    yy    yb    bb    by    yb    yy    yb
-by    yy    yy    by    bb    yy    by    bb
-yb    bb    by    yb    by    bb    yy    bb
-by    yy    bb    bb    yb    yb    yy    yb
-solution: 3,6 ; 1,4 ; use 1,0,0 ; 0,0 ; use 1,0,0 ; 6,2
+yb    #     #     #     #     #     #     by
+yy    by    #     #     #     #     yy    by
+bb    bb    yy    bb    bb    yy    by    yb
+yb    yy    yb    by    yy    bb    bb    yb
+by    bb    bb    yy    yb    yy    by    yy
+yb    by    yy    bb    by    yb    bb    bb
+bb    yy    yy    bb    yb    by    yy    yy
+yb    yy    bb    yy    bb    bb    yb    yy
+solution: 7,2 ; 7,0 ; swap 7,2,1 ; 6,1

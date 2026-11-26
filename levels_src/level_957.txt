@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil kesik köşe (ayna); çözüm 9 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil kesik köşe (ayna); çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_957
 moves: 9
 roll: off
@@ -6,7 +6,7 @@ specials: on
 refill: 27 2-3
 type: reverse
 rules: exact
-goals: navy 33, yellow 31, blue 29
+goals: navy 29, yellow 27, blue 26
 grid:
 #     #     nyc   bbc   bbc   ybp   #     #
 #     pnn   pnc   ppc   byc   yyp   byb   #
@@ -17,4 +17,4 @@ cyy   cnb   npb   pcb   cyb   npn   ppc   npn
 bby   ypb   bpy   ypy   nyy   nnyG  ncc   ncn
 #     cpn   ppc   cyy   pyyG  bppG  nccG  #
 #     #     cyc   cyn   ppnG  ppnG  #     #
-solution: 0,3 ; 0,2 ; 2,4 ; use 1,1,1 ; 3,0 ; use 1,1,1 ; 2,0 ; 0,2 ; use 1,3,0 ; 1,4 ; use 0,0,6 ; use 0,0,2 ; use 1,2,1 ; 2,3 ; 0,3 ; use 1,5,0 ; use 1,0,3
+solution: 1,4 ; 2,3 ; 2,4 ; 2,6 ; swap 2,4,2 ; 2,4 ; 1,5 ; 0,3 ; swap 1,6,0

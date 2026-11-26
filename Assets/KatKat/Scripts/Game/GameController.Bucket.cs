@@ -55,9 +55,10 @@ namespace KatKat.Game
                 _hud.BucketDelivered = () => _hud.CountGoalsTo(_session.State.Goals);
                 // Torba tahtanın üst ortasındaki basamaklı oyukta (bölüm verisinde boş hücreler): tabanı oyuğun en alt satırının
                 // altında, boyu ~3 satır.
-                _hud.BucketBottom = BagNotchBottom;
-                // Boyu oyuğun dip genişliğine göre; sığ oyukta derinliği de aşmaz (oyuk biçimleri farklı, 2026-11-24).
-                _hud.BucketWorldHeight = () => Mathf.Min(BagNotchWidth() / BagFullWidth, RowWorld() * (NotchDeepest(_session.State.Board) + 1.9f));
+                // 2026-11-26 (kullanıcı: "Torba ise tahtanın üst kısmındaki altın ve roket rulolarının yerine gelsin"): torba üst
+                // güç bandında (HudView.PlaceBucketInBand); tahtadaki oyuk kullanılmaz.
+                _hud.BucketBottom = null;
+                _hud.BucketWorldHeight = null;
             }
             else
             {
@@ -129,6 +130,45 @@ namespace KatKat.Game
             // Taban oyuğun dibindeki çerçevenin üst yüzünde.
             return new Vector3((left.x + right.x) * 0.5f, left.y + (deepest >= 0 ? -half : half) + RowWorld() * BagRimRows, left.z);
         }
+
+        // ---- Yerleşim denetimi (2026-11-26, kullanıcı: "Tüm bölümlerde kovanın ve torbanın bu durumlarını kontrol et. görsel hata olmasın") ----
+
+        /// <summary>Denetim: dolu torbanın dünya dikdörtgeni (torba kipinde), yoksa boş.</summary>
+        public Rect AuditBagWorldRect()
+        {
+            if (!BucketLevel || _hud.BucketWorldHeight == null) return Rect.zero;
+            float h = _hud.BucketWorldHeight(), w = h * BagFullWidth;
+            var b = BagNotchBottom();
+            return new Rect(b.x - w * 0.5f, b.y, w, h);
+        }
+
+        /// <summary>Denetim: su kovasının dünya dikdörtgeni (taban–ağız, ağız genişliği), yoksa boş.</summary>
+        public Rect AuditWaterBucketWorldRect()
+        {
+            if (!WaterLevel || WaterCap <= 0) return Rect.zero;
+            Vector3 lo = _board.WaterBucketMinWorld, hi = _board.WaterBucketMaxWorld;
+            return Rect.MinMaxRect(lo.x, lo.y, hi.x, hi.y);
+        }
+
+        /// <summary>Denetim: etkin hücrelerin dünya dikdörtgenleri (adım kadar, verilen oranla küçültülmüş).</summary>
+        public System.Collections.Generic.List<Rect> AuditCellWorldRects(float shrink)
+        {
+            var list = new System.Collections.Generic.List<Rect>();
+            var b = _session.State.Board;
+            float col = Mathf.Abs(_board.transform.TransformPoint(_board.CellCenter(1, 0)).x - _board.transform.TransformPoint(_board.CellCenter(0, 0)).x);
+            float row = RowWorld();
+            for (int y = 0; y < b.Height; y++)
+            for (int x = 0; x < b.Width; x++)
+            {
+                if (!b[x, y].Active) continue;
+                var c = _board.transform.TransformPoint(_board.CellCenter(x, y));
+                list.Add(new Rect(c.x - col * 0.5f * shrink, c.y - row * 0.5f * shrink, col * shrink, row * shrink));
+            }
+            return list;
+        }
+
+        /// <summary>Denetim: tahtanın sığması gereken dünya alanı (üst ve alt arayüz arası).</summary>
+        public Rect AuditBoardArea() => _hud.BoardWorldRect(_cam);
 
         /// <summary>Torbaya dokunuş: içindeki kadarı (boşsa hiç) gönderilir, eksik kısım sıranın sonuna, yeni torba gelir.</summary>
         public void SendBucket()

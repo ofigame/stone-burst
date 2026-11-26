@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U; çözüm 7 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,23
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T (ayna); çözüm 5 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_143
-moves: 10
+moves: 8
 roll: off
 specials: on
-refill: 33 2-2
-goals: purple 26, blue 30, navy 17
+refill: 30 2-2
+goals: navy 15, coral 22, yellow 21
 grid:
-yn    yn    yn    #     #     cb    cb    cn
-bc    yn    yb    #     #     py    py    py
-yc    yc    cbLn5 #     #     pc    pc    py
-pc    bc    bb    pb    cn    yn    yp    yp
-py    pc    bc    pb    nb    nb    pn    np
-bb    nb    cb    cn    ny    bc    nc    cc
-cb    np    np    py    pp    cb    cc    cc
-by    by    by    yy    cb    cb    cy    py
-np    pp    by    bb    bb    bb    py    py
-solution: 0,1 ; 1,3 ; use 1,0,3 ; 4,3 ; use 1,0,1 ; 0,4 ; 5,6 ; use 1,5,0 ; 7,2 ; use 1,2,2 ; 6,1 ; use 2,1,2
+cn    yn    nc    yc    ny    cyLc3 cy    cy
+cb    py    by    yb    yn    cy    cy    cc
+bb    bc    yp    ny    cb    pc    pc    cc
+bc    bc    yb    nb    cy    pc    pc    bp
+bp    yp    yb    yp    by    np    np    bp
+bc    pb    bb    np    ny    ny    bb    bb
+#     #     bc    np    cn    nc    #     #
+#     #     py    pp    bn    yc    #     #
+#     #     py    by    cy    cc    #     #
+solution: 7,2 ; 5,2 ; swap 5,3,0 ; 7,0 ; swap 7,1,1

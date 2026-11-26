@@ -74,7 +74,9 @@ namespace KatKat.EditorTools
 
             public bool Notch(int x, int y)
             {
-                if (!IsBucket && !NotchBottom) return false;
+                // 2026-11-26 (kullanıcı: "Torba ise tahtanın üst kısmındaki altın ve roket rulolarının yerine gelsin"): torba üst bantta; tahtada
+                // üst oyuk yok. Oyuk yalnız su kovası için (alttan).
+                if (!NotchBottom) return false;
                 if (NotchBottom) y = H - 1 - y;
                 if (NotchKind == 6) return y < 3 && Math.Abs(x - (W - 1) * 0.5f) <= 1.5f;
                 float d = Math.Abs(x - (W - 1) * 0.5f);
@@ -90,6 +92,8 @@ namespace KatKat.EditorTools
                 }
             }
             public bool Empty(int x, int y) => Hole(x, y) || Notch(x, y);
+            /// <summary>2026-11-26: açılışta tahtada hazır özel taşlar (x, y, "row" / "col" / "row2" / "col2" / "rainbow" / "shovel").</summary>
+            public (int X, int Y, string K)[] Pre = new (int, int, string)[0];
         }
 
         // 2026-11-23 (kullanıcı: "bazı bölümlerde roket ve altın rulonun olduğu alana kovalar gelecek … test alanımıza örnek bölümler
@@ -99,27 +103,31 @@ namespace KatKat.EditorTools
         // bölümün görevi kovayı su doldurmak olacak"; "şimdi test alanımıza bölümleri oluştur test edeyim"): 10 su bölümü. Su yalnız
         // bazı hücrelerde, 1–3 birim; hücre dibine kadar boşalınca akar. 2026-11-25: süreli; bombalı yığın patlarsa tepsi yarılır ve
         // su sızar (yarık onarılır); tahtadaki su görevin ~1,5 katı (sızıntıdan sonra yeniden doldurmaya yeter).
+        // 2026-11-26 (kullanıcı: "Roket ve altın rulolar tıkladığımız taşın olduğu yere konacak … çift rokette getirelim … Tuzaklı
+        // bombaları imha edecekler … Test bölümlerde 10 adet tüm özellikleri içeren ve bu son istediğimide içeren testler yap"): 10 test
+        // bölümü. Her birinde açılışta tahtada hazır özel taşlar (Pre: x, y, tür) ve yeni özel taş doğuracak gruplar; 1. bölüm su
+        // (oyun içi test), torba, çakıl/Kürek, tuzaklı bomba, buz, ataş, dip yıldızı ve yukarıdan dolma bölümlere dağılmış.
         private static List<Spec> Specs() => new List<Spec>
         {
-            new Spec { Title = "Su: İlk Damlalar", NotchBottom = true, NotchKind = 1, Timed = 300, Pace = 3.2f, Protect = 2, Seed = 2101, W = 8, H = 9, MinL = 2, MaxL = 3, Colors = 3, Copy = 0.4, WaterCells = 10, WaterShare = 0.66f, Slack = 1.4f },
-            new Spec { Title = "Su: Derin Kuyular", NotchBottom = true, NotchKind = 3, Timed = 300, Pace = 3.2f, Protect = 3, Seed = 2202, W = 8, H = 9, MinL = 2, MaxL = 4, Colors = 3, Copy = 0.35, WaterCells = 8, WaterDeep = true,
-                WaterUnits = (x, y, l, r) => l - 1, WaterShare = 0.66f, Slack = 1.25f },
-            new Spec { Title = "Su: Dağınık Göller", NotchBottom = true, NotchKind = 4, Timed = 300, Pace = 3.2f, Protect = 3, Seed = 2303, W = 8, H = 9, MinL = 2, MaxL = 4, Colors = 4, Copy = 0.4, WaterCells = 14,
-                WaterUnits = (x, y, l, r) => 1 + r.Next(2), WaterShare = 0.66f, Slack = 1.2f },
-            new Spec { Title = "Su: Kenar Suları", NotchBottom = true, NotchKind = 6, Timed = 300, Pace = 3.2f, Protect = 3, Seed = 2404, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 3, Copy = 0.3, WaterCells = 10,
-                WaterAt = (x, y) => x == 0 || x == 7 || y == 8, WaterUnits = (x, y, l, r) => 2, WaterShare = 0.66f, Slack = 1.2f },
-            new Spec { Title = "Su: Ortadaki Göl", NotchBottom = true, NotchKind = 1, Timed = 300, Pace = 3.2f, Protect = 3, Seed = 2505, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 3, Copy = 0.3, WaterCells = 10,
-                WaterAt = (x, y) => x >= 2 && x <= 5 && y >= 3 && y <= 7, WaterUnits = (x, y, l, r) => x >= 3 && x <= 4 && y >= 4 && y <= 6 ? 3 : 1 + r.Next(2), WaterShare = 0.66f, Slack = 1.2f },
-            new Spec { Title = "Su: Buzun Altı", NotchBottom = true, NotchKind = 4, Timed = 300, Pace = 3.2f, Protect = 3, Seed = 2606, W = 8, H = 9, MinL = 2, MaxL = 4, Colors = 3, Copy = 0.35, WaterCells = 9, Ice = 6, CoverOnWater = true,
-                WaterUnits = (x, y, l, r) => 1 + r.Next(3), WaterShare = 0.66f, Slack = 1.25f },
-            new Spec { Title = "Su: Sarmaşıklı Kuyular", NotchBottom = true, NotchKind = 3, Timed = 300, Pace = 3.2f, Protect = 3, Seed = 2707, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 3, Copy = 0.3, WaterCells = 9, Clips = 6, CoverOnWater = true, WaterDeep = true,
-                WaterUnits = (x, y, l, r) => l - 1, WaterShare = 0.66f, Slack = 1.25f },
-            new Spec { Title = "Su ve Renk", NotchBottom = true, NotchKind = 6, Timed = 300, Pace = 3.2f, Protect = 3, Seed = 2808, W = 8, H = 9, MinL = 2, MaxL = 4, Colors = 3, Copy = 0.35, WaterCells = 10, ColorGoal = true,
-                WaterUnits = (x, y, l, r) => 1 + r.Next(2), WaterShare = 0.66f, Slack = 1.2f },
-            new Spec { Title = "Su: Az Hamle", NotchBottom = true, NotchKind = 4, Timed = 300, Pace = 3.2f, Protect = 4, Seed = 2909, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 3, Copy = 0.3, WaterCells = 8, WaterDeep = true,
-                WaterUnits = (x, y, l, r) => 2 + r.Next(2), WaterShare = 0.66f, Slack = 1.05f },
-            new Spec { Title = "Su: Patron", NotchBottom = true, NotchKind = 3, Timed = 300, Pace = 3.2f, Protect = 4, Seed = 3010, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 4, Copy = 0.3, WaterCells = 12, Ice = 4, Clips = 3, CoverOnWater = true, WaterDeep = true,
-                WaterUnits = (x, y, l, r) => 1 + r.Next(3), WaterShare = 0.66f, Slack = 1.1f, Hole = (x, y) => (y == 4 || y == 5) && (x == 0 || x == 7) }, // 2026-11-26: köşe boşlukları kova oyuğuna değmez
+            new Spec { Title = "Su: İlk Damlalar", NotchBottom = true, NotchKind = 1, Timed = 300, Pace = 3.2f, Protect = 2, Seed = 2101, W = 8, H = 9, MinL = 2, MaxL = 3, Colors = 3, Copy = 0.4, Pre = new[] { (2, 2, "row"), (5, 3, "col"), (4, 1, "rainbow") }, WaterCells = 10, WaterShare = 0.66f, Slack = 1.4f },
+            new Spec { Title = "Roketler", Seed = 4101, W = 8, H = 9, MinL = 2, MaxL = 3, Colors = 3, Moves = 20, Protect = 2,
+                Pre = new[] { (1, 2, "row"), (6, 5, "col"), (3, 7, "row") } },
+            new Spec { Title = "Çift Roket", Seed = 4202, W = 8, H = 9, MinL = 2, MaxL = 3, Colors = 3, Moves = 20, Protect = 2,
+                Pre = new[] { (3, 4, "row"), (4, 4, "col"), (1, 1, "row2"), (6, 6, "col2") } },
+            new Spec { Title = "Altın Rulo", Seed = 4303, W = 8, H = 9, MinL = 2, MaxL = 3, Colors = 4, Moves = 20, Protect = 2,
+                Pre = new[] { (3, 3, "rainbow"), (5, 6, "rainbow"), (1, 7, "row") } },
+            new Spec { Title = "Tuzaklı Bombalar", Seed = 4404, W = 8, H = 9, MinL = 2, MaxL = 4, Colors = 3, Moves = 22, Protect = 6,
+                Pre = new[] { (0, 4, "row"), (4, 0, "col"), (6, 2, "rainbow"), (2, 7, "row2") } },
+            new Spec { Title = "Kürek ve Çakıl", Seed = 4505, W = 8, H = 9, MinL = 2, MaxL = 3, Colors = 3, Moves = 22, Protect = 2,
+                Gravel = (x, y) => y >= 5 && x >= 2 && x <= 5, Pre = new[] { (1, 3, "shovel"), (6, 2, "row") } },
+            new Spec { Title = "Buz ve Ataş", Seed = 4606, W = 8, H = 9, MinL = 2, MaxL = 4, Colors = 3, Moves = 22, Ice = 6, Clips = 5, Protect = 2,
+                Pre = new[] { (2, 2, "col"), (5, 4, "row2"), (3, 6, "rainbow") } },
+            new Spec { Title = "Torba ve Roketler", Seed = 4707, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 3, Timed = 240, Orders = 4, BucketColors = 2, TargetMin = 40, TargetMax = 40, Copy = 0.3, Pace = 2.6f,
+                Pre = new[] { (1, 5, "row"), (6, 6, "col"), (3, 7, "rainbow") } },
+            new Spec { Title = "Dip Yıldızı ve Birleşim", Seed = 4808, W = 8, H = 9, MinL = 2, MaxL = 4, Colors = 3, Moves = 22, Stars = 6, Protect = 2,
+                Pre = new[] { (3, 3, "row"), (3, 4, "col"), (5, 3, "rainbow"), (6, 3, "row") } },
+            new Spec { Title = "Özel Taş Patronu", Seed = 5010, W = 8, H = 9, MinL = 3, MaxL = 4, Colors = 4, Moves = 25, Protect = 5, Ice = 4, Clips = 3, Stars = 3,
+                Gravel = (x, y) => y >= 6 && (x <= 1 || x >= 6), Hole = (x, y) => y == 0 && (x == 0 || x == 7), Pre = new[] { (3, 4, "row"), (4, 4, "row"), (2, 1, "rainbow"), (6, 2, "col2"), (1, 4, "shovel") } },
         };
 
         /// <summary>Eski torba deneme bölümleri (2026-11-23/24); test alanında artık su bölümleri var. Katalog torba bölümleri
@@ -303,7 +311,7 @@ namespace KatKat.EditorTools
                 if (sp.IsWater)
                 {
                     string wj = WaterLevel(sp, id, out var wText);
-                    File.WriteAllText(Path.Combine(OutDir, id + ".json"), wj, new UTF8Encoding(false));
+                    File.WriteAllText(Path.Combine(OutDir, id + ".json"), PlaceSpecials(wj, sp), new UTF8Encoding(false));
                     report.Append($"| {n + 1} | {sp.Title} | {sp.W}x{sp.H} | | {wText} | Won |\n");
                     Debug.Log($"[Lab] {id} {sp.Title}: {wText}");
                     continue;
@@ -311,7 +319,7 @@ namespace KatKat.EditorTools
                 if (sp.IsBucket)
                 {
                     string bj = BucketLevel(sp, id, out var bd, out var bv, out var bOrders);
-                    File.WriteAllText(Path.Combine(OutDir, id + ".json"), bj, new UTF8Encoding(false));
+                    File.WriteAllText(Path.Combine(OutDir, id + ".json"), PlaceSpecials(bj, sp), new UTF8Encoding(false));
                     report.Append($"| {n + 1} | {sp.Title} | {sp.W}x{sp.H} | {sp.Timed} sn | {bOrders} | {bv} |\n");
                     Debug.Log($"[Lab] {id} {sp.Title}: {bv} ({bOrders})");
                     continue;
@@ -348,7 +356,7 @@ namespace KatKat.EditorTools
                     json = Compose(sp, id, null, got, score, shrink + 1, json);
                 }
                 if (verdict != "Won") throw new Exception($"[Lab] {id}: açgözlü oyuncu kazanamadı ({verdict})");
-                File.WriteAllText(Path.Combine(OutDir, id + ".json"), json, new UTF8Encoding(false));
+                File.WriteAllText(Path.Combine(OutDir, id + ".json"), PlaceSpecials(json, sp), new UTF8Encoding(false));
                 var goals = new StringBuilder();
                 foreach (var g in d.Goals) goals.Append(g.Color).Append(' ').Append(g.Amount).Append(", ");
                 report.Append($"| {n + 1} | {sp.Title} | {sp.W}x{sp.H} | {(sp.Timed > 0 ? sp.Timed + " sn" : sp.Moves + " hamle")} | {goals.ToString().TrimEnd(',', ' ')} | {verdict} |\n");
@@ -361,6 +369,43 @@ namespace KatKat.EditorTools
 
         /// <summary>Bölüm JSON'u. <paramref name="got"/> null ise yer tutucu hedef (oyun bitmez); değilse en çok toplanan renklerden
         /// hedefler. <paramref name="keep"/> verilirse hücreler ondan alınır (yalnız hedef küçültme).</summary>
+        /// <summary>
+        /// 2026-11-26: hazır özel taşları hücre satırlarına yazar ("special"). Hücre boş, örtülü, çakıllı ya da tuzaklıysa en yakın uygun
+        /// hücreye kayar. "specials" yeteneği yoksa eklenir.
+        /// </summary>
+        private static string PlaceSpecials(string json, Spec sp)
+        {
+            if (sp.Pre == null || sp.Pre.Length == 0) return json;
+            var lines = new List<string>(json.Split('\n'));
+            var used = new HashSet<int>();
+            foreach (var (px, py, k) in sp.Pre)
+            {
+                bool placed = false;
+                for (int r = 0; r <= 4 && !placed; r++)
+                    for (int dy = -r; dy <= r && !placed; dy++)
+                        for (int dx = -r; dx <= r && !placed; dx++)
+                        {
+                            if (Math.Abs(dx) + Math.Abs(dy) != r) continue;
+                            int x = px + dx, y = py + dy;
+                            if (x < 0 || y < 0 || x >= sp.W || y >= sp.H || used.Contains(y * 100 + x)) continue;
+                            string key = $"{{ \"x\": {x}, \"y\": {y}, \"active\": true,";
+                            int li = lines.FindIndex(l => l.TrimStart().StartsWith(key));
+                            if (li < 0) continue;
+                            string line = lines[li];
+                            if (line.Contains("\"layers\": []") || line.Contains("\"protected\": true") || line.Contains("\"special\"")
+                                || (line.Contains("\"overlay\"") && !line.Contains("\"kind\": \"none\""))) continue;
+                            lines[li] = line.Replace(key, key + $" \"special\": \"{k}\",");
+                            used.Add(y * 100 + x);
+                            placed = true;
+                        }
+                if (!placed) Debug.LogWarning($"[Lab] {sp.Title}: özel taş ({px},{py}) {k} yerleşmedi");
+            }
+            string outJson = string.Join("\n", lines);
+            if (outJson.Contains("\"capabilities\": []")) outJson = outJson.Replace("\"capabilities\": []", "\"capabilities\": [\"specials\"]");
+            else if (!outJson.Contains("\"specials\"")) outJson = outJson.Replace("\"capabilities\": [", "\"capabilities\": [\"specials\", ");
+            return outJson;
+        }
+
         private static string Compose(Spec sp, string id, System.Random rng, Dictionary<string, int> got, int score, int shrink, string keep = null)
         {
             string cells;
@@ -462,7 +507,7 @@ namespace KatKat.EditorTools
                 Greedy(LevelLoader.ToState(probe), taps, out int score, out var status);
                 if (status != GameStatus.Won) continue;
                 int timed = Math.Max(60, Math.Min(sp.Timed, (int)Math.Ceiling(_greedyActions * sp.Pace / 5f) * 5));
-                foreach (var c in _greedyCmds) if (c.Type != CommandType.Tap && c.Type != CommandType.UseSpecial && c.Type != CommandType.SendBucket) throw new Exception($"[Lab] {id}: kaydedilemeyen komut {c.Type}");
+                foreach (var c in _greedyCmds) if (c.Type != CommandType.Tap && c.Type != CommandType.UseSpecial && c.Type != CommandType.SendBucket && c.Type != CommandType.Swap) throw new Exception($"[Lab] {id}: kaydedilemeyen komut {c.Type}");
                 string json = ComposeBucket(sp, id, cells, sized, score, timed, new List<Command>(_greedyCmds));
                 d = LevelParser.Parse(json, id);
                 var errs = LevelValidator.ValidateStatic(d, LevelValidator.ScopeFor(d));
@@ -573,6 +618,7 @@ namespace KatKat.EditorTools
                     var c = solution[i];
                     string step = c.Type == CommandType.SendBucket ? "{ \"type\": \"send\" }"
                         : c.Type == CommandType.UseSpecial ? $"{{ \"type\": \"use\", \"slot\": {c.Slot}, \"x\": {c.X}, \"y\": {c.Y} }}"
+                        : c.Type == CommandType.Swap ? $"{{ \"type\": \"swap\", \"x\": {c.X}, \"y\": {c.Y}, \"dir\": {c.Row} }}"
                         : $"{{ \"type\": \"tap\", \"x\": {c.X}, \"y\": {c.Y} }}";
                     sb.Append("    ").Append(step).Append(i < solution.Count - 1 ? ",\n" : "\n");
                 }
@@ -615,6 +661,7 @@ namespace KatKat.EditorTools
                     var c = solution[i];
                     string step = c.Type == CommandType.SendBucket ? "{ \"type\": \"send\" }"
                         : c.Type == CommandType.UseSpecial ? $"{{ \"type\": \"use\", \"slot\": {c.Slot}, \"x\": {c.X}, \"y\": {c.Y} }}"
+                        : c.Type == CommandType.Swap ? $"{{ \"type\": \"swap\", \"x\": {c.X}, \"y\": {c.Y}, \"dir\": {c.Row} }}"
                         : $"{{ \"type\": \"tap\", \"x\": {c.X}, \"y\": {c.Y} }}";
                     sb.Append("    ").Append(step).Append(i < solution.Count - 1 ? ",\n" : "\n");
                 }
@@ -754,6 +801,8 @@ namespace KatKat.EditorTools
                 {
                     foreach (var g in GroupFinder.AllComponents(b)) if (g.Count >= GroupFinder.MinGroup) Try(Command.Tap(b.X(g[0]), b.Y(g[0])));
                     for (int i = 0; i < b.Count; i++) if (b[i].Active && b[i].HasSpecial) Try(Command.Tap(b.X(i), b.Y(i)));
+                    // 2026-11-26: Altın Rulo komşuya sürüklenir, roket komşu rokete sürüklenince çift roket.
+                    for (int i = 0; i < b.Count; i++) if (b[i].Active && b[i].HasSpecial) for (int dir = 0; dir < 4; dir++) Try(Command.Swap(b.X(i), b.Y(i), dir));
                 }
                 if (best == null)
                     for (int slot = 0; slot < s.Tray.Count && best == null; slot++)

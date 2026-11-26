@@ -62,8 +62,10 @@ namespace KatKat.Game
             float fill = g != null && g.Amount > 0 ? g.Progress / (float)g.Amount : 0f;
             // Çubuğun ekran noktası tahta dünyasına (tahtayı çizen kamerayla).
             var sp = _hud.WaterBarScreen();
-            var cam = Camera.main;
+            var cam = _cam != null ? _cam : Camera.main; // 2026-11-26: oyunun kamerası (kova karta uçar)
             Vector3 target = cam != null ? cam.ScreenToWorldPoint(new Vector3(sp.x, sp.y, Mathf.Abs(cam.transform.position.z - _board.transform.position.z))) : _board.transform.position;
+            // 2026-11-26: dik izdüşümlü kamerada kartın dünya noktası doğrudan (ekran dönüşümü tuval ve tahta kamerası farklıyken kayıyordu).
+            if (cam != null && cam.orthographic) { var bw = _hud.WaterBarWorld(); target = new Vector3(bw.x, bw.y, _board.transform.position.z); }
             _board.SendWater(target, () =>
             {
                 _hud.SetWaterBar(fill, false);

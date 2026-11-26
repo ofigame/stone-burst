@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil dikdörtgen; çözüm 6 + 5 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil dikdörtgen; çözüm 6 + 0 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_668
 moves: 6
 roll: off
@@ -6,7 +6,7 @@ specials: on
 refill: 32 2-2
 type: exact
 rules: exact
-goals: blue 22, coral 27, purple 31
+goals: blue 19, coral 24, purple 27
 grid:
 nb    nc    G1:cc G1:cc G1:pc nn    pn    pc
 yb    pc    cc    yp    pn    nn    np    pc
@@ -17,4 +17,4 @@ yn    nn    nc    nc    pc    bn    nn    nnk1
 yn    by    nc    ncB1  bn    pc    bc    cn
 yb    by    pp    bp    bc    cc    bc    bn
 yc    pc    py    ppk1  np    np    np    np
-solution: 2,5 ; 0,5 ; use 1,1,0 ; 7,0 ; use 1,0,0 ; 0,1 ; 2,6 ; use 1,0,0 ; use 1,0,1 ; 1,0 ; use 0,0,0
+solution: 4,5 ; 4,6 ; swap 4,6,3 ; 2,6 ; 1,3 ; 4,1

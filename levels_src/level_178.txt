@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil kesik köşe; çözüm 7 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil zikzak; çözüm 5 + 0 tepsi / sınır 5; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_178
-moves: 7
+moves: 5
 roll: off
 specials: on
-refill: 30 2-2
+refill: 32 2-2
 type: exact
 rules: exact
-goals: blue 30, coral 33, yellow 22
+goals: coral 27, navy 24, blue 23
 grid:
-#     #     bn    bc    bb    np    #     #
-#     cy    bn    pc    yb    np    np    #
-bc    bc    yn    pn    yp    yc    np    yp
-bc    yc    yp    py    yc    yc    bc    bp
-nb    cp    cp    by    yy    yy    ny    bc
-nb    pc    pp    bb    pn    pp    nc    nc
-nc    bc    bn    yn    bc    bp    cp    cb
-#     bc    bn    cn    cn    cn    cc    #
-#     #     bb    bc    nn    np    #     #
-solution: 5,2 ; 5,2 ; 6,1 ; use 0,3,1 ; use 0,3,1 ; 2,6 ; use 0,0,3 ; 2,1 ; use 0,5,0 ; 4,3 ; use 0,0,4 ; 2,6
+yn    yn    pn    py    bc    cc    cc    #
+#     yn    yn    cb    bc    bp    cp    cb
+np    bc    bb    cb    pb    pp    pp    #
+#     nn    nn    cc    cn    pp    py    py
+bp    bb    bb    yb    nb    pn    nc    #
+#     yb    yb    yc    nc    yn    yc    yb
+pn    pn    bn    bc    cc    yn    yn    #
+#     nc    nc    pp    cn    cn    cc    cc
+cb    nb    bb    pp    cb    cc    yc    #
+solution: 2,5 ; 4,3 ; 3,5 ; swap 3,5,2 ; 2,7

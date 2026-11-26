@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 723 + tür order; şekil U (ayna); çözüm 7 + 4 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; YEDEK: kısa;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 723 + tür order; şekil çatı (ayna); çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d021_t7
 title: Günlük 21
-moves: 7
+moves: 9
 roll: on
 specials: on
 type: order
 rules: exact
-goals: yellow 25, purple 22, navy 18
+goals: purple 20, blue 23, coral 22
 grid:
-cn    G1:bn G1:by #     #     G1:pb yb    yb
-cb    cn    byLc5 #     #     pck1  yb    yb
-cbk1  pc    bc    #     #     pb    pbk1  pbB1
-pb    pn    bn    bn    pn    pp    np    cp
-pp    bc    bc    ny    pn    pb    ny    cp
-bp    bc    bc    nyk1  nb    pb    cy    cy
-ny    nyk2  py    py    yy    yyLc3 nn    ny
-cc    cy    bn    pn    yn    by    byk1  by
-cc    cy    bp    pn    bn    by    by    by
-solution: 6,4 ; use 0,6,0 ; 5,2 ; use 0,2,0 ; 1,3 ; 2,7 ; 2,6 ; roll 6 ; 0,3 ; use 2,1,0 ; use 0,1,2
+#     #     #     G1:cc G1:nc #     #     #
+#     bc    ppLn4 cc    nc    cb    bc    #
+bck2  bc    bp    bpB1  nc    cb    bb    bb
+by    yc    yp    bb    yb    yb    yc    bc
+py    py    yy    cc    py    yn    nc    bpk1
+pb    cy    bn    bb    pck1  nc    ny    npLn3
+np    yy    ny    nb    pb    yc    yc    np
+np    ppk1  pc    ny    ny    ny    cp    cp
+np    pb    py    pyk1  ny    bc    byk1  by
+solution: 2,2 ; 5,1 ; 4,1 ; swap 5,1,2 ; roll 5 ; 5,7 ; 5,7 ; roll 4 ; 4,4

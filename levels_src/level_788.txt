@@ -1,21 +1,21 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil T (ayna); çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil T (ayna); çözüm 11 + 0 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_788
-moves: 9
+moves: 12
 roll: off
 specials: on
 paint: 1
 refill: 27 2-3
 type: scarce
 rules: scarce
-goals: purple 38, navy 25, blue 40
+goals: purple 33, navy 22, blue 35
 grid:
-bnn   ycn   nyn   ppb   pnb   ncb   yyy   ybcR
+bnn   ycn   nyn   ppb   bnb   ncb   yyy   ybcR
 bbc   ycn   byp   pnp   cnb   ncy   nby   ncb
-cby   ypy   bcp   pyp   cnb   ccp   nbp   pbcR
-cbp   yby   byp   bcp   byc   bcc   ncc   ppb
-cnb   cyn   cyy   ypb   pnb   npb   cny   cpy
+cby   ypy   bcp   pyy   cnb   ccp   nbp   pbcR
+cbp   yby   byp   bcp   byc   bcc   ncc   bpb
+cnb   cyn   cyy   ypb   pnb   npb   cny   cny
 cyb   cbn   yyn   yyp   ynb   npb   cpb   ccn
 #     #     ybp   cpn   ybn   bpb   #     #
-#     #     ppp   ppc   bbc   bbp   #     #
+#     #     ppp   ppc   bbc   bbc   #     #
 #     #     pcy   ppc   pbc   bcp   #     #
-solution: rot 7,2 ; 3,4 ; 4,4 ; 2,1 ; 0,2 ; use 1,4,0 ; use 1,0,0 ; 5,0 ; use 1,5,0 ; 5,2 ; use 1,2,0 ; 2,1 ; use 1,5,0 ; use 0,0,3
+solution: rot 7,2 ; 4,5 ; 4,2 ; 3,5 ; swap 3,5,0 ; 5,4 ; 4,3 ; swap 4,4,0 ; 4,4 ; 4,3 ; 5,2

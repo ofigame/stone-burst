@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil dikdörtgen; çözüm 20 + 0 tepsi / sınır 20; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil elmas (ayna); çözüm 11 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: level_268
-moves: 20
+moves: 11
 roll: off
-refill: 36 2-2
+refill: 24 2-2
 type: pure
 rules: noSpecials, exact
-goals: blue 20, purple 24, envelope 3
+goals: coral 20, purple 14, envelope 3
 grid:
-cc    pc    pc    cn    cn    pc    pn    pb
-bb    bp    pp    cp    cb    pp    pn    nc
-cc    bp    bp    bp    pn    bn    bpEp  nn
-cc    bn    bn    cn    cp    nb    cn    nn
-cb    pc    nbEb  bp    cc    cp    bb    cn
-pn    cc    ccG   nb    pn    np    pc    cn
-pn    cpG   ccG   nnG   nn    nc    nb    bc
-np    nc    bcG   bnEp  nc    bc    pp    pn
-np    bn    bcG   bn    cn    pp    pp    cp
-solution: 1,1 ; 1,3 ; 0,1 ; 7,2 ; 7,4 ; 5,4 ; 6,5 ; 7,0 ; 6,1 ; 5,1 ; 5,2 ; 4,4 ; 4,2 ; 6,2 ; 6,7 ; 5,4 ; 3,2 ; 7,6 ; 4,6 ; 5,5
+#     #     #     np    pp    #     #     #
+#     #     pn    pn    pn    yn    #     #
+#     yy    cy    yyEn  cy    cc    cn    #
+nn    nc    cn    cy    ny    yc    pc    nc
+ny    yn    yn    cn    np    yn    yc    nc
+nn    yn    ccG   ccG   nc    pp    py    ncEp
+#     ycG   ycG   ncG   yy    py    py    #
+#     #     nyG   nc    cn    cyEy  #     #
+#     #     #     py    pn    #     #     #
+solution: 5,2 ; 6,4 ; 5,5 ; 2,1 ; 2,1 ; 3,0 ; 2,5 ; 1,2 ; 2,3 ; 2,2 ; 3,1

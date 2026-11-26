@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 536 + tür scarce; şekil çatı; çözüm 9 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 536 + tür scarce; şekil dalga; çözüm 12 + 0 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: daily_d011_t6
 title: Günlük 11
-moves: 10
+moves: 13
 roll: on
 specials: on
 type: scarce
 rules: scarce
-goals: navy 19, coral 24, blue 27
+goals: yellow 21, purple 23, blue 22
 grid:
-#     #     #     byy   byy   #     #     #
-#     ycc   yyc   byc   bcnR  yyb   ppb   #
-bcc   bcb   yyc   yyck1 yyp   yyp   pbyR  ccc
-pyc   cyb   cyc   cbc   cbc   yyp   cyb   cny
-pny   pcy   bbc   bbc   pbc   ybp   yyp   cny
-byyk1 pyp   cbc   bcck2 pyb   nbb   npy   pbp
-bcp   pyp   pcp   bbc   byy   nyy   nny   ybpk1
-pnb   pcb   pcb   nbn   nbn   byp   pyp   bbp
-yyb   ccb   ccn   cby   cnn   bnp   nyp   nypk2
-solution: rot 4,1 ; 1,1 ; roll 7 ; use 0,4,1 ; 3,0 ; 1,1 ; use 0,3,1 ; use 0,4,1 ; roll 8 ; 4,5 ; 4,2 ; 1,1 ; use 0,7,3 ; use 0,6,6
+cpn   #     ynp   #     bby   #     pbb   #
+cpc   bpc   ync   pybk1 pnb   nbp   ppnR  nby
+cpc   cnp   ncb   pnb   pcb   cnc   pnp   bny
+pnn   pnb   cbbk2 ynbk1 nnc   nyc   byb   nnn
+bnp   ppp   bpc   nnc   bny   ccb   ybpR  cbn
+bpp   bnb   cbb   npb   npn   ppb   ccb   ynn
+pcb   nby   npb   ncb   npn   cnbk2 cnn   cnb
+pyb   pby   cbp   ybpk1 cyp   cyy   pcb   pcb
+#     pyy   #     nnp   #     pyb   #     cbb
+solution: rot 6,4 ; 1,6 ; 1,5 ; roll 4 ; swap 1,5,2 ; 4,1 ; 4,2 ; swap 4,1,1 ; roll 8 ; 2,3 ; roll 3 ; 2,3

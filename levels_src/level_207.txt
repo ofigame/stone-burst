@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil kum saati (ayna); çözüm 7 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil L; çözüm 7 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_207
 moves: 7
 roll: off
 specials: on
-refill: 33 2-3
+refill: 30 2-3
 type: resource
 rules: exact
-goals: blue 26, star 2, envelope 3
+goals: yellow 25, star 2, envelope 3
 grid:
-ypy   ybn   ybc   npn   npp*  ypp   bbp   bbp
-ypy   pnn   pcc   ppp   npp   nyc   ppc   pyc
-ypp   bpy   ncp   pcb   bpn   nyy   ypy   yyp
-#     yyy   ynp   ynnEp nyn   nyy   yby   #
-#     cpy   nyc   ypy   bny   pyc   pnn   #
-#     cpn   nyc   pbc   ppc   pbn   cbn   #
-bby   bpn   cny   cbyEy bnn   bbc   bpn   ppp
-bpy   cyn*  cby   bny   nbp   bcc   bcb   ycp
-ppy   pby   pbp   bnpEp nbp   pcb   pyb   yyp
-solution: 1,5 ; 0,6 ; 4,0 ; use 1,0,7 ; use 0,4,0 ; 0,6 ; 3,0 ; use 0,5,0 ; use 0,6,0 ; 5,2 ; 5,1 ; use 0,6,0
+cpn   cpb   bpb   nny   cny   #     #     #
+cpn   ccb   byc   nbn   cbn   #     #     #
+cpn   ccb   nyc   nbc   ccn   #     #     #
+bpy   bcy   byy   ccb   ycc   #     #     #
+bpy   bcb   npy*  ccb   yyc   cpc   bpp   byn
+ncy   bcyEb bpn   pyb*  pycEb ypp   ypp   pyn
+bcc   nbc   npn   ppn   pcp   ycp   pcc   yyb
+pnbEb nnb   ncn   nyc   ppc   npp   ycp   yyy
+pnc   pnc   ncc   ncc   bpy   cpc   cyy   yyy
+solution: 3,3 ; 2,1 ; 2,2 ; swap 2,1,1 ; 2,4 ; 2,4 ; 6,6

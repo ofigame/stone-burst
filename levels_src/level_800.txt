@@ -1,6 +1,6 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil zikzak; çözüm 9 + 8 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil zikzak; çözüm 12 + 0 tepsi / sınır 16; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_800
-moves: 13
+moves: 16
 roll: off
 specials: on
 paint: 2
@@ -18,4 +18,4 @@ ppb   ycb   yyb   ycb   ycc   ppn   pcn   #
 #     cpn   cpy   yyb   ynn   ppn   pnn   nnp
 nbp   nbc   pbc   cbb   ccp   nbp   bbb   #
 #     ypc   npy   nnpP  nbb   nbpEc bbnEc bbp
-solution: paint 5,3,n ; 4,1 ; 2,4 ; use 1,6,0 ; use 0,4,0 ; 1,2 ; 2,3 ; 1,0 ; use 2,5,0 ; use 0,5,0 ; 5,0 ; use 1,4,0 ; 1,7 ; use 0,0,7 ; 3,1 ; use 0,0,3 ; use 0,1,0
+solution: 2,4 ; 2,4 ; 5,3 ; 5,3 ; 2,3 ; 2,2 ; swap 2,3,3 ; 5,7 ; 5,8 ; 1,0 ; 4,3 ; swap 4,3,0

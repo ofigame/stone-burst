@@ -1,10 +1,10 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil L (ayna); çözüm 4 + 3 tepsi / sınır 10; rastgele 0,445; açgözlü kazanır; yumuşak 1,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil L (ayna); çözüm 4 + 0 tepsi / sınır 11; rastgele 0,250; açgözlü kazanır; yumuşak 0,96
 id: level_234
-moves: 10
+moves: 11
 roll: off
 specials: on
 refill: 42 2-2
-goals: purple 25, coral 19
+goals: purple 19, coral 14
 grid:
 #     #     #     nb    nn    nn    np    pp
 #     #     #     nb    cn    nn    pp    pp
@@ -15,4 +15,4 @@ cp    bn    bn    nn    pc    nc    nc    bp
 cn    pb    pp    nn    bc    pn    np    cb
 pb    pb    cp    cb    cc    cp    nc    nb
 pb    pb    cb    cn    cp    nc    pn    nb
-solution: 4,3 ; 6,2 ; use 1,7,0 ; 4,4 ; 6,1 ; use 1,7,0 ; use 0,4,0
+solution: 6,2 ; 7,4 ; swap 7,4,2 ; 4,5

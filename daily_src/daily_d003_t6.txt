@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 523 + tür reverse; şekil kesik köşe (ayna); çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 523 + tür reverse; şekil merdiven; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d003_t6
 title: Günlük 3
 moves: 8
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: reverse
 rules: exact
-goals: coral 33, purple 19, blue 24, envelope 3
+goals: blue 15, navy 12, coral 18, envelope 3
 grid:
-#     #     cy    py    yb    yn    #     #
-#     cn    cn    py    bb    yb    yb    #
-bbK1:2 bp    cp    pp    cc    cc    cn    cn
-bb    bp    cp    bp    bn    nn    nc    cc
-bb    bb    cp    bc    cn    cc    nc    cb
-bbEn  nb    cc    cc    nc    npEb  cp    cb
-yc    yb    py    ccK1:2 cy    cy    cp    cb
-#     py    py    bc    yy    yyK1:2 pp    #
-#     #     py    py    ycEc  yy    #     #
-solution: 1,2 ; 1,2 ; use 0,4,0 ; use 0,5,0 ; 2,2 ; roll 5 ; use 0,4,1 ; 6,2 ; 4,2 ; 1,6 ; use 1,3,2 ; 2,0 ; use 0,3,0 ; use 1,0,6
+cc    cp    yp    ccK1:2 #     #     #     #
+yy    bc    yy    yy    cy    #     #     #
+yy    bc    py    ybK1:2 bc    bc    #     #
+yn    pcEy  pc    bn    bn    bb    yb    #
+np    nn    pc    nn    cn    cp    yb    yb
+np    nn    nc    bp    cp    pc    nc    pb
+pp    nbEp  bb    bb    cp    nc    np    pb
+by    bb    yb    pb    py    cp    cc    cpK1:2
+ynEc  yn    yn    pb    pp    cp    cp    cp
+solution: 0,4 ; 1,6 ; 1,6 ; 0,3 ; 7,4 ; 7,5 ; swap 7,5,3 ; 0,3

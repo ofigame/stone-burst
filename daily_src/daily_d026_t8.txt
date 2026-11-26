@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 851 + tür pure; şekil L; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,15; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 851 + tür pure; şekil T (ayna); çözüm 12 + 0 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
 id: daily_d026_t8
 title: Günlük 26
-moves: 8
+moves: 12
 roll: on
 type: pure
 rules: noSpecials, exact
-goals: purple 24, navy 17, yellow 24
+goals: blue 26, yellow 26, purple 30
 grid:
-ppi1  pn    np    pp    pn    #     #     #
-pp    pn    np    yyi1  yy    #     #     #
-py    pp    pnR   yy    yy    #     #     #
-npR   pn    pp    yn    yp    #     #     #
-pn    pn    np    yp    np    np    ny    yp
-pn    yni1  yy    pyi1  ny    np    np    yp
-py    yni2  yyi1  py    yy    npR   pn    yn
-pn    pn    yy    yy    ny    np    yp    yy
-pn    pn    py    yn    yy    ypi2  yp    ny
-solution: rot 2,2 ; 2,0 ; roll 3 ; 3,1 ; 4,4 ; 0,3 ; 6,4 ; 1,2
+bb    bb    bb    by    yp    pp    byi1  by
+by    yb    pb    yb    yb    pp    by    py
+by    byR   ppi1  yp    yy    ppi2  pp    pb
+yy    pp    bp    yy    pb    yp    by    ypR
+pyi1  yp    bp    bb    py    pbi2  by    by
+yy    yb    bp    yy    py    pb    bb    bb
+#     #     yy    py    ypi1  pp    #     #
+#     #     bpi1  ppR   yp    bp    #     #
+#     #     bp    pb    pb    bb    #     #
+solution: rot 1,2 ; 0,0 ; 4,4 ; roll 5 ; 0,1 ; roll 4 ; 5,3 ; roll 3 ; 4,0 ; roll 0 ; 2,7 ; roll 2

@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 391 + tür reverse; şekil çatı; çözüm 13 + 2 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar; rotor çıkarıldı; YEDEK: mek:rotor;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 391 + tür reverse; şekil zikzak; çözüm 15 + 0 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,13; döndürmeyle başlar;
 id: daily_d017_t5
 title: Günlük 17
-moves: 13
+moves: 15
 roll: on
 specials: on
 type: reverse
 rules: exact
-goals: blue 34, coral 21, purple 18
+goals: navy 27, blue 8, yellow 23
 grid:
-#     #     #     cb    cy    #     #     #
-#     py    by    cb    cyG   byG   byG   #
-pb    py    pn    cb    cc    ncG   ncG   yb
-cb    cb    pn    cn    yc    nc    nb    bb
-yn    cc    pc    yp    yp    bp    bn    bb
-yn    cc    nn    nn    yp    yp    cb    cb
-yn    bc    bn    nc    pbR   yp    cy    cb
-bn    bn    pb    pb    byR   bb    bb    bp
-pc    bc    pc    pc    bb    bb    bb    pp
-solution: 3,4 ; roll 7 ; 7,2 ; 3,0 ; use 1,3,0 ; 2,7 ; 1,6 ; roll 8 ; 0,2 ; 0,3 ; 1,1 ; 1,1 ; 3,4 ; roll 4 ; use 0,4,0
+#     pn    cn    cp    cp    cn    pn    pc
+yy    py    pn    cp    np    cy    yn    #
+#     cp    cnG   py    np    np    pn    pb
+cp    cpG   cpG   pyG   pp    nn    bc    #
+#     nn    nbG   yb    pb    nn    bn    bn
+cn    cn    nb    yy    yn    nyR   bc    #
+#     yy    yy    cy    yb    yp    pyR   pp
+py    py    yy    nn    py    py    nn    #
+#     pc    np    np    ny    py    pn    pn
+solution: rot 5,5 ; 4,3 ; 6,2 ; swap 6,2,0 ; 3,4 ; swap 3,4,1 ; 1,4 ; roll 8 ; 3,7 ; 7,6 ; roll 7 ; 4,3 ; 1,4 ; 1,1 ; roll 4

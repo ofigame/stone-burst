@@ -71,6 +71,7 @@ static partial class Program
             case "b2check": return B2Check(args);
             case "daily14": return Daily14(args);
             case "daily14install": return Daily14Install(args);
+            case "resolve": return Resolve(args); // 2026-11-26: tepsisiz kurallarla kayıtlı çözümü yeniden bul (eski deneme bölümleri)
             default: Console.Error.WriteLine("komut: build | analyze [filtre] | report | index | daily"); return 2;
         }
     }
@@ -262,14 +263,38 @@ static partial class Program
     }
 
     static string Fmt(Command c) => c.Type == CommandType.Tap ? $"{c.X},{c.Y}" : c.Type == CommandType.Rotate ? $"rot {c.X},{c.Y}"
-        : c.Type == CommandType.UseSpecial ? $"use {c.Row},{c.X},{c.Y}" : $"roll {c.Row}";
+        : c.Type == CommandType.UseSpecial ? $"use {c.Row},{c.X},{c.Y}" : c.Type == CommandType.Swap ? $"swap {c.X},{c.Y},{c.Row}" : $"roll {c.Row}";
 
     /// <summary>Kaynak dosyasındaki çözüm adımı yazımı: "x,y", "roll r", "rot x,y", "use yuva,x,y".</summary>
     static string FmtStep(StepData s) => s.Type == "tap" ? $"{s.X},{s.Y}" : s.Type == "rotate" ? $"rot {s.X},{s.Y}" : s.Type == "paint" ? $"paint {s.X},{s.Y},{s.Color[0]}"
-        : s.Type == "use" ? $"use {s.Row},{s.X},{s.Y}" : $"roll {s.Row}";
+        : s.Type == "use" ? $"use {s.Row},{s.X},{s.Y}" : s.Type == "swap" ? $"swap {s.X},{s.Y},{s.Row}" : $"roll {s.Row}";
+
+    /// <summary>2026-11-26: JSON bölümün tahtasını korur, çözümü çözücüyle (tahtadaki özel taş hamleleriyle) yeniden yazar.</summary>
+    static int Resolve(string[] args)
+    {
+        int bad = 0;
+        foreach (var path in args.Skip(1))
+        {
+            var text = File.ReadAllText(path);
+            var d = LevelParser.Parse(text, Path.GetFileName(path));
+            var r = LevelSolver.Solve(LevelLoader.ToState(d), 3000000);
+            if (r.Outcome != SolveOutcome.Solved || r.Solution == null) { Console.WriteLine($"{path}: çözüm yok ({r.Outcome}, {r.NodesExpanded} düğüm)"); bad++; continue; }
+            var steps = r.Solution.Select(ToStep).Select(st => st.Type == "swap"
+                ? $"    {{ \"type\": \"swap\", \"x\": {st.X}, \"y\": {st.Y}, \"dir\": {st.Row} }}"
+                : st.Type == "roll" ? $"    {{ \"type\": \"roll\", \"row\": {st.Row} }}"
+                : $"    {{ \"type\": \"{st.Type}\", \"x\": {st.X}, \"y\": {st.Y} }}");
+            int a = text.IndexOf("\"solution\": [", StringComparison.Ordinal);
+            int b = text.IndexOf("]", a, StringComparison.Ordinal);
+            text = text.Substring(0, a) + "\"solution\": [\n" + string.Join(",\n", steps) + "\n  " + text.Substring(b);
+            File.WriteAllText(path, text);
+            Console.WriteLine($"{path}: {r.Solution.Count} adım");
+        }
+        return bad == 0 ? 0 : 1;
+    }
 
     static StepData ToStep(Command c) => c.Type == CommandType.Tap ? new StepData { Type = "tap", X = c.X, Y = c.Y }
         : c.Type == CommandType.UseSpecial ? new StepData { Type = "use", Row = c.Row, X = c.X, Y = c.Y }
+        : c.Type == CommandType.Swap ? new StepData { Type = "swap", Row = c.Row, X = c.X, Y = c.Y }
         : c.Type == CommandType.Rotate ? new StepData { Type = "rotate", X = c.X, Y = c.Y }
         : c.Type == CommandType.Paint ? new StepData { Type = "paint", X = c.X, Y = c.Y, Color = ColorIds.ToId(c.Color) } : new StepData { Type = "roll", Row = c.Row };
 
@@ -326,6 +351,11 @@ static partial class Program
                         var t = s.Trim();
                         if (t.Length == 0) continue;
                         if (t.StartsWith("roll")) d.Solution.Add(new StepData { Type = "roll", Row = int.Parse(t.Substring(4).Trim(), CultureInfo.InvariantCulture) });
+                        else if (t.StartsWith("swap"))
+                        {
+                            var p = t.Substring(4).Trim().Split(',');
+                            d.Solution.Add(new StepData { Type = "swap", X = int.Parse(p[0]), Y = int.Parse(p[1]), Row = int.Parse(p[2]) });
+                        }
                         else if (t.StartsWith("use"))
                         {
                             var p = t.Substring(3).Trim().Split(',');
@@ -516,6 +546,8 @@ static partial class Program
             ? $"    {{ \"type\": \"paint\", \"x\": {s.X}, \"y\": {s.Y}, \"color\": \"{s.Color}\" }}"
             : s.Type == "use"
             ? $"    {{ \"type\": \"use\", \"slot\": {s.Row}, \"x\": {s.X}, \"y\": {s.Y} }}"
+            : s.Type == "swap"
+            ? $"    {{ \"type\": \"swap\", \"x\": {s.X}, \"y\": {s.Y}, \"dir\": {s.Row} }}"
             : s.Type == "tap" || s.Type == "rotate"
             ? $"    {{ \"type\": \"{s.Type}\", \"x\": {s.X}, \"y\": {s.Y} }}"
             : $"    {{ \"type\": \"roll\", \"row\": {s.Row} }}")));

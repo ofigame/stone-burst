@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 515 + tür order; şekil dikdörtgen; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 515 + tür order; şekil dikdörtgen; çözüm 11 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d014_t6
 title: Günlük 14
-moves: 8
+moves: 11
 roll: on
 specials: on
 type: order
 rules: exact
-goals: blue 47, coral 37, purple 32
+goals: yellow 48, purple 33, coral 49
 grid:
-nbb   nbn   bnn   nnnK1:1 nnp   ncp   ccp   ccp
-nbb   pbb   bnn   bnc   pnp   pbbK1:1 byb   byy
-cny   pby   bnp   pcc   pnp   pnp   pnc   nny
-cny   bcy   ycp   ycp   ycp   cyy   nnc   nnc
-bpc   bpc   bcp   bnn   yby   cyy   ncy   nny
-bpn   cpn   ycn   ynn   yny   cyy   bcy   nyy
-cpbK1:1 cpy   pby   nnn   pbn   cbp   bcy   byy
-bpb   cpb   pbc   nbc   pbp   nbp   cbc   cyc
-bnb   bpbLp4 nnb   nnb   nbn   nbc   bbc   bbbLp4
-solution: 4,0 ; 3,1 ; 0,2 ; use 0,5,0 ; use 0,0,0 ; 3,4 ; 0,4 ; 1,0 ; use 0,0,0 ; use 0,1,1 ; 5,3 ; use 0,6,0 ; 0,0 ; use 1,0,0 ; use 0,2,0
+ybb   ycb   pcb   pyy   bpp   bpy   ypp   ycc
+cyb   ypb   pyb   ppy   ypy   bnp   ccy   yby
+ncp   ycc   ppp   npn   byn   cnyLp5 cby   pby
+nyp   pcc   pcb   nyc   bcc   byn   pyn   pbn
+ycp   ycc   ycb   npb   ccb   cyyLp3 pbcK1:1 pbyK1:1
+ppb   ypc   nyb   nyc   ccy   yyy   ynn   pcy
+ypb   ycb   ncn   nyc   bnb   ccb   cnn   ccy
+ypb   cpb   bcc   byc   bycK1:1 ccn   ccb   cnn
+bpb   cpy   ccp   cyc   pcc   cyn   ycn   ypn
+solution: 5,8 ; 4,8 ; 3,8 ; swap 4,8,0 ; 5,0 ; 6,0 ; roll 4 ; swap 6,0,2 ; 5,6 ; 2,0 ; 5,6

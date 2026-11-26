@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 385 + tür exact; şekil çatı (ayna); çözüm 8 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar; YEDEK: mek:rotor;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 385 + tür exact; şekil dalga; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04; döndürmeyle başlar;
 id: daily_d008_t5
 title: Günlük 8
 moves: 8
@@ -6,14 +6,14 @@ roll: on
 specials: on
 type: exact
 rules: exact
-goals: navy 34, coral 24, envelope 2
+goals: coral 19, navy 15, envelope 2
 grid:
-#     #     #     npR   cn    #     #     #
-#     yn    yn    bn    yn    yb    pb    #
-cp    cb    bb    bb    bc    cc    pc    ny
-np    cn    nn    nb    nc    cpEp  nc    ny
-nyR   nb    yb    nb    nc    ny    np    bp
-nn    nn    yb    nb    nc    ny    ny    bp
-cn    cn    np    np    nc    pc    py    bb
-cc    nc    nc    nc    nc    pc    cb    cbEn
-solution: 4,2 ; 4,0 ; use 1,0,3 ; 1,4 ; 2,3 ; use 1,0,7 ; roll 3 ; 3,1 ; use 0,4,0 ; 5,4 ; roll 5 ; use 1,0,4 ; use 0,0,4
+nc    #     py    #     ny    #     yy    #
+cc    np    pn    yy    yy    yy    yy    ybEy
+cp    ppEb  bn    yc    pn    cn    cb    ny
+nc    cn    bn    bc    yn    cn    cy    np
+cc    pn    bn    cc    cc    nbR   ynR   np
+yp    pn    pp    cb    pc    by    cy    bp
+cp    cp    pp    pb    pc    nb    bc    bp
+#     cp    #     yb    #     nb    #     bp
+solution: rot 5,4 ; 2,1 ; roll 2 ; 1,4 ; swap 1,4,2 ; 4,3 ; 4,0 ; 4,0

@@ -4,15 +4,15 @@
   "capabilities": ["star", "gate", "refill", "specials"],
   "width": 7,
   "height": 9,
-  "moveLimit": 9,
+  "moveLimit": 15,
   "rollEnabled": false,
   "startingRoll": false,
-  "stars": [1455, 1940],
+  "stars": [2422, 3230],
   "refill": { "count": 19, "minLayers": 2, "maxLayers": 3 },
   "goals": [
-    { "type": "collectColor", "color": "coral", "amount": 30 },
-    { "type": "collectColor", "color": "purple", "amount": 27 },
-    { "type": "collectColor", "color": "yellow", "amount": 21 },
+    { "type": "collectColor", "color": "coral", "amount": 26 },
+    { "type": "collectColor", "color": "purple", "amount": 23 },
+    { "type": "collectColor", "color": "yellow", "amount": 18 },
     { "type": "collectStars", "color": "", "amount": 3 }
   ],
   "cells": [
@@ -61,20 +61,19 @@
     { "x": 6, "y": 8, "active": true, "layers": ["coral", "coral", "blue"], "overlay": { "kind": "none" }, "hasBottomStar": false }
   ],
   "solution": [
-    { "type": "tap", "x": 3, "y": 5 },
+    { "type": "tap", "x": 4, "y": 6 },
     { "type": "tap", "x": 2, "y": 7 },
-    { "type": "tap", "x": 3, "y": 7 },
-    { "type": "tap", "x": 3, "y": 1 },
-    { "type": "use", "slot": 2, "x": 6, "y": 0 },
+    { "type": "tap", "x": 4, "y": 5 },
+    { "type": "swap", "x": 4, "y": 5, "dir": 1 },
     { "type": "tap", "x": 5, "y": 0 },
-    { "type": "tap", "x": 5, "y": 0 },
-    { "type": "use", "slot": 0, "x": 3, "y": 1 },
-    { "type": "tap", "x": 2, "y": 0 },
-    { "type": "use", "slot": 1, "x": 0, "y": 0 },
-    { "type": "tap", "x": 0, "y": 0 },
-    { "type": "use", "slot": 2, "x": 0, "y": 0 },
-    { "type": "use", "slot": 0, "x": 0, "y": 1 },
-    { "type": "use", "slot": 1, "x": 0, "y": 1 },
-    { "type": "use", "slot": 0, "x": 3, "y": 0 }
+    { "type": "tap", "x": 2, "y": 6 },
+    { "type": "tap", "x": 2, "y": 1 },
+    { "type": "tap", "x": 6, "y": 0 },
+    { "type": "tap", "x": 2, "y": 1 },
+    { "type": "tap", "x": 2, "y": 7 },
+    { "type": "tap", "x": 1, "y": 1 },
+    { "type": "tap", "x": 4, "y": 3 },
+    { "type": "tap", "x": 2, "y": 7 },
+    { "type": "tap", "x": 4, "y": 3 }
   ]
 }

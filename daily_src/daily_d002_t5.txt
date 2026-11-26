@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 364 + tür protect; şekil elmas (ayna); çözüm 8 + 3 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 364 + tür protect; şekil U; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: daily_d002_t5
 title: Günlük 2
 moves: 8
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: protect
 rules: protect, exact
-goals: blue 21, purple 17, yellow 17
+goals: yellow 13, blue 7, coral 23
 grid:
-#     #     #     pyP   nyP   #     #     #
-#     #     pb    pb    by    bp    #     #
-#     pn    pb    pn    yy    ybR   by    #
-bb    cn    pn    yn    yyLy4 cy    cy    yb
-bb    cb    bb    cb    yb    yy    yy    bbP
-bp    bp    bp    np    nb    yp    yp    bb
-#     pp    pp    np    nn    yn    yn    #
-#     #     cp    cp    cy    ybR   #     #
-#     #     #     bn    cn    #     #     #
-solution: rot 5,2 ; 0,5 ; roll 1 ; 4,2 ; 0,3 ; roll 3 ; 4,2 ; use 0,2,1 ; 4,1 ; use 2,0,5 ; use 0,2,1
+yn    pb    pb    #     #     cp    cp    pn
+yc    bnR   bb    #     #     cy    cy    pn
+pc    pc    bc    #     #     bc    cnR   pc
+nc    nc    cb    pp    pp    cc    cc    yy
+cn    cn    cp    pp    yc    yn    py    py
+cn    nn    yp    nn    np    cc    yp    yb
+cy    cyLy4 yp    cp    cc    nc    yc    yc
+ny    yy    yn    nc    cp    ny    nb    pcP
+nc    ncP   ppP   nn    cn    nc    nc    pb
+solution: rot 6,2 ; 0,4 ; 0,5 ; 1,0 ; swap 0,5,1 ; 6,2 ; 6,2 ; roll 6

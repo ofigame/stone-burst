@@ -1187,6 +1187,35 @@ namespace KatKat.UI
             _chips[index].Set(progress, pulse);
         }
 
+        /// <summary>
+        /// 2026-11-26 ortak taş patlaması: hedef kopyası görev simgesine vardı — sayaç bir artar (mantıksal değeri
+        /// <paramref name="logical"/> asla geçmez), simge seker. Dönüş: bu varışla görev doldu (güçlü tamamlanma efekti).
+        /// </summary>
+        public bool GoalArrive(int index, int logical)
+        {
+            if (index < 0 || index >= _chips.Count) return false;
+            var c = _chips[index];
+            var cfg = KatKat.View.BoosterFxConfig.Current.Blast;
+            int before = c.Shown;
+            int to = Mathf.Min(before + 1, Mathf.Min(logical, c.Goal.Amount));
+            if (to > before) c.Set(to, false);
+            bool complete = before < c.Goal.Amount && to >= c.Goal.Amount;
+            c.Hit(complete ? cfg.CompletePunch : cfg.IconBounce, complete ? cfg.CompleteMs : cfg.IconBounceMs, complete);
+            return complete;
+        }
+
+        /// <summary>Dalga görseli bitti: sayaç mantıksal değere oturur (kopyalar zaten saydıysa sekmez; eksik/fazla kalmaz).</summary>
+        public void SettleGoal(int index, int progress, bool pulse)
+        {
+            if (index < 0 || index >= _chips.Count) return;
+            var c = _chips[index];
+            // Önceki hamlenin oturması sonraki hamlenin erken varmış kopyalarını geri almasın: gösterilen, mantıksal değerden
+            // yüksek olamaz (varışlar mantıkla sınırlı), bu yüzden büyük olan alınır.
+            int v = Mathf.Max(Mathf.Min(progress, c.Goal.Amount), c.Shown);
+            if (v == c.Shown) { c.Set(v, false); return; }
+            c.Set(v, pulse);
+        }
+
         public void SetGoalsImmediate(IList<GoalState> goals)
         {
             for (int i = 0; i < goals.Count && i < _chips.Count; i++) _chips[i].Set(goals[i].Progress, false);

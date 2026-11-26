@@ -75,6 +75,7 @@ namespace KatKat.Levels
                     HasBottomStar = OptBool(co, "hasBottomStar"),
                     Protected = OptBool(co, "protected"),
                     Water = co.ContainsKey("water") ? Int(co, "water", where) : 0,
+                    Special = co.ContainsKey("special") ? Str(co, "special", where) : null,
                 };
                 if (co.TryGetValue("overlay", out var ov) && ov != null)
                 {
@@ -165,6 +166,7 @@ namespace KatKat.Levels
                     if (step.Type == "tap" || step.Type == "rotate") { step.X = Int(so, "x", where); step.Y = Int(so, "y", where); }
                     else if (step.Type == "roll") { step.Row = Int(so, "row", where); }
                     else if (step.Type == "use") { step.Row = Int(so, "slot", where); step.X = Int(so, "x", where); step.Y = Int(so, "y", where); }
+                    else if (step.Type == "swap") { step.X = Int(so, "x", where); step.Y = Int(so, "y", where); step.Row = Int(so, "dir", where); }
                     else if (step.Type == "paint") { step.X = Int(so, "x", where); step.Y = Int(so, "y", where); step.Color = Str(so, "color", where); }
                     // "send": torbayı gönder (2026-11-24 torba bölümleri; alan yok)
                     d.Solution.Add(step);

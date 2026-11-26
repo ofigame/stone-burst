@@ -507,7 +507,7 @@ namespace KatKat.UI
         /// <summary>Torbayı tahtadaki oyuğa oturtur: tabanı oyuğun dibinde, boyu verilen dünya yüksekliğinde.</summary>
         private void PlaceBucket()
         {
-            if (BucketBottom == null || BucketWorldHeight == null) return;
+            if (BucketBottom == null || BucketWorldHeight == null) { PlaceBucketInBand(); return; }
             float h = BucketWorldHeight();
             if (h <= 0f) return;
             // Tahta dünyası → ekran pikseli (kamera) → kök kanvas birimi (ölçek çarpanı). Kanvasın dünya dönüşümüne dayanmaz
@@ -523,6 +523,38 @@ namespace KatKat.UI
             _bucketRoot.anchorMin = _bucketRoot.anchorMax = new Vector2(0.5f, 0.5f);
             _bucketRoot.localScale = Vector3.one * (hc / BucketSize);
             _bucketRoot.anchoredPosition = (lo - center) / sf + new Vector2(0f, hc * 0.5f);
+        }
+
+        /// <summary>
+        /// 2026-11-26: torba üst güç bandının ortasında (roket ve Altın Rulo yuvalarının yeri). Boyu bandın yüksekliğinden: tam şişmiş
+        /// torba ve %12 zıplama bandın içinde kalır (ne hedef kartına ne tahtaya taşar).
+        /// </summary>
+        private void PlaceBucketInBand()
+        {
+            if (_skillBar == null || _bucketRoot == null || !(_bucketRoot.parent is RectTransform parent)) return;
+            var c = new Vector3[4];
+            _skillBar.GetWorldCorners(c);
+            Vector3 lo = parent.InverseTransformPoint(c[0]), hi = parent.InverseTransformPoint(c[2]);
+            float h = (hi.y - lo.y) * BagBandFill;
+            if (h <= 1f) return;
+            _bucketRoot.anchorMin = _bucketRoot.anchorMax = new Vector2(0.5f, 0.5f);
+            _bucketRoot.localScale = Vector3.one * (h / BucketSize);
+            _bucketRoot.localPosition = new Vector3((lo.x + hi.x) * 0.5f, (lo.y + hi.y) * 0.5f, 0f);
+        }
+
+        /// <summary>Denetim: torbanın tuvaldeki (kök) dikdörtgeni ve bandın dikdörtgeni (aynı uzayda).</summary>
+        public bool AuditBagInBand(out Rect bag, out Rect band)
+        {
+            bag = band = Rect.zero;
+            if (!_bucketMode || _bucketRoot == null || _skillBar == null || !(_bucketRoot.parent is RectTransform parent)) return false;
+            var c = new Vector3[4];
+            _skillBar.GetWorldCorners(c);
+            Vector3 lo = parent.InverseTransformPoint(c[0]), hi = parent.InverseTransformPoint(c[2]);
+            band = Rect.MinMaxRect(lo.x, lo.y, hi.x, hi.y);
+            float s = _bucketRoot.localScale.y * 1.12f; // en büyük zıplama
+            var p = _bucketRoot.localPosition;
+            bag = new Rect(p.x - BucketSize * s * 0.5f, p.y - BucketSize * s * 0.5f, BucketSize * s, BucketSize * s);
+            return true;
         }
 
         private Image BagLayer(string name, Sprite sprite)

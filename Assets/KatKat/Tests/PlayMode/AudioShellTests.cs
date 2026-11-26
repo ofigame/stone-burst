@@ -200,16 +200,30 @@ namespace KatKat.Tests
             s.OnPlayed = n => { if (n == "jelly-pop") pops++; };
             var prevArrive = _gc.Board.StreamArrived;
             _gc.Board.StreamArrived = (i, n) => { arrivals++; prevArrive?.Invoke(i, n); };
+            // 2026-11-26 ortak taş patlaması: hedef rengindeki taşların kopyaları görev simgesine varır (varış başına sayaç ve ses);
+            // kopya sayısı görevin hamledeki gerçek ilerlemesi kadar.
+            var prevCopy = _gc.Board.GoalCopyArrived;
+            int copies = 0;
+            _gc.Board.GoalCopyArrived = g => { copies++; return prevCopy != null && prevCopy(g); };
+            int GoalSum() { int s2 = 0; foreach (var g in _gc.Session.State.Goals) if (g.Type == KatKat.Core.GoalType.CollectColor) s2 += Mathf.Min(g.Progress, g.Amount); return s2; }
+            int goalBefore = GoalSum();
             _gc.PlayStep(_gc.CurrentLevel.Solution[0]);
+            int goalDelta = GoalSum() - goalBefore;
             float limit = Time.realtimeSinceStartup + 15f;
             while ((_gc.CurrentPhase == GameController.Phase.Animating || s.SerialPending > 0) && Time.realtimeSinceStartup < limit) yield return null;
             // Akış taşları hamle bittikten sonra da varır (girdi kilitlenmez): gerçek süre bekle.
             float settle = Time.realtimeSinceStartup + 2f;
             while (Time.realtimeSinceStartup < settle) yield return null;
             // 2026-11-24 akış: her taş varışta bir ses (taşlar zaten sırayla, 28–60 ms arayla gelir); kapanış sesi sıralı kanalda.
-            Assert.Greater(arrivals, 1, "taşlar sırayla vardı (her varışta bir ses)");
+            if (_gc.Board.BlastOn)
+            {
+                Assert.AreEqual(goalDelta, copies, "görevin ilerlemesi kadar kopya vardı (fazla taş yalnız patlar)");
+                Assert.Greater(copies + arrivals, 0, "hamlede hedefe varış oldu");
+            }
+            else Assert.Greater(arrivals, 1, "taşlar sırayla vardı (her varışta bir ses)");
             Assert.LessOrEqual(pops, 40, "taş başına en çok bir varış sesi");
             _gc.Board.StreamArrived = prevArrive;
+            _gc.Board.GoalCopyArrived = prevCopy;
             Assert.GreaterOrEqual(s.SerialMinSpacing, SoundBank.SerialGap - 0.02f, "gerçek hamlede de üst üste binme yok");
             s.OnPlayed = null;
         }

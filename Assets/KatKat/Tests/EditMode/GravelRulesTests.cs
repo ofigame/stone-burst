@@ -28,7 +28,14 @@ namespace KatKat.Tests
             s.SpecialsEnabled = true;
             var r = RulesEngine.TryApply(s, Command.Tap(0, 0));
             Assert.AreEqual(SpecialKind.Shovel, r.SpecialCreated);
-            Assert.AreEqual(SpecialKind.Shovel, s.Tray.Single());
+            // 2026-11-26 (kullanıcı: "Roket ve altın rulolar tıkladığımız taşın olduğu yere konacak"): özel taş tahtada, tepsi boş.
+            Assert.AreEqual(SpecialKind.Shovel, s.Board[0, 0].Special);
+            Assert.AreEqual(0, s.Tray.Count);
+            // Kürek dokunuşla çakılların hepsini (yakından uzağa) temizler, bir hamle.
+            var r2 = RulesEngine.TryApply(s, Command.Tap(0, 0));
+            Assert.IsTrue(r2.Accepted);
+            Assert.AreEqual(3, s.MovesLeft);
+            Assert.IsFalse(s.Board[2, 1].Gravel);
         }
 
         [Test]

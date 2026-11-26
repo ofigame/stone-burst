@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dalga; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dalga; çözüm 7 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_658
-moves: 8
+moves: 7
 roll: off
 specials: on
 refill: 25 2-3
 type: resource
 rules: exact
-goals: navy 32, coral 41, blue 32, star 3
+goals: purple 29, yellow 23, navy 28, star 3
 grid:
-G1:ypb #     G1:ncc #     G1:ccy #     cnp
-ypb   ypc   npc   ncy   ccy   bcc   bcp
-pcp   ycp   npy   ccy   ccc   ybc   ybn
-ncn   pyn*  ppy   pby   pbb*  ppc   pcp
-pbp   cyc   pnc   nnc   nyn   npc   ncp
-bbp   pyp   ncc   ppy   ccc   ccn   ncn
-bby   pny   cnb   bbn   byn*  ccb   ncb
-nbn   nnn   bnb   bbb   ybnB1 ybb   nnb
-#     nyn   #     bbp   #     cby   #
-solution: 3,6 ; 2,6 ; use 0,6,2 ; 5,1 ; use 0,3,1 ; 3,6 ; 0,2 ; use 1,4,0 ; 2,1 ; use 0,0,6 ; 0,4 ; use 0,2,0 ; use 0,0,0 ; 0,2 ; use 0,3,2
+G1:cnn #     G1:ccy #     G1:ccy #     cpp
+cnn   bnn   cby   pcy   bcy   ycb   ccb
+yyn   byn   ncy   pyy   pcb   ccb   nbb
+npy   ncp   pcc*  pcc*  npn   cny   bby
+npy*  nyc   ppc   pcc   ccn   cyn   bbp
+ppc   pbb   cby   ccc   nbn   yyn   ybp
+ypcB1 pbb   npp   cpc   cpy   ybp   ybc
+nyc   npn   npc   cyn   ycp   cnp   pbc
+#     npn   #     cpn   #     cnp   #
+solution: 2,1 ; 2,2 ; swap 2,2,3 ; 3,5 ; 1,3 ; 3,4 ; swap 3,4,1

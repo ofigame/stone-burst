@@ -6,14 +6,14 @@ roll: on
 paint: 2
 type: pure
 rules: noSpecials, exact
-goals: blue 30, yellow 34, coral 26
+goals: blue 21, yellow 28, coral 21
 grid:
-#     #     cy    by    by    by    #     #
-#     #     cy    by    bb    bb    #     #
-yy    yy    cy    cy    bb    bb    yb    yy
-yy    yy    cy    cc    bc    by    by    cy
-yy    bc    bc    bc    bc    cb    cb    cy
-yy    yc    bc    bc    bb    yb    cb    cy
-#     #     bc    by    cy    yc    #     #
+#     #     cy    by    bc    by    #     #
+#     #     cy    by    cb    yb    #     #
+yy    yy    cb    cy    bb    bb    yb    yy
+yy    yy    cy    cc    yb    by    by    cy
+yy    bc    yc    bc    bc    cb    cb    cy
+yy    yc    cy    bc    bb    yb    cb    cy
+#     #     bc    yy    cy    yc    #     #
 #     #     bc    bc    cy    yc    #     #
-solution: 2,0 ; 3,6 ; 2,0 ; 3,0 ; 0,2 ; 6,2 ; 7,3 ; 4,1 ; 5,5
+solution: 7,2 ; roll 0 ; 3,0 ; roll 5 ; 3,3 ; roll 2 ; 2,2 ; 0,2 ; roll 6

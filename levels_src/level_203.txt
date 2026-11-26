@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 7 + 4 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 6 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: level_203
 moves: 9
 roll: off
 specials: on
-refill: 36 2-2
-goals: purple 24, coral 34, star 2
+refill: 31 2-2
+goals: purple 24, navy 23, star 2
 grid:
-cn    pp    pp    np    np    bn    cb    cb
-cn    pc    nc    yc    bc    bn    yn    yb
-yn    yb    nn    nn    yp    cn    ny    yy
-yb    nb    cn    nnLb4 np    np    bc    yc
-yb*   np    cn    bn    yb    yp    yc    pb
-np*   np    cc    cb    yb    yy    yc    pc
-cy    cp    ny    ny    cn    cc    yn    nn
-cb    cy    by    pb    cy    by    cb    cb
-py    cy    bc    pb    pc    by    cb    cb
-solution: 1,4 ; 1,2 ; 2,2 ; use 0,0,0 ; 2,3 ; use 0,2,0 ; 1,3 ; use 0,2,0 ; 3,5 ; use 0,2,0 ; 3,7
+cn    #     #     cb    cp    #     #     yp
+cn    #     #     pb    cp    #     #     np
+cn    yc    py    py    py    yp    yy    yp
+yc    yc    pn    pn    cy    by    py    pp*
+pc    yn    nn    nn    yb    yb    pb    pn
+yb    bb    pn    np    bn    yn    bn    bn
+yy    bb    pp*   nc    ncLc4 yy    cy    cy
+yp    cp    yn    yc    yy    nc    cc    cb
+yp    cp    yn    #     #     bb    bb    bb
+solution: 2,5 ; 6,2 ; 4,2 ; 6,2 ; 2,4 ; swap 2,4,1

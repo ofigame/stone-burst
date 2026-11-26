@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil kenar çentikleri; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil artı; çözüm 7 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_157
-moves: 10
+moves: 9
 roll: off
 specials: on
-refill: 33 2-2
+refill: 28 2-2
 type: protect
 rules: protect
-goals: blue 32, purple 23, star 3
+goals: purple 9, navy 15, star 3
 grid:
-bc    bp    nn    nn    nn    np    cn*   cn
-bn    pn    nc    bc    cc    cp    cn    bb
-cn    pc    nc    bp    bp    bp    cy*   ybP
-bn    nn    yy    pn    yn    yn    bn*   yy
-ncP   bn    yy    np    yp    yy    bn    bn
-ny    bn    nc    cp    bpLc4 yy    by    #
-ny    bp    cc    cc    bp    ny    ny    #
-ny    bb    bb    #     #     nn    pp    np
-nb    bb    bb    #     #     pb    pb    nc
-solution: 5,0 ; use 0,6,0 ; 6,0 ; 1,7 ; 2,0 ; use 0,1,0 ; 6,5 ; 1,4 ; use 2,1,0 ; 2,1 ; 4,4 ; use 0,0,1 ; use 1,0,1 ; use 1,4,0
+#     #     yn    yn    bpP   bp    #     #
+#     #     by    by    bb    bb    #     #
+pcP   pn    cn    nc    pc    bb    np    np
+pc    bb    bc    nc    yy    cy    cy    ny
+yy    yy    yy    nc    ny    yb    yb    np
+ny    yy    nc    cp    nb    yb    bb    bcLn5
+ny    ny    nc    yc    pb    bp    bc    bc*
+#     #     bc    yc*   pc    pb*   #     #
+#     #     by    yy    yy    bn    #     #
+solution: 0,4 ; 2,7 ; 0,5 ; 1,5 ; swap 1,6,2 ; 5,4 ; 5,5

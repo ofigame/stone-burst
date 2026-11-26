@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 61 + tür exact; şekil merdiven; çözüm 7 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 61 + tür exact; şekil merdiven; çözüm 6 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d018_t2
 title: Günlük 18
-moves: 8
+moves: 7
 roll: on
 specials: on
 type: exact
 rules: exact
-goals: yellow 25, blue 23, navy 37
+goals: yellow 13, blue 13, navy 18
 grid:
-nnb   pnb   bnc   ppn   #     #     #     #
-pnp   pnp   bnc   ppn   ppc   #     #     #
+nnb   pyb   bnc   ppn   #     #     #     #
+pnp   ppp   bnc   ppn   ppc   #     #     #
 pnp   cnp   byp   bpn   cpc   cpp   #     #
-cny   cny   yyy   ybn   pbc   pny   cnb   #
-cny   cny   pyy   yby   pbc   nby   ccy   bnn
-cny   cyy   pyp   pby   pby   bby   bcn   bcn
-cpy   cpy   bny   pnc   cnp   cnp   ncn   nbn
-cpy   cpy   cnn   bnp   cnp   cbp   nbn   nbn
-solution: 0,3 ; 4,6 ; 7,4 ; use 0,0,0 ; 6,4 ; use 1,0,0 ; 1,0 ; use 1,3,2 ; 2,2 ; use 2,2,0 ; 0,0 ; use 1,2,0
+yny   ppy   yyy   ybn   pbc   yny   cnb   #
+cny   nbp   pyy   ybp   pbc   nyy   ccy   bnn
+cnc   cyy   pyp   pby   pbn   bby   bcn   bcn
+cpy   cpb   bny   pnc   cnp   cnp   ncn   nbn
+cpy   ppy   cnn   bnp   cnp   cbp   nbn   nbn
+solution: 7,4 ; roll 5 ; 2,4 ; 7,5 ; swap 7,5,3 ; 6,6

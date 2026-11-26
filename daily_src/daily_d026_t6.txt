@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 505 + tür pure; şekil kesik köşe (ayna); çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 505 + tür pure; şekil T (ayna); çözüm 10 + 0 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: daily_d026_t6
 title: Günlük 26
-moves: 9
+moves: 10
 roll: on
 type: pure
 rules: noSpecials, exact
-goals: yellow 33, navy 48, blue 38
+goals: blue 30, purple 33, navy 30
 grid:
-#     #     nny   nnn   yyn   yyn   #     #
-#     nby   bnbK1:2 nnn   yyn   yyb   nnbK1:2 #
-nbb   nbb   byb   byb   bnyR  ynb   nyb   nyb
-nyb   bbbK1:2 byy   byy   bnn   nnb   nnb   nnb
-nyn   nyy   yyy   yyn   bbn   nbn   bnb   bnb
-nyn   byn   byn   bbn   bbn   nbn   bbn   bby
-bybR  bby   bby   bbn   bnn   bnn   ynn   yyy
-#     nny   nyyR  byn   bny   bny   yny   #
-#     #     nbb   nyy   nny   nnn   #     #
-solution: rot 4,2 ; 3,0 ; 2,3 ; 2,1 ; 5,2 ; 4,0 ; 0,2 ; 6,1 ; 3,0
+bnpR  pnn   pbn   bbp   bbp   nbp   bpnR  bbp
+bnn   pnp   ppb   npb   ppb   bnn   nnb   bpp
+bnb   nnb   npb   bnp   bpp   bbn   pnp   bnp
+nbp   bbb   nbn   bpn   npn   pbp   pnb   pnp
+ppn   bnnK1:2 npnR  nnb   pnb   bnn   ppp   ppb
+bpn   bnp   pbpK1:2 npb   bnn   ppb   npp   ppb
+#     #     pbb   bnb   pbb   ppp   #     #
+#     #     pbb   pnp   bnp   bpp   #     #
+#     #     pbp   ppn   bpnK1:2 bnn   #     #
+solution: rot 6,0 ; 2,1 ; roll 3 ; 3,0 ; 0,3 ; 1,0 ; 0,4 ; 1,4 ; 1,4 ; 6,4

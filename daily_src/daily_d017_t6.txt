@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 565 + tür reverse; şekil zikzak; çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 565 + tür reverse; şekil elmas (ayna); çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d017_t6
 title: Günlük 17
 moves: 8
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: reverse
 rules: exact
-goals: yellow 43, navy 39, coral 32
+goals: purple 22, navy 13, blue 25
 grid:
-ncn   cnn   cbn   ncn   pcp   pcp   pyp   #
-#     cny   cby   nyc   byp   bnb   ynp   ynp
-cyn   cyp   cby   pbc   pyy   yyb   ynb   #
-#     ccp   byp   byp   pny   cnp   cbc   cyc
-pcp   pcp   byp   pyp   pnp   nnp   nbc   #
-#     pbn   pny   bny   nyp   cyp   nyp   pbn
-ypn   ycnK1:2 ycn   bny   nyy   cyy   cyy   #
-#     pcc   ycn   byp   ynpK1:2 cnp   cpy   npy
-pnc   pnn   ybnK1:2 ybn   ypy   cny   npy   #
-solution: 1,2 ; 1,1 ; 4,3 ; use 0,0,0 ; use 0,0,0 ; 3,7 ; use 0,0,0 ; 1,6 ; 4,0 ; roll 1 ; use 1,1,0 ; use 0,0,2 ; use 0,0,2 ; 6,0 ; use 0,3,0
+#     #     #     ynb   ypy   #     #     #
+#     #     ppb   ynb   cpy   cyn   #     #
+#     pcn   pcn   pncK1:1 pcc   cyn   cbn   #
+ycc   ybc   ncc   bpn   bpp   ypn   ybn   ynn
+yccK1:1 ycc   npn   bpy   cyc   cybK1:1 cyb   byy
+ccp   ccb   ybb   ypy   yyp   bbb   cbp   byp
+#     ccb   cbp   pbc   cnp   bbp   bbp   #
+#     #     pbp   pbc   cpc   bpc   #     #
+#     #     #     pby   cpy   #     #     #
+solution: 5,1 ; roll 7 ; 4,5 ; 5,5 ; swap 4,5,0 ; roll 2 ; 4,2 ; swap 4,2,1

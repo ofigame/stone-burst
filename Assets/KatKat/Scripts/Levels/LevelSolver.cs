@@ -65,6 +65,30 @@ namespace KatKat.Levels
                     list.Add(Command.Tap(s.Board.X(last), s.Board.Y(last)));
                 }
             }
+            // 2026-11-26 tahtadaki özel taşlar: roket, çift roket ve Kürek dokunuşla; Altın Rulo komşu renkli taşa (renk başına bir)
+            // ya da komşu özel taşa sürüklenir; roket komşu rokete sürüklenince çift roket.
+            if (s.MovesLeft > 0)
+            {
+                var bb = s.Board;
+                for (int i = 0; i < bb.Count; i++)
+                {
+                    var c = bb[i];
+                    if (!c.Active || !c.HasSpecial) continue;
+                    int x = bb.X(i), y = bb.Y(i);
+                    if (c.Special != SpecialKind.Rainbow) list.Add(Command.Tap(x, y));
+                    if (c.Special == SpecialKind.Shovel) continue;
+                    int seenColors = 0;
+                    for (int dir = 0; dir < 4; dir++)
+                    {
+                        var cmd = Command.Swap(x, y, dir);
+                        if (!bb.InBounds(cmd.SwapX, cmd.SwapY)) continue;
+                        if (RulesEngine.ValidateSpecialDrag(bb, cmd) != RejectReason.None) continue;
+                        var t = bb[cmd.SwapX, cmd.SwapY];
+                        if (!t.HasSpecial) { int bit = CellState.Bit(t.Top); if ((seenColors & bit) != 0) continue; seenColors |= bit; }
+                        list.Add(cmd);
+                    }
+                }
+            }
             // v6 tepsi: her özel taş türü için ilk yuva; roket satır/sütun başına bir hedef, Altın Rulo renk başına bir.
             int seenKinds = 0;
             for (int slot = 0; slot < s.Tray.Count; slot++)

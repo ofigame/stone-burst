@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil merdiven (ayna); çözüm 8 + 6 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil U; çözüm 6 + 0 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_367
-moves: 8
+moves: 6
 roll: off
 specials: on
-refill: 28 2-2
+refill: 30 2-2
 type: protect
 rules: protect, exact
-goals: yellow 13, navy 30, star 3
+goals: purple 26, yellow 24, star 3
 grid:
-#     #     #     #     pci2  nc    nn    cnP
-#     #     #     yb    bb    nc    nn    pn
-#     #     cc    cc    bp    bp    pp    bpi1
-#     nn    pc    nc    cc    bc    pp    cp
-nn    pp    pn    nn    cpi1  cp    bn    pn
-pn    yn    py    pn    cp    pp    pn    pn
-npi1  yc*   pn    pc    cc    nb*   pb    cn
-npP   yc    nb    bp*   bc    bc    bc    yy
-by    yy    cb    pb    bbi1  bci2  bc    pyP
-solution: 3,6 ; 5,6 ; 7,4 ; use 2,1,3 ; 1,5 ; 3,6 ; use 2,6,0 ; use 1,5,0 ; use 0,0,4 ; 2,6 ; 6,1 ; use 1,6,0 ; 0,4 ; use 1,3,1
+yb    yb    yy    #     #     bb    bbi1  bb
+ny    yb    yy    #     #     bp    by    by
+ny    yb    ny    #     #     yp    np    yp
+yn    bb    np    npi1  np    yn    nn    yn
+ynP   bb    npi2  np    np    bn    bn    pb
+pn    pb    pci1  yc    cci1  cb    pb    pb
+bc    pn    nc    py    py    bbi2  bp    bp
+bn    bc    ny    pp*   bp    bb    bp    pp
+bn    bc    by    cp*   bnP   ynP   yy*   yy
+solution: 1,2 ; 2,2 ; 5,3 ; swap 2,2,2 ; 7,4 ; swap 7,5,1

@@ -18,6 +18,13 @@ namespace KatKat.UI
     {
         /// <summary>Güç bandı yüksekliği (referans px) ve yuva aralığı; simge bandı aşmasın diye ölçek tavanı.</summary>
         public const float SkillBandH = 128f, SkillStep = 190f, SkillScaleMax = 0.76f;
+        /// <summary>2026-11-26 (kullanıcı: "Torba ise tahtanın üst kısmındaki altın ve roket rulolarının yerine gelsin ama ne üst alana
+        /// nede tahtaya taşmasın … torba şiştiğindede taşma olmasın"): torba bölümünde bant torbanın tam şişmiş ve zıplayan boyuna
+        /// göre yüksek.</summary>
+        public const float BagBandH = 210f;
+        /// <summary>Torbanın bant yüksekliğine oranı (şişme + zıplama payı: zıplama en çok %12).</summary>
+        public const float BagBandFill = 0.86f;
+        private float BandH => _bucketMode ? BagBandH : SkillBandH;
 
         private RectTransform _skillBar;
         private bool _reserveHazard;
@@ -35,15 +42,16 @@ namespace KatKat.UI
         private float SkillBarTop => BandTop + (_reserveHazard ? HazardH + 8f : 2f);
 
         /// <summary>Güç bandında görünen öğe var mı (rulo ya da tepsi).</summary>
-        public bool SkillsShown => (_roll != null && _roll.gameObject.activeSelf) || (_trayRoot != null && _trayRoot.gameObject.activeSelf);
+        public bool SkillsShown => (_roll != null && _roll.gameObject.activeSelf) || (_trayRoot != null && _trayRoot.gameObject.activeSelf) || _bucketMode;
 
         /// <summary>Tahtanın üstünde ayrılan pay: hedef kartı + (görev şeridi) + (güç bandı).</summary>
-        private float TopReserve => SkillsShown ? SkillBarTop + SkillBandH + 4f : BandTop + (_reserveHazard ? HazardH + 8f : 10f);
+        private float TopReserve => SkillsShown ? SkillBarTop + BandH + 4f : BandTop + (_reserveHazard ? HazardH + 8f : 10f);
 
         private void PlaceSkillBar()
         {
             if (_skillBar == null) return;
             _skillBar.anchoredPosition = new Vector2(0f, -SkillBarTop);
+            _skillBar.sizeDelta = new Vector2(0f, BandH);
             _skillBar.gameObject.SetActive(_placeRow == null);
         }
 
@@ -88,7 +96,7 @@ namespace KatKat.UI
             if (pref + 44f > h) { _toast.enableAutoSizing = true; _toast.fontSizeMax = 34; _toast.fontSizeMin = 20; }
             _toastBox.sizeDelta = new Vector2(ToastW, h);
             // Güç bandı varsa onun altında, yoksa hedef kartının (ya da görev şeridinin) hemen altında: tahtanın üst sırası.
-            float y = (SkillsShown && _skillBar.gameObject.activeSelf ? SkillBarTop + SkillBandH : BandTop + (_reserveHazard ? HazardH + 8f : 0f)) + 10f;
+            float y = (SkillsShown && _skillBar.gameObject.activeSelf ? SkillBarTop + BandH : BandTop + (_reserveHazard ? HazardH + 8f : 0f)) + 10f;
             _toastBox.anchoredPosition = new Vector2(0f, -y);
             _toastBox.SetAsLastSibling();
             bool wasOn = _toastBox.gameObject.activeSelf && _toastAge < _toastLife;

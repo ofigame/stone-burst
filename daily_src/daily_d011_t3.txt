@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 134 + tür scarce; şekil T (ayna); çözüm 8 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 134 + tür scarce; şekil elmas; çözüm 8 + 0 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,23
 id: daily_d011_t3
 title: Günlük 11
 moves: 10
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: scarce
 rules: scarce
-goals: blue 23, purple 23, coral 28
+goals: yellow 10, coral 8, purple 7
 grid:
-cc    cy    py    py    pc    pc    pc    yb
-cc    cy    pn    cb    cbi1  pc    bb    bb
-yc    yc    pn    cni1  bn    bc    bp    bp
-yc    yp    pp    cn    cb    bb    bp    np
-nn    nn    yp    cb    cb    cb    nb    np
-np    nn    bn    nn    cp    nbi1  nn    nn
-#     #     bn    yb    cp    cp    #     #
-#     #     pc    bc    pp    cb    #     #
-#     #     nc    nc    np    py    #     #
-solution: 4,5 ; roll 2 ; 7,0 ; roll 3 ; use 1,0,0 ; 1,0 ; roll 1 ; 2,0 ; use 1,6,3 ; roll 7 ; use 0,0,0
+#     #     #     pn    pn    #     #     #
+#     #     pn    cn    bni1  bb    #     #
+#     bb    cn    cn    nc    by    bb    #
+yp    cn    cc    bb    np    nb    cb    cy
+bp    bn    np    nb    byi1  by    cy    ny
+bp    yc    yp    nb    nn    cn    cb    nni1
+#     pp    bp    yb    cb    yn    nb    #
+#     #     cy    nc    nb    cn    #     #
+#     #     #     pp    pp    #     #     #
+solution: 2,4 ; 2,6 ; 2,6 ; 3,1 ; 5,4 ; roll 3 ; 5,7 ; 5,7

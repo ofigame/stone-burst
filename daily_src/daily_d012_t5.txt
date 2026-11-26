@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 382 + tür pure; şekil L (ayna); çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,13; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 382 + tür pure; şekil U; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04; döndürmeyle başlar;
 id: daily_d012_t5
 title: Günlük 12
 moves: 8
 roll: on
 type: pure
 rules: noSpecials, exact
-goals: blue 43, coral 34, navy 13
+goals: yellow 21, purple 23, coral 17
 grid:
-#     #     #     bc    bn    bn    bn    bn
-#     #     #     bc    bb    cn    bc    bc
-#     #     #     cci1  cc    cb    cb    cb
-#     #     #     bc    bc    cnR   bn    cb
-nc    cc    cc    cc    bc    cci2  bb    bb
-bc    bc    nb    nb    nb    bnR   nbi1  nb
-bb    cb    cb    cb    nb    nb    cbi1  cb
-bc    cb    cbi2  cb    bb    bn    cb    cb
-cc    cc    cb    bb    bb    nb    cb    cb
-solution: rot 5,5 ; 5,2 ; roll 3 ; 3,0 ; roll 5 ; 4,0 ; roll 4 ; 3,0
+yy    yy    yy    #     #     yy    py    yyi1
+yy    pp    cp    #     #     yy    ycR   pp
+yp    yp    pc    #     #     cy    py    pp
+cp    pc    yp    pc    cp    cp    pp    pp
+yc    yc    pc    py    py    cy    yyi2  cy
+yy    pc    pp    pp    yc    cp    py    ppi1
+ypR   cc    yy    yyi1  yc    pc    pp    yp
+yp    pyi2  yc    cc    cc    pc    cp    yp
+cp    cc    cp    cp    cp    yp    cc    yc
+solution: rot 6,1 ; 1,3 ; roll 8 ; 4,5 ; 3,4 ; 1,1 ; 5,0 ; 0,0

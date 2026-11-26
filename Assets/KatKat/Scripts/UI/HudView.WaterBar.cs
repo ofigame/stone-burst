@@ -67,6 +67,15 @@ namespace KatKat.UI
             return RectTransformUtility.WorldToScreenPoint(cam, world);
         }
 
+        /// <summary>2026-11-26: dolum ucunun dünya noktası (tuval kameraya göre; dik izdüşümde tahta düzlemindeki x, y aynı).</summary>
+        public Vector3 WaterBarWorld()
+        {
+            if (_wBar == null) return Vector3.zero;
+            float w = _wBar.rect.width;
+            float x = Mathf.Lerp(-w * 0.5f + 30f, w * 0.5f - 30f, Mathf.Max(_wBarShown, 0.05f));
+            return _wBar.TransformPoint(new Vector3(x, _wBar.rect.height * 0.15f, 0f));
+        }
+
         private void TickWaterBar(float dt)
         {
             if (_wBar != null && _wBar.gameObject.activeInHierarchy)

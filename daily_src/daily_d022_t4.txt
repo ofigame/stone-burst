@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 231 + tür exact; şekil U (ayna); çözüm 7 + 4 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 231 + tür exact; şekil merdiven (ayna); çözüm 7 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d022_t4
 title: Günlük 22
 moves: 7
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: exact
 rules: exact
-goals: coral 21, purple 16, envelope 2
+goals: yellow 16, navy 20, envelope 2
 grid:
-yb    ny    ny    #     #     pc    pc    cb
-yb    yb    ny    #     #     pc    pc    cb
-yn    ynEp  yc    #     #     bb    cp    cb
-nc    nc    nc    cp    yb    bb    bp    yp
-nc    nc    np    cp    yb    bb    yc    yc
-nb    yb    cn    cb    bb    pb    pc    yc
-pb    bb    bn    yn    yn    cy    bn    yn
-ppLy5 bb    bn    yc    yb    bb    bp    bp
-pbEy  pb    pc    pc    cb    cy    by    by
-solution: 5,2 ; use 0,5,0 ; 0,5 ; use 0,1,0 ; 5,0 ; use 0,0,0 ; 3,3 ; roll 8 ; 2,3 ; roll 5 ; use 0,3,3
+#     #     #     #     bn    bn    yy    yy
+#     #     #     pc    ny    cy    py    yb
+#     #     bb    by    bc    cc    py    pb
+#     ny    bp    pb    cb    pc    nn    npEy
+bb    bb    pp    yp    pp    pc    nn    nn
+nn    by    pp    pp    pp    yc    yc    yn
+nb    nn    nc    cc    yc    bn    by    by
+cc    cy    nbEc  cy    yc    pn    pn    pc
+ccLn3 nc    nc    cc    nn    nn    yc    pc
+solution: 6,2 ; 6,5 ; 6,5 ; roll 7 ; 2,6 ; swap 2,6,2 ; roll 5

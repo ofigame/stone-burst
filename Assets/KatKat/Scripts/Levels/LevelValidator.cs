@@ -214,7 +214,7 @@ namespace KatKat.Levels
             }
 
             foreach (var s in d.Solution)
-                if (s.Type != "tap" && s.Type != "roll" && s.Type != "rotate" && s.Type != "paint" && s.Type != "use" && !(s.Type == "send" && (d.Buckets.Count > 0 || d.WaterCap > 0))) e.Add($"{id}: bilinmeyen çözüm adımı '{s.Type}'");
+                if (s.Type != "tap" && s.Type != "roll" && s.Type != "rotate" && s.Type != "paint" && s.Type != "use" && s.Type != "swap" && !(s.Type == "send" && (d.Buckets.Count > 0 || d.WaterCap > 0))) e.Add($"{id}: bilinmeyen çözüm adımı '{s.Type}'");
 
             if (e.Count == 0)
             {

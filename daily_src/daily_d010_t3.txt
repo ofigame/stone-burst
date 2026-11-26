@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 106 + tür reverse; şekil elmas (ayna); çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 106 + tür reverse; şekil elmas (ayna); çözüm 7 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d010_t3
 title: Günlük 10
-moves: 8
+moves: 7
 roll: on
 specials: on
 type: reverse
 rules: exact
-goals: coral 47, yellow 19, purple 17
+goals: coral 25, yellow 16, purple 12
 grid:
 #     #     #     cyp   ccp   #     #     #
-#     #     cpb   cyb   ccc   ycc   #     #
-#     nnn   pnc   pnc   ccy   ycci1 yyc   #
-nnp   cnn   pnc   ncn   ncy   ycyi1 yyn   yyn
+#     #     cpb   cyb   ccci1 ycc   #     #
+#     nnn   pny   pnc   ccy   ycc   yyc   #
+nnp   cnn   pnc   ncni1 ncy   yny   yyn   yyn
 nyn   cyn   pnc   cbc   cbc   ncb   ncn   ncn
-nyc   cyc   cbc   cbc   ccb   pyb   ncp   ncni1
-#     cbc   cpc   cpc   pyc   pyc   nbc   #
-#     #     pnb   pnc   pbb   pbb   #     #
-#     #     #     pnc   pnb   #     #     #
-solution: 2,2 ; 1,2 ; 3,4 ; use 0,4,2 ; use 0,3,0 ; 6,3 ; 4,0 ; use 2,3,0 ; 3,0 ; 5,1 ; roll 7 ; use 0,2,7 ; use 0,4,0 ; use 0,2,1 ; use 0,2,1
+nyc   cyp   ybc   cbp   ccb   pyb   ncp   ncn
+#     cby   cpc   ypbi1 pyc   pyc   nbc   #
+#     #     pnb   pnc   ybb   pbb   #     #
+#     #     #     pnp   pnb   #     #     #
+solution: 4,2 ; 4,1 ; 6,3 ; swap 4,1,3 ; 6,4 ; swap 6,3,1 ; roll 6

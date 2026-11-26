@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kenar çentikleri; çözüm 7 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,15
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati; çözüm 7 + 0 tepsi / sınır 10; rastgele 0,005; açgözlü kaybeder; yumuşak 0,02
 id: level_211
 moves: 10
 roll: off
 specials: on
-refill: 26 2-3
-goals: coral 28, blue 45, envelope 3
+refill: 28 2-3
+goals: blue 22, yellow 22, envelope 3
 grid:
-pcyEp byp   byb   bbb   bbbEp bbb   bbb
-ycn   ypn   ypn   ybn   ybb   ppp   ybp
-#     npn   ypy   yycEn pyc   pbc   #
-#     cpn   bpn   ppy   bcc   ypc   #
-cyp   cbb   nbb   bny   pcy   bpc   bpc
-cyb   pyc   pbc   bbp   pcc   bcp   bbp
-ccb   pcp   byp   bbc   pyc   bbc   bbp
-ycp   yyp   #     #     #     cnc   byy
-yyb   cyb   #     #     #     cny   cyy
-solution: 0,1 ; use 0,0,5 ; 3,2 ; 1,0 ; use 1,4,0 ; 2,0 ; use 0,3,0 ; 0,0 ; use 0,6,0 ; use 0,0,0 ; 5,3 ; 6,4 ; use 0,4,2
+ypc   ybc   yyc   cbc   pbb   cyp   ccp
+bpc   cbc   cbp   cpy   cyy   pcp   ccp
+bbc   cbp   bbp   bpy   pcb   ppb   pcc
+#     cpb   ypp   ppc   pcbEp ppb   #
+#     ybbEy ccy   ypb   ycb   yyb   #
+#     ycy   cpc   cby   ccp   cyy   #
+bcn   bcn   ncc   nbn   cnn   cpc   ypc
+bcb   nyn   nny   pbn   pbn   ybn   cpc
+byb   yynEb ynb   bnb   pbn   yby   ypy
+solution: 3,1 ; 2,1 ; 2,1 ; 5,4 ; 0,0 ; 5,3 ; swap 5,4,3

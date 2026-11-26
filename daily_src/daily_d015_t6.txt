@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 511 + tür exact; şekil dikdörtgen; çözüm 10 + 8 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 511 + tür exact; şekil dikdörtgen; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d015_t6
 title: Günlük 15
-moves: 10
+moves: 8
 roll: on
 specials: on
 type: exact
 rules: exact
-goals: navy 26, yellow 44, blue 27
+goals: navy 27, yellow 32, blue 28
 grid:
-npy   npy   npy   ypp   ypp   ypb   bpb   bpp
-cny   pny   pny   nyy   ybc   ybb   ybb   bny
-bcy   bcy   pyy   nyy   nbc   ybc   ycy   pny
-bpc   ppc   pyy   cyc   cpc   cpc   ccy   pny
-bpc   bby   yby   ycy   cny   cpy   cpy   ppb
-pyc   bny   ccn   ycn   ccn   ccp   cpp   cnb
-pyc   pbp   ynp   ybp   ybb   cpp   ypc   ync
-yyn   ybnG  ybpG  ynpG  ybb   npc   npb   ypp
-yyn   ybnG  ynpG  yncG  yncG  npc   npb   ppp
-solution: 0,0 ; use 0,5,0 ; 0,0 ; use 0,0,0 ; 4,1 ; 6,0 ; 5,0 ; 0,1 ; use 1,0,2 ; roll 6 ; 4,3 ; use 0,3,1 ; 3,3 ; use 0,0,5 ; 0,3 ; use 3,1,3 ; use 0,0,3 ; use 0,1,7
+npy   npy   npyG  yppG  yppG  yyb   bpb   bpp
+cnb   pny   pnnG  nyyG  ybcG  ybb   ybb   bny
+bcy   bcy   pyy   nynG  nbc   ybc   bcy   pny
+bpc   ppc   pyb   cyc   ppc   npc   ccy   pny
+bpc   bby   yby   ycb   cny   ppb   cpc   ppb
+pyc   bny   ccn   ycn   ccn   ccp   cyp   cnb
+pyc   pbp   ynp   ybp   nbb   bnp   ypc   ync
+yyn   ybn   pbp   cnp   ybb   npc   npb   ybp
+yyn   ybn   cnp   ync   ync   npc   nnb   pcp
+solution: 7,3 ; 4,2 ; swap 4,2,0 ; 1,1 ; 7,4 ; swap 1,1,2 ; swap 7,4,3 ; roll 8

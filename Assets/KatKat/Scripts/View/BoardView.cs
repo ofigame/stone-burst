@@ -23,6 +23,15 @@ namespace KatKat.View
         // vr1 P1 prototipi (04 tablo: roket öncü 120 ms + uçuş 350–600 ms; rulo toplam 500–800 ms): öncü 120, roket 60 ms/hücre,
         // rulo 45 ms/hücre. Anahtar kapalıyken eski 260 / 100 / 55.
         public static float SpecialLead => KatKat.UI.Vr1Proto.On ? 120f : 260f;
+        /// <summary>2026-11-26 özel taş efektleri (Altın Rulo, roket, Kürek turu): ayarlar BoosterFxConfig.</summary>
+        private BoosterFx _booster;
+        public BoosterFx Booster { get { if (_booster == null) _booster = BoosterFx.Attach(this); return _booster; } }
+        /// <summary>Hücre adımı (dünya).</summary>
+        public float WorldCell => _pitch * Mathf.Max(1e-4f, transform.lossyScale.x);
+        /// <summary>Tahtanın dünya merkezi.</summary>
+        public Vector3 WorldCenter => transform.TransformPoint((CellCenter(0, 0) + CellCenter(Mathf.Max(0, _width - 1), Mathf.Max(0, _height - 1))) * 0.5f);
+        /// <summary>Kürek turunda çakıl başına süre (ms).</summary>
+        public const float ShovelHopMs = 170f;
         public static float RocketCellMs => KatKat.UI.Vr1Proto.On ? 60f : 100f;
         public static float RainbowCellMs => KatKat.UI.Vr1Proto.On ? 45f : 55f;
         /// <summary>Doğan özel taşın tepsiye uçuşu: prototipte 420 ms (tablo), eskisi 500 ms.</summary>
@@ -49,7 +58,7 @@ namespace KatKat.View
         public int Width => _width;
         public int Height => _height;
         public float Pitch => _pitch;
-        public bool IsPlaying => _timeline.Count > 0 || (_director != null && _director.ActiveCount > 0);
+        public bool IsPlaying => _timeline.Count > 0 || (_director != null && _director.ActiveCount > 0) || (_blast != null && _blast.StackBusy);
 
         /// <summary>
         /// true: Play, taşlar hedefe varana dek sürer (bölümü bitiren hamle, canlı maç). false: yığın işi bitince biter;
@@ -217,6 +226,8 @@ namespace KatKat.View
                 s.SetMaxLayers(_maxLayers);
                 s.Init(_pitch * FaceRatio, 10 + y * 4);
             }
+            // 2026-11-26: su kovası tahta yerleşimiyle birlikte oturur (kurulum tahtadan önce çalışınca önceki bölümün ölçüsü kalıyordu).
+            if (_waterOn && _waterBoard != null && _waterBoard.Width == _width && _waterBoard.Height == _height) PlaceBucket(_waterBoard);
         }
 
         /// <summary>
@@ -771,7 +782,8 @@ namespace KatKat.View
             }
             bool created = result.SpecialCreated != SpecialKind.None;
             // 2026-11-21 sürükle-değiştir: iki taş yer değiştirir, sonra oluşan grup dokunuş gibi patlar.
-            if (result.Command.Type == CommandType.Swap) { PlaySwapChips(result); t = SwapMs; }
+            // 2026-11-26: özel taş sürüklemesinde taş yer değiştirmez (SwapLayer yok); efekt hemen başlar.
+            if (result.Command.Type == CommandType.Swap && result.UsedSpecial == SpecialKind.None && result.Waves.Count > 0 && result.Waves[0].Kind != WaveKind.Special) { PlaySwapChips(result); t = SwapMs; }
             int flowWave = 0, flowTick = 0;
             float flowArrive = -1f;
             _streamIdx = 0;
@@ -787,6 +799,13 @@ namespace KatKat.View
                 if (charged) t += PeelSequence.ChargeShift;
                 float start = t;
                 float SD(int x, int y) => charged ? 0f : SpecialDelay(w, x, y);
+                // 2026-11-26 (kullanıcı: "Normal Taş Patlatma ve Hedefe Taş Toplama Animasyonu"): dokunuş, roket ve Altın Rulo
+                // taşları ortak patlama + hedefe uçuş + isabet sistemiyle (StoneBlast). Mağaza bombası (yüklenme) ve torbaya giden
+                // taşlar kendi akışında kalır.
+                bool blast = BlastOn && !charged;
+                var bcfg = BoosterFxConfig.Current.Blast;
+                float burstAt = special ? bcfg.SpecialBurstAtMs : bcfg.BurstAtMs;
+                var bplan = blast ? PlanBlast(result, w, special, start, goalTarget) : null;
                 At(start, () => onWaveStart?.Invoke(w));
                 if (special) At(start + (charged ? PeelSequence.BreakAt : 0f), () => FireFx(w));
                 // 2026-11-21 (kullanıcı: "patlamadaki tahtanın sallanması patlama anında olsun"): sarsıntı dalga başında değil,
@@ -797,7 +816,18 @@ namespace KatKat.View
                     if (special) foreach (var c in w.Cells) firstDelay = Mathf.Min(firstDelay, SD(c.X, c.Y));
                     else firstDelay = 0f;
                     PopShake(w, created && w.Index == 0, out float amp, out float dur);
-                    if (amp > 0f) At(start + firstDelay + PeelSequence.BreakAt, () => ShakeBoard(amp, dur));
+                    if (amp > 0f) At(start + firstDelay + (blast ? burstAt : PeelSequence.BreakAt), () => ShakeBoard(amp, dur));
+                    if (blast && bplan != null)
+                    {
+                        // Grup kademesi: 9+ taşta kontrollü küçük sarsıntı; titreşim kademeye göre (roket/rulo kendi titreşimini çalar).
+                        int tier = bplan.Tier;
+                        if (tier >= 2 && amp <= 0f && !special) At(start + burstAt, () => ShakeBoard(bcfg.BigShake * (tier >= 3 ? 1.5f : 1f), 200f));
+                        if (!special)
+                        {
+                            int hk = Mathf.RoundToInt(tier <= 0 ? bcfg.HapticByTier.x : tier == 1 ? bcfg.HapticByTier.y : tier == 2 ? bcfg.HapticByTier.z : bcfg.HapticByTier.w);
+                            if (hk > 0) At(start + burstAt, () => BlastHaptic?.Invoke(hk));
+                        }
+                    }
                 }
                 float spread = 0f;
                 // 2026-11-19 (kullanıcı: "Kombolarda çok daha fazla taş akacak"): zincir dalgası, büyük grup ve özel taş
@@ -808,7 +838,7 @@ namespace KatKat.View
                 // gitmeye başlar ve ses doğru orantıda çıkar. parçalanma olmayacak taşlara bastığımız andaki"): dokunuş dalgasında ve
                 // torbaya giden taşlarda taş kırılmaz; hedefine (görev simgesi, torba ya da yıldız çubuğu) en yakın taş önce kalkar,
                 // diğerleri kısa aralıklarla art arda; her varışta bir ses (StreamArrived). Özel taş patlamaları eski görünümde.
-                bool tapStream = StreamTaps && w.Kind == WaveKind.Tap && !special && !charged;
+                bool tapStream = StreamTaps && !blast && w.Kind == WaveKind.Tap && !special && !charged;
                 Vector3 DestOf(int ci2)
                 {
                     var c2 = w.Cells[ci2];
@@ -829,6 +859,36 @@ namespace KatKat.View
                     // Aynı dalga birlikte başlar; en çok 20 ms belirlenimli görsel sapma. Özel taşta soyulma, roket/ışık
                     // hücreye vardığında başlar (kaynaktan uzaklığa göre).
                     float delay = special ? SD(cp.X, cp.Y) : ((cp.X + cp.Y) % 3) * 10f;
+                    // Ortak patlama: dokunuşta önce dokunulan taş, sonra uzaklık halkalarıyla (12–25 ms; büyük grupta sıkışır).
+                    if (blast && !toBucket)
+                    {
+                        if (!special) delay = bplan.Delay[ci];
+                        var bc = cp;
+                        int bci = ci;
+                        float due = _clock + (charged ? launch : start) + delay;
+                        bool hasStar = cp.StarCollected;
+                        At((charged ? launch : start) + delay, () =>
+                        {
+                            var stack = StackAt(bc.X, bc.Y);
+                            if (stack.Layers.Count == 0) { Debug.LogError($"[KatKat] Görünüm mantıktan ayrıştı: ({bc.X},{bc.Y}) boş"); return; }
+                            var args = new StoneBlast.Args
+                            {
+                                BurstAt = burstAt, Tapped = bci == bplan.Origin && w.Kind == WaveKind.Tap && w.Index == 0 && !special,
+                                Special = special, Tier = bplan.Tier, Nudge = bplan.Nudge[bci], LateMs = Mathf.Max(0f, _clock - due),
+                            };
+                            if (bplan.Flights.TryGetValue(bci, out var fp)) { args.HasFlight = true; args.Flight = fp; }
+                            Blast.Play(stack, args);
+                        });
+                        spread = Mathf.Max(spread, delay);
+                        if (cp.Water > 0)
+                        {
+                            var wc = cp;
+                            At(start, () => LaunchWater(wc.X, wc.Y, wc.Water));
+                        }
+                        if (hasStar)
+                            At(start + delay + burstAt, () => LaunchStar(StackAt(bc.X, bc.Y), starTarget != null ? starTarget() : transform.position + Vector3.up * 5f));
+                        continue;
+                    }
                     float bagFly = 0f;
                     if (bagRank.TryGetValue(ci, out var br))
                     {
@@ -885,8 +945,8 @@ namespace KatKat.View
                 // artarak … hedefe giderken kazanç, kasa doluyormuş ses efektide verelim. Taşın sayısına göre ses tekrarlasın …
                 // Senkronize bir efekt olsun"): yükseliş darbeleri ve varış tıkları aynı zaman çizelgesinden.
                 // 2026-11-24 torba: torbaya giden taşların sesi varışlarında (BucketArrived); burada yalnız diğer taşlar.
-                int flowCells = w.Cells.Count - bagRank.Count;
-                if (w.Cells.Count > 0)
+                int flowCells = blast ? 0 : w.Cells.Count - bagRank.Count;
+                if (w.Cells.Count > 0 && !blast)
                 {
                     int level = Mathf.Clamp((stones - 1) + flowWave, 0, 2);
                     int pulses = Mathf.Clamp(1 + w.Cells.Count / 3, 1, 5);
@@ -914,10 +974,13 @@ namespace KatKat.View
                     var hit = h;
                     At(start + (special ? SD(hit.X, hit.Y) : 0f) + ClipHitAt, () => HitIce(StackAt(hit.X, hit.Y), hit.RemainingAfter));
                 }
-                foreach (var g in w.GravelCleared)
+                bool shovelTour = special && w.Fired == SpecialKind.Shovel;
+                for (int gi = 0; gi < w.GravelCleared.Count; gi++)
                 {
-                    var gc = g;
-                    At(start + (special ? SD(gc.X, gc.Y) : 0f) + 60f, () => ClearGravel(StackAt(gc.X, gc.Y), gc.X - w.FiredAt.X, gc.Y - w.FiredAt.Y));
+                    var gc = w.GravelCleared[gi];
+                    // 2026-11-26: Kürek çakılları en yakından başlayarak tek tek gezer; her çakıl kürek vardığında kalkar.
+                    float at = shovelTour ? start + (gi + 1) * ShovelHopMs : start + (special ? SD(gc.X, gc.Y) : 0f) + 60f;
+                    At(at, () => ClearGravel(StackAt(gc.X, gc.Y), gc.X - w.FiredAt.X, gc.Y - w.FiredAt.Y));
                 }
                 foreach (var e in w.EnvelopeOpens)
                 {
@@ -982,11 +1045,23 @@ namespace KatKat.View
                 }
                 // 2026-11-19: taş hedefe varınca; akışta son taş varınca (kırılan taş yoksa).
                 float waveArrive = flowCells > 0 || streamArrive < 0f ? spread + PeelSequence.ArriveAt : 0f;
+                // Ortak patlama: sayaç her kopyanın varışında bir artar; dalganın son kopyası vardıktan sonra mantıksal değere oturur
+                // (kopya yoksa patlamadan hemen sonra).
+                if (blast) waveArrive = bplan.LastArrive >= 0f ? bplan.LastArrive + 30f : spread + burstAt + 60f;
                 if (streamArrive >= 0f) waveArrive = Mathf.Max(waveArrive, streamArrive + 20f);
                 At(start + waveArrive, () => onWaveArrived?.Invoke(w));
                 // 2026-11-19: uçuş yavaşladı; HoldUntilArrive kapalıysa hamle yığın işi bitince biter (girdi kilitlenmez),
                 // taşlar/yıldızlar uçmaya ve HUD sayaçları varışta (onWaveArrived) güncellenmeye devam eder.
                 // Akışta son taş geç kalkar: hamle (ve sonraki dalga) onun yığını bırakmasını bekler.
+                if (blast)
+                {
+                    // Tahta işi patlamayla biter (~250–400 ms); uçuşlar bağımsız katmanda sürer.
+                    float done = spread + burstAt + bcfg.BurstMs + 20f;
+                    if (bagRank.Count > 0) done = Mathf.Max(done, streamSpread + (HoldUntilArrive ? PeelSequence.Duration : PeelSequence.StackDoneAt) + 30f);
+                    if (HoldUntilArrive) done = Mathf.Max(done, waveArrive + 20f);
+                    last = Mathf.Max(last, start + done);
+                }
+                else
                 last = Mathf.Max(last, start + Mathf.Max(spread, streamSpread) + (HoldUntilArrive ? PeelSequence.Duration : PeelSequence.StackDoneAt) + 30f);
                 // Özel taş dalgasında sıradaki dalga süpürme bitince; dönüşüm dalgası (hücresiz) kısa.
                 float step = special ? (w.Cells.Count == 0 ? 120f + 90f * w.Triggered.Count : Mathf.Max(spread, streamSpread) + PeelSequence.ReadableAt) : Mathf.Max(interval, streamSpread + PeelSequence.ReadableAt);
@@ -1171,12 +1246,165 @@ namespace KatKat.View
             else if (createdHere) { amp = 0.02f; dur = 220f; }
         }
 
-        private static float SpecialDelay(PeelWave w, int x, int y)
+        private float SpecialDelay(PeelWave w, int x, int y)
         {
             float dx = x - w.FiredAt.X, dy = y - w.FiredAt.Y;
+            var cfg = BoosterFxConfig.Current;
+            // 2026-11-26 roket tarifi: taş roket kendisine vardığında patlar (kırılma anı PeelSequence.BreakAt; ortak patlamada
+            // BlastSettings.SpecialBurstAtMs).
+            float brk = BlastOn ? cfg.Blast.SpecialBurstAtMs : PeelSequence.BreakAt;
+            if (NewRocket(w))
+            {
+                float d = w.Fired.IsRowRocket() ? Mathf.Abs(dx) : Mathf.Abs(dy);
+                return Mathf.Max(0f, cfg.RocketArriveMs(d) - brk);
+            }
+            if (NewRainbow(w))
+            {
+                RainbowRanks(w);
+                int rank = _rbRank.TryGetValue(y * 4096 + x, out var rk) ? rk : 0;
+                return Mathf.Max(0f, cfg.RainbowPopMs(rank, Mathf.Max(1, _rbRank.Count)) - brk);
+            }
             bool rocket = w.Fired.IsRocket() && (w.ComboWith == SpecialKind.None || w.ComboWith.IsRocket());
             if (rocket) return SpecialLead + (Mathf.Abs(dx) + Mathf.Abs(dy)) * RocketCellMs;
             return SpecialLead + 40f + Mathf.Sqrt(dx * dx + dy * dy) * RainbowCellMs;
+        }
+
+        // ---- 2026-11-26 ortak taş patlaması (StoneBlast) ---------------------------------------------------------------
+
+        private StoneBlast _blast;
+        public StoneBlast Blast
+        {
+            get
+            {
+                if (_blast == null) { _blast = StoneBlast.Attach(this); _blast.Arrived = g => GoalCopyArrived != null && GoalCopyArrived(g); }
+                return _blast;
+            }
+        }
+        /// <summary>Ortak patlama açık mı (oyun denetleyicisi açar; canlı maç eski akışta kalır).</summary>
+        public bool BlastEnabled { get; set; }
+        public bool BlastOn => BlastEnabled && BoosterFxConfig.Current.Blast.Enabled;
+        /// <summary>Dalganın hedef kotası: (görev indeksi, renk, bu dalgada uçacak kopya sayısı). null: hiç kopya uçmaz.</summary>
+        public Func<PeelWave, List<(int Goal, LayerColor Color, int Count)>> GoalQuota { get; set; }
+        /// <summary>Kopya görev simgesine vardı (görev indeksi); true dönerse görev bu varışla tamamlandı.</summary>
+        public Func<int, bool> GoalCopyArrived { get; set; }
+        /// <summary>Grup kademesine göre titreşim: 1 tık, 2 hafif, 3 orta.</summary>
+        public Action<int> BlastHaptic { get; set; }
+        /// <summary>Testler / yakalama: havadaki hedef kopyası sayısı.</summary>
+        public int BlastFlights => _blast != null ? _blast.FlightCount : 0;
+
+        private sealed class BlastPlan
+        {
+            public float[] Delay;
+            public Vector3[] Nudge;
+            public int Origin, Tier;
+            public readonly Dictionary<int, StoneBlast.FlightPlan> Flights = new Dictionary<int, StoneBlast.FlightPlan>();
+            public float LastArrive = -1f;
+        }
+
+        /// <summary>
+        /// Dalganın patlama planı: hücre gecikmeleri (dokunuş: dokunulan hücreden uzaklık halkaları; özel taş: roket/zincir varışı),
+        /// itme yönleri, grup kademesi ve hedef kopyaları (görevin bu dalgadaki ilerlemesi kadar; fazla taş yalnız patlar). Kopyaların
+        /// kalkış sırası patlama sırasıyla, aralarında 15–35 ms (büyük grupta sıkışır); uçuş 250–450 ms uzaklığa göre. Varış anları
+        /// burada hesaplanır: HUD sayacı onlarla aynı zaman çizgisinde oturur.
+        /// </summary>
+        private BlastPlan PlanBlast(MoveResult r, PeelWave w, bool special, float start, Func<LayerColor, Vector3> goalTarget)
+        {
+            var c = BoosterFxConfig.Current.Blast;
+            int n = w.Cells.Count;
+            var p = new BlastPlan { Delay = new float[n], Nudge = new Vector3[n], Tier = BoosterFxConfig.Tier(n, c.Tiers) };
+            if (n == 0) return p;
+            // Köken: dokunulan hücre (yoksa ilk hücre).
+            int ox = w.Cells[0].X, oy = w.Cells[0].Y;
+            p.Origin = 0;
+            if (!special && w.Index == 0 && (r.Command.Type == CommandType.Tap || r.Command.Type == CommandType.Swap))
+            {
+                var tapped = r.Command.Type == CommandType.Swap ? r.SwapTo : new Coord(r.Command.X, r.Command.Y);
+                for (int i = 0; i < n; i++)
+                {
+                    if ((w.Cells[i].X == tapped.X && w.Cells[i].Y == tapped.Y) || (r.Command.Type == CommandType.Swap && w.Cells[i].X == r.SwapFrom.X && w.Cells[i].Y == r.SwapFrom.Y))
+                    { p.Origin = i; ox = w.Cells[i].X; oy = w.Cells[i].Y; break; }
+                }
+            }
+            if (special) { ox = w.FiredAt.X; oy = w.FiredAt.Y; }
+            int maxD = 0;
+            for (int i = 0; i < n; i++) maxD = Mathf.Max(maxD, Mathf.Abs(w.Cells[i].X - ox) + Mathf.Abs(w.Cells[i].Y - oy));
+            float step = maxD > 0 ? Mathf.Clamp(c.MaxWaveMs / maxD, c.RingStepMinMs, c.RingStepMs) : 0f;
+            var right = transform.TransformDirection(Vector3.right).normalized;
+            var down = transform.TransformDirection(Vector3.down).normalized; // y dizini aşağı artar
+            bool rocket = special && NewRocket(w);
+            for (int i = 0; i < n; i++)
+            {
+                var cp = w.Cells[i];
+                int dx = cp.X - ox, dy = cp.Y - oy;
+                p.Delay[i] = special ? SpecialDelay(w, cp.X, cp.Y) : (Mathf.Abs(dx) + Mathf.Abs(dy)) * step;
+                Vector3 dir = right * dx + down * dy;
+                if (rocket)
+                {
+                    // Roket taşı: hareket yönünde (satırda sağa/sola, sütunda yukarı/aşağı).
+                    dir = w.Fired.IsRowRocket() ? right * Mathf.Sign(dx == 0 ? 1 : dx) : down * Mathf.Sign(dy == 0 ? 1 : dy);
+                }
+                p.Nudge[i] = dir.sqrMagnitude > 0f ? dir.normalized : Vector3.zero;
+            }
+            // Hedef kopyaları: görevin bu dalgadaki ilerlemesi kadar, patlama sırasıyla.
+            var quota = GoalQuota?.Invoke(w);
+            if (quota == null || quota.Count == 0) return p;
+            var order = new List<int>(n);
+            for (int i = 0; i < n; i++) order.Add(i);
+            order.Sort((a, b) => p.Delay[a] != p.Delay[b] ? p.Delay[a].CompareTo(p.Delay[b]) : a.CompareTo(b));
+            var left = new List<(int Goal, LayerColor Color, int Count)>(quota);
+            int copies = 0;
+            foreach (var q in left) copies += q.Count;
+            float stagger = Mathf.Clamp(c.StaggerTotalMs / Mathf.Max(1, copies), c.StaggerMinMs, c.StaggerMaxMs);
+            float burstAt = special ? c.SpecialBurstAtMs : c.BurstAtMs;
+            float prevLaunch = -1e6f;
+            float far = Mathf.Max(1f, c.FlightFarCells) * WorldPitch;
+            foreach (int i in order)
+            {
+                var cp = w.Cells[i];
+                int qi = left.FindIndex(q => q.Color == cp.Removed && q.Count > 0);
+                if (qi < 0) continue;
+                var q0 = left[qi];
+                left[qi] = (q0.Goal, q0.Color, q0.Count - 1);
+                float burst = p.Delay[i] + burstAt;
+                float launch = Mathf.Max(burst + c.PopMs, prevLaunch + stagger);
+                prevLaunch = launch;
+                var col = cp.Removed;
+                var target = goalTarget(col);
+                var from = transform.TransformPoint(CellCenter(cp.X, cp.Y));
+                float dist = Vector2.Distance(new Vector2(from.x, from.y), new Vector2(target.x, target.y));
+                float fly = Mathf.Lerp(c.FlightMinMs, c.FlightMaxMs, Mathf.Clamp01(dist / far));
+                p.Flights[i] = new StoneBlast.FlightPlan
+                {
+                    Goal = q0.Goal, Target = target, TargetFn = () => goalTarget(col), HoldMs = launch - burst, FlyMs = fly, Seed = cp.X * 31 + cp.Y * 17 + w.Index * 7 + 1, Visible = true,
+                };
+                p.LastArrive = Mathf.Max(p.LastArrive, launch + fly);
+            }
+            return p;
+        }
+
+        /// <summary>Yeni roket sunumu: tek, çift ya da birleşen roket (eski çapraz ikili ve gökkuşağı birleşimleri hariç).</summary>
+        private static bool NewRocket(PeelWave w) => w.Fired.IsRocket() && w.ComboWith == SpecialKind.None;
+        /// <summary>Yeni Altın Rulo sunumu: tek Altın Rulo (birleşimler eski sunumda).</summary>
+        private static bool NewRainbow(PeelWave w) => w.Fired == SpecialKind.Rainbow && w.ComboWith == SpecialKind.None;
+
+        private PeelWave _rbWave;
+        private readonly Dictionary<int, int> _rbRank = new Dictionary<int, int>();
+
+        /// <summary>Altın Rulo hedeflerinin patlama sırası: kaynağa yakından uzağa.</summary>
+        private void RainbowRanks(PeelWave w)
+        {
+            if (_rbWave == w) return;
+            _rbWave = w;
+            _rbRank.Clear();
+            var list = new List<Coord>();
+            foreach (var c in w.Cells) list.Add(new Coord(c.X, c.Y));
+            list.Sort((a, b) =>
+            {
+                float da = (a.X - w.FiredAt.X) * (a.X - w.FiredAt.X) + (a.Y - w.FiredAt.Y) * (a.Y - w.FiredAt.Y);
+                float db = (b.X - w.FiredAt.X) * (b.X - w.FiredAt.X) + (b.Y - w.FiredAt.Y) * (b.Y - w.FiredAt.Y);
+                return da != db ? da.CompareTo(db) : (a.Y * 4096 + a.X).CompareTo(b.Y * 4096 + b.X);
+            });
+            for (int i = 0; i < list.Count; i++) _rbRank[list[i].Y * 4096 + list[i].X] = i;
         }
 
         /// <summary>Torbaya gidecek hücrelerin sırası (torbaya uzaklığa göre) ve uzaklığı (hücre).</summary>
@@ -1312,7 +1540,7 @@ namespace KatKat.View
             go.transform.position = from;
             go.transform.rotation = Quaternion.Euler(0f, 0f, SpecialArt.Angle(r.SpecialCreated));
             go.transform.localScale = Vector3.one * (_pitch * 0.9f / Mathf.Max(sr.sprite.bounds.size.x, sr.sprite.bounds.size.y));
-            if (r.SpecialToTray && TrayTarget != null)
+            if (r.SpecialToTray && TrayTarget != null) // 2026-11-26: özel taş tahtada kalır; tepsi uçuşu yalnız eski kayıtlar için
                 _fx.Add(new Fx { Kind = FxKind.Fly, T = go.transform, R = sr, Owned = true, From = from, To = TrayTarget(), BaseScale = go.transform.localScale, Dur = SpecialFlyMs });
             else
                 _fx.Add(new Fx { Kind = FxKind.Burst, T = go.transform, R = sr, Owned = true, BaseScale = go.transform.localScale, Dur = 360f });
@@ -1325,8 +1553,10 @@ namespace KatKat.View
             // v11 (kullanıcı, 2026-11-08): yatay/dikey simge ateşlenince ortadan ikiye bölünür ve yarılar zıt yönlere
             // gider; bu yüzden roket kaynaklarında büyüyüp sönen hayalet yok (simgenin kendisi ayrılır).
             bool split = SpecialArt.HasV11 && w.Fired.IsRocket() && (w.ComboWith == SpecialKind.None || w.ComboWith.IsRocket());
-            BurstToken(src, !split);
+            BurstToken(src, !split && !NewRainbow(w) && !NewRocket(w));
             if (w.ComboWith != SpecialKind.None) BurstToken(StackAt(w.ComboAt.X, w.ComboAt.Y), !split);
+            if (w.MergedFrom.HasValue) BurstToken(StackAt(w.MergedFrom.Value.X, w.MergedFrom.Value.Y), !split); // 2026-11-26: iki roket birleşti
+            DefuseFx(w);
             bool aRain = w.Fired == SpecialKind.Rainbow, bRain = w.ComboWith == SpecialKind.Rainbow;
             bool combo = w.ComboWith != SpecialKind.None;
 
@@ -1357,6 +1587,24 @@ namespace KatKat.View
             if (w.Fired == SpecialKind.Shovel)
             {
                 ShovelScoop(src);
+                var pts = new List<Vector3>();
+                foreach (var g in w.GravelCleared) { var st = StackAt(g.X, g.Y); if (st != null) pts.Add(st.transform.position + st.TopFaceLocal); }
+                Booster.ShovelTour(SpecialArt.For(SpecialKind.Shovel), src.transform.position + src.TopFaceLocal, pts, ShovelHopMs);
+                return;
+            }
+            if (NewRainbow(w))
+            {
+                RainbowRanks(w);
+                var targets = new List<(Vector3, Color, StackView)>();
+                var order = new List<CellPeel>(w.Cells);
+                order.Sort((a, b) => (_rbRank.TryGetValue(a.Y * 4096 + a.X, out var ra) ? ra : 0).CompareTo(_rbRank.TryGetValue(b.Y * 4096 + b.X, out var rb) ? rb : 0));
+                foreach (var c in order)
+                {
+                    var st = StackAt(c.X, c.Y);
+                    if (st == null) continue;
+                    targets.Add((st.transform.position + st.TopFaceLocal, (Color)LayerPalette.FrontColor(c.Removed), st));
+                }
+                Booster.Rainbow(src.transform.position + src.TopFaceLocal, SpecialArt.For(SpecialKind.Rainbow), targets);
                 return;
             }
             if (aRain || bRain)
@@ -1392,8 +1640,9 @@ namespace KatKat.View
             }
             Flash(src, new Color(1f, 0.86f, 0.4f, 0.95f), 2.6f);
             // Roket(lar): satır roketi sağa-sola, sütun roketi yukarı-aşağı; ikili roket hepsi.
-            bool row = w.Fired == SpecialKind.RocketRow || combo;
-            bool col = w.Fired == SpecialKind.RocketColumn || combo;
+            if (NewRocket(w)) { RocketBlast(w, src); return; }
+            bool row = w.Fired == SpecialKind.RocketRow || w.Fired == SpecialKind.RocketRow2 || combo;
+            bool col = w.Fired == SpecialKind.RocketColumn || w.Fired == SpecialKind.RocketColumn2 || combo;
             if (row)
             {
                 Travel(src, w.FiredAt.X, w.FiredAt.Y, -1, 0);
@@ -1404,7 +1653,97 @@ namespace KatKat.View
                 Travel(src, w.FiredAt.X, w.FiredAt.Y, 0, -1);
                 Travel(src, w.FiredAt.X, w.FiredAt.Y, 0, 1);
             }
+            // 2026-11-26 çift roket: ikinci satır (altındaki; en altta üstündeki) ya da sütun (sağındaki; en sağda solundaki).
+            if (w.Fired == SpecialKind.RocketRow2)
+            {
+                int y2 = w.FiredAt.Y + 1 < _height ? w.FiredAt.Y + 1 : w.FiredAt.Y - 1;
+                var s2 = StackAt(w.FiredAt.X, y2);
+                Travel(s2, w.FiredAt.X, y2, -1, 0);
+                Travel(s2, w.FiredAt.X, y2, 1, 0);
+            }
+            else if (w.Fired == SpecialKind.RocketColumn2)
+            {
+                int x2 = w.FiredAt.X + 1 < _width ? w.FiredAt.X + 1 : w.FiredAt.X - 1;
+                var s2 = StackAt(x2, w.FiredAt.Y);
+                Travel(s2, x2, w.FiredAt.Y, 0, -1);
+                Travel(s2, x2, w.FiredAt.Y, 0, 1);
+            }
             // Sarsıntı taşların patladığı anda (PopShake, 2026-11-21).
+        }
+
+        /// <summary>
+        /// 2026-11-26 (kullanıcı: "roketler veya altın rulolar. Tuzaklı bombaları imha edecekler"): imha edilen bombada fitil söner,
+        /// hücre altın ışıkla parlar, kıvılcım saçılır; bomba simgesi Sync ile kalkar.
+        /// </summary>
+        private void DefuseFx(PeelWave w)
+        {
+            foreach (var c in w.Defused)
+            {
+                var s = StackAt(c.X, c.Y);
+                if (s == null) continue;
+                float delay = SpecialDelay(w, c.X, c.Y);
+                At(delay, () =>
+                {
+                    Flash(s, new Color(1f, 0.92f, 0.55f, 1f), 2.2f);
+                    ShakeCells(new[] { c });
+                });
+            }
+        }
+
+        /// <summary>
+        /// 2026-11-26 roket tarifi: tek/çift roket şeritleri, patlayan hücreler (roket yolu uzaklığı), komşu şerit yığınları.
+        /// Satır roketi sağa-sola (eksen dünya sağı), sütun roketi yukarı-aşağı (eksen dünya yukarısı; y dizini aşağı artar).
+        /// </summary>
+        private void RocketBlast(PeelWave w, StackView src)
+        {
+            bool rowK = w.Fired.IsRowRocket();
+            int x = w.FiredAt.X, y = w.FiredAt.Y;
+            var axis = transform.TransformDirection(rowK ? Vector3.right : Vector3.up).normalized;
+            var laneIdx = new List<int> { rowK ? y : x };
+            if (w.Fired.IsDoubleRocket())
+            {
+                if (rowK) laneIdx.Add(y + 1 < _height ? y + 1 : y - 1);
+                else laneIdx.Add(x + 1 < _width ? x + 1 : x - 1);
+            }
+            var lanes = new List<(Vector3, float, float)>();
+            foreach (var li in laneIdx)
+            {
+                int lx = rowK ? x : li, ly = rowK ? li : y;
+                var start = transform.TransformPoint(CellCenter(lx, ly));
+                var st = StackAt(lx, ly);
+                if (st != null) start = st.transform.position + st.TopFaceLocal;
+                float back = rowK ? lx : _height - 1 - ly, fwd = rowK ? _width - 1 - lx : ly;
+                lanes.Add((start, back, fwd));
+                Booster.LaneGlow(start, axis, back, fwd);
+            }
+            var hits = new List<(Vector3, Color, float, int)>();
+            foreach (var c in w.Cells)
+            {
+                var st = StackAt(c.X, c.Y);
+                if (st == null) continue;
+                float d = rowK ? Mathf.Abs(c.X - x) : Mathf.Abs(c.Y - y);
+                int sign = rowK ? (c.X >= x ? 1 : -1) : (c.Y <= y ? 1 : -1);
+                hits.Add((st.transform.position + st.TopFaceLocal, (Color)LayerPalette.FrontColor(c.Removed), d, sign));
+            }
+            var nbs = new List<(Transform, float)>();
+            foreach (var li in laneIdx)
+                for (int k = -1; k <= 1; k += 2)
+                {
+                    int n = li + k;
+                    if (laneIdx.Contains(n)) continue;
+                    int len = rowK ? _width : _height;
+                    for (int j = 0; j < len; j++)
+                    {
+                        int cx = rowK ? j : n, cy = rowK ? n : j;
+                        if (cx < 0 || cy < 0 || cx >= _width || cy >= _height) continue;
+                        var st = StackAt(cx, cy);
+                        if (st == null || !st.gameObject.activeSelf || st.Layers.Count == 0) continue;
+                        nbs.Add((st.transform, rowK ? Mathf.Abs(cx - x) : Mathf.Abs(cy - y)));
+                    }
+                }
+            var single = w.Fired.Single();
+            Booster.Rocket(SpecialArt.For(single), SpecialArt.Angle(single), src.transform.position + src.TopFaceLocal, axis, lanes, hits, nbs,
+                SpecialArt.HasV11 ? (s => SpecialArt.Half(single, s)) : (Func<int, Sprite>)null);
         }
 
         /// <summary>Simgenin hayaleti büyüyüp söner; gerçek simge hemen kalkar.</summary>
@@ -1664,8 +2003,18 @@ namespace KatKat.View
         private bool _shaking;
 
         /// <summary>Tahtanın kısa sarsıntısı (dünya birimi; sönümlü). Büyük anlar için.</summary>
+        private Vector2 _shakeAxis = new Vector2(1f, 0.6f);
+
+        /// <summary>Yönlü sarsıntı (roket: satırda yatay, sütunda dikey ağırlıklı).</summary>
+        public void ShakeBoard(float amplitude, float ms, Vector2 axis)
+        {
+            ShakeBoard(amplitude, ms);
+            _shakeAxis = axis;
+        }
+
         public void ShakeBoard(float amplitude, float ms)
         {
+            _shakeAxis = new Vector2(1f, 0.6f);
             if (KatKat.UI.Motion.Reduced) return; // azaltılmış hareket: sarsıntı yok
             if (!_shaking) _shakeBase = transform.localPosition;
             _shaking = true;
@@ -1861,7 +2210,7 @@ namespace KatKat.View
                 return;
             }
             float a = _shakeAmp * (1f - x);
-            transform.localPosition = _shakeBase + new Vector3(Mathf.Sin(_shakeTime * 0.09f) * a, Mathf.Cos(_shakeTime * 0.11f) * a * 0.6f, 0f);
+            transform.localPosition = _shakeBase + new Vector3(Mathf.Sin(_shakeTime * 0.09f) * a * _shakeAxis.x, Mathf.Cos(_shakeTime * 0.11f) * a * _shakeAxis.y, 0f);
         }
 
         // ---- Ataş ve yıldız efektleri ---------------------------------------------------------------
@@ -2295,6 +2644,8 @@ namespace KatKat.View
             foreach (var s in _shakes) if (s.Stack) s.Stack.transform.localRotation = Quaternion.identity;
             _shakes.Clear();
             while (_fx.Count > 0) EndFx(_fx.Count - 1);
+            if (_booster != null) _booster.Cancel();
+            if (_blast != null) _blast.Cancel(); // havadaki hedef kopyaları; sayaçları çağıran mantıktan gösterir
             foreach (var sc in _swapChips) if (sc.Sr != null) Destroy(sc.Sr.gameObject);
             _swapChips.Clear();
             ResetFall();
@@ -2325,6 +2676,8 @@ namespace KatKat.View
             TickVeil(ms);
             ms *= KatKat.UI.Motion.Pace;
             if (_fx.Count > 0) TickFx(ms);
+            if (_booster != null) _booster.Tick(ms);
+            if (_blast != null) _blast.Tick(ms); // ortak patlama ve hedef uçuşları (zaman çizgisinden önce: varış anları aynı karede)
             if (_swapChips.Count > 0) TickSwapChips(ms);
             TickBoardShake(ms);
             if (_timeline.Count > 0)

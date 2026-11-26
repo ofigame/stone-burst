@@ -1,21 +1,21 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 875 + tür reverse; şekil çatı; çözüm 7 + 3 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; YEDEK: kısa;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 875 + tür reverse; şekil çatı; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d024_t8
 title: Günlük 24
-moves: 7
+moves: 8
 roll: on
 specials: on
 paint: 2
 type: reverse
 rules: exact
-goals: yellow 31, purple 18, coral 32
+goals: yellow 28, purple 18, coral 31
 grid:
 #     #     #     cy    cy    #     #     #
 #     bp    bb    cb    cb    pb    pp    #
 cp    cp    cy    ny    yy    pb    pp    yy
 nb    nb    cb    nc    by    bb    nc    yy
 cb    cb    pb    pc    by    bc    cc    pc
-cc    cy    by    py    pn    cb    cb    py
-cc    bb    bb    yn    yy    cy    by    by
-bc    bc    cc    by    yyLp5 cy    yy    yy
+cc    cy    by    py    pn    cb    cb    pn
+cc    bb    bb    yn    yy    cy    bnLy6 by
+bc    bc    cc    bp    yy    cy    yy    yy
 yp    yp    cc    bc    np    cp    yp    np
-solution: 7,5 ; roll 4 ; use 0,1,1 ; 0,4 ; use 0,3,0 ; 1,1 ; use 0,3,0 ; 5,1 ; paint 3,2,y ; roll 2
+solution: 3,8 ; roll 8 ; 4,6 ; 3,8 ; 0,3 ; 0,4 ; swap 0,3,1 ; 6,4

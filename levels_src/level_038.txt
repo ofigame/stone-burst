@@ -1,6 +1,6 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil T (ayna); çözüm 4 + 2 tepsi / sınır 5; rastgele 0,010; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil T (ayna); çözüm 5 + 0 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_038
-moves: 5
+moves: 6
 roll: off
 specials: on
 refill: 24 2-2
@@ -16,4 +16,4 @@ cb    cy    bc    bp    cck1  cy    cy
 #     #     bc    by    yb    #     #
 #     #     cc    pb    yc    #     #
 #     #     cc    pc    yc    #     #
-solution: 6,0 ; 2,0 ; 4,1 ; use 1,6,0 ; 4,1 ; use 2,6,0
+solution: 5,1 ; 5,3 ; 4,1 ; swap 5,3,2 ; 4,0

@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil U (ayna); çözüm 7 + 6 tepsi / sınır 7; rastgele 0,005; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil dalga; çözüm 5 + 0 tepsi / sınır 5; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_218
-moves: 7
+moves: 5
 roll: off
 specials: on
-refill: 33 2-2
+refill: 32 2-2
 type: reverse
 rules: exact
-goals: purple 33, star 3, envelope 3
+goals: yellow 24, star 3, envelope 3
 grid:
-nb    nb    yy    #     #     pnEy  pn    yc
-pb    nb    ny    #     #     pn    pn    yp
-pp    pp    py    #     #     yp    yp    yp
-pn    ny    cy    pp    pc    ncEn  np    ny
-pn    nn    cn    cn    pb    pb    np    nc
-yb    yb    yn    cb    pb    nc    bc    bc
-bc    bn    pc    pb    yn    ny    by*   by
-pc    nn*   nb    nnEc  bn*   yy    yy    yy
-nc    nc    nn    cn    cn    pb    pb    cc
-solution: 5,6 ; 4,4 ; use 1,5,0 ; use 0,0,7 ; 7,2 ; use 0,0,0 ; 1,6 ; use 0,7,0 ; 0,4 ; 5,3 ; use 0,0,0 ; 6,5 ; use 0,6,0
+#     cy    #     yb    #     ncEy  #     yn
+yy    by    yy    bn    cn    nnEp  cn    cp
+yn    nn    bp*   by    bn    np    nb    cn
+yb*   bp    by    by    cc    np    ny    cy
+pbEn  pb    pc    nb    cc    cc    ny    cy
+by    ny    nn*   nb    cb    bc    bc    bc
+by    nb    bn    pb    pc    py    ny    ny
+nb    nc    bc    bc    bc    ny    nb    nb
+bb    #     cc    #     cc    #     cy    #
+solution: 7,5 ; 3,4 ; 7,3 ; 3,4 ; swap 7,4,1

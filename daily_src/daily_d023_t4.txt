@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 242 + tür protect; şekil artı; çözüm 9 + 2 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 242 + tür protect; şekil artı; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d023_t4
 title: Günlük 23
-moves: 9
+moves: 8
 roll: on
 specials: on
 type: protect
 rules: protect, exact
-goals: coral 29, yellow 31, envelope 3
+goals: coral 26, yellow 35, envelope 3
 grid:
-#     #     yybEc bpb   bbbP  nyb   #     #
-#     #     yybEb npb   nbn   nyn   #     #
-pcn   bcn   yyb   nyyLn3 nby   nby   ccc   ncc
-pyc   pyn   ycn   ccn   ccn   cpn   ccb   ppbP
+#     #     yyb   bpbP  bbb   nyb   #     #
+#     #     yyb   npb   nbn   nyn   #     #
+pcn   bcp   yyb   nyy   nby   nby   cccLc3 ncc
+pyc   pyn   ycn   ccn   pnn   cpn   bcb   ppb
 ncc   bcy   bcy   ccy   cyn   cyb   cyc   ppc
-npy   bcy   yyy   ccp   ccp   cyb   yybEb ypc
-npy   yyb   yyy   yyy   ycy   bbc   bbb   cbc
-#     #     npp   ycy   ycy   bbc   #     #
-#     #     npp   npp   ncc   bccP  #     #
-solution: 0,2 ; roll 2 ; 1,3 ; roll 6 ; 0,3 ; roll 5 ; 3,3 ; use 3,2,0 ; roll 4 ; use 0,2,1 ; 5,4
+npy   bnn   yyy   bpp   ccp   pyb   yybEp ypc
+npy   yyb   yyn   yyy   ycy   bbc   bbb   cbc
+#     #     nppEc yny   yyy   bbc   #     #
+#     #     nppP  nppEc ncc   bccP  #     #
+solution: 4,4 ; roll 6 ; 1,3 ; 0,3 ; swap 1,3,2 ; roll 5 ; 5,4 ; 0,3

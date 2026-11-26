@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil U (ayna); çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil çatı (ayna); çözüm 17 + 0 tepsi / sınır 17; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_797
-moves: 9
+moves: 17
 roll: off
 paint: 1
-refill: 30 2-2
+refill: 29 2-2
 type: pure
 rules: noSpecials, exact
-goals: coral 12, yellow 28, purple 24, sponge 1
+goals: blue 32, purple 30, navy 27, sponge 1
 grid:
-py    py    cy    #     #     nn    np    yn
-yy    py    yp    #     #     nc    ny    nn
-cy    ppSc  yp    #     #     pp    pp    pn
-yn    pn    cn    yy    yy    py    yp    pc
-yn    pp    pn    cy    cy    pp    pp    yn
-yp    cp    nn    ny    yp    yp    cn    yy
-yc    pc    yn    ny    nc    nn    cy    py
-yp    ny    yy    yn    pn    nn    cn    py
-np    ny    ny    yy    cy    nc    cy    py
-solution: 0,3 ; 3,3 ; 2,2 ; 0,0 ; paint 2,2,c ; 2,2 ; 5,2 ; 1,0 ; 1,0
+#     #     #     cn    cn    #     #     #
+#     nn    nn    nb    cn    cn    bbScb #
+pc    pc    np    bn    pn    pp    bn    bb
+pb    pb    bb    bb    cp    bp    cb    bn
+pc    cc    bb    cp    bn    bn    bn    pn
+bb    np    bb    pp    pc    nn    nb    pb
+bb    nc    cp    pp    pb    nc    nb    pb
+nc    nc    cp    pn    pb    nc    cn    cp
+cc    pn    pp    np    pb    cc    cp    cp
+solution: paint 7,2,n ; 6,2 ; 6,2 ; 5,3 ; 4,1 ; 4,1 ; 7,3 ; 5,5 ; 3,1 ; 2,3 ; 3,1 ; 4,6 ; 1,5 ; 4,2 ; 5,1 ; 4,1 ; 2,4

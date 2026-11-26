@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil zikzak; çözüm 6 + 5 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil kenar çentikleri; çözüm 6 + 0 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_358
 moves: 6
 roll: off
 specials: on
-refill: 28 2-2
+refill: 26 2-2
 type: reverse
 rules: exact
-goals: purple 26, coral 36, blue 23
+goals: yellow 24, blue 16, coral 20
 grid:
-pn    pn    py    ny    cp    cb    bc    #
-#     pb    pb    py    py    bb    bc    cn
-yc    cy    yn    yn    yn    bn    bc    #
-#     yn    cb    cn    cpk1  bb    bci1  yc
-cn    yn    yp    cc    yp    nn    nn    #
-#     cck2  pp    cbi1  yn    cn    cn    cc
-pci1  pc    pb    pb    cy    pc    pc    #
-#     yn    yn    nn    yy    py    pci2  cck1
-ybk1  yb    pb    pb    yy    nc    pc    #
-solution: 2,2 ; 2,0 ; use 1,5,0 ; use 0,0,4 ; 4,0 ; use 0,1,0 ; 4,0 ; use 0,3,0 ; 5,4 ; use 0,4,1 ; 0,0
+yy    yyi1  yy    yc    cy    cb    cb    bc
+py    py    py    yc    yy    nc    cci1  cc
+#     py    pc    pck1  py    ny    cc    #
+#     #     bc    nb    cn    nn    #     #
+#     #     nc    nb    cy    nyk1  #     #
+#     yp    yp    ny    yb    yy    yy    #
+#     ypi2  nb    nyk1  yb    cn    cy    #
+bn    cp    cb    nn    bn    cn    cy    yp
+bc    bci1  cbk2  bp    bp    bp    yp    yp
+solution: 4,0 ; 3,0 ; 5,8 ; 3,0 ; 6,7 ; swap 6,8,2

@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati (ayna); çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil elmas (ayna); çözüm 7 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_499
-moves: 9
+moves: 8
 roll: off
 specials: on
-refill: 30 2-3
-goals: navy 46, envelope 3, sponge 1
+refill: 22 2-3
+goals: navy 39, envelope 3, sponge 1
 grid:
-ccn   cpn   ppp   pbpEc cny   ccy   ycp   ycp
-ycy   bbc   bbp   npp   cnc   nbn   ybp   cbp
-bbc   bbc   bbb   pcy   pny   npc   cpy   cpy
-#     yby   pcn   pcn   nnySyp npb   npy   #
-#     pcy   pcn   ppn   yny   nbb   nbc   #
-#     yny   ynb   cpyEc yny   yyb   ybc   #
-bbn   bbp   ccb   ccp   nnb   ppb   bnc   pyc
-bbn   ncp   ncp   ncp   nyn   pypEc bnn   cyc
-nbn   nnp   bnc   bcp   bcb   bnp   bnc   cnc
-solution: 5,3 ; use 0,5,0 ; 1,6 ; use 0,4,0 ; 3,6 ; 2,3 ; use 0,0,0 ; 0,6 ; 0,6 ; 6,4 ; use 0,3,0 ; 1,5 ; use 2,4,0 ; use 0,1,0
+#     #     #     nnn   nnc   #     #     #
+#     #     ybc   nbc   npc   cny   #     #
+#     ppp   ybp   ybc   bnc   cby   ccy   #
+ycc   ycc   ycc   cnb   nnn   nnp   ncnEp cyc
+bnc   nbn   yby   cnb   nyb   ycy   pcn   pyb
+yncEb nnnEc pbn   cnn   nyn   cyn   pcb   pnb
+#     pby   nbp   cyb   nyy   nyp   cpp   #
+#     #     ncn   nnn   ynn   bnp   #     #
+#     #     #     nynScn nyn   #     #     #
+solution: 4,1 ; 4,4 ; 4,2 ; swap 4,2,3 ; 6,5 ; 2,4 ; swap 2,4,0

@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil dikdörtgen; çözüm 6 + 4 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil kum saati; çözüm 6 + 0 tepsi / sınır 6; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_457
 moves: 6
 roll: off
 specials: on
-refill: 32 2-2
+refill: 30 2-2
 type: order
 rules: exact
-goals: yellow 31, star 3, sponge 1
+goals: blue 20, star 3, sponge 1
 grid:
-cb    cy    nc    nc    bn    yn    yn    yb
-bb    yy    nnSn  ny    ny    cn    yb    pb
-nc*   pn    nn    ny    yc    cc    nn    nb
-yc    yc    yp    cc    cc    cyLn4 bn    bc
-cc    pp    pp    pc    ny    yy    nn    nc
-cb    bb*   pp    nc    ny    py    bn    pc
-bb    bc    yb    yb    nn    nb    pc    nc
-nb    yc    yy    yyLn3 yn*   pb    pc    np
-np    nb    yb    cc    cp    pc    pn    np
-solution: 3,1 ; 0,2 ; 4,0 ; 5,3 ; use 1,1,0 ; 0,5 ; use 1,0,7 ; use 0,3,0 ; 5,2 ; use 0,1,0
+yb    cb    cp    yp*   yc    nn    cn    cy
+yb    yn    cp    yp    yc    nb    cbLn5 cy
+yb    nn    cc    bp    bc    ny    ny    yb
+#     nc    pc    yp    pc*   pbSyc nbLn4 #
+#     bc    cc    yn    pn    pb    yb    #
+#     py    cy    yy    yn    pb    yc    #
+py*   pc    cc    cc    np    yb    yc    cc
+pp    np    yp    yc    yp    bb    cc    cb
+yp    yp    yn    yn    by    bc    cc    pb
+solution: 4,0 ; 2,0 ; 3,0 ; 6,8 ; 5,8 ; swap 5,8,0

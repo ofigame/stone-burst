@@ -7,15 +7,15 @@
   "rules": ["exact"],
   "width": 8,
   "height": 9,
-  "moveLimit": 7,
+  "moveLimit": 8,
   "rollEnabled": true,
   "startingRoll": false,
-  "stars": [990, 1320],
+  "stars": [3225, 4300],
   "paint": 2,
   "goals": [
-    { "type": "collectColor", "color": "yellow", "amount": 31 },
+    { "type": "collectColor", "color": "yellow", "amount": 28 },
     { "type": "collectColor", "color": "purple", "amount": 18 },
-    { "type": "collectColor", "color": "coral", "amount": 32 }
+    { "type": "collectColor", "color": "coral", "amount": 31 }
   ],
   "cells": [
     { "x": 3, "y": 0, "active": true, "layers": ["coral", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
@@ -57,20 +57,20 @@
     { "x": 4, "y": 5, "active": true, "layers": ["purple", "navy"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 5, "y": 5, "active": true, "layers": ["coral", "blue"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 6, "y": 5, "active": true, "layers": ["coral", "blue"], "overlay": { "kind": "none" }, "hasBottomStar": false },
-    { "x": 7, "y": 5, "active": true, "layers": ["purple", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 7, "y": 5, "active": true, "layers": ["purple", "navy"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 0, "y": 6, "active": true, "layers": ["coral", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 1, "y": 6, "active": true, "layers": ["blue", "blue"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 2, "y": 6, "active": true, "layers": ["blue", "blue"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 3, "y": 6, "active": true, "layers": ["yellow", "navy"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 4, "y": 6, "active": true, "layers": ["yellow", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 5, "y": 6, "active": true, "layers": ["coral", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
-    { "x": 6, "y": 6, "active": true, "layers": ["blue", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 6, "y": 6, "active": true, "layers": ["blue", "navy"], "overlay": { "kind": "colorLock", "color": "yellow", "remaining": 6 }, "hasBottomStar": false },
     { "x": 7, "y": 6, "active": true, "layers": ["blue", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 0, "y": 7, "active": true, "layers": ["blue", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 1, "y": 7, "active": true, "layers": ["blue", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 2, "y": 7, "active": true, "layers": ["coral", "coral"], "overlay": { "kind": "none" }, "hasBottomStar": false },
-    { "x": 3, "y": 7, "active": true, "layers": ["blue", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
-    { "x": 4, "y": 7, "active": true, "layers": ["yellow", "yellow"], "overlay": { "kind": "colorLock", "color": "purple", "remaining": 5 }, "hasBottomStar": false },
+    { "x": 3, "y": 7, "active": true, "layers": ["blue", "purple"], "overlay": { "kind": "none" }, "hasBottomStar": false },
+    { "x": 4, "y": 7, "active": true, "layers": ["yellow", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 5, "y": 7, "active": true, "layers": ["coral", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 6, "y": 7, "active": true, "layers": ["yellow", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
     { "x": 7, "y": 7, "active": true, "layers": ["yellow", "yellow"], "overlay": { "kind": "none" }, "hasBottomStar": false },
@@ -84,15 +84,13 @@
     { "x": 7, "y": 8, "active": true, "layers": ["navy", "purple"], "overlay": { "kind": "none" }, "hasBottomStar": false }
   ],
   "solution": [
-    { "type": "tap", "x": 7, "y": 5 },
-    { "type": "roll", "row": 4 },
-    { "type": "use", "slot": 0, "x": 1, "y": 1 },
+    { "type": "tap", "x": 3, "y": 8 },
+    { "type": "roll", "row": 8 },
+    { "type": "tap", "x": 4, "y": 6 },
+    { "type": "tap", "x": 3, "y": 8 },
+    { "type": "tap", "x": 0, "y": 3 },
     { "type": "tap", "x": 0, "y": 4 },
-    { "type": "use", "slot": 0, "x": 3, "y": 0 },
-    { "type": "tap", "x": 1, "y": 1 },
-    { "type": "use", "slot": 0, "x": 3, "y": 0 },
-    { "type": "tap", "x": 5, "y": 1 },
-    { "type": "paint", "x": 3, "y": 2, "color": "yellow" },
-    { "type": "roll", "row": 2 }
+    { "type": "swap", "x": 0, "y": 3, "dir": 1 },
+    { "type": "tap", "x": 6, "y": 4 }
   ]
 }

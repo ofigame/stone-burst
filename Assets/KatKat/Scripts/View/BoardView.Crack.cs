@@ -95,6 +95,7 @@ namespace KatKat.View
         /// <summary>Çatlaktan fışkıran su: yana çıkar, yerçekimiyle kıvrılıp aşağı akar (akış hızıyla kalınlaşır, uzar).</summary>
         private void LeakRibbons()
         {
+            if (_flyT >= 0f) return; // kova uçarken sızıntı şeridi oyukta kalmasın
             foreach (var c in _cracks)
             {
                 if (c.Flow < 0.03f) continue;

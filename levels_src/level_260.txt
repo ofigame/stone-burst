@@ -1,12 +1,12 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil T (ayna); çözüm 7 + 6 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,48
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil T (ayna); çözüm 9 + 0 tepsi / sınır 14; rastgele 0,000; açgözlü kaybeder; yumuşak 0,08
 id: level_260
-moves: 11
+moves: 14
 roll: off
 specials: on
 refill: 26 2-3
 type: boss
 rules: scarce
-goals: navy 16, blue 26, envelope 3
+goals: navy 13, blue 20, envelope 3
 grid:
 ypn   ypy   pny   ypy   ycp   ycp   ypp   ypn
 byc   yyc   nny   ypp   ncpk1 ccc   cpbEn ccb
@@ -16,4 +16,4 @@ pcy   pcyEc cbc   cbc   cpy   bbn   cbn   bpb
 #     #     ycc   cbb   bpy   cby   #     #
 #     #     ycc   ppcEn byy   ccb   #     #
 #     #     ypc   ppyk1 pcy   ccb   #     #
-solution: 2,4 ; use 0,6,0 ; 0,2 ; use 0,3,0 ; 0,1 ; use 0,6,1 ; 5,1 ; 4,0 ; use 0,7,0 ; 0,0 ; use 0,2,0 ; 2,1 ; use 0,1,0
+solution: 6,3 ; 6,3 ; 7,3 ; swap 7,3,2 ; 4,3 ; swap 4,3,3 ; 2,2 ; 2,4 ; swap 2,4,3

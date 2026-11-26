@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 745 + tür reverse; şekil dalga; çözüm 9 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 745 + tür reverse; şekil dalga; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d010_t7
 title: Günlük 10
 moves: 9
@@ -6,14 +6,14 @@ roll: on
 specials: on
 type: reverse
 rules: exact
-goals: navy 4, yellow 37, blue 32
+goals: navy 5, yellow 31, blue 27
 grid:
-yyn   #     ycb   #     ppy   #     pcy   #
-cyn   cpy   ccy   cpc   pcc   bcc   pcc   ppp
-pyn   ppn   cbb   ypb   yyb   bcc   bbb   bpp
-ppc   ypci1 ybb   cpyG  yyb   ybp   ybbi1 bbb
-pbc   cbc   cpb   cpyG  yppG  ypp   byyi1 byy
-pbc   pbc   bcyi2 bbpG  bbpG  ypp   ypy   byy
-cpy   cpy   ccy   ycyG  bcp   ypy   ypy   bybi1
-#     cyy   #     ycy   #     ycc   #     bnb
-solution: 0,0 ; 5,3 ; 2,2 ; use 1,0,0 ; 5,4 ; 5,4 ; 6,2 ; use 0,3,2 ; use 1,0,0 ; use 1,2,0 ; 2,0 ; 3,1 ; 0,3 ; use 1,0,4 ; use 1,3,5
+yyn   #     ycb   #     ppyG  #     pcy   #
+cyn   cpy   ccy   cpc   pccG  bcci1 pcc   ppp
+pyn   ppn   cbbi1 ypbG  yybG  bccG  bbb   ypp
+ppc   ypc   ybb   ccy   yybG  ybp   nbbi2 bbb
+pbc   cbc   cpb   cpy   ypp   ypp   byy   byy
+pbc   pbc   bcy   bbp   bbp   npp   ypy   byy
+cpy   cpyi1 ccy   ycy   bcp   ypy   ybyi1 byb
+#     cyy   #     ycy   #     ycc   #     nnb
+solution: 0,0 ; 6,4 ; 4,6 ; swap 4,6,0 ; 7,4 ; 0,3 ; 0,4 ; swap 0,3,1 ; 4,2

@@ -27,5 +27,9 @@
         SwapNoMatch,
         /// <summary>Kova kipi: kova yok ya da içinde taş yok (gönderilemez).</summary>
         BucketEmpty,
+        /// <summary>2026-11-26: Altın Rulo dokunarak değil, komşu taşa sürüklenerek kullanılır.</summary>
+        SpecialNeedsDrag,
+        /// <summary>2026-11-26: özel taş sürüklemesi geçersiz (roket yalnız rokete, Altın Rulo renkli taşa ya da özel taşa).</summary>
+        SpecialDragInvalid,
     }
 }

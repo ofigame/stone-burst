@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 395 + tür protect; şekil elmas; çözüm 10 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 395 + tür protect; şekil elmas (ayna); çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: daily_d009_t5
 title: Günlük 9
-moves: 10
+moves: 8
 roll: on
 specials: on
 type: protect
 rules: protect, exact
-goals: navy 19, blue 18, coral 23
+goals: purple 18, yellow 27, coral 24
 grid:
-#     #     #     nccP  nbc   #     #     #
-#     #     byb   ncb   pcc   bpc   #     #
-#     pbnR  pyb   pyb   pnpR  pcy   pcy   #
-ypc   ypp   nbc   nyn   nbn   pcn   pcy   pcy
-ycc   ccp   cbc   yyn   ybn   byc   cnc   pnyP
-nyc   cyp   ynn   nnc   nbc   byc   nyc   nnyP
-#     yyp   yby   cny   cby   cbp   ybp   #
-#     #     nby   nby   nby   ybp   #     #
-#     #     #     nbp   nbp   #     #     #
-solution: rot 4,2 ; 2,6 ; roll 3 ; 5,3 ; 4,5 ; 3,4 ; use 2,4,0 ; 2,1 ; use 1,1,2 ; 0,3 ; 0,4 ; use 0,2,1 ; use 0,4,0 ; 0,4
+#     #     #     yycP  yypR  #     #     #
+#     #     yyn   yyy   nby   npy   #     #
+#     pyc   ycb   pcy   bybR  npc   ypc   #
+nyb   ycy   ncy   ycc   ycp   nbp   nbb   bbbP
+nbb   nbp   cby   nbc   ybp   nnb   nnb   bnb
+npbP  npp   nyy   bby   npc   cnc   bnc   bnb
+#     npp   pbc   pcy   pnc   cpc   cnc   #
+#     #     pbp   ypy   ycp   ncy   #     #
+#     #     #     ybc   ybc   #     #     #
+solution: rot 4,0 ; 2,5 ; 3,6 ; 2,5 ; 4,1 ; 5,1 ; swap 4,1,0 ; 1,4

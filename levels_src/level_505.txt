@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U; çözüm 9 + 7 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 9 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06; döndürmeyle başlar;
 id: level_505
 moves: 11
 roll: off
 specials: on
-refill: 30 2-3
-goals: navy 39, blue 31, yellow 38
+refill: 32 2-3
+goals: blue 43, coral 31, navy 33
 grid:
-cpc   cpn   cpn   #     #     pby   pby   pyy
-nyc   cbc   cyc   #     #     cby   pyy   pyy
-nyb   nbb   nyb   #     #     nbp   cyp   cynK1:1
-cyc   cnc   bnn   cpn   ncb   ncp   cypK1:1 cyp
-cyc   cny   bnn   cpn   ccp   bby   bpp   bpp
-pnyK1:1 pny   bpn   cpn   cnc   nby   bpb   ypb
-nypR  cny   nyn   cnc   cnn   nncR  ybn   ynb
-ccc   cpc   bcb   ycc   bcb   nbb   nny   ynp
-ypp   cpc   ypc   ycc   pby   pby   pycR  nnp
-solution: rot 0,6 ; 5,0 ; use 0,0,6 ; 2,3 ; use 0,7,0 ; 2,3 ; use 0,5,0 ; 4,5 ; 5,0 ; use 0,6,0 ; use 0,1,1 ; 1,2 ; use 0,1,0 ; 1,2 ; 4,5 ; use 0,5,1
+ycp   ynp   ynb   ynb   nbb   cby   cyc   nyc
+cyp   bny   pbpR  pnn   bbn   cbn   cyc   cyb
+cyp   cyc   cyc   yby   ycp   ypy   cpc   cnb
+bcb   cyb   cyc   bbn   ycn   npy   bnb   bnb
+bcb   bcb   ybn   ybnK1:1 bby   ncy   bcn   bcn
+pcc   pnb   ypn   bpn   nbb   pnb   ynb   ncnK1:1
+pcc   cnn   bnc   nbyR  byb   yyy   yny   yybR
+bbn   byn   bnp   cnp   bpy   ypyK1:1 npc   npy
+cbb   pbb   nbc   bpc   bbc   ypc   bpc   npy
+solution: rot 3,6 ; 6,8 ; 0,3 ; 3,3 ; swap 3,3,1 ; 7,2 ; swap 7,2,2 ; 7,8 ; swap 7,8,2

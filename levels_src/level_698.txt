@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil elmas (ayna); çözüm 8 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil dikdörtgen; çözüm 7 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_698
-moves: 8
+moves: 7
 roll: off
 specials: on
-refill: 22 2-2
+refill: 32 2-2
 type: order
 rules: exact
-goals: navy 31, purple 19, blue 21
+goals: purple 28, blue 25, coral 30
 grid:
-#     #     #     nn    np    #     #     #
-#     #     nn    np    bpi1  yp    #     #
-#     np    cni2  ny    by    bb    bb    #
-by    bpi1  ny    nyi1  yc    pc    pb    yb
-by    yy    yp    pp    nyR   pn    bn    bn
-cy    by    bb    py    nn    ny    by    ncR
-#     by    py    nn    bnLb3 nnLb3 nn    #
-#     #     pci2  nci1  pc    nn    #     #
-#     #     #     nn    pc    #     #     #
-solution: rot 4,4 ; 5,2 ; 4,4 ; use 0,4,0 ; 3,2 ; 3,0 ; 3,0 ; 4,1 ; use 0,5,2 ; use 0,3,0 ; use 0,4,0 ; 3,3 ; use 0,3,0
+bp    bp    bb    pb    np    nc    yc    nc
+cpi1  cb    cpi1  pc    np    pp    yc    yy
+np    pb    pci2  nb    nni2  pp    cc    cp
+bb    pb    yc    bn    pn    pp    cb    cp
+bc    bc    bc    bc    py    yp    yy    byi1
+pp    bc    nn    nn    npi1  nn    pc    by
+pp    py    py    np    np    bn    pc    py
+yy    yy    yc    yc    cc    bn    bb    py
+cpLb5 cpLb4 cc    cc    cc    byR   bb    bcR
+solution: rot 5,8 ; 1,5 ; 1,1 ; 0,3 ; swap 1,4,1 ; 4,3 ; 0,0

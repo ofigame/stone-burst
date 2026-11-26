@@ -110,6 +110,7 @@ static partial class Program
         CommandType.UseSpecial => new StepData { Type = "use", Row = c.Row, X = c.X, Y = c.Y },
         CommandType.Roll => new StepData { Type = "roll", Row = c.Row },
         CommandType.Rotate => new StepData { Type = "rotate", X = c.X, Y = c.Y },
+        CommandType.Swap => new StepData { Type = "swap", Row = c.Row, X = c.X, Y = c.Y }, // 2026-11-26 özel taş sürüklemesi
         _ => throw new InvalidOperationException("deneme setinde beklenmeyen adım " + c.Type),
     };
 
@@ -411,6 +412,7 @@ static partial class Program
         sb.AppendLine("  \"solution\": [");
         sb.AppendLine(string.Join(",\n", d.Solution.Select(s => s.Type == "use"
             ? $"    {{ \"type\": \"use\", \"slot\": {s.Row}, \"x\": {s.X}, \"y\": {s.Y} }}"
+            : s.Type == "swap" ? $"    {{ \"type\": \"swap\", \"x\": {s.X}, \"y\": {s.Y}, \"dir\": {s.Row} }}" // 2026-11-26 özel taş sürüklemesi
             : $"    {{ \"type\": \"{s.Type}\", \"x\": {s.X}, \"y\": {s.Y} }}")));
         sb.AppendLine("  ]");
         sb.AppendLine("}");

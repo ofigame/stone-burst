@@ -55,6 +55,7 @@ namespace KatKat.View
         /// </summary>
         public static Sprite For(SpecialKind k)
         {
+            k = k.Single(); // 2026-11-26 çift roket: tek roket simgesi (tahtada ikiz çizilir)
             if (k == SpecialKind.Shovel) return GravelArt.Shovel; // 2026-11-21 çakıl
             if (HasV11)
                 return k == SpecialKind.Rainbow ? V11Color : k == SpecialKind.RocketRow ? V11Row : k == SpecialKind.RocketColumn ? V11Col : null;
@@ -62,7 +63,7 @@ namespace KatKat.View
         }
 
         /// <summary>Simgenin görüntü dönüşü: v11'de hiç (yön görselde), eski rulo roketinde sütun 90°.</summary>
-        public static float Angle(SpecialKind k) => !HasV11 && k == SpecialKind.RocketColumn ? 90f : 0f;
+        public static float Angle(SpecialKind k) => !HasV11 && k.Single() == SpecialKind.RocketColumn ? 90f : 0f;
 
         private static readonly System.Collections.Generic.Dictionary<int, Sprite> _halves = new System.Collections.Generic.Dictionary<int, Sprite>();
 

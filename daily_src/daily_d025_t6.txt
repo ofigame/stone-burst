@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 512 + tür scarce; şekil kenar çentikleri; çözüm 10 + 4 tepsi / sınır 11; rastgele 0,010; açgözlü kazanır; yumuşak 0,02; YEDEK: açgözlü;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 512 + tür scarce; şekil kum saati; çözüm 9 + 0 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
 id: daily_d025_t6
 title: Günlük 25
-moves: 11
+moves: 10
 roll: on
 specials: on
 type: scarce
 rules: scarce
-goals: navy 19, blue 20, yellow 23
+goals: coral 18, yellow 18, blue 16
 grid:
-bb    yb    #     #     #     yy    yy    yy
-bp    cp    #     #     nn    np    cb    yc
-cp    cb    nb    bp    cn    np    nb    nc
-#     #     bp    by    bn    yn    yb    nb
-bc    pp    yp    bn    bn    cn    cy    cpK1:1
-bc    yp    yn    bn    bp    by    cy    cp
-bn    yc    yn    bp    bpK1:1 by    #     #
-pc    yc    yn    yn    bcK1:1 yc    #     #
-cc    cc    yy    yy    by    yc    yp    yp
-solution: 4,1 ; 4,7 ; 6,4 ; use 0,0,0 ; 2,3 ; use 0,1,0 ; roll 2 ; 3,2 ; 1,6 ; use 0,7,0 ; roll 1 ; 5,4 ; roll 1 ; use 0,0,2
+cc    pn    bn    pn    pc    pn    by    by
+yc    yp    yc    py    nn    nn    pb    pn
+yc    yp    yb    yn    nc    nc    nb    pb
+#     pp    pp    pb    nb    yc    yb    #
+#     cy    pp    cb    nb    cb    cy    #
+#     cp    pp    nb    ny    ny    nb    #
+pp    cy    py    by    yc    ynK1:2 nb    pb
+pp    pn    cn    pn    ycK1:2 pc    pb    yb
+ppK1:2 py    ny    pn    py    py    pb    yb
+solution: 3,5 ; 2,5 ; swap 2,5,0 ; 0,1 ; roll 7 ; 4,5 ; 0,1 ; roll 0 ; 1,4

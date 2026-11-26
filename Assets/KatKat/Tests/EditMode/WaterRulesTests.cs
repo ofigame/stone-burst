@@ -123,13 +123,20 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void LabLevels_AreWaterLevels_ValidAndLoad()
+        public void LabLevels_FirstIsWater_AllHaveBoardSpecials_ValidAndLoad()
         {
+            // 2026-11-26 (kullanıcı: "Test bölümlerde 10 adet tüm özellikleri içeren ve bu son istediğimide içeren testler yap"):
+            // 10 test bölümünün hepsi geçerli ve açılışta tahtada özel taş taşır; 1. bölüm su bölümü (kova oyuğu altta).
             var dir = Path.Combine(Path.GetDirectoryName(ProductionLevelTests.LevelsDir()), "Lab");
             for (int i = 1; i <= 10; i++)
             {
                 var d = LevelParser.Parse(File.ReadAllText(Path.Combine(dir, $"lab_{i:00}.json")), "lab");
                 Assert.IsEmpty(LevelValidator.ValidateStatic(d, LevelValidator.ScopeFor(d)), d.Id);
+                var s0 = LevelLoader.ToState(d);
+                bool anySpecial = false;
+                for (int k = 0; k < s0.Board.Count; k++) anySpecial |= s0.Board[k].Active && s0.Board[k].HasSpecial;
+                Assert.IsTrue(anySpecial, d.Id + " tahtada hazır özel taş");
+                if (i > 1) continue;
                 Assert.IsTrue(d.Goals.Any(g => g.Type == "fillWater"), d.Id + " su görevi");
                 Assert.Greater(d.TimeLimit, 0, d.Id + " süreli (2026-11-25)");
                 var st = LevelLoader.ToState(d);

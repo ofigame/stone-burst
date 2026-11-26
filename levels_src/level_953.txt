@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil T; çözüm 8 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven (ayna); çözüm 10 + 0 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_953
-moves: 10
+moves: 12
 roll: off
 specials: on
-refill: 27 2-2
-goals: blue 22, yellow 21, purple 28, star 4
+refill: 28 2-2
+goals: purple 19, coral 14, blue 12, star 4
 grid:
-pn*   py    pb    nb    ny    ny    yy    yn
-pn    py    ppi1  cp    bn    cpi1  yp    yn
-pbi1  bb    cb    bn    bn    pp    pnR   yp*
-yb    bb    nb    bp*   bn    pc    nc    ny
-cy    ny    py    bn    nni2  pb    bpR   py
-cyi1  cyi1  cy    bb*   nc    bn    pn    cn
-#     #     pb    cb    cp    yp    #     #
-#     #     pn    pn    yc    yp    #     #
-#     #     yp    yp    yp    ypi2  #     #
-solution: rot 6,2 ; 4,0 ; 4,0 ; 2,0 ; 5,1 ; use 1,1,0 ; use 0,0,0 ; use 0,1,0 ; 0,2 ; 3,3 ; use 0,1,0 ; 2,8 ; use 0,5,0
+#     #     #     #     yy    cy    cci2  cc
+#     #     #     nc    yy    yc    yb    cn
+#     #     cy    yb    pn    yn    nyR   yn
+#     cp    cy    yn    yy    cy    cc*   nn
+nyi1  np    ny*   bp    py    ny    py    by*
+yy    ypi2  np    bp    pc    nc    nn    cn
+yy    ny    ny    nyi1  pbR   yp    pp    pn
+yci1  pc    pp    pni1  pn    bn    pb    py
+yb*   yc    yp    pn    pp    bpi1  bb    bb
+solution: rot 4,6 ; 3,4 ; 0,5 ; 2,5 ; swap 2,6,0 ; 4,6 ; swap 4,6,0 ; 1,6 ; 2,7 ; swap 2,8,2

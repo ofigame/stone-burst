@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 201 + tür order; şekil L; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 201 + tür order; şekil L; çözüm 7 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: daily_d028_t4
 title: Günlük 28
-moves: 10
+moves: 9
 roll: on
 specials: on
 type: order
-goals: blue 38, yellow 34, envelope 3
+goals: blue 25, yellow 17, envelope 3
 grid:
-bbpk2 pcpk2 pcn   pyc   pyc   #     #     #
-bbp   bbb   ppyk1 pyy   pyp   #     #     #
-bpn   ccb   ccyEb cyp   byp   #     #     #
-cpnEc cyp   cyp   nyp   npp   #     #     #
-bcc   ccp   cbp   nbp   npb   bpb   byyEb pyn
-bcp   ncp   npp   nyb   npb   bby   pyy   pyn
-ppn   bpn   bpp   byb   ccc   pby   yyy   yyy
-ppb   cpb   cpbLc4 cypk1 ccp   bby   bby   yyy
-cbp   cbp   cbp   cyp   ccp   cbb   bybLc4 yyy
-solution: 5,5 ; use 0,1,1 ; 4,1 ; 2,1 ; 1,2 ; use 0,1,1 ; 6,4 ; 2,5 ; use 0,3,1 ; roll 1 ; use 0,0,1 ; 4,6 ; use 0,0,0 ; use 0,0,0
+bbp   pcp   pcn   pnc   pyc   #     #     #
+bbpEp bbb   ppy   pbyEn pypEb #     #     #
+bpn   ycbk1 ccy   cybLp5 byp   #     #     #
+cpn   cyp   cypk1 nyc   npp   #     #     #
+bcc   ccp   cbp   nbp   ppb   bpb   byp   pyn
+bcp   ncp   npn   nybLp3 npb   bby   pyy   pyn
+ppn   bpn   bpp   byb   ccc   pby   ycn   yyyk2
+ppb   cpb   cpb   cyp   ycp   bbn   bby   yyyk2
+cbp   cbp   nbp   cyp   ncp   cbb   byb   yby
+solution: 3,7 ; 3,5 ; 3,5 ; 2,2 ; roll 1 ; 2,1 ; swap 2,1,1

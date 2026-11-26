@@ -71,7 +71,8 @@ namespace KatKat.Tests
                     break;
                 }
             }
-            Assert.IsTrue(found.ContainsKey(CommandType.UseSpecial), "tepsi ile başlayan çözüm adımı bulunmalı");
+            // 2026-11-26: tepsi yok; özel taş sürüklemesi (Altın Rulo / roket birleşimi) dokunuş dışı adım olarak önerilmeli.
+            Assert.IsTrue(found.ContainsKey(CommandType.Swap), "sürükleme ile başlayan çözüm adımı bulunmalı");
         }
 
         /// <summary>H02/H04: önerilen yolun bütün adımları kabul edilir, ara durum bitmez, son durum kazançtır.</summary>

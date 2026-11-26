@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 554 + tür exact; şekil U; çözüm 8 + 3 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,13
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 554 + tür exact; şekil artı; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: daily_d029_t6
 title: Günlük 29
 moves: 8
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: exact
 rules: exact
-goals: navy 29, coral 32, yellow 29
+goals: coral 18, blue 9, navy 18
 grid:
-bpK1:1 bp    nbR   #     #     nc    nc    nc
-bp    bn    nn    #     #     pc    py    bn
-pc    byR   nb    #     #     cc    bn    bn
-pnK1:1 bb    bb    cy    py    cc    yb    yb
-nn    nc    bc    cy    pc    cc    nc    ny
-nn    cn    pc    pc    pc    cy    ny    by
-yn    cn    nbR   bc    bc    cc    yc    yn
-yp    yn    nn    cy    cy    cyK1:1 yn    yn
-yp    yp    yy    yy    yy    cy    cn    cy
-solution: 0,4 ; 5,0 ; use 1,5,0 ; 7,4 ; 5,2 ; roll 8 ; use 1,6,1 ; 7,1 ; roll 3 ; rot 2,0 ; use 1,2,0
+#     #     pp    cp    cn    nyR   #     #
+#     #     pp    pp    pn    yp    #     #
+yb    yb    pc    pp    cn    yp    pyR   np
+ypK1:1 py    cy    by    cy    yp    cn    cn
+py    pyK1:1 py    bb    bb    bb    cn    cc
+yc    cp    yp    yp    yp    yb    py    cn
+yy    yy    pn    cn    cyR   yc    yy    yn
+#     #     pn    nc    nc    nn    #     #
+#     #     pcK1:1 nc    yn    yn    #     #
+solution: rot 4,6 ; 4,6 ; 4,7 ; swap 4,7,3 ; 3,3 ; 1,6 ; roll 4 ; swap 1,6,3

@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 105 + tür resource; şekil kenar çentikleri; çözüm 7 + 4 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 105 + tür resource; şekil kenar çentikleri; çözüm 7 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d006_t3
 title: Günlük 6
 moves: 7
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: resource
 rules: exact
-goals: coral 36, purple 23, blue 17
+goals: coral 19, purple 13, blue 9
 grid:
 bc    cn    cc    pc    py    py    cy    cy
-nc    nn    nc    pp    cy    cy    cc    cy
-#     #     py    py    cy    cy    #     #
-#     #     cb    cb    cb    by    #     #
+nc    nn    nc    pp    cc    cb    cc    cy
+#     #     py    py    np    cy    #     #
+#     #     cb    nb    cb    ny    #     #
 #     #     by    bb    by    bc    #     #
-cc    cc    by    ny    ny    bp    bp    bp
+cc    cc    by    nn    ny    bp    bp    yp
 pc    cp    pp    yy    yy    cn    cn    bp
 pn    cp    pp    yy    cc    pb    pn    bb
 pn    cn    pp    py    cc    cc    cn    cn
-solution: 4,0 ; use 0,0,0 ; 2,4 ; use 0,3,0 ; 2,3 ; 5,6 ; use 0,2,0 ; 2,6 ; 0,7 ; roll 7 ; use 0,0,0
+solution: 2,8 ; roll 4 ; 2,4 ; 0,5 ; 2,8 ; roll 1 ; 4,1

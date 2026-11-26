@@ -1,21 +1,21 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 741 + tür exact; şekil artı; çözüm 8 + 5 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 741 + tür exact; şekil artı; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d001_t7
 title: Günlük 1
-moves: 8
+moves: 9
 roll: on
 specials: on
 paint: 2
 type: exact
 rules: exact
-goals: coral 20, yellow 16, purple 19, star 4
+goals: coral 18, yellow 19, purple 21, star 4
 grid:
-#     #     nbb   nnb   nyp   cnp   #     #
-#     #     cbb*  pyb   pyb   pnp   #     #
-ncn   ncp   ccb   pcb   ccb   ycb   ypb   npn
-ncp   ncp   ncn   pcb   pcb   ccb   nbb   nbb*
-bcb   bcp   bpp   ypy   cpy   ccp   nyb   byy
+#     #     nbb   nnc   nyp   cnp   #     #
+#     #     cbb   pyy   pyb   pnp   #     #
+nbn   ncp   cyb   pcb   ccy   yyn   ypb   npn
+npp   ncp   ncn   pcb*  pcb   cpb*  nby   nbb
+bcb   bbp   bpp   ypy   cpy   ccp   nyb   byy
 ncb   nnb   yyb   ypy   ypy   cpp   yby   bby
-cny   cny   bny   bnb   cnc   cbn   cbn   bbb*
+cpy   cny*  bny   bnb   cnc   ccn   cbn   bbb
 #     #     pny   ppb*  bbb   bbn   #     #
-#     #     pnb   pnb   bbb   ycc   #     #
-solution: 2,0 ; use 0,3,1 ; roll 1 ; 2,1 ; 1,2 ; roll 4 ; use 0,1,2 ; 6,3 ; use 0,3,0 ; 0,4 ; roll 6 ; use 0,3,0 ; use 0,4,0
+#     #     pnb   pcb   bbb   ycc   #     #
+solution: 3,2 ; 3,2 ; 1,2 ; 0,5 ; 0,6 ; swap 0,6,3 ; roll 6 ; swap 1,2,0 ; 2,7

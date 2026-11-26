@@ -107,6 +107,9 @@ namespace KatKat.Game
             _director = new GameObject("PeelDirector").AddComponent<PeelDirector>();
             _director.transform.SetParent(transform, false);
             _board = new GameObject("Board").AddComponent<BoardView>();
+            // 2026-11-26 özel taş efektleri: sesleri ve titreşimi oyunun ses sistemi çalar (V17 yoksa prototip sesi).
+            _board.Booster.Sound = (name, pitch, vol) => { if (!_sound.PlayV17(name, pitch, vol)) KatKat.UI.Vr1Proto.Play(name); };
+            _board.Booster.Haptic = k => { if (k >= 2) Haptics.Strong(); else if (k == 1) Haptics.Medium(); else Haptics.Light(); };
             _board.transform.SetParent(transform, false);
             _board.Init(_director);
             _hint = TapHint.Create(_board.transform, UiArt.Icon(UiIcon.Ring), UiArt.Icon(UiIcon.Back), UiArt.Circle);
@@ -142,6 +145,11 @@ namespace KatKat.Game
             _board.StreamArrived = StreamTick;
             _board.FlowFinal = () => { if (!_sound.QueueV17("goal-collect", 0f, 1f, true, Haptics.Medium)) { _sound.Play(Sfx.CoinFinal, 0, 0.85f); Haptics.Medium(); } };
             _board.IsGoalColor = _hud.IsGoalColor;
+            // 2026-11-26 (kullanıcı: "Normal Taş Patlatma ve Hedefe Taş Toplama Animasyonu"): dokunuş, roket ve Altın Rulo ortak
+            // patlamayla; hedef rengindeki taşın kopyası görev simgesine uçar, varışta sayaç bir artar.
+            _board.BlastEnabled = true;
+            _board.GoalCopyArrived = OnGoalCopyArrived;
+            _board.BlastHaptic = k => { if (k >= 3) Haptics.Medium(); else if (k == 2) Haptics.Light(); else Haptics.Tick(); };
             _sound = SoundBank.Create(transform);
             SetupVr1();
             _sound.Enabled = save.Data.sound;
@@ -346,6 +354,7 @@ namespace KatKat.Game
             int moveBonus = SessionMoveBonus(_level, _sessionKind);
             startState.MovesLeft += moveBonus;
             _session = new GameSession(startState);
+            GoalBaseReset();
             _extraMovesUsed = 0;
             _heartAtStake = false;
             EndPlaceOffer();
@@ -388,7 +397,8 @@ namespace KatKat.Game
             _hud.HidePalette();
             _hud.SetPaint(_session.State.PaintLeft, false);
             // 2026-11-23 (130. bölüm): özel taşı kapalı ama çakıllı bölümde de Kürek tepsiye gelir; tepsi görünmeli.
-            _hud.SetTrayVisible(_session.State.SpecialsEnabled || KatKat.Core.RulesEngine.HasGravel(_session.State.Board) || _session.State.Bucket != null);
+            // 2026-11-26: özel taşlar tahtada (tepsi yok); torba bölümünde bant torbayı taşır.
+            _hud.SetTrayVisible(false);
             BucketBegin();
             WaterBegin(); // 2026-11-25 su kipi
             _hud.SetTray(_session.State.Tray, _traySlot = -1);
@@ -403,6 +413,7 @@ namespace KatKat.Game
             _hud.ReserveHazard = _session.State.Hazard != null;
             _hud.ReserveBottom = BoostersVisible || _session.State.PaintLeft > 0 || _sessionKind != KatKat.Meta.SessionKind.Normal;
             _board.Build(_session.State, _hud.BoardWorldRect(_cam));
+            if (_session.State.Bucket != null) _hud.AdvanceBucket(0f); // 2026-11-26: torba yeni tahtaya ilk karede oturur
             ConceptHud(); // konsept pilotu (tehditsiz bölümde gizler)
             Vr1CenterIceBegin(); // vr1 P1 prototipi: ortası boş tahtada buzlu koleksiyon taşı
             bool normal = _sessionKind != KatKat.Meta.SessionKind.Daily && _sessionKind != KatKat.Meta.SessionKind.Trial;
@@ -486,6 +497,7 @@ namespace KatKat.Game
 
             // Öğretici bilgi adımı: ekranın herhangi bir yerine dokunuş (arayüz düğmeleri dahil) adımı geçer.
             if (_tourOn && _tourInfoShowing && !_hud.PanelOpen && !_menu.IsOpen) { TourConsumesPress(); return; }
+            if (SpecialDragTick()) return;
             if (!TryGetPress(out var screenPos)) return;
             // Bitiş kutlaması dokununca atlanır (tekrar oynarken bekletmesin).
             if (_celebrating) { SkipCelebration(); return; }
@@ -498,6 +510,7 @@ namespace KatKat.Game
                 return;
             }
             if (!_board.TryCellAt(world, out int x, out int y)) return;
+            if (BeginSpecialDrag(screenPos, x, y)) return; // 2026-11-26: özel taş: bırakınca dokunuş, sürükleyince komşuya
             // v12 deneme: dokunuş bırakınca; basılı tutunca katman görünümü.
             if (TrialHandlePress(screenPos, x, y)) return;
             OnCellPressed(x, y);
@@ -536,6 +549,15 @@ namespace KatKat.Game
             if (_paintMode) { PickPaintCell(x, y); return; }
             if (_traySlot >= 0) { UseTraySlot(x, y); return; }
             var r = _session.Submit(Command.Tap(x, y));
+            if (!r.Accepted && r.Reason == RejectReason.SpecialNeedsDrag)
+            {
+                // 2026-11-26: Altın Rulo dokunarak değil, komşu taşa sürüklenerek kullanılır.
+                _sound.Play(Sfx.Invalid);
+                Haptics.Light();
+                _board.ShakeCells(new[] { new Coord(x, y) });
+                _hud.ShowToast(Loc.T("special.drag.rainbow"));
+                return;
+            }
             if (!r.Accepted)
             {
                 if (r.Reason == RejectReason.NoMovesLeft)
@@ -606,6 +628,7 @@ namespace KatKat.Game
         {
             if (step.Type == "tap") { OnCellPressed(step.X, step.Y); return; }
             if (step.Type == "rotate") { OnRotorPressed(step.X, step.Y); return; }
+            if (step.Type == "swap") { var sc = LevelLoader.ToCommand(step); OnSpecialDrag(sc.X, sc.Y, sc.Row); return; } // 2026-11-26 özel taş sürüklemesi
             if (step.Type == "paint") { var cmd = LevelLoader.ToCommand(step); _paintMode = true; _paintCell = new Coord(cmd.X, cmd.Y); OnPaintColor(cmd.Color); return; }
             if (step.Type == "use") { _traySlot = -1; OnTraySlot(step.Row); OnCellPressed(step.X, step.Y); return; }
             if (step.Type == "send") { if (WaterLevel && WaterCap > 0) { SendWaterBucket(); return; } _hud.BucketFinishForTest(); SendBucket(); return; } // torba ya da su kovası: gösterim beklenmeden gönder
@@ -691,6 +714,7 @@ namespace KatKat.Game
             _chainSounded = false;
             // 2026-11-19: yavaş taş akışı girdiyi kilitlemesin; yalnız bölümü bitiren hamle taşların varmasını bekler.
             _board.HoldUntilArrive = _session.State.Status != GameStatus.Idle;
+            _board.GoalQuota = GoalQuotaFor();
             _board.Play(r, _hud.GoalTarget, _hud.StarTarget,
                 wave =>
                 {
@@ -744,7 +768,8 @@ namespace KatKat.Game
                         if (wave.GoalProgressAfter[g] == shown[g]) continue;
                         bool changed = shown[g] >= 0 || wave.GoalProgressAfter[g] > 0;
                         shown[g] = wave.GoalProgressAfter[g];
-                        _hud.SetGoalProgress(g, shown[g], changed);
+                        // 2026-11-26: kopyalar varışta saydıysa sayaç zaten yerinde; dalga sonunda mantıksal değere oturur.
+                        _hud.SettleGoal(g, shown[g], changed);
                     }
                 },
                 () => OnPlayFinished());
@@ -763,8 +788,15 @@ namespace KatKat.Game
             if (wave.Kind == WaveKind.Special)
             {
                 // V17 (kullanıcı 2026-11-22): skilin kendi sesi; taş patlama sesi dalgada ayrıca çalar. Bomba sesini güçlendirici çalar.
-                string skill = wave.Fired == SpecialKind.RocketRow || wave.Fired == SpecialKind.RocketColumn ? "rocket-sweep"
+                string skill = wave.Fired.IsRocket() ? "rocket-sweep"
                     : wave.Fired == SpecialKind.Rainbow ? "roll-lightning" : wave.Fired == SpecialKind.Shovel ? "shovel-dig" : null;
+                // 2026-11-26: tek/çift roket ve tek Altın Rulo seslerini ve titreşimini BoosterFx kendi akışında çalar.
+                bool fxOwned = wave.ComboWith == SpecialKind.None && (wave.Fired.IsRocket() || wave.Fired == SpecialKind.Rainbow);
+                if (fxOwned)
+                {
+                    if (level > 0) _hud.ShowPraise(words[level - 1], level);
+                    return;
+                }
                 if (wave.Fired == SpecialKind.Bomb) { }
                 else if (skill == null || !_sound.PlayV17(skill)) _sound.Play(Sfx.RollUse);
                 Haptics.Medium();
@@ -962,6 +994,7 @@ namespace KatKat.Game
                 _board.StackAt(at.X, at.Y).PopSpecial();
             }
             _board.HoldUntilArrive = false; // kutlama adımları uçuşu beklemez; EndCelebration kalan uçuşu bitirir
+            _board.GoalQuota = null; // kutlamada hedef kopyası uçmaz (görevler bitti)
             _board.Play(step, _hud.GoalTarget, _hud.StarTarget,
                 CelebrationWaveSound,
                 w => { before += w.Score; _hud.SetScore(before, _session.State.StarThresholds, true); },
@@ -1263,6 +1296,7 @@ namespace KatKat.Game
             WaterResync();
             _hud.SetMoves(s.MovesLeft);
             _hud.SetGoalsImmediate(s.Goals);
+            GoalBaseReset(); // ortak patlama kotası: gösterim mantıkla eşit
             _hud.SetGoalStages(s.Goals, s.ActiveStage); // vr1 P3 (tek aşamalıda etkisiz)
             _hud.SetScore(s.Score, s.StarThresholds, false);
             _paintMode = false;

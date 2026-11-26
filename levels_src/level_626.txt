@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe (ayna); çözüm 7 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_626
-moves: 10
+moves: 9
 time: 60
 roll: off
 specials: on
-refill: 32 2-2
-goals: blue 34, navy 29, coral 40
+refill: 27 2-2
+goals: purple 22, yellow 20, coral 20
 grid:
-cb    cb    G1:np G1:cp G1:yy cc    bc    bc
-cb    cb    bp    np    nc    cc    pc    bp
-cp    cy    by    ny    np    cc    nn    bn
-pc    by    py    by    bp    by    by    yy
-bnR   pb    bb    yy    bp    cy    np    yn
-pp    cp    bn    bc    ccB1  cc    ny    yc
-bp    cc    yc    yn    yc    yy    nc    nc
-bp    pn    yy    yb    yy    pp    bn    bb
-nn    cn    ncR   cp    cn    yn    bn    bc
-solution: rot 2,8 ; 5,0 ; use 0,0,4 ; 5,4 ; use 0,4,1 ; 1,2 ; use 0,5,0 ; 2,0 ; use 0,0,0 ; 0,0 ; 0,1 ; use 0,7,1 ; 0,1 ; use 0,2,1
+#     #     G1:cc G1:cc G1:pc pn    #     #
+#     pb    pb    pb    yn    yn    yn    #
+cb    cb    cb    yy    bp    bn    pn    pb
+py    pp    pb    py    pp    nn    pc    bb
+yy    yb    yc    yb    cy    cy    pc    by
+yy    yy    cpR   pbB1  yb    yy    nc    by
+py    ny    nc    bp    bb    yb    bc    nb
+#     ny    nn    nc    bpR   cb    yp    #
+#     #     pp    pc    cy    cc    #     #
+solution: rot 2,5 ; 4,6 ; 5,6 ; swap 5,6,2 ; 6,2 ; 6,3 ; swap 6,4,1

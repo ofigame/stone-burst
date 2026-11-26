@@ -120,15 +120,15 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void BagLevels_UseNormalFourSlotTray()
+        public void BagLevels_SpecialsStayOnBoard()
         {
-            // 2026-11-23: "altın rulo ve roket yine normal düzeninde 4 tane olsun".
+            // 2026-11-26 (kullanıcı: "Torba ise tahtanın üst kısmındaki altın ve roket rulolarının yerine gelsin"): torba bölümünde de
+            // roket dokunulan taşın yerinde; tepsi kullanılmaz.
             var s = WithBuckets(State(9, new[] { "c c c c c", "y y y y y", "b b b b b" }), (LayerColor.Purple, 5));
             s.SpecialsEnabled = true;
             RulesEngine.TryApply(s, Command.Tap(0, 0));
-            RulesEngine.TryApply(s, Command.Tap(0, 1));
-            Assert.AreEqual(2, s.Tray.Count, "iki roket de tepside");
-            Assert.IsTrue(RulesEngine.TrayAccepts(s, SpecialKind.Shovel));
+            Assert.AreEqual(0, s.Tray.Count);
+            Assert.IsTrue(s.Board[0, 0].HasSpecial);
         }
 
         [Test]
@@ -157,7 +157,9 @@ namespace KatKat.Tests
                 int sum = 0;
                 foreach (var g in d.Goals) sum += g.Amount;
                 Assert.GreaterOrEqual(sum, 50, d.Id + " büyük görev");
-                Assert.IsFalse(st.Board[(d.Width - 1) / 2, 0].Active, d.Id + " üst ortada torba oyuğu");
+                // 2026-11-26 (kullanıcı: "Torba ise tahtanın üst kısmındaki altın ve roket rulolarının yerine gelsin"): torba üst bantta,
+                // tahtada üst oyuk yok.
+                Assert.IsTrue(st.Board[(d.Width - 1) / 2, 0].Active, d.Id + " üstte torba oyuğu yok");
             }
         }
     }

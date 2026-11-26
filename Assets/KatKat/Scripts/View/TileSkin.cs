@@ -73,6 +73,7 @@ namespace KatKat.View
         /// </summary>
         public static Vector2 SpecialOffset(SpecialKind kind)
         {
+            kind = kind.Single();
             if (SpecialArt.HasV11) return Vector2.zero;
             return kind == SpecialKind.Rainbow ? Vector2.zero :
                 kind == SpecialKind.RocketColumn ? new Vector2(0.29f, 0f) : new Vector2(0f, -0.29f);
@@ -80,6 +81,7 @@ namespace KatKat.View
 
         public static Vector2 SpecialBox(SpecialKind kind)
         {
+            kind = kind.Single();
             if (SpecialArt.HasV11)
                 return kind == SpecialKind.Rainbow ? new Vector2(0.70f, 0.70f)
                     : kind == SpecialKind.RocketColumn ? new Vector2(0.30f, 0.85f) : new Vector2(0.85f, 0.30f);

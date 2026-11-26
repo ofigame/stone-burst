@@ -52,6 +52,8 @@ switch ($Command) {
     'capture-rules' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureRuleDemo.RunBatch') 'capture-rules' }
     'capture-bucket' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureBucket.RunBatch') 'capture-bucket' } # 2026-11-23 kova kipi
     'capture-water'  { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureWater.RunBatch') 'capture-water' } # 2026-11-25 su kipi
+    'capture-kap'    { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureContainerAudit.RunBatch') 'capture-kap' } # 2026-11-26 kova/torba yerleşim denetimi
+    'audit-kap'      { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.ContainerAudit.RunBatch') 'audit-kap' } # 2026-11-26 kova/torba tüm bölüm denetimi
     'capture-v14' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureV14.RunBatch') 'capture-v14' }
     'capture-bgtrial' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureBgTrial.RunBatch') 'capture-bgtrial' }
     'vine-art'        { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.VineArt.RunBatch') 'vine-art' }

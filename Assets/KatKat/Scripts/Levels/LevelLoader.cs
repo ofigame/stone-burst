@@ -47,6 +47,17 @@ namespace KatKat.Levels
                 cell.LinkHits = c.LinkHits;
                 cell.ButtonGate = c.ButtonGate;
                 cell.Protected = c.Protected;
+                // 2026-11-26: açılışta tahtadaki özel taş (test bölümleri); rengi yığının üst rengi.
+                switch (c.Special)
+                {
+                    case "row": cell.Special = SpecialKind.RocketRow; break;
+                    case "col": cell.Special = SpecialKind.RocketColumn; break;
+                    case "row2": cell.Special = SpecialKind.RocketRow2; break;
+                    case "col2": cell.Special = SpecialKind.RocketColumn2; break;
+                    case "rainbow": cell.Special = SpecialKind.Rainbow; break;
+                    case "shovel": cell.Special = SpecialKind.Shovel; break;
+                }
+                if (cell.HasSpecial && cell.Layers.Count > 0) cell.SpecialColor = cell.Layers[cell.Layers.Count - 1];
                 cell.Area = c.Area;
                 cell.Gravel = c.Gravel;
                 if (c.GateId > 0)
@@ -131,6 +142,7 @@ namespace KatKat.Levels
             if (step.Type == "roll") return Command.Roll(step.Row);
             if (step.Type == "rotate") return Command.Rotate(step.X, step.Y);
             if (step.Type == "use") return Command.UseSpecial(step.Row, step.X, step.Y);
+            if (step.Type == "swap") return Command.Swap(step.X, step.Y, step.Row); // 2026-11-26 özel taş sürüklemesi (row = yön 0 sağ, 1 aşağı, 2 sol, 3 yukarı)
             if (step.Type == "send") return Command.SendBucket(); // 2026-11-24 torba bölümleri
             if (step.Type == "paint")
             {

@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 883 + tür reverse; şekil dalga; çözüm 13 + 5 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,19
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 883 + tür reverse; şekil dalga; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d003_t8
 title: Günlük 3
-moves: 13
+moves: 8
 roll: on
 specials: on
 type: reverse
 rules: exact
-goals: yellow 15, blue 18, envelope 2, sponge 2
+goals: navy 10, purple 17, envelope 2, sponge 2
 grid:
-yb    #     by    #     by    #     pc    #
-yy    by    bn    yn    bb    bb    pc    pc
-yc    cy    by    yn    nn    nn    yn    nc
-ncSc  nc    bn    yn    nyEb  yn    yb    nc
-nnEb  nn    bp    np    np    pp    bb    nc
-ny    bb    nn    np    ny    py    bn    nn
-cb    bb    nn    nb    nc    yy    yn    pp
-cb    bb    bb    bc    pc    np    cp    pp
-#     bbSpy #     bp    #     nn    #     pp
-solution: 1,5 ; use 0,0,0 ; 0,0 ; use 0,4,0 ; 2,1 ; use 0,4,0 ; 3,1 ; 2,4 ; 4,3 ; 6,0 ; 7,2 ; 7,6 ; 1,2 ; 0,3 ; roll 4 ; 6,0 ; use 0,1,8 ; use 1,1,1
+#     by    #     py    #     nc    #     ybEp
+yy    py    pp    py    bp    bcEp  nc    yb
+yy    by    cbSpc ny    ny    nc    nb    yc
+pb    pb    pn    cp    pp    cn    bb    nb
+pb    nb    nb    np    nc    cn    cc    yc
+bbSp  pc    yy    pc    pc    cb    yc    yc
+cb    pc    nc    pp    cb    pb    yc    yc
+cp    cn    yp    pb    cy    cb    bb    nc
+cb    #     bp    #     pb    #     bb    #
+solution: 0,4 ; 0,4 ; roll 2 ; 5,2 ; roll 1 ; 5,3 ; roll 3 ; swap 5,3,3

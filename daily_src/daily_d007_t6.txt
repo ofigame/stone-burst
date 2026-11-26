@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 563 + tür order; şekil kesik köşe; çözüm 10 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 563 + tür order; şekil kesik köşe; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d007_t6
 title: Günlük 7
-moves: 10
+moves: 9
 roll: on
 specials: on
 type: order
 rules: exact
-goals: purple 21, navy 50, coral 41, envelope 3
+goals: purple 19, navy 37, coral 33, envelope 3
 grid:
-#     #     yyn   yyn   cnc   cny   #     #
-#     ycn   ypn   yyc   ycc   ycc   ycc   #
-npc   npnK1:1 npn   bnbEn bcb   cbc   cbn   cnn
-nnc   nnc   nyn   bnnK1:1 cnb   cbb   bbn   cnn
-nnp   nnn   cyn   cnn   bcyEb pyy   ppy   nnc
-pyp   pyb   cyb   cbp   bcy   byc   ppc   nnc
-pnp   pnb   cnb   cbb   ncb   nypLb5 pyn   nnc
-#     pcb   ccb   cnpLb3 bnp   bcn   pcn   #
-#     #     bcbEn bcb   bny   bny   #     #
-solution: 1,5 ; use 0,4,0 ; 2,0 ; use 0,2,1 ; 6,2 ; 3,2 ; 7,2 ; use 2,2,0 ; 0,2 ; use 0,4,0 ; 4,4 ; roll 4 ; 5,4 ; roll 6 ; use 0,0,6 ; use 1,3,0 ; use 0,3,5
+#     #     yyn   nyp   cnc   cny   #     #
+#     ycn   ypnEc yyc   ycc   ycc   ycc   #
+npc   npp   npnK1:1 bnb   bcbEc cbc   cbn   cnn
+nnc   cnc   nyn   bnc   cnb   cbb   bbn   cnn
+nnp   nny   cynK1:1 cnn   bcy   pyy   ppy   nnc
+pyp   pyb   cyb   nbpLb3 bcy   byc   ppcEn nnc
+pnp   pnb   cnb   cbb   ncb   nyp   pyn   nnc
+#     pcb   ccc   cnp   bnpLb5 bcn   pcn   #
+#     #     bcb   bcb   bny   bny   #     #
+solution: 5,2 ; 7,4 ; 6,2 ; 0,4 ; swap 6,2,2 ; 3,4 ; roll 4 ; 5,4 ; 3,4

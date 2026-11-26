@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 61 + tür exact; şekil dikdörtgen; çözüm 6 + 6 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 61 + tür exact; şekil dikdörtgen; çözüm 8 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: daily_d005_t2
 title: Günlük 5
-moves: 7
+moves: 9
 roll: on
 specials: on
 type: exact
 rules: exact
-goals: navy 40, yellow 15, blue 39
+goals: navy 20, yellow 9, blue 18
 grid:
-bnp   nnp   nyn   nyn   yby   ybp   nnp   ncp
-bpy   bcb   bpn   bpn   yny   ynp   cnp   ccp
-npy   bcn   bcn   nnn   nnc   nnp   bcb   pcb
-npn   nyn   bnc   cbc   cbc   pnp   pnp   pnb
+bnp   nnp   nyb   nyn   yby   ybp   nnp   ncp
+bpy   bcb   bpc   bpn   yny   ypp   cnp   ccp
+npy   bcn   ccp   nnn   nnc   nby   bcc   pcb
+npc   nyn   bnc   cby   ccc   pnp   pnp   pnb
 ypn   yyp   bnn   bnc   cbc   pbc   pnb   pcb
-ypn   bpp   bnn   bcc   ybb   ybb   pcb   bcn
-ypn   ybn   bbp   bcb   pcc   pbc   pbn   bbn
-cbn   cbn   ccp   ccp   pcp   pbp   ybp   bbn
-solution: 5,0 ; 4,2 ; 2,0 ; use 0,2,0 ; use 0,2,0 ; 6,2 ; 2,6 ; use 0,4,0 ; use 0,4,0 ; 3,5 ; use 0,0,1 ; use 0,0,1
+ypn   bpp   pnn   bcc   ynb   ybb   ncb   bcn
+ypn   ybn   bbp   bcb   pcc   pbc   pbn   byn
+cbn   cbn   ccp   ccp   pcp   pbp   ynp   bpn
+solution: 4,2 ; 7,2 ; swap 7,2,1 ; 4,7 ; 4,2 ; 0,4 ; 1,3 ; 1,3

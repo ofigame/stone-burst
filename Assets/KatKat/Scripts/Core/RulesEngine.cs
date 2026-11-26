@@ -21,6 +21,8 @@ namespace KatKat.Core
         /// Özel taşlar kapalı bölümde (saf) çakıl varsa her 4+ grup Kürek verir.</summary>
         public const int ShovelGroupSize = 4;
         public const int RainbowGroupSize = 8;
+        /// <summary>2026-11-26 (kullanıcı: "Roket ve altın rulolar tıkladığımız taşın olduğu yere konacak ve 4 dibinde olan taşlardan birine sürüklediğimiz zaman o renkteki taşları patlatacak altın rulo. roket ise zaten o taştan yatayda veya dikeyde patlayacak. çift rokette getirelim. Çift roket 2 satır veya sütunu yok edecek. roketler veya altın rulolar. Tuzaklı bombaları imha edecekler"): 7'lik grup çift roket.</summary>
+        public const int DoubleRocketGroupSize = 7;
         /// <summary>2026-11-21 (kullanıcı: "bir alanda belli sürede patlatma yapılmaz ise orası çakıl olur"; hamle sayısı, çakıla
         /// komşu hücre, yalnız çakıllı bölüm): bu kadar hamle dokunulmayan, çakıla komşu yığın çakıla döner.</summary>
         public const int GravelSpreadMoves = 3;
@@ -117,10 +119,22 @@ namespace KatKat.Core
 
             if (cmd.Type == CommandType.Tap && state.Board[cmd.X, cmd.Y].HasSpecial)
             {
-                // Özel taşa dokunuş: ateşlenir (kenar komşusunda özel taş varsa birleşim).
+                // Özel taşa dokunuş: tek başına ateşlenir (2026-11-26: birleşim yalnız sürüklemeyle). Bir hamle.
                 result.TappedGroup.Add(new Coord(cmd.X, cmd.Y));
                 var resolver = new Resolver(state, result);
-                resolver.EnqueueTapped(state.Board.Index(cmd.X, cmd.Y));
+                resolver.EnqueueSingle(state.Board.Index(cmd.X, cmd.Y));
+                resolver.Run(null, WaveKind.Special, -1);
+                Finish(state, result, scoreBefore);
+                return result;
+            }
+
+            if (cmd.Type == CommandType.Swap && state.Board[cmd.X, cmd.Y].HasSpecial)
+            {
+                // 2026-11-26 özel taş sürüklemesi: Altın Rulo komşu taşın rengini patlatır; roket komşu rokete çift roket olur.
+                // Taş yer değiştirmez (sürükleme yalnız hedefi seçer): SwapFrom/SwapTo yazılmaz, tahta değiş tokuş animasyonu oynatmaz.
+                result.TappedGroup.Add(new Coord(cmd.X, cmd.Y));
+                var resolver = new Resolver(state, result);
+                resolver.EnqueueDrag(state.Board.Index(cmd.X, cmd.Y), state.Board.Index(cmd.SwapX, cmd.SwapY));
                 resolver.Run(null, WaveKind.Special, -1);
                 Finish(state, result, scoreBefore);
                 return result;
@@ -307,7 +321,7 @@ namespace KatKat.Core
             {
                 if (!board.InBounds(cmd.X, cmd.Y)) return RejectReason.OutOfBounds;
                 var cell = board[cmd.X, cmd.Y];
-                if (cell.Active && cell.HasSpecial) return RejectReason.None;
+                if (cell.Active && cell.HasSpecial) return cell.Special == SpecialKind.Rainbow ? RejectReason.SpecialNeedsDrag : RejectReason.None;
                 if (!cell.IsSelectable) return RejectReason.NotSelectable;
                 wave0 = GroupFinder.Component(board, cmd.X, cmd.Y);
                 return wave0.Count >= GroupFinder.MinGroup ? RejectReason.None : RejectReason.GroupTooSmall;
@@ -317,6 +331,8 @@ namespace KatKat.Core
                 if (!board.InBounds(cmd.X, cmd.Y)) return RejectReason.OutOfBounds;
                 return board[cmd.X, cmd.Y].IsRotatable ? RejectReason.None : RejectReason.NotRotatable;
             }
+            if (cmd.Type == CommandType.Swap && board.InBounds(cmd.X, cmd.Y) && board[cmd.X, cmd.Y].Active && board[cmd.X, cmd.Y].HasSpecial)
+                return ValidateSpecialDrag(board, cmd);
             if (cmd.Type == CommandType.Swap) return ValidateSwap(board, cmd, out wave0);
             if (cmd.Type == CommandType.Paint)
             {
@@ -330,6 +346,26 @@ namespace KatKat.Core
             if (cmd.Row < 0 || cmd.Row >= board.Height) return RejectReason.OutOfBounds;
             wave0 = RollTargets(board, cmd.Row);
             return wave0.Count > 0 ? RejectReason.None : RejectReason.RollNoEffect;
+        }
+
+        /// <summary>
+        /// 2026-11-26 özel taş sürüklemesi: hedef kenar komşusu ve aynı alanda. Altın Rulo → renkli seçilebilir taş ya da özel taş;
+        /// roket (tek/çift) → roket. Kürek sürüklenmez (dokununca çakılları temizler).
+        /// </summary>
+        public static RejectReason ValidateSpecialDrag(BoardState board, Command cmd)
+        {
+            if (!board.InBounds(cmd.SwapX, cmd.SwapY)) return RejectReason.OutOfBounds;
+            if (Math.Abs(cmd.SwapX - cmd.X) + Math.Abs(cmd.SwapY - cmd.Y) != 1) return RejectReason.SpecialDragInvalid;
+            var a = board[cmd.X, cmd.Y];
+            var b = board[cmd.SwapX, cmd.SwapY];
+            if (!b.Active || a.Area != b.Area) return RejectReason.SpecialDragInvalid;
+            if (a.Special == SpecialKind.Rainbow)
+            {
+                if (b.HasSpecial && b.Special != SpecialKind.Shovel) return RejectReason.None;
+                return b.IsSelectable ? RejectReason.None : RejectReason.SpecialDragInvalid;
+            }
+            if (a.Special.IsRocket()) return b.HasSpecial && b.Special.IsRocket() ? RejectReason.None : RejectReason.SpecialDragInvalid;
+            return RejectReason.SpecialDragInvalid;
         }
 
         /// <summary>
@@ -586,6 +622,8 @@ namespace KatKat.Core
             public LayerColor ComboColor;
             /// <summary>Tepsiden: hedef hücrede tahta özel taşı yoktur, hücre temizlenmez.</summary>
             public bool FromTray;
+            /// <summary>2026-11-26: iki roket birleşti (ComboCell kaynak roket; Kind çift roket, Cell hedef).</summary>
+            public bool MergedRockets;
         }
 
         /// <summary>Bir hamlenin bütün dalgaları: ilk dalga ve sıraya giren özel taşlar (v14: domino yok).</summary>
@@ -632,6 +670,31 @@ namespace KatKat.Core
                 }
                 _queued[cell] = true;
                 _queue.Enqueue(p);
+            }
+
+            /// <summary>
+            /// 2026-11-26 sürükleme: Altın Rulo renkli taşa → o renk; Altın Rulo özel taşa → eski birleşimler; roket rokete → çift roket
+            /// hedef hücrede (sürüklenen roketin yönü).
+            /// </summary>
+            public void EnqueueDrag(int from, int to)
+            {
+                var a = _board[from];
+                var b = _board[to];
+                _queued[from] = true;
+                if (a.Special.IsRocket())
+                {
+                    // İki roket birleşir: kaynak ve hedef boşalır, çift roket hedefte ateşlenir.
+                    _queued[to] = true;
+                    _queue.Enqueue(new Pending { Cell = to, Kind = a.Special.Doubled(), Color = b.SpecialColor, ComboCell = from, ComboKind = SpecialKind.None, MergedRockets = true });
+                    return;
+                }
+                if (b.HasSpecial)
+                {
+                    _queued[to] = true;
+                    _queue.Enqueue(new Pending { Cell = from, Kind = a.Special, Color = a.SpecialColor, ComboCell = to, ComboKind = b.Special, ComboColor = b.SpecialColor });
+                    return;
+                }
+                _queue.Enqueue(new Pending { Cell = from, Kind = a.Special, Color = b.Top, ComboCell = -1 });
             }
 
             /// <summary>v6 tepsi: tahtada olmayan özel taş hedef hücrede ateşlenir (birleşim yok).</summary>
@@ -697,8 +760,18 @@ namespace KatKat.Core
                 {
                     // Kürek (2026-11-21): vurduğu çakılla birlikte tahtadaki bütün çakıl kalkar (alttaki yığınlar açılır); taş
                     // soyulmaz, başka örtüye işlemez.
+                    // 2026-11-26 (kullanıcı: "Kürekte tahtada olsun ve üzerine basıldığında kendisi tek tek gidip çakılları temizlesin"):
+                    // en yakından uzağa sıralı (görünüm bu sırayla gezer).
+                    int sx0 = _board.X(p.Cell), sy0 = _board.Y(p.Cell);
+                    var gr = new List<int>();
                     for (int i = 0; i < _board.Count; i++)
-                        if (_board[i].Active && _board[i].Gravel) _shovelled.Add(i);
+                        if (_board[i].Active && _board[i].Gravel) gr.Add(i);
+                    gr.Sort((u, v) =>
+                    {
+                        int du = Math.Abs(_board.X(u) - sx0) + Math.Abs(_board.Y(u) - sy0), dv = Math.Abs(_board.X(v) - sx0) + Math.Abs(_board.Y(v) - sy0);
+                        return du != dv ? du.CompareTo(dv) : u.CompareTo(v);
+                    });
+                    _shovelled.AddRange(gr);
                     return peel;
                 }
 
@@ -707,10 +780,12 @@ namespace KatKat.Core
                 bool aRain = p.Kind == SpecialKind.Rainbow, bRain = p.ComboKind == SpecialKind.Rainbow;
                 int x = _board.X(p.Cell), y = _board.Y(p.Cell);
 
-                if (p.ComboCell < 0)
+                if (p.ComboCell < 0 || p.MergedRockets)
                 {
                     if (p.Kind == SpecialKind.RocketRow) Row(y, area);
                     else if (p.Kind == SpecialKind.RocketColumn) Column(x, area);
+                    else if (p.Kind == SpecialKind.RocketRow2) { Row(y, area); Row(y + 1 < _board.Height ? y + 1 : y - 1, area); }
+                    else if (p.Kind == SpecialKind.RocketColumn2) { Column(x, area); Column(x + 1 < _board.Width ? x + 1 : x - 1, area); }
                     else if (aRain) ColorCells(p.Color, area);
                     else if (p.Kind == SpecialKind.Bomb) area.AddRange(BombArea(_board, x, y));
                 }
@@ -795,7 +870,8 @@ namespace KatKat.Core
                     var f = fired.Value;
                     pw.Fired = f.Kind;
                     pw.FiredAt = new Coord(board.X(f.Cell), board.Y(f.Cell));
-                    if (f.ComboCell >= 0)
+                    if (f.MergedRockets) pw.MergedFrom = new Coord(board.X(f.ComboCell), board.Y(f.ComboCell));
+                    else if (f.ComboCell >= 0)
                     {
                         pw.ComboWith = f.ComboKind;
                         pw.ComboAt = new Coord(board.X(f.ComboCell), board.Y(f.ComboCell));
@@ -818,6 +894,12 @@ namespace KatKat.Core
                     _peeled[i] = true;
                     // v12 deneme: kristal soyuldu → kayıp. 2026-11-25 su kipi (kullanıcı: "Sulu bölümde yasaklı taşlar patlatılır ise tepsi
                     // delinsin ve su boşalsın"): kayıp yok; bombalı yığın gider, tepsi o sütunun altından yarılır (sızıntı görünümde).
+                    if (cell.Protected && fired.HasValue && (fired.Value.Kind.IsRocket() || fired.Value.Kind == SpecialKind.Rainbow || fired.Value.ComboKind.IsRocket() || fired.Value.ComboKind == SpecialKind.Rainbow))
+                    {
+                        // 2026-11-26: roket ve Altın Rulo tuzaklı bombayı imha eder (kayıp ya da kova çatlağı yok).
+                        cell.Protected = false;
+                        pw.Defused.Add(new Coord(board.X(i), board.Y(i)));
+                    }
                     if (cell.Protected)
                     {
                         if (WaterMode(_state))
@@ -1018,6 +1100,12 @@ namespace KatKat.Core
                     pw.Score += Scoring.ShovelCreated;
                 }
                 else if (group.Count < RocketGroupSize || !_state.SpecialsEnabled) return;
+                else if (group.Count >= DoubleRocketGroupSize && group.Count < RainbowGroupSize)
+                {
+                    kind = WideGroup(group) ? SpecialKind.RocketRow2 : SpecialKind.RocketColumn2;
+                    _state.Score += Scoring.RocketCreated * 2;
+                    pw.Score += Scoring.RocketCreated * 2;
+                }
                 else if (group.Count >= RainbowGroupSize)
                 {
                     kind = SpecialKind.Rainbow;
@@ -1026,25 +1114,33 @@ namespace KatKat.Core
                 }
                 else
                 {
-                    int minX = int.MaxValue, maxX = int.MinValue, minY = int.MaxValue, maxY = int.MinValue;
-                    foreach (var i in group)
-                    {
-                        int x = _board.X(i), y = _board.Y(i);
-                        minX = Math.Min(minX, x); maxX = Math.Max(maxX, x);
-                        minY = Math.Min(minY, y); maxY = Math.Max(maxY, y);
-                    }
-                    kind = maxX - minX > maxY - minY ? SpecialKind.RocketRow : SpecialKind.RocketColumn;
+                    kind = WideGroup(group) ? SpecialKind.RocketRow : SpecialKind.RocketColumn;
                     _state.Score += Scoring.RocketCreated;
                     pw.Score += Scoring.RocketCreated;
                 }
                 _result.SpecialCreated = kind;
                 _result.SpecialCreatedAt = new Coord(_board.X(tapped), _board.Y(tapped));
                 _result.SpecialCreatedColor = _removedColor[tapped];
-                if (TrayAccepts(_state, kind))
+                // 2026-11-26: özel taş tepsiye değil dokunulan taşın yerine (yığının üstüne) konur.
+                var at = _board[tapped];
+                if (at.Active && !at.HasCover && !at.HasSpecial)
                 {
-                    _state.Tray.Add(kind);
-                    _result.SpecialToTray = true;
+                    at.Special = kind;
+                    at.SpecialColor = _removedColor[tapped];
                 }
+            }
+
+            /// <summary>Grup yatayda dikeyden genişse satır roketi.</summary>
+            private bool WideGroup(List<int> group)
+            {
+                int minX = int.MaxValue, maxX = int.MinValue, minY = int.MaxValue, maxY = int.MinValue;
+                foreach (var i in group)
+                {
+                    int x = _board.X(i), y = _board.Y(i);
+                    minX = Math.Min(minX, x); maxX = Math.Max(maxX, x);
+                    minY = Math.Min(minY, y); maxY = Math.Max(maxY, y);
+                }
+                return maxX - minX > maxY - minY;
             }
         }
 

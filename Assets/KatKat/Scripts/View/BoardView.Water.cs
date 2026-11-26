@@ -31,8 +31,28 @@ namespace KatKat.View
 
         // Kova geometrisi (tahta yerel): merkez x, taban y, boy (doku birimi = S), boşalma yeri.
         private float _bucketX, _bucketBottom, _bucketS, _placedPitch = -1f;
+        /// <summary>Kovanın oturduğu yerleşimin imzası (ölçü, satır/sütun adımı, katman sayısı, ilk hücre). 2026-11-26 (kullanıcı:
+        /// "123. bölümde kova tahtanın üstüne çıkıyor bir kısmı"; "bölüme tekrar girince sorun görünmedi"): su kurulumu tahta
+        /// kurulmadan önce çalışıyor (önceki bölümün ölçüleri); yerleşim herhangi bir şekilde değişince kova yeniden oturur.</summary>
+        private Vector4 _placedKey = new Vector4(-1f, -1f, -1f, -1f);
+        private int _placedLayers = -1;
+
+        private int _placedBoard = -1;
+        private Vector4 PlaceKey() { var c = CellCenter(0, 0); return new Vector4(_pitch, _rowPitch, c.x, c.y); }
         private BoardState _waterBoard;
         private Vector3 _drain;
+
+        // ---- Gönderim uçuşu (2026-11-26, kullanıcı: "kovayı gönderirken sadece su gitmesin. Kova gitsin suyu boşaltsın animasyonu
+        // böyle olsun"): kova oyuktan kalkar, görev kartının dolu ucunun üstüne uçar, eğilip suyu karta boşaltır, boş döner. ----
+        private float _flyT = -1f, _flyAng, _flyScale = 1f, _flySide = 1f, _flyStartHave;
+        private Vector3 _flyOff, _flyTo;
+        private bool _flyArrived;
+        private const float FlyLift = 0.22f, FlyGo = 0.5f, FlyTilt = 0.26f, FlyPour = 0.62f, FlyBack = 0.55f;
+        /// <summary>Döküm açısı (derece) ve uçarken kovanın boyu (oyuktaki boya oranı).</summary>
+        private const float FlyAngle = 112f, FlySize = 0.78f;
+        /// <summary>Uçarken kova arayüzün (görev kartı, tuval 500) önünde çizilir.</summary>
+        private const int FlyOrder = 520;
+        public bool WaterBucketFlying => _flyT >= 0f;
         private Transform _bucketRoot;
         private SpriteRenderer _bucketBack, _bucketFront, _waterSr;
         private Material _waterShaderMat;
@@ -128,6 +148,9 @@ namespace KatKat.View
         private void PlaceBucket(BoardState b)
         {
             _placedPitch = _pitch;
+            _placedKey = PlaceKey();
+            _placedLayers = _maxLayers;
+            _placedBoard = b.Width * 1000 + b.Height;
             int w = b.Width, h = b.Height;
             int c0 = (w - 1) / 2, c1 = w / 2;
             int top = h;
@@ -184,8 +207,26 @@ namespace KatKat.View
                 _bucketFront = BucketLayer("Front", WaterArt.BucketFront, 8);
             }
             _bucketRoot.gameObject.SetActive(true);
-            _bucketRoot.localPosition = new Vector3(_bucketX, _bucketBottom, 0f);
-            _bucketRoot.localScale = Vector3.one * _bucketS;
+            ApplyFly();
+        }
+
+        private Vector3 BucketToBoard(float lx, float ly) =>
+            new Vector3(_bucketX, _bucketBottom, 0f) + _flyOff + Quaternion.Euler(0f, 0f, _flyAng) * new Vector3(lx * _flyScale, ly * _flyScale, 0f);
+
+        private void ApplyFly()
+        {
+            if (_bucketRoot == null) return;
+            _bucketRoot.localPosition = BucketToBoard(0f, 0f);
+            _bucketRoot.localRotation = Quaternion.Euler(0f, 0f, _flyAng);
+            _bucketRoot.localScale = Vector3.one * _bucketS * _flyScale;
+        }
+
+        private void SetFlySorting(bool on)
+        {
+            if (_bucketBack != null) _bucketBack.sortingOrder = on ? FlyOrder : 5;
+            if (_waterSr != null) _waterSr.sortingOrder = on ? FlyOrder + 1 : 6;
+            if (_bucketFront != null) _bucketFront.sortingOrder = on ? FlyOrder + 3 : 8;
+            if (_pourMr != null) _pourMr.sortingOrder = on ? FlyOrder + 2 : 10 + _height * 4 + 5;
         }
 
         private SpriteRenderer BucketLayer(string name, Sprite sp, int order)
@@ -233,19 +274,19 @@ namespace KatKat.View
             var t = transform;
             float sc = Mathf.Abs(t.lossyScale.y);
             var m = _waterShaderMat;
-            m.SetFloat("_Level", t.TransformPoint(new Vector3(0f, WaterSurfaceY, 0f)).y);
-            m.SetFloat("_CenterX", t.TransformPoint(new Vector3(WaterCenterX, 0f, 0f)).x);
+            m.SetFloat("_Level", t.TransformPoint(BucketToBoard(0f, WaterSurfaceY - _bucketBottom)).y);
+            m.SetFloat("_CenterX", t.TransformPoint(BucketToBoard(0f, 0f)).x);
             m.SetFloat("_Tilt", _waterTilt);
             m.SetFloat("_Amp", WaveAmp * sc);
             m.SetFloat("_Pitch", WavePitch * sc);
             m.SetFloat("_WTime", _waterClock);
-            m.SetFloat("_Span", (WaterTopY - WaterBottomY) * sc);
-            m.SetFloat("_Bottom", t.TransformPoint(new Vector3(0f, WaterBottomY, 0f)).y);
+            m.SetFloat("_Span", (WaterTopY - WaterBottomY) * sc * _flyScale);
+            m.SetFloat("_Bottom", t.TransformPoint(BucketToBoard(0f, WaterBottomY - _bucketBottom)).y);
             for (int i = 0; i < 4; i++)
             {
                 var v = Vector4.zero;
                 int j = _ripples.Count - 1 - i;
-                if (j >= 0) { var r = _ripples[j]; v = new Vector4(t.TransformPoint(new Vector3(r.X, 0f, 0f)).x, r.Age, r.Amp, 0f); }
+                if (j >= 0 && _flyT < 0f) { var r = _ripples[j]; v = new Vector4(t.TransformPoint(new Vector3(r.X, 0f, 0f)).x, r.Age, r.Amp, 0f); }
                 m.SetVector("_Rip" + i, v);
             }
         }
@@ -443,6 +484,7 @@ namespace KatKat.View
             foreach (var p in _pours) PourRibbons(p);
             LeakRibbons();
             SendRibbons();
+            FlyStreamRibbon();
             _pourMesh.Clear();
             _pourMesh.SetVertices(_wv);
             _pourMesh.SetColors(_wc);
@@ -472,13 +514,15 @@ namespace KatKat.View
         {
             if (!_waterOn) { onArrive?.Invoke(); return; }
             float amount = Mathf.Clamp01(_waterHave / Mathf.Max(1f, _waterNeed));
-            _waterHave = 0f;
-            _waterSurge = Mathf.Min(1.8f, _waterSurge + 1f);
             if (_jetDone != null) { var prev = _jetDone; _jetDone = null; prev(); }
+            if (_flyT >= 0f) EndFly();
             _jetDone = onArrive;
-            if (KatKat.UI.Motion.Reduced) { var d = _jetDone; _jetDone = null; d?.Invoke(); return; }
+            if (KatKat.UI.Motion.Reduced) { _waterHave = 0f; var d = _jetDone; _jetDone = null; d?.Invoke(); return; }
             var to = transform.InverseTransformPoint(targetWorld);
             to.z = 0f;
+            if (FlySend) { StartFly(to); return; }
+            _waterHave = 0f;
+            _waterSurge = Mathf.Min(1.8f, _waterSurge + 1f);
             var from = new Vector3(_bucketX, _bucketBottom + _bucketS * WaterArt.BucketMouth - _pitch * 0.05f, 0f);
             // 2026-11-26 (kullanıcı: "Kovayı gönder dediğimizde görev çubuğunun altından doluyor su. Üstünden ve çubuğun dolu olduğu
             // uçtan dolmalı"): su kovadan yükselir, kartın üstünden döner ve dolu uca yukarıdan iner (üçüncü derece eğri; son teğet aşağı).
@@ -508,6 +552,149 @@ namespace KatKat.View
                 float a = UnityEngine.Random.Range(0.2f, 0.8f) * Mathf.PI;
                 SpawnFoam(from, new Vector3(Mathf.Cos(a) * UnityEngine.Random.Range(0.6f, 1.8f), Mathf.Sin(a) * UnityEngine.Random.Range(1.5f, 3.2f)) * _pitch, 0.1f);
             }
+        }
+
+        /// <summary>Gönderimde kova uçar (kapalıysa eski su topu).</summary>
+        public static bool FlySend = true;
+
+        private void StartFly(Vector3 to)
+        {
+            _flyTo = to;
+            _flySide = Mathf.Sign(to.x - _bucketX + 0.001f);
+            _flyStartHave = _waterHave;
+            _flyArrived = false;
+            _flyT = 0f;
+            _ripples.Clear();
+            SetFlySorting(true);
+            foreach (var c in _cracks) if (c.R != null) c.R.enabled = false;
+            if (!KatKat.UI.Motion.Reduced)
+                for (int i = 0; i < 10; i++)
+                {
+                    float a = UnityEngine.Random.Range(0.2f, 0.8f) * Mathf.PI;
+                    SpawnFoam(BucketToBoard(0f, _bucketS * WaterArt.BucketMouth), new Vector3(Mathf.Cos(a) * UnityEngine.Random.Range(0.5f, 1.4f), Mathf.Sin(a) * UnityEngine.Random.Range(1f, 2.2f)) * _pitch, 0.08f);
+                }
+        }
+
+        private static float FlyEase(float u) { u = Mathf.Clamp01(u); return u * u * (3f - 2f * u); }
+
+        private static Vector3 Bez(Vector3 a, Vector3 b, Vector3 c, float u) { float m = 1f - u; return m * m * a + 2f * m * u * b + u * u * c; }
+
+        /// <summary>Kova ağzının döküm dudağı (kova yereli, boysuz): karta bakan kenar.</summary>
+        private Vector3 FlyLip => new Vector3(_flySide * WaterArt.BucketHalfMouth * _bucketS, WaterArt.BucketMouth * _bucketS, 0f);
+
+        /// <summary>Döküm sırasında kovanın ötelemesi: eğik kovanın dudağı kartın dolu ucunun biraz üstünde.</summary>
+        private Vector3 FlyHover()
+        {
+            var lip = Quaternion.Euler(0f, 0f, -_flySide * FlyAngle) * (FlyLip * FlySize);
+            return _flyTo + new Vector3(0f, _pitch * 0.5f, 0f) - lip - new Vector3(_bucketX, _bucketBottom, 0f);
+        }
+
+        private float FlyDrainStart => FlyLift + FlyGo + FlyTilt * 0.45f;
+        private float FlyDrainEnd => FlyLift + FlyGo + FlyTilt + FlyPour;
+
+        private void TickFly(float dt)
+        {
+            if (_flyT < 0f) return;
+            _flyT += dt;
+            float t = _flyT;
+            float a0 = FlyLift, a1 = a0 + FlyGo, a2 = a1 + FlyTilt, a3 = a2 + FlyPour, a4 = a3 + FlyBack;
+            var lift = new Vector3(0f, _pitch * 0.45f, 0f);
+            var hover = FlyHover();
+            float lean = -_flySide * 16f, angEnd = -_flySide * FlyAngle;
+            if (t < a0)
+            {
+                float u = t / a0;
+                _flyOff = lift * FlyEase(u);
+                _flyAng = Mathf.Sin(u * Mathf.PI * 2f) * 4f;
+                _flyScale = 1f + 0.06f * Mathf.Sin(u * Mathf.PI);
+            }
+            else if (t < a1)
+            {
+                float u = FlyEase((t - a0) / FlyGo);
+                var ctrl = new Vector3(Mathf.Lerp(lift.x, hover.x, 0.25f), Mathf.Max(lift.y, hover.y) + _pitch * 1.6f, 0f);
+                _flyOff = Bez(lift, ctrl, hover, u);
+                _flyAng = Mathf.Lerp(0f, lean, u) + Mathf.Sin(u * Mathf.PI) * _flySide * -6f;
+                _flyScale = Mathf.Lerp(1f, FlySize, u);
+            }
+            else if (t < a3)
+            {
+                float u = FlyEase((t - a1) / FlyTilt);
+                float shake = t > a2 ? Mathf.Sin(t * 38f) * 1.6f * (1f - (t - a2) / FlyPour) : 0f;
+                _flyOff = hover + new Vector3(0f, Mathf.Sin(Mathf.Min(1f, (t - a1) / FlyTilt) * Mathf.PI) * _pitch * 0.08f, 0f);
+                _flyAng = Mathf.Lerp(lean, angEnd, u) + shake;
+                _flyScale = FlySize;
+            }
+            else if (t < a4)
+            {
+                float u = FlyEase((t - a3) / FlyBack);
+                var ctrl = new Vector3(Mathf.Lerp(hover.x, 0f, 0.6f), hover.y + _pitch * 0.8f, 0f);
+                _flyOff = Bez(hover, ctrl, Vector3.zero, u);
+                _flyAng = Mathf.Lerp(angEnd, 0f, FlyEase(Mathf.Min(1f, u * 1.5f)));
+                _flyScale = Mathf.Lerp(FlySize, 1f, u);
+            }
+            // Boşalma: dudak aşağı bakınca su akar; kovadaki su azalır, kart akış başlayınca dolmaya başlar.
+            if (t >= FlyDrainStart)
+            {
+                float u = Mathf.Clamp01((t - FlyDrainStart) / (FlyDrainEnd - FlyDrainStart));
+                float left = _flyStartHave * (1f - u * u * 0.4f - u * 0.6f);
+                _waterHave = Mathf.Min(_waterHave, Mathf.Max(0f, left));
+                _waterShown = Mathf.Min(_waterShown, _waterHave + 0.2f);
+                if (!_flyArrived && t >= FlyDrainStart + 0.14f)
+                {
+                    _flyArrived = true;
+                    if (!KatKat.UI.Motion.Reduced)
+                        for (int k = 0; k < 14; k++)
+                        {
+                            float a = UnityEngine.Random.Range(0.1f, 0.9f) * Mathf.PI;
+                            SpawnFoam(_flyTo, new Vector3(Mathf.Cos(a) * UnityEngine.Random.Range(0.8f, 2.2f), Mathf.Sin(a) * UnityEngine.Random.Range(1.0f, 2.6f)) * _pitch, 0.1f);
+                        }
+                    var d = _jetDone; _jetDone = null; d?.Invoke();
+                }
+                else if (_flyArrived && t < FlyDrainEnd && !KatKat.UI.Motion.Reduced && UnityEngine.Random.value < dt * 30f)
+                {
+                    float a = UnityEngine.Random.Range(0.15f, 0.85f) * Mathf.PI;
+                    SpawnFoam(_flyTo, new Vector3(Mathf.Cos(a) * UnityEngine.Random.Range(0.6f, 1.6f), Mathf.Sin(a) * UnityEngine.Random.Range(0.8f, 2f)) * _pitch, 0.07f);
+                }
+            }
+            if (t >= a4) EndFly();
+            else ApplyFly();
+        }
+
+        /// <summary>Uçuş biter (ya da kesilir): kova oyuğunda, boş; kart dolmadıysa doldurulur.</summary>
+        private void EndFly()
+        {
+            if (_flyT < 0f) return;
+            _flyT = -1f;
+            _flyOff = Vector3.zero;
+            _flyAng = 0f;
+            _flyScale = 1f;
+            _waterHave = Mathf.Min(_waterHave, Mathf.Max(0f, _waterHave - _flyStartHave));
+            if (_waterHave < 0.01f) { _waterHave = 0f; _waterShown = 0f; _waterVel = 0f; }
+            SetFlySorting(false);
+            foreach (var c in _cracks) if (c.R != null) c.R.enabled = true;
+            ApplyFly();
+            if (!_flyArrived) { _flyArrived = true; var d = _jetDone; _jetDone = null; d?.Invoke(); }
+        }
+
+        /// <summary>Dökülen su: eğik kovanın dudağından karta inen kalın şerit (yerçekimiyle kıvrılır).</summary>
+        private void FlyStreamRibbon()
+        {
+            if (_flyT < FlyDrainStart || _flyT > FlyDrainEnd + 0.18f) return;
+            float head = Mathf.Clamp01((_flyT - FlyDrainStart) / 0.12f);
+            float tail = Mathf.Clamp01((_flyT - FlyDrainEnd) / 0.18f);
+            if (head <= tail) return;
+            var lip = BucketToBoard(FlyLip.x, FlyLip.y);
+            var to = _flyTo;
+            float flow = Mathf.Clamp01(1f - Mathf.Clamp01((_flyT - FlyDrainStart) / (FlyDrainEnd - FlyDrainStart))) * 0.7f + 0.3f;
+            _rp.Clear();
+            const int S = 16;
+            var ctrl = new Vector3(Mathf.Lerp(lip.x, to.x, 0.15f) + _flySide * _pitch * 0.12f, lip.y, 0f);
+            for (int i = 0; i <= S; i++)
+            {
+                float u = Mathf.Lerp(tail, head, i / (float)S);
+                _rp.Add(Bez(lip, ctrl, to, u));
+            }
+            Ribbon(_rp, _pitch * (0.16f + 0.26f * flow * Mathf.Clamp01(_flyStartHave / Mathf.Max(1f, _waterNeed) + 0.3f)), i => PourV0 * _pitch * 1.6f, true, tail > 0f);
         }
 
         private Vector3 SendAt(SendArc p, float s)
@@ -597,7 +784,7 @@ namespace KatKat.View
             go.transform.SetParent(transform, false);
             var sr = go.AddComponent<SpriteRenderer>();
             sr.sprite = WaterArt.Droplet; // 2026-11-26: ışık lekesi değil gerçek su damlası
-            sr.sortingOrder = 10 + _height * 4 + 7;
+            sr.sortingOrder = _flyT >= 0f ? FlyOrder + 4 : 10 + _height * 4 + 7;
             _bubbles.Add(new Bubble { R = sr, P = p, V = v, Foam = true, Size = _pitch * size * UnityEngine.Random.Range(0.7f, 1.4f), Life = UnityEngine.Random.Range(0.45f, 0.7f) });
         }
 
@@ -640,7 +827,7 @@ namespace KatKat.View
         {
             if (!_waterOn) return;
             // Tahta ölçüsü sonradan (ilk yerleşim, ekran boyu) değişirse kova yeniden oturur (ölçüsüz yerleşimde boy 0 kalıyordu).
-            if (_waterBoard != null && Mathf.Abs(_placedPitch - _pitch) > 1e-5f) PlaceBucket(_waterBoard);
+            if (_waterBoard != null && (Mathf.Abs(_placedPitch - _pitch) > 1e-5f || _placedLayers != _maxLayers || (PlaceKey() - _placedKey).sqrMagnitude > 1e-8f || _placedBoard != _waterBoard.Width * 1000 + _waterBoard.Height)) PlaceBucket(_waterBoard);
             if (_bucketS <= 0f) return;
             _waterClock += dt;
             TickTilt(dt);
@@ -691,7 +878,7 @@ namespace KatKat.View
                 if (r.Age > 2.2f) _ripples.RemoveAt(i);
             }
             // Kova suyunda ara ara dipten kabarcık.
-            if (_waterShown > 0.3f && !KatKat.UI.Motion.Reduced)
+            if (_waterShown > 0.3f && !KatKat.UI.Motion.Reduced && _flyT < 0f)
             {
                 _waterBubbleT -= dt;
                 if (_waterBubbleT <= 0f)
@@ -701,6 +888,7 @@ namespace KatKat.View
                     SpawnBubble(new Vector3(_bucketX + UnityEngine.Random.Range(-half, half), WaterBottomY + _pitch * 0.05f), false);
                 }
             }
+            TickFly(dt);
             TickCracks(dt);
             TickJets(dt);
             TickBubbles(dt);
@@ -735,6 +923,7 @@ namespace KatKat.View
         {
             foreach (var p in _sends) if (p.R != null) Destroy(p.R.gameObject);
             _sends.Clear();
+            EndFly();
             if (_jetDone != null) { var d = _jetDone; _jetDone = null; d(); }
             _pours.Clear();
             _ripples.Clear();

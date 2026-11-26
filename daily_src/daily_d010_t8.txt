@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 863 + tür reverse; şekil kesik köşe (ayna); çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 863 + tür reverse; şekil kesik köşe (ayna); çözüm 15 + 0 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d010_t8
 title: Günlük 10
-moves: 8
+moves: 15
 roll: on
 specials: on
 type: reverse
 rules: exact
-goals: coral 26, purple 23, blue 35, sponge 2
+goals: coral 28, purple 25, blue 39, sponge 2
 grid:
 #     #     ybb   cyc   cyp   byp   #     #
 #     yyc   ybc   cbc   cyp   ypp   ypp   #
-byy   byy   ybb   yyc   npp   npp   ypp   cpc
-bny   nny   ybb   yyy   nyy   nby   cbb   cyb
-ycc   ncb   ybb   nyb   nby   nbb   pyb   byn
-ycc   ycc   ybb   ynb   nnb   pny   pny   bny
-cccSbp ccySny nyy   bnc   bnb   pbp   pbp   pby
-#     ncb   ncy   bpc   nnb   pny   pcy   #
+byy   byy   pbb   yyc   npb   npp   ypp   cpc
+bny   nny   ybb   yyy   nyySpc nbySbc cbb   cyb
+ycc   ncb   ybn   nyb   bby   nbb   pyb   byn
+ycc   pcc   bbb   ypb   ncb   pny   pny   bny
+ccc   ccy   nyy   bnc   bnb   pbp   cbp   pby
+#     ncb   nby   bpc   nnb   pny   pcy   #
 #     #     npn   npn   ncp   pcp   #     #
-solution: 4,0 ; use 0,5,1 ; 2,2 ; use 0,3,0 ; 2,0 ; 1,1 ; 5,3 ; use 2,0,6 ; use 0,0,2 ; roll 7 ; use 0,2,0 ; 2,0 ; use 0,3,0 ; 4,2 ; use 0,7,2
+solution: 4,0 ; roll 4 ; 2,2 ; 4,0 ; roll 2 ; 2,1 ; swap 2,2,3 ; 0,4 ; 3,7 ; 3,6 ; roll 6 ; 1,7 ; roll 5 ; swap 2,2,3 ; 0,4

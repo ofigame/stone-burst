@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil zikzak; çözüm 7 + 6 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,15
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe; çözüm 7 + 0 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_180
 moves: 12
 roll: off
 specials: on
-refill: 32 2-3
+refill: 30 2-3
 type: boss
 rules: protect
-goals: navy 35, coral 25, yellow 39
+goals: navy 35, blue 26, yellow 26
 grid:
-cpn   npn   ynn   nnb   bny   ynn   cbb   #
-#     yyn   ynp   yyy   yny   bcy   ycc   pnp
-pyp   nyy   ypyLy5 nny   bbb   ycb   bcb   #
-#     nyp   cnp   bnb   pbb   pnp   ccp   bcc
-byy   bny   bcn   pnn   npb   pnb   cbp   #
-#     bnn   pnn   pby   cny   yyn   cyn   bpnP
-byn   bpn   yyn   pny   cny   cnn   cnb   #
-#     bpc   yyc   yny   ncc   ycn   ybb   ybb
-nyc   npcP  cyc   cnp   pyc   nbc   ybc   #
-solution: 3,5 ; use 0,6,0 ; 2,4 ; use 0,4,0 ; 4,2 ; 5,1 ; 4,5 ; use 2,2,0 ; 0,0 ; use 1,1,1 ; 4,0 ; use 1,2,0 ; use 0,1,3
+#     #     ncc   pny   pbp   cbp   #     #
+#     npy   ncb   nny   bby   cnpLb5 byb   #
+bcb   ncy   ncp   nnp   ybc   bnp   ynb   cbn
+pcb   ycb   pnp   pnn   ycn   ccb   ynb   yyn
+cpb   ypc   cpb   pcc   ppn   cpy   pcn   ycn
+cpc   ypc   ycp   ybp   ppn   pcy   ycn   ycn
+cpbP  cpc   pnp   ynp   pnn   nyn   bcb   bcb
+#     cnc   pnc   pnn   byy   nyy   nny   #
+#     #     pby   pnp   ppp   pypP  #     #
+solution: 2,5 ; 3,7 ; 4,7 ; swap 3,7,0 ; 0,2 ; 0,3 ; swap 0,3,3

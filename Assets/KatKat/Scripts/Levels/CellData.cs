@@ -32,6 +32,8 @@ namespace KatKat.Levels
         public int ButtonGate;
         /// <summary>v12 deneme: "protected": true — kristal yığın (soyulursa kayıp).</summary>
         public bool Protected;
+        /// <summary>2026-11-26 test bölümleri: açılışta tahtada duran özel taş ("row", "col", "row2", "col2", "rainbow", "shovel"; boş: yok).</summary>
+        public string Special;
         /// <summary>M11 geçit hücresi: active=false, gate, gateLayers (açılınca bu katmanlarla etkinleşir).</summary>
         public int GateId;
         /// <summary>vr1 P3 iki alan: hücrenin alanı (0/1; yoksa 0).</summary>

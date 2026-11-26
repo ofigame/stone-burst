@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 502 + tür resource; şekil merdiven (ayna); çözüm 8 + 4 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 502 + tür resource; şekil kesik köşe; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d006_t6
 title: Günlük 6
 moves: 8
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: resource
 rules: exact
-goals: yellow 27, blue 23, purple 19
+goals: purple 14, yellow 12, navy 15
 grid:
-#     #     #     #     py    pb    bc    bc
-#     #     #     ny    py    ny    cb    bbK1:1
-#     #     yc    yb    pbK1:1 nb    bb    bb
-#     yn    yb    yni1  yn    bn    bp    bc
-nn    yb    pb    py    yc    np    pp    pc
-nn    ybi1  yb    yy    yc    nb    cp    cc
-cn    cb    yn    yyi2  pc    yc    nc    nc
-py    pnK1:1 cn    yc    pc    yb    pn    pn
-py    cn    cc    cc    pc    yb    yb    yni1
-solution: 7,3 ; roll 6 ; 6,1 ; use 0,5,0 ; 1,4 ; use 0,4,0 ; use 0,4,0 ; 6,7 ; roll 7 ; 5,1 ; roll 3 ; use 0,1,3
+#     #     cb    cb    cc    pn    #     #
+#     cp    cn    cnK1:2 nc    pb    pb    #
+pb    pp    pn    cc    yc    nb    bb    bci1
+pb    nb    bp    bc    cn    cn    by    by
+np    nb    np    bc    pn    nnK1:2 yy    cni1
+yp    nc    by    py    cc    by    bc    byK1:2
+yp    bpi2  by    by    pc    by    cy    yy
+#     ny    nn    pn    pb    np    bp    #
+#     #     bni1  bn    pp    pp    #     #
+solution: 0,2 ; 1,1 ; 1,1 ; roll 6 ; 1,7 ; roll 5 ; 4,3 ; 5,7

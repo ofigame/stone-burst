@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 551 + tür protect; şekil dalga; çözüm 13 + 6 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 551 + tür protect; şekil dalga; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d009_t6
 title: Günlük 9
-moves: 13
+moves: 9
 roll: on
 specials: on
 type: protect
 rules: protect, exact
-goals: coral 18, blue 30, purple 26, star 4
+goals: coral 20, blue 28, purple 28, star 4
 grid:
-#     ycb   #     nyy   #     pycP  #     npc
-pbp   bbb   bbb   byc   byc   pyn   nnc   nyc
-pbpP  bpb   bcb   nyp   nyb   npn*  npn   pyc
-cpp   ppn   bcn   byp   ccp   bbn   nbb   pbn
-cpyK1:2 pnn   pbc   pcc   pcb   bpb   npb   cpy
-cnnP  pnn   pbn   cpy   ypbK1:2 pbb*  pbb   cby
-bbn   bnn   cby   yby*  ybb   nbb   npn   yyn*
-pbp   bpn   cpn   ccc   cbb   cby   npn   yyn
-pbp   #     ccp   #     cbb   #     npc   #
-solution: 6,3 ; 2,4 ; roll 7 ; use 0,1,0 ; 3,2 ; 0,7 ; 2,7 ; 5,1 ; use 1,0,1 ; 5,1 ; 6,1 ; 3,5 ; use 2,3,0 ; roll 6 ; use 1,0,6 ; use 0,3,0 ; 0,1 ; roll 4 ; use 0,0,3
+#     ycb   #     nyy   #     pyc   #     npc
+pbp   bbb   bbb*  byc   cyc   pyn   nnc   nycP
+pbp   bpb   bcb   yyp   pyb   npn   npnK1:2 pyc*
+cpp   ppn   bcn   bbp   ccp   bbn*  nbb   pbn
+cpy   pnn*  pbc   pcc   pcb   bpb   npc   cpy
+cnn   pnn   pbnK1:2 cpy   ypc   pbb   pbb   cby
+bbc   bnb   cby   yny   ybb   ncb   npn   yyn
+pbpP  bpn   cpn   ccc   cbp   cby   npn   yyn
+pbp   #     ccpP  #     cbb   #     npc   #
+solution: 5,1 ; 5,5 ; roll 3 ; 4,5 ; swap 5,5,2 ; 1,4 ; 2,2 ; roll 2 ; 2,2

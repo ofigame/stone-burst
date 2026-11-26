@@ -302,10 +302,20 @@ namespace KatKat.Tests
         public IEnumerator AnimationTable_ShorterPlayback_SameResult()
         {
             float off = 0f, on = 0f;
-            yield return TimeFirstMove(10, false, t => off = t);
-            var stateOff = _gc.Session.State.Clone();
-            yield return TimeFirstMove(10, true, t => on = t);
-            var stateOn = _gc.Session.State.Clone();
+            // 2026-11-26: ortak taş patlaması (StoneBlast) vr1 tablosundan bağımsız ve iki kipte aynı kısa süreli; tablo karşılaştırması
+            // eski soyulma akışıyla ölçülür.
+            var blast = KatKat.View.BoosterFxConfig.Current.Blast;
+            bool was = blast.Enabled;
+            blast.Enabled = false;
+            KatKat.Core.LevelState stateOff, stateOn;
+            try
+            {
+                yield return TimeFirstMove(10, false, t => off = t);
+                stateOff = _gc.Session.State.Clone();
+                yield return TimeFirstMove(10, true, t => on = t);
+                stateOn = _gc.Session.State.Clone();
+            }
+            finally { blast.Enabled = was; }
             Debug.Log($"[KatKat] vr1 animasyon: ilk hamle eski {off * 1000f:0} ms, prototip {on * 1000f:0} ms");
             Assert.IsTrue(stateOff.ContentEquals(stateOn), "aynı komut aynı sonuç");
             Assert.Less(on, off * 0.8f, "prototip oynatma belirgin kısa"); // v14: zincirsiz tek dalga; oran ~0,75 sınırda oynuyordu

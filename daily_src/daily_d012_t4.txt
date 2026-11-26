@@ -5,15 +5,15 @@ moves: 7
 roll: on
 type: pure
 rules: noSpecials, exact
-goals: purple 33, blue 30, envelope 2
+goals: purple 27, blue 26, envelope 2
 grid:
-ccc   cbc   pbb   bpb   ppb   pcc   ppb   bpb
-ccb   bcc   bpc   bpc   ppc   pcc   pbc   ccc
-bcb   pcb   bpc   ppb   pbb   pbp   cbc   ccc
+ccc   cbc   pbb   bpb   ppb   bcp   ppb   bpb
+ccb   bcc   bpc   bpc   ppc   ccb   ppp   ccc
+bcb   pcb   bbcEb pcb   pbb   ppp   cbb   ccc
 #     pcc   bpb   bpp   pbp   bbp   bbc   #
-#     ppc   cpb   cpp   ccp   cbc   cbc   #
-#     ppc   cbc   cbpEc cpc   cbc   pbc   #
-cpc   pbc   pbc   cpc   cpc   cbp   ppb   bcp
-cpc   cpc   pcc   ccc   cbp   cbp   ppb   ccp
-ccp   bpc   bcc   bccEp pbc   cbb   cbb   ccp
-solution: 0,0 ; 2,3 ; 2,1 ; roll 8 ; 1,0 ; roll 8 ; 3,0
+#     pbc   ccb   cbp   ccp   cpc   cbp   #
+#     ppp   cbp   pbc   ppc   bcc   pbc   #
+cpc   bbb   pbc   bpb   cpc   cbp   ppb   bcp
+cpc   cpc   pcp   pcc   cpp   bbpEp ppb   ccp
+ccp   bpc   bcc   bcc   pbb   cpb   bbb   ccp
+solution: 5,4 ; roll 3 ; 2,3 ; 3,2 ; 6,5 ; roll 0 ; 1,5

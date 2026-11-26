@@ -25,6 +25,10 @@ namespace KatKat.Core
         public Coord ComboAt;
         /// <summary>Etki alanında tetiklenip sıraya giren diğer özel taşlar.</summary>
         public readonly List<Coord> Triggered = new List<Coord>();
+        /// <summary>2026-11-26: roket / Altın Rulo dalgasında imha edilen tuzaklı bombalar.</summary>
+        public readonly List<Coord> Defused = new List<Coord>();
+        /// <summary>2026-11-26: iki roket birleşti; kaynak (sürüklenen) roketin hücresi (simgesi patlar).</summary>
+        public Coord? MergedFrom;
         /// <summary>Örtüye doğrudan vuruşlar (roket/gökkuşağı örtülü yığından geçti).</summary>
         public readonly List<Coord> DirectHits = new List<Coord>();
         /// <summary>M09: süngere yeni dolan yuvalar (her biri: hücre, dolu maske, gereken maske) ve açılan süngerler.</summary>

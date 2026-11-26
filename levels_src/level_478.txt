@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil kesik köşe; çözüm 19 + 0 tepsi / sınır 19; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:pure; şekil T (ayna); çözüm 11 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_478
-moves: 19
+moves: 11
 roll: off
 refill: 27 2-2
 type: pure
 rules: noSpecials, exact
-goals: coral 21, star 3, sponge 1
+goals: coral 28, star 3, sponge 1
 grid:
-#     #     cc    nc    yc    pp    #     #
-#     nn    cn    cc    np    pySc  cp    #
-cy    np    cn    cp    cp    py    yp    ny
-cc    cc    nn    pn    pp    pc    pc    ny
-cp    cc    yc*   yn    yn    cy    yn    nn
-cy    pp    pc    yc    cp    nn    cn    py
-cy*   pp    pn    yc    pn    np    ny    ny
-#     cn*   pn    yy    np    yp    pp    #
-#     #     nc    cp    np    np    #     #
-solution: 1,1 ; 3,4 ; 2,0 ; 2,6 ; 1,5 ; 3,5 ; 3,5 ; 1,4 ; 4,1 ; 4,0 ; 4,3 ; 3,5 ; 5,6 ; 3,4 ; 4,0 ; 2,0 ; 1,5 ; 3,4 ; 0,5
+cb    cp    cb    bb    yb    bp    bp    py
+bp    cp    cp    yb    yb    bp    pb    pp
+bb    cy    cb    by    by    bc    yp    bp
+cb    bb    bc    pb    pp    pc    bcSby bp
+cb    py    bb    bp    cp    cy    bc    bc
+cb    cb    yy    yb    bp    cy    cc*   cc*
+#     #     yc*   yp    cp    cy    #     #
+#     #     yc    bp    yc    yb    #     #
+#     #     cc    cb    yb    yb    #     #
+solution: 6,4 ; 5,4 ; 5,2 ; 2,6 ; 2,5 ; 5,2 ; 3,2 ; 3,0 ; 6,1 ; 6,1 ; 2,0

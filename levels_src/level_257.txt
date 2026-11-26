@@ -1,12 +1,12 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil dalga; çözüm 11 + 9 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil dalga; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_257
-moves: 11
+moves: 8
 roll: off
 specials: on
 refill: 32 2-2
 type: reverse
 rules: exact
-goals: navy 40, blue 34, envelope 2
+goals: navy 29, blue 24, envelope 2
 grid:
 pp    #     nc    #     yn    #     yc    #
 np    pp    np    cn    cn    yy    yy    yy
@@ -17,4 +17,4 @@ py    py    yn    yb    yy    yn    bb    bb
 cp    by    bb    bb    yn    nn    nn    bp
 cp    by    bb    bn    nn    np    yb    yp
 #     pp    #     bn    #     np    #     bpEn
-solution: 3,3 ; use 0,7,1 ; 4,0 ; 0,2 ; use 0,6,2 ; 5,5 ; 5,4 ; 0,4 ; use 0,2,0 ; use 0,4,0 ; 2,0 ; 0,1 ; use 0,6,0 ; 2,2 ; use 0,0,0 ; 5,4 ; 5,3 ; use 0,0,2 ; use 0,0,6 ; use 0,6,6
+solution: 6,6 ; 6,6 ; 5,4 ; 2,5 ; 3,8 ; swap 2,5,1 ; 3,7 ; swap 3,7,1

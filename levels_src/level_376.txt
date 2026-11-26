@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil çatı (ayna); çözüm 6 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_376
-moves: 10
+moves: 8
 roll: off
 specials: on
-refill: 32 2-2
-goals: coral 39, purple 23, star 3
+refill: 29 2-2
+goals: purple 20, coral 36, star 3
 grid:
-by    bc    cc    cc    cb    bb    cb    cy
-by    by    pn    nc    nb    bb    cb    cy
-pn    by    pc*   yy    yb    yy    cy    cy
-bn    by*   yb    yc    yc    cbR   pcR   bn
-pc    yc    cc    by    bp    bp    cp    cb
-yy    bn    bn    cn    cc    cc    pc    pb
-yc    bb*   nyR   cc    pc    pb    nc    pb
-bc    ny    yn    np    pb    yb    nn    nn
-bc    yy    yb    pb    py    pb    pb    cn
-solution: rot 5,3 ; 4,4 ; 3,3 ; 7,0 ; use 0,1,0 ; use 0,2,0 ; 0,0 ; 0,0 ; use 0,0,0 ; use 0,1,0 ; 4,3 ; use 0,3,0 ; 2,0 ; use 0,0,0
+#     #     #     nn    ncR   #     #     #
+#     yp    yp    yn    bb    yc    yc    #
+yc    yp    bb    bb*   pb    pc    cyR   bc
+yc    bn    bn    bb    ny    bc    cn*   cc
+bc    cc    bn    bb    cy    cc    nc    pp
+cy    nn    nb    nn    pc    nn    nn    pc
+cb    cb    cb    pc    pc    nn    cb    pb
+pb    pp    cy    pc    ny    ny    cc    pc
+pcR   yp    yb    yb    ny*   cb    cc    pc
+solution: rot 6,2 ; 5,1 ; 4,1 ; 2,2 ; swap 5,1,2 ; 1,1

@@ -1,6 +1,6 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil kenar çentikleri; çözüm 4 + 4 tepsi / sınır 10; rastgele 0,155; açgözlü kazanır; yumuşak 0,94
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 nefes; şekil kenar çentikleri; çözüm 4 + 0 tepsi / sınır 12; rastgele 0,005; açgözlü kazanır; yumuşak 0,67
 id: level_876
-moves: 10
+moves: 12
 roll: off
 specials: on
 refill: 46 2-2
@@ -15,4 +15,4 @@ bn    bn    pb    nb    bn    nn    yn    pp
 #     pp    pp    py    nn    pb    pn    #
 nn    bn    bp    bp    yb    yb    pb    bb
 nn    bn    bb    by    yn    yp    pb    pb
-solution: 2,3 ; 2,4 ; 1,3 ; use 1,2,0 ; use 1,0,0 ; 1,5 ; use 1,3,0 ; use 0,0,1
+solution: 4,3 ; 1,6 ; 4,4 ; swap 4,4,3

@@ -1,12 +1,12 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil T (ayna); çözüm 8 + 6 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil T (ayna); çözüm 9 + 0 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: level_998
-moves: 9
+moves: 10
 roll: off
 specials: on
 refill: 27 2-3
 type: scarce
 rules: scarce
-goals: yellow 17, coral 52, purple 37
+goals: yellow 15, coral 45, purple 33
 grid:
 npc   npb   G1:npb G1:npp G1:ppp ppp   pyb   pcb
 bcc   bcb   bcb   pcp   pnp   ncc   ccc   ccbi1
@@ -17,4 +17,4 @@ pby   cbpi1 ncpi1 ncp   ncy   ynbi1 pcb   pcp
 #     #     ybp   pbp   cny   ynb   #     #
 #     #     cbc   npy   ncc   ypbi2 #     #
 #     #     cbc   cpbi2 pcb   ypb   #     #
-solution: 7,3 ; 5,1 ; 6,0 ; use 0,6,1 ; use 0,0,0 ; 4,2 ; 2,6 ; use 0,0,0 ; 5,1 ; use 0,0,1 ; use 0,6,1 ; 1,0 ; 3,1 ; use 0,5,2
+solution: 1,2 ; 1,2 ; 2,5 ; 3,5 ; swap 3,5,2 ; 2,5 ; 2,2 ; 1,4 ; swap 1,4,0

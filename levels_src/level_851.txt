@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,13; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe; çözüm 7 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
 id: level_851
-moves: 10
+moves: 9
 time: 60
 roll: off
 specials: on
-refill: 30 2-2
-goals: yellow 34, blue 19, purple 34
+refill: 27 2-2
+goals: purple 19, coral 21, yellow 17
 grid:
-cy    cn    nn    nyi1  py    pb    bb    pb
-cy    cn    pni2  ny    py    ynR   ypR   pc
-cy    cy    nc    np    cp    cy    cy    bc
-#     cc    nc    np    cp    cci1  yn    #
-#     yc    yy    pp    pc    nc    cyR   #
-#     yc    yyi1  yy    cy    cc    pc    #
-yc    yp    bc    bc    pc    py    pb    bb
-pp    ppi1  yc    yy    cc    yy    pn    bni2
-pp    pb    pbi1  py    cc    cn    pn    bb
-solution: rot 5,1 ; 4,0 ; 7,1 ; use 1,5,0 ; 4,0 ; use 1,0,0 ; 4,3 ; use 1,4,0 ; 2,5 ; 1,6 ; use 2,4,0 ; 1,4 ; use 2,4,0 ; use 0,0,0
+#     #     pn    pn    nb    nb    #     #
+#     np    nn    cn    nc    cb    cbi1  #
+py    by    by    cc    cci1  cn    yn    bn
+yc    bn    yp    bpi2  yc    cbi1  byR   yn
+yc    bci2  by    bp    cyR   nc    yb    yn
+yb    pp    cp    pni1  cc    cc    cc    cn
+pb    bb    pyR   pn    pn    yy    yp    yn
+#     cb    ppi1  pn    cn    yp    yp    #
+#     #     pp    pn    yp    yp    #     #
+solution: rot 4,4 ; 3,7 ; 2,8 ; swap 2,8,0 ; 1,5 ; 0,3 ; swap 0,5,0

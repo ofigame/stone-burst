@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 243 + tür resource; şekil zikzak; çözüm 7 + 5 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 243 + tür resource; şekil zikzak; çözüm 7 + 0 tepsi / sınır 7; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d006_t4
 title: Günlük 6
 moves: 7
@@ -6,15 +6,15 @@ roll: on
 specials: on
 type: resource
 rules: exact
-goals: blue 28, purple 25, envelope 2
+goals: blue 20, purple 20, envelope 2
 grid:
 cny   cnc   cnc   cpc   ybc   ycy   ypy   #
-#     nnc   cpc   cpn   ccn   pcbEc ppc   npc
-nbc   nbc   cpp   yyc   ync   ycb   ycb   #
-#     pnn   pyp   cyb   cnb   ynb   ycn   ybn
-ppnEb pynG  yyp   pbb   cbb   bcb   bcn   #
-#     bbpG  byyG  pnb   pnc   cpc   cpn   cpn
-nbn   nbcG  pby   cby   cby   ycp   ypn   #
+#     nnp   cpc   npn   ccn   pcbG  ppcG  npcG
+nbc   nbc   cppEc yyc   ync   ycb   ycyG  #
+#     pnn   pyp   cyy   cnb   ynb   yyn   ybn
+ppn   pyn   yyp   pbb   cbb   bcp   bcn   #
+#     bbp   byy   pnb   pnc   cpc   cpn   cpn
+nbn   nbc   pby   cby   cby   ycp   ypnEc #
 #     npc   bbc   cnb   cnb   pcp   ycp   ybp
 bpy   bpy   bpy   cpy   pnb   pnb   pbb   #
-solution: 6,3 ; 5,2 ; 6,1 ; use 0,0,0 ; 5,5 ; use 0,5,1 ; roll 8 ; use 0,6,1 ; 1,0 ; use 0,3,0 ; roll 8 ; use 0,0,0
+solution: 2,5 ; 3,6 ; 2,1 ; swap 3,6,2 ; 5,4 ; 6,4 ; swap 5,4,0

@@ -438,8 +438,11 @@ namespace KatKat.View
 
         // ---- v5 özel taş simgesi ------------------------------------------------------------------------
 
-        private SpriteRenderer _special;
+        private SpriteRenderer _special, _special2;
         private SpecialKind _specialKind;
+        /// <summary>2026-11-26 çift roket: iki roket yan yana (satır çiftinde alt alta, sütun çiftinde yan yana), biraz küçük.</summary>
+        private const float TwinScale = 0.78f, TwinGap = 0.19f;
+        private Vector3 TwinShift => _specialKind.IsDoubleRocket() ? (_specialKind.IsRowRocket() ? new Vector3(0f, Size * TwinGap, 0f) : new Vector3(Size * TwinGap, 0f, 0f)) : Vector3.zero;
         private float _specialClock, _popT = 10f;
 
         /// <summary>Doğma animasyonunu başlatır (simge küçükten büyüyüp yaylanarak oturur).</summary>
@@ -455,6 +458,7 @@ namespace KatKat.View
             if (kind == SpecialKind.None)
             {
                 if (_special != null) _special.gameObject.SetActive(false);
+                if (_special2 != null) _special2.gameObject.SetActive(false);
                 return;
             }
             if (_special == null) _special = Mark("Special", SpecialArt.Rocket, 8);
@@ -466,6 +470,20 @@ namespace KatKat.View
             _special.transform.localPosition = TopFaceLocal + (Vector3)(offset * Size);
             _special.transform.localRotation = Quaternion.Euler(0f, 0f, TileSkin.SpecialAngle(kind));
             _special.transform.localScale = Vector3.one * SpecialScale();
+            bool twin = kind.IsDoubleRocket();
+            if (twin && _special2 == null) _special2 = Mark("Special2", SpecialArt.Rocket, 8);
+            if (_special2 != null) _special2.gameObject.SetActive(twin);
+            if (twin)
+            {
+                _special2.sprite = _special.sprite;
+                _special2.sortingOrder = _special.sortingOrder;
+                _special2.color = Color.white;
+                _special2.transform.localRotation = _special.transform.localRotation;
+                _special.transform.localPosition += TwinShift;
+                _special2.transform.localPosition = _special.transform.localPosition - 2f * TwinShift;
+                _special.transform.localScale *= TwinScale;
+                _special2.transform.localScale = _special.transform.localScale;
+            }
         }
 
         /// <summary>Boşta özel taş: hafif nefes (ölçek) ve gökkuşağında yavaş dönüş; oyuncunun gözü takılsın.</summary>
@@ -484,7 +502,9 @@ namespace KatKat.View
                 float x = _popT / 0.42f;
                 k *= x < 0.55f ? Mathf.Lerp(0f, 1.04f, Ease.OutCubic(x / 0.55f)) : Mathf.Lerp(1.04f, 1f, Ease.InOutQuad((x - 0.55f) / 0.45f));
             }
+            if (_specialKind.IsDoubleRocket()) k *= TwinScale;
             _special.transform.localScale = Vector3.one * baseScale * k;
+            if (_special2 != null && _special2.gameObject.activeSelf) _special2.transform.localScale = _special.transform.localScale;
         }
 
         // ---- Su kipi (2026-11-25, kullanıcı: "Taşların ortasındaki şekilleri su ile dolduralım su dolu hücredeki taşların"): sulu

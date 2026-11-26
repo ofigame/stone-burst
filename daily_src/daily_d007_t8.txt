@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 879 + tür order; şekil T; çözüm 9 + 8 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 879 + tür order; şekil T; çözüm 8 + 0 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d007_t8
 title: Günlük 7
-moves: 9
+moves: 8
 roll: on
 specials: on
 type: order
 rules: exact
-goals: purple 23, coral 34, navy 19, envelope 3
+goals: purple 20, coral 28, navy 18, envelope 3
 grid:
-byn   byn   pbb   ypb   ybb   ybb   ypb
-byp   yyc   cbc   ybc   ybc   ybc   cpcEb
-ypy   pnc   ccc   ycpLn3 ycc   ycc   nyc
-ppy   pnn   cpn   cpp   nbp   nby   nycEb
-cpy   cnpLn3 yyy   yyc   pbc   nbc   nyy
-cpb   cnp   nyp   yycEp pbp   nbp   yny
-#     #     npy   cpy   pcy   #     #
+byn   byn   pbb   ypb   nbb   ybbEc ypb
+byp   yyc   cbc   ybc   ybc   nby   cpc
+ypy   pnc   ccc   ycpLy4 ycc   ycbEn nyc
+ppy   pnn   cpn   cppLy4 nbp   nby   nyc
+cpy   cnp   yyy   yyc   pbc   nbc   nyy
+cpb   cnp   nyp   yyc   pbp   nbp   yny
+#     #     npy   cpyEc pcy   #     #
 #     #     ncy   cby   ybn   #     #
 #     #     ycy   ycy   ycn   #     #
-solution: 2,0 ; use 0,0,3 ; 1,1 ; use 0,0,0 ; 1,2 ; 2,4 ; use 0,3,0 ; 2,2 ; 4,3 ; use 0,4,3 ; 2,0 ; use 0,2,1 ; 4,4 ; 3,0 ; use 0,6,0 ; use 0,2,7 ; use 0,3,7
+solution: 3,4 ; 4,2 ; 2,4 ; 4,2 ; 1,4 ; swap 2,4,2 ; 6,4 ; roll 7

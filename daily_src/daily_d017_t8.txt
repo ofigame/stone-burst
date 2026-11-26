@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 895 + tür reverse; şekil çatı (ayna); çözüm 8 + 7 tepsi / sınır 8; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 895 + tür reverse; şekil dalga; çözüm 9 + 0 tepsi / sınır 9; rastgele 0,000; açgözlü kaybeder; yumuşak 0,08; döndürmeyle başlar;
 id: daily_d017_t8
 title: Günlük 17
-moves: 8
+moves: 9
 roll: on
 specials: on
 type: reverse
 rules: exact
-goals: yellow 59, coral 14, navy 21
+goals: navy 29, coral 24, blue 37
 grid:
-#     #     #     pny   pnp   #     #     #
-#     yny   pcy   pcy   pbp   yby   yby   #
-pycR  pny   pcb   byb   byy   yny   yny   yny
-nnp   nbp   pbb   byb   bby   nby   pyp   pnp
-cpp   ypb   yby   cby   nny   nby   pyy   ynp
-cpp   yby   yby   cnb   yny   nby   pbp   ynp
-cbb   cbb   ybb   ynb   ynb   yby   ypy   ypp
-ybb   ybb   cbp   bpb   bnn   ypcR  yyp   yyp
-cbb   cbc   cbp   byp   byn   byp   yyp   yyp
-solution: rot 0,2 ; 6,3 ; 5,1 ; 2,2 ; 5,2 ; use 0,3,0 ; 0,2 ; use 0,2,1 ; 0,6 ; use 2,1,1 ; use 2,0,2 ; 6,3 ; use 2,0,2 ; use 0,1,1 ; use 0,3,0
+cby   #     pyn   #     pny   #     cyb   #
+cby   pbn   pyn   nyp   nyb   npb   cbnR  cnp
+ycy   pcn   pyy   cbp   cyp   byb   bbb   cnp
+ycy   pcn   pcy   bbp   ccp   nbc   nbn   ynbR
+bpy   bpb   bpp   bcb   nbc   nbc   ybb   ncy
+bpc   ybb   nbc   ncb   bcb   bbn   ccn   ncy
+bnb   ybb   nbb   bbn   bbn   byb   pnn   npy
+yyc   yyn   nyn   nyn   byc   bnb   cnn   cpy
+#     yyn   #     nyn   #     ync   #     cpy
+solution: rot 6,1 ; 2,7 ; 5,7 ; 4,5 ; 2,7 ; 5,5 ; swap 5,5,2 ; 0,0 ; roll 3

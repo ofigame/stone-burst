@@ -175,10 +175,47 @@ namespace KatKat.UI
             }
         }
 
+        // 2026-11-26 hedef isabeti (kullanıcı: "Normal Taş Patlatma ve Hedefe Taş Toplama Animasyonu"): her varışta simge %110–120'ye
+        // seker; üst üste gelen varışlar büyümeyi biriktirmez, sekme baştan başlar (tepe en çok yeni ya da süren tepe). Görev dolunca
+        // ~%125 vuruş ve onay rozeti sekmesi.
+        private float _punchT = 1f, _punchPeak = 1f, _punchMs = 200f, _checkPop = 1f, _checkBase = -1f;
+
+        /// <summary>Hedef kopyası vardı: simge sekmesi, sayı büyüyüp oturur, kısa parıltı; <paramref name="complete"/> görev doldu.</summary>
+        public void Hit(float peak, float ms, bool complete)
+        {
+            bool running = _punchT < 1f;
+            _punchPeak = running ? Mathf.Max(peak, Mathf.Lerp(_punchPeak, 1f, Mathf.Clamp01(_punchT))) : peak;
+            _punchT = 0f;
+            _punchMs = Mathf.Max(60f, ms);
+            _countPulse = 1f;
+            if (_flash >= 1f || complete) _flash = 0f;
+            if (complete && _check != null) { if (_checkBase < 0f) _checkBase = _check.localScale.x; _checkPop = 0f; }
+        }
+
+        /// <summary>Sekme eğrisi: hızlı tepe (%30), yumuşak dönüş ve küçük geri yaylanma.</summary>
+        private float PunchScale()
+        {
+            if (_punchT >= 1f) return 1f;
+            float t = _punchT;
+            float a = _punchPeak - 1f;
+            if (t < 0.3f) { float u = t / 0.3f; return 1f + a * (1f - (1f - u) * (1f - u)); }
+            float v = (t - 0.3f) / 0.7f;
+            return 1f + a * Mathf.Cos(v * Mathf.PI * 0.5f) * (1f - v) - a * 0.12f * Mathf.Sin(v * Mathf.PI) * v;
+        }
+
         public void Tick(float dt)
         {
             float target = Focus ? 1f : 0f;
-            bool scaleDirty = _pulse > 0f || !Mathf.Approximately(_focus, target);
+            bool punching = _punchT < 1f;
+            if (punching) _punchT = Mathf.Min(1f, _punchT + dt * 1000f / _punchMs);
+            if (_checkPop < 1f && _check != null && _checkBase > 0f)
+            {
+                _checkPop = Mathf.Min(1f, _checkPop + dt / 0.32f);
+                float u = _checkPop;
+                float s = u < 0.5f ? Mathf.Lerp(0.2f, 1.3f, u / 0.5f) : Mathf.Lerp(1.3f, 1f, (u - 0.5f) / 0.5f);
+                _check.localScale = Vector3.one * (s * _checkBase);
+            }
+            bool scaleDirty = _pulse > 0f || punching || !Mathf.Approximately(_focus, target);
             _focus = Mathf.MoveTowards(_focus, target, dt / (Focus ? 0.22f : 0.3f));
             if (_pulse > 0f) _pulse = Mathf.Max(0f, _pulse - dt * 4f);
             if (_countPulse > 0f)
@@ -190,7 +227,7 @@ namespace KatKat.UI
             if (scaleDirty || _focus > 0f)
             {
                 float f = _focus * _focus * (3f - 2f * _focus);
-                float s = Mathf.Lerp(1f, FocusScale, f) * (1f + 0.22f * Mathf.Sin(_pulse * Mathf.PI));
+                float s = Mathf.Lerp(1f, FocusScale, f) * (1f + 0.22f * Mathf.Sin(_pulse * Mathf.PI)) * PunchScale();
                 Icon.localScale = new Vector3(s, s, 1f);
             }
             if (_flash < 1f)
