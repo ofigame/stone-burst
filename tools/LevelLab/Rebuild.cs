@@ -246,6 +246,23 @@ static partial class Program
     static int CountMoves(IEnumerable<Command> sol) => sol.Count(c => c.Type != CommandType.SendBucket);
 
     /// <summary>
+    /// 2026-11-27 (kullanıcı: "roket ve rulo kullanımında hamleden gitmesin"): çözümün harcadığı hamle, kural motoruyla yeniden
+    /// oynatılarak (roket / Altın Rulo bedava, Kürek 1 hamle, gönderim bedava). Oynatma bozulursa dokunuş sayısına döner.
+    /// </summary>
+    static int CountMoves(LevelData d, IEnumerable<Command> sol)
+    {
+        var c = Clone(d);
+        c.MoveLimit = 999;
+        var s = LevelLoader.ToState(c);
+        foreach (var cmd in sol)
+        {
+            if (s.IsTerminal) break;
+            if (!RulesEngine.TryApply(s, cmd).Accepted) return CountMoves(sol);
+        }
+        return 999 - s.MovesLeft;
+    }
+
+    /// <summary>
     /// v7 bot hedefi: 6–15 v6 ile aynı (HardTarget − 0.05); 16–30 arasında 0.06 daha aşağı iner ve öyle kalır.
     /// Alt sınır 6–99'da 0.15, sonra 0.10 (geç oyunda ~0 kazanma oranı istenmez).
     /// </summary>
@@ -355,7 +372,7 @@ static partial class Program
                     d.MoveLimit = budget + 6;
                     var s = BeamSolve(LevelLoader.ToState(d), 60, budget + 16);
                     if (s == null || !ReplayWins(d, s)) { if (cands.Count > 0 && ++misses >= 2) break; continue; }
-                    int L = CountMoves(s);
+                    int L = CountMoves(d, s);
                     double wrMax = 0;
                     // Tercih edilen pay aralığı; bot hâlâ hedefin altındaysa pay +2'şer en çok 10'a açılır (sıfır pay yok).
                     var slacks = SlackRange(n).ToList();
@@ -387,7 +404,7 @@ static partial class Program
                 foreach (var c in sol) best.Solution.Add(ToStep(c));
                 if (!ReplayWins(best, sol)) throw new Exception("son tekrar kazanmadı");
                 int uses = sol.Count(c => c.Type == CommandType.UseSpecial);
-                int Lm = CountMoves(sol);
+                int Lm = CountMoves(best, sol);
                 var ev = new Eval { Info = $"v7: şekil {shape}; çözüm {Lm} hamle + {uses} tepsi / limit {pickC.Limit} (pay +{pickC.Slack}, eski {oldMoves}) hedef×{pickC.Gf:0.00} bot {pickC.Wr:0.00} (hedef {target:0.00}) plan {pickC.Plan}" };
                 File.WriteAllText(outPath, ToSource(best, ev), new UTF8Encoding(false));
                 lines[i] = $"{n:000}: {ev.Info}";

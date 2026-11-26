@@ -57,7 +57,7 @@ namespace KatKat.Tests
             s.Tray.Add(SpecialKind.Shovel);
             var r = RulesEngine.TryApply(s, Command.UseSpecial(0, 1, 1));
             Assert.IsTrue(r.Accepted);
-            Assert.AreEqual(4, s.MovesLeft, "2026-11-26: tepsiden kullanım bir hamle");
+            Assert.AreEqual(4, s.MovesLeft, "Kürek bir hamle (2026-11-27: yalnız roket ve Altın Rulo bedava)");
             Assert.AreEqual(7, r.Waves.Sum(w => w.GravelCleared.Count));
             Assert.AreEqual(0, r.Waves.Sum(w => w.Cells.Count));
             Assert.IsTrue(s.Board[1, 1].IsSelectable);

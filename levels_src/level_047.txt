@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil U; çözüm 8 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil U; çözüm 6 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,44
 id: level_047
 moves: 10
 roll: off
@@ -6,7 +6,7 @@ specials: on
 refill: 30 2-3
 type: exact
 rules: exact
-goals: coral 19, yellow 24, blue 27
+goals: coral 28, yellow 35, blue 39
 grid:
 byp   byp   byp   #     pcc   pbp   pbp
 byc   byy   byp   #     pcc   ccc   pbp
@@ -16,4 +16,4 @@ bcb   ycc   cpb   ppb   bpc   pyy   yyy
 pyb   pyp   ypy   ypy   ycc   pcp   bcy
 byy   cbyk1 ccy   bbp   cpy   cpp   byp
 pyp   pcp   ccy   bbp   bbp   bbpk1 byy
-solution: 5,0 ; use 0,1,0 ; 0,2 ; 1,0 ; 0,5 ; use 1,4,0 ; use 1,1,0 ; use 0,1,0
+solution: 5,0 ; 2,2 ; use 0,1,0 ; use 0,5,0 ; 0,5 ; use 0,4,0 ; 2,0 ; use 0,0,0 ; 0,2 ; 0,0 ; use 0,4,0 ; use 0,0,0

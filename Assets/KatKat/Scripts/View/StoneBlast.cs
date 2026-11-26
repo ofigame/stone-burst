@@ -469,7 +469,7 @@ namespace KatKat.View
                 float e = Mathf.Pow(u, Mathf.Max(1f, c.FlightEase)) * 0.75f + u * 0.25f;
                 if (f.TargetFn != null) { var nt = f.TargetFn(); f.P2 += nt - f.Target; f.Target = nt; }
                 pos = Cubic(f.PopTo, f.P1, f.P2, f.Target, e);
-                size = f.Size * Mathf.Lerp(c.MiniStart, c.MiniEnd, e) * (u > 0.8f ? Mathf.Lerp(1f, 0.55f, (u - 0.8f) / 0.2f) : 1f);
+                size = f.Size * Mathf.Lerp(c.MiniStart, c.MiniEnd, e) * (u > 0.85f ? Mathf.Lerp(1f, 0.75f, (u - 0.85f) / 0.15f) : 1f); // 2026-11-27: hedefe büyük varır
                 float st = 1f + c.Stretch * Mathf.Sin(u * Mathf.PI) * e;
                 sx = 1f / Mathf.Sqrt(st); sy = st;
                 rot = f.Spin * Mathf.Sin(u * Mathf.PI);
@@ -492,8 +492,8 @@ namespace KatKat.View
                 f.Sr.color = new Color(1f, 1f, 1f, alpha);
                 var hc = Color.Lerp(f.Main, Color.white, 0.35f);
                 f.Halo.transform.position = p;
-                Size(f.Halo, size * 1.9f);
-                f.Halo.color = new Color(hc.r, hc.g, hc.b, 0.45f * alpha);
+                Size(f.Halo, size * 2.4f);
+                f.Halo.color = new Color(hc.r, hc.g, hc.b, 0.7f * alpha); // 2026-11-27: daha görünür hale
             }
             return false;
         }
@@ -507,8 +507,8 @@ namespace KatKat.View
             float s = f.Size * 0.9f;
             var p = f.Target; p.z -= 0.04f;
             var rc = Color.Lerp(f.Main, f.Accent, 0.3f);
-            Emit(FxKit.Ring, true, FlyOrder + 4, p, Vector3.zero, 0.26f, s * 0.35f, s * c.ImpactRing, new Color(rc.r, rc.g, rc.b, 0.85f), new Color(rc.r, rc.g, rc.b, 0f));
-            Emit(FxKit.Glow, true, FlyOrder + 3, p, Vector3.zero, 0.2f, s * 0.5f, s * 1.3f, new Color(1f, 1f, 1f, 0.55f), new Color(rc.r, rc.g, rc.b, 0f));
+            Emit(FxKit.Ring, true, FlyOrder + 4, p, Vector3.zero, 0.32f, s * 0.35f, s * c.ImpactRing, new Color(rc.r, rc.g, rc.b, 1f), new Color(rc.r, rc.g, rc.b, 0f));
+            Emit(FxKit.Glow, true, FlyOrder + 3, p, Vector3.zero, 0.26f, s * 0.6f, s * 1.9f, new Color(1f, 1f, 1f, 0.8f), new Color(rc.r, rc.g, rc.b, 0f)); // 2026-11-27: güçlü isabet
             int sp = Mathf.Max(1, Mathf.RoundToInt(c.ImpactSparkles * BoosterFxConfig.Current.ParticleK));
             for (int i = 0; i < sp; i++)
             {

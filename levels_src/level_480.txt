@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil T (ayna); çözüm 7 + 3 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,31
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil elmas; çözüm 6 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,19
 id: level_480
-moves: 11
+moves: 10
 roll: off
 specials: on
-refill: 27 2-3
+refill: 22 2-3
 type: boss
 rules: protect
-goals: navy 31, blue 34, sponge 1
+goals: yellow 28, navy 22, sponge 1
 grid:
-bnb   bbb   cbyLn6 cby   cynP  bpp   bpb   pnb
-bnpP  bnn   byn   ync   byn   pcb   cbb   cbn
-bbp   ynb   nnn   bnn   byn   ccc   cby   nbn
-ynbScb nyb   nbc   nbc   cbc   cbc   cyb   ybn
-ynb   ycnLc4 ncp   ccy   ybb   nbc   pyc   ypp
-yny   ycy   ncn   ycn   ycy   cby   pcy   ppy
-#     #     cbn   pny   pny   pnn   #     #
-#     #     bbb   bpy   pnn   pnn   #     #
-#     #     bpb   bpb   ppc   ppcP  #     #
-solution: 5,2 ; 1,2 ; 6,2 ; use 1,4,0 ; use 0,0,2 ; use 0,0,0 ; 1,2
+#     #     #     yyn   yyn   #     #     #
+#     #     cpn   bby   bpn   cpn   #     #
+#     ccb   cpc   pcb   ybc   ybn   cpn   #
+ypb   pyb   ppbSbp pyy   ybcLc6 npc   ypc   ypyP
+ppcP  ppb   cyb   ppy   yby   ycy   bcbLc5 bbc
+bcnP  bpn   cnb   nnn   ybb   byy   pyc   bbc
+#     pcn   pcc   bbb   bpb   bbc   nyc   #
+#     #     ycb   ypb   pnc   bpc   #     #
+#     #     #     npn   pnn   #     #     #
+solution: 7,4 ; 3,3 ; use 0,3,0 ; use 0,2,1 ; 1,2 ; 4,2 ; use 0,5,1 ; 2,1 ; use 0,3,1 ; 4,2 ; use 0,3,0

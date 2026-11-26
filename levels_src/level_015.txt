@@ -1,16 +1,16 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kesik köşe (ayna); çözüm 5 + 2 tepsi / sınır 10; rastgele 0,260; açgözlü kazanır; yumuşak 0,94
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil dikdörtgen; çözüm 4 + 3 tepsi / sınır 10; rastgele 0,410; açgözlü kazanır; yumuşak 1,00; YEDEK: rastgele;
 id: level_015
 moves: 10
 roll: off
 specials: on
-refill: 20 2-2
-goals: yellow 21, blue 17
+refill: 27 2-2
+goals: yellow 39, blue 39
 grid:
-#     #     cy    cb    cy    #     #
-#     yc    yc    yb    yy    by    #
-cy    cc    bb    by    yb    cc    yb
-cb    cc    bb    cb    bc    yc    yb
-yb    bb    yc    yy    by    bc    cb
-#     cy    yb    yc    cy    bc    #
-#     #     yc    yc    yc    #     #
-solution: 3,4 ; 5,2 ; use 0,3,0 ; 6,2 ; use 0,4,0
+bc    bc    by    yc    bc    by    by
+cc    bb    cb    cy    yc    yy    yy
+yy    yy    yy    cb    cy    yc    yb
+yb    yb    cb    cy    cb    yy    bb
+yc    bb    by    yy    bb    by    bb
+cc    cy    by    yc    cb    yy    yy
+bc    cb    by    yy    yb    yb    bb
+solution: 4,3 ; 3,3 ; use 1,2,0 ; 2,0 ; use 1,2,0 ; 3,0 ; use 0,1,0

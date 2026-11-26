@@ -4,14 +4,14 @@
   "capabilities": ["ice", "sponge", "refill", "specials"],
   "width": 8,
   "height": 9,
-  "moveLimit": 12,
+  "moveLimit": 10,
   "rollEnabled": false,
   "startingRoll": false,
-  "stars": [1455, 1940],
+  "stars": [1732, 2310],
   "refill": { "count": 28, "minLayers": 2, "maxLayers": 3 },
   "goals": [
-    { "type": "collectColor", "color": "blue", "amount": 38 },
-    { "type": "collectColor", "color": "navy", "amount": 25 },
+    { "type": "collectColor", "color": "blue", "amount": 43 },
+    { "type": "collectColor", "color": "navy", "amount": 29 },
     { "type": "collectToken", "kind": "sponge", "amount": 1 }
   ],
   "cells": [
@@ -88,6 +88,8 @@
     { "type": "use", "slot": 0, "x": 6, "y": 1 },
     { "type": "tap", "x": 6, "y": 6 },
     { "type": "use", "slot": 0, "x": 4, "y": 1 },
-    { "type": "use", "slot": 0, "x": 7, "y": 1 }
+    { "type": "tap", "x": 4, "y": 0 },
+    { "type": "use", "slot": 0, "x": 4, "y": 0 },
+    { "type": "use", "slot": 0, "x": 2, "y": 2 }
   ]
 }

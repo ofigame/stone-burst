@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil artı (ayna); çözüm 6 + 3 tepsi / sınır 10; rastgele 0,010; açgözlü kaybeder; yumuşak 0,73
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil U; çözüm 5 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,42
 id: level_248
 moves: 10
 roll: off
 specials: on
-refill: 24 2-2
+refill: 30 2-2
 type: exact
 rules: exact
-goals: purple 19, blue 12, envelope 3
+goals: blue 21, navy 20, envelope 3
 grid:
-#     #     pc    cc    cn    yn    #     #
-#     #     py    cc    cn    yn    #     #
-yp    cp    py    py    nyEp  yn    cn    pp
-yp    npEp  bp    cp    yy    yb    pb    pb
-ny    ny    by    bn    bpEb  cp    yp    ny
-ny    ny    by    pb    pb    pb    np    ny
-#     #     bp    bp    cp    cb    #     #
-#     #     yn    yn    cn    cn    #     #
-solution: 0,4 ; use 0,2,6 ; 2,4 ; use 0,0,2 ; 2,1 ; use 0,4,5
+nn    nnEc  pc    #     #     yb    yy    yy
+nc    yn    py    #     #     yb    yc    yy
+yc    yb    pc    pb    bb    bb    bcEc  cc
+pb    yy    py    cb    pb    nc    npEy  cc
+pb    yy    bp    bp    py    ny    np    ny
+by    cn    cc    np    pn    pn    pp    pp
+bb    cy    cp    cb    pp    np    ny    np
+bb    by    by    cb    nb    np    pc    pc
+solution: 5,0 ; use 0,0,0 ; 1,1 ; use 0,5,0 ; 0,3 ; use 0,0,6 ; 3,5 ; 1,4 ; use 1,1,0

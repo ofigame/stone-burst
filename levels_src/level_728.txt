@@ -1,21 +1,21 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil merdiven (ayna); çözüm 8 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,13
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil kum saati (ayna); çözüm 7 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: level_728
 moves: 10
 roll: off
 specials: on
 paint: 2
-refill: 28 2-2
+refill: 30 2-2
 type: resource
 rules: exact
-goals: coral 27, yellow 21, purple 19, star 3
+goals: yellow 28, navy 28, coral 26, star 3
 grid:
-#     #     #     #     yn    yn    pp    pp
-#     #     #     bp    yp    cc    cp    np
-#     #     yy    cy    ny    cn    nb    nb
-#     cc    cy    ny    cb    nb    cc    nc
-by    cc    cy    ny    yp    nc    cc    yc
-bc*   bb    cb    nb*   pn    nb    pb    py
-bc    yb    nb    cp    cc    ny    cp    cn
-yc    ny    cn    yp    bp    pp    nb    cb
-yc    yc    yc    yp    bp    np*   nn    pn
-solution: 3,6 ; use 0,4,0 ; 4,1 ; use 0,3,2 ; 0,5 ; use 0,0,4 ; 5,0 ; use 0,2,2
+cy*   yp    yb    yp    np    pn    pp    bp
+cb    yp*   cy    yy    ny    pp    pp    bc
+cb    bb    cb    cy    bn    pp    py    bc
+#     pn    bc    nc    bb    bb    yn    #
+#     pn    cn    nn    bb    bb    bb    #
+#     cy    cy    pn    pn    bn    pp    #
+yy    by*   cb    yb    pb    cp    cp    cp
+yy    bb    cb    cb    np    nn    yn    yy
+yn    yn    cy    py    nb    nn    cn    cn
+solution: 1,5 ; 1,6 ; use 1,0,1 ; 0,0 ; 0,0 ; use 1,1,0 ; 3,5 ; use 1,1,0 ; 0,6 ; use 1,0,0 ; use 0,3,0 ; 5,1

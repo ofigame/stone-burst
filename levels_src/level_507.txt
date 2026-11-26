@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil artı; çözüm 8 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:protect; şekil artı; çözüm 6 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,19
 id: level_507
 moves: 10
 roll: off
@@ -6,7 +6,7 @@ specials: on
 refill: 25 2-3
 type: protect
 rules: protect, exact
-goals: coral 30, yellow 28, purple 26
+goals: coral 35, yellow 32, purple 30
 grid:
 #     #     ypc   ybbk2 bbbk1 bny   #     #
 #     #     nccK1:2 ybc   bcb   bpy   #     #
@@ -17,4 +17,4 @@ ybp   yby   cpp   bcc   cyp   ccc   ncp   cpc
 yby   ycy   bpp   pyc   cyc   ppyk1 ppy   ppc
 #     #     pny   pyy   ppy   ypy   #     #
 #     #     ynb   nyb   nycP  cycP  #     #
-solution: 0,3 ; use 0,3,0 ; 4,5 ; 4,3 ; use 0,2,0 ; 2,3 ; use 0,3,0 ; use 0,3,0
+solution: 0,3 ; use 0,3,0 ; 4,5 ; 4,3 ; use 0,2,0 ; 2,3 ; use 0,6,2 ; use 0,5,0 ; 0,3 ; use 0,5,0 ; 0,5

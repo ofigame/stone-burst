@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil L; çözüm 8 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,08
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil L; çözüm 5 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,54
 id: level_207
 moves: 10
 roll: off
@@ -6,7 +6,7 @@ specials: on
 refill: 30 2-3
 type: resource
 rules: exact
-goals: yellow 25, star 2, envelope 3
+goals: yellow 33, star 2, envelope 3
 grid:
 cpn   cpb   bpb   nny   cny   #     #     #
 cpn   ccb   byc   nbn   cbn   #     #     #
@@ -17,4 +17,4 @@ ncy   bcyEb bpn   pyb*  pycEb ypp   ypp   pyn
 bcc   nbc   npn   ppn   pcp   ycp   pcc   yyb
 pnbEb nnb   ncn   nyc   ppc   npp   ycp   yyy
 pnc   pnc   ncc   ncc   bpy   cpc   cyy   yyy
-solution: 2,5 ; 6,4 ; use 0,1,0 ; 0,3 ; 2,5 ; use 0,0,0 ; 1,1 ; use 0,4,0
+solution: 2,5 ; 6,4 ; use 0,1,0 ; 0,3 ; 1,1 ; 2,5 ; use 2,0,5 ; use 0,4,1 ; use 0,3,2

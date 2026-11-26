@@ -4,10 +4,10 @@
   "capabilities": ["rotor", "linkedClip", "refill", "specials"],
   "width": 8,
   "height": 9,
-  "moveLimit": 14,
+  "moveLimit": 10,
   "rollEnabled": false,
   "startingRoll": false,
-  "stars": [1380, 1840],
+  "stars": [1365, 1820],
   "refill": { "count": 30, "minLayers": 2, "maxLayers": 2 },
   "goals": [
     { "type": "collectColor", "color": "blue", "amount": 31 },
@@ -85,15 +85,16 @@
   "solution": [
     { "type": "rotate", "x": 0, "y": 7 },
     { "type": "tap", "x": 0, "y": 5 },
-    { "type": "use", "slot": 0, "x": 0, "y": 0 },
-    { "type": "tap", "x": 5, "y": 5 },
-    { "type": "use", "slot": 0, "x": 1, "y": 0 },
-    { "type": "tap", "x": 2, "y": 2 },
-    { "type": "use", "slot": 0, "x": 1, "y": 3 },
-    { "type": "tap", "x": 2, "y": 6 },
+    { "type": "tap", "x": 0, "y": 0 },
+    { "type": "use", "slot": 1, "x": 5, "y": 0 },
+    { "type": "tap", "x": 7, "y": 4 },
     { "type": "use", "slot": 0, "x": 2, "y": 0 },
-    { "type": "tap", "x": 1, "y": 5 },
-    { "type": "use", "slot": 0, "x": 7, "y": 1 },
-    { "type": "tap", "x": 2, "y": 7 }
+    { "type": "tap", "x": 0, "y": 1 },
+    { "type": "tap", "x": 2, "y": 0 },
+    { "type": "use", "slot": 1, "x": 0, "y": 0 },
+    { "type": "use", "slot": 0, "x": 1, "y": 0 },
+    { "type": "tap", "x": 1, "y": 3 },
+    { "type": "use", "slot": 0, "x": 1, "y": 0 },
+    { "type": "use", "slot": 0, "x": 0, "y": 3 }
   ]
 }

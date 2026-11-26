@@ -1,6 +1,6 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe (ayna); çözüm 11 + 4 tepsi / sınır 15; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 usta; şekil kesik köşe (ayna); çözüm 6 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10
 id: level_750
-moves: 15
+moves: 10
 roll: off
 specials: on
 paint: 2
@@ -18,4 +18,4 @@ ypyP  cby   cbb   bbb   pcc   ycb   ynb   pnb
 ypb   ypb   ccb   bpc   ppc   pcb   ybp   pnb
 #     yyc   yyc   bcp   byp   yyn   pbp   #
 #     #     cnpP  bnp   ynnP  yyn   #     #
-solution: paint 3,2,y ; 2,1 ; 1,2 ; use 0,2,0 ; 4,2 ; use 0,2,0 ; 4,1 ; 4,0 ; use 0,5,0 ; use 1,7,2 ; 3,1
+solution: paint 3,2,y ; 2,1 ; 1,2 ; use 0,2,0 ; 4,2 ; use 0,2,0 ; 4,1 ; 4,0 ; use 0,5,0 ; use 1,7,2 ; use 0,2,0

@@ -27,6 +27,8 @@ namespace KatKat.Core
         public static bool IsRocket(this SpecialKind k) => k == SpecialKind.RocketRow || k == SpecialKind.RocketColumn || k == SpecialKind.RocketRow2 || k == SpecialKind.RocketColumn2;
         /// <summary>Çift roketin tek karşılığı (görsel ve yön için); diğerleri aynen.</summary>
         public static SpecialKind Single(this SpecialKind k) => k == SpecialKind.RocketRow2 ? SpecialKind.RocketRow : k == SpecialKind.RocketColumn2 ? SpecialKind.RocketColumn : k;
+        /// <summary>2026-11-27 (kullanıcı: "roket ve rulo kullanımında hamleden gitmesin"): tepsiden kullanımda yalnız Kürek hamle harcar; roket, çift roket ve Altın Rulo bedava.</summary>
+        public static bool CostsMove(this SpecialKind k) => k == SpecialKind.Shovel;
         public static bool IsDoubleRocket(this SpecialKind k) => k == SpecialKind.RocketRow2 || k == SpecialKind.RocketColumn2;
         /// <summary>Satır (yatay) roketi mi (tek ya da çift).</summary>
         public static bool IsRowRocket(this SpecialKind k) => k == SpecialKind.RocketRow || k == SpecialKind.RocketRow2;

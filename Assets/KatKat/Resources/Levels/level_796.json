@@ -4,10 +4,10 @@
   "capabilities": ["star", "linkedClip", "refill", "specials"],
   "width": 8,
   "height": 9,
-  "moveLimit": 15,
+  "moveLimit": 10,
   "rollEnabled": false,
   "startingRoll": false,
-  "stars": [1852, 2470],
+  "stars": [1912, 2550],
   "refill": { "count": 29, "minLayers": 2, "maxLayers": 3 },
   "goals": [
     { "type": "collectColor", "color": "navy", "amount": 24 },
@@ -94,6 +94,6 @@
     { "type": "use", "slot": 0, "x": 3, "y": 0 },
     { "type": "tap", "x": 1, "y": 1 },
     { "type": "use", "slot": 2, "x": 3, "y": 0 },
-    { "type": "tap", "x": 3, "y": 6 }
+    { "type": "use", "slot": 0, "x": 1, "y": 1 }
   ]
 }

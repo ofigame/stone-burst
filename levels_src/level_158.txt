@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil merdiven (ayna); çözüm 7 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,08
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil merdiven (ayna); çözüm 5 + 3 tepsi / sınır 10; rastgele 0,035; açgözlü kaybeder; yumuşak 0,50
 id: level_158
 moves: 10
 roll: off
@@ -6,15 +6,15 @@ specials: on
 refill: 31 2-2
 type: scarce
 rules: scarce
-goals: blue 17, coral 19, purple 19
+goals: blue 23, coral 25, purple 26
 grid:
-#     #     #     #     nb    nb    pn    py
+#     #     #     #     nb    nb    pb    py
 #     #     #     cy    np    nc    bb    pp
 #     #     cp    cy    pp    nb    bb    pp
 #     py    np    py    pn    nc    yp    np
 yy    py    pp    cy    yc    yy    yy    ny
-pp    yy    cp    pc    cc    cb    pb    ny
-bp    cp    pn    cy    bc    cy    cb    cb
-nc    cn    pn    cb    cn    ny    cy    cb
-cc    ccLp5 bp    bp    pn    bb    py    py
-solution: 2,6 ; 2,2 ; use 0,4,0 ; 3,2 ; use 0,5,1 ; 1,5 ; use 0,4,0
+bp    yy    cp    pc    cc    cb    bb    ny
+bp    cp    pn    cb    bc    cy    cb    cb
+bc    cn    pn    cb    cn    ny    cy    cb
+cc    ccLp5 bp    bp    bn    bb    py    py
+solution: 2,6 ; 2,2 ; use 0,4,0 ; 3,2 ; 4,4 ; use 0,6,0 ; use 0,5,0 ; 2,2

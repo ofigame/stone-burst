@@ -7,11 +7,11 @@
   "moveLimit": 10,
   "rollEnabled": false,
   "startingRoll": false,
-  "stars": [1710, 2280],
+  "stars": [1905, 2540],
   "refill": { "count": 32, "minLayers": 2, "maxLayers": 2 },
   "goals": [
-    { "type": "collectColor", "color": "blue", "amount": 16 },
-    { "type": "collectColor", "color": "navy", "amount": 14 },
+    { "type": "collectColor", "color": "blue", "amount": 25 },
+    { "type": "collectColor", "color": "navy", "amount": 22 },
     { "type": "collectToken", "kind": "envelope", "amount": 3 }
   ],
   "cells": [
@@ -86,7 +86,9 @@
     { "type": "tap", "x": 3, "y": 0 },
     { "type": "use", "slot": 0, "x": 5, "y": 0 },
     { "type": "tap", "x": 3, "y": 6 },
+    { "type": "tap", "x": 2, "y": 7 },
     { "type": "use", "slot": 0, "x": 0, "y": 0 },
-    { "type": "tap", "x": 2, "y": 7 }
+    { "type": "tap", "x": 1, "y": 3 },
+    { "type": "use", "slot": 1, "x": 0, "y": 0 }
   ]
 }

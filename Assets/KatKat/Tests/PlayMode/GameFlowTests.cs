@@ -423,7 +423,7 @@ namespace KatKat.Tests
             _gc.TrayDragEnd(_gc.CellScreenPoint(tx, ty));
             Assert.IsFalse(_gc.Hud.TrayGhostShown, "hayalet simge uçuşuna geçti");
             Assert.AreEqual(KatKat.View.BoardView.AimStyle.None, _gc.Board.AimShown, "önizleme kalktı");
-            Assert.AreEqual(before.MovesLeft - 1, _gc.Session.State.MovesLeft, "tepsiden kullanım bir hamle");
+            Assert.AreEqual(before.MovesLeft, _gc.Session.State.MovesLeft, "2026-11-27: roket tepsiden hamlesiz");
             Assert.AreEqual(0, _gc.Session.State.Tray.Count, "tepsi boşaldı");
             yield return WaitStable();
             if (_gc.Session.CanUndo)

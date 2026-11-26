@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil elmas; çözüm 7 + 3 tepsi / sınır 10; rastgele 0,010; açgözlü kaybeder; yumuşak 0,58
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil dalga; çözüm 6 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,17
 id: level_317
 moves: 10
 roll: off
 specials: on
-refill: 22 2-2
+refill: 29 2-2
 type: order
 rules: exact
-goals: yellow 18, purple 10, navy 21
+goals: navy 29, yellow 21, coral 28
 grid:
-#     #     #     py    py    #     #     #
-#     #     nn    yb    yc    yp    #     #
-#     ny    ny    py    cyLn5 ny    nn    #
-ny    nb    nn    pn    bn    ny    nc    nb
-bb    bb    py    pb    bp    yy    nb    nb
-yb    yp    yb    yb    pyLn3 yc    cb    pn
-#     yp    yb    nn    yn    yb    cb    #
-#     #     nb    nn    yn    yb    #     #
-#     #     #     nn    nn    #     #     #
-solution: 3,4 ; 3,6 ; 2,5 ; use 1,2,1 ; use 1,3,0 ; use 0,3,0 ; 3,2
+#     cc    #     py    #     nb    #     cy
+nb    cb    bc    pb    pb    pb    cb    cb
+np    cy    pb    by    nc    pc    pc    py
+cp    yn    bb    pb    nb    yc    yy    ny
+bn    bn    by    bb    nb    np    yn    pn
+bc    nnLc3 bb    pc    cc    cn    bn    yn
+ynLc3 nb    yb    pn    pp    pn    pc    bb
+cn    cn    yb    pp    yp    yc    nc    bc
+cn    #     nb    #     yn    #     pn    #
+solution: 6,6 ; 2,5 ; 1,3 ; use 1,3,0 ; 5,0 ; use 1,1,0 ; 6,1 ; use 0,1,0 ; 2,3 ; use 0,5,1

@@ -4,7 +4,7 @@
   "capabilities": ["ice", "colorLock", "refill", "specials"],
   "width": 8,
   "height": 9,
-  "moveLimit": 11,
+  "moveLimit": 10,
   "rollEnabled": false,
   "startingRoll": false,
   "stars": [878, 1170],
@@ -84,6 +84,6 @@
     { "type": "tap", "x": 1, "y": 1 },
     { "type": "tap", "x": 3, "y": 0 },
     { "type": "use", "slot": 1, "x": 0, "y": 0 },
-    { "type": "tap", "x": 5, "y": 4 }
+    { "type": "use", "slot": 0, "x": 0, "y": 1 }
   ]
 }

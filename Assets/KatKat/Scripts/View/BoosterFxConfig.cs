@@ -147,20 +147,20 @@ namespace KatKat.View
             public float BurstMs = 120f;
             public float BurstExpand = 1.18f;
             public float BurstBrighten = 0.45f;
-            public int ChipMin = 4, ChipMax = 8;
-            public float ChipSize = 0.2f;
-            public float ChipSpeed = 3.4f;
-            public float ChipLife = 0.42f;
-            public int MicroCount = 6;
+            public int ChipMin = 7, ChipMax = 12; // 2026-11-27 (kullanıcı: "az gruplu taşları patlatırken çok ufak şekilde hedefe gidiyor … daha görünür ve şiddetli yapalım")
+            public float ChipSize = 0.28f;
+            public float ChipSpeed = 4.2f;
+            public float ChipLife = 0.5f;
+            public int MicroCount = 12;
             public float MicroSize = 0.075f;
             public float MicroSpeed = 3.8f;
             public float MicroLife = 0.34f;
-            public int StarCount = 2;
-            public int StreakCount = 2;
-            public float RingFrom = 0.35f, RingTo = 1.2f;
-            public float RingLife = 0.26f;
-            public float RingAlpha = 0.5f;
-            public float Glow = 0.35f;
+            public int StarCount = 4;
+            public int StreakCount = 4;
+            public float RingFrom = 0.35f, RingTo = 1.75f;
+            public float RingLife = 0.32f;
+            public float RingAlpha = 0.85f;
+            public float Glow = 0.65f;
             [Tooltip("2026-11-26 (kullanıcı: Efektler çok pasif): roket / Altın Rulo vuruşunda parçacık çarpanı, halka, ışık ve parça hızı (dokunuş patlaması aynı kalır).")]
             public float SpecialBoost = 1.5f, SpecialRingK = 1.35f, SpecialRingAlpha = 0.75f, SpecialGlow = 0.6f, SpecialChipSpeed = 1.2f;
             [Header("4 – Grup dalgası")]
@@ -172,20 +172,22 @@ namespace KatKat.View
             [Tooltip("Grup boyu eşikleri: küçük ≤ x (2–4), orta ≤ y (5–8), büyük ≤ z (9–12), üstü dev (13+).")]
             public Vector3Int Tiers = new Vector3Int(4, 8, 12);
             [Tooltip("Kademeye göre parçacık çarpanı: küçük, orta, büyük, dev.")]
-            public Vector4 ParticleByTier = new Vector4(0.8f, 1f, 1.15f, 1.3f);
+            public Vector4 ParticleByTier = new Vector4(1.25f, 1.35f, 1.45f, 1.6f); // 2026-11-27 (kullanıcı: "az gruplu taşları patlatırken çok ufak şekilde hedefe gidiyor … daha görünür ve şiddetli yapalım"): küçük grup da dolu
             [Tooltip("Kademeye göre titreşim: 0 yok, 1 tık, 2 hafif, 3 orta (küçük, orta, büyük, dev).")]
             public Vector4 HapticByTier = new Vector4(0f, 1f, 2f, 3f);
             [Tooltip("9+ grupta kontrollü küçük tahta sarsıntısı (dev grupta 1,5 kat).")]
             public float BigShake = 0.016f;
+            [Tooltip("2026-11-27: küçük ve orta grupta da kısa tahta sarsıntısı (kullanıcı: şiddetli).")]
+            public float SmallShake = 0.007f;
             [Header("5 – Hedefe uçuş")]
             [Tooltip("Mini kopyanın başlangıç boyu (taş boyu oranı).")]
-            public float MiniStart = 0.58f;
-            public float MiniEnd = 0.4f;
-            public float PopMs = 90f;
-            public float PopOut = 0.32f;
+            public float MiniStart = 0.95f; // 2026-11-27 (kullanıcı: "az gruplu taşları patlatırken çok ufak şekilde hedefe gidiyor … daha görünür ve şiddetli yapalım")
+            public float MiniEnd = 0.62f;
+            public float PopMs = 120f;
+            public float PopOut = 0.55f;
             [Tooltip("Roket taşında kopya önce roketin yönünde itilir (hücre).")]
             public float RocketNudge = 0.35f;
-            public float FlightMinMs = 250f, FlightMaxMs = 450f;
+            public float FlightMinMs = 320f, FlightMaxMs = 520f;
             [Tooltip("Uçuşta bu uzaklıktan (hücre) uzun yol en uzun süreyi alır.")]
             public float FlightFarCells = 12f;
             public float ArcHeight = 1.4f;
@@ -197,17 +199,17 @@ namespace KatKat.View
             public float FlightEase = 1.8f;
             public float Spin = 22f;
             public float Stretch = 0.14f;
-            public float TrailLife = 0.16f;
-            public float TrailSize = 0.55f;
-            public float TrailAlpha = 0.45f;
+            public float TrailLife = 0.26f;
+            public float TrailSize = 0.95f;
+            public float TrailAlpha = 0.75f;
             [Header("6 – Hedef isabeti")]
-            public float IconBounce = 1.16f;
-            public float IconBounceMs = 200f;
+            public float IconBounce = 1.32f;
+            public float IconBounceMs = 260f;
             public float CompletePunch = 1.26f;
             public float CompleteMs = 340f;
             [Tooltip("İsabet halkası (hedef simgesi boyu oranı).")]
-            public float ImpactRing = 1.3f;
-            public int ImpactSparkles = 3;
+            public float ImpactRing = 1.9f;
+            public int ImpactSparkles = 7;
             [Tooltip("Görev tamamlanma efektinin şiddeti (halka, yıldız sayısı).")]
             public float CompleteIntensity = 1f;
             [Header("Ses ve sınırlar")]

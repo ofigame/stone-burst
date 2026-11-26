@@ -1,17 +1,17 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 vitrin; şekil T; çözüm 5 + 0 tepsi / sınır 10; rastgele 0,455; açgözlü kazanır; yumuşak 1,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 vitrin; şekil dalga; çözüm 4 + 0 tepsi / sınır 8; rastgele 0,330; açgözlü kazanır; yumuşak 1,00; YEDEK: vitrin1 özel taş;
 id: level_001
 moves: 10
 roll: off
 specials: on
-refill: 31 2-2
-goals: coral 8, yellow 10
+refill: 34 2-2
+goals: coral 12, blue 11
 grid:
-yy    cc    bb    cc    cc    bb    cc
-bb    yy    cc    yy    bb    yy    yy
-bb    yy    bb    yy    bb    cc    cc
-bb    cc    yy    bb    yy    yy    bb
-yy    bb    yy    yy    bb    bb    bb
-#     #     bb    cc    cc    #     #
-#     #     bb    cc    cc    #     #
-#     #     bb    bb    yy    #     #
-solution: 3,5 ; 3,5 ; 2,3 ; 2,3 ; 1,1
+#     cc    #     bb    #     cc    #
+yy    bb    bb    cc    cc    bb    cc
+yy    yy    bb    cc    bb    cc    cc
+yy    cc    bb    cc    yy    yy    yy
+bb    bb    cc    bb    cc    yy    bb
+cc    bb    yy    bb    cc    bb    cc
+yy    yy    cc    bb    bb    cc    cc
+yy    #     bb    #     cc    #     cc
+solution: 3,4 ; 3,4 ; 2,4 ; 1,1

@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil artı (ayna); çözüm 7 + 2 tepsi / sınır 10; rastgele 0,010; açgözlü kaybeder; yumuşak 0,71
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil artı (ayna); çözüm 5 + 3 tepsi / sınır 10; rastgele 0,015; açgözlü kaybeder; yumuşak 0,77
 id: level_287
 moves: 10
 roll: off
@@ -6,7 +6,7 @@ specials: on
 refill: 24 2-2
 type: exact
 rules: exact
-goals: yellow 13, blue 16, envelope 2
+goals: yellow 15, blue 19, envelope 2
 grid:
 #     #     pbG   pb    by    by    #     #
 #     #     pbG   pbEy  ny    by    #     #
@@ -16,4 +16,4 @@ cb    cc    by    by    yy    pc    np    cy
 cc    cc    bp    bp    yn    cc    cy    cy
 #     #     by    bb    cb    yn    #     #
 #     #     yy    yy    bb    bn    #     #
-solution: 4,0 ; 3,0 ; use 1,0,2 ; 5,0 ; use 1,5,1 ; 2,6 ; 2,4
+solution: 4,0 ; 3,0 ; 5,0 ; use 2,5,1 ; 1,3 ; use 1,1,2 ; 6,2 ; use 2,5,1

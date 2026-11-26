@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil zikzak; çözüm 6 + 3 tepsi / sınır 10; rastgele 0,005; açgözlü kaybeder; yumuşak 0,81
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil zikzak; çözüm 5 + 4 tepsi / sınır 10; rastgele 0,005; açgözlü kaybeder; yumuşak 0,73
 id: level_178
 moves: 10
 roll: off
@@ -6,7 +6,7 @@ specials: on
 refill: 32 2-2
 type: exact
 rules: exact
-goals: coral 24, navy 21, blue 20
+goals: coral 32, navy 27, blue 27
 grid:
 yn    yn    pn    py    bc    cc    cc    #
 #     yn    yn    cb    bc    bp    cp    cb
@@ -17,4 +17,4 @@ bp    bb    bb    yb    nb    pn    nc    #
 pn    pn    bn    bc    cc    yn    yn    #
 #     nc    nc    pp    cn    cn    cc    cc
 cb    nb    bb    pp    cb    cc    yc    #
-solution: 1,4 ; 4,3 ; use 0,0,6 ; use 0,5,0 ; 5,0 ; use 0,0,0
+solution: 5,4 ; 3,5 ; use 1,6,0 ; 3,1 ; use 1,0,0 ; 4,3 ; use 1,1,0 ; 6,0 ; use 0,1,0

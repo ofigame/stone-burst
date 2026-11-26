@@ -25,6 +25,30 @@ namespace KatKat.EditorTools
             EditorApplication.Exit(code);
         }
 
+        /// <summary>2026-11-27 (kullanıcı: "roketleri kullandıktan sonra ekranda birşey kalıyor titreyen"): efekt bittikten sonra
+        /// görünür kalan efekt parçalarını (FxSprite, FxLine, Rocket*) kayda döker.</summary>
+        private static void LeftoverReport(string name)
+        {
+            int n = 0;
+            foreach (var sr in UnityEngine.Object.FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None))
+            {
+                if (!sr.gameObject.activeInHierarchy || !sr.enabled || sr.color.a < 0.02f || sr.sprite == null) continue;
+                string nm = sr.gameObject.name;
+                if (!(nm.StartsWith("Fx") || nm.Contains("Rocket") || nm.Contains("Glow") || nm.Contains("Flash"))) continue;
+                n++;
+                Debug.Log($"[KatKat] artık {name}: {HierPath(sr.transform)} sprite={sr.sprite.name} a={sr.color.a:0.00} pos={sr.transform.position} ölçek={sr.transform.lossyScale}");
+            }
+            foreach (var lr in UnityEngine.Object.FindObjectsByType<LineRenderer>(FindObjectsSortMode.None))
+            {
+                if (!lr.gameObject.activeInHierarchy || lr.positionCount == 0) continue;
+                n++;
+                Debug.Log($"[KatKat] artık {name}: çizgi {HierPath(lr.transform)} n={lr.positionCount} p0={lr.GetPosition(0)}");
+            }
+            Debug.Log($"[KatKat] artık {name}: toplam {n}");
+        }
+
+        private static string HierPath(Transform t) => t.parent == null ? t.name : HierPath(t.parent) + "/" + t.name;
+
         public static void Run()
         {
             Directory.CreateDirectory(Path.Combine(PeelCapture.OutDir, "kap"));
@@ -134,7 +158,7 @@ namespace KatKat.EditorTools
                         if (sc.Act == "use") { gc.PressTraySlot(slot); gc.OnCellPressed(tx, ty); return; }
                         // Sürükleme: yuvadan başlar, hedefe doğru kayar.
                         gc.TrayDragBegin(slot, gc.TraySlotScreenPoint(slot));
-                    }, sc.Act == "hold" ? 8 : 22, (gc, fr) =>
+                    }, sc.Act == "hold" ? 8 : (Environment.GetEnvironmentVariable("KATKAT_FXLONG") == "1" ? 40 : 22), (gc, fr) =>
                     {
                         if (sc.Act == "drag" || sc.Act == "hold")
                         {
@@ -148,11 +172,12 @@ namespace KatKat.EditorTools
                                 else gc.TrayDragMove(p);
                             }
                         }
-                        float ms = fr == 0 ? 16f : fr < 6 ? 45f : 100f;
+                        float ms = fr == 0 ? 16f : fr < 6 ? 45f : fr < 22 ? 100f : 250f;
                         gc.Board.Advance(ms);
                         gc.Board.Director.Advance(ms);
                         gc.Hud.AdvanceEffects(ms);
                         UnityEngine.Canvas.ForceUpdateCanvases();
+                        if (fr == 39) LeftoverReport(sc.Name);
                     });
                 }
             }

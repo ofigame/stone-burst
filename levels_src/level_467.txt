@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil T; çözüm 9 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:reverse; şekil T; çözüm 7 + 6 tepsi / sınır 10; rastgele 0,005; açgözlü kaybeder; yumuşak 0,19
 id: level_467
 moves: 10
 roll: off
@@ -6,7 +6,7 @@ specials: on
 refill: 27 2-3
 type: reverse
 rules: exact
-goals: coral 25, blue 28, sponge 1
+goals: coral 33, blue 37, sponge 1
 grid:
 nbn   nyn   ynn   cbn   ynp   ync   ycc   ncc
 cnn   pyn   ynb   ccn   cyp   nyyk1 bcn   pcp
@@ -17,4 +17,4 @@ cby   yyy   bny   ycp   cyp   ybb   ybp   ynb
 #     #     bpn   nnn   nnb   ypp   #     #
 #     #     byb   nny   ync   bnc   #     #
 #     #     bybSy ynb   nbb   ybck2 #     #
-solution: 4,3 ; use 0,2,0 ; 0,0 ; use 0,0,0 ; 3,0 ; 1,0 ; 3,1 ; use 0,1,0 ; use 0,3,0
+solution: 4,3 ; use 0,2,0 ; 0,0 ; use 0,0,0 ; 1,0 ; use 0,3,0 ; 0,2 ; 0,2 ; 2,1 ; use 1,4,0 ; use 1,6,0 ; 1,0 ; use 0,0,0

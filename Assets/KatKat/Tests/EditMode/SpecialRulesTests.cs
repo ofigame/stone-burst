@@ -33,14 +33,14 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void TrayRocket_FiresAtChosenCell_SpendsOneMove()
+        public void TrayRocket_FiresAtChosenCell_WithoutSpendingMove()
         {
             var s = S(5, new[] { "yb c yb", "c  y c", "b  c b" }, (LayerColor.Coral, 99));
             s.Tray.Add(SpecialKind.RocketColumn);
             var r = RulesEngine.TryApply(s, Command.UseSpecial(0, 1, 2));
             Assert.IsTrue(r.Accepted);
-            // 2026-11-26 (kullanıcı: "Tepsiden 1 hamle götürsün"): tepsi bir hamle.
-            Assert.AreEqual(4, s.MovesLeft, "tepsi bir hamle harcar");
+            // 2026-11-27 (kullanıcı: "roket ve rulo kullanımında hamleden gitmesin").
+            Assert.AreEqual(5, s.MovesLeft, "roket hamle harcamaz");
             Assert.AreEqual(0, s.Tray.Count);
             Assert.AreEqual(SpecialKind.RocketColumn, r.UsedSpecial);
             Assert.AreEqual(".", TestBoards.Cell(s, 1, 0));
@@ -61,14 +61,16 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void Tray_NeedsMove_GameEndsAtZeroMoves_AndRejectsUselessTarget()
+        public void Tray_KeepsGameAliveAfterLastMove_AndRejectsUselessTarget()
         {
-            // 2026-11-26 (kullanıcı: "Tepsiden 1 hamle götürsün"): tepsi de hamle ister; hamle bitince tepside taş olsa da bölüm biter.
+            // 2026-11-27 (kullanıcı: "roket ve rulo kullanımında hamleden gitmesin"): hamle bitse de tepside etkili roket varsa oyun sürer.
             var s = S(1, new[] { "c c c y", "y b y b" }, (LayerColor.Coral, 3), (LayerColor.Yellow, 9));
             s.Tray.Add(SpecialKind.RocketRow);
             RulesEngine.TryApply(s, Command.Tap(0, 0));
             Assert.AreEqual(0, s.MovesLeft);
-            Assert.AreEqual(GameStatus.LostOutOfMoves, s.Status, "hamle bitti: tepsideki roket kullanılamaz");
+            Assert.AreEqual(GameStatus.Idle, s.Status, "hamle bitti ama tepside roket var");
+            Assert.IsTrue(RulesEngine.TryApply(s, Command.UseSpecial(0, 0, 1)).Accepted, "hamlesiz roket kullanılır");
+            Assert.AreEqual(0, s.MovesLeft);
             var bad = S(5, new[] { "c .", "y b" }, (LayerColor.Coral, 9));
             bad.Tray.Add(SpecialKind.Rainbow);
             Assert.IsFalse(RulesEngine.TryApply(bad, Command.UseSpecial(0, 1, 0)).Accepted, "boş hücrede Altın Rulo etkisiz");
@@ -84,7 +86,7 @@ namespace KatKat.Tests
             Assert.AreEqual(SpecialKind.RocketColumn2, r.SpecialCreated, "7'lik dikey grup çift sütun roketi");
             CollectionAssert.AreEqual(new[] { SpecialKind.RocketColumn2 }, s.Tray);
             Assert.IsTrue(RulesEngine.TryApply(s, Command.UseSpecial(0, 0, 3)).Accepted);
-            Assert.AreEqual(3, s.MovesLeft);
+            Assert.AreEqual(4, s.MovesLeft, "dokunuş 1 hamle, çift roket bedava");
             for (int y = 0; y < 7; y++)
             {
                 Assert.AreEqual(".", TestBoards.Cell(s, 0, y), "kendi sütunu");

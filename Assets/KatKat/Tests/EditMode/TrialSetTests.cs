@@ -32,8 +32,9 @@ namespace KatKat.Tests
                 Assert.AreEqual(GameStatus.Won, s.Status, d.Id + " kayıtlı çözüm kazanır");
                 if (d.Rules.Contains("exact"))
                 {
-                    int taps = d.Solution.Count(x => x.Type != "send"); // 2026-11-26: tepsi kullanımı da hamle
-                    Assert.AreEqual(d.MoveLimit, taps, d.Id + " kesin hamle: sınır = en kısa çözüm");
+                    // 2026-11-27: roket / Altın Rulo bedava, Kürek 1 hamle → yeniden oynatmanın harcadığı hamle.
+                    var rep = LevelValidator.ReplaySolution(d);
+                    Assert.AreEqual(d.MoveLimit, rep.Steps, d.Id + " kesin hamle: sınır = en kısa çözüm");
                 }
             }
             Assert.IsTrue(types.Contains("boss"));

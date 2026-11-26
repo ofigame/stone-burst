@@ -831,7 +831,7 @@ namespace KatKat.View
                     {
                         // Grup kademesi: 9+ taşta kontrollü küçük sarsıntı; titreşim kademeye göre (roket/rulo kendi titreşimini çalar).
                         int tier = bplan.Tier;
-                        if (tier >= 2 && amp <= 0f && !special) At(start + burstAt, () => ShakeBoard(bcfg.BigShake * (tier >= 3 ? 1.5f : 1f), 200f));
+                        if (amp <= 0f && !special) At(start + burstAt, () => ShakeBoard(tier >= 2 ? bcfg.BigShake * (tier >= 3 ? 1.5f : 1f) : bcfg.SmallShake, tier >= 2 ? 200f : 140f)); // 2026-11-27: küçük grupta da kısa sarsıntı
                         if (!special)
                         {
                             int hk = Mathf.RoundToInt(tier <= 0 ? bcfg.HapticByTier.x : tier == 1 ? bcfg.HapticByTier.y : tier == 2 ? bcfg.HapticByTier.z : bcfg.HapticByTier.w);

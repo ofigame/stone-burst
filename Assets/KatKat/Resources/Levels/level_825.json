@@ -4,15 +4,15 @@
   "capabilities": ["ice", "sponge", "refill", "specials"],
   "width": 8,
   "height": 9,
-  "moveLimit": 12,
+  "moveLimit": 10,
   "rollEnabled": false,
   "startingRoll": false,
-  "stars": [1350, 1800],
+  "stars": [1748, 2330],
   "refill": { "count": 27, "minLayers": 2, "maxLayers": 3 },
   "goals": [
-    { "type": "collectColor", "color": "purple", "amount": 36 },
-    { "type": "collectColor", "color": "blue", "amount": 28 },
-    { "type": "collectColor", "color": "coral", "amount": 19 },
+    { "type": "collectColor", "color": "purple", "amount": 41 },
+    { "type": "collectColor", "color": "blue", "amount": 32 },
+    { "type": "collectColor", "color": "coral", "amount": 22 },
     { "type": "collectToken", "kind": "sponge", "amount": 1 }
   ],
   "cells": [
@@ -79,13 +79,15 @@
   ],
   "solution": [
     { "type": "tap", "x": 1, "y": 3 },
-    { "type": "tap", "x": 1, "y": 0 },
-    { "type": "use", "slot": 1, "x": 3, "y": 0 },
-    { "type": "use", "slot": 0, "x": 0, "y": 1 },
+    { "type": "use", "slot": 0, "x": 0, "y": 2 },
+    { "type": "tap", "x": 7, "y": 0 },
+    { "type": "use", "slot": 0, "x": 2, "y": 0 },
     { "type": "tap", "x": 2, "y": 0 },
-    { "type": "tap", "x": 4, "y": 1 },
-    { "type": "use", "slot": 1, "x": 5, "y": 0 },
-    { "type": "use", "slot": 0, "x": 1, "y": 0 },
+    { "type": "use", "slot": 0, "x": 5, "y": 0 },
+    { "type": "tap", "x": 3, "y": 0 },
+    { "type": "use", "slot": 0, "x": 6, "y": 1 },
+    { "type": "tap", "x": 5, "y": 3 },
+    { "type": "use", "slot": 0, "x": 1, "y": 1 },
     { "type": "tap", "x": 5, "y": 5 },
     { "type": "use", "slot": 0, "x": 4, "y": 0 }
   ]

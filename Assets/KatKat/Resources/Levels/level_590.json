@@ -6,10 +6,10 @@
   "rules": ["scarce"],
   "width": 8,
   "height": 9,
-  "moveLimit": 17,
+  "moveLimit": 11,
   "rollEnabled": false,
   "startingRoll": false,
-  "stars": [2032, 2710],
+  "stars": [2048, 2730],
   "refill": { "count": 32, "minLayers": 2, "maxLayers": 3 },
   "goals": [
     { "type": "collectColor", "color": "coral", "amount": 39 },
@@ -103,6 +103,6 @@
     { "type": "tap", "x": 0, "y": 6 },
     { "type": "use", "slot": 2, "x": 1, "y": 1 },
     { "type": "use", "slot": 2, "x": 2, "y": 1 },
-    { "type": "tap", "x": 6, "y": 1 }
+    { "type": "use", "slot": 0, "x": 1, "y": 0 }
   ]
 }

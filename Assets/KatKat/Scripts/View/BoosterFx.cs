@@ -456,7 +456,7 @@ namespace KatKat.View
             public SpriteRenderer Sr;
             public LineRenderer Core, Glow;
             public Vector3 From, Dir;
-            public float Age, LaunchAt, EndCells, Scale;
+            public float Age, LaunchAt, EndCells, Scale, OutAge;
             public readonly List<Vector3> Hist = new List<Vector3>();
             public bool Out;
         }
@@ -571,7 +571,10 @@ namespace KatKat.View
                 }
                 float fadeK = r.Out ? 1f : 0f;
                 // İz: geçmiş konumlar, uzunluk sınırlı; çekirdek beyaz-sarı, dış alev turuncu-altın; uca doğru incelir.
-                r.Hist.Insert(0, pos);
+                // 2026-11-27 (kullanıcı: "roketleri kullandıktan sonra ekranda birşey kalıyor titreyen. köşelerde kalıyor"): çıkıştan
+                // sonra yeni nokta eklenmez; önce her karede bir nokta eklenip bir nokta düştüğü için iz 3 noktada takılı kalıyordu.
+                if (!r.Out || r.Hist.Count == 0) r.Hist.Insert(0, pos);
+                if (r.Out) r.OutAge += ms;
                 float maxLen = c.TrailLength * Cell * Mathf.Lerp(0.4f, 1f, speed);
                 float len = 0f;
                 int keep = 1;
@@ -584,7 +587,7 @@ namespace KatKat.View
                 if (r.Out)
                 {
                     // Çıkışta iz hızla kısalır.
-                    int drop = Mathf.Max(1, r.Hist.Count / 3);
+                    int drop = Mathf.Max(2, r.Hist.Count / 3);
                     r.Hist.RemoveRange(r.Hist.Count - Mathf.Min(drop, r.Hist.Count - 1), Mathf.Min(drop, r.Hist.Count - 1));
                 }
                 int n = r.Hist.Count;
@@ -627,7 +630,7 @@ namespace KatKat.View
                     Emit(FxKit.Streak, true, Order + 3, pos - r.Dir * Cell * 0.8f + off, r.Dir * Cell * 4f, 0.14f, Cell * 0.5f, Cell * 0.2f,
                         new Color(1f, 1f, 0.9f, 0.7f), new Color(1f, 0.9f, 0.6f, 0f), stretch: 0.2f / Mathf.Max(0.01f, Cell));
                 }
-                if (r.Out && n <= 2)
+                if (r.Out && (n <= 2 || r.OutAge > 400f))
                 {
                     Release(r.Core); Release(r.Glow); Release(r.Sr);
                     _rockets.RemoveAt(i);

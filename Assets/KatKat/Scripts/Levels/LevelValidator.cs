@@ -229,7 +229,7 @@ namespace KatKat.Levels
         public static ReplayReport ReplaySolution(LevelData d)
         {
             // v6: tepsi kullanımı ("use") hamle harcamaz; adım sayısı yalnız hamle harcayan adımlar.
-            var report = new ReplayReport { LevelId = d.Id, MoveLimit = d.MoveLimit, Steps = d.Solution.FindAll(s => s.Type != "send").Count /* 2026-11-26: tepsi de hamle */ };
+            var report = new ReplayReport { LevelId = d.Id, MoveLimit = d.MoveLimit, Steps = 0 /* 2026-11-27: yeniden oynatma sonunda harcanan hamle (roket/rulo bedava, Kürek 1 hamle) */ };
             if (d.Solution.Count == 0) { report.Error = "kayıtlı çözüm yok"; return report; }
             var session = new GameSession(LevelLoader.ToState(d));
             for (int i = 0; i < d.Solution.Count; i++)
@@ -254,6 +254,7 @@ namespace KatKat.Levels
             var st = session.State;
             report.FinalStatus = st.Status;
             report.MovesLeft = st.MovesLeft;
+            report.Steps = d.MoveLimit - st.MovesLeft;
             foreach (var g in st.Goals)
                 report.Goals.Add($"{(g.Type == GoalType.CollectColor ? ColorIds.ToId(g.Color) : g.Type == GoalType.CollectStars ? "star" : g.Type == GoalType.FillWater ? "water" : g.Type == GoalType.CollectSponges ? "sponge" : "envelope")} {g.Progress}/{g.Amount}");
             if (report.Error == null && st.Status != GameStatus.Won) report.Error = $"çözüm sonunda durum {st.Status}";

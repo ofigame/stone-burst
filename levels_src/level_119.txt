@@ -1,10 +1,10 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven (ayna); çözüm 7 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil merdiven (ayna); çözüm 5 + 3 tepsi / sınır 10; rastgele 0,005; açgözlü kaybeder; yumuşak 0,10
 id: level_119
 moves: 10
 roll: off
 specials: on
 refill: 31 2-2
-goals: yellow 20, navy 20, purple 17
+goals: yellow 23, navy 23, purple 19
 grid:
 #     #     #     #     by    cy    ny    by
 #     #     #     cb    cb    pp    np    nn
@@ -15,4 +15,4 @@ nn    ny    pb    pc    nc    nc    np    yp
 ny    py    pb    pbi2  cb    pc    pn    cn
 bp    bn    cn    yb    yc    yy    yy    cn
 pp    pp    bp    yni1  yb    yy    cy    cn
-solution: 2,4 ; 3,2 ; use 0,4,0 ; 2,2 ; use 0,6,0 ; 5,4 ; use 0,5,0
+solution: 2,4 ; 3,2 ; use 0,4,0 ; 2,2 ; use 0,5,0 ; 5,4 ; 0,4 ; use 1,5,0

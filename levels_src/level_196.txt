@@ -1,18 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı (ayna); çözüm 8 + 3 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil U; çözüm 6 + 6 tepsi / sınır 10; rastgele 0,015; açgözlü kaybeder; yumuşak 0,00
 id: level_196
-moves: 11
+moves: 10
 roll: off
 specials: on
-refill: 28 2-3
-goals: blue 24, yellow 23, star 3
+refill: 33 2-3
+goals: blue 32, yellow 31, star 3
 grid:
-#     #     pyp   pnp   bnn   bnn   #     #
-#     #     cyy   pyb   npni1 nny   #     #
-ccni2 cnn   ccy   ycp   ypy   nyy   ppy   pcn
-bcn   ynb   bnc   bcp   byp   nyp   ppn   pcn
-pbn   cbb   ncn   bcp   byp   nbc   cbc   cpc
-ppp   cpp   cbni1 bcb*  bcp   nbb   cbc   bpc
-bpy   bpy*  cyn   yyy   nyy   bbb*  pbb   bpc
-#     #     cyy   yby   ypc   pnb   #     #
-#     #     nyy   ybc   pyc   pyb   #     #
-solution: 3,2 ; 5,1 ; use 0,2,0 ; use 0,5,0 ; 3,3 ; 0,6 ; use 1,0,5 ; 0,6
+cyc   ybb   ybb   #     #     pcc   bbc   bbn
+ccn   ccn   cbn   #     #     ybn   ycn   bnn
+cbp   cbn   cbp   #     #     ycc   pcci1 ybp*
+nyc   nyn   ycp   ypc   cbc   cny   ynyi1 ybp
+pyc   nyn   bcp   ypp   npp   pby   pbni2 ybp
+pcc*  pcn   bcp   yyc   nyc   ppn   pcn   ycn
+byb   byy   cby   pyb   bbb   nyb   ccb   ccp
+byb   cbb   cby   cpp   cyp   cyy   bcy   ppp
+byb   byb   cby   nbp   yyp   byy   cpp*  ppp
+solution: 0,6 ; 0,6 ; 0,6 ; 0,6 ; use 3,0,0 ; use 1,7,2 ; use 1,2,0 ; 7,2 ; use 0,6,0 ; use 0,6,0 ; 1,4 ; use 0,0,2

@@ -956,7 +956,7 @@ static partial class Program
         List<Command> rest = afterPrefix.Status == GameStatus.Won ? new List<Command>() : V14Beam(afterPrefix, 60, 90);
         if (rest == null) { ev.Fail = "beam"; return ev; }
         var sol = prefix.Concat(rest).ToList();
-        int L = CountMoves(sol);
+        int L = CountMoves(d, sol);
         ev.L = L;
         ev.Uses = sol.Count(c => c.Type == CommandType.UseSpecial);
         ev.Sol = sol;
@@ -1012,7 +1012,7 @@ static partial class Program
             var cand = prefix.Concat(shorter).ToList();
             var probe = new V14Eval();
             if (V14Stats(d, sp, cand, probe) != null) break; // daha kısa yol mekaniği atlıyorsa eskisi kalır
-            sol = cand; L = CountMoves(sol);
+            sol = cand; L = CountMoves(d, sol);
             ev.Sol = sol; ev.L = L; ev.Uses = sol.Count(c => c.Type == CommandType.UseSpecial);
             ev.Rotates = probe.Rotates; ev.Paints = probe.Paints; ev.Specials = probe.Specials; ev.Rainbows = probe.Rainbows;
             ev.CoverUse = probe.CoverUse; ev.Gates = probe.Gates; ev.LockOpens = probe.LockOpens;
@@ -1152,7 +1152,7 @@ static partial class Program
         // Yedek: kabul ölçütüne en yakın çözülmüş aday (bayrakla raporlanır).
         res.Seconds = sw.Elapsed.TotalSeconds;
         if (best == null || best.Sol == null) return res;
-        if (best.Limit == 0) { best.Limit = best.L + best.Slack; }
+        if (best.Limit == 0) { best.Limit = Math.Max(MinMoveLimit, best.L + best.Slack); } // 2026-11-27: yedekte de en az 10
         res.D = best.D; res.Ev = best; res.Shape = bestShape;
         res.Flags += "YEDEK: " + best.Fail + "; ";
         return Finish(res);
@@ -1300,7 +1300,7 @@ static partial class Program
         md.AppendLine("Kaynak: `docs/v14/PLAN.md`. Bütün sayılar üreticinin ölçümüdür (`levels_src_v14/_olcum/*.tsv`), tahmin değildir.");
         md.AppendLine();
         md.AppendLine("- **Çözüm**: ışın çözücü (genişlik 60) + bir eksik hamle sınırıyla genişlik 150 ışınla sıkıştırma; kayıtlı çözüm gerçek motorla kazanır.");
-        md.AppendLine("- **Pay** = hamle sınırı − en iyi bulunan çözüm (tepsi kullanımı hamle saymaz).");
+        md.AppendLine("- **Pay** = hamle sınırı − en iyi bulunan çözüm (roket ve Altın Rulo hamle saymaz, Kürek 1 hamle; 2026-11-27).");
         md.AppendLine("- **Rastgele bot**: her geçerli hamleden (grup başına bir dokunuş, tepsi, döndürme, boya) düzgün rastgele seçer; 200 oyun, sabit tohum.");
         md.AppendLine("- **Açgözlü**: (B) en çok katman soyan hamle, (H) en çok hedef ilerleten hamle; ikisi de sınırda oynar. \"Kaybeder\" = ikisi de kaybeder.");
         md.AppendLine("- **Yumuşak bot**: bir adım sonrası hedef değerine göre sıcaklıklı seçim (plan yapmayan iyi oyuncu yaklaşığı), 48 oyun. Bilgi amaçlı.");

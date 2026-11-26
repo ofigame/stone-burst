@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil L; çözüm 8 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:exact; şekil kenar çentikleri; çözüm 6 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,08; döndürmeyle başlar;
 id: level_458
 moves: 10
 roll: off
 specials: on
-refill: 25 2-2
+refill: 24 2-2
 type: exact
 rules: exact
-goals: yellow 26, coral 20, sponge 1
+goals: coral 33, blue 23, sponge 1
 grid:
-nc    yc    yc    cpR   cc    #     #     #
-np    yc    yb    cb    cb    #     #     #
-pc    by    py    bn    bb    #     #     #
-nc    ypR   ny    bn    bb    nn    bn    pn
-nc    ny    yy    yc    yb    by    nn    py
-pc    cc    ynSb  np    nn    ny    bc    py
-ny    cy    yb    yy    nb    ny    bb    bb
-yb    cy    ny    yy    pn    py    pb    by
-solution: rot 3,0 ; 2,1 ; use 0,2,0 ; 0,0 ; use 0,1,0 ; 0,2 ; use 0,1,0 ; 2,4
+yc    yy    ny    nb    bc    bc    cn    cn
+#     #     yy    bb    ny    bb    cn    cn
+#     #     yy    by    ny    ypSpb #     #
+#     #     yc    cnR   yp    yb    #     #
+cy    cy    cc    nc    nb    cn    cc    cc
+by    bn    cb    nb    nb    pn    pn    cc
+bcR   nn    cc    pc    pc    nc    pp    pp
+nb    nb    cc    pc    #     nc    np    np
+solution: rot 3,3 ; 1,0 ; use 0,0,4 ; 2,3 ; use 0,0,0 ; 3,0 ; use 0,5,0 ; 2,3 ; 4,5 ; use 0,0,0 ; use 0,4,0

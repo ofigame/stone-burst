@@ -43,9 +43,10 @@ namespace KatKat.Core
 
             if (cmd.Type == CommandType.UseSpecial)
             {
-                // 2026-11-26 (kullanıcı: "Roket ve rulo yine tahtanın üst kısmında olsun"; "Tepsiden 1 hamle götürsün"): tepsiden kullanım bir hamle. Özel taş hedef hücrede ateşlenir (Altın Rulo hedefin üst rengini toplar).
-                state.MovesLeft--;
+                // 2026-11-26 tepsi üstte; 2026-11-27 (kullanıcı: "roket ve rulo kullanımında hamleden gitmesin"): roket ve Altın Rulo hamle harcamaz, Kürek bir hamle.
+                // Özel taş hedef hücrede ateşlenir (Altın Rulo hedefin üst rengini toplar).
                 var kind = state.Tray[cmd.Slot];
+                if (kind.CostsMove()) state.MovesLeft--;
                 state.Tray.RemoveAt(cmd.Slot);
                 result.UsedSpecial = kind;
                 result.UsedAt = new Coord(cmd.X, cmd.Y);
@@ -305,7 +306,7 @@ namespace KatKat.Core
             if (cmd.Type == CommandType.UseSpecial)
             {
                 if (cmd.Slot < 0 || cmd.Slot >= state.Tray.Count) return RejectReason.TrayEmpty;
-                if (state.MovesLeft <= 0) return RejectReason.NoMovesLeft; // 2026-11-26: tepsi de hamle ister
+                if (state.MovesLeft <= 0 && state.Tray[cmd.Slot].CostsMove()) return RejectReason.NoMovesLeft; // Kürek hamle ister
                 if (!board.InBounds(cmd.X, cmd.Y)) return RejectReason.OutOfBounds;
                 return TrayHasEffect(board, state.Tray[cmd.Slot], cmd.X, cmd.Y) ? RejectReason.None : RejectReason.TrayNoEffect;
             }
@@ -500,11 +501,15 @@ namespace KatKat.Core
         }
 
         /// <summary>Tepsideki herhangi bir taşın etkili bir hedefi var mı.</summary>
-        public static bool TrayUsable(LevelState state)
+        public static bool TrayUsable(LevelState state) => TrayUsable(state, false);
+
+        /// <summary><paramref name="freeOnly"/>: yalnız hamle harcamayan taşlar (hamle bitince oyun bunlarla sürer).</summary>
+        public static bool TrayUsable(LevelState state, bool freeOnly)
         {
             if (state.Tray.Count == 0) return false;
             var b = state.Board;
             foreach (var kind in state.Tray)
+                if (!freeOnly || !kind.CostsMove())
                 for (int i = 0; i < b.Count; i++)
                     if (TrayHasEffect(b, kind, b.X(i), b.Y(i))) return true;
             return false;
@@ -513,7 +518,7 @@ namespace KatKat.Core
         /// <summary>Yasal komut: geçerli grup, özel taş, etkili rulo veya döndürülebilir taban (rehber §9); tepsi.</summary>
         public static bool HasLegalMove(LevelState state)
         {
-            if (state.MovesLeft > 0 && TrayUsable(state)) return true;
+            if (TrayUsable(state, state.MovesLeft <= 0)) return true; // 2026-11-27: hamle bitse de roket/rulo kullanılabilir
             if (state.Bucket != null && state.Bucket.Active) return true; // torba (boş da) gönderilebilir
             if (state.WaterCap > 0 && state.WaterHave > 0) return true; // su kovası gönderilebilir
             if (state.MovesLeft <= 0) return false;
@@ -536,8 +541,8 @@ namespace KatKat.Core
             if (state.ProtectedBroken) return GameStatus.LostProtected; // kristal kuralı kazanmadan önce
             if (state.AllGoalsComplete) return GameStatus.Won;
             if (state.Hazard != null && state.Hazard.Lost) return GameStatus.LostHazard;
-            // 2026-11-26 (kullanıcı: "Roket ve rulo yine tahtanın üst kısmında olsun"; "Tepsiden 1 hamle götürsün"): tepsi de hamle harcar; hamle bitince oyun biter.
-            if (state.MovesLeft <= 0) return GameStatus.LostOutOfMoves;
+            // 2026-11-27 (kullanıcı: "roket ve rulo kullanımında hamleden gitmesin"): hamle bitse de tepside etkili roket / Altın Rulo varsa oyun sürer.
+            if (state.MovesLeft <= 0 && !TrayUsable(state, true)) return GameStatus.LostOutOfMoves;
             if (!HasLegalMove(state)) return GameStatus.LostNoLegalMoves;
             return GameStatus.Idle;
         }

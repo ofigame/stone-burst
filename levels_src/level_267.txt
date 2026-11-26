@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil dikdörtgen; çözüm 7 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,31
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:scarce; şekil dikdörtgen; çözüm 6 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,35
 id: level_267
 moves: 10
 roll: off
@@ -6,15 +6,15 @@ specials: on
 refill: 36 2-2
 type: scarce
 rules: scarce
-goals: blue 27, navy 19, purple 24
+goals: blue 39, navy 28, purple 35
 grid:
 pn    yn    np    np    np    yb    yc    bp
 pn    yp    np    np    cc    pc    pc    bc
-pn    cy    py    pn    cc    pb    pc    bn
+pn    cy    py    pn    cc    pb    pb    bn
 by    cn    bc    bc    pb    nb    nb    bb
-by    cy    pc    ny    pn    pn    py    bn
-bc    cy    bb    bb    bb    pn    pn    cn
-yc    yb    pb    cp    yp    pn    yn    cb
+by    cy    bc    nb    pn    pn    py    bn
+bc    cy    bb    bb    bb    pn    pb    cn
+yc    yb    bb    cp    yp    pn    yb    cb
 yp    pp    pp    cn    yp    cn    cn    bb
 pc    pp    py    py    yc    cc    cc    bb
-solution: 4,4 ; use 0,5,0 ; 4,3 ; 3,0 ; 0,0 ; use 1,0,2 ; use 0,2,1
+solution: 2,3 ; 5,2 ; 3,3 ; 0,0 ; 0,0 ; use 0,6,0 ; use 0,0,0 ; use 1,7,0 ; 4,1 ; use 1,4,0

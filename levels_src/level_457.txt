@@ -1,20 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil kum saati; çözüm 8 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,10
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil L (ayna); çözüm 6 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
 id: level_457
 moves: 10
 roll: off
 specials: on
-refill: 30 2-2
+refill: 27 2-2
 type: order
 rules: exact
-goals: blue 20, star 3, sponge 1
+goals: purple 26, star 3, sponge 1
 grid:
-yb    cb    cp    yp*   yc    nn    cn    cy
-yb    yn    cp    yp    yc    nb    cbLn5 cy
-yb    nn    cc    bp    bc    ny    ny    yb
-#     nc    pc    yp    pc*   pbSyc nbLn4 #
-#     bc    cc    yn    pn    pb    yb    #
-#     py    cy    yy    yn    pb    yc    #
-py*   pc    cc    cc    np    yb    yc    cc
-pp    np    yp    yc    yp    bb    cc    cb
-yp    yp    yn    yn    by    bc    cc    pb
-solution: 4,0 ; 2,0 ; 3,0 ; use 1,0,2 ; 3,2 ; use 0,0,0 ; 1,5 ; use 0,0,0
+#     #     #     nn    nn    bn    pn    pb*
+#     #     #     ny    yy    by    cn    pb
+#     #     #     pn    bn    by    cc    pn*
+#     #     #     pp    yp    cy    cn    pn
+bb    yb*   yc    pc    yp    pb    pySbn by
+bc    nc    cy    cy    cy    ppLn3 py    bc
+ny    ny    bpLn5 bp    nn    py    py    pc
+py    pb    py    py    nc    nc    bp    bp
+cb    cb    bb    py    pc    pc    bb    bp
+solution: 3,1 ; 3,0 ; 7,2 ; use 1,5,0 ; 6,0 ; 7,2 ; 3,2 ; use 2,0,4 ; use 2,6,1 ; use 0,3,0

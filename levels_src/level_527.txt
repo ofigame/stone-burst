@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil kenar çentikleri; çözüm 9 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:order; şekil kenar çentikleri; çözüm 6 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
 id: level_527
 moves: 10
 roll: off
@@ -6,7 +6,7 @@ specials: on
 refill: 30 2-2
 type: order
 rules: exact
-goals: blue 22, purple 27, coral 25, sponge 1
+goals: blue 30, purple 36, coral 34, sponge 1
 grid:
 cb    #     #     yc    yy    #     #     pp
 by    by    #     pc    yc    #     nn    cp
@@ -17,4 +17,4 @@ yy    bn    pn    cn    cp    cp    yc    yb
 yySb  bp    cp    np    cp    cb    ny    yy
 yb    by    cy    yy    yc    yb    cbLn3 yb
 yb    bb    bn    pn    pc    pbLn3 cb    cb
-solution: 7,0 ; 4,5 ; use 0,1,1 ; 7,1 ; 5,3 ; use 1,3,2 ; 4,5 ; use 2,0,0 ; 0,0
+solution: 7,0 ; 4,5 ; use 0,1,1 ; 1,6 ; 7,1 ; 5,3 ; use 2,3,0 ; 6,2 ; use 3,0,0 ; use 2,3,1 ; use 0,0,4 ; use 0,2,2

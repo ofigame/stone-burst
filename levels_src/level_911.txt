@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil artı; çözüm 8 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,13; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 normal; şekil kum saati; çözüm 6 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: level_911
 moves: 10
 time: 60
 roll: off
 specials: on
-refill: 25 2-2
-goals: purple 22, yellow 20, coral 20
+refill: 30 2-2
+goals: coral 13, blue 30, navy 32
 grid:
-#     #     yc    nn    cn    py    #     #
-#     #     yc    nn    cy    cy    #     #
-nc    yc    yc    pp    pn    nn    nyR   nn
-nc    nb    bb    bp    bp    cy    nb    nn
-np    pnR   bp    by    by    ybR   yy    nc
-cp    cp    py    py    yc    pp    pn    nn
-np    np    bb    yn    yc    py    nc    cn
-#     #     by    ny    pc    pc    #     #
-#     #     bc    bc    pc    pp    #     #
-solution: rot 1,4 ; 4,5 ; 3,4 ; 0,4 ; 2,0 ; use 2,2,0 ; use 0,4,0 ; use 0,0,3
+yc    yy    nn    nc    bp    bp    pp    py
+yc    yb    bn    nc    bc    bn    pp    pn
+bc    pb    yn    ny    yy    npR   pn    pn
+#     nb    np    np    yb    yb    cb    #
+#     yb    yy    bp    ncR   nn    np    #
+#     yb    yy    bn    bn    nn    nb    #
+nbR   bn    by    np    np    cc    yb    yy
+bp    bn    nn    nb    cb    cp    bb    bb
+yp    yp    yn    pp    bp    bp    np    nc
+solution: rot 5,2 ; 5,1 ; 4,0 ; use 1,0,0 ; use 0,0,6 ; 1,1 ; use 0,0,0 ; 4,4 ; 2,1 ; use 0,2,1 ; use 0,2,0

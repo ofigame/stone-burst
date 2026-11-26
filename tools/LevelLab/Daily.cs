@@ -183,7 +183,7 @@ static partial class Program
             d.MoveLimit = budget + 6;
             var s = BeamSolve(LevelLoader.ToState(d), 60, budget + 16);
             if (s == null || !ReplayWins(d, s)) { if (cands.Count > 0 && ++misses >= 2) break; continue; }
-            int L = CountMoves(s);
+            int L = CountMoves(d, s);
             double wrMin = 1;
             foreach (var slack in new[] { 1, 2, 3 })
             {

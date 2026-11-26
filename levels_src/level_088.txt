@@ -1,4 +1,4 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dalga; çözüm 8 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,25
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). v14 tür:resource; şekil dalga; çözüm 7 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: level_088
 moves: 10
 roll: off
@@ -6,7 +6,7 @@ specials: on
 refill: 35 2-2
 type: resource
 rules: exact
-goals: purple 27, navy 16, coral 18
+goals: purple 42, navy 28, coral 29
 grid:
 #     pci1  #     py    #     cp    #     yp
 bp    bp    bc    py    pb    cp    pp    yp
@@ -17,4 +17,4 @@ yy    yy    cn    cc    pp    pp    yp    yn
 pb    py    cn    cc    bb    pb    cp    yp
 pb    bb    bn    pn    yb    pb    cn    yyi2
 pb    #     cp    #     yp    #     bn    #
-solution: 5,2 ; 5,0 ; use 1,2,1 ; use 0,5,0 ; 3,3 ; 2,2 ; use 1,5,0 ; use 0,1,0
+solution: 4,4 ; use 0,0,5 ; 5,3 ; use 0,3,0 ; 5,0 ; use 0,3,0 ; 4,1 ; use 0,5,0 ; 0,2 ; use 0,1,0 ; 0,3 ; 1,5 ; use 0,6,1 ; use 0,6,8

@@ -91,9 +91,10 @@ namespace KatKat.Levels
             }
             // v6 tepsi: her özel taş türü için ilk yuva; roket satır/sütun başına bir hedef, Altın Rulo renk başına bir.
             int seenKinds = 0;
-            for (int slot = 0; slot < (s.MovesLeft > 0 ? s.Tray.Count : 0); slot++) // 2026-11-26: tepsi de hamle ister
+            for (int slot = 0; slot < s.Tray.Count; slot++)
             {
                 var kind = s.Tray[slot];
+                if (s.MovesLeft <= 0 && kind.CostsMove()) continue; // 2026-11-27: yalnız Kürek hamle ister
                 if ((seenKinds & (1 << (int)kind)) != 0) continue;
                 seenKinds |= 1 << (int)kind;
                 var b = s.Board;
