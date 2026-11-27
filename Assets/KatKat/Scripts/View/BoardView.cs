@@ -2713,6 +2713,23 @@ namespace KatKat.View
         /// <summary>Oyun akışının tahta zaman çizgisine bağlı gecikmeli işi (mağaza bombasının patlama anı; atlamada birlikte biter).</summary>
         public void Later(float ms, Action a) => At(ms, a);
 
+        /// <summary>Bir karede sayılan en uzun süre (ms).</summary>
+        public const float MaxFrameMs = 40f;
+        private int _warmFrames;
+
+        /// <summary>
+        /// 2026-11-27: bölüm açılırken ortak patlamanın görselleri (taş çizimleri, parçalar, ışık), havuz nesneleri ve gölgelendiricileri
+        /// hazırlanır; görünmez çizilen nesneler iki kare sonra havuza döner. İlk hamle uygulama açılışında da sonrakiler gibi oynar.
+        /// </summary>
+        public void WarmBlast(IEnumerable<LayerColor> colors)
+        {
+            if (!BlastOn) return;
+            var at = transform.TransformPoint(Vector3.zero);
+            Blast.Warm(colors, at);
+            Particles.Warm(at, 24, 48);
+            _warmFrames = 3;
+        }
+
         private void At(float ms, Action a)
         {
             _timeline.Add(new TimedAction { Time = _clock + ms, Action = a });
@@ -2721,7 +2738,11 @@ namespace KatKat.View
         private void Update()
         {
             float scale = _director != null ? _director.TimeScale : 1f;
-            Advance(Time.unscaledDeltaTime * 1000f * scale);
+            // 2026-11-27 (kullanıcı: "oyunu ilk açtığımda taşlar bütün olarak gidiyor hedefe, sonrasında ışın olarak"): açılışın ilk
+            // hamlelerinde uzun karelerde (görsel üretimi, gölgelendirici derlemesi) zaman çizgisi bir sıçramada ilerleyip patlama
+            // evrelerini atlıyordu. Kare süresi en çok MaxFrameMs sayılır: takılmada animasyon atlamaz, yalnız bir an yavaşlar.
+            Advance(Mathf.Min(Time.unscaledDeltaTime * 1000f, MaxFrameMs) * scale);
+            if (_warmFrames > 0 && --_warmFrames == 0) _blast?.EndWarm();
             TickShakes();
         }
 

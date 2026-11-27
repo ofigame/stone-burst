@@ -28,6 +28,12 @@ namespace KatKat.Game
         /// Bu hamlenin dalga dalga hedef kotası: her renk görevi için dalgadaki görünen ilerleme farkı (tavan görev miktarı).
         /// Torba bölümünde görev teslimle ilerler: kopya yok.
         /// </summary>
+        /// <summary>Ön ısıtılacak taş renkleri (hepsi: üretimi ucuz, bölüm ortasında yeni renk de çıkabilir).</summary>
+        private static IEnumerable<LayerColor> WarmColors()
+        {
+            for (int i = 0; i < LayerColors.Count; i++) yield return (LayerColor)i;
+        }
+
         private System.Func<PeelWave, List<(int Goal, LayerColor Color, int Count)>> GoalQuotaFor()
         {
             var goals = _session.State.Goals;

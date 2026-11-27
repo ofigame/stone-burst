@@ -83,6 +83,45 @@ namespace KatKat.View
 
         // ---- Havuz ---------------------------------------------------------------------------------
 
+        private readonly List<(SpriteRenderer Sr, bool Add)> _warm = new List<(SpriteRenderer, bool)>();
+
+        /// <summary>
+        /// 2026-11-27 ön ısıtma: renklerin taş çizimi, parça/ışık görselleri ve havuz nesneleri şimdi üretilir; her malzeme görünmez
+        /// (saydamlık ~0) bir kez çizilir ki gölgelendirici ilk patlamada derlenmesin. <see cref="EndWarm"/> havuza geri verir.
+        /// </summary>
+        public void Warm(IEnumerable<LayerColor> colors, Vector3 at)
+        {
+            EndWarm();
+            var sprites = new List<Sprite> { Jelly, StoneShatter.Chip(0), StoneShatter.Chip(1), StoneShatter.Chip(2), FxKit.Glow, FxKit.Ring, FxKit.Dot, FxKit.Star, FxKit.Streak };
+            foreach (var c in colors) sprites.Add(UiStoneArt.Chip(c));
+            at.z -= 0.05f;
+            int alpha = 0, add = 0;
+            void One(Sprite sp, bool additive)
+            {
+                var sr = Take(sp, additive, FaceOrder);
+                sr.transform.position = at;
+                Size(sr, Cell * 0.2f);
+                sr.color = new Color(1f, 1f, 1f, 0.004f);
+                sr.enabled = true;
+                _warm.Add((sr, additive));
+                if (additive) add++; else alpha++;
+            }
+            foreach (var sp in sprites) { One(sp, false); One(sp, true); }
+            // Havuz: tipik büyük patlamada aynı anda gereken kadar (taş başına 4, uçuş başına 2).
+            while (alpha < 20) One(FxKit.Dot, false);
+            while (add < 40) One(FxKit.Glow, true);
+        }
+
+        public void EndWarm()
+        {
+            for (int i = 0; i < _warm.Count; i++)
+            {
+                var sr = _warm[i].Sr;
+                if (sr != null) Give(ref sr, _warm[i].Add);
+            }
+            _warm.Clear();
+        }
+
         private SpriteRenderer Take(Sprite s, bool additive, int order)
         {
             var pool = additive ? _poolAdd : _pool;

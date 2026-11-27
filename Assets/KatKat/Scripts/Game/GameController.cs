@@ -415,6 +415,7 @@ namespace KatKat.Game
             _hud.ReserveHazard = _session.State.Hazard != null;
             _hud.ReserveBottom = BoostersVisible || _session.State.PaintLeft > 0 || _sessionKind != KatKat.Meta.SessionKind.Normal;
             _board.Build(_session.State, _hud.BoardWorldRect(_cam));
+            _board.WarmBlast(WarmColors()); // 2026-11-27 açılıştaki ilk hamle takılmasın
             if (_session.State.Bucket != null) _hud.AdvanceBucket(0f); // 2026-11-26: torba yeni tahtaya ilk karede oturur
             ConceptHud(); // konsept pilotu (tehditsiz bölümde gizler)
             Vr1CenterIceBegin(); // vr1 P1 prototipi: ortası boş tahtada buzlu koleksiyon taşı

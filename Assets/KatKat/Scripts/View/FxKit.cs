@@ -207,6 +207,15 @@ namespace KatKat.View
             (sr.sharedMaterial == FxKit.Additive && FxKit.Additive != null ? _poolAdd : _poolAlpha).Push(sr);
         }
 
+        /// <summary>2026-11-27 ön ısıtma: havuza nesne hazırlar (görünmez, kısa ömürlü parçacık olarak bir kez çizilir).</summary>
+        public void Warm(Vector3 at, int alpha, int additive)
+        {
+            at.z -= 0.05f;
+            var clear = new Color(1f, 1f, 1f, 0.004f);
+            for (int i = 0; i < alpha; i++) Emit(i % 2 == 0 ? FxKit.Dot : StoneShatter.Chip(i), false, 0, at, Vector3.zero, 0.05f, 0.01f, 0.01f, clear, clear);
+            for (int i = 0; i < additive; i++) Emit(i % 3 == 0 ? FxKit.Streak : i % 3 == 1 ? FxKit.Ring : FxKit.Glow, true, 0, at, Vector3.zero, 0.05f, 0.01f, 0.01f, clear, clear);
+        }
+
         /// <summary>Bütün parçacıkları hemen bitirir (bölüm değişimi).</summary>
         public void Clear()
         {
