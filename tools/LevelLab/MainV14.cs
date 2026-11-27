@@ -51,7 +51,7 @@ static partial class Program
     /// turkuaz = blue, kırmızı = coral, mor = purple, yeşil = green, mavi = navy (lacivert yıldız).</summary>
     static readonly (string color, int intro)[] V14ColorIntro =
     {
-        ("yellow", 1), ("blue", 1), ("coral", 8), ("purple", 21), ("navy", 61),
+        ("yellow", 1), ("blue", 1), ("coral", 5), ("purple", 21), ("navy", 61), // 2026-11-27: kırmızı 8 → 5 (iki renkle tahta kendiliğinden eriyordu, mantık kurulamıyordu)
     };
 
     /// <summary>Bölüm n'de açılmış renkler (açılış sırasıyla).</summary>
@@ -83,15 +83,32 @@ static partial class Program
     /// <summary>2026-11-26 (kullanıcı: "hamle sayılarını 10 dan aşağı yapmayalım"): en küçük hamle sınırı.</summary>
     const int MinMoveLimit = 10;
 
-    static double V14RandomCap(int n) => V14Breath(n) ? 0.60 : n <= 20 ? 0.35 : n <= 30 ? 0.25 : n <= 100 ? 0.18 : n <= 300 ? 0.08 : 0.03;
+    // 2026-11-27: 2–10 %45, 11–20 %25, 21–30 %18, 31–100 %10, 101–300 %4, 301+ %2; nefes %35.
+    static double V14RandomCap(int n) => V14Breath(n) ? 0.35 : n <= 4 ? 0.85 : n <= 10 ? 0.45 : n <= 20 ? 0.25 : n <= 30 ? 0.18 : n <= 100 ? 0.10 : n <= 300 ? 0.04 : 0.02;
 
     /// <summary>2026-11-26: plan yapmayan iyi oyuncu yaklaşığı (yumuşak açgözlü bot) için taban: bölüm "imkânsız" hissettirmesin,
     /// kaybeden oyuncu yakın kaybetsin ve yeniden denesin. 100'den sonra insan planı bottan çok güçlü; taban yok.</summary>
-    static double V14SoftMin(int n) => n <= 10 ? 0 : V14Breath(n) ? 0.6 : n <= 30 ? 0.35 : n <= 100 ? (V14Master(n) ? 0.08 : 0.15) : 0;
+    // 2026-11-27 taban gevşedi (tavan geldi): 2–10 %40, nefes %40, 11–30 %25.
+    static double V14SoftMin(int n) => n <= 1 ? 0 : n <= 10 ? 0.4 : V14Breath(n) ? 0.4 : n <= 30 ? 0.25 : n <= 100 ? (V14Master(n) ? 0.06 : 0.10) : 0;
+
+    /// <summary>2026-11-27 (kullanıcı: "bölümler çok kolay rasgele geçebiliyorum 200 ün üstündeki bölümleri bile … kolay bölümde bile
+    /// bir mantık olsun"): plan yapmadan büyük grubu seçen oyuncu yaklaşığı (yumuşak açgözlü bot, 48 oyun) için tavan. Düzgün rastgele
+    /// bot 200'den sonra %2–3 kazanıyordu ama bu bot 201–300'de ortalama %42 kazanıyordu: insanın "rastgele" basışı budur.</summary>
+    static double V14SoftMax(int n)
+    {
+        if (n <= 1) return 1;
+        double c = V14Breath(n) ? 0.75 : n <= 4 ? 1.0 : n <= 10 ? 0.80 : n <= 30 ? 0.50 : n <= 100 ? 0.32 : n <= 300 ? 0.18 : 0.12;
+        if (V14Master(n)) c *= 0.6;
+        return c;
+    }
+
+    /// <summary>2026-11-27 (kullanıcı: "Büyük taş grupları çok olmasın"): açılış tahtasında (tüm katlar) 5+ taşlık grup sayısı tavanı.</summary>
+    static int V14BigGroupCap(int n) => n <= 10 || V14Breath(n) ? 2 : 1;
 
     /// <summary>2026-11-26 (kullanıcı: "tüm bölümlerde taşlar hücrede bitince yukarıdan aşağıya taşlar konumlansın. Oyuna belli
     /// sayıda taş girsin"): hücre sayısına oranla yeni yığın (ilk 10 ve nefes bol, geç bölümler biraz az).</summary>
-    static double V14RefillFrac(int n) => n <= 10 || V14Breath(n) ? 0.7 : n <= 100 ? 0.55 : n <= 300 ? 0.5 : 0.45;
+    // 2026-11-27: ilk on 0,7 → 0,55 (bol dolma tahtayı kendiliğinden çözüyordu).
+    static double V14RefillFrac(int n) => V14Breath(n) ? 0.7 : n <= 100 ? 0.55 : n <= 300 ? 0.5 : 0.45;
 
     sealed class V14Spec
     {
@@ -163,6 +180,8 @@ static partial class Program
             // iki renk görevi, çözüm 5–10 hamle.
             sp.W = ew; sp.H = eh; sp.LMin = sp.LMax = 2; sp.Colors = 3; sp.ColorGoals = 2; sp.LenLo = 4; sp.LenHi = 10;
             sp.BlobMin = 3; sp.BlobMax = 6; sp.Frac = 0.6; sp.MaxGroup = 6;
+            // 2026-11-27 (kullanıcı: "kolay bölümde bile bir mantık olsun"): lekeler 2–5, çözüm en az 5 hamle.
+            sp.BlobMin = 2; sp.BlobMax = 5; sp.LenLo = 5;
         }
         else if (n <= 14)
         {
@@ -251,7 +270,7 @@ static partial class Program
             }
         }
         // 2026-11-26: açılışta grup en çok 7 (iri lekeler birleşip tahtayı tek dokunuşa indirmesin; roket kurmak oyuncunun işi).
-        if (sp.MaxGroup == 0) sp.MaxGroup = 7;
+        if (sp.MaxGroup == 0) sp.MaxGroup = 6; // 2026-11-27: 7 → 6 (büyük gruplar az)
         // Kesin hamle: sınır = çözüm (1–99'da +1, eski kural kartı metniyle aynı).
         sp.Slack = sp.Exact ? (n < 100 ? 1 : 0) : m >= 1 && m <= 3 ? sp.SlackHi : m >= 7 || m == 9 ? sp.SlackLo : (sp.SlackLo + sp.SlackHi + 1) / 2;
         // Saf plan (özel taş yok): renk 2 eksik (grup bulunabilsin), hedef küçük; kıt renkle birleşmez (tekil hedef taşı özel taşsız toplanamaz).
@@ -276,6 +295,16 @@ static partial class Program
         }
         // Kilit sırası türü kendi kilitlerini kurar; renk kilidi mekaniğiyle çakışmasın.
         if (sp.Order) chosen.Remove("colorLock");
+        // 2026-11-27 (kullanıcı: "Taşlı bölümler ne sıklıkla var ? az ise çoğaltalaım 8 bölümde bir yapalım"): çakıl düzenli olarak her
+        // 8. bölümde (48, 56, …); tanıtım 45–47. Başka bölümlerde rastgele çakıl yok.
+        // Nefes bölümüne denk gelen sıra (48, 72, …) bir sonraki bölüme kayar.
+        bool gravelSlot = n >= 45 && (n <= 47 || (n % 8 == 0 && !V14Breath(n)) || ((n - 1) % 8 == 0 && V14Breath(n - 1)));
+        chosen.Remove("gravel");
+        if (gravelSlot)
+        {
+            chosen.Insert(0, "gravel");
+            while (chosen.Count > (n >= 801 ? 3 : 2)) chosen.RemoveAt(chosen.Count - 1);
+        }
         foreach (var x in chosen) V14MechAmount(sp, x, rng);
         V14Uniform(sp, rng);
         return sp;
@@ -565,6 +594,37 @@ static partial class Program
                     var free = palette.Where(p => !near.Contains(p)).ToList();
                     colorAt[(pick, level)] = free.Count > 0 ? free[rng.Next(free.Count)] : palette.Where(p => p != colorAt[(pick, level)]).OrderBy(_ => rng.Next()).First();
                 }
+        }
+        if (!sp.Showcase)
+        {
+            // 2026-11-27 (kullanıcı: "aynı bölümle birçok tane büyük gruplar var ve rasgele basıyorum patlatıyorum bölüm geçiyorum"):
+            // tüm katlarda 5+ taşlık grup sayısı tavanı; fazlası ortasından komşusunda olmayan renge boyanarak bölünür.
+            int cap = V14BigGroupCap(sp.N);
+            for (int guard = 0; guard < 400; guard++)
+            {
+                var bigs = new List<(int level, List<int> comp)>();
+                for (int level = 0; level < sp.LMax; level++)
+                {
+                    var seen = new HashSet<int>();
+                    foreach (var i in byIndex.Keys.Where(i => depth[i] > level).OrderBy(i => i))
+                    {
+                        if (seen.Contains(i)) continue;
+                        var comp = new List<int> { i };
+                        seen.Add(i);
+                        for (int q = 0; q < comp.Count; q++)
+                            foreach (var nb in Neighbours5(comp[q], w, h))
+                                if (byIndex.ContainsKey(nb) && depth[nb] > level && !seen.Contains(nb) && colorAt[(nb, level)] == colorAt[(i, level)]) { seen.Add(nb); comp.Add(nb); }
+                        if (comp.Count >= 5) bigs.Add((level, comp));
+                    }
+                }
+                if (bigs.Count <= cap) break;
+                // Üst kattakiler önce kalır (oyuncunun ilk gördüğü); en derin/küçük olanlar bölünür.
+                var (lv, cp) = bigs.OrderBy(t => t.level).ThenByDescending(t => t.comp.Count).Last();
+                int pick = cp.OrderByDescending(c => Neighbours5(c, w, h).Count(nb => cp.Contains(nb))).ThenBy(_ => rng.Next()).First();
+                var near = Neighbours5(pick, w, h).Where(nb => byIndex.ContainsKey(nb) && depth[nb] > lv).Select(nb => colorAt[(nb, lv)]).ToHashSet();
+                var free = palette.Where(p => !near.Contains(p)).ToList();
+                colorAt[(pick, lv)] = free.Count > 0 ? free[rng.Next(free.Count)] : palette.Where(p => p != colorAt[(pick, lv)]).OrderBy(_ => rng.Next()).First();
+            }
         }
         foreach (var kv in byIndex)
             for (int level = 0; level < depth[kv.Key]; level++) kv.Value.Layers.Add(colorAt[(kv.Key, level)]);
@@ -985,13 +1045,13 @@ static partial class Program
             ev.NeedsSpecialsOk = BeamSolve(LevelLoader.ToState(ns), 60, limit + 12) == null;
         }
         double v = 0;
-        bool exempt = sp.N <= 10; // 1: öğretici turu kayıtlı çözümü oynatır; 2–10 (2026-11-20) bilerek kolay
+        bool exempt = sp.N <= 1; // 1: öğretici turu kayıtlı çözümü oynatır; 2026-11-27: 2–10 da tavanlı (kolay ama mantıklı)
         if (!exempt && ev.Rand > sp.RandomCap) v += 10 + (ev.Rand - sp.RandomCap) * 100;
         if (sp.GreedyMustLose && (ev.GreedyBig || ev.GreedyGoal)) v += 8;
         if (!ev.NeedsSpecialsOk) v += 6;
         // 2–10 kolay (2026-11-20): rastgele oynayan bile çoğunlukla kazanmalı.
-        bool tooHard = sp.N >= 2 && sp.N <= 10 && ev.Rand < 0.5;
-        if (tooHard) v += 10 + (0.5 - ev.Rand) * 100;
+        bool tooHard = sp.N >= 2 && sp.N <= 10 && ev.Rand < 0.08; // 2026-11-27: kolay bölüm imkânsız da olmasın
+        if (tooHard) v += 10 + (0.08 - ev.Rand) * 100;
         ev.Violation = v;
         if (v > 0)
         {
@@ -1023,13 +1083,15 @@ static partial class Program
         // Sıkıştırılmış çözüm bandın altına indiyse bölüm sandığımızdan kısadır: daha büyük hedefle yeniden denenir.
         if (L < sp.LenLo) { ev.Fail = "kısa"; ev.Violation = 50 + (sp.LenLo - L) * 5; return ev; }
         double softMin = sp.RefillFrac > 0 && !sp.Exact ? V14SoftMin(sp.N) : 0; // kesin hamle bulmacası tabandan muaf
-        if (softMin > 0)
+        double softMax = sp.Showcase ? 1 : V14SoftMax(sp.N);
+        if (softMin > 0 || softMax < 1)
         {
             var s0 = LevelLoader.ToState(d);
             var sbr = new Random(sp.N * 31 + 7); int sw = 0;
             for (int g = 0; g < 48; g++) if (BotPlay(s0.Clone(), sbr, 0.35)) sw++;
             ev.Soft = sw / 48.0;
             if (ev.Soft < softMin) { ev.Fail = "sert"; ev.Violation = 3 + (softMin - ev.Soft) * 20; return ev; }
+            if (ev.Soft > softMax) { ev.Fail = "kolay"; ev.Violation = 4 + (ev.Soft - softMax) * 40; return ev; }
         }
         if (sp.Showcase && sp.N >= 4)
         {
@@ -1058,6 +1120,11 @@ static partial class Program
         // 2026-11-26: dolma her hamleyi güçlendirir (yeni yığın kayar, grup büyür); çözüm alt sınırı 2 hamle aşağı. Önce "kısa" sayılan
         // tahtalar rastgele/açgözlü ölçüme hiç girmeden yedek oluyordu.
         if (n > 10) sp.LenLo = Math.Max(3, sp.LenLo - 2);
+        // 2026-11-27 (kullanıcı: "rasgele basıp bitirmenin bir anlamı yok"): en az 10 hamle kuralı kısa çözümde payı şişiriyordu (5 hamlelik
+        // çözüme 10 hamle = 5 boş hamle; büyük grubu seçen bot neredeyse hep kazanıyordu). Çözüm, sınırın pay bandının üstünü aşmayacağı
+        // kadar uzun olmalı (bir hamle tolerans).
+        if (!sp.Showcase && !sp.Breath) sp.LenLo = Math.Max(sp.LenLo, MinMoveLimit - sp.SlackHi - 1);
+        if (sp.LenHi < sp.LenLo + 4) sp.LenHi = sp.LenLo + 4;
         return V14Make(sp, n * 7919 + 1416 + V14Salt(n), n * 31);
     }
     static int V14Salt(int n) => n == 400 ? 1 : int.TryParse(Environment.GetEnvironmentVariable("KATKAT_SALT"), out var s) ? s : 0;
@@ -1109,7 +1176,7 @@ static partial class Program
                 else if (ev.Fail == "beam" || ev.Fail == "vitrin zor") frac *= 0.86;
                 else if (ev.Fail == "uzun") frac *= 0.88;
                 else if (ev.Fail == "kısa") frac = Math.Min(0.95, frac * 1.15);
-                else if (ev.Fail == "rastgele" || ev.Fail == "açgözlü" || ev.Fail == "tür")
+                else if (ev.Fail == "rastgele" || ev.Fail == "açgözlü" || ev.Fail == "tür" || ev.Fail == "kolay")
                 {
                     if (slack > sp.SlackLo && !sp.Exact) slack--;
                     else frac = Math.Min(0.96, frac * 1.1);
@@ -1132,7 +1199,7 @@ static partial class Program
                     break;
                 }
                 if (frac >= 0.955 && ev.Fail == "kısa" && sp.RefillFrac > 0 && sp.RefillShare < 1.4) { sp.RefillShare += 0.3; continue; } // dolmayla kısa kalan bölüm: hedef yeni yığınları daha çok sayar
-                if (frac >= 0.955 && (ev.Fail == "kısa" || ev.Fail == "rastgele")) break;
+                if (frac >= 0.955 && (ev.Fail == "kısa" || ev.Fail == "rastgele" || ev.Fail == "kolay")) break;
             }
             // Dekor kalan mekanik (döner taban, boya, geçit) üç tahtada kullanılmadıysa bölümden çıkar (yerine sade tahta).
             // Döner taban iki tahtada kullanılmadıysa önce zorunlu başlangıç denenir (çözüm işe yarar bir döndürmeyle açılır);

@@ -816,6 +816,7 @@ namespace KatKat.View
                 var bcfg = BoosterFxConfig.Current.Blast;
                 float burstAt = special ? bcfg.SpecialBurstAtMs : bcfg.BurstAtMs;
                 var bplan = blast ? PlanBlast(result, w, special, start, goalTarget) : null;
+                if (bplan != null && bcfg.OldStreamSound) _streamTotal += bplan.Flights.Count;
                 At(start, () => onWaveStart?.Invoke(w));
                 if (special) At(start + (charged ? PeelSequence.BreakAt : 0f), () => FireFx(w));
                 // 2026-11-21 (kullanıcı: "patlamadaki tahtanın sallanması patlama anında olsun"): sarsıntı dalga başında değil,
@@ -874,6 +875,12 @@ namespace KatKat.View
                     {
                         if (!special) delay = bplan.Delay[ci];
                         var bc = cp;
+                        // 2026-11-27 harman: eski dokunuş hissi — grup patlamadan önce parlar ve yerinde titrer.
+                        if (bcfg.OldTapCharge && !special && w.Kind == WaveKind.Tap)
+                        {
+                            float hold = delay + burstAt;
+                            At(start, () => TapCharge(StackAt(bc.X, bc.Y), hold, bc.Removed));
+                        }
                         int bci = ci;
                         float due = _clock + (charged ? launch : start) + delay;
                         bool hasStar = cp.StarCollected;
@@ -1290,7 +1297,17 @@ namespace KatKat.View
         {
             get
             {
-                if (_blast == null) { _blast = StoneBlast.Attach(this); _blast.Arrived = g => GoalCopyArrived != null && GoalCopyArrived(g); }
+                if (_blast == null)
+                {
+                    _blast = StoneBlast.Attach(this);
+                    _blast.Arrived = g =>
+                    {
+                        bool done = GoalCopyArrived != null && GoalCopyArrived(g);
+                        // 2026-11-27 harman: eski akışın varış sesi (sırayla, tizden pese; son taşta dolma).
+                        if (BoosterFxConfig.Current.Blast.OldStreamSound) StreamArrived?.Invoke(_streamIdx++, _streamTotal);
+                        return done;
+                    };
+                }
                 return _blast;
             }
         }

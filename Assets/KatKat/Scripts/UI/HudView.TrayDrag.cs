@@ -76,6 +76,7 @@ namespace KatKat.UI
             _ghost.gameObject.SetActive(true);
             _ghostIcon.sprite = SpecialArt.For(kind);
             _ghostIcon.rectTransform.localRotation = Quaternion.Euler(0f, 0f, SpecialArt.Angle(kind));
+            TwinIcon.On(_ghostIcon).Set(kind); // 2026-11-27 çift roket hayaleti de ikiz
             // Boy: yuvadaki simgenin kanvas boyu × GhostScale (yuva ölçeği dahil).
             var icon = _trayIcons[slot];
             float span = Mathf.Max(icon.rectTransform.sizeDelta.x, icon.rectTransform.sizeDelta.y) * _bottomScale;

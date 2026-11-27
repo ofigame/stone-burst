@@ -70,7 +70,8 @@ namespace KatKat.Game
             var goals = _session?.State.Goals;
             if (goals == null || goal < 0 || goal >= goals.Count) return false;
             bool complete = _hud.GoalArrive(goal, goals[goal].Progress);
-            CollectSound(complete);
+            // 2026-11-27 harman: tek tek varış sesi eski akıştan (BoardView → StreamTick); burada yalnız görev dolunca.
+            if (complete || !BoosterFxConfig.Current.Blast.OldStreamSound) CollectSound(complete);
             return complete;
         }
 

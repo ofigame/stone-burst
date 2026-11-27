@@ -137,6 +137,10 @@ namespace KatKat.View
             [Header("2 – Patlama öncesi esneme (60–130 ms)")]
             [Tooltip("Dokunuşta patlama anı (taş başlangıcından).")]
             public float BurstAtMs = 130f;
+            /// <summary>2026-11-27 (kullanıcı: "büyük değişiklikten önceki animasyonlarımız seslerimizde güzeldi ikisini harmanla"):
+            /// eski akıştan dokunulan grubun parlayıp titremesi (patlamadan önce) ve varışta tane tane, tizden pese inen jöle sesi +
+            /// son taşta dolma sesi. Yeni patlama parçaları, halka ve hedefe uçan kopya aynen kalır.</summary>
+            public bool OldTapCharge = true, OldStreamSound = true;
             [Tooltip("Roket / Altın Rulo taşında patlama anı (roket ya da zincir vardığında patlar; önce kısa gerilme).")]
             public float SpecialBurstAtMs = 45f;
             public float StretchPeak = 1.12f;

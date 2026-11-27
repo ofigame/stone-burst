@@ -1016,6 +1016,7 @@ namespace KatKat.UI
                     float s = kind == SpecialKind.Shovel ? 1.5f : kind == SpecialKind.Rainbow ? (SpecialArt.HasV11 ? 1.32f : 1.0f) : (SpecialArt.HasV11 ? 1.6f : 1.1f);
                     icon.rectTransform.sizeDelta = new Vector2(TraySlot * s, TraySlot * s);
                 }
+                TwinIcon.On(icon).Set(full ? tray[i] : SpecialKind.None); // 2026-11-27 çift roket: iki paralel roket
                 bool sel = i == selected;
                 _trayFull[i] = full;
                 _traySlots[i].transform.localScale = Vector3.one * _bottomScale * (sel ? TraySelScale : 1f);
