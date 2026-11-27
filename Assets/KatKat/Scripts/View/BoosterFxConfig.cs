@@ -203,9 +203,12 @@ namespace KatKat.View
             public float FlightEase = 1.8f;
             public float Spin = 22f;
             public float Stretch = 0.14f;
-            public float TrailLife = 0.26f;
+            public float TrailLife = 0.34f;
+            /// <summary>2026-11-27 (kullanıcı: "taşlar hedefe gitsin dalgalı ışıklı efektlerde olsun"): uçuş yolunun yana dalgalanması
+            /// (hücre oranı), dalga sayısı ve iz pırıltısı aralığı (ms).</summary>
+            public float WaveAmp = 0.38f, WaveCycles = 1.5f, SparkleEveryMs = 45f;
             public float TrailSize = 0.95f;
-            public float TrailAlpha = 0.75f;
+            public float TrailAlpha = 0.9f;
             [Header("6 – Hedef isabeti")]
             public float IconBounce = 1.32f;
             public float IconBounceMs = 260f;

@@ -58,6 +58,7 @@ switch ($Command) {
     'capture-bgtrial' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureBgTrial.RunBatch') 'capture-bgtrial' }
     'vine-art'        { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.VineArt.RunBatch') 'vine-art' }
     'capture-trayart' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureTrayArt.RunBatch') 'capture-trayart' }
+    'capture-flight' { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.CaptureFlight.RunBatch') 'capture-flight' } # 2026-11-27 dalgalı uçuş
     'capture-tray'    { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CaptureTray') 'capture-tray' }
     'capture-mascot'  { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.GameCapture.CaptureMascot') 'capture-mascot' }
     'live-capture'    { $c = Invoke-Unity @('-quit', '-executeMethod', 'KatKat.EditorTools.LiveMatchTools.CaptureBatch') 'live-capture' }

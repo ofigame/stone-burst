@@ -1302,7 +1302,7 @@ namespace KatKat.View
                     _blast = StoneBlast.Attach(this);
                     _blast.Arrived = g =>
                     {
-                        bool done = GoalCopyArrived != null && GoalCopyArrived(g);
+                        bool done = g >= 0 && GoalCopyArrived != null && GoalCopyArrived(g); // g < 0: yıldız çubuğuna giden taş
                         // 2026-11-27 harman: eski akışın varış sesi (sırayla, tizden pese; son taşta dolma).
                         if (BoosterFxConfig.Current.Blast.OldStreamSound) StreamArrived?.Invoke(_streamIdx++, _streamTotal);
                         return done;
@@ -1377,8 +1377,10 @@ namespace KatKat.View
                 p.Nudge[i] = dir.sqrMagnitude > 0f ? dir.normalized : Vector3.zero;
             }
             // Hedef kopyaları: görevin bu dalgadaki ilerlemesi kadar, patlama sırasıyla.
-            var quota = GoalQuota?.Invoke(w);
-            if (quota == null || quota.Count == 0) return p;
+            // 2026-11-27 KESİN KURAL (kullanıcı: "3 lü götürürken hiç hedefe gitmiyor. Kesin olarak kural koy ve taşlar hedefe
+            // gitsin"): patlayan HER taş uçar. Görev renginde (kota kadar) görev simgesine, kalanlar (görevde olmayan renk ya da
+            // dolmuş görev) yıldız çubuğuna. Yalnız patlayıp yerinde kaybolan taş yok.
+            var quota = GoalQuota?.Invoke(w) ?? new List<(int Goal, LayerColor Color, int Count)>();
             var order = new List<int>(n);
             for (int i = 0; i < n; i++) order.Add(i);
             order.Sort((a, b) => p.Delay[a] != p.Delay[b] ? p.Delay[a].CompareTo(p.Delay[b]) : a.CompareTo(b));
@@ -1393,20 +1395,21 @@ namespace KatKat.View
             {
                 var cp = w.Cells[i];
                 int qi = left.FindIndex(q => q.Color == cp.Removed && q.Count > 0);
-                if (qi < 0) continue;
-                var q0 = left[qi];
-                left[qi] = (q0.Goal, q0.Color, q0.Count - 1);
+                if (qi < 0 && ScoreTarget == null) continue;
+                var q0 = qi >= 0 ? left[qi] : (Goal: -1, Color: cp.Removed, Count: 0);
+                if (qi >= 0) left[qi] = (q0.Goal, q0.Color, q0.Count - 1);
                 float burst = p.Delay[i] + burstAt;
                 float launch = Mathf.Max(burst + c.PopMs, prevLaunch + stagger);
                 prevLaunch = launch;
                 var col = cp.Removed;
-                var target = goalTarget(col);
+                Func<Vector3> aim = q0.Goal >= 0 ? () => goalTarget(col) : ScoreTarget;
+                var target = aim();
                 var from = transform.TransformPoint(CellCenter(cp.X, cp.Y));
                 float dist = Vector2.Distance(new Vector2(from.x, from.y), new Vector2(target.x, target.y));
                 float fly = Mathf.Lerp(c.FlightMinMs, c.FlightMaxMs, Mathf.Clamp01(dist / far));
                 p.Flights[i] = new StoneBlast.FlightPlan
                 {
-                    Goal = q0.Goal, Target = target, TargetFn = () => goalTarget(col), HoldMs = launch - burst, FlyMs = fly, Seed = cp.X * 31 + cp.Y * 17 + w.Index * 7 + 1, Visible = true,
+                    Goal = q0.Goal, Target = target, TargetFn = aim, HoldMs = launch - burst, FlyMs = fly, Seed = cp.X * 31 + cp.Y * 17 + w.Index * 7 + 1, Visible = true,
                 };
                 p.LastArrive = Mathf.Max(p.LastArrive, launch + fly);
             }

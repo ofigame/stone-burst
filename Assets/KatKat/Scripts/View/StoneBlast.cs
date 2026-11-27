@@ -427,7 +427,7 @@ namespace KatKat.View
             public SpriteRenderer Sr, Halo;
             public Vector3 From, PopTo, P1, P2, Target;
             public Func<Vector3> TargetFn;
-            public float Age, PopMs, Hold, Fly, Size, Spin, TrailAt;
+            public float Age, PopMs, Hold, Fly, Size, Spin, TrailAt, SparkAt, WavePhase;
             public Color Main, Accent;
             public int Goal;
             public bool Visible;
@@ -465,6 +465,8 @@ namespace KatKat.View
             f.Size = s;
             f.Spin = (rng.NextDouble() < 0.5 ? -1f : 1f) * c.Spin * Rn(0.6f, 1.1f);
             f.TrailAt = 0f;
+            f.SparkAt = 0f;
+            f.WavePhase = rng.NextDouble() < 0.5 ? 0f : Mathf.PI; // komşu taşlar ters yönde dalgalanır
             f.Main = b.Main; f.Accent = b.Accent;
             f.Goal = plan.Goal;
             f.Visible = plan.Visible && _flights.Count < C.MaxConcurrent;
@@ -508,6 +510,13 @@ namespace KatKat.View
                 float e = Mathf.Pow(u, Mathf.Max(1f, c.FlightEase)) * 0.75f + u * 0.25f;
                 if (f.TargetFn != null) { var nt = f.TargetFn(); f.P2 += nt - f.Target; f.Target = nt; }
                 pos = Cubic(f.PopTo, f.P1, f.P2, f.Target, e);
+                // 2026-11-27 dalgalı uçuş: yola dik yönde sinüs dalgası; başta ve hedefte sıfır (simgenin içine iner).
+                var chord = f.Target - f.PopTo;
+                if (chord.sqrMagnitude > 1e-6f && !KatKat.UI.Motion.Reduced)
+                {
+                    var perp = new Vector3(-chord.y, chord.x, 0f).normalized;
+                    pos += perp * (Mathf.Sin(e * Mathf.PI * 2f * c.WaveCycles + f.WavePhase) * Mathf.Sin(e * Mathf.PI) * Cell * c.WaveAmp);
+                }
                 size = f.Size * Mathf.Lerp(c.MiniStart, c.MiniEnd, e) * (u > 0.85f ? Mathf.Lerp(1f, 0.75f, (u - 0.85f) / 0.15f) : 1f); // 2026-11-27: hedefe büyük varır
                 float st = 1f + c.Stretch * Mathf.Sin(u * Mathf.PI) * e;
                 sx = 1f / Mathf.Sqrt(st); sy = st;
@@ -519,6 +528,17 @@ namespace KatKat.View
                     var tc = Color.Lerp(f.Main, f.Accent, 0.3f);
                     Emit(FxKit.Glow, true, FlyOrder - 1, pos, Vector3.zero, c.TrailLife, size * c.TrailSize * 1.4f, size * 0.15f,
                         new Color(tc.r, tc.g, tc.b, c.TrailAlpha), new Color(tc.r, tc.g, tc.b, 0f));
+                    // Işık çekirdeği: beyaza yakın, ince, izin ortasında.
+                    Emit(FxKit.Glow, true, FlyOrder - 1, pos, Vector3.zero, c.TrailLife * 0.6f, size * c.TrailSize * 0.6f, size * 0.1f,
+                        new Color(1f, 1f, 1f, 0.7f), new Color(tc.r, tc.g, tc.b, 0f));
+                }
+                // İz boyunca dökülen küçük pırıltılar.
+                if (f.Visible && !KatKat.UI.Motion.Reduced && u > 0.08f && u < 0.92f && t - f.SparkAt >= c.SparkleEveryMs)
+                {
+                    f.SparkAt = t;
+                    var sc = Color.Lerp(f.Accent, Color.white, 0.5f);
+                    Emit(FxKit.Star, true, FlyOrder + 1, pos, new Vector3(R(-0.6f, 0.6f), R(-0.9f, -0.2f), 0f) * Cell, R(0.22f, 0.32f), size * 0.42f, size * 0.05f,
+                        new Color(sc.r, sc.g, sc.b, 1f), new Color(f.Accent.r, f.Accent.g, f.Accent.b, 0f), drag: 2.5f, rot: R(0f, 45f), rotVel: R(-200f, 200f));
                 }
                 if (u >= 1f) return true;
             }
