@@ -1000,6 +1000,9 @@ namespace KatKat.UI
         /// <summary>Haritanın şu anki kaydırma konumu (ölçüm/test/tanıtım kaydı).</summary>
         public float ScrollYForTest => ScrollY;
 
+        /// <summary>2026-11-28 tanıtım kaydı: görünen düğüm nesnesi (yoksa null).</summary>
+        public RectTransform NodeForTest(int i) => _map != null && _map.Nodes.TryGetValue(i, out var go) && go != null ? (RectTransform)go.transform : null;
+
         /// <summary>
         /// Tanıtım açılışı (2026-11-12): harita dışındaki her şeyi gizler (üst kabuk, alt menü, dönüş düğmesi, harita
         /// maskotu); <paramref name="numbers"/> false ise düğüm numaraları da gizlenir (harita 3D zeminde ters dönebilir).

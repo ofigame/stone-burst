@@ -639,6 +639,8 @@ namespace KatKat.EditorTools
         }
 
         private static Camera _cam;
+        /// <summary>Sahne açılışında tamamlanmış sayılan bölüm (tanıtım: 240; 2026-11-28 reklamı haritadaki gerçek ilerleme).</summary>
+        private static int CompletedForScene = 240;
 
         /// <summary>Video üstü katman: işaret eden çizgi film eli ve dokunma halkaları. Birim = video pikseli.</summary>
         private sealed class HandRig
@@ -664,12 +666,12 @@ namespace KatKat.EditorTools
                 var h = new GameObject("Hand", typeof(RectTransform));
                 h.transform.SetParent(_root, false);
                 _img = h.AddComponent<Image>();
-                _img.sprite = HandSprite();
+                _img.sprite = UseHand3D ? Hand3DSprite() : HandSprite();
                 _img.raycastTarget = false;
                 _hand = (RectTransform)h.transform;
                 _hand.anchorMin = _hand.anchorMax = Vector2.zero;
-                _hand.sizeDelta = new Vector2(250f, 250f);
-                _hand.pivot = new Vector2(0.40f, 0.97f); // parmak ucu
+                _hand.sizeDelta = UseHand3D ? new Vector2(320f, 320f) : new Vector2(250f, 250f);
+                _hand.pivot = UseHand3D ? Hand3DTip : new Vector2(0.40f, 0.97f); // parmak ucu
                 _alpha = _alphaTarget = 0f;
                 Apply();
             }
@@ -713,7 +715,7 @@ namespace KatKat.EditorTools
             {
                 _hand.anchoredPosition = Pos + new Vector2(0f, -10f * Press);
                 _hand.localScale = Vector3.one * (1f - 0.12f * Press);
-                _hand.localRotation = Quaternion.Euler(0f, 0f, 14f + 6f * Press);
+                _hand.localRotation = Quaternion.Euler(0f, 0f, (UseHand3D ? 0f : 14f) + 6f * Press);
                 _img.color = new Color(1f, 1f, 1f, _alpha);
             }
 
@@ -831,6 +833,7 @@ namespace KatKat.EditorTools
             SafeAreaFitter.NormalizedOverride = new Rect(0f, 0f, 1f, 1f);
             UiAspect.Override = (float)W / H; // toplu modda ekran boyutu telefon değil: menü/harita tablet düzenine geçmesin
             var dir = Path.Combine(_root, name);
+            if (Directory.Exists(dir)) Directory.Delete(dir, true); // tek sahne yeniden çekilince eski fazla kareler kalmasın
             Directory.CreateDirectory(dir);
             var camGo = new GameObject("TrailerCam");
             var cam = camGo.AddComponent<Camera>();
@@ -861,7 +864,7 @@ namespace KatKat.EditorTools
             var root = new GameObject("Game");
             var gc = root.AddComponent<GameController>();
             gc.Setup(cam, new KatKat.Save.SaveService(saveDir));
-            for (int i = 0; i < 240; i++) { gc.SaveService.MarkCompleted(gc.Catalog.IdAt(i), i, gc.Catalog.Count); gc.SaveService.RecordStars(gc.Catalog.IdAt(i), i % 7 == 3 ? 2 : 3); }
+            for (int i = 0; i < CompletedForScene; i++) { gc.SaveService.MarkCompleted(gc.Catalog.IdAt(i), i, gc.Catalog.Count); gc.SaveService.RecordStars(gc.Catalog.IdAt(i), i % 7 == 3 ? 2 : 3); }
             gc.Hud.Canvas.scaleFactor = W / HudView.RefWidth;
             gc.Menu.Canvas.scaleFactor = W / HudView.RefWidth;
             gc.Hud.ApplySafeArea();

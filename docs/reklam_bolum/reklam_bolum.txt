@@ -1,0 +1,19 @@
+// 2026-11-28 reklam bölümü (yalnız reklam çekimi; oyuna eklenmez). Kullanıcı: "Tüm renk taşlarımız olsun. Tahta merdivenli artı
+// olsun." Yüzeyde en büyük grup 3; incili üçlü soyulunca altta 6'lık mercan, turkuaz üçlü de soyulunca 11'lik mercan (Altın Rulo).
+id: level_reklam
+moves: 20
+roll: off
+specials: on
+refill: 40 2-2
+goals: coral 18, blue 30
+grid:
+#     #     nb    bn    np    cy    #     #
+#     #     yn    ny    bn    np    #     #
+#     py    cp    bcb   bcb   by    pn    #
+ny    bn    bc    bc    bcb   bc    bc    pn
+yp    nb    bc    bcy   bcy   yn    np    bn
+cp    py    nb    bp    bcy   cb    yn    ny
+#     cp    py    cn    bp    pc    cb    #
+#     #     bc    yp    nb    bn    #     #
+#     #     pn    cy    yc    np    #     #
+solution: 5,3 ; 3,4 ; 4,2 ; 3,3 ; use 0,4,4

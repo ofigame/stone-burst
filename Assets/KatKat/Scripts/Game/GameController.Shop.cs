@@ -290,11 +290,18 @@ namespace KatKat.Game
             if (!_sound.PlayV17("bomb-charge")) _sound.Play(Sfx.Tap);
             Haptics.Light();
             Play(r);
-            _board.Later(PeelSequence.ChargeMs, () =>
+            // 2026-11-28 (kullanıcı: "önce o alanda bir dalgalanma ile taşlar yükselecek ve büyük bir patlama ile doğru orantılı ses
+            // çıkacak"): patlama dalgalanma + yüklenmeden sonra (BombBurstMs); ses patlayan taş sayısıyla güçlenir ve kalınlaşır
+            // (3 taş hafif, 9+ taş tam güç ve daha pes), büyük patlamada ikinci, derin bir gümbürtü katmanı.
+            int stones = 0;
+            foreach (var w in r.Waves) stones += w.Cells.Count;
+            float k = Mathf.Clamp01((stones - 3f) / 9f);
+            _board.Later(PeelSequence.BombBurstMs, () =>
             {
                 _hud.PlayBoosterBurst(Booster.Bomb, true);
                 _board.RimSweep(new Color(1f, 0.55f, 0.15f), new Color(1f, 0.9f, 0.45f), 1.5f, fire: true);
-                if (!_sound.PlayV17("bomb-blast")) _sound.Play(Sfx.Win);
+                if (!_sound.PlayV17("bomb-blast", Mathf.Lerp(0.5f, -2f, k), Mathf.Lerp(0.75f, 1.3f, k))) _sound.Play(Sfx.Win);
+                if (k > 0.45f) _sound.PlayV17("bomb-blast", -7f, 0.55f * k); // derin gümbürtü
                 Haptics.Strong();
             });
         }

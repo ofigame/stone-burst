@@ -43,6 +43,8 @@ namespace KatKat.View
             public Vector3 Nudge;
             /// <summary>Zaman çizgisindeki gecikme (ms): taş bu kadar ileriden başlar (kare kayması).</summary>
             public float LateMs;
+            /// <summary>2026-11-28 mağaza bombası: BurstAt boyunca taş yerinden yükselir, artan titremeyle parlar, havada patlar.</summary>
+            public bool Charge;
             public bool HasFlight;
             public FlightPlan Flight;
         }
@@ -231,7 +233,7 @@ namespace KatKat.View
             public int ExtraStars;
             public Vector3 Pos;
             public float Size, Age, BurstAt;
-            public bool Tapped, Special, Popped;
+            public bool Tapped, Special, Popped, Charge;
             public int Tier;
             public Vector3 Nudge;
             public bool HasFlight;
@@ -258,6 +260,7 @@ namespace KatKat.View
             b.Tapped = a.Tapped;
             b.Special = a.Special;
             b.Popped = false;
+            b.Charge = a.Charge;
             b.Tier = a.Tier;
             b.Nudge = a.Nudge;
             b.HasFlight = a.HasFlight;
@@ -278,7 +281,23 @@ namespace KatKat.View
             float react = b.Special ? Mathf.Min(c.TapReactMs, B * 0.45f) : Mathf.Min(c.TapReactMs, B * 0.5f);
             float sx = 1f, sy = 1f, bright = 0f, glow = 0f, rim = 0f, alpha = 1f;
             Vector3 off = Vector3.zero;
-            if (a < react)
+            if (b.Charge && a < B)
+            {
+                // Bomba yüklenmesi: ilk %57'de yerinden yükselip biraz büyür, sonra havada artan titreme, kenar ışığı ve parlama.
+                float riseEnd = B * (PeelSequence.ChargeRiseEnd / PeelSequence.ChargeMs);
+                float ru = Mathf.Clamp01(a / Mathf.Max(1f, riseEnd));
+                float re = EaseOutCubic(ru);
+                float hold = Mathf.Clamp01((a - riseEnd) / Mathf.Max(1f, B - riseEnd));
+                float shake = Mathf.Sin(a * 0.42f) * b.Size * (0.012f + 0.05f * hold);
+                float shakeY = Mathf.Sin(a * 0.31f + 1f) * b.Size * 0.02f * hold;
+                off = new Vector3(shake, PeelSequence.LiftHeight * b.Size * re + shakeY, 0f);
+                float g = 1f + PeelSequence.LiftGrow * re + 0.04f * hold * Mathf.Sin(a * 0.5f);
+                sx = sy = g;
+                bright = 0.08f + 0.35f * hold;
+                rim = c.RimGlow * (0.3f + 0.7f * hold);
+                glow = 0.25f + 0.45f * hold;
+            }
+            else if (a < react)
             {
                 // 1 – dokunuş tepkisi: sıkışıp toparlanır, kısa parlama (dokunulan taşta daha belirgin).
                 float u = a / react;
@@ -352,6 +371,8 @@ namespace KatKat.View
         private void Pop(Burst b)
         {
             b.Popped = true;
+            // Bomba: taş havada patlar; parçalar ve hedef uçuşu yükseldiği yerden başlar.
+            if (b.Charge) b.Pos += new Vector3(0f, PeelSequence.LiftHeight * b.Size, 0f);
             if (b.Stack != null) b.Stack.ReleaseDetachedRim(b);
             var c = C;
             if (b.HasFlight) Launch(b);

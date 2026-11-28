@@ -58,6 +58,13 @@ namespace KatKat.View
         /// <summary>Yüklenmiş taşın zaman çizgisinin normal akışa göre kayması: yüklü taşta patlama <c>ChargeMs</c>'te,
         /// normal taşta <c>BreakAt</c>'te.</summary>
         public static float ChargeShift => ChargeMs - BreakAt;
+        /// <summary>
+        /// 2026-11-28 (kullanıcı: "güçlendiricilerden bombayı kullandığımızda önce o alanda bir dalgalanma ile taşlar yükselecek ve büyük bir
+        /// patlama ile doğru orantılı ses çıkacak ve parçalar hedefe gidecek"): yüklenmeden önce alanda dalgalanma süresi; patlama
+        /// bomba kullanıldıktan <see cref="BombBurstMs"/> sonra.
+        /// </summary>
+        public static float BombRippleMs => 300f;
+        public static float BombBurstMs => BombRippleMs + ChargeMs;
         /// <summary>Havada yükselme yüksekliği ve büyüme (taş boyu oranı).</summary>
         public const float LiftHeight = 0.85f, LiftGrow = 0.14f;
         /// <summary>Parçaların kısa dışa patlamasının sonu; ardından yavaşça yükselirler.</summary>

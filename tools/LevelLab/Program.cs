@@ -73,6 +73,7 @@ static partial class Program
             case "daily14install": return Daily14Install(args);
             case "daily15": return Daily15(args); // 2026-11-28 günlük: güncel kurallar, 244 zorluğu
             case "daily15install": return Daily15Install(args);
+            case "adshow": return AdShow(args); // 2026-11-28 reklam bölümü
             case "resolve": return Resolve(args); // 2026-11-26: tepsisiz kurallarla kayıtlı çözümü yeniden bul (eski deneme bölümleri)
             default: Console.Error.WriteLine("komut: build | analyze [filtre] | report | index | daily"); return 2;
         }

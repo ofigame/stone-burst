@@ -114,6 +114,7 @@ namespace KatKat.UI
             // ui3 seramik modal: üst omuz (crest) ve köşeler tek katsayıyla (860 genişlik ↔ 635 px); kısa kartta köşe sığsın.
             if (p.sprite != null && p.sprite.name.StartsWith("modal-seramik"))
                 p.pixelsPerUnitMultiplier = Mathf.Max(p.sprite.rect.width / Mathf.Max(1f, size.x), (p.sprite.border.y + p.sprite.border.w) / Mathf.Max(1f, size.y - 8f));
+            PurplePopup.Apply(p, p.rectTransform); // 2026-11-28 deneme: mor modal gövdesi
             return p;
         }
 

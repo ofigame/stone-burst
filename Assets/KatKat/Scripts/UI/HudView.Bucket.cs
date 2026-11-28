@@ -600,14 +600,22 @@ namespace KatKat.UI
 
         public void Init(Vector2 v) { _v = v; _img = GetComponent<Image>(); }
 
-        private void Update()
+        private void Update() => Step(Time.unscaledDeltaTime);
+
+        /// <summary>Bir adım ilerletir (oyunda Update; ekran yakalamada oynatma dışı olduğundan <see cref="StepAll"/> ile).</summary>
+        public void Step(float dt)
         {
-            float dt = Time.unscaledDeltaTime;
             _t += dt;
             ((RectTransform)transform).anchoredPosition += _v * dt;
             _v *= Mathf.Exp(-3.5f * dt);
             if (_img != null) { var c = _img.color; c.a = Mathf.Clamp01(1f - _t / 0.6f); _img.color = c; }
-            if (_t > 0.6f) Destroy(gameObject);
+            if (_t > 0.6f) { if (Application.isPlaying) Destroy(gameObject); else DestroyImmediate(gameObject); }
+        }
+
+        /// <summary>2026-11-28 reklam çekimi: oynatma dışında Update çalışmaz; kıvılcımlar torbanın üstünde yığılı kalıyordu.</summary>
+        public static void StepAll(float dt)
+        {
+            foreach (var s in FindObjectsByType<BucketSpark>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)) if (s != null) s.Step(dt);
         }
     }
 

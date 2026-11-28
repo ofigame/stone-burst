@@ -95,10 +95,31 @@ namespace KatKat.UI
             prt.pivot = new Vector2(0.5f, 0f);
             prt.sizeDelta = new Vector2(1600f, U3TopH + ShellTopBleed);
             prt.anchoredPosition = new Vector2(0f, -U3TopH);
-            var stripes = UiFactory.Image("Stripes", panel.transform, U3Stripes(), Color.white);
-            stripes.type = Image.Type.Tiled;
-            stripes.raycastTarget = false;
-            UiFactory.Stretch(stripes.rectTransform);
+            // 2026-11-28 kullanıcı: verdiği mor görsel ("bunu kullan") → Branding/anasayfa-ust-mor (483×178, alt ortası parlak).
+            var purple = TrialLoadingColors ? KatKat.View.Res.Load<Texture2D>("Branding/anasayfa-ust-mor") : null;
+            if (purple != null)
+            {
+                // 2026-11-28 deneme (kullanıcı: "loadingdeki arkaplan mor gradiantını anasayfadaki üst kısımda yer alan yeşil arkaplan
+                // yerine … deneme amaçlı"): yükleme zemininin üst kısmı (koyu mordan parlak mora); çizgi deseni yok.
+                var pg = new GameObject("PurpleBg", typeof(RectTransform)).AddComponent<RawImage>();
+                pg.transform.SetParent(panel.transform, false);
+                pg.texture = purple;
+                pg.raycastTarget = false;
+                pg.uvRect = new Rect(0f, 0f, 1f, 1f);
+                UiFactory.Stretch(pg.rectTransform);
+                // 2026-11-28 (kullanıcı: "Üst kısımdaki mor bu tonlarda olsun fakat doku ekleyelim çok belli olmayan fakat hareket katan
+                // yumuşak doku"): iki soluk katman — yumuşak dalgalı ışık şeritleri ve ince ışık noktaları; farklı yön ve hızda çok
+                // yavaş kayar (UvDrift).
+                AddDriftLayer(panel.transform, "Waves", PurpleWaves(), new Vector2(1.6f, 1f), new Vector2(0.012f, 0.004f), 1f);
+                AddDriftLayer(panel.transform, "Sparkles", PurpleSparkles(), new Vector2(2.4f, 1.2f), new Vector2(-0.006f, 0.008f), 1f);
+            }
+            else
+            {
+                var stripes = UiFactory.Image("Stripes", panel.transform, U3Stripes(), Color.white);
+                stripes.type = Image.Type.Tiled;
+                stripes.raycastTarget = false;
+                UiFactory.Stretch(stripes.rectTransform);
+            }
             var shadow = Decor("PanelShadow", shell, VShadow());
             shadow.color = new Color(Ui3.Shadow.r, Ui3.Shadow.g, Ui3.Shadow.b, 0.24f);
             var srt = shadow.rectTransform;
@@ -164,7 +185,10 @@ namespace KatKat.UI
             var sep = UiFactory.Image("Separator", front, UiArt.Box, new Color(Ui3.Divider.r, Ui3.Divider.g, Ui3.Divider.b, 1f));
             sep.raycastTarget = false;
             UiFactory.Place(sep.rectTransform, new Vector2(0.5f, 1f), new Vector2(128f, cy), new Vector2(2f, 64f));
-            var chip = Ui3.Surface("Chip", front, 36f, Ui3.TealTop, Ui3.TealBottom, 72f, 3f, Ui3.Brass);
+            // 2026-11-28 deneme (kullanıcı: "bölge sayısı yazan yeri de aynı yap"): üst zeminin moru (parlak üst, koyu alt).
+            var chip = TrialLoadingColors
+                ? Ui3.Surface("Chip", front, 36f, new Color(0.69f, 0.16f, 0.86f), new Color(0.42f, 0.04f, 0.6f), 72f, 3f, Ui3.Brass)
+                : Ui3.Surface("Chip", front, 36f, Ui3.TealTop, Ui3.TealBottom, 72f, 3f, Ui3.Brass);
             UiFactory.Place(chip.rectTransform, new Vector2(0.5f, 1f), new Vector2(326f, cy), new Vector2(316f, 72f));
             var ct = U3Text("Text", chip.transform, Loc.F("ui.region", region + 1) + " • " + first + "–" + last, 32, true, Ui3.OnTeal);
             UiFactory.Stretch(ct.rectTransform, 22, 22, 4, 6);
@@ -175,10 +199,83 @@ namespace KatKat.UI
         /// <summary>Alt sekme çubuğunun opaklığı (1 tam opak).</summary>
         public const float TabBarAlpha = 1f;
 
+        /// <summary>
+        /// 2026-11-28 deneme (kullanıcı: "anasayfadaki üst kısımda … mor gradiantı … alt menüdeki arkaplanıda laodingin mavisini
+        /// kullanalım deneme amaçlı"): üst yüzey yükleme ekranının mor zemini, alt menü yükleme çubuğunun turkuazı. false: eski renkler.
+        /// </summary>
+        public const bool TrialLoadingColors = false; // 2026-11-28 kullanıcı: "moru kaldırıp eski hallerine çevirelim"
+        /// <summary>2026-11-28 kullanıcı: "alt menüyü eski arkaplanına çevirelim" → alt menü turkuaz denemesi kapalı.</summary>
+        public const bool TrialTabTeal = false;
+
+        private static void AddDriftLayer(Transform parent, string name, Texture2D tex, Vector2 tiles, Vector2 speed, float alpha)
+        {
+            var img = new GameObject(name, typeof(RectTransform)).AddComponent<RawImage>();
+            img.transform.SetParent(parent, false);
+            img.texture = tex;
+            img.raycastTarget = false;
+            img.color = new Color(1f, 1f, 1f, alpha);
+            img.uvRect = new Rect(0f, 0f, tiles.x, tiles.y);
+            UiFactory.Stretch(img.rectTransform);
+            img.gameObject.AddComponent<UvDrift>().Speed = speed;
+        }
+
+        private static Texture2D _purpleWaves, _purpleSparkles;
+
+        /// <summary>Yumuşak dalgalı ışık şeritleri (beyaz, çok düşük saydamlık; yatay ve dikey tekrar eder).</summary>
+        private static Texture2D PurpleWaves()
+        {
+            if (_purpleWaves != null) return _purpleWaves;
+            const int W = 256, H = 128;
+            var tex = new Texture2D(W, H, TextureFormat.RGBA32, false) { name = "purple_waves", wrapMode = TextureWrapMode.Repeat, filterMode = FilterMode.Bilinear, hideFlags = HideFlags.DontSave };
+            var px = new Color32[W * H];
+            for (int y = 0; y < H; y++)
+            for (int x = 0; x < W; x++)
+            {
+                float u = x / (float)W, v = y / (float)H;
+                // Çapraz, kıvrımlı şeritler: tam tekrar için tam sayılı frekanslar.
+                float ph = 2f * Mathf.PI * (2f * u + 1f * v) + 0.9f * Mathf.Sin(2f * Mathf.PI * (1f * u - 2f * v));
+                float band = Mathf.Pow(0.5f + 0.5f * Mathf.Sin(ph), 5f);
+                float ph2 = 2f * Mathf.PI * (3f * u - 1f * v) + 0.7f * Mathf.Sin(2f * Mathf.PI * 2f * v);
+                float band2 = Mathf.Pow(0.5f + 0.5f * Mathf.Sin(ph2), 8f);
+                float a = 0.075f * band + 0.04f * band2;
+                px[y * W + x] = new Color(1f, 0.9f, 1f, a);
+            }
+            tex.SetPixels32(px);
+            tex.Apply(false, true);
+            return _purpleWaves = tex;
+        }
+
+        /// <summary>İnce, yumuşak ışık noktaları (seyrek; tekrar eder).</summary>
+        private static Texture2D PurpleSparkles()
+        {
+            if (_purpleSparkles != null) return _purpleSparkles;
+            const int S = 128;
+            var tex = new Texture2D(S, S, TextureFormat.RGBA32, false) { name = "purple_sparkles", wrapMode = TextureWrapMode.Repeat, filterMode = FilterMode.Bilinear, hideFlags = HideFlags.DontSave };
+            var px = new Color32[S * S];
+            var dots = new (float x, float y, float r, float a)[] { (14, 22, 3.2f, 0.35f), (70, 10, 2.2f, 0.25f), (104, 52, 3.6f, 0.3f), (40, 70, 2.4f, 0.22f), (88, 100, 2.8f, 0.3f), (20, 112, 2f, 0.2f), (60, 40, 1.6f, 0.18f), (118, 120, 1.8f, 0.2f) };
+            for (int y = 0; y < S; y++)
+            for (int x = 0; x < S; x++)
+            {
+                float a = 0f;
+                foreach (var d in dots)
+                {
+                    float dx = x + 0.5f - d.x, dy = y + 0.5f - d.y;
+                    dx -= Mathf.Round(dx / S) * S; dy -= Mathf.Round(dy / S) * S;
+                    float r2 = (dx * dx + dy * dy) / (d.r * d.r);
+                    a = Mathf.Max(a, d.a * Mathf.Exp(-r2));
+                }
+                px[y * S + x] = new Color(1f, 0.92f, 1f, a);
+            }
+            tex.SetPixels32(px);
+            tex.Apply(false, true);
+            return _purpleSparkles = tex;
+        }
+        private static readonly Color TrialTabTop = new Color(0.16f, 0.74f, 0.71f), TrialTabBottom = new Color(0.16f, 0.74f, 0.71f); // dilimli yüzeyde geçiş görünmez: tek ton turkuaz
+
         internal static void BuildTabBarUi3(RectTransform holder, float baseY, TabItem[] items)
         {
             const float H = 208f;
-            var bar = Ui3.Surface("Bar", holder, 40f, Ui3.TabUnselected, Ui3.TabUnselected, 0f, 3f, Ui3.Brass, 3f, Ui3.RimHighlight);
+            var bar = Ui3.Surface("Bar", holder, 40f, TrialTabTeal ? TrialTabTop : Ui3.TabUnselected, TrialTabTeal ? TrialTabBottom : Ui3.TabUnselected, 0f, 3f, Ui3.Brass, 3f, Ui3.RimHighlight);
             bar.raycastTarget = true; // opak: arkasındaki haritaya dokunulmaz
             // 2026-11-22 önce biraz saydam yapıldı, aynı gün kullanıcı: "alt kısımdaki menünün opaklığını kaldıralım arkası
             // görünmesin" → tam opak.

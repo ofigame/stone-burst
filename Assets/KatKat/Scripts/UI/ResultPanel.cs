@@ -484,6 +484,7 @@ namespace KatKat.UI
             sh.effectColor = new Color(Ui3.Shadow.r, Ui3.Shadow.g, Ui3.Shadow.b, 0.28f);
             sh.effectDistance = new Vector2(0f, -14f);
             KatKat.UI.MenuView.U3Diamond(card, new Vector2(0.5f, 0f), new Vector2(0f, 16f), 16f);
+            PurplePopup.Apply(bg, card); // 2026-11-28 deneme: mor modal gövdesi
         }
 
         private Image GoalRowUi3(IList<GoalState> goals, float centerY, float height, bool checks)

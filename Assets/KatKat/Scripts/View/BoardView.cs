@@ -805,16 +805,21 @@ namespace KatKat.View
                 // 2026-11-21 (kullanıcı): mağaza bombasında taşlar önce yükselip titrer (PeelSequence.Charged), patlama,
                 // sarsıntı, kıvılcım ve alevler ChargeShift sonra hep birlikte. Taşlar aynı anda kalkar (yayılma gecikmesi yok).
                 bool charged = result.Command.Type == CommandType.Bomb && special && w.Fired == SpecialKind.Bomb && w.Index == 0;
+                // 2026-11-28 (kullanıcı: "önce o alanda bir dalgalanma ile taşlar yükselecek ve büyük bir patlama … parçalar hedefe
+                // gidecek"): önce alanda dalgalanma (BombRipple), sonra taşlar yükselip titrer, hep birlikte patlar ve ortak patlama
+                // sistemiyle (StoneBlast) hedefe uçar.
+                if (charged) { var rw = w; At(t, () => BombRipple(rw)); t += PeelSequence.BombRippleMs; }
                 float launch = t;
                 if (charged) t += PeelSequence.ChargeShift;
                 float start = t;
                 float SD(int x, int y) => charged ? 0f : SpecialDelay(w, x, y);
-                // 2026-11-26 (kullanıcı: "Normal Taş Patlatma ve Hedefe Taş Toplama Animasyonu"): dokunuş, roket ve Altın Rulo
-                // taşları ortak patlama + hedefe uçuş + isabet sistemiyle (StoneBlast). Mağaza bombası (yüklenme) ve torbaya giden
+                // 2026-11-26 (kullanıcı: "Normal Taş Patlatma ve Hedefe Taş Toplama Animasyonu"): dokunuş, roket, Altın Rulo ve
+                // (2026-11-28) mağaza bombası taşları ortak patlama + hedefe uçuş + isabet sistemiyle (StoneBlast). Torbaya giden
                 // taşlar kendi akışında kalır.
-                bool blast = BlastOn && !charged;
+                bool blast = BlastOn;
                 var bcfg = BoosterFxConfig.Current.Blast;
-                float burstAt = special ? bcfg.SpecialBurstAtMs : bcfg.BurstAtMs;
+                // Bombada patlama yüklenmenin sonunda: launch + ChargeMs = start + BreakAt.
+                float burstAt = charged ? PeelSequence.BreakAt : special ? bcfg.SpecialBurstAtMs : bcfg.BurstAtMs;
                 var bplan = blast ? PlanBlast(result, w, special, start, goalTarget) : null;
                 if (bplan != null && bcfg.OldStreamSound) _streamTotal += bplan.Flights.Count;
                 At(start, () => onWaveStart?.Invoke(w));
@@ -890,7 +895,7 @@ namespace KatKat.View
                             if (stack.Layers.Count == 0) { Debug.LogError($"[KatKat] Görünüm mantıktan ayrıştı: ({bc.X},{bc.Y}) boş"); return; }
                             var args = new StoneBlast.Args
                             {
-                                BurstAt = burstAt, Tapped = bci == bplan.Origin && w.Kind == WaveKind.Tap && w.Index == 0 && !special,
+                                BurstAt = charged ? PeelSequence.ChargeMs : burstAt, Charge = charged, Tapped = bci == bplan.Origin && w.Kind == WaveKind.Tap && w.Index == 0 && !special,
                                 Special = special, Tier = bplan.Tier, Nudge = bplan.Nudge[bci], LateMs = Mathf.Max(0f, _clock - due),
                             };
                             if (bplan.Flights.TryGetValue(bci, out var fp)) { args.HasFlight = true; args.Flight = fp; }
@@ -1579,7 +1584,8 @@ namespace KatKat.View
             {
                 // 2026-11-26 (kullanıcı: "Roket ve rulo yine tahtanın üst kısmında olsun … Belli olmuyorlar"): doğan taş büyük, ışıklı ve
                 // izli bir yayla yuvasına uçar; varışta yuva büyüyüp patlar (TrayTokenArrived → HUD).
-                Destroy(go);
+                // Oynatma dışında (reklam/ekran yakalama) Destroy ertelenir; jeton tahtada kalıyordu (2026-11-28).
+                if (Application.isPlaying) Destroy(go); else DestroyImmediate(go);
                 var tc = BoosterFxConfig.Current.Tray;
                 var col = r.SpecialCreated == SpecialKind.Rainbow ? new Color(1f, 0.84f, 0.36f, 1f) : r.SpecialCreated == SpecialKind.Shovel ? new Color(0.95f, 0.85f, 0.62f, 1f) : new Color(0.3f, 0.95f, 0.88f, 1f);
                 ImpactBurst(from, col, 1.4f, PeelDirector.PeelSortingOrder + 1100);
@@ -1996,6 +2002,46 @@ namespace KatKat.View
             for (int i = 0; i < 2; i++)
                 Particles.Emit(FxKit.Puff, false, order - 1, pos, new Vector3(R(-0.2f, 0.2f), -0.3f, 0f) * WorldPitch, R(0.5f, 0.7f), size * 0.6f, size * 1.2f,
                     new Color(0.9f, 0.83f, 0.72f, 0.45f), new Color(0.88f, 0.8f, 0.7f, 0f), drag: 2f);
+        }
+
+        /// <summary>
+        /// 2026-11-28 bomba dalgalanması: merkezden dışa yayılan yumuşak şok halkaları; bomba alanındaki ve hemen çevresindeki taşlar
+        /// uzaklık sırasıyla esneyip toparlanır (su yüzeyindeki halka gibi). Ardından alandaki taşlar yükselir (StoneBlast Charge).
+        /// </summary>
+        private void BombRipple(PeelWave w)
+        {
+            var c0 = w.FiredAt;
+            if (c0.X < 0 || c0.Y < 0 || c0.X >= _width || c0.Y >= _height) return;
+            var src = StackAt(c0.X, c0.Y);
+            if (src == null) return;
+            var pos = src.transform.position + src.TopFaceLocal;
+            int order = PeelDirector.PeelSortingOrder + 1100;
+            if (!KatKat.UI.Motion.Reduced)
+            {
+                float sz = WorldPitch * 3.4f;
+                float life = PeelSequence.BombRippleMs / 1000f;
+                Particles.Emit(FxKit.Ring, true, order, pos, Vector3.zero, life * 1.3f, sz * 0.1f, sz * 1.25f, new Color(1f, 0.9f, 0.7f, 0.75f), new Color(1f, 0.6f, 0.3f, 0f));
+                Particles.Emit(FxKit.Ring, true, order, pos, Vector3.zero, life * 1.5f, sz * 0.05f, sz * 0.95f, new Color(1f, 1f, 1f, 0.55f), new Color(1f, 0.8f, 0.5f, 0f), delay: 0.09f);
+                Particles.Emit(FxKit.Ring, true, order, pos, Vector3.zero, life * 1.7f, sz * 0.05f, sz * 0.7f, new Color(1f, 0.85f, 0.55f, 0.45f), new Color(1f, 0.6f, 0.3f, 0f), delay: 0.18f);
+                Particles.Emit(FxKit.Glow, true, order - 1, pos, Vector3.zero, life * 1.2f, sz * 0.2f, sz * 0.9f, new Color(1f, 0.75f, 0.4f, 0.45f), new Color(1f, 0.5f, 0.2f, 0f));
+            }
+            // Taşlar halka geçerken sırayla esner (merkez önce; 2,5 hücreye dek, uzaklaştıkça zayıflar).
+            for (int y = Mathf.Max(0, c0.Y - 2); y <= Mathf.Min(_height - 1, c0.Y + 2); y++)
+            for (int x = Mathf.Max(0, c0.X - 2); x <= Mathf.Min(_width - 1, c0.X + 2); x++)
+            {
+                float d = Mathf.Sqrt((x - c0.X) * (x - c0.X) + (y - c0.Y) * (y - c0.Y));
+                if (d > 2.5f) continue;
+                var st = StackAt(x, y);
+                if (st == null || st.Layers.Count == 0) continue;
+                float amp = Mathf.Lerp(0.14f, 0.05f, d / 2.5f);
+                var tr = st.transform;
+                At(d * 55f, () =>
+                {
+                    if (tr == null) return;
+                    for (int i = 0; i < _fx.Count; i++) if (_fx[i].T == tr && _fx[i].Kind == FxKind.Pop) return; // üst üste binmesin
+                    _fx.Add(new Fx { Kind = FxKind.Pop, T = tr, BaseScale = Vector3.one, Lead = amp, Dur = 240f });
+                });
+            }
         }
 
         private void BombBlast(StackView s)
