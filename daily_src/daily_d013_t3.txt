@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 116 + tür resource; şekil çatı; çözüm 10 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 3 (101–200); tarif 136; şekil artı (ayna); çözüm 7 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: daily_d013_t3
 title: Günlük 13
 moves: 10
-roll: on
+roll: off
 specials: on
-type: resource
-rules: exact
-goals: coral 19, yellow 26, blue 21
+refill: 24 2-2 seed=level_136
+goals: yellow 23, navy 22, coral 18
 grid:
-#     #     #     yp    ypi1  #     #     #
-#     yn    pp    yp    by    yb    yy    #
-yb    yn    pp    bc    nc    yy    yy    nn
-cb    yp    pp    bn    nb    ny    cy    ny
-yb    yb    yy    pc    pb    bb    cc    cp
-pci1  pb    cy    nn    cc    bc    bb    cy
-ypi1  yb    py    np    nc    pyi2  yc    yc
-cp    pp    pb    yb    pb    np    pc    ny
-cn    pn    pb    yb    nb    nb    nc    ny
-solution: 2,7 ; 0,2 ; use 0,0,4 ; 6,1 ; 6,3 ; use 2,4,1 ; 3,0 ; use 2,4,0 ; 0,5 ; use 2,3,2
+#     #     pn    yp    yp    yp    #     #
+#     #     cp    yb    pc    bp    #     #
+bp    bp    ny    cb    yn    yc    nc    nb
+nb    by    np    nb    yn    yn    cc    nb
+ny    nb    pb    ny    bn    bn    ccG   nbG
+nb    pc    pb    py    bc    ynG   cbG   cnG
+#     #     yy    yy    bc    yp    #     #
+#     #     yp    yp    cc    yc    #     #
+solution: 3,4 ; 4,2 ; 3,2 ; use 2,2,2 ; 3,4 ; 5,2 ; use 3,2,0 ; 2,2 ; use 2,2,0 ; use 2,0,2 ; use 1,4,0 ; 0,3 ; use 1,0,3

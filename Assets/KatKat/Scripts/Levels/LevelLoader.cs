@@ -125,7 +125,7 @@ namespace KatKat.Levels
             {
                 var r = new RefillRun { Left = d.RefillCount, MinLayers = d.RefillMinLayers, MaxLayers = d.RefillMaxLayers };
                 uint h = 2166136261u;
-                foreach (char ch in d.Id ?? "") h = (h ^ ch) * 16777619u;
+                foreach (char ch in (string.IsNullOrEmpty(d.RefillSeed) ? d.Id : d.RefillSeed) ?? "") h = (h ^ ch) * 16777619u;
                 r.Rng = h;
                 var seen = new HashSet<LayerColor>();
                 for (int i = 0; i < board.Count; i++) foreach (var c in board[i].Layers) seen.Add(c);

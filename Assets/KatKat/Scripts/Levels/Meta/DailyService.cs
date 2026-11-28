@@ -76,8 +76,11 @@ namespace KatKat.Meta
         public int AdExtraAttempts = 0;
         /// <summary>Deneme başına taş gücü kullanımı.</summary>
         public int PowerUsesPerAttempt = 1;
-        /// <summary>Başarı ödülü: aynı gün açılan, henüz kazanılmamış normal bölüm oturumlarına eklenen hamle.</summary>
-        public int MoveBonus = 1;
+        /// <summary>Eski başarı ödülü (aynı gün normal bölümlere +1 hamle). 2026-11-28: kapalı; ödül külçe + can + sıralama puanı.</summary>
+        public int MoveBonus = 0;
+        /// <summary>2026-11-28 (kullanıcı: "günlük bulmaca ile 5 SB Külçe ve tek seferlik +1 can verelim (5 canı varsa 6 olsun). Çokta
+        /// olmasın azda olmasın"): günün ilk galibiyetinde verilen külçe ve can.</summary>
+        public int IngotReward = 5, HeartReward = 1;
     }
 
     /// <summary>Günlük katalog kaydı (Resources/Daily/daily_index.json).</summary>
@@ -332,7 +335,7 @@ namespace KatKat.Meta
 
         /// <summary>Açık denemeyi kapatır. Başarıda ödül gün başına bir kez yazılır ve +1 hamle bugüne bağlanır.</summary>
         /// <param name="stars">Kazanılan denemenin performans yıldızı (1–3); günün ilk galibiyetinde kayda eklenir.</param>
-        public bool FinishAttempt(bool won, int stars = 0)
+        public bool FinishAttempt(bool won, int stars = 0, long now = 0)
         {
             if (!State.attemptOpen || State.dayId != Today) return false;
             State.attemptOpen = false;
@@ -344,13 +347,18 @@ namespace KatKat.Meta
                 if (!_meta.rewardLog.Exists(k => k.StartsWith(dayPrefix, StringComparison.Ordinal)))
                 {
                     _meta.rewardLog.Add(State.Key);
-                    _meta.moveBonusDay = State.dayId;
+                    if (Config.MoveBonus > 0) _meta.moveBonusDay = State.dayId;
                     rewarded = true;
                     if (stars > 0)
                     {
                         State.stars = Math.Min(3, Math.Max(1, stars));
                         _meta.dailyStars += State.stars;
+                        // 2026-11-28 (kullanıcı: "Günlük bulmacalarda başarılı olan biri sıralamada puan alsın"): günün yıldızı sıralama
+                        // yıldızına da yazılır (gün başına bir kayıt, 1–3).
+                        RankStars.Record(_meta, "daily-" + State.dayId, State.stars);
                     }
+                    _meta.ingots += Math.Max(0, Config.IngotReward);
+                    for (int i = 0; i < Config.HeartReward; i++) Hearts.GainOne(_meta, now);
                 }
             }
             _persist();

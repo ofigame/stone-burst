@@ -105,6 +105,17 @@ namespace KatKat.Game
             _aimX = _aimY = -1;
         }
 
+        /// <summary>2026-11-28: sürükleme sürerken bölüm değişirse (tepsi kapanınca OnEndDrag gelmez) tahta girdisi kilitli kalmasın.</summary>
+        private void TrayDragReset()
+        {
+            if (!_tdOn) return;
+            _tdOn = false;
+            _aimInBoard = _aimValid = false;
+            _aimX = _aimY = -1;
+            _board.HideAim();
+            _hud.SnapTrayGhost();
+        }
+
         private void AimAtScreen(Vector2 screen)
         {
             var world = _cam.ScreenToWorldPoint(screen);

@@ -1,21 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 712 + tür resource; şekil elmas (ayna); çözüm 9 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 7 (701–850); tarif 739; şekil L (ayna); çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d020_t7
 title: Günlük 20
 moves: 10
-roll: on
+roll: off
 specials: on
-paint: 1
-type: resource
-rules: exact
-goals: purple 12, yellow 19, coral 12
+refill: 27 2-3 seed=level_739
+goals: blue 34, yellow 29, navy 27
 grid:
-#     #     #     nn    bn    #     #     #
-#     #     nb    nn    ny    yy    #     #
-#     pp    pb    nb    ny    yc    yc    #
-nn    ny    cb    cp    by    yp    yc    py
-nn    by    by    bp    np    pp    yb    ny
-nn    cy    bb    bc    nc    pb    bb    ny
-#     cy    cb    cb    nn    bp    bb    #
-#     #     yb    nb    cn    cp    #     #
-#     #     #     ny    cn    #     #     #
-solution: 6,4 ; 3,3 ; use 0,4,1 ; 2,1 ; use 0,5,2 ; roll 2 ; 4,4 ; use 0,5,1 ; roll 2
+#     #     #     cpc   ccyR  ncc   bnb   ppb
+#     #     #     cnp   ypc   ybyR  bcb   ppbk1
+#     #     #     cpp   ynp   ynb   ycp   ppn
+#     #     #     bpn   cyb   cyb   ypn   cyb
+nny   ncp   bcp   bbp   bby   npb   byn   ppyk1
+ncn   ynn   pcb   cbck1 ccp   cbn   pnbR  ppn
+cpn   ybp   pby   bcb   cpy   npn   bcy   nyp
+nbb   bpb   bcyk1 nby   ybnk1 nbb   yybk2 yyy
+bby   bby   nnc   npc   ncb   ccbk2 ycy   yyb
+solution: rot 5,1 ; 6,0 ; use 0,6,0 ; 6,2 ; 5,1 ; use 0,6,1 ; 3,1 ; use 0,3,0 ; 3,4 ; 1,4 ; use 0,2,4 ; use 0,5,1 ; 4,0 ; use 0,3,0

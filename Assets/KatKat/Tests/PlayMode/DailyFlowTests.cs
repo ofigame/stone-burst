@@ -102,18 +102,19 @@ namespace KatKat.Tests
             Assert.IsTrue(_gc.Hud.StonePowerReady);
             var slot = GameObject.Find("StonePower");
             Assert.IsNotNull(slot);
-            Assert.IsFalse(_gc.Session.State.RollSlotFull);
+            // 2026-11-28: günlük bulmaca ana oyun gibi rulosuz; Gelgit taşı +1 hamle verir.
+            Assert.IsFalse(_gc.Session.State.RollEnabled, "günlük bulmaca rulosuz");
+            int movesBefore = _gc.Session.State.MovesLeft;
             slot.GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
             Assert.IsTrue(_gc.Daily.State.powerUsed, "yuvaya dokunmak gücü kullandı");
             Assert.IsFalse(_gc.Hud.StonePowerReady, "kullanılınca soluk");
             Assert.IsTrue(_gc.Hud.StonePowerShown, "kullanıldıktan sonra da yerinde (soluk)");
 
             // Taş gücü: denemede bir kez.
-            Assert.IsTrue(_gc.Session.State.RollSlotFull);
+            Assert.AreEqual(movesBefore + 1, _gc.Session.State.MovesLeft, "Gelgit: +1 hamle");
             Assert.IsTrue(_gc.LastOutcome.Has(AssistFlags.StonePower));
-            _gc.Session.State.RollSlotFull = false;
             Assert.IsFalse(_gc.UseDailyPowerForTest(), "ikinci kullanım yok");
-            Assert.IsFalse(_gc.Session.State.RollSlotFull);
+            Assert.AreEqual(movesBefore + 1, _gc.Session.State.MovesLeft);
 
             // Ücretsiz tekrar (yeniden başlat = yeni deneme).
             _gc.Restart();
@@ -121,6 +122,7 @@ namespace KatKat.Tests
             Assert.AreEqual(0, _gc.Daily.AttemptsLeft);
             Assert.IsFalse(_gc.Daily.State.powerUsed);
 
+            int ingotsBefore = _gc.SaveService.Data.meta.ingots, heartsBefore = _gc.HeartCount;
             // Kayıtlı çözümle (güç kullanmadan) başarı.
             _gc.Board.Director.TimeScale = Speed;
             var level = _gc.CurrentLevel;
@@ -134,10 +136,14 @@ namespace KatKat.Tests
             Assert.IsTrue(_gc.Daily.State.won);
             meta = _gc.SaveService.Data.meta; // sahne yeniden yüklendi: yeni kayıt nesnesi
             Assert.AreEqual(1, meta.rewardLog.Count);
-            Assert.AreEqual("2026-11-06", meta.moveBonusDay);
+            // 2026-11-28 ödül: 5 SB Gold, +1 can (dolu kalpte 6.), sıralama yıldızı; eski +1 hamle yok.
+            Assert.AreEqual(ingotsBefore + 5, meta.ingots, "günlük ödülü 5 SB Gold");
+            Assert.AreEqual(heartsBefore + 1, _gc.HeartCount, "günlük ödülü +1 can (5 ise 6)");
+            Assert.AreEqual(_gc.Daily.State.stars, RankStars.For(meta, "daily-2026-11-06"), "günlük yıldız sıralamaya sayılır");
+            Assert.IsTrue(string.IsNullOrEmpty(meta.moveBonusDay));
             Assert.IsTrue(_gc.LastOutcome.Finished && _gc.LastOutcome.Success);
             Assert.AreEqual(SessionKind.Daily, _gc.LastOutcome.Kind);
-            Assert.AreEqual("daily-v4", _gc.LastOutcome.ContentVersion); // v14: zincirsiz günlük katalog
+            Assert.AreEqual("daily-v5", _gc.LastOutcome.ContentVersion); // 2026-11-28: güncel kurallarla günlük katalog
             Assert.GreaterOrEqual(_gc.Daily.State.tier, 1, "günün seviye grubu kayda sabitlendi");
             Assert.AreEqual(2, _gc.Worlds.CountFor(_gc.Catalog.Count), "dünya kataloğu oyunda yüklü");
             _gc.ShowDaily();
@@ -151,16 +157,14 @@ namespace KatKat.Tests
             Assert.AreEqual(10, _gc.SaveService.Data.completed.Count);
             Assert.IsFalse(_gc.SaveService.Data.starIds.Contains(level.Id));
 
-            // +1 hamle: yalnız kazanılmamış normal bölümde, oturum açılırken.
+            // 2026-11-28: günlük ödülü artık normal bölümlere hamle eklemez.
             _gc.StartLevel(11);
             Assert.IsFalse(_gc.Hud.StonePowerShown, "normal bölümde taş yuvası yok");
-            Assert.AreEqual(_gc.Catalog.Levels[11].MoveLimit + 1, _gc.Session.State.MovesLeft);
-            Assert.AreEqual(1, _gc.LastOutcome.MoveBonus);
-            // ZPE v3 (2026-11-11): +1 hamle yalnız temel sınırı aşan hamle kullanılırsa (oturum sonunda) yardım sayılır.
-            Assert.IsFalse(_gc.LastOutcome.Has(AssistFlags.DailyMoveBonus), "açılışta henüz yardım değil");
+            Assert.AreEqual(_gc.Catalog.Levels[11].MoveLimit, _gc.Session.State.MovesLeft);
+            Assert.AreEqual(0, _gc.LastOutcome.MoveBonus);
             Assert.IsTrue(_gc.LastOutcome.FirstAttempt);
             _gc.Restart();
-            Assert.AreEqual(_gc.Catalog.Levels[11].MoveLimit + 1, _gc.Session.State.MovesLeft, "aynı oturumda limit sabit");
+            Assert.AreEqual(_gc.Catalog.Levels[11].MoveLimit, _gc.Session.State.MovesLeft, "aynı oturumda limit sabit");
             Assert.AreEqual(2, _gc.LastOutcome.AttemptNumber);
             Assert.IsFalse(_gc.LastOutcome.FirstAttempt);
             _gc.StartLevel(0);

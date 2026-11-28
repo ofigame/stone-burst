@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 389 + tür scarce; şekil çatı; çözüm 17 + 4 tepsi / sınır 18; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 5 (351–500); tarif 381; şekil dikdörtgen; çözüm 8 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: daily_d004_t5
 title: Günlük 4
-moves: 18
-roll: on
+moves: 10
+roll: off
 specials: on
-type: scarce
-rules: scarce
-goals: navy 34, coral 26, yellow 22
+refill: 32 2-2 seed=level_381
+goals: navy 27, coral 36, envelope 2
 grid:
-#     #     #     nyy   yyb   #     #     #
-#     bpc   bcy   nby   nby   ppp   nyn   #
-bcc   bbb   cyc   cbb   nbp   pbp   nnn   nnb
-ypc   ypb   ppb   cbb   npcR  pcp   ync   ynn
-ync   yny   ypy   bpy   bcp   bcc   ncc   cyn
-bbn   ynp   bpy   bcc   ccp   yyp   pcc   cyc
-bbc   bbn   cbb   yny   cnp   byn   byp   bpc
-pbn   bbc   yyy   ccy   ppb   ccn   pncR  pnn
-nny   nby   cbc   ccy   ycy   ccp   bnp   ycn
-solution: rot 6,7 ; 1,4 ; 2,4 ; 4,3 ; use 0,1,1 ; use 0,3,0 ; 3,6 ; 6,1 ; use 0,0,7 ; 0,4 ; roll 8 ; 4,0 ; roll 1 ; 5,1 ; roll 2 ; 6,1 ; use 2,4,2
+yb    ppEn  cy    yb    pb    nb    nb    nn
+pb    yp    py    pc    yc    ny    cc    cy
+cb    yp    cy    bp    yp    yp    bc    cy
+cn    pnEy  pb    yy    cp    cc    bb    yb
+pp    pn    bb    cy    ny    cy    pc    cc
+yp    cc    yb    yb    pc    nn    pc    yp
+yn    bp    nn    yn    pn    pb    py    cp
+bp    bn    yb    nb    yy    yn    yc    bc
+bb    pc    yb    yb    nn    cb    bc    bn
+solution: 2,6 ; 2,3 ; 3,3 ; use 0,0,0 ; 1,6 ; use 0,0,0 ; 2,4 ; 1,2 ; 2,0 ; use 2,4,0 ; use 1,1,0 ; 0,4 ; use 1,6,1

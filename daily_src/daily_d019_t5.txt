@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 363 + tür pure; şekil kesik köşe (ayna); çözüm 11 + 0 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 5 (351–500); tarif 386; şekil kenar çentikleri; çözüm 8 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: daily_d019_t5
 title: Günlük 19
-moves: 11
-roll: on
-type: pure
-rules: noSpecials, exact
-goals: blue 23, yellow 28, navy 28
+moves: 10
+roll: off
+specials: on
+refill: 22 2-3 seed=level_386
+goals: yellow 20, blue 21, star 2
 grid:
-#     #     by    yy    yn    nn    #     #
-#     nb    nn    ny    yn    nb    yb    #
-by    bb    bb    nn    nn    bb    ny    by
-by    ynR   by    yb    nb    yy    yn    bn
-ny    ny    nb    nn    yb    yn    nn    bn
-by    yn    nb    ny    yb    yn    yy    ybR
-yn    yn    yb    nn    bn    bb    ny    by
-#     bn    bb    yy    bn    ny    ny    #
-#     #     bn    yb    yy    ny    #     #
-solution: rot 7,5 ; 6,3 ; roll 2 ; 5,3 ; roll 3 ; 1,1 ; roll 5 ; 2,4 ; roll 6 ; 1,3 ; roll 4
+nnn   ynbR  nbp   bcp   bybR  nnc   nbb
+ynn   ynn   ybn   nny   nby   nnb   nnb
+#     #     nny   ybb   pnb   #     #
+#     ync   ycn   cny   ccy*  pny   #
+cnc   nnc   ypp   ppb   cpb   pny   pnb
+#     #     nnb   nnn   cbb   #     #
+#     #     nnn   nnp   byp   #     #
+nnn   nnb   cyn   cybR  nyc   npc   ccc
+nnn   cnb   nyn   cyy*  nby   cby   ccb
+solution: rot 3,7 ; 2,6 ; 2,7 ; use 0,0,8 ; 2,3 ; 3,7 ; use 0,2,2 ; use 0,1,0 ; 0,0 ; 4,0 ; use 1,4,0 ; 4,4 ; use 0,1,0

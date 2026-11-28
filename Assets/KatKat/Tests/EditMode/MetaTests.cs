@@ -233,22 +233,36 @@ namespace KatKat.Tests
             Assert.IsTrue(g.Svc.FinishAttempt(true, 1));
             Assert.AreEqual(4, g.Meta.dailyStars);
 
-            Assert.AreEqual(0, RankStars.Total(g.Meta), "sıralamaya sayılmaz");
+            Assert.AreEqual(4, RankStars.Total(g.Meta), "2026-11-28: günlük yıldızı sıralamaya sayılır (gün başına bir kayıt)");
         }
 
         [Test]
-        public void Daily_WinRewardsOncePerDay_AndBonusOnlyTodayForUncompletedLevels()
+        public void Daily_WinRewardsOncePerDay_IngotsHeartRank()
         {
             var g = new Rig();
             Assert.AreEqual(0, g.Svc.MoveBonusFor(false));
             g.Enter();
             g.Svc.BeginAttempt();
-            Assert.IsTrue(g.Svc.FinishAttempt(true));
+            const long now = 1_800_000_000;
+            Assert.AreEqual(Hearts.Max, Hearts.Count(g.Meta, now));
+            Assert.IsTrue(g.Svc.FinishAttempt(true, 2, now));
             Assert.AreEqual(1, g.Meta.rewardLog.Count);
+            Assert.AreEqual(5, g.Meta.ingots, "5 SB Gold");
+            Assert.AreEqual(Hearts.Max + 1, Hearts.Count(g.Meta, now), "5 can varken 6 olur");
+            Assert.AreEqual(2, RankStars.For(g.Meta, "daily-2026-11-06"));
             Assert.AreEqual(DailyBeginResult.AlreadyWon, g.Svc.BeginAttempt());
-            Assert.IsFalse(g.Svc.FinishAttempt(true), "ikinci ödül yok");
-            Assert.AreEqual(1, g.Svc.MoveBonusFor(false));
-            Assert.AreEqual(0, g.Svc.MoveBonusFor(true), "kazanılmış bölüme geriye dönük etki yok");
+            Assert.IsFalse(g.Svc.FinishAttempt(true, 3, now), "ikinci ödül yok");
+            Assert.AreEqual(5, g.Meta.ingots);
+            Assert.AreEqual(Hearts.Max + 1, Hearts.Count(g.Meta, now));
+            Assert.AreEqual(0, g.Svc.MoveBonusFor(false), "eski +1 hamle ödülü kapalı");
+            // Fazladan can önce harcanır, dolum sayacı başlamaz.
+            Assert.IsTrue(Hearts.Spend(g.Meta, now));
+            Assert.AreEqual(Hearts.Max, Hearts.Count(g.Meta, now));
+            Assert.AreEqual(0, g.Meta.heartsMissing);
+            // Eksik kalp varken ödül eksiği doldurur.
+            Hearts.Spend(g.Meta, now); Hearts.Spend(g.Meta, now);
+            Hearts.GainOne(g.Meta, now);
+            Assert.AreEqual(Hearts.Max - 1, Hearts.Count(g.Meta, now));
 
             // Gün değişti: günlük durum sıfırlanır, eski ödül yeni oturumlara taşınmaz, ödül günlüğü kalır.
             g.Clock.DayId = "2026-11-07";
@@ -339,12 +353,15 @@ namespace KatKat.Tests
         }
 
         [Test]
-        public void Power_RollDisabledLevel_IsInvalid()
+        public void Power_RollDisabledLevel_GivesOneMove()
         {
+            // 2026-11-28: ana oyun ve günlük bulmaca rulosuz; Gelgit rulosuz düzende +1 hamle verir.
             var s = RollLevel();
             s.RollEnabled = false;
-            Assert.IsFalse(StonePowers.Apply(StonePowers.DailyRoll, s));
+            int before = s.MovesLeft;
+            Assert.IsTrue(StonePowers.Apply(StonePowers.DailyRoll, s));
             Assert.IsFalse(s.RollSlotFull);
+            Assert.AreEqual(before + 1, s.MovesLeft);
         }
 
         // ---- İçerik ---------------------------------------------------------------------------------------
@@ -396,7 +413,7 @@ namespace KatKat.Tests
                     Assert.IsEmpty(e.StaticErrors, file + ": " + string.Join(" | ", e.StaticErrors));
                     Assert.IsTrue(e.Replay.Success, file + ": kayıtlı çözüm (güç kullanmadan) kazanmalı: " + e.Replay.Error);
                     var d = LevelParser.Parse(File.ReadAllText(path), file + ".json");
-                    Assert.IsTrue(d.RollEnabled, file + ": taş gücü (rulo) bu düzende kurallara uygun olmalı");
+                    Assert.IsFalse(d.RollEnabled, file + ": 2026-11-28 günlük bulmaca ana oyun gibi rulosuz");
                     Assert.IsTrue(StonePowers.CanApply(StonePowers.DailyRoll, LevelLoader.ToState(d)), file);
                     Assert.IsFalse(File.Exists(Path.Combine(ProductionLevelTests.LevelsDir(), file + ".json")), "ana katalogda değil");
                     int known = System.Math.Max(10, idx.TierInfo(kv.Key).MinLevel);

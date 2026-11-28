@@ -1,21 +1,20 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 725 + tür reverse; şekil dikdörtgen; çözüm 10 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 7 (701–850); tarif 741; şekil kum saati; çözüm 9 + 8 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d017_t7
 title: Günlük 17
 moves: 10
-roll: on
+roll: off
 specials: on
 paint: 2
-type: reverse
-rules: exact
-goals: coral 27, navy 36, purple 36, envelope 2
+refill: 30 2-3 seed=level_741
+goals: blue 26, navy 33, coral 25, star 4
 grid:
-ccn   cby   npy   byc   pyc   pbp   nny   nyy
-cyc   pbp   npp   bbp   bcb   bcpEp ynn   nyb
-cyc   pnc   nbp   pbb   pcb   pcp   nnn   nnp
-ybn   pnn   cbc   nyb   ncc   pcp   nnnEp nnn
-ypn   ynn   bnb   nyp   cbb   cpc   cpc   ynn
-ppn   ynb   bpn   npp   nbc   nnc   ccc   ccn
-pbn   ync   byp   cyc   pcy   ppp   ncc   ncn
-cbb   pyn   pyy   cnc   nnb   ppp   npb   bpb
-nyn   pnn   pyn   pyb   pcb   bpp   ppn   bpn
-solution: paint 4,6,c ; 5,4 ; use 0,5,0 ; 6,1 ; use 0,3,0 ; 1,2 ; use 0,0,0 ; roll 7 ; 4,6 ; use 0,2,1
+bpp   bnp   pbp*  yyn   bcn   yyc   byy   bbc
+npc   cpc   pcb   yyc   bnb   ypc   nnc   nbb
+nyp   bpn   bnb   yyn*  pny   pnp   pcn   bcc
+#     nnn   nyb   ypy   bpp*  npp   pcn   #
+#     ncy   yyp   ycy   bpp   yyc   bnc   #
+#     pcy   pnc   ncy   nnc   byb   byp*  #
+byn   pyp   pyn   bcc   npb   nnb   cyc   cpc
+byn   npp   bbb   bbb   cpc   cnb   nny   pyy
+nnb   nnp   ynp   ybc   ypc   bpy   yyb   pyy
+solution: paint 3,6,b ; 5,5 ; use 0,0,2 ; 5,0 ; 6,2 ; use 0,2,1 ; 4,1 ; use 1,2,0 ; use 0,0,1 ; 0,0 ; 2,1 ; use 0,1,0 ; 6,1 ; use 0,4,0 ; use 0,6,0 ; 4,0 ; use 0,1,0

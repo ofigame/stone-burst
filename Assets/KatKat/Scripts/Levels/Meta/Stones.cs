@@ -247,11 +247,13 @@ namespace KatKat.Meta
             public string Id => DailyRoll;
             public bool CanApply(LevelState s)
             {
-                if (!s.RollEnabled || s.RollSlotFull) return false;
+                // 2026-11-28: ana oyunda rulo yok, günlük bulmaca da rulosuz üretildi; rulosuz düzende Gelgit +1 hamle verir.
+                if (!s.RollEnabled) return true;
+                if (s.RollSlotFull) return false;
                 for (int y = 0; y < s.Board.Height; y++) if (RulesEngine.RollTargets(s.Board, y).Count > 0) return true;
                 return false;
             }
-            public void Apply(LevelState s) => s.RollSlotFull = true;
+            public void Apply(LevelState s) { if (s.RollEnabled) s.RollSlotFull = true; else s.MovesLeft += 1; }
         }
 
         /// <summary>Tepsiye özel taş: özel taşlı düzende, tepsi doluysa değil ve tahtada etkili bir hedef varken.</summary>

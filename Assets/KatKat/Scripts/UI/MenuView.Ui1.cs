@@ -122,6 +122,7 @@ namespace KatKat.UI
             else status = Loc.T("daily.status.none");
             var lines = new List<string> { status, m.StoneName != null ? Loc.F("daily.stone", m.StoneName) : Loc.T("daily.nostone") };
             if (m.BonusToday) lines.Add(Loc.T("daily.bonus.active"));
+            if (m.Available && !m.Won) lines.Add(Loc.T("daily.reward.line")); // 2026-11-28: 5 SB Gold, +1 can, sıralama puanı
             float ly = y - 90f;
             foreach (var line in lines)
             {

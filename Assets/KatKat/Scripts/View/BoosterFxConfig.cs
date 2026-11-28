@@ -186,7 +186,7 @@ namespace KatKat.View
             [Header("5 – Hedefe uçuş")]
             [Tooltip("Mini kopyanın başlangıç boyu (taş boyu oranı).")]
             public float MiniStart = 0.95f; // 2026-11-27 (kullanıcı: "az gruplu taşları patlatırken çok ufak şekilde hedefe gidiyor … daha görünür ve şiddetli yapalım")
-            public float MiniEnd = 0.62f;
+            public float MiniEnd = 0.8f; // 2026-11-28: taş hedefe dek taş olarak görünsün
             public float PopMs = 120f;
             public float PopOut = 0.55f;
             [Tooltip("Roket taşında kopya önce roketin yönünde itilir (hücre).")]
@@ -203,12 +203,12 @@ namespace KatKat.View
             public float FlightEase = 1.8f;
             public float Spin = 22f;
             public float Stretch = 0.14f;
-            public float TrailLife = 0.34f;
+            public float TrailLife = 0.42f; // 2026-11-28 (kullanıcı: "iz biraz daha parlak olsun"): 0,34 → 0,42
             /// <summary>2026-11-27 (kullanıcı: "taşlar hedefe gitsin dalgalı ışıklı efektlerde olsun"): uçuş yolunun yana dalgalanması
             /// (hücre oranı), dalga sayısı ve iz pırıltısı aralığı (ms).</summary>
             public float WaveAmp = 0.38f, WaveCycles = 1.5f, SparkleEveryMs = 45f;
-            public float TrailSize = 0.95f;
-            public float TrailAlpha = 0.9f;
+            public float TrailSize = 1.05f;
+            public float TrailAlpha = 1f;
             [Header("6 – Hedef isabeti")]
             public float IconBounce = 1.32f;
             public float IconBounceMs = 260f;

@@ -62,7 +62,8 @@ namespace KatKat.Game
             int completed = _save.Data.completed.Count;
             int reached = Mathf.Clamp(_save.Data.highestUnlocked + 1, 1, Mathf.Max(1, _catalog.Count));
             int zpe = CurrentZpe().Count > 0 ? CurrentZpe().Score : 0;
-            int stars = RankStars.Total(_save.Data.meta);
+            // 2026-11-28: günlük galibiyet yıldızları da sayılır; sunucu kuralı yıldız ≤ 3 × bölüm olduğundan sınırlanır.
+            int stars = Mathf.Min(RankStars.Total(_save.Data.meta), 3 * reached);
             return new LeaderboardEntry
             {
                 Name = Loc.T("rank.you"), IsSelf = true, Zpe = zpe, Level = reached, Stars = stars,

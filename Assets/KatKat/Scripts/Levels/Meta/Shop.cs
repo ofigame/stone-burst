@@ -170,6 +170,7 @@ namespace KatKat.Meta
             target.boostRecolor = Math.Max(target.boostRecolor, local.boostRecolor);
             target.boostBomb = Math.Max(target.boostBomb, local.boostBomb);
             target.heartsInfiniteUntil = Math.Max(target.heartsInfiniteUntil, local.heartsInfiniteUntil);
+            target.heartsBonus = Math.Max(target.heartsBonus, local.heartsBonus);
             target.noAds |= local.noAds;
             target.starterBought |= local.starterBought;
             foreach (var g in local.stoneGifts) if (!target.stoneGifts.Contains(g)) target.stoneGifts.Add(g);

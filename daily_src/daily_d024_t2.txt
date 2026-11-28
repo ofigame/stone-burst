@@ -1,19 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 41 + tür reverse; şekil kesik köşe (ayna); çözüm 6 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,23
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 2 (41–100); tarif 63; şekil dikdörtgen; çözüm 7 + 4 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,08; YEDEK: sert;
 id: daily_d024_t2
 title: Günlük 24
-moves: 10
-roll: on
+moves: 11
+roll: off
 specials: on
-type: reverse
-rules: exact
-goals: blue 16, yellow 16, star 3
+refill: 35 2-3 seed=level_063
+goals: purple 28, blue 26, coral 21
 grid:
-#     #     yyb   byy   cyy   #     #
-#     byy   byy   bcy   pcy   pyy   #
-pbb   byc   bcc   bpc   cpc   pyp   byp
-pyb   pcp   cbc   ppc   yyb   cpp   bbp
-pcb   byp   byp   pyy   byc   pcb*  bbp
-pcb   bbc   bbc   cyy   pyb*  pcp   bbp
-#     ybc   bbc   ypy   ycy   pcy   #
-#     #     bbc   bcy   ycy*  #     #
-solution: 3,0 ; 3,4 ; 1,5 ; use 2,2,0 ; use 1,4,0 ; use 0,0,4
+bpn   cnn   ppb   pcb   cpb   npn   pyn   pbn
+bpn   bbb   yyn   cyy   nyn   pbb   ppp   pbn
+bpp   pyc   ncp   ncy   cpb   pnc   ypp   cnb
+cyp   bby   cbp   ncy   ypc   ypb   pyp   cyb
+cyn   ppp   cpn   nnb   cny   yyb   ppp   nbb
+ypy   cnc   nyy   ybp   nnb   ypc   cby   npn
+yny   ppc   bpb   bbb   cyc   pyc   cby   nbb
+pnn   pcc   bny   bny   nyy   yyb   bcb   bcb
+solution: 5,5 ; 6,5 ; 6,5 ; 6,5 ; use 0,0,2 ; 4,2 ; use 1,2,0 ; 4,3 ; use 1,3,0 ; 2,2 ; use 1,3,0

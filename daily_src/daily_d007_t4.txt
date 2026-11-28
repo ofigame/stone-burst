@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 205 + tür order; şekil zikzak; çözüm 9 + 4 tepsi / sınır 11; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 4 (201–350); tarif 253; şekil dikdörtgen; çözüm 7 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
 id: daily_d007_t4
 title: Günlük 7
-moves: 11
-roll: on
+moves: 10
+roll: off
 specials: on
-type: order
-goals: purple 19, navy 20, envelope 3
+refill: 36 2-2 seed=level_253
+goals: yellow 31, coral 29, blue 28
 grid:
-#     bnb   ccb   ccy   ccyi1 npc   ncp   nnp
-bbp   bny   ncbi1 cpy   cpy   ybc   pcb   #
-#     bcc   npn   npb   nbb   ypc   pnb   pnpi2
-ccy   ncy   cnn   nyb   nyp   ppc   ppy   #
-#     bnyEn bny   ycy   cyp   cypLb4 ppy   pcy
-ncb   bcy   bpc   ycy   ccpLb3 bcb   bpy   #
-#     cnc   cnc   yncEy cnb   pnb   byb   ccci1
-ync   ync   ycn   ybn   cyb   pycEn pyc   #
-#     bbc   bbn   pbn   ppn   yyn   pyc   pyy
-solution: 2,4 ; 3,4 ; use 0,2,2 ; 5,5 ; use 0,6,0 ; 4,3 ; use 0,7,0 ; 5,0 ; use 0,5,0
+nb    bb    yn    yn    nn    pb    bc    pb
+nn    pn    pb    pp    yp    nb    pb    pp
+ny    yb    pc    yy    yp    cn    cy    ny
+cc    cc    yb    yn    yn    nb    cc    ny
+cc    cy    nc    by    pn    by    yy    nc
+yc    yb    bb    by    pc    bp    bp    yy
+yn    cb    cn    cp    bn    yp    cb    yp
+yn    ny    nb    bn    py    by    bp    cc
+cy    cn    nb    cy    by    bp    cy    cc
+solution: 5,5 ; 5,5 ; 5,5 ; use 0,0,0 ; 4,4 ; use 0,2,0 ; 0,3 ; use 0,6,1 ; 4,3 ; 2,8 ; use 0,2,0 ; use 0,0,0

@@ -388,6 +388,11 @@ namespace KatKat.EditorTools
             // "pencereli" ayarı Android'de sanal tuşları açık bırakıyordu. Hedefe göre ayrılır.
             PlayerSettings.fullScreenMode = target == BuildTarget.Android ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
             if (target == BuildTarget.iOS) PlayerSettings.fullScreenMode = FullScreenMode.FullScreenWindow;
+            // 2026-11-28 (kullanıcı: "uygulamanın boyutunu küçültelim oyunu bozmadan, kalitesinide bozmadan"): IL2CPP yerel kodu boyut
+            // için üretilir (genel türler paylaşılır). Görsel ve davranış aynı; yerel kütüphane küçülür. Dokular zaten ASTC + ölçülmüş bütçe.
+            if (target == BuildTarget.iOS || target == BuildTarget.Android)
+                PlayerSettings.SetIl2CppCodeGeneration(UnityEditor.Build.NamedBuildTarget.FromBuildTargetGroup(BuildPipeline.GetBuildTargetGroup(target)),
+                    UnityEditor.Build.Il2CppCodeGeneration.OptimizeSize);
             if (target == BuildTarget.iOS || target == BuildTarget.Android) { AdMobSetup.Apply(target); NotificationSetup.Apply(); }
             // Google Play derlemesi: Huawei köprüsü Android'e girmez (AppGallery derlemesi kendi açar).
             if (target == BuildTarget.Android && !AppGalleryBuild.Active) AppGalleryBuild.EnsureBridgeOffForGoogle();

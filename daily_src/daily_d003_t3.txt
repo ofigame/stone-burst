@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 131 + tür reverse; şekil zikzak; çözüm 7 + 2 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,15
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 3 (101–200); tarif 121; şekil merdiven; çözüm 7 + 4 tepsi / sınır 10; rastgele 0,005; açgözlü kaybeder; yumuşak 0,04
 id: daily_d003_t3
 title: Günlük 3
 moves: 10
-roll: on
+roll: off
 specials: on
-type: reverse
-rules: exact
-goals: navy 19, purple 9, star 3
+refill: 31 2-2 seed=level_121
+goals: purple 15, blue 19, yellow 21
 grid:
-ny    ny    yy    cy    yn    cn    cb    #
-#     yn    yb    cb    yn    cn    yc    yb
-pc    pn    py    yp    cb    cc    yb    #
-#     yy    yy    cb    cb    pb    yc    yb
-yp    yp    by*   bc    bb    bc    np    #
-#     ny    by    bb    bn    yc    yc    yn
-bb    bn    cn    cy    cc*   pc    pc    #
-#     nb    cc    cn    cn    bn    pc    cb
-nc    nc    nc    nn*   bb    bb    bb    #
-solution: 5,4 ; roll 4 ; 4,2 ; use 1,4,0 ; 2,6 ; use 1,1,2 ; 0,8
+yc    yb    yc    cc    #     #     #     #
+nc    pp    pb    nb    cn    #     #     #
+yc    bb    ny    nn    cc    cpi1  #     #
+yb    by    nb    bb    bb    nc    nyi1  #
+ny    yc    cc    cy    bp    bn    ny    by
+cy    yc    cc    cn    yp    yy    np    by
+cn    by    bp    pb    yp    bb    np    bb
+cc    yy    pp    yn    pp    py    ny    yy
+nn    yn    np    yb    cb    pn    yn    yni1
+solution: 5,7 ; 4,4 ; use 0,1,0 ; 1,2 ; 0,3 ; use 0,0,6 ; use 0,4,1 ; 5,2 ; 6,4 ; use 0,2,0 ; 7,5

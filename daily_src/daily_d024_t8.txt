@@ -1,21 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 875 + tür reverse; şekil merdiven (ayna); çözüm 8 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 8 (851–1000); tarif 921; şekil artı; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d024_t8
 title: Günlük 24
 moves: 10
-roll: on
+roll: off
 specials: on
-paint: 2
-type: reverse
-rules: exact
-goals: coral 18, blue 18, yellow 12
+refill: 25 2-3 seed=level_921
+goals: yellow 28, navy 36, coral 22, sponge 1
 grid:
-#     #     #     #     nn    nc    yb    yb
-#     #     #     nn    ny    nn    yn    yn
-#     #     cc    nn    cn    bp    bn    bpLp5
-#     nc    cc    cb    cp    bc    nc    bb
-pb    cb    bb    cp    yn    cy    nb    bb
-py    nc    ny    np    yp    nc    cp    bb
-cb    nc    nn    yy    yp    pp    yp    cb
-cb    cb    nc    pb    py    pn    yn    cy
-cp    cp    np    pb    pb    pb    cy    cy
-solution: 3,4 ; use 0,0,7 ; roll 4 ; 2,2 ; use 0,4,1 ; 1,5 ; use 0,6,0 ; roll 2
+#     #     bcp   pcy   pny   pbn   #     #
+#     #     yyn   nbyi1 pny   bbb   #     #
+ppci2 ypb   ycc   ncn   ynn   bbb   nyy   cyc
+pnc   nnb   ypn   ncn   ppb   bbb   cyyi1 ccci1
+bny   yby   ypy   cbc   ypc   bpy   pyn   ncp
+bnc   bpb   nbc   yby   ync   nnc   bbyScp npp
+cpc   bpp   ynp   cbn   nny   bppi1 nbn   ypp
+#     #     ynp   ppni2 ypp   npn   #     #
+#     #     bnp   nbc   nbn   ybn   #     #
+solution: 3,0 ; 4,0 ; 2,2 ; 7,4 ; use 0,2,0 ; use 0,2,0 ; 3,7 ; use 0,0,5 ; 0,4 ; use 0,2,1 ; 1,2 ; use 0,2,0 ; 3,2 ; use 0,5,0

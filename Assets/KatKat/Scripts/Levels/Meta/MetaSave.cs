@@ -41,6 +41,8 @@ namespace KatKat.Meta
         public long heartsStamp;
         /// <summary>2026-11-20 sınırsız can: bu Unix saniyesine kadar kalp harcanmaz, sayaç dolu görünür (0 = yok).</summary>
         public long heartsInfiniteUntil;
+        /// <summary>2026-11-28: sınırın (5) üstündeki fazladan can (günlük bulmaca ödülü); kayıpta önce bu harcanır.</summary>
+        public int heartsBonus;
         /// <summary>Uygulama içi puan isteği (2026-11-09): kaç kez istendi, son istek (Unix sn).</summary>
         public int reviewAsks;
         public long reviewLast;
@@ -89,6 +91,7 @@ namespace KatKat.Meta
             if (dailyStars < 0) dailyStars = 0;
             if (heartsMissing < 0 || heartsMissing > Hearts.Max) heartsMissing = 0;
             if (heartsStamp < 0) heartsStamp = 0;
+            if (heartsBonus < 0 || heartsBonus > Hearts.MaxBonus) heartsBonus = Math.Max(0, Math.Min(Hearts.MaxBonus, heartsBonus));
             if (reviewAsks < 0) reviewAsks = 0;
             if (reviewLast < 0) reviewLast = 0;
         }

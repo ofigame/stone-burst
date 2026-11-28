@@ -1322,6 +1322,7 @@ namespace KatKat.View
         public Action<int> BlastHaptic { get; set; }
         /// <summary>Testler / yakalama: havadaki hedef kopyası sayısı.</summary>
         public int BlastFlights => _blast != null ? _blast.FlightCount : 0;
+        public int BlastHiddenFaces => _blast != null ? _blast.HiddenFlightFaces : 0;
 
         private sealed class BlastPlan
         {

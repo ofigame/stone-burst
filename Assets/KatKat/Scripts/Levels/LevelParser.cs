@@ -156,6 +156,7 @@ namespace KatKat.Levels
                 d.RefillCount = Int(ro, "count", where);
                 if (ro.ContainsKey("minLayers")) d.RefillMinLayers = Int(ro, "minLayers", where);
                 if (ro.ContainsKey("maxLayers")) d.RefillMaxLayers = Int(ro, "maxLayers", where);
+                if (ro.ContainsKey("seed")) d.RefillSeed = Str(ro, "seed", where);
             }
             if (o.ContainsKey("solution"))
             {

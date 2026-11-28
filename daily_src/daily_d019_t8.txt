@@ -1,18 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 869 + tür pure; şekil dalga; çözüm 13 + 0 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 8 (851–1000); tarif 892; şekil kum saati; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d019_t8
 title: Günlük 19
-moves: 13
-roll: on
-type: pure
-rules: noSpecials, exact
-goals: blue 26, purple 34, yellow 39, star 4
+moves: 10
+roll: off
+specials: on
+paint: 1
+refill: 25 2-2 seed=level_892
+goals: navy 34, yellow 24, purple 27, envelope 2
 grid:
-ybyK1:1 #     G1:ybp #     G1:yyb #     G1:ppp #
-ypy   yyp   ypp*  bbp   yyp*  yyy   bppK1:1 bbp
-bbp   pby   bpy   bpy   ppb   pbp   bby   byp
-yyy   yby   bpb   ppy   pbp   bpp   ypp   byy
-pyyK1:1 pbb   ppp*  ybb   yyp   pyy   ppb   ypp
-ypb*  bbp   yyy   yyyB1 ybb   byb   ppp   bpy
-pyy   pyb   pyb   yyb   ypb   ppp   pyy   byy
-#     pyb   #     pby   #     ypy   #     ppy
-solution: 1,2 ; roll 5 ; 1,2 ; roll 5 ; 0,3 ; roll 4 ; 2,0 ; roll 4 ; 3,1 ; roll 1 ; 4,2 ; roll 1 ; 6,2
+nb    pc    pc    ny    nn    cn    py    cn
+ny    ny    nn    pn    np    nn    cy    cn
+#     cc    cc    py    nc    nb    py    #
+#     cy    ny    nc    pb    pbEn  cb    #
+#     cp    yb    pp    yn    yn    yc    #
+#     bbEn  yp    bp    nn    nn    bc    #
+cb    cb    bp    bc    nb    yc    pp    pp
+cb    np    ny    bc    nc    yp    yb    yp
+solution: paint 4,3,n ; 4,3 ; use 0,4,0 ; 3,0 ; use 0,1,0 ; 4,2 ; 3,0 ; use 1,1,0 ; use 0,6,0 ; 2,0 ; use 0,3,0 ; 1,1 ; use 0,0,1 ; 3,2

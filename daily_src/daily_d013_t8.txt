@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 899 + tür resource; şekil dalga; çözüm 17 + 6 tepsi / sınır 17; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 8 (851–1000); tarif 895; şekil dalga; çözüm 11 + 7 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00; döndürmeyle başlar;
 id: daily_d013_t8
 title: Günlük 13
-moves: 17
-roll: on
+moves: 12
+roll: off
 specials: on
-type: resource
-rules: exact
-goals: blue 29, coral 31, navy 19
+refill: 29 2-3 seed=level_895
+goals: blue 35, purple 28, coral 29
 grid:
-#     npc   #     nynk1 #     cbbk1 #     ncn
-nyp   nyy   byy   ccp   ccp   nyy   nyyG  nyyG
-bbp   bbp   bby   ncc   ccp   ypyG  yyyG  pbpG
-bby   nbyk1 nbc   nyy   cnn   bpc   yppG  yppG
-bpy   bpy   cpp   pyc   pbc   bcck1 bpc   bpp
-pnbk1 ppb   cyp   nyy   pyy   pcy   ppb   bnc
-bnc   ypc   byc   bbc   cbc   ccy   bcc   ynp
-bnnk2 bpb   bnb   yyc   cyc   bcy   bcc   cnc
-bnn   #     ynb   #     cyp   #     ccy   #
-solution: 0,6 ; use 0,0,5 ; roll 7 ; 5,3 ; roll 7 ; 0,6 ; use 0,4,3 ; roll 3 ; use 0,0,2 ; 0,2 ; roll 2 ; 3,2 ; use 1,1,0 ; 5,1 ; use 0,1,0 ; roll 0 ; use 0,1,0
+bbn   #     bpp   #     nyy   #     cbp   #
+nbn   npn   bpp   ncp   pcn   cby   cny   cnb
+ncn   yby   cbp   ccn   ncy   bpy   ynn   npy
+cpy   bbc   nby   cpn   nnb   bcc   yyy   nynR
+ncy   npbR  ycn   ynb   bcy   bcy   cbn   npb
+ncp   bnp   yny   ypb   byn   bbn   cyp   pcy
+bcp   cbp   pnc   ppb   nnn   pcc   cnn   pbn
+bcy   bbn   ppy   nby   byp   ypn   cpc   pbn
+#     bby   #     ppy   #     ypb   #     cbn
+solution: rot 1,4 ; 1,4 ; use 0,1,1 ; 2,0 ; 0,0 ; 0,0 ; use 0,5,1 ; use 0,3,1 ; 5,6 ; 2,7 ; 3,4 ; use 2,6,0 ; 5,5 ; 3,1 ; use 2,0,0 ; 3,4 ; use 0,3,1 ; use 1,6,0

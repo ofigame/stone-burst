@@ -400,6 +400,7 @@ namespace KatKat.Game
             // 2026-11-23 (130. bölüm): özel taşı kapalı ama çakıllı bölümde de Kürek tepsiye gelir; tepsi görünmeli.
             // 2026-11-26 (kullanıcı: "Roket ve rulo yine tahtanın üst kısmında olsun"): özel taşlar yine tepside; torba bölümünde
             // yuvalar torbanın iki yanında.
+            TrayDragReset();
             _hud.SetTrayVisible(_session.State.SpecialsEnabled || KatKat.Core.RulesEngine.HasGravel(_session.State.Board) || _session.State.Bucket != null || _session.State.Tray.Count > 0);
             BucketBegin();
             WaterBegin(); // 2026-11-25 su kipi

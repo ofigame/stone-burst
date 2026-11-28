@@ -428,7 +428,11 @@ namespace KatKat.Game
         private bool TryDailyPower()
         {
             if (_sessionKind != SessionKind.Daily || CurrentPhase != Phase.Idle) return false;
+            int movesBefore = _session.State.MovesLeft;
             var r = _daily.TryUsePower(_stones, _session.State);
+            // 2026-11-28: hamle veren güç (Gelgit rulosuz, Ay) geri almada kaybolmasın: hamle oturum üzerinden verilir (geri alma noktası da güncellenir).
+            int gained = _session.State.MovesLeft - movesBefore;
+            if (r == PowerResult.Used && gained > 0) { _session.State.MovesLeft = movesBefore; _session.GrantMoves(gained); }
             switch (r)
             {
                 case PowerResult.Used:
@@ -525,13 +529,13 @@ namespace KatKat.Game
         private void OnDailyWon()
         {
             // Kullanıcı (2026-11-08): günlük de yıldız kazandırır — performansa göre 1–3 (bölüm eşikleriyle aynı), günde bir
-            // kez (ilk galibiyet). Toplam yıldıza ve taş eşiklerine sayılır; sıralamaya sayılmaz (giriş reklamla).
+            // kez (ilk galibiyet). Toplam yıldıza ve taş eşiklerine sayılır. 2026-11-28: sıralamaya da sayılır; ödül 5 SB Gold + 1 can.
             int stars = Mathf.Clamp(_session.State.Stars, 1, 3);
-            bool rewarded = _daily.FinishAttempt(true, stars);
+            bool rewarded = _daily.FinishAttempt(true, stars, HeartNow);
             if (rewarded) CheckStoneUnlocks();
             _sound.Play(Sfx.Win);
             Haptics.Medium();
-            _hud.ShowPanel(Loc.T("daily.win.title"), rewarded ? Loc.F("daily.win.stars", stars, _daily.Config.MoveBonus) : Loc.T("daily.win.again"),
+            _hud.ShowPanel(Loc.T("daily.win.title"), rewarded ? Loc.F("daily.win.stars", stars, _daily.Config.IngotReward, _daily.Config.HeartReward) : Loc.T("daily.win.again"),
                 new HudView.PanelButton(Loc.T("btn.levels"), UiIcon.Play, true, ShowLevels),
                 new HudView.PanelButton(Loc.T("daily.title"), UiIcon.Menu, false, ShowDaily));
             _hud.PanelStars(rewarded ? stars : 0);

@@ -72,6 +72,8 @@ namespace KatKat.View
         public bool StackBusy => _bursts.Count > 0;
         public bool Flying => _flights.Count > 0;
         public int FlightCount => _flights.Count;
+        /// <summary>2026-11-28 tanı: görünür uçuşlardan taş çizicisi kapalı olanların sayısı (0 olmalı; havuz hatası denetimi).</summary>
+        public int HiddenFlightFaces { get { int n = 0; foreach (var f in _flights) if (f.Visible && f.Sr != null && !f.Sr.enabled) n++; return n; } }
 
         private static BoosterFxConfig.BlastSettings C => BoosterFxConfig.Current.Blast;
         private float Cell => _board.WorldCell;
@@ -140,6 +142,9 @@ namespace KatKat.View
             sr.color = new Color(1f, 1f, 1f, 0f);
             sr.transform.rotation = Quaternion.identity;
             sr.transform.localScale = Vector3.zero; // boyu çağıran verir (havuzdan dönen eski boy bir kare görünmesin)
+            // 2026-11-28 (kullanıcı: "ilk başta taş gidiyor sonra ufak ışın topu gidiyor"): sönen patlama kopyası kapalı (enabled=false)
+            // havuza dönüyordu; uçuş onu alınca taş görünmüyor, yalnız ışık izi uçuyordu. Havuzdan çıkan her çizici açık başlar.
+            sr.enabled = true;
             sr.gameObject.SetActive(true);
             return sr;
         }
@@ -529,8 +534,8 @@ namespace KatKat.View
                     Emit(FxKit.Glow, true, FlyOrder - 1, pos, Vector3.zero, c.TrailLife, size * c.TrailSize * 1.4f, size * 0.15f,
                         new Color(tc.r, tc.g, tc.b, c.TrailAlpha), new Color(tc.r, tc.g, tc.b, 0f));
                     // Işık çekirdeği: beyaza yakın, ince, izin ortasında.
-                    Emit(FxKit.Glow, true, FlyOrder - 1, pos, Vector3.zero, c.TrailLife * 0.6f, size * c.TrailSize * 0.6f, size * 0.1f,
-                        new Color(1f, 1f, 1f, 0.7f), new Color(tc.r, tc.g, tc.b, 0f));
+                    Emit(FxKit.Glow, true, FlyOrder - 1, pos, Vector3.zero, c.TrailLife * 0.7f, size * c.TrailSize * 0.75f, size * 0.12f,
+                        new Color(1f, 1f, 1f, 0.95f), new Color(tc.r, tc.g, tc.b, 0f)); // 2026-11-28: daha parlak çekirdek
                 }
                 // İz boyunca dökülen küçük pırıltılar.
                 if (f.Visible && !KatKat.UI.Motion.Reduced && u > 0.08f && u < 0.92f && t - f.SparkAt >= c.SparkleEveryMs)

@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 3 (101–200); tarif 125 + tür protect; şekil U; çözüm 9 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 3 (101–200); tarif 142; şekil T (ayna); çözüm 7 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: daily_d016_t3
 title: Günlük 16
 moves: 10
-roll: on
+roll: off
 specials: on
-type: protect
-rules: protect, exact
-goals: navy 22, purple 18, blue 21
+refill: 30 2-2 seed=level_142
+goals: purple 38, yellow 29, blue 13
 grid:
-py    pc    yy    #     #     pb    nc    nc
-pb    py    yy    #     #     pb    pn    nc
-pn    py    yy    yn    by    cp    nb    yc
-nn    ny    ny    np    bn    cn    nb    nc
-nn    npk1  yp    np    cn    cc    cb    pp
-yn    yn    yp    cp    cn    bc    pp    ppP
-bck1  bn    cp    bb    bb    by    yb    ypk2
-yc    yck2  by    bcP   bb    cb    yb    yb
-solution: 2,0 ; 3,3 ; 0,2 ; 3,6 ; use 2,5,0 ; use 0,5,0 ; use 0,0,0 ; use 0,0,5 ; roll 0
+cc    bc    yp    pp    nn    np    yn    np
+cy    cyi1  cp    pn    cp    cb    yp    nc
+by    cn    cy    yy    yp    pc    yp    np
+cn    nn    nn    yy    yn    np    yc    npi1
+cb    cp    np    py    bp    ny    pn    py
+cp    pn    cc    bp    pn    pp    cy    py
+#     #     cp    ppi1  yy    py    #     #
+#     #     pn    yn    nn    cy    #     #
+#     #     ny    pn    cb    cb    #     #
+solution: 2,2 ; 4,6 ; 1,4 ; use 0,0,4 ; 0,3 ; 5,0 ; use 0,0,0 ; use 0,1,0 ; 3,5 ; 3,1 ; use 0,1,0

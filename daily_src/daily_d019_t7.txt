@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 7 (701–850); tarif 701 + tür pure; şekil kesik köşe; çözüm 10 + 0 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 7 (701–850); tarif 771; şekil merdiven (ayna); çözüm 12 + 8 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d019_t7
 title: Günlük 19
-moves: 10
-roll: on
-paint: 1
-type: pure
-rules: noSpecials, exact
-goals: coral 31, yellow 26, purple 31, star 3
+moves: 13
+roll: off
+specials: on
+refill: 28 2-3 seed=level_771
+goals: yellow 18, coral 29, star 4, sponge 1
 grid:
-#     #     cyc   ccc   ccc   ccc   #     #
-#     cpy   ppc   ycp   pcp   cyy   ccy   #
-cyy   cpy   ppy   cpp   ppc   ycy*  pyp   pcp
-ccc   ccc   pyc   cyp   ppc   ycc   pcy   ccc
-ypy   ypc*  cyp   ycp   pyy   cyc   pcc   cpy
-ypy*  ypp   pyy   ycy   ycp   ycc   yyc   pyp
-ccy   ypy   pcp   cpy   ycy   ypy   pyp   yyc
-#     ppp   ccp   pyy   ccy   cpp   ccp   #
-#     #     ypc   pyp   cpp   cpp   #     #
-solution: 0,3 ; 3,1 ; 1,1 ; roll 2 ; 2,0 ; roll 2 ; 0,4 ; roll 5 ; 5,6 ; 3,0
+#     #     #     #     cby   cyb   bcb   bcn
+#     #     #     ppc   pby   bcy   bby   bcn
+#     #     yby   pcy   pnc   cyc   bnc   nnn*
+#     cbn*  ycb   bnb   nbn   pbn   npp   ybp
+ycc   ccp   ynn   bcb   nny   nby   cnb   cnb
+ypp   ybp   bbb   pnn   cpbSyp cpy   ppn   bbb
+npp   bpn   bpb   pcc   yny   nbb   pbb   bnn
+nbb   ncp   bbp   pbn   pyy   ccc   bnn   ccb
+nbb   pbp*  cnp   cbn   cbn   bpc   ccn*  ccn
+solution: 4,4 ; 5,4 ; 4,3 ; use 0,0,4 ; 4,3 ; 4,0 ; 6,7 ; use 0,6,0 ; 4,0 ; use 0,3,1 ; 4,3 ; 3,2 ; 2,2 ; 1,4 ; use 0,0,4 ; use 0,5,0 ; use 0,7,0 ; 0,5 ; use 0,1,3 ; use 0,4,2

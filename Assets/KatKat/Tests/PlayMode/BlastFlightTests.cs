@@ -69,5 +69,44 @@ namespace KatKat.Tests
             }
             Assert.GreaterOrEqual(most, size, $"görevde olmayan {size} taşlık grubun her taşı yıldız çubuğuna uçmalı");
         }
+
+        /// <summary>
+        /// 2026-11-28 (kullanıcı: "ilk başta taş gidiyor sonra ufak ışın topu gidiyor"): sönen patlama kopyası kapalı çiziciyle havuza
+        /// dönüyordu; sonraki hamlelerde uçan taş görünmüyor, yalnız ışık izi uçuyordu. Art arda hamlelerde her uçan taş görünür olmalı.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator RepeatedMoves_FlyingStonesStayVisible()
+        {
+            _gc.StartLevel(243);
+            yield return null;
+            _gc.Hud.HideRuleCard(false);
+            int moves = 0, seen = 0;
+            for (int m = 0; m < 5; m++)
+            {
+                var st = _gc.Session.State;
+                if (st.Status != GameStatus.Idle) break;
+                int tx = -1, ty = -1;
+                for (int i = 0; i < st.Board.Count && tx < 0; i++)
+                {
+                    var cell = st.Board[i];
+                    if (!cell.IsSelectable || cell.Layers.Count == 0) continue;
+                    var cmd = Command.Tap(st.Board.X(i), st.Board.Y(i));
+                    if (RulesEngine.Validate(st, cmd, out _) == RejectReason.None) { tx = cmd.X; ty = cmd.Y; }
+                }
+                if (tx < 0) break;
+                _gc.OnCellPressed(tx, ty);
+                moves++;
+                float limit = Time.realtimeSinceStartup + 6f;
+                bool flew = false;
+                while (Time.realtimeSinceStartup < limit)
+                {
+                    if (_gc.Board.BlastFlights > 0) { flew = true; seen++; Assert.AreEqual(0, _gc.Board.BlastHiddenFaces, $"{moves}. hamlede uçan taşın çizicisi kapalı"); }
+                    else if (flew && !_gc.Board.IsPlaying) break;
+                    yield return null;
+                }
+            }
+            Assert.GreaterOrEqual(moves, 3, "art arda en az 3 hamle oynanmalı");
+            Assert.Greater(seen, 0);
+        }
     }
 }

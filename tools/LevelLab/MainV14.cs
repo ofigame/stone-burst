@@ -120,6 +120,8 @@ static partial class Program
         /// <summary>Yeni yığınlardan beklenen renk payının hedefe sayılan oranı (0.5; çözüm kısa kalırsa ya da mekanik atlanırsa artar).</summary>
         public double RefillShare = 0.5;
         public double Frac, RandomCap;
+        /// <summary>2026-11-28 günlük: yumuşak açgözlü bot kazanma tavanı (negatif = bölüm numarasından).</summary>
+        public double SoftCap = -1;
         public bool Breath, Master, Showcase, GreedyMustLose, NoSpecialsInSolution;
         /// <summary>Vitrin 2/3: çözümün ilk iki adımı zorunlu (roket ya da Altın Rulo doğar → tepsiden kullanılır).</summary>
         public SpecialKind ForcedSpecial;
@@ -1083,7 +1085,7 @@ static partial class Program
         // Sıkıştırılmış çözüm bandın altına indiyse bölüm sandığımızdan kısadır: daha büyük hedefle yeniden denenir.
         if (L < sp.LenLo) { ev.Fail = "kısa"; ev.Violation = 50 + (sp.LenLo - L) * 5; return ev; }
         double softMin = sp.RefillFrac > 0 && !sp.Exact ? V14SoftMin(sp.N) : 0; // kesin hamle bulmacası tabandan muaf
-        double softMax = sp.Showcase ? 1 : V14SoftMax(sp.N);
+        double softMax = sp.Showcase ? 1 : sp.SoftCap >= 0 ? sp.SoftCap : V14SoftMax(sp.N);
         if (softMin > 0 || softMax < 1)
         {
             var s0 = LevelLoader.ToState(d);

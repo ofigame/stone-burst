@@ -38,8 +38,8 @@ namespace KatKat.Meta
         public static int Count(MetaSave m, long now)
         {
             Settle(m, now);
-            if (Unlimited(m, now)) return Max;
-            return Max - m.heartsMissing;
+            if (Unlimited(m, now)) return Max + Math.Max(0, m.heartsBonus);
+            return Max - m.heartsMissing + Math.Max(0, m.heartsBonus);
         }
 
         /// <summary>Sonraki kalbe kalan saniye; dolu ise 0.</summary>
@@ -55,6 +55,7 @@ namespace KatKat.Meta
         {
             Settle(m, now);
             if (Unlimited(m, now)) return true; // sınırsız can: harcanmaz
+            if (m.heartsBonus > 0) { m.heartsBonus--; return true; } // 2026-11-28: fazladan (6.) can önce harcanır, dolum sayacı başlamaz
             if (m.heartsMissing >= Max) return false;
             if (m.heartsMissing == 0) m.heartsStamp = now;
             m.heartsMissing++;
@@ -81,6 +82,20 @@ namespace KatKat.Meta
             m.heartsMissing = Math.Max(0, m.heartsMissing - n);
             if (m.heartsMissing == 0) m.heartsStamp = 0;
         }
+
+        /// <summary>
+        /// 2026-11-28 (kullanıcı: "günlük bulmaca ile … tek seferlik +1 can verelim (5 canı varsa 6 olsun)"): eksik varsa bir kalp
+        /// doldurur, kalpler doluysa sınırın üstünde bir fazladan can ekler (ilk kayıpta o harcanır).
+        /// </summary>
+        public static void GainOne(MetaSave m, long now)
+        {
+            if (now > 0) Settle(m, now); // saat verilmediyse (eski çağrı) sayaca dokunulmaz
+            if (m.heartsMissing > 0) { m.heartsMissing--; if (m.heartsMissing == 0) m.heartsStamp = 0; return; }
+            m.heartsBonus = Math.Min(MaxBonus, Math.Max(0, m.heartsBonus) + 1);
+        }
+
+        /// <summary>Sınırın üstündeki fazladan can (günlük ödülü); en çok 1, yani 6 can.</summary>
+        public const int MaxBonus = 1; // kullanıcı: "5 canı varsa 6 olsun" — en çok 6
 
         public static void Refill(MetaSave m)
         {

@@ -156,9 +156,9 @@ namespace KatKat.UI
             UiFactory.Place(stx.rectTransform, new Vector2(0f, 0.5f), new Vector2(180f + 240f, 0f), new Vector2(480f, 140f));
             stx.enableAutoSizing = true; stx.fontSizeMax = 32; stx.fontSizeMin = 18;
             y -= 182f;
-            if (m.BonusToday)
+            if (m.BonusToday || (m.Available && !m.Won))
             {
-                var bn = UiFactory.Text("Bonus", c, Loc.T("daily.bonus.active"), 28, new Color32(0x2E, 0x8C, 0x3C, 0xFF));
+                var bn = UiFactory.Text("Bonus", c, Loc.T(m.BonusToday ? "daily.bonus.active" : "daily.reward.line"), 28, new Color32(0x2E, 0x8C, 0x3C, 0xFF));
                 bn.raycastTarget = false;
                 UiFactory.Place(bn.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, y - 22f), new Vector2(680f, 44f));
                 FitText(bn, 18);

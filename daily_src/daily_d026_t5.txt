@@ -1,19 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 5 (351–500); tarif 394 + tür pure; şekil T (ayna); çözüm 10 + 0 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 5 (351–500); tarif 383; şekil dikdörtgen; çözüm 9 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d026_t5
 title: Günlük 26
 moves: 10
-roll: on
-type: pure
-rules: noSpecials, exact
-goals: navy 24, purple 21, coral 28
+roll: off
+specials: on
+refill: 32 2-2 seed=level_383
+goals: blue 30, coral 40, navy 29
 grid:
-pp    pp    cp    nn    nc    cc    nc    cc
-pc    pnR   pn    nc    nn    pc    nc    nc
-cnR   nc    cc    cp    nc    pp    pp    np
-pc    nc    nn    cc    np    cp    cp    nn
-cn    nn    nn    cn    nn    pc    cc    pn
-cc    pn    pp    cc    pp    pp    pp    pn
-#     #     cc    cc    nn    nn    #     #
-#     #     nc    pn    np    cp    #     #
-#     #     cc    cn    np    cp    #     #
-solution: rot 0,2 ; 4,0 ; roll 4 ; 5,1 ; roll 2 ; 3,1 ; roll 3 ; 3,0 ; roll 5 ; 0,0
+bp    pn    pc    bnLc6 bc    by    by    py
+nn    ny    pp    bc    cc    nc    yy    yb
+nn    nc    yn    yb    yy    ny    yc    bn
+yc    cc    yy    cp    ny    cb    cn    cn
+cb    yp    cy    nb    pb    nb    pc    yp
+bc    nc    yp    cn    cn    pp    pn    yn
+cc    yn    cy    bp    by    yb    cb    cc
+nc    ny    cp    cc    bp    py    bbLc5 bc
+yy    yy    pc    pc    cy    cy    bb    by
+solution: 5,7 ; 3,7 ; 7,2 ; 3,1 ; 7,0 ; use 1,5,0 ; 1,2 ; use 1,0,0 ; 0,0 ; use 1,0,0 ; 6,5 ; use 2,7,1 ; 1,6 ; use 2,0,3 ; use 0,0,8 ; use 0,6,0

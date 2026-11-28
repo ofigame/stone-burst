@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 861 + tür order; şekil zikzak; çözüm 9 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 8 (851–1000); tarif 911; şekil zikzak; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02; döndürmeyle başlar;
 id: daily_d014_t8
 title: Günlük 14
 moves: 10
-roll: on
+roll: off
 specials: on
-type: order
-rules: exact
-goals: yellow 27, purple 10, blue 30, envelope 2
+refill: 28 2-2 seed=level_911
+goals: coral 23, purple 27, navy 26
 grid:
-#     cyb   byn   yyp   cyp   cyb   ncn   nyn
-cnb   ccn   ccn   ycp   ycp   ccb   nnc   #
-#     byp   bpp   ypn   ycnEb bny   cbcEc ccy
-cyc   byp   cyn   nbn   bbc   bbyLb3 bby   #
-#     cyc   yyn   ybp   ybc   ypc   bpb   bpb
-pny   ccyLb4 ycy   ccp   ccy   cyc   cpc   #
-#     ccn   ccn   ncy   cyy   yyc   cpn   bnb
-bbb   bbb   yby   yby   ycc   ycb   bcn   #
-#     cbb   bby   bbb   byc   byb   bcb   bcb
-solution: 4,5 ; 0,7 ; use 1,0,1 ; 4,3 ; use 1,2,0 ; roll 4 ; 2,3 ; use 1,1,0 ; 1,0
+#     byR   cb    nc    ny    ny    ny    by
+pc    cb    bp    pc    nn    bn    ypR   #
+#     pc    bb    cc    cy    cb    yy    yb
+nb    py    bb    cc    yp    yb    bc    #
+#     pp    np    bp    yy    nb    bc    bb
+ny    np    by    cn    bn    yp    yb    #
+#     bn    pc    yp    yn    cb    pn    bc
+by    py    yy    cp    np    nn    np    #
+#     pb    npR   cn    nn    pb    pn    pc
+solution: rot 2,8 ; 3,6 ; 3,5 ; 1,4 ; use 0,3,0 ; 5,2 ; use 1,2,0 ; 2,3 ; use 1,5,0 ; 3,4 ; 2,0 ; use 1,6,0 ; use 0,0,7 ; use 0,3,4

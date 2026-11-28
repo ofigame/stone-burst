@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 214 + tür scarce; şekil artı (ayna); çözüm 7 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 4 (201–350); tarif 251; şekil kesik köşe (ayna); çözüm 7 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d025_t4
 title: Günlük 25
 moves: 10
-roll: on
+roll: off
 specials: on
-type: scarce
-rules: scarce
-goals: navy 21, coral 14, envelope 2
+refill: 30 2-2 seed=level_251
+goals: navy 31, yellow 29, purple 30
 grid:
-#     #     pbEb  py    nn    yc    #     #
-#     #     pn    pn    cn    nc    #     #
-cn    yp    bc    nn    cc    cn    bb    bn
-bn    yc    ypk1  cy    cy    yn    pc    bn
-bc    bc    pc    cc    pp    cn    np    pn
-pb    bb    bb    yc    bc    pb    pnk1  by
-cc    bc    bn    np    yy    pp    pp    by
-#     #     cn    cpk1  yy    yp    #     #
-#     #     bn    bnEp  yyk2  py    #     #
-solution: 4,0 ; roll 3 ; 5,0 ; use 0,3,0 ; 2,6 ; use 1,2,0 ; use 0,4,0
+#     #     bc    bc    yc    ny    #     #
+#     py    bb    bb    yc    ny    ny    #
+py    py    cb    cb    yn    cc    yp    pc
+pc    bc    ny    py    yp    pp    yn    pnLp4
+bp    by    nc    nn    pn    cy    nn    pc
+pb    bc    np    np    cn    bp    cy    cy
+yb    yn    yn    yp    pn    cp    nb    cb
+#     nn    nb    pp    pc    np    yc    #
+#     #     yn    yb    pb    np    #     #
+solution: 3,4 ; 2,5 ; use 0,4,3 ; 5,0 ; use 0,4,0 ; 5,3 ; 3,6 ; 5,1 ; use 0,5,1 ; 2,2 ; use 1,0,3 ; use 0,2,0 ; use 0,1,4

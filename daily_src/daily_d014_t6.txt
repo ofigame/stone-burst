@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 515 + tür order; şekil dikdörtgen; çözüm 9 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 6 (501–700); tarif 554; şekil zikzak; çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d014_t6
 title: Günlük 14
 moves: 10
-roll: on
+roll: off
 specials: on
-type: order
-rules: exact
-goals: yellow 36, purple 25, coral 37
+refill: 28 2-2 seed=level_554
+goals: navy 24, coral 22, blue 29
 grid:
-ybb   ycb   pcb   pyy   bpp   bpy   ypp   ycc
-cyb   ypb   pyb   ppy   ypy   bnp   ccy   yby
-ncp   ycc   ppp   npn   byn   cnyLp5 cby   pby
-nyp   pcc   pcb   nyc   bcc   byn   pyn   pbn
-ycp   ycc   ycb   npb   ccb   cyyLp3 pbcK1:1 pbyK1:1
-ppb   ypc   nyb   nyc   ccy   yyy   ynn   pcy
-ypb   ycb   ncn   nyc   bnb   ccb   cnn   ccy
-ypb   cpb   bcc   byc   bycK1:1 ccn   ccb   cnn
-bpb   cpy   ccp   cyc   pcc   cyn   ycn   ypn
-solution: 0,5 ; use 0,2,0 ; 1,2 ; use 0,3,0 ; 0,2 ; use 0,2,0 ; 2,0 ; use 0,3,0 ; 3,0
+#     cb    pp    yp    yb    py    pb    pb
+pnR   yp    yp    yb    cy    pb    nn    #
+#     pc    bn    nn    ny    cb    yp    cp
+pn    nb    pn    pc    py    cc    cb    #
+#     yn    cp    pc    bn    py    yp    yp
+yc    yc    by    yp    nyR   ycK1:2 py    #
+#     cnK1:2 cp    pc    yb    yyK1:2 by    bp
+bn    bn    nbR   np    bn    yc    bb    #
+#     bp    bn    cn    yn    bp    nb    bb
+solution: rot 2,7 ; 0,7 ; use 0,0,3 ; 6,4 ; use 0,6,0 ; 5,1 ; 6,1 ; 2,3 ; use 2,1,0 ; 4,2 ; use 0,6,0 ; use 1,1,0 ; 3,2 ; use 0,6,0

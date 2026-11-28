@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 4 (201–350); tarif 202 + tür scarce; şekil dikdörtgen; çözüm 10 + 3 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,06
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 4 (201–350); tarif 256; şekil merdiven; çözüm 7 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
 id: daily_d011_t4
 title: Günlük 11
-moves: 12
-roll: on
+moves: 10
+roll: off
 specials: on
-type: scarce
-rules: scarce
-goals: yellow 20, star 3, envelope 2
+refill: 31 2-3 seed=level_256
+goals: yellow 25, navy 38, envelope 2
 grid:
-cn    cn    cp    cb    yy    yy    pn    by
-cn    yn    pp    ny    bn    bn    ny    nb
-nb    pb    py    pc    yp    pp*   pp    pc
-cc    cc    yb    nc    pp    yp    nc    pc
-cb    cb    nc    nc    pc    py    np    np
-cb    cb    cc*   by    py    bb    pb    pb
-pb    np    yp    bc    cb    yb    ypEy  np
-pnEy  cn*   cn    bc    cc    pn    pb    pb
-py    by    by    bn    pn    pn    yn    pn
-solution: 3,2 ; 3,2 ; use 1,0,5 ; roll 8 ; 7,2 ; 5,2 ; use 1,4,0 ; 1,6 ; 4,6 ; use 1,0,0
+yyb   ccb   cpb   npb   #     #     #     #
+ncp   pcy   nny   nny   nny   #     #     #
+ncp   cyb   cnn   pcp   pcn   ppc   #     #
+pby   ypp   bbc   bcnEy nyc   ccb   ncn   #
+npp   ypp   ybn   yyn   nyc   nnc   ypn   ypc
+nnn   ynb   pyy   bny   bcp   nnc   ynn   cyc
+nnnG  ypn   nnb   bpy   nnpEn pcp   cbc   cbc
+bynG  bnbG  ppb   cbc   bby   cnb   pyn   cnn
+bycG  byn   pyn   cbc   pbc   pnp   byc   bnc
+solution: 1,1 ; 2,1 ; use 1,0,6 ; 4,2 ; use 1,4,1 ; 6,3 ; use 1,2,1 ; 4,3 ; 2,2 ; use 2,0,5 ; 2,3 ; use 2,2,1 ; use 1,1,0

@@ -1,20 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 881 + tür resource; şekil dikdörtgen; çözüm 12 + 4 tepsi / sınır 12; rastgele 0,000; açgözlü kaybeder; yumuşak 0,02
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 8 (851–1000); tarif 905; şekil kum saati (ayna); çözüm 8 + 6 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d020_t8
 title: Günlük 20
-moves: 12
-roll: on
+moves: 10
+roll: off
 specials: on
-type: resource
-rules: exact
-goals: yellow 18, blue 15, purple 16, envelope 2
+refill: 25 2-2 seed=level_905
+goals: yellow 32, purple 29, coral 20, star 3
 grid:
-bbEc  nb    pck1  pcG   pnG   pbG   bbG
-bb    bn    bnEc  bp    ycG   nbG   bb
-bp    np    nn    bp    pc    nc    nb
-yy    yy    nck1  pck2  pc    yn    ny
-yy    ny    bc    by    yb    yp    yy
-yy    np    pp    yp    yc    pc    yy
-cyk1  nc    cnk1  cn    nn    pp    pb
-nc    np    pp    pb    cy    cy    cn
-ny    nn    pn    pn    cnk1  cy    py
-solution: 0,3 ; use 0,0,0 ; 0,0 ; use 0,3,0 ; roll 0 ; 2,0 ; roll 5 ; use 0,0,4 ; 6,3 ; use 0,0,6 ; 6,0 ; 5,5
+py    yb    yp    yb    cb    cb    pn    pn
+py    pb    pp    cp    cb    py    yy    cy
+#     yn    yn    py    cy    bb    yb    #
+#     yy    pn    pp    cp    pc    yc    #
+#     ny    pyLn5 nn    nn    cb    cb    #
+#     yy    bb*   nn    pn    yb    yb    #
+yc    np    pp*   yp    pp    yn    yn*   bb
+yn    yn    nn    nn    pc    cp    cc    bc
+solution: 1,2 ; 1,2 ; use 0,5,0 ; 2,1 ; use 0,0,0 ; 5,6 ; 3,2 ; 1,6 ; use 1,1,0 ; use 0,0,6 ; use 0,0,1 ; 4,0 ; use 0,6,0 ; 0,6

@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 8 (851–1000); tarif 871 + tür protect; şekil merdiven; çözüm 13 + 5 tepsi / sınır 13; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 8 (851–1000); tarif 916; şekil kenar çentikleri; çözüm 8 + 5 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d002_t8
 title: Günlük 2
-moves: 13
-roll: on
+moves: 10
+roll: off
 specials: on
-type: protect
-rules: protect, exact
-goals: navy 24, blue 29, coral 19, envelope 3
+refill: 27 2-2 seed=level_916
+goals: navy 21, purple 17, blue 18, envelope 3
 grid:
-G1:cpc G1:bpy G1:ppc G1:nbc #     #     #     #
-bcc   bnb   nnc   nbc   bbc   #     #     #
-npy   bbb   ynn   byn   bbnB1 bbn   #     #
-ppbEc bpb   bcn   ncn   nbb   byp   nby   #
-pnp   ppy   pcn   pcy   pnp   npp   npyEn npy
-ycp   byp   bnp   pnb   cny   nnb   bpb   nny
-yppP  bpy   bpy   byyEp pbp   ycc   bnb   bnyP
-ccp   ccy   cyn   cyy   pyb   ybc   nyc   bnn
-ycp   ycy   yyn   yyb   nybP  ybn   nbn   cbn
-solution: 2,2 ; use 0,0,5 ; 7,5 ; use 0,3,1 ; 3,1 ; use 0,0,0 ; roll 7 ; 6,6 ; use 0,2,0 ; 5,7 ; use 0,0,4 ; 1,1 ; 0,7
+yy    yy    #     bp    nn    #     pb    py
+yy    yy    #     bc    bp    #     pb    py
+#     pn    bcEc  pp    by    by    bp    #
+#     nc    nc    cp    pp    ny    nb    #
+#     ny    cc    yb    yy    yc    cb    #
+#     ny    cb    nb    bb    nn    nn    #
+ny    pn    ny    np    pc    cc    cn    cc
+cc    byLy6 cn    bpEy  pc    pc    nb    cb
+cc    nc    cc    yp    byEc  ny    ny    ny
+solution: 5,5 ; 4,6 ; 3,6 ; use 0,1,3 ; 6,1 ; use 0,2,2 ; 2,2 ; use 0,0,6 ; 2,5 ; use 0,5,2 ; 5,5 ; 2,5 ; use 0,1,0

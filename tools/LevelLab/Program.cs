@@ -71,6 +71,8 @@ static partial class Program
             case "b2check": return B2Check(args);
             case "daily14": return Daily14(args);
             case "daily14install": return Daily14Install(args);
+            case "daily15": return Daily15(args); // 2026-11-28 günlük: güncel kurallar, 244 zorluğu
+            case "daily15install": return Daily15Install(args);
             case "resolve": return Resolve(args); // 2026-11-26: tepsisiz kurallarla kayıtlı çözümü yeniden bul (eski deneme bölümleri)
             default: Console.Error.WriteLine("komut: build | analyze [filtre] | report | index | daily"); return 2;
         }
@@ -329,6 +331,7 @@ static partial class Program
                     var p = val.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     d.HasRefill = true;
                     d.RefillCount = int.Parse(p[0], CultureInfo.InvariantCulture);
+                    foreach (var tok in p) if (tok.StartsWith("seed=", StringComparison.Ordinal)) d.RefillSeed = tok.Substring(5); // 2026-11-28 günlük: üretim tohumu
                     if (p.Length > 1) { var mm = p[1].Split('-'); d.RefillMinLayers = int.Parse(mm[0], CultureInfo.InvariantCulture); d.RefillMaxLayers = int.Parse(mm[^1], CultureInfo.InvariantCulture); }
                     if (!d.Capabilities.Contains("refill")) d.Capabilities.Add("refill");
                     break;
@@ -529,7 +532,7 @@ static partial class Program
         sb.AppendLine($"  \"startingRoll\": {(d.StartingRoll ? "true" : "false")},");
         if (d.StarThresholds != null) sb.AppendLine($"  \"stars\": [{d.StarThresholds[0]}, {d.StarThresholds[1]}],");
         if (d.Paint > 0) sb.AppendLine($"  \"paint\": {d.Paint},");
-        if (d.HasRefill) sb.AppendLine($"  \"refill\": {{ \"count\": {d.RefillCount}, \"minLayers\": {d.RefillMinLayers}, \"maxLayers\": {d.RefillMaxLayers} }},");
+        if (d.HasRefill) sb.AppendLine($"  \"refill\": {{ \"count\": {d.RefillCount}, \"minLayers\": {d.RefillMinLayers}, \"maxLayers\": {d.RefillMaxLayers}{(string.IsNullOrEmpty(d.RefillSeed) ? "" : $", \"seed\": \"{d.RefillSeed}\"")} }},");
         sb.AppendLine("  \"goals\": [");
         sb.AppendLine(string.Join(",\n", d.Goals.Select(g => g.Type == "collectToken"
             ? $"    {{ \"type\": \"collectToken\", \"kind\": \"{g.Kind}\", \"amount\": {g.Amount} }}"

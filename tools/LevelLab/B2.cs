@@ -72,7 +72,7 @@ static partial class Program
                     var e = ValidationReport.Check(Path.GetFileName(path), File.ReadAllText(path));
                     var d = LevelParser.Parse(File.ReadAllText(path), kv.Value + ".json");
                     string err = e.StaticErrors.Count > 0 ? e.StaticErrors[0] : !e.Replay.Success ? e.Replay.Error
-                        : !d.RollEnabled ? "rulo kapalı" : !StonePowers.CanApply(StonePowers.DailyRoll, LevelLoader.ToState(d)) ? "güç başta uygulanamaz" : null;
+                        : d.RollEnabled ? "rulo açık (2026-11-28: günlük rulosuz)" : !StonePowers.CanApply(StonePowers.DailyRoll, LevelLoader.ToState(d)) ? "güç başta uygulanamaz" : null;
                     string k = d.TrialType ?? "normal";
                     kinds[k] = kinds.TryGetValue(k, out var c) ? c + 1 : 1;
                     if (err != null || only == "daily") Line(kv.Value, err, $"{k} [{string.Join("+", d.Rules)}] {d.Width}x{d.Height} hamle {d.MoveLimit}");

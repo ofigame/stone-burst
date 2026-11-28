@@ -1,20 +1,19 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 6 (501–700); tarif 566 + tür resource; şekil merdiven (ayna); çözüm 8 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,04
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 6 (501–700); tarif 574; şekil kesik köşe; çözüm 8 + 7 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,00
 id: daily_d027_t6
 title: Günlük 27
 moves: 10
-roll: on
+roll: off
 specials: on
-type: resource
-rules: exact
-goals: coral 19, purple 23, yellow 16, envelope 3
+refill: 27 2-3 seed=level_574
+goals: purple 30, yellow 27, navy 39, star 4
 grid:
-#     #     #     #     ynK1:2 yp    npEb  ppEb
-#     #     #     bb    yb    np    np    pp
-#     #     by    by    nc    nc    by    pn
-#     yn    py    by    nc    nc    bc    bc
-yc    yy    py    py    pp    cc    ppEc  pn
-yn    yc    yc    bc    bb    pp    by    by
-bc    bc    pc    bn    byK1:2 nc    cn    pp
-yb    pp    py    cn    cc    cn    cp    pp
-yb    np    nn    cy    bn    cn    pn    pc
-solution: 4,2 ; 2,2 ; use 1,6,0 ; use 0,0,7 ; 5,6 ; use 0,0,4 ; 5,0 ; 0,4
+#     #     ynn   cnn   bpbK1:1 ypb   #     #
+#     cpn   ybb   cyn   bpyK1:1 ccb   cpb   #
+nbn   nnn   pcb   pcn   cnb   nyn   bcp   bcp
+nnbK1:1 ncc   ncb   pyc   cyn*  nnn   byc   ynp
+nbn   ypc   byn   nny   ynb   cpb   pbc   yyy
+pnc*  pcn   cyb   pbn   ppb   pnc   byn   yyy
+pnb   cnb   yyn*  nyn   ynp   bpp   bpc*  nby
+#     pcb   ppc   npy   ppy   cbp   cpc   #
+#     #     byc   npy   pcy   cpc   #     #
+solution: 3,5 ; 4,4 ; 2,5 ; use 0,0,6 ; 3,6 ; use 1,0,5 ; 1,1 ; use 0,2,0 ; use 0,4,1 ; 1,3 ; 2,4 ; use 0,2,1 ; use 0,4,1 ; 2,6 ; use 0,1,2

@@ -45,6 +45,8 @@ namespace KatKat.Levels
         public readonly List<KeyValuePair<string, int>> Buckets = new List<KeyValuePair<string, int>>();
         /// <summary>2026-11-24 yukarıdan dolma: girecek yeni yığın sayısı (0 → dolma yok) ve yeni yığının kat aralığı.</summary>
         public int RefillCount, RefillMinLayers = 2, RefillMaxLayers = 3;
+        /// <summary>2026-11-28: dolma tohumu (boşsa bölüm kimliği). Günlük bulmaca üretildiği kimliğin tohumunu taşır; kayıtlı çözüm ve zorluk ölçümü o diziyle.</summary>
+        public string RefillSeed;
         /// <summary>2026-11-26 su kovası kapasitesi ("waterCap"; 0 → kovasız).</summary>
         public int WaterCap;
         public bool HasRefill;

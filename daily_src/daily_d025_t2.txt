@@ -1,19 +1,18 @@
-// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v14: grup 2 (41–100); tarif 59 + tür exact; şekil L (ayna); çözüm 7 + 3 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,13
+// LevelLab gen adayı (BFS en kısa çözüm kayıtlı; yayın onayı analyze/report ile). günlük v15: grup 2 (41–100); tarif 52; şekil dalga; çözüm 7 + 4 tepsi / sınır 10; rastgele 0,000; açgözlü kaybeder; yumuşak 0,08; YEDEK: sert;
 id: daily_d025_t2
 title: Günlük 25
 moves: 10
-roll: on
+roll: off
 specials: on
-type: exact
-rules: exact
-goals: coral 17, yellow 19, purple 24
+refill: 31 2-2 seed=level_052
+goals: purple 27, blue 28, yellow 29
 grid:
-#     #     #     pb    py    py    py    cp
-#     #     #     yb    cy    yc    py    cp
-#     #     #     yc    bb    bp    bb    cc
-cy    by    yy    bc    pb    yb    pb    cp
-cp    yc    yc    pc    yb    pb    pp    pp
-pp    yc    pc    yp    yy    bc    pc    pp
-pp    bp    pb    yp    py    cc    yb    bb
-pb    bb    bb    bp    pc    yc    yb    bb
-solution: 5,5 ; 4,2 ; use 1,7,0 ; 3,2 ; use 1,4,0 ; use 0,7,0 ; 4,0
+#     pb    #     pb    #     yb    #     yb
+cy    cy    cb    py    yy    yc    cb    pp
+bb    yc    by    cb    bb    py    pp    bb
+bc    by    cc    py    cb    cp    bc    pb
+cp    cb    cp    pc    yb    cy    pyk1  bb
+yp    pb    cy    cp    py    py    yck1  yc
+pc    yb    yy    pc    bc    bp    cc    yc
+pbk2  #     yy    #     bc    #     yp    #
+solution: 3,2 ; 4,4 ; 3,5 ; 3,4 ; use 0,1,0 ; 4,3 ; use 0,7,0 ; 1,2 ; use 0,3,1 ; 0,2 ; use 0,0,1
